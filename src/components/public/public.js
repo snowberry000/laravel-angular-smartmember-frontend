@@ -89,7 +89,7 @@ app.controller('PublicController', function ($scope, $rootScope, smModal, $timeo
     }
 
     $scope.loginModal = function(){
-        $rootScope.modal_popup_template = 'templates/components/public/sign/sign.html';
+        $rootScope.modal_popup_template = 'templates/components/public/sign/in/in.html';
     }
 
     $scope.registerModal = function(){
