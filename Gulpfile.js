@@ -15,7 +15,8 @@ var paths = {
 	less: 'src/**/*.less',
 	js: 'src/**/*.js',
 	templates: 'src/**/*.html',
-	fonts: 'src/core/fonts/**/*'
+	fonts: 'src/core/fonts/**/*',
+	images: 'src/core/images/**/*'
 };
 
 gulp.task('bower', function(){
@@ -67,16 +68,12 @@ gulp.task('templates', function() {
         .pipe(gulp.dest('dist/templates'));
 });
 
-gulp.task('img',function(){
-	return gulp.src('src/core/img/*')
-		.pipe(gulp.dest('dist/img'));
-});
-
 gulp.task('watch', function() {
     gulp.watch(paths.js, ['js']);
     gulp.watch(paths.less, ['less']);
     gulp.watch(paths.templates, ['templates']);
     gulp.watch(paths.fonts, ['fonts']);
+	gulp.watch(paths.images, ['images']);
     gulp.watch('src/index.php', ['inject']);
 });
 
@@ -121,6 +118,11 @@ gulp.task('fonts', function () {
 		.pipe(gulp.dest('dist/fonts/'));
 });
 
+gulp.task('images', function () {
+	return gulp.src(paths.images)
+			.pipe(gulp.dest('dist/images/'));
+});
+
 gulp.task('bpage', function () {
 
 	return gulp.src('src/bpage_stuff_for_dist/**/*')
@@ -129,8 +131,8 @@ gulp.task('bpage', function () {
 });
 
 
-gulp.task('compile',['inject','js','templates','less','img','bpage','fonts']);
-gulp.task('default',['inject','js','templates','less','img','bpage','fonts','watch']);
+gulp.task('compile',['inject','js','templates','less','bpage','fonts','images']);
+gulp.task('default',['inject','js','templates','less','bpage','fonts','images','watch']);
 
 
 
