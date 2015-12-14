@@ -1,0 +1,30 @@
+<div class="ibox">
+	<div class="ibox-content">
+
+		<div class="row">
+			<div class="col-md-5">
+				<h2>Add New</h2>
+				<p>Select a {{integration.sites_only ? 'site' : 'site or team'}} for this integration.</p>
+			</div>
+			<div class="col-md-7">
+
+				<select class="form-control m-b-md m-t-xl" ng-model="$parent.chosen_entity">
+					<option value="0" ng-selected="chosen_entity == 0">Choose a {{integration.sites_only ? 'site' : 'site or team'}}...</option>
+					<optgroup label="Teams" ng-if="!integration.sites_only">
+						<option value="team" ng-selected="chosen_entity == 'team'">{{company.name}}</option>
+					</optgroup>
+					<optgroup label="Sites">
+						<option ng-repeat="site in sites" value="{{site.id}}" ng-selected="site.id == chosen_entity" >{{(site.domain ? site.domain : site.subdomain+'.'+app.rootDomain)}}</option>
+					</optgroup>
+				</select>
+
+				<a ng-click="$parent.chosen_entity == 0 ? '' : addIntegration($parent.chosen_entity)" ng-disabled="$parent.chosen_entity == 0" class="btn btn-lg btn-brand">
+					Add {{integration.short_name || integration.name}} Integration
+				</a>
+
+			</div>
+
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,98 @@
+<!--<div class="container col-md-12" style="background-color : white;">
+      <form id="payment-form" class="form-signin" style="margin-top:12%;">
+        <fieldset>
+          <legend>Please Enter the credit card details</legend>
+          <div style="margin-bottom:5%;">
+            <div>
+            <label style="color:#D0D0D0">Customer Details:</label>
+            <div class="form-row">
+                <div class="row col-md-12">
+                  <label class="col-md-12">
+                    <div class="col-md-4">
+                      <span >Email: </span>
+                    </div>
+                    <div class="col-md-6">
+                      <input  id="email" class="form-control" type="email" size="4" required />
+                    </div>
+                  </label>
+                  <label class="col-md-12">
+                    <div class="col-md-4">
+                      <span >Name: </span>
+                    </div>
+                    <div class="col-md-6">
+                      <input  id="name" class="form-control" type="text" size="4" required />
+                    </div>
+                  </label>
+                </div>
+            </div>
+            <div  style="margin-top:5%;">
+              <label style="color:#D0D0D0">Credit-Card Details</label>
+              <div class="form-row">
+                <div class="col-md-12">
+                </div>
+                <div class="row col-md-12">
+                  <label class="col-md-12">
+                    <div class="col-md-4">
+                      <span >Card Number</span>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" size="20" data-stripe="number" value="4242424242424242" required/>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="row col-md-12">
+                  <label class="col-md-12">
+                    <div class="col-md-4">
+                      <span >CVC</span>
+                    </div>
+                    <div class="col-md-6">
+                      <input  class="form-control" type="text" size="4" data-stripe="cvc"  placeholder="1953" required/>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="row col-md-12">
+                  <label class="col-md-12">
+                    <div class="col-md-4">
+                      <span >Expiration (MM/YYYY)</span>
+                    </div>
+                    <div class="col-md-3">
+                      <input  class="form-control" type="number" min="1" max="12" size="2" data-stripe="exp-month" placeholder="12" required/>
+                        
+                    </div>
+                    <span  class="col-md-1" style="margin-left:-3%"> / </span>
+                    <div class="col-md-3" style="margin-left:-5.4%" >
+                      <input class="form-control" type="number"  size="5" min="1990" max="3000" data-stripe="exp-year" placeholder="2015" required/>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-12"  style="margin-top:5%;" >
+              <div class="col-md-4"></div>
+              <button class="col-md-4 btn btn-lg btn-primary " ng-click="ok(id)" type="submit">Pay Now!</button>
+              <div class="col-md-4"></div>
+            </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>-->
+<div style="background-color:white;">
+  
+  <form action="" method="POST">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_nrv6z9U1KIkF1BVCFcH4bXtf"
+      data-amount="2000"
+      data-name="Demo Site"
+      data-description="2 widgets ($20.00)"
+      data-image="/128x128.png">
+    </script>
+  </form>
+</div>
+    

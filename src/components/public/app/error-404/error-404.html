@@ -1,0 +1,56 @@
+<div class="row" style="margin-left: auto;margin-right: auto;">
+    <div class="ui grid">
+        <div class="sixteen wide column">
+
+            <div class="ui piled segment section_background_color">
+                <h1 class="grey lighter smaller">
+					<span class="blue bigger-125">
+						<i class="ace-icon fa fa-sitemap"></i>
+						404
+					</span>
+                    Page Not Found
+                </h1>
+
+                <div class="ui padded basic segment">
+                    <h3 class="lighter smaller">We looked everywhere but we couldn't find it!</h3>
+                </div>
+
+                <div>
+
+                    <div class="space"></div>
+                    <h4 class="smaller">Try one of the following:</h4>
+
+                    <ul class="list-unstyled spaced inline bigger-110 margin-15">
+
+                        <li ng-if="site.is_admin">
+                            <a ui-sref="admin.site.dashboard"><i class="ace-icon fa fa-hand-o-right blue"></i>
+                                Visit admin</a>
+                        </li>
+
+                        <li ng-if="site.is_admin">
+                            <a ui-sref="admin.team.sites"><i class="ace-icon fa fa-hand-o-right blue"></i>
+                                Visit site directory</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr>
+                <div class="space"></div>
+
+                <div class="center">
+                    <a href="javascript:history.back()" class="btn btn-grey">
+                        <i class="ace-icon fa fa-arrow-left"></i>
+                        Go Back
+                    </a>
+
+                    <a ui-sref="admin.team.dashboard" class="btn btn-primary" style="float:right;">
+                        <i class="ace-icon fa fa-tachometer"></i>
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

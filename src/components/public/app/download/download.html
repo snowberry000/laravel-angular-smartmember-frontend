@@ -1,0 +1,79 @@
+<div ng-if="loading" style="margin-bottom:40px;">
+    <h3>
+        Loading please wait . . .
+    </h3>
+</div>
+<div class="content animate-panel " style="padding: 0px;">
+	<div class="row">
+		<div ng-if="!loading" class="col-lg-8 zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+			<div class="hpanel blog-article-box">
+				<div class="panel-heading" style="padding:0;">
+					<div ng-class="{'video-container':download.embed_content.indexOf('<iframe') != -1}" ng-if="download.embed_content">
+						<div dynamic="download.embed_content"></div>
+					</div>
+					<div class="lesson_meta" style="min-height: 40px; position:relative;">
+						<span style="position:absolute; bottom: 5px; right: 5px; color: #34495e;" title="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times." alt="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times."><i class="fa fa-download"></i>{{download.history_count[0].count}}</span>
+					</div>
+					<h4>{{download.title}}
+					<a ng-if="is_site_admin || is_team_member" href="/admin/site/content/download/{{download.id}}" class="btn btn-success pull-right">Edit</a>
+					</h4>
+
+                    <h3 class="text-center" style="font-weight: bold;" ng-if="download.timeLeft > 0">
+                        You can access to this content in:
+                    </h3>
+                    <h3 class="text-center" ng-if="download.timeLeft > 0">
+                        <timer countdown="download.timeLeft" interval="1000">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
+                    </h3>
+
+					<div class="width-100 text-center">
+						<a data-bypass="true" class="btn btn-success btn-sm" ng-click="updateStats(download)">
+							{{download.download_button_text || 'Download'}}
+						</a>
+					</div>
+
+				</div>
+				<div class="panel-body" style="padding: 10px 20px; font-family: 'Open Sans';">
+					<div ng-if="download.featured_image && download.always_show_featured_image" class="video-container">
+					    <img ng-src="{{download.featured_image}}" class="img-responsive" />
+					</div>
+					<div>
+						<p style="line-height: 24px;">
+							{{download.description}}
+						</p>
+					</div>
+				</div>
+				<div class="panel-footer">
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 animated-panel zoomIn pull-right" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+			<div class="hpanel">
+				<div class="panel-body" style="padding:15px;">
+					<a href="/download-center">Return to Download Center</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 animated-panel zoomIn pull-right"
+                 style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+            <div class="hpanel">
+                <div class="panel-body" style="padding:15px;">
+                    <style>
+                        img{
+                            max-width :100%;
+                        }
+                    </style>
+                   <div ng-repeat="ad in ads" style="margin-top: 50px; display: block; orphans: 4321; border:2px;" >
+                   		<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-show="ad.custom_ad" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
+	                   		<div ng-if="ad.custom_ad" class="col-md-12" dynamic="ad.custom_ad">
+	                   		</div>
+	                   	</a>
+                       	<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-show="ad.banner_image_url" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
+                            <img ng-if="ad.banner_image_url" class="featured_image_preview img-responsive img-thumbnail" ng-src="{{ad.banner_image_url}}" style="width:auto;margin:0px auto;display: block;" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<div class="ibox m-b-sm" ng-repeat="next_item in data">
+    <div class="ibox-content">
+        <div class="row">
+            <!--<div class="col-sm-2">
+                <div class="text-center">
+                    <img alt="image" class="m-t-xs img-responsive" src="/assets/{{next_item.image}}">
+                </div>
+            </div>-->
+            <div class="col-sm-9">
+                <h2><strong>{{next_item.title}}</strong></h2>
+
+                <p>{{next_item.description}}</p>
+            </div>
+            <div class="col-sm-3">
+                <a ng-if="next_item.template" ui-sref="admin.site.pages.core.{{next_item.template}}" class="m-t-lg m-r-sm btn btn-outline btn-default">
+                    edit settings
+                </a>
+                <a href="{{next_item.url}}" target="_blank" class="m-t-lg btn btn-outline btn-brand">
+                    View
+                    <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

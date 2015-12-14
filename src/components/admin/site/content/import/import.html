@@ -1,0 +1,91 @@
+<div ng-init="init()">
+
+    <div class="jumbotron" ng-hide="vimeo.access_token">
+        <h1>Connect to Your Vimeo Account</h1>
+
+        <p>We'll display a list of your videos for easy button-click lesson creation!</p>
+
+        <p>
+            <a ng-click="setBackUrl()" href="/admin/team/integration/vimeo/choose"
+               class="btn btn-lg btn-brand btn-vimeo-login same_window">
+                <i class="fa fa-vimeo-square"></i>
+                Please set up a Vimeo integration to import videos from
+            </a>
+        </p>
+    </div>
+    <div ng-show="vimeo.access_token">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="jumbotron">
+                    <h1 class="text-success">You're Connected!</h1>
+
+                    <p>Your Vimeo videos have been loaded below. Select a module or an individual video to turn into a
+                        lesson!</p>
+
+                    <p ng-if="vimeo_integrations.length >= 1">
+                        <label>Choose a different Acount</label>
+                        <select class="form-control" ng-model="selected_account" ng-change="changeAccount()">
+                            <option ng-repeat="vimeo_integration in vimeo_integrations"
+                                    ng-selected="vimeo_integration.id == selected_account"
+                                    value="{{vimeo_integration.id}}">{{vimeo_integration.account.name ?
+                                vimeo_integration.account.name : vimeo_integration.account.remote_id}}
+                            </option>
+                        </select>
+                        <span class="help-block m-b-none">
+                            You can add nicknames to your accounts <a
+                                href="/admin/team/integrations/connections">here</a> for easier identification.
+                        </span>
+                        <button class="btn btn-info" ng-click="loadVideos()">Show More Videos</button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="jumbotron">
+                    <h1>Video Tags (Modules)</h1>
+
+                    <p>Choose a tag below to filter videos for easier lesson creation module-by-module</p>
+                    <select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag"
+                            ng-change="filter(tag.tag)"></select>
+
+                    <p>
+                        <a ng-click="addAll()" class="btn btn-lg btn-info" target="_blank" data-bypass="true">Add all as
+                            lessons</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row vimeo-video-row" ng-show='videos' infinite-scroll="loadVideos()" infinite-scroll-distance="3">
+        <div class="col-md-12 video_container">
+
+            <div class="col-md-4 admin_list_item member_item active" ng-controller="VimeoVideoController"
+                 ng-repeat="video in videos.data" ng-if="!video.hide" ng-hide="video.added">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+                        <div class="product-imitation member_preview_link member_image"
+                             ng-class="{'has_image': video.pictures.sizes[1].link}">
+                            <img ng-show="video.pictures.sizes[1].link" src="{{video.pictures.sizes[1].link}}"
+                                 class="img-responsive" alt="" style="width: 100%;"/>
+                        </div>
+                        <div class="product-desc">
+                            <a ng-if='!video.added' class="btn btn-brand pull-right" ng-click="addLesson(video)">
+                                <i class="fa fa-check"></i>
+                                Add as lesson
+                            </a>
+                            <a ng-if='video.added' disabled class="btn btn-brand m-t-sm pull-right">
+                                <i class="fa fa-check"></i>
+                                Added
+                            </a>
+                            <h4 class="media-heading"><a href="{{video.link}}" target="_blank">{{video.name}}</a></h4>
+                            <span>
+                                {{ video.description }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

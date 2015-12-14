@@ -1,0 +1,100 @@
+<div class="animate-panel">
+	<div class="content">
+		<div>
+			<div class="row">
+				<div class="col-md-12 border-right animated-panel zoomIn" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+					<i class="pe-7s-display1 fa-5x" style="font-size:11em;"></i>
+				</div>
+				<div class="pull-left col-md-12 animated-panel zoomIn" style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+					<div>
+						<h3>Refund Page Builder</h3>
+						<p>Build a page to show users why they shouldn't refund!</p>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+	            <div class="col-sm-12 ">
+	                <h3 class="text-center pull-left">
+	                    <a href="/refund-page" target="_blank" data-bypass="true">
+	                        Click here to preview your refund page
+	                    </a>
+	                </h3>
+	                <span class="help-block m-b-none">
+	                </span>
+	            </div>
+	        </div>
+	        <div class="form-group row">
+				<label class="col-sm-12 control-label">Video / Embed Content</label>
+				<div class="col-sm-12">
+					<textarea name="embed_content" class="form-control input-lg" ng-model="refund.embed_content"></textarea>
+					<span class="help-block m-b-none">
+					</span>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-12 control-label">Title</label>
+				<div class="col-sm-12">
+					<input type="text" name="title" class="form-control input-lg" ng-model="refund.title" />
+					<span class="help-block m-b-none">
+					</span>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-12 control-label">Content</label>
+				<div class="col-sm-12">
+                    <textarea froala ng-model="refund.content"></textarea>
+					<span class="help-block m-b-none">
+					</span>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-12 control-label">Free Item Button Text</label>
+				<div class="col-sm-12">
+					<input type="text" name="download_button_text" class="form-control input-lg" ng-model="refund.free_item_text" />
+					<span class="help-block m-b-none">
+					</span>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-12 control-label">Free Item Button Color</label>
+				<div class="col-sm-12">
+					<spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+					 ng-model="refund.free_item_color"></spectrum-colorpicker>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-12 control-label">Continue Refund Text</label>
+				<div class="col-sm-12">
+					<input type="text" name="continue_refund_text" class="form-control input-lg" ng-model="refund.continue_refund_text" />
+					<span class="help-block m-b-none">
+					</span>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-12 control-label">Continue Refund Button Color</label>
+				<div class="col-sm-12">
+					<spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+					 ng-model="refund.continue_refund_color"></spectrum-colorpicker>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-12 control-label">Free Item Url</label>
+
+				<div class="col-sm-12">
+				<a ng-class="{'notActive':isChecked==true}" popover-template="1" popover-is-open='refund.isOpen' popover-title="Enter item url" ng-click="refund.isOpen=true" data-html="true">{{ refund.free_item_url || 'Select url' }}</a>
+					<div url-selector ng-model="refund"></div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="isChecked" name="use_freebie_page" ng-click="setUrl()" > Use "Free Bonus" page (you can set that up <a href="admin/specialPages/bonus">here</a>).
+						</label>
+					</div>
+					<span class="help-block m-b-none">
+						This Url is where users are redirected to if the press the button to get your free bonus instead of continuing with a refund.
+					</span>
+					<button type="button" class="btn btn-lg btn-info" id="save_sales_page_btn" ng-click="save()">Save Changes</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

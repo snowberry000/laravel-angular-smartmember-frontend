@@ -1,0 +1,140 @@
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox-content clear_box page-heading">
+                <div class="p-xs">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-left m-r-md">
+                                <i class="fa fa-envelope-o text-branded mid-icon"></i>
+                            </div>
+                            <h2>{{ 'OPTIN_FORM_GENERATOR' | translate }}</h2>
+                            <span>Use this form generator if you need embed code to submit subscribers / leads through a 3rd party service.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Choose settings to generate form code</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Redirect URL</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="site_options.redirect_url">
+                                <span class="help-block m-b-none">This is where a subscriber will be sent after opting-in.</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Email List</label>
+
+                            <div class="col-sm-10">
+                                <div class='row'>
+                                    <div class='col-sm-8'>
+                                        <select class="form-control n-m-b" id="" placeholder="Email List" ng-model="emailListId"
+                                                ng-options="emailList.name for emailList in emailLists">
+                                        </select>
+                                    </div>
+                                    <div class='col-sm-4 ' >
+                                        <a ng-click='createNewList()'><small class='text-small'>Create New List</small></a>
+                                    </div>
+                                </div>
+                                    
+                                <span class="help-block m-b-none">Choose an Email List for leads to go in.</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+						<div class="form-group">
+							<input type="hidden" value="false" name="close_to_new_comments"/>
+							<label class="col-sm-1 control-label"></label>
+							<div class="col-sm-11">
+								<div>
+									<label>
+										<input icheck type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="show_name_input">
+										Show name input field
+									</label>
+								</div>
+								<span class="help-block m-b-none">If this is checked, your form will include a field asking for subscribers' names</span>
+							</div>
+						</div>
+
+                        <div class="hr-line-dashed"></div>
+
+						<div class="form-group">
+							<input type="hidden" value="false" name="close_to_new_comments"/>
+							<label class="col-sm-1 control-label"></label>
+							<div class="col-sm-11">
+								<div>
+									<label>
+										<input icheck type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="turn_optin">
+										Create account for leads
+									</label>
+								</div>
+								<span class="help-block m-b-none">
+									If this is checked, leads submitted into your form will have accounts created & emailed to them for
+									your site (specified below)
+								</span>
+							</div>
+						</div>
+
+						<div class="hr-line-dashed" ng-show="turn_optin"></div>
+
+						<div class="form-group" ng-show="turn_optin">
+							<label class="col-sm-5 control-label">Leads become members of which site?</label>
+
+							<div class="col-sm-7">
+                                <select class="form-control" id="site_id" placeholder="Choose Site"
+                                        ng-model="site_id"
+                                        ng-options="site.subdomain for site in sites">
+                                </select>
+								<span class="help-block m-b-none">
+									Select which site you'd like leads to become members of
+								</span>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-brand" type="" ng-click="setForm()">Create / Refresh form</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" ng-if="myForm">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Form embed code</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="form-group">
+                        <textarea ng-model="myForm" class="form-control" style="height:350px;"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

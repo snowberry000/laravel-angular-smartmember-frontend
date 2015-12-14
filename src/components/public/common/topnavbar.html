@@ -1,0 +1,56 @@
+<div class="border-bottom">
+    <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+        <ul class="nav navbar-top-links pull-left">
+			<li ng-if="!site.is_admin">
+				<a ui-sref="admin.account.settings">
+					<i class="fa fa-arrow-circle-o-left"></i>
+					<span class="hidden-xs">
+						My account
+					</span>
+				</a>
+			</li>
+			<li ng-if="site.is_admin">
+				<a ui-sref="admin.site.dashboard">
+					<i class="fa fa-arrow-circle-o-left"></i>
+					<span class="hidden-xs">
+						Admin
+					</span>
+
+				</a>
+			</li>
+			<li ng-if="site.is_admin">
+				<a ng-click="app.show_engine=!app.show_engine">
+					<i class="fa fa-tasks"></i>
+					<span class="hidden-xs">
+						Theme options
+					</span>
+
+				</a>
+			</li>
+
+        </ul>
+        <ul class="nav navbar-top-links pull-right">
+            <li ng-if="site.is_agent">
+                <a class="count-info" ui-sref="admin.team.helpdesk.tickets">
+                    <i class="fa fa-envelope"></i>
+					<span class="hidden-xs">
+						Helpdesk
+					</span>
+
+					<span class="label label-warning">
+						{{site.unread_support_ticket && site.unread_support_ticket > 0 ? site.unread_support_ticket : ''}}
+					</span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="public.sign.out">
+                    <i class="fa fa-sign-out"></i>
+					<span class="hidden-xs">
+						Log out
+					</span>
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+</div>

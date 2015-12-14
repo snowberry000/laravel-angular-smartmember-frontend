@@ -1,0 +1,29 @@
+
+<p>
+	Register below.
+</p>
+
+<form class="m-t" ng-submit="register()" style="margin: auto;width:70%;margin-bottom:15px;">
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="Name" required="" ng-model="user.first_name">
+	</div>
+	<div class="form-group">
+		<input type="email" class="form-control" placeholder="Email" required="" ng-model="user.email">
+	</div>
+	<div class="form-group">
+		<input type="password" class="form-control" placeholder="Password" required="" ng-model="user.password">
+	</div>
+    <div class="form-group" ng-if="email_taken">
+        <label>A verification code was sent to your address, please copy that code and paste in here.</label>
+        <input type="text" class="form-control" placeholder="Verification Code" required="" ng-model="user.verification_code">
+        <span class="help-block m-b-none" ng-if="verification_failed">
+            Verification code was invalid. Please try again.
+            <br>
+            Code is only valid for fifteen minutes. <a href="#" ng-click="sendVerificationCode()">Click here</a> to be sent a new code.
+        </span>
+    </div>
+	<button type="submit" class="btn block full-width m-b" style="color: {{site_options.sign_button_text_color ? site_options.sign_button_text_color : '#ffffff'}}; background-color: {{site_options.sign_button_color ? site_options.sign_button_color : '#337ab7';}}" >{{site_options.register_button_text ? site_options.register_button_text : 'register'}}</button>
+
+	<p class="text-muted text-center"><small>Already have an account?</small></p>
+	<a class="btn btn-sm btn-white btn-block" ui-sref="public.sign.in">Login</a>
+</form>

@@ -1,0 +1,17 @@
+<style>
+    img {
+        max-width: 100% !important;
+    }
+</style>
+<!-- Wrapper-->
+<div id="wrapper" style="{{meta_data.site_background_color ? 'background-color: ' + meta_data.site_background_color + ';' : ''}}{{meta_data.site_background_image ? 'background-image: url(' + meta_data.site_background_image + ');background-size:cover;background-attachment:fixed;' : ''}} ">
+
+	<!-- Page wrapper -->
+	<div ng-include="'templates/components/public/common/topnavbar.html'" class="admin" ng-hide="!isLoggedIn()"></div>
+
+	<div ui-view ng-class="(isLoggedIn() ? 'logged_in' : '') + (meta_data.page_background_style == 'boxed' ? ' ui container' : '')"></div>
+
+	<!-- Right Sidebar -->
+	<div ng-include="sidbar_template" class="admin"></div>
+
+</div>

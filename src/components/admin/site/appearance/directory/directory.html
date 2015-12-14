@@ -1,0 +1,197 @@
+<div class="animate-panel">
+
+
+	<div class="content">
+		<div>
+			<div class="row">
+				<div class="col-md-12 animated-panel fadeInDown"
+				 >
+					<div class="hpanel hbgblue">
+						<div class="panel-body">
+
+							<div class="row">
+								<div class="col-md-12"
+									 style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+									<div class=" m-b-md">
+										<h3>Directory Listing</h3>
+										<p ng-hide="current_company.locked">Add your site to directory listings at
+											<a href='http://www.smartmember.com'>http://www.smartmember.com</a>
+										</p>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 animated-panel zoomIn"
+					 style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+					<div class="hpanel">
+						<div class="list-group" style="margin:0px;">
+						</div>
+						<div class="panel-body">
+							<div class='alert alert-info' ng-if='listing.pending_updates'>Your public directory listing is pending approval. You can still update your listings.</div>
+							<form method="get" class="form-horizontal save_form" ng-submit="save()">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Title</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control input-lg"
+											   ng-model="listing.pending_title" ng-blur="onBlurTitle($event)">
+									<span class="help-block m-b-none">
+										This is the title that will show up for your site in our public directory listing.
+									</span>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Brief Description</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control input-lg"
+											   ng-model="listing.pending_subtitle">
+                                    <span class="help-block m-b-none">
+                                        This is the subtitle that will show up for your site in our public directory listing.
+                                    </span>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Description</label>
+									<div class="col-sm-10">
+                                        <textarea froala ng-model="listing.pending_description"></textarea>
+                                    <span class="help-block m-b-none">
+                                        This is the site description that will be used for your site in our public directory listing.
+                                    </span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Category</label>
+									<div class="col-sm-10">
+										<select class='form-control' ng-model='listing.category'>
+											<option value=''>Select Category</option>
+											<option value='Facebook Marketing'>Facebook Marketing</option>
+											<option value='Lead Generation'>Lead Generation</option>
+										</select>
+                                        <span class="help-block m-b-none">
+                                            This is the site category based on which your potential customers can find your easily.
+                                        </span>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Pricing</label>
+									<div class="col-sm-10">
+                                        <textarea type="text" name="fb_share_description" class="form-control"
+												  ng-model="listing.pending_pricing"></textarea>
+										<label>
+											<input type="checkbox" ng-checked="listing.is_free" ng-model="listing.is_free" ng-true-value="1" ng-false-value="0">
+											Check this box if your site is free
+										</label>
+									<span class="help-block m-b-none">
+										This is the pricing description that will be used for your site in our public directory listing.
+									</span>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Permalink</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control input-lg" ng-model="listing.permalink" ng-blur="onBlurSlug($event)">
+                                    <span class="help-block m-b-none">
+                                        Once approved you can view your listing at <br/> <u>http://www.smartmember.com/membership/{{listing.permalink}}</u>
+                                    </span>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Expire At</label>
+									<div class="col-sm-10">
+										<input type="date" class="form-control input-lg" ng-model="listing.expired_at" max-date="'2020-06-22'"/>
+										<span class="help-block m-b-none">Your directory listings will expire after the set time. Leave it blank you want it stay forever.</span>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Featured Image</label>
+
+									<div class="col-sm-10">
+										<button type="button" class="btn btn-danger"
+												sm-uploader="image" ng-model="listing.pending_image">Choose
+											Image
+										</button>
+										<span class="help-block m-b-none">
+											This is the image that will be used for your site in our public directory listing.
+										</span>
+
+										<div class="width-100 text-center">
+											<img ng-show="listing.pending_image" sm-uploader="pending_image" ng-model="listing.pending_image"
+												 class="img-responsive img-thumbnail"
+												 ng-src="{{listing.pending_image}}"
+												 style="width:auto; cursor: pointer;"/>
+										</div>
+										<input type="hidden" name="fb_share_image" class="form-control input-lg"
+											   ng-model="settings.fb_share_image">
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">
+										Stats you would like to show publicly
+									</label>
+									<div class="col-sm-10">
+
+										<div style="margin-bottom: 10px;" class="directory_stat_toggles">
+											<div class="accordion_section {{listing.hide_lessons == 1 ? '' : 'active'}}">
+												<a class="accordion_expand btn btn_outline" ng-click="listing.hide_lessons=!listing.hide_lessons">{{listing.hide_lessons ? 'Enable' : 'Disable'}}</a>
+												<h4>{{listing.total_lessons}} lessons
+													<small>total lessons count</small>
+												</h4>
+												<div class="clearfix"></div>
+											</div>
+											<div class="accordion_section {{listing.hide_downloads == 1 ? '' : 'active'}}">
+												<a class="accordion_expand btn btn_outline"  ng-click="listing.hide_downloads=!listing.hide_downloads">{{listing.hide_downloads ? 'Enable' : 'Disable'}}</a>
+												<h4>{{listing.total_downloads}} downloads
+													<small>total downloads count</small>
+												</h4>
+												<div class="clearfix"></div>
+											</div>
+											<div class="accordion_section {{listing.hide_members == 1 ? '' : 'active'}}">
+												<a class="accordion_expand btn btn_outline" ng-click="listing.hide_members=!listing.hide_members">{{listing.hide_members ? 'Enable' : 'Disable'}}</a>
+												<h4>{{listing.total_members}} members
+													<small>number of members</small>
+												</h4>
+												<div class="clearfix"></div>
+											</div>
+											<div class="accordion_section {{listing.hide_revenue == 1 ? '' : 'active'}}">
+												<a class="accordion_expand btn btn_outline" ng-click="listing.hide_revenue=!listing.hide_revenue">{{listing.hide_revenue ? 'Enable' : 'Disable'}}</a>
+												<h4>${{listing.total_revenue}}
+													<small>total revenue</small>
+												</h4>
+												<div class="clearfix"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+
+									<div class="col-sm-8 col-sm-offset-2">
+										<button class="btn btn-brand save_changes" type="submit">Save changes</button>
+									</div>
+								</div>
+							</form>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</div>

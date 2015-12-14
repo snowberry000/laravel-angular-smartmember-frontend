@@ -1,0 +1,77 @@
+
+<div class="wrapper wrapper-content">
+	<div class="row animated fadeInRight">
+		<div class="col-lg-12">
+
+			<div class="ibox-content page-heading clear_box">
+				<div class="p-xs">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="pull-left m-r-md">
+								<i class="fa fa-cubes text-branded mid-icon"></i>
+							</div>
+							<h2>Sites you've joined</h2>
+							<span>Visit them below{{!current_company.locked ? ', or find more to join in the Directory' : ''}}.</span>
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-brand btn-large m-t-md" ng-href="http://www.smartmember.com" target="_blank" ng-hide="current_company.locked">
+								Visit site directory
+								<i class="fa fa-external-link"></i>
+							</a>
+							<button class="btn btn-outline btn-primary m-t-md pull-right" ng-hide="1">
+								<i class="fa fa-info-circle"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+			    <div class="sk-bounce1"></div>
+			    <div class="sk-bounce2"></div>
+			    <div class="sk-bounce3"></div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4" ng-repeat="site in sites.member" ng-if="!site.is_site_admin">
+					<div class="ibox">
+						<div class="ibox-content product-box">
+							
+							<div class="product-imitation" ng-class="{'has_image' : site.data.site_logo}">
+								<img ng-show="site.data.site_logo" src="{{site.data.site_logo}}" class="img-responsive" alt="">
+								<span ng-show="!site.data.site_logo">{{site.name}}</span>
+							</div>
+							<div class="product-desc">
+						<span class="product-price">
+							{{site.name}}
+						</span>
+								<div class="clearfix"></div>
+								<a href="//{{site.domain ? site.domain :  site.subdomain + '.' + 'smartmember.' + (app.rootDomain.indexOf('smartmember') == -1 ? 'com' : app.env )}}" target="_blank" class="btn btn-brand m-t-sm pull-right">
+									Visit
+									<i class="fa fa-external-link"></i>
+								</a>
+
+								<h4 class="media-heading">Your access:</h4>
+
+						<span class="views-number" ng-if="site.access && site.access.length >= 1">
+							<span ng-repeat="access in site.access">
+								{{access.access_level.name }}
+								<span ng-if="$index + 1 < $parent.access.length"> | </span>
+							</span>
+						</span>
+						<span class="views-number" ng-if="!site.access || site.access.length < 1">
+							Free tier
+						</span>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div ng-if="sites_loaded && (!sites.member || !sites.member.length)">
+				<p>You don't belong to any memberships :(. Find some to join <a ng-href="http://www.smartmember.com" target="_blank">here<a></p>
+			</div>
+
+		</div>
+	</div>
+</div>

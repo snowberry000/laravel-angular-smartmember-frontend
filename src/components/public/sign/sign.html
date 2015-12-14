@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="styles/froala_editor.min.css">
+<link rel="stylesheet" href="styles/froala_style.min.css">
+<link rel="stylesheet" href="styles/sweetalert.css">
+
+<div ng-include="'templates/public/themes/default/dynamic-css.html'"></div>
+
+<wave-spinner ng-if="loading"></wave-spinner>
+<div class="row site_top_background_color" ng-init="init();initialize();showNotifications()">
+
+	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid container stackable'">
+
+		<div class="row">
+			<div class="middle aligned sixteen wide column">
+
+				<a sm-class="'ui ' + meta_data.logo_size + (meta_data.logo_border ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="/{{options.logo_url}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''">
+					<h1 ng-hide="options.site_logo" class="headline_text_color">{{site.name}}</h1>
+					<img ng-show="options.site_logo" ng-src="{{options.site_logo}}" class="m-t-sm m-b-sm">
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row m-t-lg site_middle_background_color">
+
+	<div class="ui grid container stackable">
+		<div class="row">
+
+
+			<div class='ui modal' id='signin_modal'>
+				<div class="header">
+					Sign In
+				</div>
+				<div class="image content">
+					<div class="ui medium image">
+						<img ng-show="options.site_logo" ng-src="{{options.site_logo}}">
+						<img ng-show="!options.site_logo" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/logo-placeholder.png">
+					</div>
+					<div class="description"></div>
+				</div>
+				<div class="actions">
+					<div class="ui black deny button">
+						Nope
+					</div>
+					<div class="ui positive right labeled icon button">
+						Yep, that's me
+						<i class="checkmark icon"></i>
+					</div>
+				</div>
+			</div>
+			
+			<div class='ui modal' id='signin_modal2'>
+				<div class="header">
+					Sign In Modal 2
+				</div>
+				<div class="image content">
+					<div class="ui medium image">
+						<img ng-show="options.site_logo" ng-src="{{options.site_logo}}">
+						<img ng-show="!options.site_logo" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/logo-placeholder.png">
+					</div>
+					<div class="description"></div>
+				</div>
+				<div class="actions">
+					<div class="ui black deny button">
+						Nope
+					</div>
+					<div class="ui positive right labeled icon button">
+						Yep, that's me
+						<i class="checkmark icon"></i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="admin" style="background-image: url('{{site_options.sign_bg_image ? site_options.sign_bg_image : ''}}'); background-size:cover;height:100%;">
+	<div class="middle-box text-center loginscreen  animated fadeInDown" style="width:450px; max-width:450px !important;">
+		<div style="border-width: {{site_options.sign_box_border_size ? site_options.sign_box_border_size : '0px'}}; border-color: {{site_options.sign_box_border_color ? site_options.sign_box_border_color : '#000000'}}; border-style: solid; background-color:white;">
+			<div style="  background-color:white;">
+				<div style="background-color: {{site.header_background_color || '#fff'}};">
+					<img ng-src="{{site_logo}}" class="img-responsive" style="margin: 0px auto;max-height:185px;">
+				</div>
+				<h3 ng-hide="$state.includes('public.sign.unsubscribe') || $state.includes('public.sign.unsubscribed')">Welcome to
+					<br/>
+					<strong>{{site.name || current_url}}</strong></h3>
+
+				<div id="message_container" class="span_4_of_6 float_none margin_auto no_right_padding">
+					<div ng-if="account_exist">
+						<p class="alert alert_info">
+							<i class="ts_icon ts_icon_info_circle"></i>
+							An account with that email already exists (accounts are shared across all Smart Member sites). Login using that account below, or click "I forgot my password" to recover it.
+						</p>
+					</div>
+					<div ng-if="register_exist">
+						<p class="alert alert_info">
+							<i class="ts_icon ts_icon_info_circle"></i>
+							That email is already associated with an account! Go ahead and log in below
+						</p>
+					</div>
+					<div ng-if="reset_sent">
+						<p class="alert alert_info">
+							<i class="ts_icon ts_icon_info_circle"></i>
+							We've emailed you a link to reset your password
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<ui-view></ui-view>
+
+		</div>
+	</div>
+
+</div>
+

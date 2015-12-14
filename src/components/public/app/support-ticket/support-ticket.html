@@ -1,0 +1,123 @@
+
+<div class="ui  grid container" >
+	<div class="ten wide column " style="margin-left:auto;margin-right:auto;">
+		<div class="content" ng-init="init()" >
+			<div class="row">
+				<div class="col-md-12 animated-panel fadeInDown" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+					<div class="hpanel hbgblue">
+						<div class="panel-body">
+
+							<div class="row">
+								<div class="col-md-2 border-right animated-panel zoomIn" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+									<i class="pe-7s-display1 fa-5x" style="font-size:11em;"></i>
+								</div>
+								<div class="col-md-8 col-md-offset-1 animated-panel zoomIn" style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+									<div class="text-center m-b-md" ng-hide="ticket_submitted">
+										<h3 ng-if="ticket.type=='refund'">Submit Your Refund Request</h3>
+										<h3 ng-if="ticket.type!='refund'">Submit a Support Ticket</h3>
+										<p ng-if="ticket.type=='refund'">We will review your account and process refunds accordingly.</p>
+										<p ng-if="ticket.type!='refund'">We'll be in touch as soon as possible!</p>
+									</div>
+	                                <div class="text-center m-b-md" ng-if="ticket_submitted">
+	                                    <h3>Your ticket has been submitted</h3>
+	                                    <p>Check your e-mail for confirmation and instructions.</p>
+	                                    <p>If you weren't a member an account has been created for you to view your ticket status and any replies, details have been sent to your e-mail.</p>
+	                                </div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="row" ng-hide="ticket_submitted">
+				<div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+					<div class="hpanel">
+						<div class="panel-body ticket_area">
+
+							<form method="get" class="form-horizontal save_form">
+								<div class="form-group">
+									<div ng-if="ticket.type=='refund'">
+										<label class="col-sm-2 control-label">Reason for Refund</label>
+
+										<div class="col-sm-10">
+											<select type="text" ng-model="ticket.subject" name="subject" class="form-control input-lg">
+												<option>Product didn't meet my expectations.</option>
+												<option>Couldn't access product.</option>
+												<option>I can't find a use for this product.</option>
+												<option>Support wasn't timely about helping me.</option>
+											</select>
+											<span class="help-block m-b-none">
+											</span>
+										</div>
+									</div>
+									
+									<div ng-if="ticket.type!='refund' && !isLoggedIn()" >
+										<label class="col-sm-2 control-label">Email </label>
+
+										<div class="ui fluid input">
+											<input type="text" name="subject" class="form-control input-lg" ng-model="ticket.user_email" required>
+											<span class="help-block m-b-none">
+											</span>
+										</div>
+									</div>
+									<div ng-if="ticket.type!='refund'" >
+										<label class="col-sm-2 control-label">Subject</label>
+
+										<div class="ui fluid input">
+											<input type="text" name="subject" class="form-control input-lg" ng-model="ticket.subject">
+											<span class="help-block m-b-none">
+											</span>
+										</div>
+									</div>
+									
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{type=='refund'?'Share your Feedback':'Message'}}</label>
+									<div class="col-sm-10">
+	                                    <textarea froala ng-model="ticket.message"></textarea>
+										<span class="help-block m-b-none">
+											Please be as Descriptive as Possible
+										</span>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								
+								<div class="form-group" style="margin-top: 10px;">
+									<label style="font-weight: 900;" class="col-sm-2 control-label">Attachment</label>
+
+									<div class="col-sm-10">
+										<button ng-hide="ticket.attachment" class="ui button negative" type="button" sm-uploader="attachment"  ng-model="ticket.attachment">Attach File</button>
+										<span class="attached_file_name"></span>
+										<input type="hidden" name="attachment" class="form-control input-lg" ng-modl="ticket.attachment" />
+										<a ng-show="ticket.attachment" data-bypass="true" target="_blank"
+										   class="file_download" ng-href="{{ticket.attachment}}">
+	                                        {{ticket.attachment.split('/').pop()}}
+	                                    </a>
+										<a ng-show="ticket.attachment" data-bypass="true"
+										   class="" ng-click="ticket.attachment = ''" style="color:#8b0000;">x</a>
+										<span class="help-block m-b-none">
+											Attach a screenshot or any other file that will help us to help you.
+										</span>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group" style="margin-top: 20px;">
+									<div class="col-sm-8 col-sm-offset-2">
+										<a href="/support" class="ui button">Cancel</a>
+										<button class="ui button blue" ng-click="(ticket.user_email!=null||isLoggedIn())? save(): ticket.user_email=ticket.user_email">Submit</button>
+									</div>
+								</div>
+							</form>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,73 @@
+
+<section>
+<a ng-href="admin/site/content/download/" class="btn btn_outline float_right">
+    <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
+    Create New Download
+</a>
+<p class="">
+    Downloads are the products you want to provide to your users, possibly to all registered users,
+    or perhaps just to users who have purchased a certain product.
+</p>
+
+<div id="wrapper" ng-init="initDownloads()">
+    <div class="animate-panel">
+
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;" infinite-scroll="loadMore()" infinite-scroll-distance='1' infinite-scroll-disabled="disable">
+                    <div class="hpanel">
+                        <div class="panel-body">
+                            <div>
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-md-2">Title</div>
+                                            <div class="col-md-3">View</div>
+                                            <div class="col-md-2">Unique Downloads</div>
+                                            <div class="col-md-2">Total Downloads</div>
+                                            <div class="col-md-2">Created</div>
+                                            <div class="col-md-1"><input class="form-control btn-success" style="margin:0px;padding:0px;" type="button" value="save" ng-click="save()"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul class="list-group " style="margin-left:0px;" data-as-sortable="dragControlListeners" data-ng-model="downloads" >
+                                            <li style="margin-top:5px;border:none;padding-left:2px;padding-right:2px;" class="list-group-item download_item" data-as-sortable-item data-component="{{download}}" data-id="{{download.id}}" ng-repeat="download in downloads">
+                                                <div class="row" data-as-sortable-item-handle>
+                                                    <div class="col-md-2">
+                                                        <a ng-href="admin/site/content/download/{{download.id}}">
+                                                            <span class="text-success font-bold">{{download.title}}</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a class="text-success" href="/{{download.permalink}}" target="_blank">/{{download.permalink}}</a>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        {{download.unique_count.length ? download.unique_count[0].unique_count : '0' }}
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        {{download.history_count.length ? download.history_count[0].count : '0' }}
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        {{moment.utc(download.created_at).fromNow() }}
+                                                        <span class="pull-right glyphicon glyphicon-trash delete_item" style="cursor:pointer;margin-right:5px;" ng-click="delete(download)"></span>
+                                                        <a href="/admin/site/content/download/?clone={{download.id}}"><i class="fa fa-copy pull-right"></i></a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+</section>

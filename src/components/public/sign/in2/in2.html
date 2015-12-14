@@ -1,0 +1,27 @@
+
+<p ng-if="!site_options.login_page_text">
+	Login below.
+</p>
+
+<p ng-if="site_options.login_page_text" dynamic="site_options.login_page_text"></p>
+
+<form class="m-t" ng-submit="login()" style="margin: auto;width:70%; margin-bottom:15px;">
+	<div class="form-group">
+		<input type="email" class="form-control" placeholder="Email" required="" ng-model="user.email">
+	</div>
+	<div class="form-group">
+		<input type="password" class="form-control" placeholder="Password" required="" ng-model="user.password">
+	</div>
+	<button type="submit" class="btn block full-width m-b log_user_in" style="color: {{site_options.sign_button_text_color ? site_options.sign_button_text_color : '#ffffff'}}; background-color: {{site_options.sign_button_color ? site_options.sign_button_color : '#337ab7'}}; ">{{site_options.login_button_text ? site_options.login_button_text : 'login'}}</button>
+
+	<a ui-sref="public.sign.forgot"><small>Forgot password?</small></a>
+
+    <br /><br />
+
+    <a href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket/create?type=normal'}}"><small>Got questions, ask our support!</small></a>
+
+    <br /><br />
+
+	<p class="text-muted text-center"><small>Do not have an account?</small></p>
+	<a class="btn btn-sm btn-white btn-block" href="{{ site_options.create_account_url || '/sign/up'}}">Create an account</a>
+</form>

@@ -1,0 +1,110 @@
+<h1><i class="ts_icon ts_icon_pencil clear_blue"></i> Edit Email</h1>
+<div class="card clearfix content_post"><div id="post_col" class="col span_1_of_1">
+    <form method="post" class="form-horizontal" ng-submit="save(3)">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+                    <div class="hpanel">
+                        <div class="panel-body col-md-12">
+                            <h3>Email Subject</h3>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input type="text" ng-model="email.subject" name="subject" class="form-control input-lg"/>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <h3>Email Body</h3>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body" style="padding:0;">
+                                            <textarea froala ng-model="email.content"></textarea>
+                                            <div ng-if="showSignature.status=='false'">
+                                                <input class="btn-link" style="float:right;" type="button" value="Customize Signature & Settings" ng-click="showSettings()">
+                                            </div>
+
+
+                                            <div ng-show="showSignature.status=='true'" class="col-md-12">
+                                                <div id="wrapper" class="col-md-12">
+                                                    <div class="animate-panel">
+                                                        <div class="content">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 animated-panel zoomIn"
+                                                                     style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s; padding-left:0px;padding-right:0px;">
+                                                                    <div class="hpanel">
+                                                                        <div class="panel-body" style="padding-left:0px;padding-right:0px;">
+                                                                            <form class="mail-settings form-horizontal" ng-submit="saveSettings()">
+                                                                                <div class="form-group">
+                                                                                    <label class="col-md-2 control-label">
+                                                                                        From Name
+                                                                                    </label>
+                                                                                    <div class="col-md-10">
+                                                                                        <input class="form-control input-lg" ng-model="email.mail_name" type="text"
+                                                                                               id="mail_name" name="mail_name"/>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="hr-line-dashed"></div>
+                                                                                <div class="form-group">
+                                                                                    <label class="col-md-2 control-label">
+                                                                                        From Email Address
+                                                                                    </label>
+                                                                                    <div class="col-md-10">
+                                                                                        <input class="form-control input-lg" ng-model="email.mail_sending_address"
+                                                                                               type="text" id="mail_sending_address" name="mail_sending_address"/>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="hr-line-dashed"></div>
+                                                                                <div class="form-group">
+                                                                                    <label class="col-md-2 control-label">
+                                                                                        Reply-to Email Address
+                                                                                    </label>
+                                                                                    <div class="col-md-10">
+                                                                                        <input class="form-control input-lg" ng-model="email.mail_reply_address" type="text"
+                                                                                               id="mail_reply_address" name="mail_reply_address"/>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="hr-line-dashed"></div>
+                                                                                <div class="form-group">
+                                                                                    <label class="col-md-2 control-label">
+                                                                                        Email Signature
+                                                                                    </label>
+                                                                                    <div class="col-md-10">
+                                                                                        <textarea froala ng-model="email.mail_signature"></textarea>
+                                                                                        <p class="help-block" style="margin-left: 10px;margin-top: -10px;font-size: small;">Add <strong>%subscriber_name%</strong> anywhere you want the user's name to appear.</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="hr-line-dashed"></div>
+                                                                                <div>
+                                                                                    <input class="btn-link" style="float:right;   " type="button" value="Hide Settings" ng-click="hideSettings()"/>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a ng-click="saveEmail()" class="btn btn-success">Save Draft</a>
+                        <a ng-click="saveAndGoNextStep()" class="btn btn-success">Save and Go to Next Step</a>
+                        <a class="btn btn-success" ng-click="previewEmail()">Preview Email</a>
+                        <a ui-sref="admin.team.email.emails" class="btn btn-success">Cancel</a>
+                        <p class="help-block">This will only save the email and send a test email to you.  On the next screen you will have the option to send to the lists you have chosen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+

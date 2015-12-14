@@ -1,0 +1,127 @@
+<div class="animate-panel">
+
+	<div class="content" ng-init="init()">
+		<div class="row">
+			<div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+				<div class="hpanel">
+
+					<div class="panel-body">
+
+						<form method="get" class="form-horizontal save_form">
+							<div class="form-group">
+							    <h3 class="col-sm-4 col-sm-offset-2 control-label">{{page_title}}</h3>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Article Title</label>
+
+								<div class="col-sm-10">
+									<input type="text" name="title" class="form-control input-lg" ng-model="article.title" ng-blur="onBlurTitle($event)">
+									<span class="help-block m-b-none">
+										This is the name for your article - it's what you and customers will see
+										to distinguish one article from another.
+									</span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Permalink</label>
+
+								<div class="col-sm-10">
+									<input type="text" name="permalink" class="form-control input-lg" ng-model="article.permalink" ng-blur="onBlurSlug($event)">
+									<span class="help-block m-b-none">
+										This is the unique Url for your article.
+									</span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Category</label>
+
+								<div class="col-sm-10" ng-if="categories.length!=0">
+									<div class="col-md-8">
+										<select type="text" name="category" class="form-control input-lg" ng-model="article.category_id" ng-options="category.id as category.title for category in categories" >
+										</select>
+									</div>
+									<a class="btn btn_outline float_right col-md-4" ng-click="openCategoryModel()">
+									    <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
+									    Create New Category
+									</a>
+								</div>
+								<div class="col-sm-10" ng-if="categories.length==0">
+									<a class="btn btn_outline float_right" ng-click="openCategoryModel()">
+									    <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
+									    Create New Category
+									</a>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Article Content</label>
+
+								<div class="col-sm-10">
+                                    <textarea froala ng-model="article.content"></textarea>
+									<span class="help-block m-b-none">
+									</span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Video / Embed Content</label>
+
+								<div class="col-sm-10">
+									<textarea name="embed_content" class="form-control input-lg" ng-model="article.embed_content"></textarea>
+									<span class="help-block m-b-none">
+									</span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+                                <label class="col-sm-2 control-label">Featured Image</label>
+                                <div class="col-sm-10">
+                                    <button type="button"
+                                            sm-uploader="featured_image" ng-model="article.featured_image">Choose Featured Image</button>
+                                    <div class="width-100 set_featured_image">
+                                        <img class="featured_image_preview img-responsive img-thumbnail" ng-src="{{article.featured_image}}" ng-show="article.featured_image" style="width:auto;" />
+                                    </div>
+                                    <input type="hidden" name="featured_image" class="form-control input-lg" ng-model="article.featured_image">
+									<span class="help-block m-b-none">
+										This is the featured image for your article, it is used as the image when sharing on social sites such as Facebook.
+
+									</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-md-12">
+                                    <div class="col-md-1 col-md-offset-2">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
+                                           ng-model="article.always_show_featured_image"
+                                           ng-checked="article.always_show_featured_image"/>
+                                    </div>
+                                    <div class="col-md-9">
+                                        Show featured image on individual article
+                                    </div>
+                                </label>
+                            </div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-2">
+									<button class="btn btn-brand" ng-click="save()">Save changes</button>
+									<a href="service/support/articles" class="btn btn-default" onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
+									
+								</div>
+							</div>
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</div>
+

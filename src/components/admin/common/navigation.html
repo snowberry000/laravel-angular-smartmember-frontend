@@ -1,0 +1,542 @@
+<nav class="navbar-default" role="navigation" id="site_nav" >
+	<div class="sidebar-collapse">
+		<ul side-navigation class="nav metismenu" id="side-menu">
+			<li class="nav-header top_profile_container">
+				<a class="profile_link block " ui-sref="admin.account.settings">
+					<img alt="image" style="max-width:48px;" class="img-circle m-r-sm pull-left" src="{{user.profile_image ? user.profile_image : 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm&s=48'}}"/>
+					<div class="">
+						<span class="block m-t-xs"><strong class="">{{user.first_name}} {{user.last_name}}</strong></span>
+						<span class="text-muted text-xs block ng-binding">{{team_role_name}}</span>
+					</div>
+				</a>
+				<div class="" dropdown=""></div>
+				<div class="logo-element">IN+</div>
+			</li>
+			<li>
+				<h4 class="ui horizontal divider">
+					<a href="" class="text-branded">
+						Account settings
+					</a>
+				</h4>
+			</li>
+			<li ui-sref-active="active">
+				<a ui-sref="admin.account.settings">
+					<i class="fa fa-fw fa-gear"></i>
+					<span class="nav-label">{{ 'MY_PROFILE' | translate }}</span>
+				</a>
+			</li>
+			<li ng-if="is_team_member">
+				<a ui-sref="admin.team.sites">
+					<i class="fa fa-fw fa-globe"></i>
+					{{ 'MY_ADMIN_SITES' | translate }}
+				</a>
+			</li>
+			<li ui-sref-active="active">
+				<a ui-sref="admin.account.memberships">
+					<i class="fa fa-fw fa-cubes"></i>
+					<span class="nav-label">{{ 'MY_JOINED_SITES' | translate }}</span>
+				</a>
+			</li>
+			<li ng-if="is_team_member" ui-sref-active="active">
+				<a ui-sref="admin.account.teams">
+					<i class="fa fa-fw fa-building-o"></i>
+					<span class="nav-label">{{ 'MY_TEAMS' | translate }}</span>
+				</a>
+			</li>
+			<li ng-if="is_site_admin || is_team_member">
+				<h4 class="ui horizontal divider">
+					<a ui-sref="admin.team.sites" class="text-branded">
+						Site settings
+					</a>
+				</h4>
+			</li>
+			<li ng-if="app.subdomain == 'my' && current_company">
+				<a ui-sref="admin.team.sites" class="no_transform">
+					<span><strong>select a site</strong> to administrate</span>
+				</a>
+			</li>
+			<li  ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+				<a ui-sref="admin.site.dashboard">
+					<i class="fa fa-fw fa-home"></i>
+					<span class="nav-label">{{ 'DASHBOARD' | translate }}</span>
+				</a>
+			</li>
+			<li  ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+				<a ui-sref="admin.site.wizard">
+					<i class="fa fa-fw fa-magic"></i>
+					<span class="nav-label">{{ 'SETUP_WIZARDS' | translate }}</span>
+				</a>
+			</li>
+			<li class="" ng-class="$state.includes('admin.site.content') ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+				<a href="">
+					<i class="fa fa-fw fa-paragraph"></i>
+					<span class="nav-label">{{ 'SITE_CONTENT' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.site.content')}">
+					<li ng-class="$state.includes('admin.site.content.syllabus') ? 'active' : '' ">
+						<a ui-sref="admin.site.content.summary">
+							{{ 'SYLLABUS' | translate }}
+
+							<span class="fa fa-fw arrow"></span>
+						</a>
+						<ul class="nav nav-third-level" ng-class="{'in': $state.includes('admin.site.content.syllabus')}">
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.syllabus.lessons">
+									{{ 'LESSONS' | translate }}
+								</a>
+							</li>
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.syllabus.modules">
+									{{ 'MODULES' | translate }}
+								</a>
+							</li>
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.syllabus.organizer">
+									{{ 'ORGANIZER' | translate }}
+								</a>
+							</li>
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.syllabus.notes">
+									{{ 'NOTES' | translate }}
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li ng-class=" $state.includes('admin.site.content.blog') ? 'active' : '' ">
+						<a ui-sref="admin.site.content.summary">
+							{{ 'BLOG' | translate }}
+
+							<span class="fa fa-fw arrow"></span>
+						</a>
+						<ul class="nav nav-third-level" ng-class="{'in': $state.includes('admin.site.content.blog')}">
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.blog.posts">
+									{{ 'POSTS' | translate }}
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li ng-class=" $state.includes('admin.site.content.helpdesk') ? 'active' : '' ">
+						<a ui-sref="admin.site.content.helpdesk">
+							{{ 'HELPDESK' | translate }}
+							<span class="fa fa-fw arrow"></span>
+						</a>
+						<ul class="nav nav-third-level" ng-class="{'in': $state.includes('admin.site.content.helpdesk')}">
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.helpdesk.articles">
+									{{ 'ARTICLES' | translate }}
+								</a>
+							</li>
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.helpdesk.categories">
+									{{ 'CATEGORIES' | translate }}
+								</a>
+							</li>
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.helpdesk.organizer">
+									{{ 'ORGANIZER' | translate }}
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li ng-class=" $state.includes('admin.site.content.downloads') ? 'active' : '' ">
+						<a ui-sref="admin.site.content.downloads">
+							{{ 'DOWNLOAD_CENTER' | translate }}
+							<span class="fa fa-fw arrow"></span>
+						</a>
+						<ul class="nav nav-third-level" ng-class="{'in': $state.includes('admin.site.content.downloads')}">
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.downloads">
+									{{ 'DOWNLOADS' | translate }}
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li ng-class="$state.includes('admin.site.content.livecasts') ? 'active' : '' ">
+						<a ui-sref="admin.site.content.livecasts">
+							{{ 'LIVE_STREAMING' | translate }}
+							<span class="fa fa-fw arrow"></span>
+						</a>
+						<ul class="nav nav-third-level" ng-class="{'in': $state.includes('admin.site.content.livecasts')}">
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.content.livecasts">
+									{{ 'LIVECASTS' | translate }}
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.content.import">
+							{{ 'IMPORT' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.content.stats">
+							{{ 'STATS' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+			
+			<li class="" ng-class="($state.includes('admin.site.membership.products') || $state.includes('admin.site.membership.passes') || $state.includes('admin.site.membership.transactions')) ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+				<a href="">
+					<i class="fa fa-fw fa-unlock-alt"></i>
+					<span class="nav-label">{{ 'SITE_ACCESS' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('admin.site.membership.products') || $state.includes('admin.site.membership.passes') || $state.includes('admin.site.membership.transactions')}">
+					<li ng-class="$state.includes('admin.site.membership.products') || $state.includes('admin.site.membership.passes') ? 'active' : '' ">
+						<a href="">
+							{{ 'ACCESS_MANAGEMENT' | translate }}
+
+							<span class="fa fa-fw arrow"></span>
+						</a>
+						<ul class="nav nav-third-level" ng-class="{in: $state.includes('admin.site.membership.products') || $state.includes('admin.site.membership.passes')}">
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.membership.products">
+									{{ 'PRODUCTS' | translate }}
+								</a>
+							</li>
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.membership.passes">
+									{{ 'PASSES' | translate }}
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li ng-class="$state.includes('admin.site.membership.transactions') ? 'active' : ''">
+						<a href="">
+							{{ 'FINANCE_MANAGEMENT' | translate }}
+
+							<span class="fa fa-fw arrow"></span>
+						</a>
+						<ul class="nav nav-third-level" ng-class="{in: $state.includes('admin.site.membership.transactions')}">
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.membership.transactions">
+									{{ 'TRANSACTIONS' | translate }}
+								</a>
+							</li>
+							<li ui-sref-active="active">
+								<a ui-sref="wallboard" target=_blank>
+									{{ 'SALES_WALLBOARD' | translate }}
+								</a>
+							</li>
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.membership.finance_settings">
+									{{ 'FINANCE_SETTINGS' | translate }}
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="" ng-class="($state.includes('admin.site.membership.members') || $state.includes('admin.site.membership.notices')) ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+				<a href="">
+					<i class="fa fa-fw fa-group"></i>
+					<span class="nav-label">{{ 'SITE_MEMBERS' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('admin.site.membership.members') || $state.includes('admin.site.membership.notices')}">
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.membership.members">
+							{{ 'MEMBERS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.membership.notices">
+							{{ 'CREATE_NOTICES' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-class="$state.includes('admin.site.pages') ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+				<a href="">
+					<i class="fa fa-fw fa-file-o"></i>
+					<span class="nav-label">{{ 'SITE_PAGES' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.site.pages')}">
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.pages.core.list">
+							{{ 'CORE_PAGES' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.pages.custom-pages">
+							{{ 'CUSTOM_PAGES' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.pages.bridge-pages">
+							{{ 'BRIDGE_PAGES' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="" ng-class="$state.includes('admin.site.appearance') || $state.includes('admin.marketing') ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+				<a href="">
+					<i class="fa fa-fw fa-eye"></i>
+					<span class="nav-label">{{ 'SITE_APPEARANCE' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.site.appearance') || $state.includes('admin.marketing')}">
+					<!-- <li ui-sref-active="active">
+						<a ui-sref="my.service-desk.dashboard">
+							{{ 'BRANDING' | translate }}
+						</a>
+					</li> -->
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.appearance.settings">
+							{{ 'APPEARANCE_GENERAL_SETTINGS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.appearance.menus">
+							{{ 'NAVIGATION_MENUS' | translate }}
+						</a>
+					</li>
+					<li  ng-class=" $state.includes('admin.site.appearance.widgets') || $state.includes('admin.site.appearance.banners') || $state.includes('admin.site.appearance.stats') ? 'active' : '' "> 
+						<a href="#">
+							{{ 'SIDEBAR_MANAGEMENT' | translate }}
+							<span class="fa fa-fw arrow"></span>
+						</a>
+						<ul class="nav nav-third-level" ng-class="{in: $state.includes('admin.site.appearance.widgets') || $state.includes('admin.site.appearance.banners') || $state.includes('admin.site.appearance.stats')}">
+							<li  style="display:none;">
+								<a ui-sref="admin.site.appearance.widgets">
+									{{ 'WIDGETS' | translate }}
+								</a>
+							</li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="admin.site.appearance.banners">
+                                    {{ 'BANNERS' | translate }}
+                                </a>
+                            </li>
+							<li ui-sref-active="active">
+								<a ui-sref="admin.site.appearance.stats">
+									{{ 'STATS' | translate }}
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li ui-sref-active="active">
+						<a href="/?theme_options">
+							{{ 'THEME_EDITOR' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.appearance.facebook-settings">
+							{{ 'SOCIAL_SETTINGS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.marketing.tracking">
+							{{ 'AD_TRACKING_SETTINGS' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="" ng-class="$state.includes('admin.site.appearance') || $state.includes('admin.marketing') ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" ng-hide="current_company.locked">
+				<a href="">
+					<i class="fa fa-fw fa-flag-o"></i>
+					<span class="nav-label">{{ 'DIRECTORY_LISTING' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.site.appearance') || $state.includes('admin.marketing')}">
+
+					<li ui-sref-active="active">
+						<a ui-sref="admin.site.appearance.directory">
+							{{ 'DIRECTORY_PROFILE' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+
+
+			<li ng-if="is_site_admin || is_agent || is_team_member">
+				<h4 class="ui horizontal divider">
+					<a href="" class="text-branded">
+						Team settings
+					</a>
+				</h4>
+			</li>
+			<li ng-if="is_team_member">
+				<a ui-sref="admin.team.dashboard">
+					<i class="fa fa-fw fa-building-o"></i>
+					<span class="nav-label">{{ 'DASHBOARD' | translate }}</span>
+				</a>
+			</li>
+			<li ng-if="is_team_member">
+				<a ng-href="admin/team/wizard/team_setup_wizard">
+					<i class="fa fa-fw fa-magic"></i>
+					<span class="nav-label">{{ 'SETUP_WIZARDS' | translate }}</span>
+				</a>
+			</li>
+			<li ng-if="is_team_member"  ng-class=" $state.includes('admin.team.email.emails') ? 'active' : '' ">
+				<a href="">
+					<i class="fa fa-fw fa-envelope-o"></i>
+					<span class="nav-label">{{ 'MANAGE_EMAIL' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.team.email.emails') || $state.includes('admin.team.email.lists') || $state.includes('admin.team.email.groups') || $state.includes('admin.team.email.subscribers') || $state.includes('admin.team.email.autoresponders') || $state.includes('admin.team.email.forms') || $state.includes('admin.team.email.settings') || $state.includes('admin.team.email.queue')}">
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.email.emails">
+							{{ 'EMAILS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.email.lists">
+							{{ 'LISTS' | translate }}
+						</a>
+					</li>
+					<li  ng-hide="1">
+						<a ui-sref="admin.team.email.groups">
+							{{ 'GROUPS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.email.subscribers">
+							{{ 'SUBSCRIBERS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.email.autoresponders">
+							{{ 'AUTORESPONDERS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.email.forms">
+							{{ 'OPTIN_FORM' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.email.settings">
+							{{ 'SETTINGS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.email.queue">
+							{{ 'QUEUE' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-class=" $state.includes('admin.team.helpdesk') ? 'active' : ''" ng-if="is_site_admin || is_agent || is_team_member">
+				<a href="">
+					<i class="fa fa-fw fa-support"></i>
+					<span class="nav-label">{{ 'MANAGE_SUPPORT' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.team.helpdesk.tickets') || $state.includes('admin.team.helpdesk.settings')}">
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.helpdesk.tickets.open">
+							{{ 'TICKETS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active" style="display:none;">
+						<a ui-sref="admin.team.helpdesk.settings">
+							{{ 'SETTINGS' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-if="is_team_member" ng-class="$state.includes('admin.team.jv') ? 'active' : '' ">
+				<a href="">
+					<i class="fa fa-fw fa-fighter-jet"></i>
+					<span class="nav-label">{{ 'MANAGE_AFFILIATES' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.team.jv')}">
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.jv.affiliates">
+							{{ 'AFFILIATES' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.jv.teams">
+							{{ 'AFFILIATE_TEAMS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.jv.fetcher">
+							{{ 'JVZOO_FETCHER' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.jv.contests">
+							{{ 'CONTESTS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.jv.stats">
+							{{ 'STATS' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-if="is_team_member"  ng-class="$state.includes('admin.team.integrations') ? 'active' : '' ">
+				<a href="">
+					<i class="fa fa-fw fa-exchange"></i>
+					<span class="nav-label">{{ 'INTEGRATIONS' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.team.integrations.available') || $state.includes('admin.team.integrations.list') || $state.includes('admin.team.integrations.connections')}">
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.integrations.available">
+							{{ 'ADD_NEW' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.integrations.list">
+							{{ 'MY_INTEGRATIONS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.integrations.connections">
+							{{ 'CONNECTED_ACCOUNTS' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li ng-if="is_team_member"  ng-class="$state.includes('admin.team.settings') || $state.includes('admin.team.profile') || $state.includes('admin.team.members') ? 'active' : ''">
+				<a href="">
+					<i class="fa fa-fw fa-gear"></i>
+					<span class="nav-label">{{ 'TEAM_SETTINGS' | translate }}</span>
+					<span class="fa fa-fw arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('admin.team.settings') || $state.includes('admin.team.profile') || $state.includes('admin.team.members')}">
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.settings">
+							{{ 'SETTINGS' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.profile">
+							{{ 'DIRECTORY_LISTING' | translate }}
+						</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="admin.team.members">
+							{{ 'MEMBERS' | translate }}
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li ng-if="is_team_member">
+				<a ui-sref="admin.team.sites">
+					<i class="fa fa-fw fa-globe"></i>
+					{{ 'TEAM_SITES' | translate }}
+				</a>
+			</li>
+			<li class="m-t-sm">
+				<a ui-sref="public.sign.out" class="logout_nav_item">
+					<i class="fa fa-fw fa-sign-out"></i> Log out
+				</a>
+			</li>
+
+		</ul>
+
+	</div>
+</nav>

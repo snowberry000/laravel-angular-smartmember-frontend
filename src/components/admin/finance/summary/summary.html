@@ -1,0 +1,176 @@
+<div class="tab-content bottom_margin clear_both" ng-init="init()">
+    <div class="tab_pane large_bottom_padding selected">
+<section>
+	<div class="row">
+		<div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+			<div class="hpanel">
+				<div class="panel-heading hbuilt">
+					<i class="fa fa-line-chart"> 
+					 Daily Sales Transactions over all Time
+				</div>
+				<div class="panel-body" style="height:450px">
+					<div class="row">
+						<div class="flot-chart" style="width:800px; padding-left:30px">
+							<canvas id="line" class="chart chart-line" chart-data="charts[0].data"
+										chart-labels="charts[0].labels" chart-legends="true" chart-options="chart_options" chart-colours="colours">
+							</canvas>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+			<div class="hpanel">
+				<div class="panel-heading hbuilt">
+					New Sales Performance Stats
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-4 text-center">
+							<div class="small">
+								<i class="fa fa-bolt"></i> Total sales
+							</div>
+							<div>
+								<h1 id="total_sale_count" class="font-extra-bold m-t-xl m-b-xs">{{summary.total_sales| currency:"$":0}}</h1>
+								<small>total sales transacted</small>
+							</div>
+							<div class="small m-t-xl">
+								<i class="fa fa-clock-o"></i> Data from All Time
+							</div>
+						</div>
+
+						<div class="col-md-4 text-center">
+							<div class="small">
+								<i class="fa fa-bar-chart"></i> Net income
+							</div>
+							<div>
+								<h1 id="net_income" class="m-xs">{{(summary.total_sales - summary.total_refunds)| currency:"$":0}}</h1>
+								<small>This is your sales minus refunds</small>
+							</div>
+						</div>
+
+						<div class="col-md-4 text-center">
+							<div class="small">
+								<i class="fa fa-clock-o"></i> Sales performance
+							</div>
+							<div>
+								<h1 id="sales_per_day" class="font-extra-bold m-t-xl m-b-xs">{{summary.average_sale | currency:"$":0}}/day</h1>
+								<small>sales per day</small>
+							</div>
+							<div class="small m-t-xl">
+								<i class="fa fa-clock-o"></i> Latest transaction occurred <span id="last_sale_time_ago">{{moment(summary.last_transaction).fromNow()}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+			<div class="hpanel stats">
+				<div class="panel-body" style="height:200px">
+					<div class="row">
+						<h2 id="total_sale_price" class="text-success">{{summary.total_sales| currency:"$":0}}</h2>
+						<div class="progress m-t-xs full progress-small">
+							<div style="width: {{summary.sales_percentage}}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{summary.sales_percentage}}" role="progressbar" class="progress-bar progress-bar-success"></div>
+						</div>
+					</div>
+
+					<div class="row" style="text-align:center;">
+						<div class="col-sm-4">
+							<div class="row">
+								<strong>{{summary.average_sale| currency:"$":0}}</strong>
+							</div>
+							<div class="row">
+								<div class="small">Avg. Price</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="row">
+								<strong>{{summary.sale_frequency}}</strong>
+							</div>
+							<div class="row">
+								<div class="small">Avg. Frequency</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="row">
+								<strong>{{summary.sales_ratio | number:2}}%</strong>
+							</div>
+							<div class="row">
+								<div class="small">Sales/Refunds</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<span><small>
+						This is a summary of the successful <strong> purchase transactions</strong> run through your site,
+						giving you an overview of marketing &amp; financial performance.
+					</small></span>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+			<div class="hpanel stats">
+				<div class="panel-body" style="height:200px">
+					<div class="row">
+						<h2 id="total_refund_price" class="text-danger">{{summary.total_refunds| currency:"$":0}}</h2>
+						<div class="progress m-t-xs full progress-small">
+							<div style="width: {{summary.refund_percentage}}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{summary.refund_percentage}}" role="progressbar" class=" progress-bar progress-bar-danger"></div>
+						</div>
+					</div>
+
+					<div class="row" style="text-align:center;">
+						
+						<div class="col-sm-4">
+							<div class="row">
+								<strong>{{summary.average_refund| currency:"$":0}}</strong>
+							</div>
+							<div class="row">
+								<div class="project-label">Avg. Price</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4" style="text-align:center;">
+							<div class="row">
+								<strong>{{summary.refund_frequency}}</strong>
+							</div>
+							<div class="row">
+								<div class="project-label">Avg. Frequency</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="row">
+								<strong id="sale_ratio" ng-if="summary.number_of_sales!=0">{{summary.refunds_ratio | number:2}}%</strong>
+							</div>
+							<div class="row">
+								<div class="project-label">Refuds/Sales</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<small>
+						This is a summary of the <strong> refund transactions </strong> run through your site,
+						showing an overview of product &amp; customer service performance.
+					</small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<p style="text-align:center;margin:30px 0px;">
+		<a href="admin/finance/transactions" class="btn btn-lg btn-brand">View All Transactions</a>
+	</p>
+</section>
+</div>
+</div>

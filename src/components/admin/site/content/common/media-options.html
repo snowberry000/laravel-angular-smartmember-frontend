@@ -1,0 +1,115 @@
+<fieldset class="form-horizontal">
+	<div class="form-group">
+		<input type="hidden" name="featured_image" class="" ng-model="next_item.featured_image">
+		<label class="col-sm-2 control-label">Featured Image:</label>
+		<div class="col-sm-10">
+			<button type="button" class="set_audio_file" sm-uploader="featured_image" ng-model="next_item.featured_image">Choose Featured Image
+			</button>
+			<span class="help-block m-b-none">This image will be shown when listing your content.</span>
+		</div>
+	</div>
+	<div class="form-group" ng-show="next_item.featured_image">
+		<label class="col-sm-2 control-label"></label>
+		<div class="col-sm-10">
+			<img class="featured_image_preview img-responsive img-thumbnail"
+				 ng-src="{{next_item.featured_image}}"
+				 style="width:auto;"/>
+		</div>
+	</div>
+	<div class="form-group" ng-show="next_item.featured_image">
+		<label class="col-sm-2 control-label"></label>
+		<div class="col-sm-10">
+			<a href="" ng-click="next_item.featured_image=''">
+				<i class="fa fa-remove"></i> Remove
+			</a>
+		
+		</div>
+	</div>
+	<div class="form-group" ng-show="next_item.featured_image">
+		<label class="col-sm-2 control-label"></label>
+		<div class="col-sm-10">
+			<div>
+				<label>
+					<input icheck type="checkbox" ng-true-value="1" ng-false-value="0"
+						   ng-model="next_item.always_show_featured_image"
+						   ng-checked="next_item.always_show_featured_image">
+					Check to show this featured image when viewing this content's individual page
+				</label>
+			</div>
+										<span class="help-block m-b-none">
+											It's best to leave this unchecked if you also have video embedded in this content
+										</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Video / Embed Content:</label>
+		<div class="col-sm-10">
+			<textarea class="form-control" name="embed_content" ng-model="next_item.embed_content"></textarea>
+		</div>
+	</div>
+    <div ng-hide="template_data.transcript == false">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Audio:</label>
+            <div class="col-sm-10">
+                <button type="button" class="set_audio_file" sm-uploader="audio_file" ng-model="next_item.audio_file">Choose Audio File
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="3" ng-show="next_item.audio_file">{{getFileName(next_item.audio_file)}}</label>
+                <div class="col-md-4">
+                    <a ng-href="{{next_item.audio_file}}" data-bypass="true" target="_blank"
+                       class="btn btn-sm btn-brand current_audio_file" title="Download Audio File"
+                       alt="Download Audio File" ng-show="next_item.audio_file"><span
+                     class="glyphicon glyphicon-volume-down" style="margin-right: 5px;"></span>
+                        Current Audio File
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a data-bypass="true"
+                       class="btn btn-sm btn-danger remove_audio_file" title="Remove Audio File" ng-click="next_item.audio_file = ''"
+                       alt="Remove Audio File" ng-show="next_item.audio_file">
+                        <span class="glyphicon glyphicon-remove" style="margin-right: 5px;"></span>
+                        Remove
+                        Audio File
+                    </a>
+                </div>
+            </div>
+            <input type="hidden" name="audio_file" class="form-control input-lg" ng-model="next_item.audio_file">
+                                        <span class="input_note col-md-offset-2 col-md-8" style="margin-bottom:15px;">
+                                            This is the audio file for your lesson, users can choose to download this file to listen to as they wish.
+                                        </span>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Transcript:</label>
+            <div class="col-sm-10">
+                <textarea froala ng-model="next_item.transcript_content"></textarea>
+                <span class="help-block m-b-none">If your content includes an audio / video, you can provide a transcription of it here.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Transcript Button Text:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="transcript_button_text" ng-model="next_item.transcript_button_text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Transcript SEO:</label>
+            <div class="col-sm-10">
+                <div>
+                    <label>
+                        <input icheck type="checkbox" ng-model="next_item.transcript_content_public" ng-false-value="false" ng-true-value="true" ng-checked="next_item.transcript_content_public == 1">
+                        Check to show transcript publicly
+                    </label>
+                </div>
+                <span class="help-block m-b-none">
+                    This helps search engines rank your content, even if main content is Access Restricted to members
+                </span>
+            </div>
+        </div>
+    </div>
+</fieldset>

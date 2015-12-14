@@ -1,0 +1,35 @@
+<div id="message_container" ng-init="init()" class="span_4_of_6 float_none margin_auto no_right_padding">
+	<div ng-if="inprocess_register">
+		<p class="alert alert_info"><i class="ts_icon ts_icon_info_circle"></i>Looks like someone started signing up with that email but never set a password. Enter the email below and check for the "password reset" message in your inbox to continue.</p>
+	</div>
+</div>
+
+
+<form class="m-t" ng-if="hash">
+
+	<p>Enter a <strong>new password</strong> below</p>
+
+	<input type="hidden" name="password_reset_hash">
+
+    <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password" required="" ng-model="new_password">
+    </div>
+	<div class="form-group">
+		<input type="password" class="form-control" name="password_confirm" placeholder="Confirm Password" required="">
+	</div>
+    <button type="" class="btn btn-primary block full-width m-b" ng-click="reset(new_password)">Save Password</button>
+
+	<p class="text-muted text-center"><small>Do not have an account?</small></p>
+	<a class="btn btn-sm btn-white btn-block" ui-sref="public.sign.up">Create an account</a>
+</form>
+<form class="m-t" ng-if="!hash">
+	<p>Enter your email address below and we'll send a special reset password link to your inbox.</p>
+
+	<div class="form-group">
+		<input type="email" class="form-control" placeholder="Email" required="" ng-model="reset_email">
+	</div>
+	<button type="" class="btn btn-primary block full-width m-b" ng-click="forgot(reset_email)">Reset my password</button>
+
+	<p class="text-muted text-center"><small>Do not have an account?</small></p>
+	<a class="btn btn-sm btn-white btn-block" ui-sref="public.sign.up">Create an account</a>
+</form>

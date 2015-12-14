@@ -1,0 +1,88 @@
+<div class="wrapper wrapper-content">
+	<div class="row animated fadeInRight">
+		<div class="col-lg-12">
+
+			<div class="ibox-content page-heading clear_box">
+				<div class="p-xs">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="pull-left m-r-md">
+								<i class="fa fa-exchange text-branded mid-icon"></i>
+							</div>
+							<h2>Connected accounts</h2>
+							<span>Here you can view / remove any 3rd-party accounts you've connected.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="ibox">
+				<div class="ibox-content">
+					<p class="m-b-none">If you remove an account below, any integrations using the connection will be disabled.</p>
+				</div>
+			</div>
+
+			<div class="ibox" ng-repeat="account in connected_accounts">
+				<div class="ibox-content">
+
+					<div class="row">
+						<div class="col-md-1">
+							<img width="60" height="60" src="{{_.findWhere(availableIntegrations,{id: account.type}).logo}}">
+						</div>
+						<div class="col-md-4">
+							<h2>{{_.findWhere(availableIntegrations,{id: account.type}).name}}</h2>
+							<small>{{account.name ? account.name : (account.username ? account.username : account.remote_id)}}</small>
+						</div>
+						<div class="col-md-5">
+
+							<span class="description">
+								<span ng-if="account.integrations && account.integrations.length > 0">
+									Used in {{account.integrations.length}} integration{{account.integrations.length > 1 ? 's' : ''}}
+								</span>
+								<span ng-if="!account.integrations || account.integrations.length == 0">
+									Not used in any integrations
+								</span>
+								&#8226; Connected {{moment.utc(account.created_at).fromNow()}}
+							</span>
+
+
+							<div ng-if="account.editing">
+								<span>
+									<label>Set a nickname to identify this account by</label>
+									<input type="text" class="form-control" placeholder="Name to identify account by" ng-model="account.name" />
+								</span>
+								<span ng-if="account.type == 'paypal'">
+									<label>Paypal e-mail address</label>
+									<input type="email" class="form-control" placeholder="Paypal e-mail address" ng-model="account.remote_id" />
+								</span>
+								<span ng-if="account.type == 'facebook_app'">
+									<label>Facebook App Id</label>
+									<input type="text" class="form-control" placeholder="Facebook App Id" ng-model="account.username" />
+									<label>Facebook App Secret Key</label>
+									<input class="form-control" type="password" ng-model="account.password" />
+								</span>
+								<span ng-if="account.type == 'sendgrid'">
+									<label>Sendgrid Username</label>
+									<input type="text" class="form-control" placeholder="Sendgrid Username" ng-model="account.username" />
+									<label>Sendgrid Password</label>
+									<input class="form-control" type="password" ng-model="account.password" />
+								</span>
+								<br><br>
+								<button class="btn btn-success" ng-click="saveAccount(account)" type="button" style="bottom:.2rem;top:inherit;left:4.5rem;">Save</button>
+							</div>
+
+						</div>
+						<div class="col-md-2">
+							<a class="btn btn_outline btn_danger edit_account" ng-click="account.editing = !account.editing" ng-style="{display:(account.editing ? 'block' : 'none' )}">{{account.editing ? 'Close' : 'Edit Nickname'}}</a>
+							<a class="btn btn_outline btn_danger" ng-click="promptRemoveAccount(account)" style="bottom:.2rem;top:inherit;">Remove</a>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+

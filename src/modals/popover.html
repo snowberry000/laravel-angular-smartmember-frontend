@@ -1,0 +1,31 @@
+<script type="text/ng-template" id="1">
+    <a href class="pull-right" ng-click="model.isOpen = false">X</a>
+    <div>
+        <select class="form-control" ng-model="$parent.selected_url" ng-change="$parent.selectUrl(model ,selected_url , false)">
+            <option value="" selected>Enter a custom url</option>
+            <option value="/">Home</option>
+            <option value="info">Sales Page</option>
+            <option value="lessons">Syllabus</option>
+            <option value="support">Support</option>
+            <option value="blog">Blog</option>
+            <option value="support-tickets">Support Tickets</option>
+            <option value="refund-page">Refund Page</option>
+            <option value="support-ticket/create?type=normal">Submit support ticket</option>
+            <option value="download-center">Download Center</option>
+            <option value="lesson">Choose a lesson</option>
+            <option value="customPage">Choose a page</option>
+            <option value="post">Choose a post</option>
+            <option value="livecast">Choose a livecast</option>
+            <option value="supportArticle">Choose a support article</option>
+            <option value="download">Choose a download</option>
+            <option value="bridgePage">Choose a bridgePage</option>
+        </select>
+    </div>
+    <select class="form-control" ng-model="model.url" ng-change="selectUrl(model , model.url , true)" ng-if="show_next">
+        <option ng-repeat="item in loaded_items.items" value="{{item.url}}">{{item.title}}
+        </option>
+    </select>
+    <div class="form-group" ng-hide="selected_url">
+      <input type="text" ng-blur="selectUrl(model , model.url , false)" ng-model="model.url" class="form-control">
+    </div>
+</script>

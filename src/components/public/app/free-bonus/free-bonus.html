@@ -1,0 +1,37 @@
+<div class="row" style="margin-left: auto;margin-right: auto;" ng-init="init()">
+    <div class="ui grid">
+        <div class="twelve wide column" ng-if="loading">
+            <div class="ui segment" style="min-height:200px;min-width:500px;">
+                <div class="ui active inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+            </div>
+        </div>
+        <div class="sixteen wide column" ng-if="!loading">
+
+            <div class="ui piled segment section_background_color">
+                <h1 class="grey lighter smaller">
+                    {{bonus.title}}
+                </h1>
+
+                <div ng-class="{'video-container':jv.embed_content.indexOf('<iframe') != -1}" ng-if="bonus.embed_content">
+                    <div dynamic="bonus.embed_content"></div>
+                </div>
+                <div class="video-container" style="background-color:gray;" ng-if="!bonus.embed_content">
+                </div>
+
+                <div>
+
+                    <div class="space"></div>
+                    <div dynamic="bonus.content"></div>
+                </div>
+
+                <hr>
+                <div class="space"></div>
+                <a ng-href="{{bonus.use_free_item_url?(bonus.free_item_url | parseurl):bonus.file_url}}" target="_blank" class="button center-block" style="margin-right:40px; font-size: 2.5em;background-color : {{bonus.free_item_color}}">{{bonus.free_item_text || 'Download'}}</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>

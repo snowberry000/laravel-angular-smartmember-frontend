@@ -1,0 +1,55 @@
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+	<div class="row">
+		<div class="col-lg-12">
+
+			<div class="ibox-content clear_box page-heading">
+				<div class="p-xs">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="pull-left m-r-md">
+								<i class="fa fa-edit text-branded mid-icon"></i>
+							</div>
+							<h2>{{ emailList.id ? 'Update your' : 'Create an' }} Email List</h2>
+							<span>Update / create using the form below.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<form method="get" class="form-horizontal" ng-submit="save()">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox ">
+					<div class="ibox-content">
+
+						<div class="form-group m-t-sm">
+							<label class="col-sm-2 control-label">Name</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="emailList.name">
+								<span class="help-block m-b-none">Give your list a name so you & subscribers can recognize it</span>
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+
+						<div class="form-group m-t-sm">
+							<label class="col-sm-2 control-label"></label>
+
+							<div class="col-sm-10">
+								<button class="btn btn-brand" type="button" ng-click="save()">Save</button>
+								<a class="btn btn-brand" type="button" ng-click="saveAndImport()">Save and Add Subscribers</a>
+								<a ui-sref='admin.team.email.lists' class="btn btn-default">Cancel</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
