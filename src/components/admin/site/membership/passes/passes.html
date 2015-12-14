@@ -14,11 +14,14 @@
                             <h2>{{ template_data.title | translate }}</h2>
                             <span>{{template_data.description}}</span>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-right">
                             <a ng-href="{{$state.href( template_data.edit_route )}}" class="btn btn-brand btn-large m-t-md">
                                 <i class="fa fa-plus"></i>
                                 Create new {{template_data.singular}}
-                            </a> 
+                            </a>
+                            <button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+                                <i class="fa fa-question"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

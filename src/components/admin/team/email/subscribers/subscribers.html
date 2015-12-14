@@ -6,14 +6,14 @@
             <div class="ibox-content clear_box page-heading">
                 <div class="p-xs">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <div class="pull-left m-r-md">
                                 <i class="fa fa-envelope-o text-branded mid-icon"></i>
                             </div>
                             <h2>{{ template_data.title | translate }}</h2>
                             <span>{{template_data.description}}</span>
                         </div>
-                        <div class="col-md-4 text-right">
+                        <div class="col-md-3 text-right">
                             <a ng-href="{{$state.href( template_data.edit_route )}}" class="btn btn-brand m-t-md btn-large ng-scope">
                                 <i class="fa fa-plus"></i>
                                 Add Subscriber
@@ -22,6 +22,9 @@
                                 <i class="fa fa-plus"></i>
                                 Export
                             </a>
+                            <button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+                                <i class="fa fa-question"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -12,11 +12,14 @@
 							<h2>{{ site.id ? 'UPDATE_SITE' : 'CREATE_SITE' | translate }}</h2>
 							<span>Sites are where your members can sign up & access content.</span>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3 text-right">
 							<a class="btn btn-brand btn-large m-t-md" ng-if="(can_create_sites || is_team_primaryOwner) && (site.locked != 1 && site.locked != '1' && current_company.locked != 1 && current_company.locked != '1' ) && !site.max_count_reached " ui-sref="admin.team.site({'id':''})">
 								<i class="fa fa-plus"></i>
 								Create new site
 							</a>
+							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+								<i class="fa fa-question"></i>
+							</button>
 						</div>
 					</div>
 				</div>

@@ -4,29 +4,32 @@
 			<div class="ibox-content page-heading clear_box">
 				<div class="p-xs">
 					<div class="row">
-						<div class="col-md-{{integration_id ? '8' : '12'}}">
+						<div class="col-md-9">
 							<div class="pull-left m-r-md">
 								<img src="{{integration.logo}}" width="66" height="66">
 							</div>
 							<h2>{{integration.name}}</h2>
 							<span>{{integration.description}}</span>
 						</div>
-						<div class="col-md-4 text-right" ng-if="integration_id">
-							<a class="btn btn-white btn-sm m-t-md" ng-click="enableIntegration(integration_id)" ng-if="show_disabled">
+						<div class="col-md-3 text-right">
+							<a class="btn btn-white btn-sm m-t-md" ng-click="enableIntegration(integration_id)" ng-if="integration_id && show_disabled">
 								Enable
 							</a>
-							<a class="btn btn-white btn-sm m-t-md" ng-click="disableIntegration(integration_id)" ng-hide="show_disabled">
+							<a class="btn btn-white btn-sm m-t-md" ng-click="disableIntegration(integration_id)" ng-hide="integration_id && show_disabled">
 								Disable
 							</a>
-							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="removeIntegration(integration_id)">
+							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="removeIntegration(integration_id)" ng-if="integration_id">
 								Remove
 							</a>
-							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="promptDefault(integration_id)" ng-hide="is_default">
+							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="promptDefault(integration_id)" ng-if="integration_id" ng-hide="is_default">
 								Set as Default
 							</a>
-							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="removeDefault(integration_id)" ng-if="is_default">
+							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="removeDefault(integration_id)" ng-if="integration_id && is_default">
 								Unset as Default
 							</a>
+							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+								<i class="fa fa-question"></i>
+							</button>
 
 						</div>
 					</div>

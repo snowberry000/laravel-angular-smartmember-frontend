@@ -13,13 +13,13 @@
 							<h2>Sites you've joined</h2>
 							<span>Visit them below{{!current_company.locked ? ', or find more to join in the Directory' : ''}}.</span>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3 text-right">
 							<a class="btn btn-brand btn-large m-t-md" ng-href="http://www.smartmember.com" target="_blank" ng-hide="current_company.locked">
 								Visit site directory
 								<i class="fa fa-external-link"></i>
 							</a>
-							<button class="btn btn-outline btn-primary m-t-md pull-right" ng-hide="1">
-								<i class="fa fa-info-circle"></i>
+							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+								<i class="fa fa-question"></i>
 							</button>
 						</div>
 					</div>
