@@ -4,7 +4,7 @@ app.config(function($stateProvider){
 	$stateProvider
 		.state("admin.site.content.syllabus.organizer",{
 			url: "/organizer",
-			templateUrl: "/templates/components/admin/site/content/syllabus/syllabus-organizer/syllabus-organizer.html",
+			templateUrl: "/templates/components/admin/site/content/syllabus/organizer/syllabus-organizer.html",
 			controller: "SyllabusOrganizerController",
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
@@ -26,7 +26,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
         var modalInstance = $modal.open({
             size: 'lg',
             windowClass: 'lesson-modal-window',
-            templateUrl: 'templates/components/admin/site/content/syllabus/lesson/lesson.html',
+            templateUrl: '/templates/components/admin/site/content/syllabus/lesson/lesson.html',
             controller: 'LessonEditModalInstanceCtrl',
             resolve: {
                 next_item: function(){
