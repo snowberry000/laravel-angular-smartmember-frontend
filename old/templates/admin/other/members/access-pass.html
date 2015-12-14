@@ -1,0 +1,78 @@
+<div class="animate-panel">
+    <div class="content">
+
+        <form method="get" class="form-horizontal" ng-submit="save()">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="hpanel animated-panel zoomIn"
+                         style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+                        <div class="panel-heading hbuilt">
+                            <h1><i class="ts_icon ts_icon_pencil clear_blue"></i> Edit Access Pass</h1>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">User</label>
+                                <div class="col-sm-10">
+                                    <select name="user_id" ng-model="access_pass.user_id" class="no_bottom_margin">
+										<option value="{{role.user.id}}" ng-repeat="role in roles">{{ role.user.first_name }} {{role.user.last_name}} - {{role.user.email}}</option>
+									</select>
+                                    <br>
+									<span class="help-block m-b-none">
+											Choose which member this is for
+									</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Access Level</label>
+
+                                <div class="col-sm-10">
+                                    <select name="access_level_id" ng-model="access_pass.access_level_id" class="no_bottom_margin">
+											<option name="access_level_id" value="{{access_level.id}}" ng-repeat="access_level in access_levels">{{access_level.name}}</option>
+									</select>
+                                    <br>
+									<span class="help-block m-b-none">
+										Choose which access level the member will be given
+									</span>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Expire Date</label>
+
+                                <div class="col-sm-10">
+								<input type="text" name="expire_date" placeholder="YYYY-MM-DD" class="no_bottom_margin" ng-model="access_pass.expired_at"><br>
+									<span class="help-block m-b-none">
+										Set an expiration date on this access (or leave empty for permanent)
+									</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="hpanel animated-panel zoomIn"
+                         style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+                        <div class="panel-heading hbuilt">
+                            Save
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-2">
+                                    <button class="btn btn-brand" type="submit">Save changes</button>
+                                    <a ui-sref='admin.access-passes' class="btn btn-default">Cancel</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

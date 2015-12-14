@@ -1,0 +1,55 @@
+<h1><i class="ts_icon ts_icon_paper_plane"></i> Email <a ui-sref="admin.team.email.create" class="btn btn_outline float_right">
+    <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
+    Create New Email
+</a></h1>
+
+<section>
+
+    <div id="admin_list">
+
+        <p class="show_on_mobile" style="display:none;"><a href="/admin/invites" class="bold">Email to your subscribers</a>.</p>
+
+        <div class="admin_tabs tab_set on_neutral_grey">
+            <a ui-sref="admin.team.email.emails" ui-sref-active="selected" class="tab_trigger tab {{ $state.current.name == 'admin.team.email.emails' ? 'selected': ''}}" style="padding-left: 25px; padding-right: 25px;">
+                Email
+            </a>
+            <a id="" class="tab_trigger tab {{ $state.current.name == 'admin.team.email.lists' ? 'selected': ''}}" ui-sref="admin.team.email.lists" ui-sref-active="selected" style="padding-left: 25px; padding-right: 25px;">
+                Lists
+            </name>
+            <a id="" class="tab_trigger tab {{ $state.current.name == 'admin.team.email.subscribers' ? 'selected': ''}}" ui-sref="admin.team.email.subscribers" ui-sref-active="selected" style="padding-left: 25px; padding-right: 25px;">
+                Subscribers
+            </a>
+            <a id="" class="tab_trigger tab {{ $state.current.name == 'admin.team.email.autoresponders' ? 'selected': ''}}" ui-sref="admin.team.email.autoresponders" ui-sref-active="selected" style="padding-left: 25px; padding-right: 25px;">
+                Autoresponders
+            </a>
+            <a id="" class="tab_trigger tab " ui-sref="admin.team.email.forms" ui-sref-active="selected" style="padding-left: 25px; padding-right: 25px;">
+                Optin Form
+            </a>
+            <a id="" class="tab_trigger tab " ui-sref="admin.team.email.settings" ui-sref-active="selected" style="padding-left: 25px; padding-right: 25px;">
+                Settings
+            </a>
+            <a id="" class="secondary tab_trigger tab " ui-sref="admin.team.email.queue" ui-sref-active="selected" style="padding-left: 25px; padding-right: 25px;">
+                Email Stats
+            </a>
+            <i class="tab_caret ts_icon ts_icon_caret_down"></i>
+            <i class="tab_caret ts_icon ts_icon_caret_up"></i>
+        </div>
+        <div class="tab-content bottom_margin clear_both">
+            <div class="tab_pane large_bottom_padding selected">
+                <ui-view></ui-view>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+
+<h1><i class="ts_icon ts_icon_pencil clear_blue"></i> Tracking Code</h1>
+
+<div class="card clearfix content_post">
+    <div id="post_col" class="col span_6_of_6" ng-init="init()">
+
+        <form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
+
+            <h2>Google Analytics Tracking ID (UA Code)</h2>
+            <p class="small_bottom_margin">
+                <input type="text" name="google_analytics_id" class="no_bottom_margin" ng-model="site_options.google_analytics_id" />
+            </p>
+            <hr>
+            <h2>Facebook Retargeting Pixel ID</h2>
+            <p class="small_bottom_margin">
+                <input type="text" name="facebook_retargetting_pixel" class="no_bottom_margin" ng-model="site_options.facebook_retargetting_pixel" />
+            </p>
+            <hr>
+            <h2>Facebook Conversion Tracking Pixel ID</h2>
+            <p class="small_bottom_margin">
+                <input type="text" name="facebook_conversion_pixel" class="no_bottom_margin" ng-model="site_options.facebook_conversion_pixel" />
+            </p>
+            <hr>
+            <h2>Bing ID</h2>
+            <p class="small_bottom_margin">
+                <input type="text" name="bing_id" class="no_bottom_margin" ng-model="site_options.bing_id" />
+            </p>
+            <hr>
+            <h2>Google Webmaster Verification ID</h2>
+            <p class="small_bottom_margin">
+                <input type="text" name="google_webmaster_tag" class="no_bottom_margin" ng-model="site_options.google_webmaster_tag" />
+                <small>For example: O7Iba-qgK7C6MEywEoku4RkTXRbFKxvXHQpGdnuu***</small>
+            </p>
+            <hr>
+            <h2>Bing Webmaster Verification ID</h2>
+            <p class="small_bottom_margin">
+                <input type="text" name="bing_webmaster_tag" class="no_bottom_margin" ng-model="site_options.bing_webmaster_tag" />
+                <small>For example: 0FC3FD705126161B0252E755A56</small>
+            </p>
+            <button class="btn btn-brand save_changes" type="button" ng-click="save()">
+                Save changes
+            </button>
+
+        </form>
+
+    </div>
+</div>
+

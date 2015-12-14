@@ -1,0 +1,83 @@
+<div id="right-sidebar" ng-if="app.show_engine" class="sidebar-open" ng-controller="themeEngineController">
+	<div class="sidebar-container" full-scroll>
+
+		<ul class="nav nav-tabs navs-2">
+
+			<li ng-class="{active: tab1}">
+				<a ng-click="tab1 = true; tab2 = false; tab3 = false" ng-init="tab1 = true">
+					<i class="fa fa-gear"></i>
+					Options
+				</a>
+			</li>
+			<li ng-class="{active: tab2}">
+				<a ng-click="tab2 = true; tab1 = false; tab3 = false">
+					<i class="fa fa-picture-o"></i>
+					Theme
+				</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane" ng-class="{active: tab1}">
+				<div class="sidebar-title">
+					<p>Edit the options below to preview your theme; click "save" to make your changes live.</p>
+					<button class="btn btn-primary save_changes text-center block m-t-md" style="margin: 0px auto;" type="button" ng-click="save()">Save changes</button>
+				</div>
+				<div class="setings-item" ng-repeat="theme_option in current_theme_options">
+                    <span>
+                        {{theme_option.name}}
+                    </span>
+					<div class="pull-right" ng-if="theme_option.type == 'color'">
+						<spectrum-colorpicker on-change="colorChanged(color , theme_option.slug)" options="{showInput: true, preferredFormat: 'hex'}" ng-model="meta_data[theme_option.slug]"></spectrum-colorpicker>
+					</div>
+					<div class="switch" ng-if="theme_option.type == 'switch'">
+						<div class="onoffswitch">
+							<input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example">
+							<label class="onoffswitch-label" for="example">
+								<span class="onoffswitch-inner"></span>
+								<span class="onoffswitch-switch"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div>
+
+					<div class="sidebar-message">
+						<a href="#">
+							<div class="pull-left text-center">
+								<spectrum-colorpicker class="" on-change="colorChanged(color , theme_option.slug)" options="{showInput: true, preferredFormat: 'hex'}" ng-model="meta_data[theme_option.slug]"></spectrum-colorpicker>
+							</div>
+							<div class="media-body" style="color : black">
+
+
+
+							</div>
+						</a>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="tab-pane" ng-class="{active: tab2}">
+				<div class="sidebar-title">
+					<p>Select a new theme below to preview, then click "save" to set it live.</p>
+					<button class="btn btn-primary text-center block m-t-md" style="margin: 0px auto;" type="button" ng-click="saveTheme()" ng-if="(options.theme_changed || options.theme_selection)">Save changes</button>
+				</div>
+				<ul class="sidebar-list">
+					<li ng-if="site.is_admin">
+						<select class="form-control" ng-init="options.theme = options.theme || 'default'" data-ng-options="item.slug as item.name for item in options.themes" ng-model="options.theme" ng-change="themeSelected()">
+							<option style="display:none">Select a theme</option>
+						</select>
+						<button style="color:rgb(51, 51, 51);" class="" href="#" ng-click="cancelThemeSelection()" ng-if="(options.theme_changed || options.theme_selection)">
+							Cancel
+						</button>
+					</li>
+
+				</ul>
+
+			</div>
+		</div>
+
+	</div>
+</div>

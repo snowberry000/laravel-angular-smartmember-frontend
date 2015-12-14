@@ -1,0 +1,55 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="p-xs">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="pull-left m-r-md">
+                        <i class="fa fa-globe text-branded mid-icon"></i>
+                    </div>
+                    <h2>JVZoo Affiliate Manager</h2>
+                    <p class="font-bold text-success">Automatically add your JVZoo affiliates in this section</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content" style="padding-bottom: 70px;">
+                    <div class="form-group">
+                        <h2>JVzoo Extension</h2>
+                        <span>
+                            <p class="">
+                                Install the JVzoo Extension following the instructions provided, and every time you visit JVzoo the
+                                extension will automatically add your affiliates in this management area. You can add affiliates from these JVzoo locations.
+                            </p>
+                        </span>
+                        <p style="text-align:center;">
+                            <a target="_blank" href="https://www.jvzoo.com/sellers/youraffiliates?f_aff=&f_prod=&f_stat=&r=25000" data-bypass="true">Your Affiliates</a> |
+                            <a target="_blank" href="https://www.jvzoo.com/sellers/affiliaterequests?f_aff=&r=250000" data-bypass="true">Affiliate Requests</a>
+                        </p>
+                        <a target="_blank" href="https://chrome.google.com/webstore/detail/affiliate-approval-pro/fgdfpdiamefbcdghabjipjbpabggfbfb" data-bypass="true">
+                            <button class="btn btn-success ">JV Affiliate Chrome Extension</button>
+                        </a>
+                    </div>
+                    <div class="form-group row" style="padding-top:20px;">
+                        <label class="col-md-2">
+                            Endpoint URL:
+                        </label>
+                        <div class="col-md-8" ng-init="init()">
+                            <div class="input-group">
+                                <input class="form-control input-lg endpoint-api" id="copy_me" disabled ng-model="url" />
+                                <span class="input-group-btn">
+                                    <a class="btn btn-warning" style="height:46px;" id="copy-button" data-clipboard-target="#copy_me" data-clipboard-action="copy" ng-click="copied()">Copy</a>
+                                </span>
+                            </div>
+                            <span class="help-block m-b-none">
+                                Copy this URL to the Affiliate Approval Pro extension settings
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

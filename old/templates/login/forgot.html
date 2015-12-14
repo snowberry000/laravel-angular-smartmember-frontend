@@ -1,0 +1,103 @@
+<div class="content-wrapper smart_only_area">
+    <div class="container content-item post-content" style="max-width:600px;">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="hpanel" id="login-block">
+                    <div class="panel-body">
+
+                        <div id="signup-header" style="text-align: center;">
+                            <h2>Reset your Password</h2>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 border-right animated-panel zoomIn"
+                                 style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+
+                                <div class="login-logo">
+                                    <a href="#"><img src="{{site_logo}}" alt="" class="img-responsive"></a>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6  animated-panel zoomIn"
+                                 style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+
+                                <div class="login-form">
+                                    <!-- Start Error box -->
+                                    <div class="alert alert-danger hide">
+                                        <button type="button" class="close" data-dismiss="alert"> ×</button>
+                                        <h4>Error!</h4>
+                                        Your Error Message goes here
+                                    </div>
+                                    <!-- End Error box -->
+
+                                    <div ng-show="hash">
+                                        <p>Enter a new password below</p>
+
+                                        <form action="#" method="get" class="save_form">
+                                            <input type="hidden" name="password_reset_hash" value="{{hash}}">
+                                            <input type="password" name="password" class="form-control"
+                                                   placeholder="Password" required="">
+                                            <input type="password" name="password_confirm" class="form-control"
+                                                   placeholder="Confirm Password" required="">
+                                            <button type="submit" class="btn btn-red">Save Password</button>
+                                        </form>
+                                        <div class="login-links">
+                                            <a href="/login">
+                                                Already have an account? Sign In
+                                            </a>
+                                            <br>
+                                            <a href="/login/register">
+                                                Don't have an account? <strong>Sign Up</strong>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div ng-hide="hash">
+                                        <p>Enter your email address below and we'll send a special reset password link
+                                            to
+                                            your inbox.</p>
+
+                                        <form action="#" method="get" class="save_form">
+                                            <input type="text" name="email" class="form-control" placeholder="Email"
+                                                   required="">
+                                            <button type="submit" class="btn btn-red">Reset Password</button>
+                                        </form>
+                                        <div class="login-links">
+                                            <a ng-href="/login/in">
+
+                                                Already have an account? Sign In
+                                            </a>
+                                            <br>
+                                            <a ng-href="/login/up">
+                                                Don't have an account? <strong>Sign Up</strong>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="members_login">
+                    <div>
+
+                        <div>
+                            <div class="login-box clearfix animated flipInY">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

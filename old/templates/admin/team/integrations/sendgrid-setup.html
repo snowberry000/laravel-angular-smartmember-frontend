@@ -1,0 +1,49 @@
+<div class="ibox">
+	<div class="ibox-content">
+
+		<div class="row">
+			<div class="col-md-9">
+				<h2>Setup Instructions</h2>
+				<p>Here are the steps necessary to add the {{integration.name}} integration.</p>
+			</div>
+			<div class="col-md-3 text-right">
+				<a class="btn btn-primary m-t-md" ng-init="setup_instructions_expanded = !integration_id" ng-click="setup_instructions_expanded = !setup_instructions_expanded">
+					{{!setup_instructions_expanded && 'expand' || 'close'}}
+				</a>
+			</div>
+		</div>
+
+		<div class="container-fluid m-b-lg" ng-if="setup_instructions_expanded">
+			<hr>
+			<div class="row">
+				<div class="col-md-2">
+					<h3>Step 1</h3>
+				</div>
+				<div class="col-md-10">
+					<p>If you don't already have a Sendgrid account, visit <a href="https://sendgrid.com/pricing" target="_blank">sendgrid.com/pricing <i class="fa fa-external-linkfa-sm"></i></a> to sign up for one.</p>
+					<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/sendgrid-step-1.png">
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-2">
+					<h3>Step 2</h3>
+				</div>
+				<div class="col-md-10">
+					<p>Scroll to the bottom of the page, and click the <strong>Try for Free</strong> button to sign up for their free account.</p>
+					<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/sendgrid-step-2.png">
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-2">
+					<h3>Step 3</h3>
+				</div>
+				<div class="col-md-10">
+					<p>Enter in the required details to create your new account, then paste them in the settings below.</p>
+					<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/sendgrid-step-3.png">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

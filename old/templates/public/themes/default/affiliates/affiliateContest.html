@@ -1,0 +1,52 @@
+<div class="row" style="margin-left: auto;margin-right: auto;" ng-init="init()">
+    <div class="ui grid">
+        <div class="twelve wide column" ng-if="loading">
+            <div class="ui segment" style="min-height:200px;min-width:500px;">
+                <div class="ui active inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+            </div>
+        </div>
+        <div class="sixteen wide column" ng-if="!loading">
+
+            <div class="ui piled segment section_background_color">
+                <h1 class="grey lighter smaller">
+                    {{leaderboard.contest.title}}
+                </h1>
+
+                <div class="table-responsive">
+                    <table class="ui celled padded table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Affiliate Name</th>
+                            <th>Standing</th>
+                            <th>Rank</th>
+                        </tr></thead>
+                        <tbody>
+                        <tr ng-repeat="rank in leaderboard.ranking">
+                            <td>
+                                <h2 class="ui center aligned header">{{rank.position}}</h2>
+                            </td>
+                            <td class="single line">
+                                {{rank.affiliate_name}}
+                            </td>
+                            <td class="right aligned">
+                                {{rank.standing}}
+                            </td>
+                            <td>
+                                <div class="label label-primary" style="font-size: 75%;float:left;" ng-if="rank.ahead != -1"> + {{rank.ahead}} ahead of {{rank.ahead_of}} </div>
+                                <div class="label label-success" style="font-size: 100%;float:right;">total: {{rank.rank}} </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <img ng-src="{{leaderboard.contest.featured_image}}" class="featured_image_preview img-responsive img-thumbnail" ng-show="leaderboard.contest.featured_image" />
+            </div>
+
+        </div>
+    </div>
+
+</div>

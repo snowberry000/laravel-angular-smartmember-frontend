@@ -1,0 +1,25 @@
+<div class="row wizard_steps_container" ng-init="init()">
+	<div class="col-md-12">
+
+		<div class="ibox collapsed m-b-sm" ng-repeat="(key,wizard) in wizards" id="{{ $index }}"  wizardnode>
+			<div class="ibox-title forum-item {{wizard.completed ? 'complete' : 'active'}}" ng-click="open( wizard)">
+				<div class="row">
+					<div class="col-md-1 col-xs-3">
+						<span class="fa-stack fa-2x">
+							<i class="fa {{wizard.completed ? 'fa-check-circle-o' : 'fa-circle-thin'}} fa-stack-2x"></i>
+							<strong class="fa-stack-1x" ng-hide="wizard.completed">{{key + 1}}</strong>
+						</span>
+					</div>
+					<div class="col-md-10 col-xs-9">
+						<h2 class="forum-item-title">{{ ::wizard.heading }}</h2>
+						<div class="forum-sub-title">
+							{{ ::wizard.description }}
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

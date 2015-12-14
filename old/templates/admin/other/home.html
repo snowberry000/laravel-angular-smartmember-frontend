@@ -1,0 +1,158 @@
+<nav id="site_nav" class="">
+
+    <div id="site_nav_contents">
+
+        <div id="user_menu">
+            <div id="user_menu_contents">
+                <div id="user_menu_avatar">
+                    <span class="member_image thumb_48" style="background-image: url('http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm')" data-thumb-size="48" data-member-id="U036YTK3N"></span>
+                    <span class="member_image thumb_36" style="background-image: url('')" data-thumb-size="36" data-member-id="U036YTK3N"></span>
+                </div>
+                <h3>Signed in as</h3>
+                <span id="user_menu_name">{{name}}</span>
+            </div>
+        </div>
+
+        <div class="nav_contents">
+
+            <ul class="primary_nav">
+                <li class="requires_site"><a href="/admin/dashboard"><i class="ts_icon ts_icon_home"></i>Home</a></li>
+                <li><a href="/admin/sites"><i class="ts_icon ts_icon_th_large"></i>Site Directory</a></li>
+                <li><a href="/admin/account"><i class="ts_icon ts_icon_user"></i>Account &amp; Profile</a></li>
+                <li class="requires_site"><a href="/admin/integrations"><i class="ts_icon ts_icon_wrench"></i>Integrations</a></li>
+                <li class="requires_site"><a href="/admin/smartmail"><i class="ts_icon ts_icon_paper_plane"></i>Email</a></li>
+                <li class="requires_site"><a href="/admin/associates"><i class="ts_icon ts_icon_key"></i>Affiliates</a></li>
+                <li class="requires_site"><a href="/admin/membership"><i class="ts_icon ts_icon_team_directory"></i>Members & Levels</a></li>
+                <li class="requires_site"><a href="/admin/content"><i class="ts_icon ts_icon_book"></i>Membership Content</a></li>
+                <li class="requires_site"><a href="/admin/blogging"><i class="ts_icon ts_icon_pencil"></i>Blogging</a></li>
+                <li class="requires_site"><a href="/admin/special-pages"><i class="ts_icon ts_icon_star_o"></i>Special Pages</a></li>
+                <li class="requires_site"><a href="/admin/finance"><i class="ts_icon ts_icon_credit_card"></i>Finance</a></li>
+                <li class="requires_site"><a href="/admin/marketing"><i class="ts_icon ts_icon_globe"></i>Marketing</a></li>
+                <li class="requires_site"><a href="/admin/helpdesk"><i class="ts_icon ts_icon_life_ring"></i>Support</a></li>
+                <li class="requires_site"><a href="/admin/appearance"><i class="ts_icon ts_icon_magic"></i>Appearance</a></li>
+            </ul>
+
+            <h3 class="requires_site">Administration</h3>
+            <ul id="admin_nav" class="secondary_nav">
+                <li style="display: none;"><a href="/admin/role-manager">Role Manager</a></li>
+                <li style="display: none;"><a href="/admin/seo-settings">SEO Settings</a></li>
+                <li class="requires_site"><a href="/admin/facebook-settings">Facebook Settings</a></li>
+                <li style="display: none;"><a href="/admin/fb-groups">FB Group Integration</a></li>
+
+            </ul>
+
+        </div>
+
+        <div id="footer">
+
+            <ul id="footer_nav">
+                <li style="display: none;"><a href="" target="_blank">Help<i class="ts_icon ts_icon_external_link small_left_margin"></i></a></li>
+                <li style="display: none;"><a href="/terms-of-service">Policies</a></li>
+                <li style="display: none;"><a href="http://www.internetmarketingbar.com" target="_blank">Our Site</a></li>
+                <li><a class="logout_button" data-bypass="true">Sign Out<i class="ts_icon ts_icon_sign_out small_left_margin"></i></a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+<header class="headroom headroom--pinned headroom--top">
+    <a id="menu_toggle" data-bypass="true" class="" onclick="$('body').toggleClass('nav_open');">
+        <span class="menu_icon"></span>
+        <span class="menu_label">Menu</span>
+        <span class="vert_divider"></span>
+    </a>
+    <h1 id="header_team_name" class="inline_block">
+        <a ng-href="/home/sites" href="/admin/dashboard">
+            <i class="ts_icon ts_icon_home"></i>
+            {{site_name}}
+        </a>
+    </h1>
+    <div class="header_nav">
+
+        <div class="header_btns float_right">
+            <a id="team_switcher" style="display:none;">
+                <i class="ts_icon ts_icon_th_large ts_icon_star_o"></i>
+                <span class="block label">Teams</span>
+            </a>
+            <a href="/admin/sites">
+                <i class="ts_icon ts_icon_th_large ts_icon_inherit"></i>
+                <span class="block label">Sites</span>
+            </a>
+            <a href="http://training.smartmember.com/support" id="help_link">
+                <i class="ts_icon ts_icon_life_ring ts_icon_inherit"></i>
+                <span class="block label">Help</span>
+            </a>
+            <a href="/" class="requires_site">
+                <i class="ts_icon ts_icon_external_link_square ts_icon_inherit"></i>
+                <span class="block label">View Site</span>
+            </a>
+        </div>
+
+        <ul id="header_team_nav">
+            <li class="active">
+                <a href="https://imb.slack.com/home" target="https://imb.slack.com/">
+                    <i class="ts_icon ts_icon_check_circle_o active_icon"></i>
+                    <i class="team_icon default" style="background: #303E4D;">IM</i>
+                    <span class="switcher_label team_name">Internet Marketing Bar</span>
+                </a>
+            </li>
+            <li id="add_team_option"><a href="https://slack.com/signin" target="_blank"><i class="ts_icon ts_icon_plus team_icon"></i> <span class="switcher_label">Sign in to another team...</span></a></li>
+        </ul>
+    </div>
+
+</header>
+<div id="page">
+
+    <div id="page_contents" class="">
+
+        <div id="message_container" class="span_4_of_6 float_none margin_auto no_right_padding"></div>
+
+        <div id="js-page">
+            <div class="">
+
+                <a ng-href="home/site/" class="btn float_right hide_on_mobile small_top_margin add_site_button" style="">
+                    <i class="ts_icon ts_icon_share_email"></i> Create New Site
+                </a>
+
+                <h1><i class="ts_icon ts_icon_team_directory candy_red"></i> Site Directory</h1>
+                <p>
+                    You are signed in! <strong>That</strong>, is a really great start : )
+                </p>
+
+                <div id="site_tabs">
+                    <div class="tab_set on_neutral_grey">
+                        <a  ng-if="can_see_sites" ui-sref='home.sites' ui-sref-active='selected' data-bypass="true" data-target="my_sites" id="my_sites_tab" class="tab_trigger tab">My Sites <span class="normal">{{this.stats.admin_count}}</span></a>
+                        <a ui-sref='home.membership' ui-sref-active='selected' id="my_memberships_tab" class="tab_trigger tab">My Memberships <span class="normal">{{this.stats.member_count}}</span></a>
+
+                        <i class="tab_caret ts_icon ts_icon_caret_down"></i>
+                        <i class="tab_caret ts_icon ts_icon_caret_up"></i>
+
+                    </div>
+
+                </div>
+                <div class="tab_actions" style="display: none;">
+                    <div id="team_filter" class="position_relative position_relative float_right small_top_margin small_right_margin"
+                         data-list-items-id="#team_list">
+                        <i class="icon_search ts_icon ts_icon_search"></i>
+                        <a class="ts_icon ts_icon_times_circle icon_close hidden"></a>
+                        <input type="text" class="member_filter no_margin small" name="team_filter" placeholder="Find by name">
+                    </div>
+                    <div class="clear_both"></div>
+                </div>
+
+                <div id="site_content_container" class="">
+                    <div id="team_list">
+                        <div class="tab-content large_bottom_margin">
+                            <ui-view></ui-view>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="overlay"></div>
+</div>
+<footer>
+</footer>

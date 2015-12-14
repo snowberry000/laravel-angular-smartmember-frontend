@@ -1,0 +1,52 @@
+<div class="row wrapper border-bottom white-bg page-heading" ng-init="init()">
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="p-xs">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="col-md-3">
+                        <div class="pull-left m-r-md">
+                            <i class="fa fa-globe text-branded mid-icon"></i>
+                        </div>
+                        <h2>{{page_title}}</h2>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="font-bold text-success">It's what you and customers will see to distinguish one section of articles from another. </p>
+                    </div>
+                </div>
+				<div class="col-md-3 text-right">
+					<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+						<i class="fa fa-question"></i>
+					</button>
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content" >
+                    <div class="form-group row">
+                        <label class="col-md-2">Category name </label>
+                        <div class="col-md-8">
+                            <input type="text" name="title" class="form-control" ng-model="category.title">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-brand" type="button" ng-click="save()">Save changes</button> <!-- ngIf: !template_data.use_cancel_method -->
+                            <a href="/admin/site/content/helpdesk/categories" class="btn btn-white ng-scope">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

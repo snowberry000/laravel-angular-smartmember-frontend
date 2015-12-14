@@ -1,0 +1,164 @@
+<section><div id="wrapper">
+	<div class="animate-panel">
+
+		<div class="content">
+
+
+			<div class="row">
+				<div class="col-md-8 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+					<div class="hpanel blog-article-box">
+						<div class="panel-heading" style="  padding: 30px 10px">
+							<h4>Payment Gateway Integrations</h4>
+							<p>See all the different ways below how 3rd-party payment solutions integrate with Smart Member!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<h2>Available Now</h2>
+			<hr>
+			<div class="row js-list">
+
+			<div><div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+
+	<div class="hpanel">
+		<div class="panel-body text-center">
+			<div class="row">
+				<div class="col-md-6">
+					<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/jvzoo-logo.png">
+				</div>
+				<div class="col-md-6">
+					<div class="m-t">
+						<h3><strong>JVZoo</strong></h3>
+						<p>Copy the JVZIPN URL below and paste it in your product's settings page on JVZoo.com. This will tell JVZoo to send it's purchase / refund transactions through your Smart Member site!</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="panel-footer text-center">
+			<div class="input-group">
+				<span class="input-group-addon input-lg">JVZIPN URL: </span>
+				<input type="text" placeholder="" id="payment_gateway_jvzoo" class="form-control input-lg" style="background:#fff; cursor:auto;" value="{{app.apiUrl + '/transaction?type=jvzoo&subdomain=' + app.subdomain}}" disabled>
+				<span class="input-group-btn">
+					<a class="btn" style="height:50px;" clip-copy="app.apiUrl + '/transaction?type=jvzoo&subdomain=' + app.subdomain" ng-click="copied()" >Copy</a>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+</div><div><div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+
+	<div class="hpanel">
+		<div class="panel-body text-center">
+			<div class="row">
+				<div class="col-md-6">
+					<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/stripe-logo.png">
+				</div>
+				<div class="col-md-6" ng-if="!stripe_integrated">
+					<div class="m-t">
+						<h3><strong>Stripe</strong></h3>
+						<p>Click the button below to connect your Stripe account or to create a new one if you don't have one!</p>
+					</div>
+					<a data-bypass="true" class="same_window" ng-if="!stripe_integrated" href="{{app.apiUrl + '/stripe/auth'}}" type="btn btn-brand">Connect stripe</a>
+				</div>
+				<div class="col-md-6" ng-if="stripe_integrated">
+					<div class="m-t">
+						You have already connected a Stripe account, <a data-bypass="true" class="same_window" href="{{app.apiUrl + '/stripe/auth'}}" type="btn btn-brand">click here to connect a different account. </a>
+						Make sure you are logged into the Stripe account you want to connect.
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+		
+	</div>
+</div>
+</div></div>
+
+			<h2>Coming Soon</h2>
+			<hr>
+			<div class="row mason_container" style="margin-bottom: 100px; position: relative; height: 228px;">
+				<div class="col-md-3">
+
+					<div class="hpanel">
+						<div class="panel-body text-center">
+							<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/paypal-logo.png">
+							<div class="m-t-sm">
+								<strong>PayPal</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="hpanel">
+						<div class="panel-body text-center">
+							<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/1shoppingcart-logo.png">
+							<div class="m-t-sm">
+								<strong>1ShoppingCart</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3" style="position: absolute; left: 462px; top: 0px;">
+					<div class="hpanel">
+						<div class="panel-body text-center">
+							<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/infusionsoft-logo.png">
+							<div class="m-t-sm">
+								<strong>Infusionsoft</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3" style="position: absolute; left: 693px; top: 0px;">
+					<div class="hpanel">
+						<div class="panel-body text-center">
+							<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/warriorplus-logo.jpg">
+							<div class="m-t-sm">
+								<strong>Warrior+Plus</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3" style="position: absolute; left: 231px; top: 96px;">
+					<div class="hpanel">
+						<div class="panel-body text-center">
+							<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/2checkout-logo.png">
+							<div class="m-t-sm">
+								<strong>2Checkout</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3" style="position: absolute; left: 693px; top: 97px;">
+					<div class="hpanel">
+						<div class="panel-body text-center">
+							<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/authorizenet-logo.gif">
+							<div class="m-t-sm">
+								<strong>Authorize.net</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3" style="position: absolute; left: 0px; top: 103px;">
+					<div class="hpanel">
+						<div class="panel-body text-center">
+							<img alt="logo" class="img-responsive" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/powerpay-logo.png">
+							<div class="m-t-sm">
+								<strong>PowerPay</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="clearfix"></div>
+
+		</div>
+
+	</div>
+</div>
+</section>

@@ -1,0 +1,155 @@
+<div class=" wrapper wrapper-content animated fadeInRight" ng-init="init()">
+
+    <div class="jumbotron" ng-hide="vimeo.access_token">
+        <h1>Connect to Your Vimeo Account</h1>
+
+        <p>We'll display a list of your videos for easy button-click lesson creation!</p>
+
+        <p>
+            <a ng-click="setBackUrl()" href="/admin/team/integration/vimeo/choose"
+               class="btn btn-lg btn-brand btn-vimeo-login same_window">
+                <i class="fa fa-vimeo-square"></i>
+                Please set up a Vimeo integration to import videos from
+            </a>
+        </p>
+    </div>
+
+    <div class="row" ng-show="vimeo.access_token">
+        <div class="col-lg-12">
+            <div class="ibox-content page-heading clear_box">
+                <div class="p-xs">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="pull-left m-r-md">
+                                <i class="fa fa-video text-branded mid-icon"></i>
+                            </div>
+                            <h2>Import Vimeo Videos</h2>
+                            <div class="row" ng-if="vimeo_integrations.length >= 1">
+                                <div class="col-md-6">
+                                    <span>Choose a different account</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" ng-model="selected_account" ng-change="changeAccount()">
+                                        <option ng-repeat="vimeo_integration in vimeo_integrations"
+                                                ng-selected="vimeo_integration.id == selected_account"
+                                                value="{{vimeo_integration.id}}">{{vimeo_integration.account.name ?
+                                            vimeo_integration.account.name : vimeo_integration.account.remote_id}}
+                                        </option>
+                                    </select>
+                                    <span class="help-block m-b-none">
+                                            You can add nicknames to your accounts <a
+                                            href="/admin/team/integrations/connections">here</a> for easier identification.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <a class="btn btn-brand btn-large m-t-md" ng-click="addAll()">
+                                <i class="fa fa-plus"></i>
+                                Add {{selectedTag ? 'visible videos' : 'all'}} as lessons
+                            </a>
+							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+								<i class="fa fa-question"></i>
+							</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-show="wait">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Importing Videos</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="spiner-example" style="text-align: center;padding: 20px;height: 100px;">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Your imported videos</h5>
+                            <div class="pull-right">
+                                Tag Filter &nbsp; &nbsp;
+                                <select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag"
+                                        ng-change="filter(tag.tag)"></select>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content">
+                            <div class="form-group" ng-if="true || query || pagination.current_page > 1">
+                                <input type="text" placeholder="Search" class="form-control" ng-model="$parent.searchText" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+                            </div>
+                            <div ng-if="wait" class="sk-spinner sk-spinner-three-bounce">
+                                <div class="sk-bounce1"></div>
+                                <div class="sk-bounce2"></div>
+                                <div class="sk-bounce3"></div>
+                            </div>
+                            <table class="footable table table-stripped toggle-arrow-tiny default breakpoint footable-loaded" data-page-size="25" ng-if="videos_to_show.length > 0 && !wait">
+                                <thead>
+                                <tr>
+                                    <th data-toggle="true" class="footable-visible footable-first-column footable-sortable">Video<span class="footable-sort-indicator"></span></th>
+                                    <th class="footable-visible footable-sortable">Description<span
+                                            class="footable-sort-indicator"></span></th>
+                                    <th class="footable-visible footable-sortable">Action<span class="footable-sort-indicator"></span></th>
+                                    <th data-hide="all" class="footable-sortable" style="display: none;">Thumbnail<span class="footable-sort-indicator"></span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="next_item in videos_to_show | filter:$parent.searchText"
+                                    class="footable-even"
+                                    ng-init="next_item.show_details = false" ng-class="{'footable-detail-show': next_item.show_details}" ng-if="!next_item.hide" ng-hide="next_item.added" style="display: table-row;" ng-controller="VimeoVideoController">
+                                    <td class="footable-visible footable-first-column">
+                                        <span ng-click="next_item.show_details = !next_item.show_details" class="footable-toggle"></span><a ng-href="{{next_item.link}}" target="_blank">{{next_item.name}}</a>
+                                    </td>
+                                    <td class="footable-visible">{{next_item.description}}</td>
+                                    <td class="footable-visible">
+                                        <a class="btn btn-brand btn-outline btn-xs" ng-click="addLesson(next_item)" ng-disabled="next_item.added">
+                                            {{next_item.added ? 'Added' : 'Add as lesson'}}
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end ng-style="{display: next_item.show_details ? 'table-row' : 'none'}">
+                                    <td class="footable-row-detail-cell" colspan="4">
+                                        <div class="footable-row-detail-inner">
+                                            <div class="footable-row-detail-row">
+                                                <div class="footable-row-detail-name">
+                                                    Thumbnail:
+                                                </div>
+                                                <div class="footable-row-detail-value">
+                                                    <img ng-show="next_item.pictures.sizes[1].link" src="{{next_item.pictures.sizes[1].link}}"
+                                                         class="img-responsive img-thumbnail" alt=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="5" class="footable-visible">
+                                        <div class="text-right" ng-if="!wait">
+                                            <pagination ng-if="videos.data.length > 0" total-items="videos.data.length"
+                                                        items-per-page="itemsPerPage" ng-model="pagination.currentPage" max-size="5" class="pagination-sm pull-right" boundary-links="false" ng-change="paginateIt()"></pagination>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

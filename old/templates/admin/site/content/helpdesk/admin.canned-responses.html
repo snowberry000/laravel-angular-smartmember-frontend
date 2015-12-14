@@ -1,0 +1,55 @@
+<div id="wrapper">
+	<div class="animate-panel">
+
+		<div class="content">
+			<div class="row">
+				<div class="col-md-3 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+					<div class="hpanel">
+						<div class="panel-body">
+							<div class="text-center">
+								<h2 class="m-b-xs">Canned Responses</h2>
+
+								<div class="m">
+									<i class="pe-7s-science fa-5x"></i>
+								</div>
+								<p class="">
+									Pre-written responses for support tickets
+								</p>
+								<a href="/admin/canned-response/create">
+									<button class="btn btn-success">Create New Canned Response</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9 animated-panel zoomIn" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;" infinite-scroll="loadMore()" infinite-scroll-distance='1' infinite-scroll-disabled="disable">
+					<div class="hpanel">
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Title</th>
+											<th>Created</th>
+										</tr>
+									</thead>
+									<tbody class="js-list" ng-repeat = "response in responses" >
+										<tr>
+											<td>
+												<a href="/admin/canned-response/edit/{{response.id}}">{{response.title}}</a></th>
+											<td>{{moment(response.created_at).format('ll')}}</th>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+</div>

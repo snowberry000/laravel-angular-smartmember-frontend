@@ -1,0 +1,20 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label">Featured Image</label>
+    <div class="col-sm-10">
+        <button type="button" class="btn btn-danger"
+                sm-uploader="image" ng-model="company.display_image">Choose
+            Image
+        </button>
+        <span class="help-block m-b-none">
+            This is the image that will be used for your site in our public directory listing.
+        </span>
+        <div class="width-100 text-center">
+            <img ng-show="company.display_image" sm-uploader="pending_image" ng-model="company.display_image"
+                 class="img-responsive img-thumbnail" 
+                 ng-src="{{company.display_image}}"
+                 style="width:auto; cursor: pointer;"/>
+        </div>
+        <input type="hidden" name="fb_share_image" class="form-control input-lg"
+               ng-model="company.display_image">
+    </div>
+</div>

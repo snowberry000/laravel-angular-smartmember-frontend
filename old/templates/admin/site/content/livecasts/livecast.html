@@ -1,0 +1,498 @@
+<!--<div class="animate-panel">
+
+    <div class="content" ng-init="init()">
+        <div class="row">
+            <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+                <div class="hpanel">
+                    <div class="panel-body">
+    
+                        <form class="form-horizontal save_form">
+                            <div class="form-group">
+                                <h3 class="col-sm-4 col-sm-offset-2 control-label">{{page_title}}</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">livecast Title</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" name="title" class="form-control input-lg"
+                                           ng-model="livecast.title" ng-blur="onBlurTitle($event)">
+									<span class="help-block m-b-none">
+										This is the name for your livecast - it's what you and customers will see
+										to distinguish one livecast from another.
+									</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Permalink</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-lg"
+                                           ng-model="livecast.permalink" ng-blur="onBlurSlug($event)">
+									<span class="help-block m-b-none">
+										This is the unique Url for your page.
+									</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Who should have access to this?</label>
+                                <div class="col-sm-10">
+                                    <select data-ng-options="al_type.id as al_type.name for al_type in access_level_types" class='form-control input-lg' ng-model="livecast.access_level_type"
+                                            placeholder='Select Access Permission'>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="livecast.access_level_type == 2">
+                                <label class="col-sm-2 control-label"> </label>
+
+                                <div class="col-sm-10">
+                                    <select class='form-control input-lg' ng-model="livecast.access_level_id">
+                                        <optgroup label="Default">
+                                            <option value="0">Any member</option>
+                                        </optgroup>
+                                        <optgroup label="Members who own">
+                                            <option ng-repeat="access_level in access_levels" ng-selected="livecast.access_level_id == access_level.id" value="{{access_level.id}}">{{access_level.name}}</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Livecast Content</label>
+                                <div class="col-sm-10">
+                                    <textarea name="content" class="form-control input-lg"
+                                               summernote height="150" ng-model="livecast.content" editable="editable" editor='editor' on-image-upload="imageUpload(files)" config='summernote_options'><p></p></textarea>
+									<span class="help-block m-b-none">
+									</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Video / Embed Content</label>
+
+                                <div class="col-sm-10">
+                                    <textarea name="embed_content" class="form-control input-lg"
+                                              ng-model="livecast.embed_content"></textarea>
+									<span class="help-block m-b-none">
+									</span>
+                                </div>
+                            </div>
+                      
+                            
+                            <div class="hr-line-dashed"></div>
+                            <h3 class="text-center">Discussion Settings</h3>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Show Comments Section</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="hidden" value="false" name="show_comments"/>
+                                            <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
+                                                   ng-model="livecast.discussion_settings.show_comments"
+                                                   ng-checked="livecast.discussion_settings.show_comments"/>
+                                            Check box to allow comments on this livecast
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Show Newest Comments First</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="hidden" value="false" name="newest_comments_first"/>
+                                            <input type="checkbox" ng-true-value="1" ng-false-value="0" name="newest_comments_first"
+                                                   ng-model="livecast.discussion_settings.newest_comments_first"
+                                                   ng-checked="livecast.discussion_settings.newest_comments_first"/>
+                                            Check this box to show the newest comments at the top, replies will still be
+                                            shown in chronological order
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Close to New Comments</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="hidden" value="false" name="close_to_new_comments"/>
+                                            <input type="checkbox" ng-true-value="1" ng-false-value="0" name="close_to_new_comments"
+                                                   ng-model="livecast.discussion_settings.close_to_new_comments"
+                                                   ng-checked="livecast.discussion_settings.close_to_new_comments"/>
+                                            Check this box to prevent new comments from being made. Previously made
+                                            comments will still be shown.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Allow Replies</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="hidden" value="false" name="allow_replies_to_all_comments"/>
+                                            <input type="checkbox" ng-true-value="1" ng-false-value="0" name="allow_replies_to_all_comments"
+                                                   ng-model="livecast.discussion_settings.allow_replies"
+                                                   ng-checked="livecast.discussion_settings.allow_replies"/>
+                                            Check this box to allow users to reply to anyone's comments. By default only
+                                            admin users can reply to comments, and users can only make replies on their
+                                            own comments.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Automatically Publicize All Comments</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="hidden" value="false" name="publicize_all_comments"/>
+                                            <input type="checkbox" ng-true-value="1" ng-false-value="0" name="publicize_all_comments"
+                                                   ng-model="livecast.discussion_settings.public_comments"
+                                                   ng-checked="livecast.discussion_settings.public_comments"/>
+                                            Check this box to automatically publicize all comments. By default comments
+                                            require an admin user to publicize them.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <h3 class="text-center">Scheduling Settings</h3>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Published on</label>
+
+                                    <div class="col-sm-5">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Date</span>
+                                            <input class="form-control" type="date" ng-model="livecast.published_date" />
+                                        </div>
+                                        <span class="input_note" style="margin-bottom:15px;">Choose when do you want to
+                                            publish your livecast</span>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Time</span>
+                                            <input class="form-control" type="time" ng-model="livecast.published_date" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">till</label>
+
+                                    <div class="col-sm-5">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Date</span>
+                                            <input class="form-control" type="date" ng-model="livecast.end_published_date" />
+                                        </div>
+                                        <span class="input_note" style="margin-bottom:15px;">leave empty for ever green content</span>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Time</span>
+                                            <input class="form-control" type="time" ng-model="livecast.end_published_date" />
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-md-12">
+                                    <div class="col-md-1 col-md-offset-2">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
+                                               ng-model="livecast.preview_schedule"/>
+                                    </div>
+                                    <div class="col-md-9">
+                                        Display preview?
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <h3 class="text-center">Drip-feed Settings<br/> <small>Only available for free and paid member acces lock type</small></h3>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Drip Feed Start After</label>
+
+                                <div class="col-sm-10">
+                                    <select ng-model="livecast.dripfeed_settings.duration"
+                                            class="form-control pull-left" style="width:75px;" ng-disabled="livecast.access_level_type != 2 && livecast.access_level_type != 3">
+                                        <option ng-repeat="n in range(1,30)" ng-selected="n==livecast.dripfeed_settings.duration" value="{{n}}">{{n}}</option>
+                                    </select>
+
+                                    <select ng-model="livecast.dripfeed_settings.interval"
+                                            class="form-control pull-left" style="margin-left:5px;width: 120px;" ng-disabled="livecast.access_level_type != 2 && livecast.access_level_type != 3">
+                                        <option value="hours" selected>Hours</option>
+                                        <option value="days">Days</option>
+                                        <option value="months">Months</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group small_bottom_margin">
+                                <label class="col-md-12">
+                                    <div class="col-md-1 col-md-offset-2">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
+                                               ng-model="livecast.preview_dripfeed" ng-disabled="livecast.access_level_type != 2 && livecast.access_level_type != 3"/>
+                                    </div>
+                                    <div class="col-md-9">
+                                        Display preview?
+                                    </div>
+                                </label>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <h3 class="text-center">Facebook Sharing Settings</h3>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Featured Image</label>
+
+                                <div class="col-sm-10">
+                                    <button type="button" class="set_audio_file"
+                                            sm-uploader="featured_image" ng-model="livecast.featured_image">Choose Featured Image
+                                    </button>
+                                    <div class="width-100 set_featured_image">
+                                        <img class="featured_image_preview img-responsive img-thumbnail"
+                                             ng-src="{{livecast.featured_image}}" ng-show="livecast.featured_image"
+                                             style="width:auto;"/>
+                                    </div>
+                                    <input type="hidden" name="featured_image" class="form-control input-lg"
+                                           ng-model="livecast.featured_image">
+									<span class="help-block m-b-none">
+										This is the featured image for your livecast, it is used as the image when sharing on social sites such as Facebook.
+									</span>
+                                    <div class="col-md-12" ng-if="livecast.featured_image"><i class="ace-icon fa fa-remove" ng-click="livecast.featured_image=''">Remove</i></div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-md-12">
+                                    <div class="col-md-1 col-md-offset-2">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
+                                           ng-model="livecast.always_show_featured_image"
+                                           ng-checked="livecast.always_show_featured_image"/>
+                                    </div>
+                                    <div class="col-md-9">
+                                        Show featured image on individual livecast
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Share Title</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" name="fb_share_title" class="form-control input-lg"
+                                           ng-model="livecast.seo_settings.fb_share_title">
+									<span class="help-block m-b-none">
+										This is the title that will be used when this page is shared on Facebook.
+									</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Share Description</label>
+
+                                <div class="col-sm-10">
+                                    <textarea name="fb_share_description" class="form-control input-lg"
+                                              ng-model="livecast.seo_settings.fb_share_description"></textarea>
+									<span class="help-block m-b-none">
+									</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-2">
+                                    <button class="btn btn-brand" id="livecast_submit" type="submit" ng-click="save()">Save changes</button>
+                                    <a ui-sref="admin.marketing.livecast" class="btn btn-default" onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
+                                    
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>-->
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-8">
+        <h2>{{ page_title | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ng-href="/">{{ 'HOME' | translate }}</a>
+            </li>
+            <li>
+                <a ui-sref="admin.site.content.livecast">{{ template_data.title | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ page_title | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="tabs-container">
+
+                <tabset>
+                    <tab>
+                        <tab-heading>
+                            Main Content
+                        </tab-heading>
+                        <div class="panel-body">
+                            <div ng-include="'templates/admin/site/content/common/content-options.html'"></div>
+                        </div>
+                    </tab>
+                    <!--<tab>
+                        <tab-heading>
+                            Extras
+                        </tab-heading>
+                        <div class="panel-body">
+
+                            <fieldset class="form-horizontal">
+                             
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Presenter:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="presenter" ng-model="next_item.presenter">
+                                        <span class="help-block m-b-none">If filled in, this shows under the embedded video to show the name of the person presenting the next_item.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Lesson Note:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="note" ng-model="next_item.note">
+                                        <span class="help-block m-b-none">This is the small text that shows up on the syllabus, such as a video length or "new" text, etc.</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                    </tab>-->
+                    <tab>
+                        <tab-heading>
+                            Media
+                        </tab-heading>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <input type="hidden" name="featured_image" class="" ng-model="next_item.featured_image">
+                                <label class="col-sm-2 control-label">Featured Image:</label>
+                                <div class="col-sm-10">
+                                    <button type="button" class="set_audio_file" sm-uploader="featured_image" ng-model="next_item.featured_image">Choose Featured Image
+                                    </button>
+                                    <span class="help-block m-b-none">This image will be shown when listing your content.</span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="next_item.featured_image">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <img class="featured_image_preview img-responsive img-thumbnail"
+                                         ng-src="{{next_item.featured_image}}"
+                                         style="width:auto;"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="next_item.featured_image">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <a href="" ng-click="next_item.featured_image=''">
+                                        <i class="fa fa-remove"></i> Remove
+                                    </a>
+                                
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="next_item.featured_image">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <label>
+                                            <input icheck type="checkbox" ng-true-value="1" ng-false-value="0"
+                                                   ng-model="next_item.always_show_featured_image"
+                                                   ng-checked="next_item.always_show_featured_image">
+                                            Check to show this featured image when viewing this content's individual page
+                                        </label>
+                                    </div>
+                                                                <span class="help-block m-b-none">
+                                                                    It's best to leave this unchecked if you also have video embedded in this content
+                                                                </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Video / Embed Content:</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="embed_content" ng-model="next_item.embed_content"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab>
+                        <tab-heading>
+                            Scheduling
+                        </tab-heading>
+                        <div class="panel-body">
+                            <div ng-include="'templates/admin/site/content/common/scheduling-options.html'"></div>
+                        </div>
+                    </tab>
+                    <tab>
+                        <tab-heading>
+                            Commenting
+                        </tab-heading>
+                        <div class="panel-body">
+                            <div ng-include="'templates/admin/site/content/common/commenting-options.html'"></div>
+                        </div>
+                    </tab>
+                    <tab>
+                        <tab-heading>
+                            Social Sharing
+                        </tab-heading>
+                        <div class="panel-body">
+                            <div ng-include="'templates/admin/site/content/common/social-sharing-options.html'"></div>
+                        </div>
+                    </tab>
+                </tabset>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-brand" type="button" ng-click="save()">Save changes</button>
+                            <a href="{{$state.href( template_data.cancel_route)}}" class="btn btn-white" onclick="return confirm('Are you sure you want to discard your unsaved changes? This cannot be undone.');">Cancel</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,110 @@
+<div>
+    <h3>Header Menu Items</h3>
+    <button id="add_menu_item" ng-click="addMenuItem()" class="btn btn_outline float_right">
+        <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
+        Add Item
+    </button>
+    <p class="">
+        Customize the menu for your site here.
+    </p>
+
+    <hr>
+
+    <div class="smart_only_area">
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" style="margin-bottom:0px;">
+            <thead>
+            <tr>
+                <th class="width-15">Icon</th>
+                <th class="width-40">Label</th>
+                <th class="width-45">Url</th>
+            </tr>
+            </thead>
+            <tbody class="menu_parent" data-as-sortable="dragModuleControlListeners">
+            <tr ng-show="menu_items" ng-repeat="menu_item in menu_items" class="closest_component menu_item" data-component="menu_item" style="min-height:20px" id='12' data-as-sortable-item>
+                <td>
+                    <div class="col-sm-10">
+                        <div class="width-100 set_featured_image">
+                            <img sm-uploader="icon" ng-change="updateMenuItem(menu_item)" ng-model="menu_item.custom_icon" class="featured_image_preview img-responsive img-thumbnail" ng-src="{{menu_item.custom_icon}}"  style="width:auto;" />
+                        </div>
+                        <input type="hidden" name="icon" class="form-control input-lg" ng-model="menu_item.custom_icon">
+                    </div>
+                </td>
+                <td class="width-40">
+                    <a  e-placeholder="Enter Item Name" editable-text="menu_item.label" onaftersave="updateMenuItem(menu_item)">{{ menu_item.label || 'New Item' }}</a>
+                </td>
+                <td class="width-45" ng-init="template2='templates/modals/popover.html'">
+                    <a popover-template="1" popover-toggle="menu_item.isOpen" popover-title="Enter item url" type="button" ng-click="menu_item.isOpen=true" data-html="true">{{ menu_item.url || 'Select url' }}</a>
+                    <div url-selector ng-model="menu_item" type='menu_item'></div>
+
+                    <span style="cursor:pointer;"
+                          class="glyphicon glyphicon-trash pull-right delete_menu_item" ng-click="deleteMenuItem(menu_item)"></span>
+                </td>
+
+            </tr>
+            <tr class="no_items" ng-hide="menu_items">
+                <td class="text-center" style="font-size: 40px;" colspan="3">
+                    No items added yet
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 style="margin-top: 50px;">Footer Menu Items</h3>
+    <button id="add_footer_menu_item" class="btn btn_outline float_right" ng-click="addFooterMenuItem()">
+        <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
+        Add Item
+    </button>
+    <p class="">
+        Customize the menu for your site here.
+    </p>
+
+    <hr>
+
+    <div class="smart_only_area">
+
+        <label>
+            <input type="checkbox" name="show_powered_by" ng-checked="sales_option.show_powered_by==1" ng-model="sales_option.show_powered_by" ng-true-value="1" ng-false-value="0">
+            Check box to show the "Powered by Smart Member" in the footer
+        </label>
+
+        <label>
+            <input type="checkbox" name="show_copyright" ng-checked="sales_option.show_copyright==1" ng-model="sales_option.show_copyright" ng-true-value="1" ng-false-value="0">
+            Check box to show the "© 2015" in the footer
+        </label>
+
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" style="margin-bottom:0px;">
+            <thead>
+            <tr>
+                <th class="width-55">Label</th>
+                <th class="width-45">Url</th>
+            </tr>
+            </thead>
+            <tbody class="footer_menu_parent ui-sortable">
+                <tr ng-show="footer_menu_items" ng-repeat="footer_menu_item in footer_menu_items" class="closest_component menu_item" data-component="footer_menu_item">
+                    <td class="width-40">
+                        <a  e-placeholder="Enter Item Name" editable-text="footer_menu_item.label" onaftersave="updateFooterItem(footer_menu_item)">{{ footer_menu_item.label || 'Empty' }}</a>
+                    </td>
+                    <td class="width-45">
+                       <a popover-template="1" popover-toggle="footer_menu_item.isOpen" popover-title="Enter item url" type="button" ng-click="footer_menu_item.isOpen=true" data-html="true">{{ footer_menu_item.url || 'Select url' }}</a>
+                       <div url-selector ng-model="footer_menu_item" type="footer_menu_item"></div>
+                        <span style="cursor:pointer;"
+                              class="glyphicon glyphicon-trash pull-right delete_menu_item" ng-click="deleteFooterMenuItem(footer_menu_item)"></span>
+                    </td>
+                    
+                </tr>
+                <tr ng-hide="footer_menu_items" class="no_items">
+                    <td class="text-center" style="font-size: 40px;" colspan="3">
+                        No items added yet
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="form-group" style="margin-top:10px;padding-bottom:10px">
+            <div class="col-sm-8">
+                <button class="btn btn-primary save_changes" type="button" ng-click="saveSettings()">Save changes</button>
+            </div>
+        </div>
+    </div>
+
+</div>

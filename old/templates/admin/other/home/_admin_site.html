@@ -1,0 +1,94 @@
+<div class="col-md-12 animated-panel zoomIn site_element"
+     style="animation-delay: {{this.display_delay}}s; -webkit-animation-delay: {{this.display_delay}}s;">
+    <div class="hpanel {{#if_eq this.group " admin
+    "}}horange{{/if_eq}}{{#if_not_eq this.group "admin"}}hgreen{{/if_not_eq}}">
+    <div class="panel-heading hbuilt">
+        <div class="panel-tools">
+
+            <div class="btn-group">
+                <a href="/home/site/{{site.id}}" class="btn btn-xs btn-default same_window"> Edit</a>
+                <a class="btn btn-xs btn-default delete_site" ng-click="deleteSite(site)"> Delete</a>
+            </div>
+        </div>
+        Site: {{ site.name }}
+    </div>
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-lg-4 border-right animated-panel zoomIn"
+                 style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+                <div class="well"
+                     style="height: 200px;margin-bottom: 0px;text-align:center; overflow: hidden;padding:0px;">
+                    <div ng-show="site.logo">
+
+                        <div class="thumbnail">
+                            <img ng-src="site.logo" class="img-responsive ">
+                        </div>
+                    </div>
+                    <div ng-hide="site.logo">
+
+                        <i class="pe-7s-browser" style="font-size: 165px;line-height: 200px;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 animated-panel zoomIn" style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+
+                <div class="input-group">
+                    <input type="text" class="form-control input-lg" value="{{ site.subdomain + '.' +domain+ '.' +env }}">
+						<span class="input-group-btn">
+							<a ng-href="http://{{ site.subdomain + '.' +domain+ '.' + env }}" target="_blank"
+                               class="btn btn-brand btn-lg same_window" data-bypass="true">
+                                Visit
+                            </a>
+						</span>
+                </div>
+
+                <div class="project-people">
+
+                </div>
+
+
+                <div class="row" style="margin-top:20px;">
+                    <div class="col-md-12" style="text-align: center;">
+                        <a ng-href="http://{{ site.subdomain + '.' +domain+ '.' + env }}/admin" class="btn btn-lg btn-success same_window"
+                           data-bypass="true">Dashboard</a>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 4px;">
+                    <div class="col-sm-6 project-info list">
+                        <div class="list-item-container">
+                            <div class="list-item">
+                                <small>lessons</small>
+                                <h3 class="no-margins font-extra-bold text-success"> {{site.total_lessons}}</h3>
+
+                            </div>
+                            <div class="list-item">
+                                <small>leads</small>
+                                <h3 class="no-margins font-extra-bold text-color3"> {{site.total_members}} </h3>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 project-info list">
+                        <div class="list-item-container">
+                            <div class="list-item">
+                                <small>members</small>
+                                <h3 class="no-margins font-extra-bold text-color3">{{site.total_members}} </h3>
+                            </div>
+                            <div class="list-item">
+                                <small>revenue</small>
+                                <h3 class="no-margins font-extra-bold text-success"> {{site.total_revenue}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="panel-footer">
+
+    </div>
+</div>
+</div>

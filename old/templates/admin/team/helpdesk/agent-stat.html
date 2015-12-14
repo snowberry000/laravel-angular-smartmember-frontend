@@ -1,0 +1,67 @@
+<div>
+	<div class="upper">
+		<ul class="list-group">
+			<li class="list-group-item">
+		    	<div class="row" style="min-height:100px;">
+					<div ng-if="!agent.user.profile_image" class="avatar col-md-3" style="height:100%;" >
+						<img class="col-md-9" src="//cdn.livechatinc.com/s3/default/avatars/ab5b0666feffd67600206cd519fd77ea.jpg">
+					</div>
+					<div ng-if="agent.user.profile_image" class="avatar col-md-3" style="height:100%;" >
+						<img class="col-md-9" src="{{agent.user.profile_image}}">
+					</div>
+					<div class="col-md-7 no_padding no_margin" >
+						<span class="col-md-4 col-md-offset-1 no_padding no_margin" style="text-align:left"><h3>{{agent.user.first_name}} {{agent.user.last_name}}</h3></span>
+						<span class="col-md-7"><input class="col-md-5 btn btn-brand disabled"style="padding: 0px 0px 0px !important;background-color:#428bca" value="{{jobtitle}}"></span>
+						<span class="col-md-11 col-md-offset-1 no_padding no_margin" style="text-align:left">
+						<span class="col-md-12 no_padding no_margin"></span>
+					</div>
+					<div class="col-md-2" >
+						<!-- <input class="btn btn-brand form-control"  value="Edit"></input> -->
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3" style="text-align:right;">
+						<label>Job title:</label>
+					</div>
+					<div class="col-md-8 col-md-offset-1" style="text-align:left;">
+						Support agent
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3" style="text-align:right;">
+						<label>Email:</label>
+					</div>
+					<div class="col-md-8 col-md-offset-1" style="text-align:left;">
+						{{agent.user.email}}
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="lower" style="margin-top:30px;">
+		<div class="block clearfix col-md-12">
+			<ul class="list-group">
+				<li class="list-group-item row">
+					<div>
+						<h3>
+						Tickets
+						</h3>
+					</div>
+				</li>
+				<li class="list-group-item row">
+					<div class="cold-md-12">
+						<div class="col-md-9">
+							<i class="col-md-2 fa fa-check"></i>
+							<div class="col-md-10">
+							Solved Tickets
+							</div>
+						</div>
+						<div class="col-md-3">
+							{{solvedCount}}
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>	
+	</div>
+</div>

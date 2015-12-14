@@ -1,0 +1,96 @@
+<div class="twelve wide column" ng-init="init()">
+
+	<div class="row">
+		<div class="ui segment basic">
+
+			<h2 class="ui center aligned header headline_text_color">
+				<i class="icon fa fa-life-ring"></i>
+				Help and support
+			</h2>
+		</div>
+
+	</div>
+
+	<h3 ng-show="query">Search results for "{{query}}"</h3>
+
+	<div class="row">
+		<div class="ui grid">
+			<div class="fourteen wide column">
+				<div class="ui fluid icon input">
+					<input type="text" ng-model="query" placeholder="{{options.search_lesson_text ? options.search_lesson_text : 'Search'}}">
+					<i class="icon fa fa-search"></i>
+				</div>
+			</div>
+			<div class="two wide column" ng-if="site.show_syllabus_toggle && site.show_syllabus_toggle != '0'">
+				<div class="ui icon buttons">
+					<button class="ui button toggle" ng-click="showFormat('list')" ng-class="{list:'active'}[helpdesk_format]">
+						<i class="fa fa-list icon"></i>
+					</button>
+					<button class="ui button toggle" ng-click="showFormat('thumbnail')" ng-class="{thumbnail:'active'}[helpdesk_format]">
+						<i class="fa fa-th icon"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ui one column grid">
+		<div class="column">
+
+			<div class="ui segment basic" ng-if="loading">
+				<div class="ui active inverted dimmer">
+					<div class="ui text loader">Loading</div>
+				</div>
+			</div>
+
+			<div class="ui raised segment section_background_color" ng-repeat="category in categories | orderBy : 'sort_order'" ng-if="category.articles.length > 0 && (!query || ( category.articles | filter: query).length > 0)">
+				<a sm-class="'ui red ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'">
+					{{category.id ? category.title : ( $parent.$parent.$parent.$parent.options.default_support_category_title ) }}
+				</a>
+
+				<table class="ui very basic celled table" ng-if="helpdesk_format == 'list'">
+					<thead>
+						<tr>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="article in category.articles | filter: query | orderBy : 'sort_order'">
+							<td>
+								<h4 class="ui image header">
+									<div class="content">
+										<a ng-href="/{{article.permalink}}">
+											{{article.title}}
+										</a>
+									</div>
+								</h4>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="ui three cards syllabus_cards stackable m-t-xs" ng-if="helpdesk_format == 'thumbnail'">
+					<a ng-href="/{{ article.permalink }}" class="card" ng-repeat="article in category.articles | filter: query | orderBy : 'sort_order'">
+						<div class="blurring dimmable image">
+							<div class="ui dimmer">
+								<div class="content">
+									<div class="center">
+										<div class="ui inverted button">View</div>
+									</div>
+								</div>
+							</div>
+							<img src="{{article.featured_image ? article.featured_image : '/assets/images/image.png'}}">
+						</div>
+						<div class="content">
+							<div class="header">{{article.title}}</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div class="four wide column">
+
+	<div ng-include="'templates/public/themes/default/common/sidebar.html'"></div>
+
+</div>

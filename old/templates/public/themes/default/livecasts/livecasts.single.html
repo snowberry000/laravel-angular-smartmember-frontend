@@ -1,0 +1,59 @@
+<div class="sixteen wide column" ng-if="!loading">
+	<div class="column">
+		<div class="ui compact segment basic">
+			<h2 class="ui header headline_text_color">
+				{{next_item.title}}
+			</h2>
+		</div>
+	</div>
+</div>
+<div class="twelve wide column">
+
+	<div class="ui piled segment section_background_color">
+
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui text loader">Loading</div>
+		</div>
+
+		<div class="ui embed" data-source="vimeo" data-url="{{next_item.embed_content | extractsrc}}" data-placeholder="{{next_item.featured_image}}" data-icon="right circle arrow" ng-if="next_item.embed_content && next_item.embed_content.indexOf('<iframe') != -1">
+			<div dynamic="next_item.embed_content" ng-if="next_item.embed_content"></div>
+		</div>
+
+		<div class="ui segment section_background_color" ng-if="next_item.embed_content && next_item.embed_content.indexOf('<iframe') == -1">
+			<div dynamic="next_item.embed_content" ng-if="next_item.embed_content"></div>
+		</div>
+
+		<img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && next_item.always_show_featured_image">
+
+		<div ng-if="!next_item.access">
+			<a class="ui fluid image" ng-href="{{next_item.access_level.information_url || '/sign/in/'}}">
+				<img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+			</a>
+		</div>
+
+		<div class="ui padded basic segment section_background_color">
+			<a ng-if="is_site_admin || is_team_member" ng-href="/admin/site/content/livecast/{{next_item.id}}" class="">Edit</a>
+
+			<h3 class="text-center" style="font-weight: bold;" ng-if="next_item.timeLeft > 0">
+				You can access to this content in:
+			</h3>
+			<h3 class="text-center" ng-if="next_item.timeLeft > 0">
+				<timer countdown="next_item.timeLeft" interval="1000">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
+			</h3>
+
+			<div class="row" dynamic="next_item.content"></div>
+
+			<div class="panel-footer comments_go_here" ng-show="next_item.discussion_settings.show_comments" style="margin-bottom:20px;">
+				<div ng-include="'templates/public/themes/default/common/comments.html'"></div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+<div class="four wide column">
+
+	<div ng-include="'templates/public/themes/default/common/sidebar.html'"></div>
+
+</div>

@@ -1,0 +1,128 @@
+
+    <div id="page_contents">
+        <div id="message_container" class="span_4_of_6 float_none margin_auto no_right_padding">
+
+        </div>
+        <div class="real_content card align_center span_4_of_6 col float_none margin_auto large_bottom_margin right_padding large_bottom_padding">
+            <h1> Sign in to <span class="break_word">{{current_url}}</span></h1>
+
+            <div class="col span_4_of_6 float_none margin_auto large_bottom_margin">
+                <form id="" class="save_form" action="/" method="post" accept-encoding="UTF-8">
+
+                    <p>Enter your <strong>email address</strong> and <strong>password</strong>.</p>
+
+                    <p class=" no_bottom_margin">
+                        <input type="email" id="email" name="email" size="40" value="" placeholder="E-mail">
+                    </p>
+
+                    <p class=" small_bottom_margin">
+                        <input type="password" id="password" name="password" size="40" placeholder="Password">
+                    </p>
+
+                    <p><button id="signin_btn" type="submit" class="btn btn_large full_width ladda-button log_user_in" data-style="expand-right"><span class="ladda-label">Sign in</span><span class="ladda-spinner"></span></button></p>
+
+                    <p style="display: none;"><label class="checkbox"><input type="checkbox" name="remember" checked=""> Keep me signed in</label></p>
+
+                    <p class="small"><a href="/login/forgot" class="bold">I forgot my password</a></p>
+
+                </form>
+
+                <div class="signin_msg large_top_margin large_bottom_margin">
+                    <hr class="half_width no_top_margin">
+                    <p>looking for Facebook Connect? <a href="/login/forgot/?fb=yes">click here</a></p>
+                </div>
+            </div>
+
+            <p class="subtle_silver small">
+            </p>
+        </div>
+        <div class="real_content align_center">
+            <p>New? <a href="/login/register" class="bold">create an account</a>.</p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+<div class="content-wrapper smart_only_area">
+    <div class="container content-item post-content" style="max-width:600px;">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="hpanel" id="login-block">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6 border-right animated-panel zoomIn" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+
+                                <div id="signup-header" style="text-align: center;">
+                                    <h2>Login 2</h2>
+                                </div>
+
+                                <div class="login-logo">
+                                    <a href="#"><img class="img-responsive" src="{{site_logo}}" alt=""></a>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6  animated-panel zoomIn" style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+
+                                <!--<a ng-click="facebookCheck()" data-bypass="true" style="display:block;margin: 0px auto;text-align: center;" class="same_window">
+                                    <img src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/fb-button.png" class="img-responsive" style="max-width: 300px;margin:0px auto;">
+                                    <p>It's easy, secure, free, and no spam - ever.</p>
+                                </a>
+
+                                <p class="fb-connect-or"><span>or</span></p>-->
+
+                                <div class="login-form">
+                                    <!-- Start Error box -->
+                                    <div class="alert alert-danger hide">
+                                        <button type="button" class="close" data-dismiss="alert"> ×</button>
+                                        <h4>Error!</h4>
+                                        Your Error Message goes here
+                                    </div> <!-- End Error box -->
+
+                                    <form ng-submit="login()">
+                                    <input type="text" name="email" class="form-control" placeholder="Email" required="" ng-model="user.email">
+                                        <input type="password" name="password" class="form-control" placeholder="Password" required="" ng-model="user.password">
+                                        <button type="submit" class="btn btn-red log_user_in" >Login</button>
+
+                                    </form>
+                                    <div class="login-links">
+                                        <a ng-href="/sign/forgot">
+
+                                        Forgot password?
+                                        </a>
+                                        <br>
+                                        <a ng-href="/sign/up">
+                                            Don't have an account? <strong>Sign Up</strong>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="members_login">
+                    <div>
+
+                        <div>
+                            <div class="login-box clearfix animated flipInY">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

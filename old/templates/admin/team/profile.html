@@ -1,0 +1,151 @@
+<div class="animate-panel">
+    <div class="content">
+        <div>
+            <div class="row">
+                <div class="col-md-12 animated-panel fadeInDown"
+                 >
+                    <div class="hpanel hbgblue">
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-12"
+                                     style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+                                    <div class=" m-b-md">
+                                        <h3>Team Bio</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 animated-panel zoomIn"
+                     style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+                    <div class="hpanel">
+                        <div class="list-group" style="margin:0px;">
+                        </div>
+                        <div class="panel-body">
+                            <form method="get" class="form-horizontal save_form" ng-submit="save()">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Display Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-lg"
+                                               ng-model="company.display_name" ng-blur="onBlurTitle($event)">
+                                    <span class="help-block m-b-none">
+                                        This is the title that will show up for your team in our public directory listing.
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Subtitle</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-lg"
+                                               ng-model="company.subtitle">
+                                    <span class="help-block m-b-none">
+                                        This is the subtitle that will show up under display name
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Description</label>
+                                    <div class="col-sm-10">
+                                        <textarea froala ng-model="company.bio"></textarea>
+                                    <span class="help-block m-b-none">
+                                        This is the team description that will be used for your team in our public directory listing.
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Permalink</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-lg" ng-model="company.permalink">
+                                    <span class="help-block m-b-none" ng-blur="onBlurSlug($event)">
+                                        Once approved you can view your listing at <br/> <u>http://www.smartmember.com/team/{{company.permalink}}</u>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Featured Image</label>
+                                    <div class="col-sm-10">
+                                        <button type="button" class="btn btn-danger"
+                                                sm-uploader="image" ng-model="company.display_image">Choose
+                                            Image
+                                        </button>
+                                        <span class="help-block m-b-none">
+                                            This is the image that will be used for your site in our public directory listing.
+                                        </span>
+                                        <div class="width-100 text-center">
+                                            <img ng-show="company.display_image" sm-uploader="pending_image" ng-model="company.display_image"
+                                                 class="img-responsive img-thumbnail" 
+                                                 ng-src="{{company.display_image}}"
+                                                 style="width:auto; cursor: pointer;"/>
+                                        </div>
+                                        <input type="hidden" name="fb_share_image" class="form-control input-lg"
+                                               ng-model="company.display_image">
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+
+                                <div style="margin-bottom: 10px;" class="directory_stat_toggles">
+                                    <div class="accordion_section {{company.hide_total_lessons == 1 ? '' : 'active'}}">
+                                        <a class="accordion_expand btn btn_outline" ng-click="company.hide_total_lessons=!company.hide_total_lessons">{{company.hide_total_lessons ? 'Enable' : 'Disable'}}</a>
+                                        <h4>{{company.total_lessons}} lessons
+                                            <small>total lessons count</small>
+                                        </h4>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="accordion_section {{company.hide_total_downloads == 1 ? '' : 'active'}}">
+                                        <a class="accordion_expand btn btn_outline"  ng-click="company.hide_total_downloads=!company.hide_total_downloads">{{company.hide_total_downloads ? 'Enable' : 'Disable'}}</a>
+                                        <h4>{{company.total_downloads}} downloads
+                                            <small>total downloads count</small>
+                                        </h4>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="accordion_section {{company.hide_members == 1 ? '' : 'active'}}">
+                                        <a class="accordion_expand btn btn_outline" ng-click="company.hide_members=!company.hide_members">{{company.hide_members ? 'Enable' : 'Disable'}}</a>
+                                        <h4>{{company.total_members}} members
+                                            <small>number of members</small>
+                                        </h4>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="accordion_section {{company.hide_revenue == 1 ? '' : 'active'}}">
+                                        <a class="accordion_expand btn btn_outline" ng-click="company.hide_revenue=!company.hide_revenue">{{company.hide_revenue ? 'Enable' : 'Disable'}}</a>
+                                        <h4>${{company.total_revenue}}
+                                            <small>total revenue</small>
+                                        </h4>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="accordion_section {{company.hide_sites == 1 ? '' : 'active'}}">
+                                        <a class="accordion_expand btn btn_outline" ng-click="company.hide_sites=!company.hide_sites">{{company.hide_sites ? 'Enable' : 'Disable'}}</a>
+                                        <h4>{{company.total_sites_count}}
+                                            <small>sites</small>
+                                        </h4>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <button class="btn btn-brand save_changes" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

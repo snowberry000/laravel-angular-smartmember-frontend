@@ -1,0 +1,143 @@
+<a data-action="admin_invites_modal" class="btn float_right hide_on_mobile small_top_margin" style="display:none;">
+    <i class="ts_icon ts_icon_share_email"></i> Create New Lesson
+</a>
+
+<h1><i class="ts_icon ts_icon_book thrills_purple"></i> Membership </h1>
+
+<section>
+
+    <div id="admin_list">
+
+        <p class="show_on_mobile" style="display:none;"><a href="/admin/invites" class="bold">Invite new members to your team</a>.</p>
+
+        <div class="admin_tabs tab_set on_neutral_grey">
+            <a id="" class="tab_trigger tab selected" data-target="members">
+                Members
+            </a>
+            <a id="" class="tab_trigger tab " data-target="access_levels">
+                Access Levels
+            </a>
+            <a id="" class="tab_trigger tab" data-target="access_passes">
+                Access Passes
+            </a>
+            <a id="" class="tab_trigger tab " data-target="notes">
+                Notes
+            </a>
+
+            <i class="tab_caret ts_icon ts_icon_caret_down"></i>
+            <i class="tab_caret ts_icon ts_icon_caret_up"></i>
+        </div>
+        <div class="tab-content bottom_margin clear_both">
+            <div class="tab_pane large_bottom_padding selected" id="" data-target="members" data-route="UsersAdminRoute">
+
+                <div id="wrapper" ng-init="initMembers()">
+                    <div class="animate-panel">
+
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+                                    <div class="hpanel">
+                                        <div class="panel-body">
+                                            <div class="text-center">
+                                                <h2 class="m-b-xs">Members</h2>
+                                                <p class="font-bold text-success">leads / customers</p>
+                                                <div class="m">
+                                                    <i class="pe-7s-science fa-5x"></i>
+                                                </div>
+                                                <p class="">
+                                                    Members are the users who have logged into or purchased access to your site
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <div id="example1_filter" class="dataTables_filter">
+                                        <label>Search:
+                                            <input type="text" class="form-control input-sm" placeholder="" aria-controls="example1" ng-model="query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;" infinite-scroll="loadMore()" infinite-scroll-distance='1' infinite-scroll-disabled="disable">
+                                    <div class="hpanel">
+                                        <div class="panel-body">
+                                            <table id="example1" class="display table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Access Levels</th>
+                                                    <th>Role</th>
+                                                    <th>Lessons Watched</th>
+                                                    <th>Times Visited Site</th>
+                                                    <th>Member Since</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="member in members">
+                                                    <td>
+                                                        {{ member.user.first_name + ' ' + member.user.last_name }}
+                                                        <button ng-if="member.type.role_name != 'Owner'" type="button" ng-click="toggleAccess(member)" class="btn btn-brand">
+                                            <span ng-if="member.type.role_name == 'Member'">
+                                                Make Admin
+                                            </span>
+                                            <span ng-if="member.type.role_name == 'Admin'">
+                                                Revoke Admin Access
+                                            </span>
+                                                        </button>
+                                                    </td>
+                                                    <td>{{ member.user.email }}</td>
+                                                    <td>{{member.access_level.name}}</td>
+                                                    <td>{{ member.type.role_name }}</td>
+                                                    <td>{{member.total_lessons}}</td>
+                                                    <td>{{member.total_visits}}</td>
+                                                    <td>{{ moment(member.created_at).format('ll') }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab_pane large_bottom_padding " id="" data-target="access_levels" data-route="AccessLevelsAdminRoute">
+
+            </div>
+            <div class="tab_pane large_bottom_padding " id="" data-target="access_passes" data-route="AccessLedgersAdminRoute">
+
+            </div>
+            <div class="tab_pane large_bottom_padding " id="" data-target="notes" data-route="UserNotesAdminRoute">
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+

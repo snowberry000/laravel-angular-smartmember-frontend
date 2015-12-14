@@ -1,0 +1,20 @@
+    <div class='modal-header'>
+        <h3 class='modal-title'>Create New List</h3>
+    </div>  
+    <div class='modal-body'>
+        <div class="row">
+            <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Email List Name</label>
+
+                        <div class="col-md-8">
+                            <input type="text" name="title" class="form-control input-lg" ng-model="list.name">
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class='modal-footer'>
+        <button class='btn btn-warning' ng-click='cancel()'>Cancel</button>
+        <button class='btn btn-primary' ng-click='save(list)'>Save</button>
+    </div>

@@ -1,0 +1,244 @@
+<div class="accordion_section">
+    <a class="accordion_trigger accordion_expand btn btn_outline" ng-click="general=!general">expand</a>
+    <h4>General Settings</h4>
+
+    <div ng-show="general">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Background Image</label>
+
+            <div class="col-sm-10">
+                <button type="button"
+                        sm-uploader="background_url" ng-model="bridgepage.swapspot.background_url">Choose Background Image
+                </button>
+                <div class="width-100 set_featured_image">
+                    <img class="set_featured_image img-responsive img-thumbnail" ng-src="{{bridgepage.swapspot.background_url}}"
+                         ng-show="bridgepage.swapspot.background_url" style="width:auto;"/>
+                </div>
+                <div class="col-md-12" ng-if="bridgepage.swapspot.background_url">
+                    <i class="ace-icon fa fa-remove" ng-click="bridgepage.swapspot.background_url=''">Remove</i>
+                </div>
+                <input type="hidden" name="ad" class="form-control input-lg" ng-model="bridgepage.swapspot.background_url">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion_section">
+    <a class="accordion_trigger accordion_expand btn btn_outline" ng-click="header=!header">expand</a>
+    <h4>Header</h4>
+
+    <div ng-show="header">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Tagline</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="tagline" class="form-control input-lg"
+                       ng-model="bridgepage.swapspot.tagline">
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Tagline Text Color</label>
+
+            <div class="col-sm-10">
+                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+                                      ng-model="bridgepage.swapspot.tagline_text_color"></spectrum-colorpicker>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Headline</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="headline" class="form-control input-lg"
+                       ng-model="bridgepage.swapspot.headline">
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Headline Text Color</label>
+
+            <div class="col-sm-10">
+                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+                                      ng-model="bridgepage.swapspot.headline_text_color"></spectrum-colorpicker>
+            </div>
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="accordion_section">
+    <a class="accordion_trigger accordion_expand btn btn_outline" ng-click="video=!video">expand</a>
+    <h4>Video</h4>
+
+    <div ng-show="video">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Enable video?</label>
+
+            <div class="col-sm-10">
+                <input type="checkbox" name="enable_video" class=""
+                       ng-model="bridgepage.swapspot.enable_video" ng-true-value="'block'"
+                       ng-false-value="'none'">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Embed</label>
+
+            <div class="col-sm-10">
+                <textarea name="embed" rows="10" class="form-control input-lg"
+                          ng-model="bridgepage.swapspot.embed"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="accordion_section">
+    <a class="accordion_trigger accordion_expand btn btn_outline" ng-click="optin=!optin">expand</a>
+    <h4>Optin Section</h4>
+
+    <div ng-show="optin">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Optin Heading</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="headline" class="form-control input-lg"
+                       ng-model="bridgepage.swapspot.optin_heading">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Optin Form Providers</label>
+
+            <div class="col-sm-10">
+                <select class="small" ng-model="bridgepage.swapspot.optin_type">
+                    <option value="0" selected>Choose your optin form provider</option>
+                    <optgroup label="Other">
+                        <option value="sm">Smart Member</option>
+                    </optgroup>
+                    <optgroup label="3rd-party-autoresponder">
+                        <option value="3rdparty">Custom Embed Code</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group" ng-show="bridgepage.swapspot.optin_type == 'sm'">
+            <label class="col-sm-2 control-label">Choose Email List</label>
+            <div class="col-sm-10">
+                <select class="form-control email_select" id="emailListId" placeholder="Choose Email List"
+                        ng-model="bridgepage.swapspot.emailListId"
+                        ng-options="emailList.name for emailList in emailLists">
+                </select>
+            </div>
+        </div>
+
+        <div class="hr-line-dashed"></div>
+        <div class="form-group" ng-show="bridgepage.swapspot.optin_type == 'sm'">
+            <label class="col-sm-2 control-label">Redirect URL</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="bridgepage.swapspot.redirect_url" />
+                <span class="help-block m-b-none">
+                   This will be the URL that the user will be redirect to after subscribe
+                </span>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group" ng-show="bridgepage.swapspot.optin_type == '3rdparty'">
+            <label class="col-sm-2 control-label">Optin Form</label>
+
+            <div class="col-sm-10">
+                <textarea name="embed" rows="10" class="form-control input-lg"
+                          ng-model="bridgepage.swapspot.optin_form"></textarea>
+                <a class="btn btn-primary ng-scope" ng-click="setForm()">Set Form</a>
+
+                <div ng-show="isSetForm">
+                    <label>Choose the name field: </label>
+                    <select class="optin_name_options form-control" ng-model="bridgepage.swapspot.optin_name_field" ng-options="name_option for name_option in bridgepage.swapspot.name_options"></select>
+                    <br />
+                    <label>Choose the email field: </label>
+                    <select class="optin_email_options form-control" ng-model="bridgepage.swapspot.optin_email_field" ng-options="email_option for email_option in bridgepage.swapspot.email_options"></select>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group" ng-show="bridgepage.swapspot.optin_type == '3rdparty'">
+            <label class="col-sm-2 control-label">Mark Name field as required?</label>
+
+            <div class="col-sm-10">
+                <input type="checkbox" name="mark_name_required" class=""
+                       ng-model="bridgepage.swapspot.mark_name_required" ng-true-value="'required'" ng-false-value="'notrequired'">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Turn opt-in into members</label>
+
+            <div class="col-sm-10">
+                <input type="checkbox" name="turn_optin_to_member" class=""
+                       ng-model="bridgepage.swapspot.turn_optin_to_member" ng-true-value="'1'" ng-false-value="'0'" ng-change="addSiteHiddenField()">
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="accordion_section">
+    <a class="accordion_trigger accordion_expand btn btn_outline" ng-click="button=!button">expand</a>
+    <h4>Button</h4>
+
+    <div ng-show="button">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Button Text Color</label>
+
+            <div class="col-sm-10">
+                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+                                      ng-model="bridgepage.swapspot.button_text_color"></spectrum-colorpicker>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Button Background Color</label>
+
+            <div class="col-sm-10">
+                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+                                      ng-model="bridgepage.swapspot.button_background_color"></spectrum-colorpicker>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Button Text</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="button" class="form-control input-lg" ng-model="bridgepage.swapspot.button">
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="accordion_section">
+    <a class="accordion_trigger accordion_expand btn btn_outline" ng-click="footer=!footer">expand</a>
+    <h4>Footer</h4>
+
+    <div ng-show="footer">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Copyright Text</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="copyright" class="form-control input-lg"
+                       ng-model="bridgepage.swapspot.copyright">
+            </div>
+        </div>
+
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Custom Footer HTML</label>
+
+            <div class="col-sm-10">
+                <textarea id="summernote" name="content" wrap="virtual" ng-model="bridgepage.swapspot.footer_custom_html" summernote editable="editable" editor='editor' on-image-upload="imageUpload(files , 'content')" config='summernote_options'><p></p></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+
+

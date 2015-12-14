@@ -1,0 +1,72 @@
+<div class="tab-content bottom_margin clear_both">
+    <div class="tab_pane large_bottom_padding selected">
+<section>
+	
+	<div class="row">
+		<div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+			<div class="hpanel">
+				<div class="panel-heading hbuilt">
+					Marketing Banner Click Stats
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-4 text-center">
+							<div class="small">
+								<i class="fa fa-file-text"></i> Total Views
+							</div>
+							<div>
+								<h1 id="total_sale_count" class="font-extra-bold m-t-xl m-b-xs">{{ad.views}}</h1>
+								<small>Your banner was viewed this many times.</small>
+							</div>
+							
+						</div>
+
+						<div class="col-md-4 text-center">
+							<div class="small">
+								<i class="fa fa-hand-o-up"></i> Total Clicks
+							</div>
+							<div>
+								<h1 id="net_income" class="m-xs">{{ad.clicks}}</h1>
+								<small>Your banner was clicked at this many times.</small>
+							</div>
+						</div>
+
+						<div class="col-md-4 text-center">
+							<div class="small">
+								<i class="fa fa-bolt"></i> Clicks/Views Ratio
+							</div>
+							<div>
+								<h1 ng-if="ad.views != 0" id="sales_per_day" class="font-extra-bold m-t-xl m-b-xs">{{ ad.clicks / ad.views | number:2 }}</h1>
+								<h1 ng-if="ad.views == 0" id="sales_per_day" class="font-extra-bold m-t-xl m-b-xs">0.0</h1>
+								<small>Data from All time</small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
+			<div class="hpanel">
+				<div class="panel-heading hbuilt">
+					<i class="fa fa-pie-chart"> 
+					 Views and Clicks
+				</div>
+				<div class="panel-body">
+					<div class="row" style="width:50%; margin: 0 auto;">
+						<div class="flot-chart" style="width:400px;">
+							<div flot class="flot-chart-content" height="200" dataset="charts.data" options="charts.options"></div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</div>
+</div>

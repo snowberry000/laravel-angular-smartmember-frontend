@@ -25,7 +25,9 @@ var paths = {
 	less: 'src/**/*.less',
 	js: 'src/**/*.js',
 	templates: 'src/**/*.html',
-	dist : 'dist'
+	dist : 'dist',
+	fonts: 'src/core/fonts/**/*',
+	images: 'src/core/images/**/*'
 };
 
 gulp.task('bower', function(){
@@ -84,15 +86,13 @@ gulp.task('templates', function() {
         .pipe(gulp.dest('dist/templates'));
 });
 
-gulp.task('img',function(){
-	return gulp.src('src/core/img/*')
-		.pipe(gulp.dest('dist/img'));
-});
 
 gulp.task('watch', function() {
     gulp.watch(paths.js, ['js']);
     gulp.watch(paths.less, ['less']);
     gulp.watch(paths.templates, ['templates']);
+	gulp.watch(paths.fonts, ['fonts']);
+	gulp.watch(paths.images, ['images']);
     gulp.watch('src/index.php', []);
 });
 
@@ -121,15 +121,20 @@ var path = require('path');
 
 gulp.task('less', function () {
 
-  return gulp.src(['src/core/less/main.less','src/components/**/*.less'])
-  	.pipe(concat('src/core/less/main.min.less'))
-    .pipe(less(
-    	{
-    		paths: [path.join('src/core/less/')]
-    	}
-    ))
-    .pipe(concat('main.min.css'))
-    .pipe(gulp.dest('dist/css/'));
+	return gulp.src([
+				'src/core/less/index.less',
+				'src/components/**/*.less'
+			])
+			//.pipe(concat('index.min.less'))
+			.pipe(less({
+				strictMath: true
+			}))
+			.pipe(concat('main.min.css'))
+			.pipe(gulp.dest('dist/css/'));
+
+
+
+
 });
 
 gulp.task('bpage', function () {
@@ -159,8 +164,19 @@ gulp.task("upload", function() {
 });
 
 
-gulp.task('compile',['inject','bower','js','templates','less','img','bpage']);
-gulp.task('default',['inject','bower','js','templates','less','img','bpage','watch']);
+gulp.task('fonts', function () {
+	return gulp.src(paths.fonts)
+			.pipe(gulp.dest('dist/fonts/'));
+});
+
+gulp.task('images', function () {
+	return gulp.src(paths.images)
+			.pipe(gulp.dest('dist/images/'));
+});
+
+
+gulp.task('compile',['inject','bower','js','templates','less','images','fonts','bpage']);
+gulp.task('default',['inject','bower','js','templates','less','images','fonts','bpage','watch']);
 
 gulp.task('production',['compile' , 'upload'],function(){
 	runSequence('replace_vendor', function(){

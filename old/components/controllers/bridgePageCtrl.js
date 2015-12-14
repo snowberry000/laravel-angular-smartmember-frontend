@@ -1,0 +1,476 @@
+app.controller('adminBridgePagesController', function ($scope, $localStorage, $site, $state, $stateParams, $modal, $filter, Restangular, toastr) {
+    $scope.template_data = {
+        title: 'BRIDGE PAGES',
+        description: 'Bridge Pages are your "marketing" pages. They are stand-alone designed pages used to collect leads or inform visitors of something - like a product, service, update, video, you name it! They exist on their own url\'s and stand separate from your site\'s normal theme.',
+        singular: 'bridge page',
+        edit_route: 'admin.site.pages.bridge-page',
+        api_object: 'bridgePage'
+    }
+
+    $scope.data = [];
+    $scope.pagination = {current_page: 1};
+    $scope.pagination.total_count = 1;
+
+    $scope.paginate = function(){
+
+        if( typeof $scope.data[ $scope.pagination.current_page] != 'object' ) {
+
+            $scope.loading = true;
+
+            var $params = {p: $scope.pagination.current_page, site_id: $site.id};
+
+            if ($scope.query) {
+                $params.q = encodeURIComponent( $scope.query );
+            }
+
+            Restangular.all('').customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' )).then(function (data) {
+                $scope.loading = false;
+                $scope.pagination.total_count = data.total_count;
+                $scope.data[ $scope.pagination.current_page] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+            });
+        }
+    }
+
+    $scope.paginate();
+
+    $scope.search = function()
+    {
+        $scope.loading = true;
+        $scope.data = [];
+        $scope.pagination = {current_page: 1};
+        var $params = { site_id :$site.id , p : $scope.pagination.current_page};
+
+        if ($scope.query){
+            $params.q = encodeURIComponent( $scope.query );
+        }
+
+        Restangular.all('').customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' ) ).then(function(data){
+            $scope.pagination.total_count = data.total_count;
+
+            $scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+
+            $scope.loading = false;
+        } , function(error){
+            $scope.data = [];
+        })
+    }
+
+    $scope.cloneBridgePage = function(page_id) {
+        Restangular.one('bridgePage' , page_id).get().then(function(page){
+
+            var seo = {};
+            if (page.seo_settings) {
+                $.each(page.seo_settings, function (key, data) {
+                    seo[data.meta_key] = data.meta_value;
+
+                });
+            }
+            page.seo_settings = seo;
+
+            var swapspot = {};
+            //initiate default swapspot value
+            if (page.swapspots)
+            {
+                $.each(page.swapspots, function (key, data) {
+                    swapspot[data.name] = data.value;
+                });
+            }
+            page.swapspot = swapspot;
+
+            var clonedBridgePage = {
+                access_level_type: page.access_level_type,
+                permalink: page.permalink,
+                seo_settings: page.seo_settings,
+                site_id: page.site_id,
+                swapspot: page.swapspot,
+                template_id: page.template_id,
+                title: page.title
+            };
+
+            Restangular.all('bridgePage').post(clonedBridgePage).then(function (page) {
+                $scope.data[ $scope.pagination.current_page ].shift(page);
+                toastr.success("Bridge page has been cloned!");
+                $state.go("admin.site.pages.bridge-page" , {"id" : page.id});
+            });
+        });
+    }
+
+    $scope.delete = function (page) {
+
+        var modalInstance = $modal.open({
+            templateUrl: 'templates/modals/deleteConfirm.html',
+            controller: "modalController",
+            scope: $scope,
+            resolve: {
+                id: function () {
+                    return page.id
+                }
+            }
+
+        });
+
+        modalInstance.result.then(function () {
+        
+            page.remove().then(function () {
+                $scope.data[ $scope.pagination.current_page ] = _.without($scope.data[ $scope.pagination.current_page ], page);
+            });
+        })
+    };
+});
+
+app.controller('adminBridgePageController', function ($scope, $localStorage, $site , $page ,$templates, $state, $stateParams, $modal, $filter, Restangular, toastr, Upload, $rootScope, $window, $emailLists, $sce) {
+
+    $scope.bridgepage = $page;
+    $scope.templates = $templates;
+    $scope.visible = false;
+
+
+    $scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.'+ $rootScope.app.domain : $rootScope.app.domain;
+    if ($scope.bridgepage.id == undefined)
+    {
+        $scope.template = $scope.templates[1];
+    } else {
+        $scope.template = _.findWhere($scope.templates, {id: $scope.bridgepage.template_id});
+    }
+    $scope.bridgepage.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
+
+    var seo = {};
+    if ($page.seo_settings) {
+        $.each($page.seo_settings, function (key, data) {
+            seo[data.meta_key] = data.meta_value;
+
+        });
+    }
+    $scope.bridgepage.seo_settings = seo;
+
+    var swapspot = {};
+    //initiate default swapspot value
+    if ($page.swapspots)
+    {
+        $.each($page.swapspots, function (key, data) {
+           swapspot[data.name] = data.value;
+        });
+    }
+    $scope.bridgepage.swapspot = swapspot;
+    $scope.emailLists = $emailLists;
+
+    if ($scope.bridgepage.id == undefined)
+    {
+        $scope.bridgepage.swapspot.greentime = 0;
+        $scope.bridgepage.swapspot.enable_timer = 'block';
+        $scope.bridgepage.swapspot.timer_settings = 2;
+        $scope.bridgepage.swapspot.duration = 1;
+        $scope.bridgepage.swapspot.interval = 'hours';
+        $scope.bridgepage.swapspot.show_guarantee_text = 'block';
+        $scope.bridgepage.swapspot.time_end_action = 1;
+        $scope.bridgepage.swapspot.enable_popup = 0;
+        $scope.bridgepage.swapspot.emailListId = $emailLists[0];
+    } else {
+        $scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl($scope.bridgepage.swapspot.optin_action);
+        $scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, {id: $scope.bridgepage.swapspot.sm_list_id });
+    }
+    if ($scope.bridgepage.swapspot.enable_popup)
+    {
+        $scope.bridgepage.swapspot.enable_popup = parseInt($scope.bridgepage.swapspot.enable_popup);
+    }
+
+    $scope.range = function(min, max, step){
+        step = step || 1;
+        var input = [];
+        for (var i = min; i <= max; i += step) input.push(i);
+        return input;
+    };
+
+    $scope.imageUpload = function(files){
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            Upload.upload({
+                url: $scope.app.apiUrl + '/utility/upload',
+                file: file
+            })
+                .success(function (data, status, headers, config) {
+                    console.log(data.file_name);
+                    var editor = $.summernote.eventHandler.getModule();
+                    file_location = '/uploads/'+data.file_name;
+                    editor.insertImage($scope.editable, data.file_name);
+                }).error(function (data, status, headers, config) {
+                    console.log('error status: ' + status);
+                });
+        }
+    }
+
+    $scope.toTimeStamp = function($event)
+    {
+        if ($scope.bridgepage.swapspot.day)
+        {
+            $scope.bridgepage.swapspot.timestamp = moment($scope.bridgepage.swapspot.day).format('x');
+        }
+    }
+
+    if ($scope.bridgepage.swapspot.enable_timer)
+    {
+        $scope.bridgepage.swapspot.timer_column = 'col-sm-8';
+    } else {
+        $scope.bridgepage.swapspot.timer_column = 'col-sm-12';
+    }
+
+    $scope.toTimeStampGreen = function()
+    {
+        switch($scope.bridgepage.swapspot.interval)
+        {
+            case 'minutes':
+                $scope.bridgepage.swapspot.greentime = $scope.bridgepage.swapspot.duration * 60 * 1000;
+                break;
+            case 'hours':
+                $scope.bridgepage.swapspot.greentime = $scope.bridgepage.swapspot.duration * 3600 * 1000;
+                break;
+            case 'days':
+                $scope.bridgepage.swapspot.greentime = $scope.bridgepage.swapspot.duration * 3600 * 24 * 1000;
+                break;
+            case 'months':
+                $scope.bridgepage.swapspot.greentime = $scope.bridgepage.swapspot.duration * 3600 * 24 * 30 * 1000;
+                break;
+        }
+    }
+
+    $scope.onBlurTitle = function ($event) {
+        if (!$scope.bridgepage.permalink)
+            $scope.bridgepage.permalink = $filter('urlify')($scope.bridgepage.title);
+        $scope.bridgepage.seo_settings.fb_share_title = $scope.bridgepage.title;
+    }
+    $scope.onBlurSlug = function ($event) {
+        if ($scope.bridgepage.permalink)
+            $scope.bridgepage.permalink = $filter('urlify')($scope.bridgepage.permalink);
+    }
+
+    $scope.cloneBridgePage = function () {
+        $scope.bridgepage.put().then(function(page){
+            toastr.success("Bridge page has been updated!");
+            $scope.bridgepage = page;
+
+            var clonedBridgePage = {
+                access_level_type: $scope.bridgepage.access_level_type,
+                permalink: $scope.bridgepage.permalink,
+                seo_settings: $scope.bridgepage.seo_settings || {},
+                site_id: $scope.bridgepage.site_id,
+                swapspot: $scope.bridgepage.swapspot || {},
+                template_id: $scope.bridgepage.template_id,
+                title: $scope.bridgepage.title,
+            };
+
+            $scope.bridgepage = clonedBridgePage;
+
+            console.log('cloned page: ', $scope.bridgepage );
+
+            $scope.save(true);
+        });
+    }
+
+    $scope.setColumn = function () {
+        if ($scope.bridgepage.swapspot.enable_timer == 'block')
+        {
+            $scope.bridgepage.swapspot.timer_column = 'col-sm-8';
+        } else {
+            $scope.bridgepage.swapspot.timer_column = 'col-sm-12';
+        }
+    }
+
+    $scope.save = function (cloned) {
+
+        if ($scope.bridgepage.permalink == '' || $scope.bridgepage.permalink == undefined) {
+            toastr.error("Permalink is required");
+            return;
+        }
+
+        if ($scope.bridgepage.title == '' || $scope.bridgepage.title == undefined)
+        {
+            toastr.error("Titlte is required");
+            return;
+        }
+
+        if ($scope.bridgepage.swapspot.enable_timer)
+        {
+            $scope.bridgepage.swapspot.timer_column = 'col-sm-8';
+        } else {
+            $scope.bridgepage.swapspot.timer_column = 'col-sm-12';
+        }
+
+        if ($scope.bridgepage.swapspot.day)
+        {
+            $scope.bridgepage.swapspot.timestamp = moment($scope.bridgepage.swapspot.day).format('x');
+        }
+
+        if( $scope.bridgepage.permalink == '' )
+            this.onBlurTitle(null);
+
+        if ($scope.bridgepage.swapspot.optin_type == 'sm')
+        {
+            $scope.bridgepage.swapspot.optin_name_field = 'name';
+            $scope.bridgepage.swapspot.optin_email_field = 'email';
+            $scope.bridgepage.swapspot.optin_action = 'https://api.smartmember.com/optin';
+            $scope.bridgepage.swapspot.option_hidden_fields = '';
+            if ( $scope.bridgepage.swapspot.emailListId != undefined)
+            {
+                $scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="list" value="' + $scope.bridgepage.swapspot.emailListId.id + '">\n' +
+                    '<input type="hidden" name="team" value="' + $scope.bridgepage.swapspot.emailListId.company_id + '">\n';
+                $scope.bridgepage.swapspot.sm_list_id = $scope.bridgepage.swapspot.emailListId.id;
+            }
+            $scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="redirect_url" value="' + $scope.bridgepage.swapspot.redirect_url + '">\n' ;
+
+        }
+
+        if ($scope.bridgepage.swapspot.turn_optin_to_member == '1' || $scope.bridgepage.swapspot.turn_optin_to_member)
+        {
+            if ($scope.bridgepage.swapspot.option_hidden_fields != undefined && $scope.bridgepage.swapspot.option_hidden_fields.indexOf('site_id') == -1)
+            {
+                $scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="site_id" value="' + $scope.bridgepage.site_id + '">';
+            }
+        }
+
+
+        
+        $scope.bridgepage.template_id = $scope.template.id;
+        $scope.bridgepage.site_id = $site.id;
+        if ($scope.bridgepage.id) {
+            $scope.bridgepage.put();
+            $state.go("admin.site.pages.bridge-pages");
+            toastr.success("Bridge page has been updated!");
+        }
+        else {
+            Restangular.all('bridgePage').post($scope.bridgepage).then(function (page) {
+                $scope.bridgepage = page;
+
+                if( typeof cloned == 'undefined' || cloned != true) {
+                    $state.go("admin.site.pages.bridge-pages");
+                    toastr.success("Bridge page has been saved!");
+                } else {
+                    $state.go("admin.site.pages.bridge-page",{id: page.id});
+                    window.scrollTo(0,0);
+                    toastr.success("Bridge page has been cloned!");
+                }
+            });
+        }
+
+    }
+
+    $scope.addSiteHiddenField = function()
+    {
+        if ($scope.bridgepage.swapspot.option_hidden_fields != undefined)
+        {
+            $scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="site_id" value="' + $scope.bridgepage.site_id + '">';
+        } else {
+            $scope.bridgepage.swapspot.option_hidden_fields = '<input type="hidden" name="site_id" value="' + $scope.bridgepage.site_id + '">';
+        }
+    }
+
+    $scope.setForm = function() {
+        $scope.isSetForm = true;
+        var optin_html = $scope.bridgepage.swapspot.optin_form;
+
+        var hidden_inputs = '';
+        $( optin_html ).find('input[type=hidden]').each(function(){
+            hidden_inputs += $(this).wrap('<div>').parent().html() + "\n";
+        } );
+
+        if( typeof $( 'input', optin_html)[0].closest('form') != 'undefined' && typeof $( $( 'input', optin_html)[0].closest('form') ).attr('action') != 'undefined' ) {
+            var form_action = $($('input', optin_html)[0].closest('form')).attr('action');
+
+            var name_field = '';
+
+            if (typeof $(optin_html).find('input[name=name]') != 'undefined' && $(optin_html).find('input[name=name]').length > 0)
+                name_field = 'name';
+            else if (typeof $(optin_html).find('input[name=full_name]') != 'undefined' && $(optin_html).find('input[name=full_name]').length > 0)
+                name_field = 'full_name';
+            else if (typeof $(optin_html).find('input[name=fname]') != 'undefined' && $(optin_html).find('input[name=fname]').length > 0)
+                name_field = 'fname';
+            else {
+                $(optin_html).find('input:not([type=hidden])').each(function () {
+                    if (typeof $(this).attr('name') != 'undefined' && $(this).attr('name').indexOf('name') != -1) {
+                        name_field = $(this).attr('name');
+                        return false;
+                    }
+                });
+            }
+            var name_options = [];
+            var email_options = [];
+
+            $(optin_html).find('input:not([type=hidden]):not([type=submit]):not([type=image])').each(function () {
+                if (typeof $(this).attr('name') != 'undefined') {
+                    name_options.push($(this).attr('name'));
+                    email_options.push($(this).attr('name'));
+                }
+            });
+
+            $scope.bridgepage.swapspot.name_options = name_options;
+            $scope.bridgepage.swapspot.email_options = email_options;
+
+            var email_field = $(optin_html).find('input[name=email]').attr('name');
+            if (typeof $(optin_html).find('input[name=email]') != 'undefined' && $(optin_html).find('input[name=email]').length > 0)
+                email_field = 'email';
+            else if (typeof $(optin_html).find('input[name=email_address]') != 'undefined' && $(optin_html).find('input[name=email_address]').length > 0)
+                email_field = 'email_address';
+            else if (typeof $(optin_html).find('input[name=emailaddress]') != 'undefined' && $(optin_html).find('input[name=emailaddress]').length > 0)
+                email_field = 'emailaddress';
+            else {
+                $(optin_html).find('input:not([type=hidden])').each(function () {
+                    if (typeof $(this).attr('name') != 'undefined' && $(this).attr('name').indexOf('email') != -1) {
+                        email_field = $(this).attr('name');
+                        return false;
+                    }
+                });
+            }
+            if ( $scope.bridgepage.swapspot.option_hidden_fields != undefined)
+            {
+                $scope.bridgepage.swapspot.option_hidden_fields += hidden_inputs;
+            } else {
+                $scope.bridgepage.swapspot.option_hidden_fields = hidden_inputs;
+            }
+
+            $scope.bridgepage.swapspot.optin_action = form_action;
+            $scope.bridgepage.swapspot.optin_name_field = name_field;
+            $scope.bridgepage.swapspot.optin_email_field = email_field;
+            toastr.success("Your form has been parsed successfully");
+        }
+        else
+        {
+            toastr.error("We could not parse this form. Make sure it has valid form tag");
+        }
+    }
+});
+
+app.controller('bridgePageController', function ($scope, $localStorage, $interpolate, $state, $stateParams, $modal, $filter, Restangular, toastr, $location, $sce, $rootScope) {
+    $scope.loading=true;
+    Restangular.one('bridgePageByPermalink', $stateParams.permalink).get().then(function(response){
+        $page=response;
+        $scope.loading=false;
+        $scope.bridgepage = $page;
+        $rootScope.page_title = $scope.bridgepage.title;
+        $scope.template = $scope.bridgepage.template;
+        $scope.visible = false;
+        $scope.data = {};
+        var swapspot = {};
+        var query_strings = $location.search();
+        if (query_strings)
+        {
+            $.each(query_strings, function(key, data) {
+                // swapspot[key] = data;
+                $scope[key] = data;
+            })
+        }
+        if ($page.swapspots)
+        {
+            $.each($page.swapspots, function (key, data) {
+                swapspot[data.name] = ($interpolate(data.value)($scope))
+
+            });
+        }
+        $scope.bridgepage.swapspot = swapspot;
+        $scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl($scope.bridgepage.swapspot.optin_action);
+    });
+});
+
+app.controller('pagesController', function ($scope, $localStorage, $state, $stateParams, $modal, $filter, Restangular, toastr ) {
+    //$scope.page = $page;
+
+});

@@ -1,0 +1,490 @@
+<div style="min-height:500px;" ng-init="init()">
+    <div class="form-group">
+        <label>Choose E-mail to Send</label>
+        <select class="form-control" ng-model="queueEmailData.email_id" data-ng-options="email.id as email.subject for email in emails">
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Schedule date and time to send (leave blank to send now)</label>
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">Date</span>
+                    <input class="form-control" type="date" ng-model="queueEmailData.send_date" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">Time</span>
+                    <input class="form-control" type="time" ng-model="queueEmailData.send_time" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Choose who to send to</label>
+        <ul class="criteria-list col-md-12" style="margin-top:20px;">
+            <li title="" original-title="" style="position: relative;">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('email_list_selector')" ng-init="email_list_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">Email Lists:</span> {{queueEmailData.emailLists.indexOf(true) != -1 ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="email_list_selector">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" id="searcher-type-multi-select" data-query="">
+                                        <div class="check-list-field-container">
+                                            <input placeholder="Search..." ng-model="search" class="aui-field check-list-field searcher-type-input">
+                                            <span class="icon-default aui-icon aui-icon-small aui-iconfont-search noloading"></span>
+                                        </div>
+                                        <div class="aui-list" id="searcher-type-suggestions" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul class="aui-list-section" ng-if="queueEmailData.emailLists.indexOf(true) != -1" style="height:30px;">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <a href="#" ng-click="queueEmailData.emailLists=[];listChanged()">Clear Selections</a>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <h5>Email lists:</h5>
+                                                <ul class="aui-list-section"
+                                                    aria-label="Standard Issue Types">
+                                                    <li ng-repeat="list in emailLists | filter: search" class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <input ng-change="listChanged()" type="checkbox" tabindex="-1" ng-model="queueEmailData.emailLists[list.id]" ng-checked="queueEmailData.emailLists[list.id]">{{list.name}}
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li title="" original-title="">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('site_members_selector')" ng-init="site_members_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">Members:</span> {{queueEmailData.siteMembers.indexOf(true) != -1 ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="site_members_selector">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" data-query="">
+                                        <div class="check-list-field-container">
+                                            <input placeholder="Search..." ng-model="site_search" class="aui-field check-list-field searcher-type-input">
+                                            <span class="icon-default aui-icon aui-icon-small aui-iconfont-search noloading"></span>
+                                        </div>
+                                        <div class="aui-list" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul class="aui-list-section" ng-if="queueEmailData.siteMembers.indexOf(true) != -1" style="height:30px;">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <a href="#" ng-click="queueEmailData.siteMembers=[];listChanged()">Clear Selections</a>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <h5>Members of:</h5>
+                                                <ul  class="aui-list-section"
+                                                     aria-label="Standard Issue Types">
+                                                    <li ng-repeat="site in sites | filter: site_search" class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <input ng-change="listChanged()" type="checkbox" tabindex="-1" ng-model="queueEmailData.siteMembers[site.id]" ng-checked="queueEmailData.siteMembers[site.id]">{{site.name}}</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li title="" original-title="">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('access_levels_selector')" ng-init="access_levels_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">Access Levels:</span> {{queueEmailData.accessLevels.indexOf(true) != -1 ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="access_levels_selector">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" data-query="">
+                                        <div class="check-list-field-container">
+                                            <input placeholder="Search..." ng-model="access_level_search" class="aui-field check-list-field searcher-type-input">
+                                            <span class="icon-default aui-icon aui-icon-small aui-iconfont-search noloading"></span>
+                                        </div>
+                                        <div class="aui-list" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul class="aui-list-section" ng-if="queueEmailData.accessLevels.indexOf(true) != -1" style="height:30px;">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <a href="#" ng-click="queueEmailData.accessLevels=[];listChanged()">Clear selections</a>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <h5></h5>
+                                                <ul  class="aui-list-section">
+                                                    <li ng-repeat="accessLevel in accessLevels | filter: access_level_search" class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="{{_.findWhere(sites,{id: accessLevel.site_id}).name}}">
+                                                            <input ng-change="listChanged()" type="checkbox" tabindex="-1" ng-model="queueEmailData.accessLevels[accessLevel.id]" ng-checked="queueEmailData.accessLevels[accessLevel.id]">{{accessLevel.name}}</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li title="" original-title="">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('ownership_type_selector')" ng-init="ownership_type_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">Ownership Type:</span> {{queueEmailData.ownershipTypes.owned == true || queueEmailData.ownershipTypes.refunded == true ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="ownership_type_selector" style="height:100px;">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" data-query="">
+                                        <div class="aui-list" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul  class="aui-list-section">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label">
+                                                            <input ng-change="listChanged()" type="checkbox" tabindex="-1" ng-model="queueEmailData.ownershipTypes.owned" ng-checked="queueEmailData.ownershipTypes.owned">Owned
+                                                        </label>
+                                                    </li>
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label">
+                                                            <input ng-change="listChanged()" type="checkbox" tabindex="-1" ng-model="queueEmailData.ownershipTypes.refunded" ng-checked="queueEmailData.ownershipTypes.refunded">Refunded
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li title="" original-title="" ng-if="isSuperAdmin">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('sm_user_selector')" ng-init="$parent.sm_user_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">SM Users:</span> {{queueEmailData.smUsers.primaryOwners == true || queueEmailData.smUsers.owners == true ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="$parent.sm_user_selector" style="height:100px;">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" data-query="">
+                                        <div class="aui-list" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul  class="aui-list-section">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label">
+                                                            <input ng-change="listChanged()" type="checkbox" tabindex="-1" ng-model="queueEmailData.smUsers.primaryOwners" ng-checked="queueEmailData.smUsers.primaryOwners">Primary Owners
+                                                        </label>
+                                                    </li>
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label">
+                                                            <input ng-change="listChanged()" type="checkbox" tabindex="-1" ng-model="queueEmailData.smUsers.owners" ng-checked="queueEmailData.smUsers.owners">Owners
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-group clear_both" ng-if="users.length > 0">
+        <label>Sending to {{users.length}}  Users</label>
+        <div class="tab-content bottom_margin clear_both">
+            <div class="tab_pane large_bottom_padding selected">
+                <div class="admin_list_item member_item active" data-ng-repeat="user in users_to_show">
+                    <a href="#" class=" member_preview_link member_image thumb_36" style="background-image: url(https://secure.gravatar.com/avatar/{{ member.email_hash }}?d=identicon&s=48); background-color: rgb(246, 246, 246);" aria-hidden="true"></a>
+
+                    <span class="admin_member_username_and_email">
+
+                        <span class="indifferent_grey inline_username">{{user.email}}</span>
+
+                    </span>
+
+                    <!--<span class="admin_member_type show_pill_action">
+                        Member <br><small></small>
+                    </span>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <pagination ng-if="users.length > 0" total-items="users.length" items-per-page="itemsPerPage" ng-model="pagination.currentPage" max-size="5" class="pagination-sm pull-right" boundary-links="false" ng-change="paginateIt()"></pagination>
+
+    <div class="form-group">
+        <label>
+            <input type="checkbox" ng-model="exclude_email" class="">
+            Enable Exclusion
+        </label>
+    </div>
+    <div class="form-group" ng-show="exclude_email">
+        <label>Choose who not to send to</label>
+        <ul class="criteria-list col-md-12" style="margin-top:20px;">
+            <li title="" original-title="" style="position: relative;">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('exclude_email_list_selector')" ng-init="exclude_email_list_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">Email Lists:</span> {{excludeQueueEmailData.emailLists.indexOf(true) != -1 ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="exclude_email_list_selector">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" id="searcher-type-multi-select" data-query="">
+                                        <div class="check-list-field-container">
+                                            <input placeholder="Search..." ng-model="exclude_search" class="aui-field check-list-field searcher-type-input">
+                                            <span class="icon-default aui-icon aui-icon-small aui-iconfont-search noloading"></span>
+                                        </div>
+                                        <div class="aui-list" id="searcher-type-suggestions" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul class="aui-list-section" ng-if="excludeQueueEmailData.emailLists.indexOf(true) != -1" style="height:30px;">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <a href="#" ng-click="excludeQueueEmailData.emailLists=[];listChangedExclude()">Clear Selections</a>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <h5>Email lists:</h5>
+                                                <ul class="aui-list-section"
+                                                    aria-label="Standard Issue Types">
+                                                    <li ng-repeat="list in emailLists | filter: exclude_search" class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <input ng-change="listChangedExclude()" type="checkbox" tabindex="-1" ng-model="excludeQueueEmailData.emailLists[list.id]" ng-checked="excludeQueueEmailData.emailLists[list.id]">{{list.name}}
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li title="" original-title="">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('exclude_site_members_selector')" ng-init="site_members_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">Members:</span> {{excludeQueueEmailData.siteMembers.indexOf(true) != -1 ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="exclude_site_members_selector">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" data-query="">
+                                        <div class="check-list-field-container">
+                                            <input placeholder="Search..." ng-model="exclude_site_search" class="aui-field check-list-field searcher-type-input">
+                                            <span class="icon-default aui-icon aui-icon-small aui-iconfont-search noloading"></span>
+                                        </div>
+                                        <div class="aui-list" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul class="aui-list-section" ng-if="excludeQueueEmailData.siteMembers.indexOf(true) != -1" style="height:30px;">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <a href="#" ng-click="excludeQueueEmailData.siteMembers=[];listChangedExclude()">Clear Selections</a>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <h5>Members of:</h5>
+                                                <ul  class="aui-list-section"
+                                                     aria-label="Standard Issue Types">
+                                                    <li ng-repeat="site in sites | filter: exclude_site_search" class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <input ng-change="listChangedExclude()" type="checkbox" tabindex="-1" ng-model="excludeQueueEmailData.siteMembers[site.id]" ng-checked="excludeQueueEmailData.siteMembers[site.id]">{{site.name}}</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li title="" original-title="">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('exclude_access_levels_selector')" ng-init="access_levels_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">Access Levels:</span> {{excludeQueueEmailData.accessLevels.indexOf(true) != -1 ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="exclude_access_levels_selector">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" data-query="">
+                                        <div class="check-list-field-container">
+                                            <input placeholder="Search..." ng-model="exclude_access_level_search" class="aui-field check-list-field searcher-type-input">
+                                            <span class="icon-default aui-icon aui-icon-small aui-iconfont-search noloading"></span>
+                                        </div>
+                                        <div class="aui-list" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul class="aui-list-section" ng-if="excludeQueueEmailData.accessLevels.indexOf(true) != -1" style="height:30px;">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="Bug" data-descriptor-title="Bug">
+                                                            <a href="#" ng-click="excludeQueueEmailData.accessLevels=[];listChangedExclude()">Clear selections</a>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <h5></h5>
+                                                <ul  class="aui-list-section">
+                                                    <li ng-repeat="accessLevel in accessLevels | filter: exclude_access_level_search" class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label" title="{{_.findWhere(sites,{id: accessLevel.site_id}).name}}">
+                                                            <input ng-change="listChangedExclude()" type="checkbox" tabindex="-1" ng-model="excludeQueueEmailData.accessLevels[accessLevel.id]" ng-checked="excludeQueueEmailData.accessLevels[accessLevel.id]">{{accessLevel.name}}</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li title="" original-title="">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('exclude_ownership_type_selector')" ng-init="ownership_type_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">Ownership Type:</span> {{excludeQueueEmailData.ownershipTypes.owned == true || excludeQueueEmailData.ownershipTypes.refunded == true ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="exclude_ownership_type_selector" style="height:100px;">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" data-query="">
+                                        <div class="aui-list" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul  class="aui-list-section">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label">
+                                                            <input ng-change="listChangedExclude()" type="checkbox" tabindex="-1" ng-model="excludeQueueEmailData.ownershipTypes.owned" ng-checked="excludeQueueEmailData.ownershipTypes.owned">Owned
+                                                        </label>
+                                                    </li>
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label">
+                                                            <input ng-change="listChangedExclude()" type="checkbox" tabindex="-1" ng-model="excludeQueueEmailData.ownershipTypes.refunded" ng-checked="excludeQueueEmailData.ownershipTypes.refunded">Refunded
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li title="" original-title="" ng-if="isSuperAdmin">
+                <button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('exclude_sm_user_selector')" ng-init="$parent.exclude_sm_user_selector=false">
+                    <div class="criteria-wrap"><span class="fieldLabel">SM Users:</span> {{excludeQueueEmailData.smUsers.primaryOwners == true || excludeQueueEmailData.smUsers.owners == true ? 'Selected':'None'}}</div>
+                </button>
+                <a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
+                    <span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
+                </a>
+                <div class="dropdown_checkboxes" aria-hidden="false" ng-if="$parent.exclude_sm_user_selector" style="height:100px;">
+                    <div>
+                        <form>
+                            <div class="form-body checkboxmultiselect-container">
+                                <div class="field-group aui-field-issuetype">
+                                    <div class="check-list-select" data-query="">
+                                        <div class="aui-list" tabindex="-1" role="listbox" style="display: block;">
+                                            <div class="aui-list-scroll" tabindex="-1" role="presentation">
+                                                <ul  class="aui-list-section">
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label">
+                                                            <input ng-change="listChangedExclude()" type="checkbox" tabindex="-1" ng-model="excludeQueueEmailData.smUsers.primaryOwners" ng-checked="excludeQueueEmailData.smUsers.primaryOwners">Primary Owners
+                                                        </label>
+                                                    </li>
+                                                    <li class="check-list-item  imagebacked 10000" role="option">
+                                                        <label class="item-label">
+                                                            <input ng-change="listChangedExclude()" type="checkbox" tabindex="-1" ng-model="excludeQueueEmailData.smUsers.owners" ng-checked="excludeQueueEmailData.smUsers.owners">Owners
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="form-group clear_both" ng-show="exclude_email" ng-if="exclude_users.length > 0">
+        <label>Not Sending to {{exclude_users.length}}  Users</label>
+        <div class="tab-content bottom_margin clear_both">
+            <div class="tab_pane large_bottom_padding selected">
+                <div class="admin_list_item member_item active" data-ng-repeat="user in exclude_users_to_show">
+                    <a href="#" class=" member_preview_link member_image thumb_36" style="background-image: url(https://secure.gravatar.com/avatar/{{ member.email_hash }}?d=identicon&s=48); background-color: rgb(246, 246, 246);" aria-hidden="true"></a>
+
+                    <span class="inline_name admin_member_real_name">{{user.email}}</span>
+                    <br>
+
+                    <span class="admin_member_username_and_email">
+
+                        <span class="indifferent_grey inline_username">{{user.email}}</span>
+
+                    </span>
+
+                    <!--<span class="admin_member_type show_pill_action">
+                        Member <br><small></small>
+                    </span>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <pagination ng-if="exclude_users.length > 0" total-items="exclude_users.length" items-per-page="itemsPerPage" ng-model="exclude_pagination.currentPage" max-size="5" class="pagination-sm pull-right" boundary-links="false" ng-change="excludepaginateIt()" ng-show="exclude_email"></pagination>
+
+    <div class="form-group">
+        <a ng-click="send()" ng-disabled="users.length ==0 " class="btn btn-success">Send</a>
+    </div>
+</div>

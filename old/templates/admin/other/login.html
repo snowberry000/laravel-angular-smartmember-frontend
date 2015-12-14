@@ -1,0 +1,83 @@
+
+
+
+
+<div class="content-wrapper smart_only_area">
+    <div class="container-fluid content-item post-content">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div id="members_login" ng-show="login_type == 'facebook'">
+                    <div id="signup-ct">
+                        <div id="signup-header" style="text-align: center;">
+                            <h2>Login with FaceBook</h2>
+
+                            <p>It's easy, secure, free, and no spam - ever.</p>
+                            <a class="modal_close" href="javascript:void(0);"></a>
+                        </div>
+
+                        <!--<a ng-click="facebookCheck()" style="display:block;margin: 30px auto;text-align: center;"
+                           class="same_window">
+                            <img src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/fb-button.png"
+                                 class="img-responsive" style="max-width: 300px;margin:0px auto;">
+                            <p>click to connect with FaceBook</p>
+                        </a>-->
+
+                    </div>
+
+                    <div style="text-align: center;">
+                        <small ng-click="showForm('standard')">Standard login</small>
+                    </div>
+                </div>
+                <div ng-show="login_type == 'standard'">
+
+                    <div style="text-align: center;">
+                        <small ng-click="showForm('facebook')">Facebook login</small>
+                    </div>
+                    <form ng-submit="login()">
+                        <div class="form-group">
+                            <label>Email 2 address</label>
+                            <input type="text" class="form-control" name="email" ng-model="user.email"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" ng-model="user.password" class="form-control"/>
+                        </div>
+                        <input type="submit" name="submit" value="Go" class="btn btn-default btn-submit"/>
+
+                        <br/>
+                        {{ message }}
+                    </form>
+                    <form ng-submit="register()">
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input type="email" class="form-control" name="email" ng-model="user.email" />
+                        </div>
+                        <div class="form-group">
+                            <label>First name</label>
+                            <input type="text" class="form-control" ng-model="user.first_name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Last name</label>
+                            <input type="text" class="form-control" ng-model="user.last_name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" ng-model="user.password" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm password</label>
+                            <input type="password" name="password2" ng-model="user.password2" class="form-control"/>
+                        </div>
+                        <input type="submit" name="submit" value="Register" class="btn btn-default btn-submit"/>
+
+                        <br/>
+                        {{ message }}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

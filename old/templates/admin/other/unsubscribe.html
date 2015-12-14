@@ -1,0 +1,40 @@
+    <div id="page_contents">
+        <div id="message_container" class="span_4_of_6 float_none margin_auto no_right_padding"></div>
+        <div class="real_content card align_center span_4_of_6 col float_none margin_auto large_bottom_margin right_padding large_bottom_padding">
+            <h1> Unsubscribe from {{company_name || ''}}</h1>
+
+            <div class="col span_4_of_6 float_none margin_auto large_bottom_margin">
+
+                <p>Select the lists to unsubscribe</p>
+                <form class="save_form">
+                    <p class=" small_bottom_margin">
+                        <label ng-repeat="emailList in emailLists"><input type="checkbox" name="emailsList" ng-model="emailList.checked"> {{emailList.name}}</label>
+                    </p>
+
+                    <p class=" small_bottom_margin" style="padding-top:15px;">
+                        Kindly Describe Why you  want to unsubscribe?
+                        <textarea style="padding-top:10px;" ng-model="reason" required>
+
+                        </textarea>
+                    </p>
+
+                    <p>
+                        <button ng-click="unsubscribe()" class="btn btn_large full_width ladda-button" data-style="expand-right">
+                            <span class="ladda-label">Unsubscribe now!</span>
+                        </button>
+                    </p>
+
+                </form>
+
+            </div>
+
+            <p class="subtle_silver small">
+            </p>
+        </div>
+        <div class="real_content align_center">
+            <p>New? <a ng-href="/sign/up/" class="bold">create an account</a>.</p>
+            <p>Already have an account? <a ng-href="/sign/in/" class="bold">login</a>.</p>
+        </div>
+    </div>
+
+
