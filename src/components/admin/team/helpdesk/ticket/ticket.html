@@ -212,12 +212,11 @@
 
 											<div class="clearfix"></div>
 										</div>
-										<div class="col-md-4">
-											<button class="button {{admin_mode ? 'blue':'yellow'}}" ng-click="sendReply()"><span>Submit</span>
-											</button>
-										</div>
-										<div class="col-md-4">
-											<p>Mark as</p>
+									</div>
+
+									<div class="row">
+										<div class="col-md-6">
+											Mark as
 											<select ng-init="ticket.status == 'open' ? $parent.change_ticket_status = 'pending' : $parent.change_ticket_status=ticket.status"
 													ng-model="$parent.change_ticket_status">
 												<option ng-selected="(ticket.status == 'open' && status.id == 'pending') || (ticket.status != 'open' && status.id==ticket.status)"
@@ -225,6 +224,13 @@
 													{{status.value}}
 												</option>
 											</select>
+											<label>
+												<input type="checkbox" ng-model="admin_mode"/>Mark this reply as internal (comment)
+											</label>
+										</div>
+										<div class="col-md-6">
+											<button class="button btn-brand btn pull-right {{admin_mode ? 'blue':'yellow'}}" ng-click="sendReply()"><span>Submit</span>
+											</button>
 										</div>
 									</div>
 

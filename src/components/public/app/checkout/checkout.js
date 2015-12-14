@@ -157,7 +157,27 @@ app.controller('CheckoutController', function ($scope,$site,$rootScope , $locati
             params.notify_url = $scope.app.apiUrl + "/paypal/process/" + $scope.access_level.id + "/none";
 
         console.log( 'notify url: ' + params.notify_url );  
-
+        if ($scope.access_level.trial_amount)
+        {
+            params['a1'] = $scope.access_level.trial_amount;
+            switch ($scope.access_level.trial_interval)
+            {
+                case "month":
+                    params['p1'] = $scope.access_level.trial_duration;
+                    params['t1'] = 'M';
+                    break;
+                case "week":
+                    params['p1'] = $scope.access_level.trial_duration;
+                    params['t1'] = 'W';
+                    break;
+                case "day":
+                    params['p1'] = $scope.access_level.trial_duration;
+                    params['t1'] = 'D';
+                    break;
+                default:
+                    params['p1'] = 0;
+            }
+        }
         switch($scope.access_level.payment_interval){
             case "monthly":
                 params['cmd'] = '_xclick-subscriptions';

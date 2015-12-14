@@ -1,42 +1,13 @@
-app.controller('IntegrationsController', function ($scope, $localStorage, $location,$rootScope , $stateParams, $state, Restangular, $http, toastr, $sites, $company, $connected_accounts, $configured_integrations, $current_integration ) {
+app.controller('IntegrationsController', function ($scope,$q, $localStorage, $location,$rootScope , $stateParams, $state, Restangular, $http, toastr ) {
     if($rootScope.is_not_allowed){
         $state.go('admin.team.dashboard');
         return false;
     }
 
-    $scope.sites = $sites.sites;
-    $scope.company = $company;
-    $scope.connected_accounts = $connected_accounts;
-    $scope.configured_integrations = $configured_integrations;
-    $scope.current_integration = $current_integration;
-
-    $url=$location.host();
-    $subdomain=$url.split('.')[0];
-
-    if($subdomain=='my')
-    {
-        $scope.chosen_entity='team';
-    }
-    else
-    {
-        $chosenSite=_.find($scope.sites, function(tempSite){ return tempSite.subdomain == $subdomain; });
-        if($chosenSite)
-            $scope.chosen_entity=$chosenSite.id;
-        else
-            $scope.chosen_entity=0;
-    }
-
-    $scope.init = function(){
-        var clipboard = new Clipboard('.copy-button');
-    }
-
-
-
-    
-
-    if( $scope.company && $scope.company.hash )
-        $scope.url = $scope.app.apiUrl + '/jvzoo/' + $scope.company.hash;
-
+    console.log('stateParams');
+    console.log($stateParams);
+    var $sites, $company, $connected_accounts, $configured_integrations, $current_integration;
+    $scope.loading=true;
     $scope.groupIntegrations = function() {
         $scope.grouped_integrations = [
             {type: 'facebook_group',integrations: []},
@@ -51,7 +22,127 @@ app.controller('IntegrationsController', function ($scope, $localStorage, $locat
         });
     }
 
-    $scope.groupIntegrations();
+    $scope.initIntegrations=function(){
+        $scope.sites = $sites.sites;
+        $scope.company = $company;
+        $scope.connected_accounts = $connected_accounts;
+        $scope.configured_integrations = $configured_integrations;
+        $scope.current_integration = $current_integration;
+        //prepare copy url
+        if( $scope.company && $scope.company.hash )
+            $scope.url = $scope.app.apiUrl + '/jvzoo/' + $scope.company.hash;
+        //automatic selection
+        $url=$location.host();
+        $subdomain=$url.split('.')[0];
+        if($subdomain=='my') {
+            $scope.chosen_entity='team';
+        }
+        else {
+            $chosenSite=_.find($scope.sites, function(tempSite){ return tempSite.subdomain == $subdomain; });
+            if($chosenSite)
+                $scope.chosen_entity=$chosenSite.id;
+            else
+                $scope.chosen_entity=0;
+        }
+
+        $scope.groupIntegrations();
+        //////////////////////////////
+        $scope.SetIntegrationViewbox( $scope.availableIntegrations[0 ].id );
+        $scope.integration = null;
+        console.log("integration: ");
+        console.log($stateParams.integration);
+        if( typeof $stateParams.integration != 'undefined' && $stateParams.integration != null )
+            $scope.integration = _.findWhere( $scope.availableIntegrations, {id: $stateParams.integration } );
+        if( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id != null )
+            $scope.site_id = $stateParams.site_id;
+        //////////////////////////////
+
+        if( ( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id ) || $scope.current_integration && typeof $scope.current_integration.site_id != 'undefined' && $scope.current_integration.site_id ) {
+
+            if( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id )
+                $scope.current_integration.site_id = $stateParams.site_id;
+
+            $scope.current_site = _.findWhere( $scope.sites, {id: parseInt( $scope.current_integration.site_id ) } ) || _.findWhere( $scope.sites, {id: $scope.current_integration.site_id + '' } );
+        }
+        if( typeof $stateParams.team != 'undefined' && $stateParams.team ) {
+            $scope.current_integration.company_id = $scope.company.id;
+        }
+        if( $scope.current_integration )
+        {
+            if( typeof $scope.current_integration.id != 'undefined' && $scope.current_integration.id ) {
+                $scope.integration_id = $scope.current_integration.id;
+                $scope.show_configured_link = true;
+                $scope.current_integration.default = parseInt( $scope.current_integration.default );
+                $scope.current_integration.disabled = parseInt( $scope.current_integration.disabled );
+            }
+
+            if( typeof $scope.current_integration.disabled != 'undefined' && parseInt( $scope.current_integration.disabled ) )
+                $scope.show_disabled = true;
+
+            if( typeof $scope.current_integration.default != 'undefined' && parseInt( $scope.current_integration.default ) )
+                $scope.is_default = true;
+
+            if( !$scope.current_integration.id && $scope.integration.instructions_only )
+            {
+                $state.go("admin.team.integration.choose", {integration: $stateParams.integration } );
+            }
+
+
+            $scope.account_choices = [];
+
+            angular.forEach( $scope.connected_accounts, function( value, key){
+                var addAccount = false;
+                switch( $scope.current_integration.type ) {
+                    case 'facebook_group':
+                        if( value.type == 'facebook_app' )
+                            addAccount = true;
+                        break;
+                    default:
+                        if( value.type == $scope.current_integration.type )
+                            addAccount = true;
+                }
+
+                if( addAccount )
+                    $scope.account_choices.push(value);
+            });
+
+            if( ( typeof $scope.current_integration.connected_account_id == 'undefined' || parseInt( $scope.current_integration.connected_account_id ) == 0 ) && $scope.account_choices.length > 0 )
+                $scope.current_integration.connected_account_id = $scope.account_choices[0].id;
+            else if( $scope.current_integration.connected_account_id ) {
+                $scope.current_integration.connected_account_id = parseInt($scope.current_integration.connected_account_id);
+            }
+        }
+        ///////////////////////////////
+    }
+
+    $scope.resolveDependency = function(){
+
+        $current_integrationCall=null;
+
+        $sitesCall = Restangular.one('supportTicket').customGET('sites').then(function(response){ $sites=response; $scope.sites=$sites; });
+        $companyCall = Restangular.one('company/getCurrentCompany').get().then(function(response){ $company=response; });
+        $connected_accountsCall = Restangular.all('connectedAccount').getList().then(function(response) { $connected_accounts=response; $scope.connected_accounts=$connected_accounts;});
+        $configured_integrationsCall = Restangular.all('integration').getList().then(function(response) { $configured_integrations=response; $scope.configured_integrations=$configured_integrations;});
+        if ( $stateParams.id ) {
+            $current_integrationCall = Restangular.one('integration', $stateParams.id).get().then(function(response){ $current_integration=response; $scope.current_integration=$current_integration;});
+        }
+        else
+        {
+            $current_integration={ type: $stateParams.integration };
+            $scope.current_integration=$current_integration;
+        }
+            
+
+        if($current_integrationCall)
+            $q.all([$sitesCall,$companyCall,$connected_accountsCall,$configured_integrationsCall,$current_integrationCall]).then(function(res){console.log("All returned: "); console.log(res); $scope.loading=false; $scope.initIntegrations();});
+        else
+            $q.all([$sitesCall,$companyCall,$connected_accountsCall,$configured_integrationsCall]).then(function(res){console.log("All returned: "); console.log(res);$scope.loading=false;  $scope.initIntegrations();});
+    }
+    
+
+    $scope.init = function(){
+        var clipboard = new Clipboard('.copy-button');
+    }
 
     $scope.SetIntegrationViewbox = function( integration_id ) {
 
@@ -64,7 +155,7 @@ app.controller('IntegrationsController', function ($scope, $localStorage, $locat
             name: 'Facebook: Groups',
             short_name: 'FB Groups',
             description: 'Automate adding and removing your members from a Facebook group.',
-            logo: '/images/integrations/fb.png',
+            logo: '/assets/images/integrations/fb.png',
             long_description: '<p><a href="https://www.facebook.com/help/162866443847527/" target="_blank">Facebook Group</a> Integrations let you automatically create groups and grant access to those groups based on products your users purchase.</p><p>For help in creating a Facebook App, please <a href="http://help.smartmember.com/lesson/Facebook-Group-Integration" target="_blank">click here</a> to view our tutorial</p>'
         },
         {
@@ -73,7 +164,7 @@ app.controller('IntegrationsController', function ($scope, $localStorage, $locat
             short_name: 'JVZoo',
             instructions_only: true,
             description: 'Add Affiliates through our JVZoo Chrome Extension',
-            logo: '/images/integrations/jvzoo.jpeg',
+            logo: '/assets/images/integrations/jvzoo.jpeg',
             long_description: '<p class="font-bold text-success">Automatically add your JVZoo affiliates in this section</p> <p class=""> Install the JVzoo Extension following the instructions provided, and every time you visit JVzoo the extension will automatically add your affiliates in this management area. You can add affiliates from these JVzoo locations.</p> <p style="text-align:center;"> <a target="_blank" href="https://www.jvzoo.com/sellers/youraffiliates?f_aff=&f_prod=&f_stat=&r=25000" data-bypass="true">Your Affiliates</a> | <a target="_blank" href="https://www.jvzoo.com/sellers/affiliaterequests?f_aff=&r=250000" data-bypass="true">Affiliate Requests</a> </p>'
         },
         {
@@ -82,48 +173,38 @@ app.controller('IntegrationsController', function ($scope, $localStorage, $locat
             short_name: 'JVZoo Payment',
             sites_only: true,
             description: 'Allow your customers to buy your Products with JVZoo',
-            logo: '/images/integrations/jvzoo.jpeg',
+            logo: '/assets/images/integrations/jvzoo.jpeg',
             long_description: '<p><a href="http://www.jvzoo.com/register/446025" target="_blank">JVZoo</a> allows you to accept payments from the JVZoo affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'paypal',
             name: 'Paypal',
             description: 'Allow your customers to buy your Products with Paypal.',
-            logo: '/images/integrations/paypal.png',
+            logo: '/assets/images/integrations/paypal.png',
             long_description: '<p><a href="http://paypal.com" target="_blank">Paypal</a> allows you to accept most forms of payment from customers.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'sendgrid',
             name: 'Sendgrid',
             description: 'E-mail your customers using Sendgrid.',
-            logo: '/images/integrations/sendgrid.png',
+            logo: '/assets/images/integrations/sendgrid.png',
             long_description: ''
         },
         {
             id: 'stripe',
             name: 'Stripe',
             description: 'Allow customers to buy your Products with Stripe.',
-            logo: '/images/integrations/stripe.png',
+            logo: '/assets/images/integrations/stripe.png',
             long_description: '<p><a href="http://stripe.com" target="_blank">Stripe</a> allows you to accept credit card payments directly on your site.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'vimeo',
             name: 'Vimeo',
             description: 'Rapidly create content by importing directly from Vimeo.',
-            logo: '/images/integrations/vimeo.png',
+            logo: '/assets/images/integrations/vimeo.png',
             long_description: '<p><a href="http://vimeo.com" target="_blank">Vimeo</a> is a premier video hosting platform. Once connected, you\'ll be able to quickly import videos and turn them into content on your site(s).</p>'
         },
     ];
-
-    $scope.SetIntegrationViewbox( $scope.availableIntegrations[0 ].id );
-
-    $scope.integration = null;
-
-    if( typeof $stateParams.integration != 'undefined' && $stateParams.integration != null )
-        $scope.integration = _.findWhere( $scope.availableIntegrations, {id: $stateParams.integration } );
-
-    if( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id != null )
-        $scope.site_id = $stateParams.site_id;
 
     $scope.saveAccount = function(account){
         var data = {name: account.name };
@@ -210,60 +291,7 @@ app.controller('IntegrationsController', function ($scope, $localStorage, $locat
         $state.go("admin.team.integration.configure", params);
     }
 
-    if( ( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id ) || $scope.current_integration && typeof $scope.current_integration.site_id != 'undefined' && $scope.current_integration.site_id ) {
-
-        if( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id )
-            $scope.current_integration.site_id = $stateParams.site_id;
-
-        $scope.current_site = _.findWhere( $scope.sites, {id: parseInt( $scope.current_integration.site_id ) } ) || _.findWhere( $scope.sites, {id: $scope.current_integration.site_id + '' } );
-    }
-
-    if( typeof $stateParams.team != 'undefined' && $stateParams.team ) {
-        $scope.current_integration.company_id = $scope.company.id;
-    }
-
-    if( $scope.current_integration )
-    {
-        if( typeof $scope.current_integration.id != 'undefined' && $scope.current_integration.id ) {
-            $scope.$parent.integration_id = $scope.current_integration.id;
-            $scope.$parent.show_configured_link = true;
-            $scope.current_integration.default = parseInt( $scope.current_integration.default );
-            $scope.current_integration.disabled = parseInt( $scope.current_integration.disabled );
-        }
-
-        if( typeof $scope.current_integration.disabled != 'undefined' && parseInt( $scope.current_integration.disabled ) )
-            $scope.$parent.show_disabled = true;
-
-        if( typeof $scope.current_integration.default != 'undefined' && parseInt( $scope.current_integration.default ) )
-            $scope.$parent.is_default = true;
-
-        if( !$stateParams.site_id && !$stateParams.team && !$scope.current_integration.id && !$scope.integration.instructions_only )
-            $state.go("admin.team.integration.choose", {integration: $stateParams.integration } );
-
-        $scope.account_choices = [];
-
-        angular.forEach( $scope.connected_accounts, function( value, key){
-            var addAccount = false;
-            switch( $scope.current_integration.type ) {
-                case 'facebook_group':
-                    if( value.type == 'facebook_app' )
-                        addAccount = true;
-                    break;
-                default:
-                    if( value.type == $scope.current_integration.type )
-                        addAccount = true;
-            }
-
-            if( addAccount )
-                $scope.account_choices.push(value);
-        });
-
-        if( ( typeof $scope.current_integration.connected_account_id == 'undefined' || parseInt( $scope.current_integration.connected_account_id ) == 0 ) && $scope.account_choices.length > 0 )
-            $scope.current_integration.connected_account_id = $scope.account_choices[0].id;
-        else if( $scope.current_integration.connected_account_id ) {
-            $scope.current_integration.connected_account_id = parseInt($scope.current_integration.connected_account_id);
-        }
-    }
+    
 
     $scope.addGroup = function(){
         if( $scope.current_integration.name && $scope.current_integration.remote_id )
@@ -334,7 +362,7 @@ app.controller('IntegrationsController', function ($scope, $localStorage, $locat
     }
 
     $scope.connectVimeoAccount = function() {
-        if( !$scope.current_integration.id )
+        if(!$scope.current_integration.id )
         {
             var data = {
                 site_id: typeof $scope.current_integration.site_id != 'undefined' ? $scope.current_integration.site_id : null,
@@ -542,4 +570,6 @@ app.controller('IntegrationsController', function ($scope, $localStorage, $locat
     {
         toastr.success("Link copied!");
     }
+
+    $scope.resolveDependency();
 });

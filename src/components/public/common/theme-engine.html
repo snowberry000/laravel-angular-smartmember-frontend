@@ -110,12 +110,9 @@
 						<h4>
 							Show icons?
 						</h4>
-						<div ng-hide="1" class="pull-right">
-							<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data[theme_option.slug]"></spectrum-colorpicker>
-						</div>
 						<div class="switch">
 							<div class="onoffswitch">
-								<input type="checkbox" ng-model="meta_data['show_nav_icons']" class="onoffswitch-checkbox" id="show_nav_icons">
+								<input type="checkbox" ng-checked="meta_data['show_nav_icons'] == '1'" ng-model="meta_data['show_nav_icons']" class="onoffswitch-checkbox" id="show_nav_icons">
 								<label class="onoffswitch-label" for="show_nav_icons">
 									<span class="onoffswitch-inner"></span>
 									<span class="onoffswitch-switch"></span>
@@ -218,7 +215,7 @@
 						</h4>
 						<div class="switch">
 							<div class="onoffswitch">
-								<input type="checkbox" ng-model="meta_data['logo_border']" class="onoffswitch-checkbox" id="logo_border">
+								<input type="checkbox" ng-checked="meta_data['logo_border'] == '1'" ng-model="meta_data['logo_border']" class="onoffswitch-checkbox" id="logo_border">
 								<label class="onoffswitch-label" for="logo_border">
 									<span class="onoffswitch-inner"></span>
 									<span class="onoffswitch-switch"></span>
@@ -289,7 +286,52 @@
 							</select>
 						</div>
 					</li>
+					<li>
+						<h4>
+							'Syllabus' Text
+						</h4>
+						<div class="switch">
+							<input type="text" name="syllabus_text" class="form-control input-lg"
+								   ng-model="meta_data['syllabus_text']" placeholder="Syllabus">
+						</div>
+					</li>
+					<li>
+						<h4>
+							'Search lessons...' text
+						</h4>
+						<div class="switch">
+							<input type="text" name="syllabus_text" class="form-control input-lg"
+								   ng-model="meta_data['search_lesson_text']" placeholder="Search lessons...">
+						</div>
+					</li>
 
+					<li>
+						<h4>
+							'Lessons' text
+						</h4>
+						<div class="switch">
+							<input type="text" name="syllabus_text" class="form-control input-lg"
+								   ng-model="meta_data['lesson_text']" placeholder="Lessons">
+						</div>
+					</li>
+					<li>
+						<h4>
+							'Begin/Continue this course' text
+						</h4>
+						<div class="switch">
+							<input type="text" name="syllabus_text" class="form-control input-lg"
+								   ng-model="meta_data['begin_course_text']" placeholder="Begin/Continue this course">
+						</div>
+					</li>
+					<li>
+						<h4>
+							Cap Icon
+						</h4>
+						<div class="switch">
+							<ui-iconpicker  groups="font-awesome"  value="{{meta_data['cap_icon'] ? meta_data['cap_icon'] : 'fa fa-graduation-cap' }}" ng-model="meta_data['cap_icon']" ng-click="menuItemLabel();" >
+							</ui-iconpicker>
+						</div>
+					</li>
 				</ul>
 
 			</div>
@@ -424,6 +466,16 @@
 						<div class="color-picker">
 							<div class="">
 								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['main_button_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Footer Text Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['footer_text_color']"></spectrum-colorpicker>
 							</div>
 						</div>
 					</li>

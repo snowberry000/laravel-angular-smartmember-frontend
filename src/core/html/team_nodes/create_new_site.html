@@ -1,0 +1,42 @@
+<form ng-submit="save()" class="form-horizontal">
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Name</label>
+
+		<div class="col-sm-9">
+			<input type="text" class="form-control" name="name" ng-model="site.name" placeholder="My Awesome Site" required>
+								<span class="help-block m-b-none">
+									This is the primary name for your site; it will show up for your public site visitors,
+									members, customers, and be the default title of your site in search engines.
+								</span>
+		</div>
+	</div>
+	<div class="hr-line-dashed"></div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Site URL / Subdomain</label>
+
+		<div class="col-sm-9">
+			<div class="input-group m-b">
+				<span class="input-group-addon">http://</span>
+				<input type="text" class="form-control" name="url_slug" ng-model="site.subdomain" placeholder="" required>
+				<span class="input-group-addon">.smartmember.com</span>
+			</div>
+								<span class="help-block m-b-none">
+									This is the url where visitors can find your site. You can always access it from
+									<strong>{{site.subdomain ? site.subdomain : 'yoursite'}}.smartmember.com</strong> but can also
+									map it to a brand new domain like www.widgets.com using the domain mapping (which can be
+									setup later).
+								</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-4 col-sm-offset-3">
+			<button class="btn btn-brand" type="submit" ng-disabled="saving">
+				{{saving ? ( !site.id ? 'Creating site...please wait' : 'Saving site...' ) : 'Save & Continue'}}
+			</button>
+			<a class="btn btn-white" ng-click="HideBox( node )">Skip</a>
+		</div>
+	</div>
+
+</form>

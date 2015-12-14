@@ -19,6 +19,10 @@
             background-color: #222;
         }
 
+        html.wallboard {
+            background-color: #111;
+        }
+
         .imb-dashboard .huge {
             font-size: 50px;
             line-height: normal;
@@ -156,14 +160,14 @@
         }
 
         /*!
-		* Datepicker for Bootstrap
-		*
-		* Copyright 2012 Stefan Petre
-		* Improvements by Andrew Rowls
-		* Licensed under the Apache License v2.0
-		* http://www.apache.org/licenses/LICENSE-2.0
-		*
-		*/
+        * Datepicker for Bootstrap
+        *
+        * Copyright 2012 Stefan Petre
+        * Improvements by Andrew Rowls
+        * Licensed under the Apache License v2.0
+        * http://www.apache.org/licenses/LICENSE-2.0
+        *
+        */
         .datepicker {
             padding: 4px;
             -webkit-border-radius: 4px;
@@ -171,8 +175,8 @@
             border-radius: 4px;
             direction: ltr;
             /*.dow {
-			border-top: 1px solid #ddd !important;
-		}*/
+            border-top: 1px solid #ddd !important;
+        }*/
 
         }
         .datepicker-inline {
@@ -959,8 +963,8 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
-                                        <div class="massive" id="total_monies">${{wallboard.total_sales}}</div>
-                                        <div class="big">monies</div>
+                                        <div class="massive" id="total_monies">{{wallboard.total_sales | currency:"$":0}}</div>
+                                        <div class="big">$</div>
                                     </div>
                                 </div>
                             </div>
@@ -985,8 +989,8 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
-                                        <div class="massive minus" id="today_monies">${{wallboard.total_today_sales}}</div>
-                                        <div class="big">today monies</div>
+                                        <div class="massive minus" id="today_monies">{{wallboard.total_today_sales | currency:"$":0}}</div>
+                                        <div class="big">today $</div>
                                     </div>
                                 </div>
                             </div>
@@ -1011,8 +1015,8 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
-                                        <div class="massive minus" id="yesterday_monies">${{wallboard.total_yesterday_sales}}</div>
-                                        <div class="big">yesterday monies</div>
+                                        <div class="massive minus" id="yesterday_monies">{{wallboard.total_yesterday_sales | currency:"$":0}}</div>
+                                        <div class="big">yesterday $</div>
                                     </div>
                                 </div>
                             </div>
@@ -1037,7 +1041,7 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
-                                        <div class="massive minus smaller" id="refund_monies">${{wallboard.total_refunds}}</div>
+                                        <div class="massive minus smaller" id="refund_monies">{{wallboard.total_refunds | currency:"$":0}}</div>
                                         <div class="big">refund $</div>
                                     </div>
                                 </div>

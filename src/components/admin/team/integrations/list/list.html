@@ -20,8 +20,13 @@
 					</div>
 				</div>
 			</div>
+			<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+			    <div class="sk-bounce1"></div>
+			    <div class="sk-bounce2"></div>
+			    <div class="sk-bounce3"></div>
+			</div>
 
-			<div class="ibox" ng-repeat="integration in grouped_integrations | filter: search" ng-if="integration.integrations.length > 0">
+			<div class="ibox" ng-repeat="integration in grouped_integrations | filter: search" ng-if="integration.integrations.length > 0 && !loading">
 				<div class="ibox-content" ng-init="integration.expanded=false">
 
 					<div class="row">

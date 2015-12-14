@@ -1,3 +1,5 @@
+
+
 <div class="wrapper wrapper-content  animated fadeInRight">
 	<div class="row animated fadeInRight">
 		<div class="col-lg-12">
@@ -22,7 +24,12 @@
 
 		</div>
 	</div>
-	<div class="row">
+	<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+	    <div class="sk-bounce1"></div>
+	    <div class="sk-bounce2"></div>
+	    <div class="sk-bounce3"></div>
+	</div>
+	<div class="row" ng-if="!loading" >
 		<div class="col-sm-8">
 			<div class="ibox">
 				<div class="ibox-content">

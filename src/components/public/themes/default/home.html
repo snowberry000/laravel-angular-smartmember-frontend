@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="styles/froala_editor.min.css">
+<link rel="stylesheet" href="styles/froala_style.min.css">
+<link rel="stylesheet" href="styles/char_counter.min.css">
+<link rel="stylesheet" href="styles/code_view.min.css">
+<link rel="stylesheet" href="styles/sweetalert.css">
+<link rel="stylesheet" href="styles/angular-toastr.min.css">
+
+<div ng-include="'templates/components/public/themes/default/dynamic-css.html'"></div>
+
+<wave-spinner ng-if="loading"></wave-spinner>
+<div class="row site_top_background_color sticky-header" ng-init="init();initialize();showNotifications()">
+
+	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid container stackable'">
+
+		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
+			<div class="column" style="text-align: right;">
+				<div class="ui buttons" ng-show="!isLoggedIn()">
+					<a class="ui button" href="#" ng-click="loginModal()">Log-in</a>
+					<div class="or"></div>
+					<a class="ui positive button" href="#" ng-click="registerModal()">Sign up</a>
+				</div>
+				<div class="ui buttons" ng-show="isLoggedIn()">
+					<button class="ui button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">Join</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="middle aligned column m-b-lg" ng-if="meta_data.logo_position == 'below'" ng-include="'templates/components/public/themes/default/common/top-nav.html'"></div>
+			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column'">
+
+				<a sm-class="'ui ' + (options.site_logo ? meta_data.logo_size : '') + (meta_data.logo_border == '1' ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="{{options.logo_url ? options.logo_url : '/'}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''}}">
+					<h1 ng-hide="options.site_logo" class="headline_text_color text-center">{{site.name}}</h1>
+					<img ng-show="options.site_logo" ng-src="{{options.site_logo}}" class="m-t-sm m-b-sm" style="{{options.logo_max_height ? (options.logo_max_height.indexOf('px') > -1 ? 'max-height: ' + options.logo_max_height : 'max-height: ' + options.logo_max_height + 'px') : ''}}">
+				</a>
+			</div>
+			<div class="middle aligned column" ng-if="meta_data.logo_position != 'below'" ng-include="'templates/components/public/themes/default/common/top-nav.html'"></div>
+		</div>
+	</div>
+</div>
+<div class="row m-t-lg m-b-lg site_middle_background_color sticky-content">
+
+	<div sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable'">
+		<ui-view class="row"></ui-view>
+	</div>
+</div>
+
+<div class="row site_bottom_background_color sticky-footer">
+	<div class="ui grid container">
+		<div class="row">
+			<div class="column text-center" ng-include="'templates/components/public/themes/default/common/footer.html'"></div>
+		</div>
+	</div>
+</div>

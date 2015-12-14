@@ -1,88 +1,116 @@
 <div ng-init="init()">
+    <div class="row" ng-hide="vimeo.access_token">
+        <div class="col-md-8 col-md-offset-2 animated-panel fadeInDown"
+             style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
 
-    <div class="jumbotron" ng-hide="vimeo.access_token">
-        <h1>Connect to Your Vimeo Account</h1>
+            <div class="hpanel">
+                <div class="panel-body">
 
-        <p>We'll display a list of your videos for easy button-click lesson creation!</p>
+                    <div class="text-center m-b-md">
+                        <h3>Connect to Your Vimeo Account</h3>
 
-        <p>
-            <a ng-click="setBackUrl()" href="/admin/team/integration/vimeo/choose"
-               class="btn btn-lg btn-brand btn-vimeo-login same_window">
-                <i class="fa fa-vimeo-square"></i>
-                Please set up a Vimeo integration to import videos from
-            </a>
-        </p>
+                        <p>We'll display a list of your videos for easy button-click lesson creation!</p>
+                        <p style="margin-top:20px; text-align:center;">
+                            <a href="https://api.smartmember.{{app.rootDomain.indexOf('smartmember') == -1 ? 'com' : app.env}}/vimeo/auth"
+                               class="btn btn-lg btn-brand btn-vimeo-login same_window">
+                                <i class="fa fa-vimeo-square"></i>
+                                Login to Vimeo
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
     <div ng-show="vimeo.access_token">
+
         <div class="row">
-            <div class="col-md-6">
-                <div class="jumbotron">
-                    <h1 class="text-success">You're Connected!</h1>
+            <div class="col-md-6 animated-panel fadeInDown"
+                 style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
 
-                    <p>Your Vimeo videos have been loaded below. Select a module or an individual video to turn into a
-                        lesson!</p>
+                <div class="hpanel">
+                    <div class="panel-body">
 
-                    <p ng-if="vimeo_integrations.length >= 1">
-                        <label>Choose a different Acount</label>
-                        <select class="form-control" ng-model="selected_account" ng-change="changeAccount()">
-                            <option ng-repeat="vimeo_integration in vimeo_integrations"
-                                    ng-selected="vimeo_integration.id == selected_account"
-                                    value="{{vimeo_integration.id}}">{{vimeo_integration.account.name ?
-                                vimeo_integration.account.name : vimeo_integration.account.remote_id}}
-                            </option>
-                        </select>
-                        <span class="help-block m-b-none">
-                            You can add nicknames to your accounts <a
-                                href="/admin/team/integrations/connections">here</a> for easier identification.
-                        </span>
-                        <button class="btn btn-info" ng-click="loadVideos()">Show More Videos</button>
-                    </p>
+                        <div class="text-center m-b-md">
+                            <h3>Video Tags (Modules)</h3>
+
+                            <p>Click a tag below to filter videos for easier lesson creation module-by-module</p>
+                            <a class="label-menu-corner btn btn-default" ng-repeat="tag in tags" ng-click="filter(tag)">
+                                <i class="fa fa-tags"></i>
+                                {{tag.tag}}
+                            </a>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="jumbotron">
-                    <h1>Video Tags (Modules)</h1>
+            <div class="col-md-6 animated-panel fadeInDown"
+                 style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;">
 
-                    <p>Choose a tag below to filter videos for easier lesson creation module-by-module</p>
-                    <select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag"
-                            ng-change="filter(tag.tag)"></select>
+                <div class="hpanel">
+                    <div class="panel-body">
 
-                    <p>
-                        <a ng-click="addAll()" class="btn btn-lg btn-info" target="_blank" data-bypass="true">Add all as
-                            lessons</a>
-                    </p>
+                        <div class="text-center m-b-md">
+                            <h3 class="text-success">You're Connected!</h3>
+
+                            <p>Your Vimeo videos have been loaded below. Select a module or an individual video to  turn into a lesson!</p>
+
+                            <div class="input-group" style="margin:20px auto 0; width: 500px;">
+                                <span class="input-group-btn">
+                                    <a href="/admin/syllabus-creator" class="btn btn-lg btn-success">Edit Syllabus</a>
+                                </span>
+                                <span class="input-group-btn">
+                                    <a href="http{{app.env == 'com' || app.env == 'site' ? 's' : ''}}://api.smartmember.{{app.rootDomain.indexOf('smartmember') == -1 ? 'com' : app.env}}/vimeo/auth"
+                                       class="btn btn-lg btn-brand btn-vimeo-login same_window">
+                                        Reconnect
+                                    </a>
+                                </span>
+                                <span class="input-group-btn">
+                                    <a ng-click="addAll()" class="btn btn-lg btn-info btn-vimeo-login" target="_blank"
+                                       data-bypass="true">Add all as lessons</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="row vimeo-video-row" ng-show='videos' infinite-scroll="loadVideos()" infinite-scroll-distance="3">
-        <div class="col-md-12 video_container">
+        <div class="col-md-3 video_container" 
+            ng-controller="VimeoVideoController"
+            ng-repeat="video in videos.data" ng-if="!video.hide">
+            <div class="animated-panel zoomIn vimeo-video-wrapper vimeo-video-{{video.video_id}}  clearfix">
+                <div class="hpanel blog-box vimeo-video">
+                    <div class="panel-image">
+                        <a data-bypass="true" class="play-video" href="#">
+                            <img class="img-responsive" alt="" ng-src="{{video.pictures.sizes[1].link}}">
+                            <span>&nbsp;</span>
+                        </a>
+                    </div>
+                    <div class="panel-heading">
+                        <h4>{{video.name}}</h4>
+                    </div>
 
-            <div class="col-md-4 admin_list_item member_item active" ng-controller="VimeoVideoController"
-                 ng-repeat="video in videos.data" ng-if="!video.hide" ng-hide="video.added">
-                <div class="ibox">
-                    <div class="ibox-content product-box">
-                        <div class="product-imitation member_preview_link member_image"
-                             ng-class="{'has_image': video.pictures.sizes[1].link}">
-                            <img ng-show="video.pictures.sizes[1].link" src="{{video.pictures.sizes[1].link}}"
-                                 class="img-responsive" alt="" style="width: 100%;"/>
-                        </div>
-                        <div class="product-desc">
-                            <a ng-if='!video.added' class="btn btn-brand pull-right" ng-click="addLesson(video)">
-                                <i class="fa fa-check"></i>
-                                Add as lesson
-                            </a>
-                            <a ng-if='video.added' disabled class="btn btn-brand m-t-sm pull-right">
-                                <i class="fa fa-check"></i>
-                                Added
-                            </a>
-                            <h4 class="media-heading"><a href="{{video.link}}" target="_blank">{{video.name}}</a></h4>
-                            <span>
-                                {{ video.description }}
-                            </span>
-                        </div>
+                    <div class="panel-body">
+                        {{ video.description }}
+                    </div>
+                    <div class="panel-footer">
+            <span class="pull-right">
+                <button ng-if='!video.added' type="button" class="btn btn-brand btn-xs add_lesson" ng-click="addLesson(video)">
+                    <i class="fa fa-check"></i>
+                    Add as lesson
+                </button>
+                <button ng-if='video.added' type="button" class="btn btn-default">
+                    <i class="fa fa-check"></i> Added
+                </button>
+            </span>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="remove_video" data-attr="{{video.video_id}}" value="remove_">
+                            <small>Don't show this video</small>
+                        </label>
                     </div>
                 </div>
             </div>

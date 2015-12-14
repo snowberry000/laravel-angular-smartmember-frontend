@@ -20,7 +20,7 @@
 			</div>
 			<div class="ibox-content forum-item active" style="display: {{$index == 0 ? 'block' : 'hidden'}}">
 
-				<ng-include ng-init="init($index , node)" src="node.template" dynamic-ctrl="node.controller" class="container-fluid node_include_container"></ng-include>
+				<ng-include ng-init="init($index , node)" src="node.template" dynamic-ctrl="node.controller" class="container-fluid node_include_container animated fadeInRight"></ng-include>
 
 				<div class="clearfix"></div>
 			</div>
@@ -29,7 +29,7 @@
 	</div>
 </div>
 
-<div ng-if="wizard_completed">
+<div ng-if="wizard_completed" ng-hide="1">
 	<p class="alert alert_info">
 		<i class="ts_icon ts_icon_info_circle"></i>
 		You have successfully completed all steps

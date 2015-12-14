@@ -25,36 +25,62 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     $scope.wait = false;
     $scope.tags = [];
 
+    //for new pagination
+
+    $scope.itemsPerPage = 10;
+    $scope.pagination = {currentPage : 1};
+
+    $scope.paginateIt = function() {
+        var begin = (($scope.pagination.currentPage - 1) * $scope.itemsPerPage),
+            end = begin + $scope.itemsPerPage;
+
+        $scope.videos_to_show = $scope.videos.data.slice(begin, end);
+    }
+
     $scope.loadVideos = function(){
         if(!($scope.vimeo && $scope.vimeo.access_token ))
             return false;
-        var user_id = $scope.vimeo.remote_id.toString();
-        user_id = user_id.substring(7);
 
-        var $url = "https://api.vimeo.com/users/" + user_id + "/videos?page="+$scope.page;
+
+
 
         if (!$scope.wait){
             $scope.wait = true;
-            $http.get($url,{headers: {'Authorization': 'Bearer ' + $scope.vimeo.access_token}})
-                .success(function(response){
+            $scope.callVimeo();
+        }
+    }
+
+    $scope.callVimeo = function() {
+        var user_id = $scope.vimeo.remote_id.toString();
+        user_id = user_id.substring(7);
+        var $url = "https://api.vimeo.com/users/" + user_id + "/videos?page="+$scope.page;
+        $http.get($url,{headers: {'Authorization': 'Bearer ' + $scope.vimeo.access_token}})
+            .then(function(response){
+                if (response.status != '500' && $scope.page <= 3)
+                {
                     if ($scope.videos){
                         if( response.data ) {
-                            for (var i = 0; i < response.data.length; i++) {
-                                $scope.videos.data.push(response.data[i]);
+                            for (var i = 0; i < response.data.data.length; i++) {
+                                $scope.videos.data.push(response.data.data[i]);
                             };
                         }
                     } else {
-                        $scope.videos = response;
+                        $scope.videos = response.data;
                     }
                     if($scope.selectedTag)
                         $scope.filter($scope.selectedTag);
                     $scope.checkAlreadyAdded();
                     $scope.page++;
-
-                    if( response.data )
-                        $scope.wait = false;
-                });
-        }
+                    $scope.callVimeo();
+                } else {
+                    $scope.wait = false;
+                    $scope.paginateIt();
+                }
+            }, function(response)
+            {
+                $scope.wait = false;
+                $scope.paginateIt();
+            });
     }
 
 
@@ -103,7 +129,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
             if( value.added )
                 $videosAdded.items.push({remote_id: value.uri })
         });
-
+        console.log($scope.selected_account);
         var selected_integration = _.findWhere($scope.vimeo_integrations, {id: $scope.selected_account}) || _.findWhere( $scope.vimeo_integrations, {id: $scope.selected_account + ''});
 
         if( selected_integration ) {
@@ -125,6 +151,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
 
     $scope.checkAlreadyAdded = function(){
+        console.log('video data is here', $scope.videos.data);
         for (var i = 0; i < $scope.videos.data.length; i++) {
             var test = _.findWhere($videosAdded.items,{remote_id: $scope.videos.data[i].uri});
 

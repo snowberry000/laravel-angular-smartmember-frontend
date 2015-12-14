@@ -1,21 +1,20 @@
 <div class="sixteen wide column" ng-if="options.sales_page_enabled==1 && !isLoggedIn() || salesPage == 'preview'" ng-hide="isLoggedIn() && salesPage != 'preview'">
-    <div class="row" ng-if="salesPage == 'preview' && options.sales_page_embed || !isLoggedIn()">
+    <div class="row" ng-if="(salesPage == 'preview' || !isLoggedIn()) && options.sales_page_embed">
         <div class="ui segment section_background_color">
             <div ng-class="{'video-container':options.sales_page_embed.indexOf('<iframe') != -1}">
                 <div dynamic="options.sales_page_embed"></div>
             </div>
         </div>
     </div>
-    <div class="row" ng-if="salesPage == 'preview' && options.sales_page_content || !isLoggedIn()"  style="
-    margin-top: 20px;">
+    <div class="row" ng-if="(salesPage == 'preview' || !isLoggedIn()) && options.sales_page_content">
         <div class="ui segment section_background_color">
             <div dynamic="options.sales_page_content"></div>
         </div>
     </div>
     <div ng-if="options.show_syllabus != '0' && options.show_syllabus != 0">
-        <div ng-include="'templates/components/public/app/common/syllabus.html'"></div>
+        <div ng-include="'templates/components/public/themes/default/common/syllabus.html'"></div>
     </div>
-    <div class="row" ng-if="salesPage=='preview' && options.sales_page_outro || !isLoggedIn()" style="
+    <div class="row" ng-if="(salesPage=='preview' || !isLoggedIn()) && options.sales_page_outro" style="
     margin-top: 20px;">
         <div class="ui segment section_background_color">
             <div dynamic="options.sales_page_outro"></div>

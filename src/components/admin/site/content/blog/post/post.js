@@ -30,8 +30,8 @@ app.config(function($stateProvider){
 app.controller("PostController", function ($scope, $localStorage,$site , $timeout , $user , $location, $next_item , $state, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
 	$scope.template_data = {
         title: 'Post',
-        cancel_route: 'admin.site.blog.posts',
-        success_route: 'admin.site.blog.posts',
+        cancel_route: 'admin.site.content.blog.posts',
+        success_route: 'admin.site.content.blog.posts',
         transcript: false,
         access_choice: false
     }

@@ -14,10 +14,10 @@
                                 <div class="col-sm-10">
                                     <input type="text" name="title" class="form-control input-lg"
                                            ng-model="bridgepage.title" ng-blur="onBlurTitle($event)">
-									<span class="help-block m-b-none">
-										This is the name for your page - it's what you and customers will see
-										to distinguish one page from another.
-									</span>
+                                    <span class="help-block m-b-none">
+                                        This is the name for your page - it's what you and customers will see
+                                        to distinguish one page from another.
+                                    </span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -27,9 +27,9 @@
                                 <div class="col-sm-10">
                                     <input type="text" name="permalink" class="form-control input-lg"
                                            ng-model="bridgepage.permalink" ng-blur="onBlurSlug($event)">
-									<span class="help-block m-b-none">
-										This is the unique Url for your page.
-									</span>
+                                    <span class="help-block m-b-none">
+                                        This is the unique Url for your page.
+                                    </span>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -93,9 +93,9 @@
                                             </div>
                                             <input type="hidden" name="featured_image" class="form-control input-lg"
                                                    ng-model="bridgepage.featured_image">
-									<span class="help-block m-b-none">
-										This is the featured image for your page, it is used as the image when sharing on social sites such as Facebook.
-									</span>
+                                    <span class="help-block m-b-none">
+                                        This is the featured image for your page, it is used as the image when sharing on social sites such as Facebook.
+                                    </span>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -105,9 +105,9 @@
                                         <div class="col-sm-10">
                                             <input type="text" name="fb_share_title" class="form-control input-lg"
                                                    ng-model="bridgepage.seo_settings.fb_share_title">
-									<span class="help-block m-b-none">
-										This is the title that will be used when this lesson is shared on Facebook.
-									</span>
+                                    <span class="help-block m-b-none">
+                                        This is the title that will be used when this lesson is shared on Facebook.
+                                    </span>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -117,8 +117,8 @@
                                         <div class="col-sm-10">
                                             <textarea name="fb_share_description" class="form-control input-lg"
                                                       ng-model="bridgepage.seo_settings.fb_share_description"></textarea>
-									<span class="help-block m-b-none">
-									</span>
+                                    <span class="help-block m-b-none">
+                                    </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -128,8 +128,8 @@
                                             <input type="text" name="fb_retargeting_pixel_id"
                                                    class="form-control input-lg"
                                                    ng-model="bridgepage.seo_settings.fb_retargeting_pixel_id">
-									<span class="help-block m-b-none">
-									</span>
+                                    <span class="help-block m-b-none">
+                                    </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -140,8 +140,8 @@
                                             <input type="text" name="fb_conversion_tracking_pixel_id"
                                                    class="form-control input-lg"
                                                    ng-model="bridgepage.seo_settings.fb_conversion_tracking_pixel_id">
-									<span class="help-block m-b-none">
-									</span>
+                                    <span class="help-block m-b-none">
+                                    </span>
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                                     <button ng-disabled="!bridgepage.id" type="button" class="btn btn-success"
                                             ng-click="cloneBridgePage()">Save & Clone
                                     </button>
-                                    <a ui-sref="admin.bridgepages" class="btn btn-default"
+                                    <a ui-sref="admin.site.pages.bridge-pages" class="btn btn-default"
                                        onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
                                 </div>
                             </div>

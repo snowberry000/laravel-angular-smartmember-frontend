@@ -100,9 +100,9 @@
                                    typeahead-loading="$parent.loadingLocations"
                                    typeahead-no-results="$parent.noResults"
                                    class="form-control">
-								<span class="label label-info" ng-repeat="recipient in recipients" style="margin-right:5px;display:inline-block;">
-									{{recipient}} <a href="#" ng-click="removeRecipient(recipient)">&times;</a>
-								</span>
+                                <span class="label label-info" ng-repeat="recipient in recipients" style="margin-right:5px;display:inline-block;">
+                                    {{recipient}} <a href="#" ng-click="removeRecipient(recipient)">&times;</a>
+                                </span>
                         </div>
                     </div>
                 </div>
@@ -138,9 +138,9 @@
 
                             </div>
                             <div class="ibox-footer">
-								<span class="pull-right">
-									  {{::formatNumber( counts.total_available_recipients )}} possible recipients
-								</span>
+                                <span class="pull-right">
+                                      {{::formatNumber( counts.total_available_recipients )}} possible recipients
+                                </span>
                                 {{::counts.total_available_segments}} available segments
                             </div>
                         </div>
@@ -196,9 +196,9 @@
 
                             </div>
                             <div class="ibox-footer">
-								<span class="pull-right">
-									  {{formatNumber( counts.total )}} unique recipients selected
-								</span>
+                                <span class="pull-right">
+                                      {{formatNumber( counts.total )}} unique recipients selected
+                                </span>
                                 {{chosen_segments.length}} segments selected
                             </div>
                         </div>

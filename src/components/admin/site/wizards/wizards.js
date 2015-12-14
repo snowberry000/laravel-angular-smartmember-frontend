@@ -3,7 +3,7 @@ var app = angular.module("app");
 app.config(function($stateProvider){
 	$stateProvider
 		.state("admin.site.wizards",{
-			url: "/wizards",
+			url: "/wizard",
 			templateUrl: "/templates/components/admin/site/wizards/wizards.html",
 			controller: "WizardsController",
             resolve: {

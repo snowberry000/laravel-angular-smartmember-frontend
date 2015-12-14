@@ -36,6 +36,10 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
         })
     }
 
+    $scope.TriggerEmbeds = function() {
+        $('.ui.embed').embed();
+    }
+
     $scope.saveReply = function(comment , body){
         Restangular.all('comment').post({target_id:$scope.post.id , type:4 , parent_id : comment.id ,body:body , public:$scope.post.discussion_settings.public_comments}).then(function(reply){
             comment.reply.push(reply);

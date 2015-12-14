@@ -17,6 +17,7 @@ var app = angular.module( 'app', [
     'oitozero.ngSweetAlert',
 	'froala',
     'ui.bootstrap.popover',
+    'ui.bootstrap.modal',
     'as.sortable', 
     'xeditable',
 	'ui.footable',

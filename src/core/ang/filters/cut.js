@@ -15,7 +15,7 @@ app.filter('cut', function () {
 				value = value.substr(0, lastspace);
 			}
 		}
-
+		value = value.replace(/&apos;/gi, '\'').replace(/&amp;/gi, '\&').replace(/&quot;/gi,'\"');
 		return value + (tail || ' …');
 	};
 });

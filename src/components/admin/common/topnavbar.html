@@ -4,16 +4,16 @@
             <span minimaliza-sidebar></span>
         </div>
         <ul class="nav navbar-top-links navbar-left pull-left">
-			<li class="bigger_icon_nav_container" ng-if="current_company" id="header_team_name">
-				<a ui-sref="admin.account.teams">
+            <li class="bigger_icon_nav_container" ng-if="current_company" id="header_team_name">
+                <a ui-sref="admin.account.teams">
                     <i class="fa fa-building-o"></i>
                     {{current_company.name}}
-				</a>
-			</li>
+                </a>
+            </li>
             <li>
-				<span class="m-r-sm text-muted welcome-message">
+                <span class="m-r-sm text-muted welcome-message">
 
-				</span>
+                </span>
             </li>
         </ul>
         <ul class="nav navbar-top-links navbar-right pull-right">
@@ -52,6 +52,7 @@
                             </div>
                         </li>
                         <li class="divider"></li>
+                        <br>
                     </div>
                     <li ng-if="site.last_responses.length > 0">
                         And {{site.unread_support_ticket}} ticket(s) unread
@@ -59,18 +60,18 @@
                     <li>
                         <div class="text-center link-block">
                             <a ui-sref="admin.team.helpdesk.tickets">
-                                <i class="fa fa-envelope"></i> <strong>Read All Tickets</strong>
+                                <i class="fa fa-envelope"></i> <strong>View all tickets</strong>
                             </a>
                         </div>
                     </li>
                 </ul>
             </li>
-			<li ng-if="app.subdomain != 'my'" class="bigger_icon_nav_container">
-				<a ui-sref="public.app.home">
-					<span class="hide_for_mobile">{{site.name}}</span>
+            <li ng-if="app.subdomain != 'my'" class="bigger_icon_nav_container">
+                <a ui-sref="public.app.home">
+                    <span class="hide_for_mobile">{{site.name}}</span>
                     <i class="fa fa-globe m-l-sm"></i>
-				</a>
-			</li>
+                </a>
+            </li>
         </ul>
 
     </nav>

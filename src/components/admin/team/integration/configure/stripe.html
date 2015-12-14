@@ -1,0 +1,53 @@
+<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+    <div class="sk-bounce1"></div>
+    <div class="sk-bounce2"></div>
+    <div class="sk-bounce3"></div>
+</div>
+
+<div ng-if="!loading" class="card clearfix large_top_margin">
+    <div class="col span_1_of_3 align_right_desktop align_center_mobile no_right_padding no_bottom_margin" style="float:right;" ng-if="current_integration.id && !current_integration.disabled">
+        <div class="well small_top_margin">
+            <a class="remove_service indifferent_grey moscow_red_on_hover" ng-click="promptDefault()" ng-if="!current_integration.default">Set as Default</a>
+            <a class="remove_service indifferent_grey moscow_red_on_hover" ng-click="removeDefault()" ng-if="current_integration.default">Unset as Default</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Configure Stripe Integration for <strong>{{current_integration.company_id ? company.name : current_site.name}}</strong></h3>
+        </div>
+        <div class="col-md-8">
+
+            <div ng-if="account_choices.length > 0">
+                <label class="select small">
+                    <select class="small" ng-model="current_integration.connected_account_id">
+                        <option value="0">Choose an account...</option>
+                        <optgroup label="Accounts">
+                            <option ng-repeat="account in account_choices" ng-selected="current_integration.connected_account_id == account.id" value="{{account.id}}">{{account.name ? account.name : (account.username ? account.username : account.remote_id)}}</option>
+                        </optgroup>
+                    </select>
+                </label>
+                <div class="input_note float_right">
+                    <span class="subtle_silver">or </span>
+                    <a ng-click="connectStripeAccount()">connect new account</a>
+                </div>
+            </div>
+            <div ng-hide="account_choices.length > 0">
+                <a data-bypass="true" class="same_window pull-right" ng-click="connectStripeAccount()" ><img style='width: 180px;' src="https://imbmediab.s3.amazonaws.com/11/0769c620c29028531d5f7f0b5dc5a4c4/blue-on-light.png" class="img-responsive"/></a>
+            </div>
+
+            <div class="clear_both"></div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-4">
+            <span class="inline_block">
+            <a ng-click="!current_integration.connected_account_id || current_integration.connected_account_id == 0 || saveIntegration()" ng-disabled="!current_integration.connected_account_id || current_integration.connected_account_id == 0" class="btn btn_large">
+                {{current_integration.id ? 'Save' : 'Add Integration'}}
+            </a>
+        </span>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,63 @@
+<div ng-include="'templates/components/admin/team/integrations/common/single-heading.html'"></div>
+
+<div class="ibox">
+	<div class="ibox-content">
+
+		<form method="get" class="form-horizontal" ng-submit="saveIntegration()">
+
+			<h2>Integration Settings</h2>
+
+			<div class="form-group m-t-sm">
+				<label class="col-sm-3 control-label">Facebook App ID</label>
+
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="current_integration.username">
+					<span class="help-block m-b-none"></span>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+
+			<div class="form-group m-t-sm">
+				<label class="col-sm-3 control-label">Facebook App Secret Key</label>
+
+				<div class="col-sm-9">
+					<input type="password" class="form-control" ng-model="current_integration.password">
+					<span class="help-block m-b-none"></span>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed" ng-show="(current_integration.username && current_integration.password) || (current_integration.name && current_integration.remote_id)"></div>
+
+			<div class="form-group m-t-sm">
+				<label class="col-sm-3 control-label" ng-show="(current_integration.username && current_integration.password) || (current_integration.name && current_integration.remote_id)">Facebook Group</label>
+
+				<div class="col-sm-9" ng-if="current_integration.name && current_integration.remote_id">
+					{{current_integration.name}}
+					<a class="btn btn-danger btn-outline" ng-click="addGroup()" ng-show="current_integration.username && current_integration.password">
+						re-create group
+					</a>
+				</div>
+				<div class="col-sm-9" ng-show="current_integration.username && current_integration.password && !current_integration.name && !current_integration.remote_id">
+					<a class="btn btn-primary" ng-click="addGroup()">
+						create new group
+					</a>
+				</div>
+
+			</div>
+
+			<div class="hr-line-dashed"></div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label"></label>
+
+				<div class="col-sm-9">
+					<button class="btn btn-brand" type="submit" ng-disabled="!current_integration.username || !current_integration.password">Save changes</button>
+					<a ui-sref="admin.team.integrations.{{integration_id ? 'list' : 'available'}}" class="btn btn-white">cancel</a>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</div>
+

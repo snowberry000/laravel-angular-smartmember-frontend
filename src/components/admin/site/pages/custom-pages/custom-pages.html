@@ -1,34 +1,24 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-8">
-        <h2>{{ template_data.title | translate }}</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a ng-href="/">{{ 'HOME' | translate }}</a>
-            </li>
-            <li class="active">
-                <strong>{{ template_data.title | translate }}</strong>
-            </li>
-        </ol>
-    </div>
-</div>
 
 <div class="row wrapper wrapper-content animated fadeInRight">
 
     <div class="ibox-content m-b-sm border-bottom">
         <div class="p-xs">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="pull-left m-r-md">
                         <i class="fa fa-globe text-branded mid-icon"></i>
                     </div>
                     <h2>{{ template_data.title | translate }}</h2>
                     <span>{{template_data.description}}</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 text-right">
                     <a ng-href="{{$state.href( template_data.edit_route )}}" class="btn btn-brand btn-large ng-scope">
                         <i class="fa fa-plus"></i>
                         Create new {{template_data.singular}}
                     </a>
+                    <button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+                        <i class="fa fa-question"></i>
+                    </button>
                 </div>
             </div>
         </div>

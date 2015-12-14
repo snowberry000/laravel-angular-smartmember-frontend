@@ -9,7 +9,7 @@ app.factory('TeamWizard', function () {
 					"feature" : "Name",
 					"heading" : "Update team name" ,
 					"description" : "Optionally change the name of your team to better represent your product, service, company, or person." ,
-					"template" : "templates/admin/team/settings.html",
+					"template" : "templates/components/admin/team/settings.html",
 					"controller" : "teamNameWizardController",
 					"enabled" : true,
 					"completed" : false
@@ -20,7 +20,7 @@ app.factory('TeamWizard', function () {
 					"feature" : "Invite Members",
 					"heading" : "Invite team members" ,
 					"description" : "If you have employees, assistants, or partners - invite them to help manage your team." ,
-					"template" : "templates/admin/team/members/invite.html",
+					"template" : "templates/components/admin/team/members/invite.html",
 					"parent_controller" : "InviteMembersController",
 					"controller" : "inviteMembersWizardController",
 					"enabled" : true,
@@ -32,7 +32,7 @@ app.factory('TeamWizard', function () {
 					"feature" : "Site",
 					"heading" : "Create a new site" ,
 					"description" : "Get started by creating a new site for your team." ,
-					"template" : "templates/admin/team/sites/single.html",
+					"template" : "templates/components/admin/team/sites/single.html",
 					"controller" : "siteWizardController",
 					"enabled" : true,
 					"completed" : false
@@ -43,7 +43,7 @@ app.factory('TeamWizard', function () {
 					"feature" : "",
 					"heading" : "Customize your team's public profile" ,
 					"description" : "Update your team's public profile to be show in the Smart Member membership directory." ,
-					"template" : "templates/admin/team/profile.html",
+					"template" : "templates/components/admin/team/profile.html",
 					"controller" : "teamBioWizardController",
 					"enabled" : true,
 					"completed" : false
