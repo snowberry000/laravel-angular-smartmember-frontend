@@ -1,0 +1,623 @@
+<!-- Page wrapper -->
+<div ng-include="'templates/components/public/common/topnavbar.html'" class="admin" ng-hide="!isLoggedIn()"></div>
+
+<div ui-view class="sticky-full-height bp_content" ng-include src="'bpage/' + template.preview_url"></div>
+
+<!-- Right Sidebar -->
+<div id="right-sidebar" ng-if="" class="admin sidebar-open">
+	<div  class="sidebar-container" full-scroll>
+
+		<div class="sidebar-title">
+			<p>Edit the options below to preview your Bridge Page; click "save" to make your changes live.</p>
+			<button class="btn btn-primary save_changes text-center block m-t-md" style="margin: 0px auto;" type="button" ng-click="save()">Save changes</button>
+		</div>
+		<ul class="nav nav-tabs navs-2">
+
+			<li ng-class="{active: tab1}">
+				<a ng-click="tab1 = true; tab2 = false; tab3 = false" ng-init="tab1 = true">
+					<i class="fa fa-gear"></i>
+					Layout
+				</a>
+			</li>
+			<li ng-class="{active: tab2}">
+				<a ng-click="tab2 = true; tab1 = false; tab3 = false">
+					<i class="fa fa-picture-o"></i>
+					Colors
+				</a>
+			</li>
+		</ul>
+		<div  class="tab-content">
+			<div  class="tab-pane" ng-class="{active: tab1}">
+				<ul class="sidebar-list" style="margin-bottom: 200px;">
+					<li>
+
+
+						<form method="get" class="form-horizontal save_form" ng-submit="save()">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Page Title</label>
+
+								<div class="col-sm-10">
+									<input type="text" name="title" class="form-control input-lg"
+										   ng-model="bridgepage.title" ng-blur="onBlurTitle($event)">
+                                    <span class="help-block m-b-none">
+                                        This is the name for your page - it's what you and customers will see
+                                        to distinguish one page from another.
+                                    </span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Permalink</label>
+
+								<div class="col-sm-10">
+									<input type="text" name="permalink" class="form-control input-lg"
+										   ng-model="bridgepage.permalink" ng-blur="onBlurSlug($event)">
+                                    <span class="help-block m-b-none">
+                                        This is the unique Url for your page.
+                                    </span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Template</label>
+
+								<div class="col-sm-10">
+									<select class='form-control input-lg' ng-model="template"
+											ng-options="t.name for t in templates">
+
+									</select>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+
+							<h3 class="text-center">Template Preview</h3>
+
+
+							<h3 class="text-center" style="margin-top: 50px;">Template Editing</h3>
+
+							<div ng-include="'bpage/' + template.control_url"></div>
+
+							<div class="hr-line-dashed"></div>
+							<div class="accordion_section" style="border-bottom: none;">
+								<a class="accordion_trigger accordion_expand btn btn_outline"
+								   ng-click="facebook=!facebook">expand</a>
+								<h4>Facebook Sharing Settings</h4>
+
+								<div ng-show="facebook">
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Featured Image</label>
+
+										<div class="col-sm-10">
+											<button type="button"
+													sm-uploader="featured_image" ng-model="bridgepage.featured_image">
+												Choose Featured Image
+											</button>
+											<div class="width-100 set_featured_image">
+												<img class="featured_image_preview img-responsive img-thumbnail"
+													 ng-src="{{bridgepage.featured_image}}"
+													 ng-show="bridgepage.featured_image" style="width:auto;"/>
+											</div>
+											<div class="col-md-12" ng-if="bridgepage.featured_image">
+												<i class="ace-icon fa fa-remove"
+												   ng-click="bridgepage.featured_image=''">Remove</i>
+											</div>
+											<input type="hidden" name="featured_image" class="form-control input-lg"
+												   ng-model="bridgepage.featured_image">
+                                    <span class="help-block m-b-none">
+                                        This is the featured image for your page, it is used as the image when sharing on social sites such as Facebook.
+                                    </span>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Share Title</label>
+
+										<div class="col-sm-10">
+											<input type="text" name="fb_share_title" class="form-control input-lg"
+												   ng-model="bridgepage.seo_settings.fb_share_title">
+                                    <span class="help-block m-b-none">
+                                        This is the title that will be used when this lesson is shared on Facebook.
+                                    </span>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Share Description</label>
+
+										<div class="col-sm-10">
+                                            <textarea name="fb_share_description" class="form-control input-lg"
+													  ng-model="bridgepage.seo_settings.fb_share_description"></textarea>
+                                    <span class="help-block m-b-none">
+                                    </span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Facebook Retargeting Pixel ID</label>
+
+										<div class="col-sm-10">
+											<input type="text" name="fb_retargeting_pixel_id"
+												   class="form-control input-lg"
+												   ng-model="bridgepage.seo_settings.fb_retargeting_pixel_id">
+                                    <span class="help-block m-b-none">
+                                    </span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Facebook Conversion Tracking Pixel
+											ID</label>
+
+										<div class="col-sm-10">
+											<input type="text" name="fb_conversion_tracking_pixel_id"
+												   class="form-control input-lg"
+												   ng-model="bridgepage.seo_settings.fb_conversion_tracking_pixel_id">
+                                    <span class="help-block m-b-none">
+                                    </span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-2">
+									<button class="btn btn-brand" type="submit">Save changes</button>
+									<button ng-disabled="!bridgepage.id" type="button" class="btn btn-success"
+											ng-click="cloneBridgePage()">Save & Clone
+									</button>
+									<a ui-sref="admin.site.pages.bridge-pages" class="btn btn-default"
+									   onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
+								</div>
+							</div>
+						</form>
+
+
+
+					</li>
+					<li>
+						<h4>
+							Site Background Image
+						</h4>
+						<div class="color-picker">
+							<div>
+								<div class="" ng-controller="inlineMediaController">
+									<style>
+										#dropzone-upload {
+											box-sizing: border-box;
+											min-height: 150px;
+											border: 2px solid rgba(0, 0, 0, 0.3);
+											background: white;
+											border: 2px dashed #0087F7;
+											border-radius: 5px;
+											background: white;
+											cursor: pointer;
+											margin: 5px 5px 15px;
+											text-align: center;
+											font-weight: 400;
+											font-size: 1.5em;
+										}
+
+										#dropzone-upload .hovering {
+											border-width: 4px;
+											font-weight: 700;
+											background: #cfcfcf;
+										}
+										.drop-box {
+											background: #F8F8F8;
+											border: 5px dashed #DDD;
+											text-align: center;
+											padding: 20px;
+											margin-left: 10px;
+											margin-bottom: 20px;
+											cursor: pointer;
+										}
+										.drop-box.dragover {
+											border: 5px dashed blue;
+										}
+
+										.drop-box.dragover-err {
+											border: 5px dashed red;
+										}
+									</style>
+
+									<div class="ui segment basic" ng-show="loading" style="min-height:70px;">
+										<div class="ui active inverted dimmer">
+											<div class="ui text loader">Loading</div>
+										</div>
+									</div>
+									<div class="col-md-12 height40" ng-hide="loading" ng-init="data_to_update = 'site_background_image'">
+										<form  method="post">
+											<div ngf-select="" ngf-drop="" ng-model="files" ngf-multiple="multiple" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="dropzone drop-box upload-image-container" ngf-drop-available="dropAvailable">
+												Select or Drop File
+											</div>
+										</form>
+									</div>
+								</div>
+								<br>
+								<img ng-if="meta_data['site_background_image']" src="{{meta_data['site_background_image']}}" style="max-width:100%" />
+								<br>
+								<span ng-click="meta_data['site_background_image'] = ''" style="cursor:pointer;">&times; Remove</span>
+							</div>
+							<div class="media-body" style="color : black">
+
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Show icons?
+						</h4>
+						<div class="switch">
+							<div class="onoffswitch">
+								<input type="checkbox" ng-checked="meta_data['show_nav_icons'] == '1'" ng-model="meta_data['show_nav_icons']" class="onoffswitch-checkbox" id="show_nav_icons">
+								<label class="onoffswitch-label" for="show_nav_icons">
+									<span class="onoffswitch-inner"></span>
+									<span class="onoffswitch-switch"></span>
+								</label>
+
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Icon positions
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['icon_position']">
+								<option value="left">Left</option>
+								<option value="top">Top</option>
+								<option value="right">Right</option>
+								<option value="bottom">Bottom</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Icon size
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['icon_size']">
+								<option value="">Small</option>
+								<option value="fa-2x">Medium</option>
+								<option value="fa-3x">Large</option>
+								<option value="fa-4x">Big</option>
+								<option value="fa-5x">Huge</option>
+								<option value="fa-6x">Massive</option>
+							</select>
+						</div>
+					</li>
+
+
+					<li>
+						<h4>
+							Navigation style
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['navigation_style']">
+								<option value="text">Plain</option>
+								<option value="">Boxes</option>
+								<option value="borderless">Single box</option>
+								<option value="tabular">Tabs</option>
+								<option value="secondary">Underline</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Navigation location
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['navigation_location']">
+								<option value="">Standard</option>
+								<option value="top fixed">Top Fixed</option>
+								<option value="bottom fixed">Bottom Fixed</option>
+								<option value="left fixed" ng-hide="1">Left Fixed</option>
+								<option value="right fixed" ng-hide="1">Right Fixed</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Logo position
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['logo_position']">
+								<option value="left">Left</option>
+								<option value="above">Above nav</option>
+								<option value="right">Right</option>
+								<option value="below">Below nav</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Logo size
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['logo_size']">
+								<option value="mini">Mini</option>
+								<option value="tiny">Tiny</option>
+								<option value="small">Small</option>
+								<option value="medium">Medium</option>
+								<option value="large">Large</option>
+								<option value="big">Big</option>
+								<option value="huge">Huge</option>
+								<option value="massive">Massive</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Logo border
+						</h4>
+						<div class="switch">
+							<div class="onoffswitch">
+								<input type="checkbox" ng-checked="meta_data['logo_border'] == '1'" ng-model="meta_data['logo_border']" class="onoffswitch-checkbox" id="logo_border">
+								<label class="onoffswitch-label" for="logo_border">
+									<span class="onoffswitch-inner"></span>
+									<span class="onoffswitch-switch"></span>
+								</label>
+
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Logo style
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['logo_style']">
+								<option value="">Standard</option>
+								<option value="rounded">Rounded</option>
+								<option value="circular">Circular</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Page background style
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['page_background_style']">
+								<option value="fluid">Fluid</option>
+								<option value="boxed">Boxed</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Sidebar position
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['sidebar_position']">
+								<option value="left">Left</option>
+								<option value="right">Right</option>
+								<option value="none">None</option>
+							</select>
+						</div>
+					</li>
+
+					<li>
+						<h4>
+							Module label style
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['module_label_style']">
+								<option value="ribbon">Ribbon</option>
+								<option value="attached">Attached</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Module label position
+						</h4>
+						<div class="switch">
+							<select class="form-control" ng-model="meta_data['module_label_position']">
+								<option value="top left">Top Left</option>
+								<option value="top">Top</option>
+								<option value="top right">Top Right</option>
+								<option value="bottom right">Bottom Right</option>
+								<option value="bottom">Bottom</option>
+								<option value="bottom left">Bottom Left</option>
+							</select>
+						</div>
+					</li>
+					<li>
+						<h4>
+							'Syllabus' Text
+						</h4>
+						<div class="switch">
+							<input type="text" name="syllabus_text" class="form-control input-lg"
+								   ng-model="meta_data['syllabus_text']" placeholder="Syllabus">
+						</div>
+					</li>
+					<li>
+						<h4>
+							'Search lessons...' text
+						</h4>
+						<div class="switch">
+							<input type="text" name="syllabus_text" class="form-control input-lg"
+								   ng-model="meta_data['search_lesson_text']" placeholder="Search lessons...">
+						</div>
+					</li>
+
+					<li>
+						<h4>
+							'Lessons' text
+						</h4>
+						<div class="switch">
+							<input type="text" name="syllabus_text" class="form-control input-lg"
+								   ng-model="meta_data['lesson_text']" placeholder="Lessons">
+						</div>
+					</li>
+					<li>
+						<h4>
+							'Begin/Continue this course' text
+						</h4>
+						<div class="switch">
+							<input type="text" name="syllabus_text" class="form-control input-lg"
+								   ng-model="meta_data['begin_course_text']" placeholder="Begin/Continue this course">
+						</div>
+					</li>
+					<li>
+						<h4>
+							Cap Icon
+						</h4>
+						<div class="switch">
+							<ui-iconpicker  groups="font-awesome"  value="{{meta_data['cap_icon'] ? meta_data['cap_icon'] : 'fa fa-graduation-cap' }}" ng-model="meta_data['cap_icon']" ng-click="menuItemLabel();" >
+							</ui-iconpicker>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+
+			<div class="tab-pane" ng-class="{active: tab2}">
+				<ul class="sidebar-list" style="margin-bottom: 200px;">
+
+					<li>
+						<h4>
+							Site Background Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Site Top Background Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_top_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Site Middle Background Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_middle_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Site Bottom Background Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_bottom_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Navigation Text Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['navigation_text_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Navigation Background Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['navigation_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Navigation Icon Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['navigation_icon_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Section Background Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['section_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Headline Text Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['headline_text_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Module Label Text Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['module_label_text_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Module Label Background Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['module_label_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Main Button Text Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['main_button_text_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Main Button Background Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['main_button_background_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>
+							Footer Text Color
+						</h4>
+						<div class="color-picker">
+							<div class="">
+								<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['footer_text_color']"></spectrum-colorpicker>
+							</div>
+						</div>
+					</li>
+
+				</ul>
+
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -18,11 +18,20 @@
 
 				</a>
 			</li>
-			<li ng-if="site.is_admin">
+			<li ng-if="site.is_admin && !$state.includes('public.bridge-page')">
 				<a ng-click="app.show_engine=!app.show_engine">
 					<i class="fa fa-tasks"></i>
 					<span class="hidden-xs">
 						Theme options
+					</span>
+
+				</a>
+			</li>
+			<li ng-if="$state.includes('public.bridge-page')">
+				<a ng-click="app.show_engine=!app.show_engine">
+					<i class="fa fa-tasks"></i>
+					<span class="hidden-xs">
+						Bridge Page Settings
 					</span>
 
 				</a>
