@@ -46,7 +46,7 @@ gulp.task('bower', function(){
 });
 
 gulp.task('js', function(){
-	 return gulp.src("src/**/*.js")
+	 return gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**"])
 	 	.pipe(angularFilesort())
         .pipe(ngAnnotate())
         .pipe(minifyjs())
