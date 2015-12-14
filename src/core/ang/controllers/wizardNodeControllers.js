@@ -36,7 +36,7 @@ app.controller('sendgridWizardController', function ($rootScope,$scope, $http , 
         id: 'sendgrid',
         name: 'Sendgrid',
         description: 'E-mail your customers using Sendgrid.',
-        logo: '/assets/images/integrations/sendgrid.png',
+        logo: '/images/integrations/sendgrid.png',
         long_description: ''
     };
 
@@ -97,7 +97,7 @@ app.controller('paypalWizardController', function ($rootScope,$scope, $http , $f
         id: 'paypal',
         name: 'Paypal',
         description: 'Allow your customers to pay you with Paypal.',
-        logo: '/assets/images/integrations/paypal.png',
+        logo: '/images/integrations/paypal.png',
         long_description: ''
     };
     $scope.site = $rootScope.site;

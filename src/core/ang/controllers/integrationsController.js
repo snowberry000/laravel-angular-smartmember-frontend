@@ -155,7 +155,7 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
             name: 'Facebook: Groups',
             short_name: 'FB Groups',
             description: 'Automate adding and removing your members from a Facebook group.',
-            logo: '/assets/images/integrations/fb.png',
+            logo: '/images/integrations/fb.png',
             long_description: '<p><a href="https://www.facebook.com/help/162866443847527/" target="_blank">Facebook Group</a> Integrations let you automatically create groups and grant access to those groups based on products your users purchase.</p><p>For help in creating a Facebook App, please <a href="http://help.smartmember.com/lesson/Facebook-Group-Integration" target="_blank">click here</a> to view our tutorial</p>'
         },
         {
@@ -164,7 +164,7 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
             short_name: 'JVZoo',
             instructions_only: true,
             description: 'Add Affiliates through our JVZoo Chrome Extension',
-            logo: '/assets/images/integrations/jvzoo.jpeg',
+            logo: '/images/integrations/jvzoo.jpeg',
             long_description: '<p class="font-bold text-success">Automatically add your JVZoo affiliates in this section</p> <p class=""> Install the JVzoo Extension following the instructions provided, and every time you visit JVzoo the extension will automatically add your affiliates in this management area. You can add affiliates from these JVzoo locations.</p> <p style="text-align:center;"> <a target="_blank" href="https://www.jvzoo.com/sellers/youraffiliates?f_aff=&f_prod=&f_stat=&r=25000" data-bypass="true">Your Affiliates</a> | <a target="_blank" href="https://www.jvzoo.com/sellers/affiliaterequests?f_aff=&r=250000" data-bypass="true">Affiliate Requests</a> </p>'
         },
         {
@@ -173,35 +173,35 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
             short_name: 'JVZoo Payment',
             sites_only: true,
             description: 'Allow your customers to buy your Products with JVZoo',
-            logo: '/assets/images/integrations/jvzoo.jpeg',
+            logo: '/images/integrations/jvzoo.jpeg',
             long_description: '<p><a href="http://www.jvzoo.com/register/446025" target="_blank">JVZoo</a> allows you to accept payments from the JVZoo affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'paypal',
             name: 'Paypal',
             description: 'Allow your customers to buy your Products with Paypal.',
-            logo: '/assets/images/integrations/paypal.png',
+            logo: '/images/integrations/paypal.png',
             long_description: '<p><a href="http://paypal.com" target="_blank">Paypal</a> allows you to accept most forms of payment from customers.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'sendgrid',
             name: 'Sendgrid',
             description: 'E-mail your customers using Sendgrid.',
-            logo: '/assets/images/integrations/sendgrid.png',
+            logo: '/images/integrations/sendgrid.png',
             long_description: ''
         },
         {
             id: 'stripe',
             name: 'Stripe',
             description: 'Allow customers to buy your Products with Stripe.',
-            logo: '/assets/images/integrations/stripe.png',
+            logo: '/images/integrations/stripe.png',
             long_description: '<p><a href="http://stripe.com" target="_blank">Stripe</a> allows you to accept credit card payments directly on your site.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'vimeo',
             name: 'Vimeo',
             description: 'Rapidly create content by importing directly from Vimeo.',
-            logo: '/assets/images/integrations/vimeo.png',
+            logo: '/images/integrations/vimeo.png',
             long_description: '<p><a href="http://vimeo.com" target="_blank">Vimeo</a> is a premier video hosting platform. Once connected, you\'ll be able to quickly import videos and turn them into content on your site(s).</p>'
         },
     ];
