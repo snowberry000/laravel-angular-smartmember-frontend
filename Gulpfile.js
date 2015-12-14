@@ -35,7 +35,7 @@ gulp.task( 'bower', function()
 	gulp.src( bowerFiles( '**/*.js' ) )
 		.pipe( concat( 'vendor.min.js' ) )
 		.pipe( ngAnnotate() )
-		.pipe( minifyjs( { mangle: false } ) )
+		.pipe( minifyjs( { mangle: false, output: { ascii_only: true } } ) )
 		.pipe( gulp.dest( 'dist/js/' ) );
 
 	gulp.src( bowerFiles( '**/*.css' ) )
