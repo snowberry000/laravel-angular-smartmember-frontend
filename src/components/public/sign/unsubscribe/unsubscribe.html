@@ -1,29 +1,72 @@
-<h2> Unsubscribe</h2>
+<div class="ui modal unsubscribe" ng-init="PopModal('unsubscribe');">
+    <div class="header">
+        Unsubscribe
+    </div>
+    <div class="image content">
+        <div class="ui medium image">
+            <img ng-show="options.site_logo" ng-src="{{options.site_logo}}">
+            <img ng-show="!options.site_logo" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/logo-placeholder.png">
+        </div>
+        <div class="description">
 
-<div class="col span_4_of_6 float_none margin_auto large_bottom_margin">
+            <h2> Unsubscribe</h2>
 
-    <p ng-hide="emailLists.length == 0">Select the lists to unsubscribe</p>
+            <div class="col span_4_of_6 float_none margin_auto large_bottom_margin">
 
-    <form class="save_form">
-        <p class=" small_bottom_margin">
-            <label ng-repeat="emailList in emailLists">
-                <input type="checkbox" name="emailsList"
-                 ng-model="emailList.checked"> {{emailList.name}}</label>
-        </p>
+                <p ng-hide="emailLists.length == 0">Select the lists to unsubscribe</p>
 
-        <p class=" small_bottom_margin" style="padding-top:15px;">
-            Reason (optional)<br/>
-            <textarea style="padding-top:10px;" ng-model="reason" cols="50" rows="5" >
+                <form class="save_form">
+                    <p class=" small_bottom_margin">
+                        <label ng-repeat="emailList in emailLists">
+                            <input type="checkbox" name="emailsList"
+                                   ng-model="emailList.checked">
+                            {{emailList.name}}
+                        </label>
+                    </p>
+
+                    <p class=" small_bottom_margin" style="padding-top:15px;">
+                        Reason (optional)
+                        <br/>
+            <textarea style="padding-top:10px;" ng-model="reason" cols="50" rows="5">
 
             </textarea>
-        </p>
+                    </p>
 
-        <p>
-            <button ng-click="unsubscribe()" class="btn btn_large full_width ladda-button" data-style="expand-right">
-                <span class="ladda-label">Unsubscribe</span>
-            </button>
-        </p>
+                    <p>
+                        <button ng-click="unsubscribe()" class="btn btn_large full_width ladda-button" data-style="expand-right">
+                            <span class="ladda-label">Unsubscribe</span>
+                        </button>
+                    </p>
 
-    </form>
+                </form>
 
+            </div>
+
+
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+            Nope
+        </div>
+        <div class="ui positive right labeled icon button">
+            Yep, that's me
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,29 +19,29 @@
                 <div class="table-responsive">
                     <table class="ui celled padded table">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Status</th>
-                            <th>Subject</th>
-                            <th>Message</th>
-                            <th>Attachment</th>
-                            <th>Replies</th>
-                            <th>Date</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Status</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Attachment</th>
+                                <th>Replies</th>
+                                <th>Date</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr role="row" class="odd" ng-repeat="ticket in tickets">
-                            <td><a href="/support-ticket/{{ticket.id}}">{{ticket.id}}</td></a>
-                            <td>{{ticket.status}}</td>
-                            <td>{{ticket.subject}}</td>
-                            <td>{{ticket.message}}</td>
-                            <td>
-                                <a ng-if="ticket.attachment" class="" href="{{ticket.attachment}}" target="_blank">{{ticket.attachment.split('/').pop()}}</a>
-                                <p ng-if="!ticket.attachment">No attachment</p>
-                            </td>
-                            <td>{{ticket.reply.length}}</td>
-                            <td>{{moment.utc(ticket.created_at).fromNow()}}</td>
-                        </tr>
+                            <tr role="row" class="odd" ng-repeat="ticket in tickets">
+                                <td><a href="/support-ticket/{{ticket.id}}">{{ticket.id}}</td></a>
+                                <td>{{ticket.status}}</td>
+                                <td>{{ticket.subject}}</td>
+                                <td>{{ticket.message}}</td>
+                                <td>
+                                    <a ng-if="ticket.attachment" class="" href="{{ticket.attachment}}" target="_blank">{{ticket.attachment.split('/').pop()}}</a>
+                                    <p ng-if="!ticket.attachment">No attachment</p>
+                                </td>
+                                <td>{{ticket.reply.length}}</td>
+                                <td>{{moment.utc(ticket.created_at).fromNow()}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

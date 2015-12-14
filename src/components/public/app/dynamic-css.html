@@ -1,0 +1,63 @@
+<style>
+	#wrapper{
+	background-color: {{meta_data.site_background_color || ''}};
+	background-image: url('{{meta_data.site_background_image || ''}}');
+	background-size:cover;
+	background-attachment:fixed;
+	}
+
+	.public .navigation_text_color {
+	color:{{meta_data.navigation_text_color || '#1b1c1d'}} !important;
+	}
+	.public .navigation_background_color {
+	background:{{meta_data.navigation_background_color || '#fff'}} !important;
+	}
+	.public i.navigation_icon_color {
+	color:{{meta_data.navigation_icon_color || '#1b1c1d'}};
+	}
+	.public .section_background_color {
+	background: {{meta_data.section_background_color || '#fff'}} !important;
+	}
+	.public .headline_text_color {
+	color:{{meta_data.headline_text_color || '#1b1c1d'}} !important;
+	}
+	.public .module_label_background_color {
+	background-color:{{meta_data.module_label_background_color || '#2185d0'}} !important;
+	border-color-color:{{meta_data.module_label_background_color || '#2185d0'}} !important;
+	}
+	.public .module_label_text_color {
+	color:{{meta_data.module_label_text_color || '#FFFFFF'}} !important;
+	}
+	.public .main_button_background_color,
+	.public .main_button_background_color:hover {
+	background-color:{{meta_data.main_button_background_color || '#2185d0'}} !important;
+	}
+	.public .main_button_text_color {
+	color:{{meta_data.main_button_text_color || '#FFFFFF'}} !important;
+	}
+
+	.public .site_top_background_color {
+	background-color:{{meta_data.site_top_background_color || ''}} !important;
+	}
+	.public .site_middle_background_color {
+	background-color:{{meta_data.site_middle_background_color || ''}} !important;
+	}
+	.public .site_bottom_background_color {
+	background-color:{{meta_data.site_bottom_background_color || ''}} !important;
+	}
+
+	.public .footer_text_color {
+	color:{{meta_data.footer_text_color || '#1b1c1d'}} !important;
+	}
+
+
+	.public .something {
+	color:{{meta_data.primary_color ? meta_data.primary_color : '#000'}};
+	}
+	.public .something {
+	color:{{meta_data.secondary_color ? meta_data.secondary_color : '#000'}};
+	}
+	.public .something {
+	color:{{meta_data.tertiary_color ? meta_data.tertiary_color : '#000'}};
+	}
+</style>

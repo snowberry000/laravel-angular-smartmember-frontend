@@ -32,7 +32,7 @@
 		</div>
 
 		<div class="ui padded basic segment section_background_color">
-			<a ng-if="is_site_admin || is_team_member" ui-sref="admin.site.livecasts.livecast({id: next_item.id})" class="">Edit</a>
+			<a ng-if="is_site_admin || is_team_member" ng-href="/admin/site/content/livecast/{{next_item.id}}" class="">Edit</a>
 
 			<h3 class="text-center" style="font-weight: bold;" ng-if="next_item.timeLeft > 0">
 				You can access to this content in:
@@ -44,7 +44,7 @@
 			<div class="row" dynamic="next_item.content"></div>
 
 			<div class="panel-footer comments_go_here" ng-show="next_item.discussion_settings.show_comments" style="margin-bottom:20px;">
-				<div ng-include="'templates/components/public/themes/default/common/comments.html'"></div>
+				<div ng-include="'templates/components/public/app/common/comments.html'"></div>
 			</div>
 
 		</div>
@@ -54,6 +54,6 @@
 </div>
 <div class="four wide column">
 
-	<div ng-include="'templates/components/public/themes/default/common/sidebar.html'"></div>
+	<div ng-include="'templates/components/public/app/common/sidebar.html'"></div>
 
 </div>

@@ -155,12 +155,10 @@ if ( $subdomain != 'my' && count($requestParts) > 1 && count($requestParts) < 3)
 <html ng-app='app' style="height:100%;" class="no-js {{$state.current.name.split('.').join(' ')}}" ng-controller="IndexAppController" ng-init="home_init()">
 <head>
 	<base href="/"></base>
-	<title>Smartmember</title>
+	<title>Smart Member</title>
 	<meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="styles/vendor.css">
-    <link rel="stylesheet" href="styles/index.css">
-    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="css/main.min.css">
 	<!-- bower:css -->
   	<!-- endinject -->
   	
