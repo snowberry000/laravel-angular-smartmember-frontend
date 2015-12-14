@@ -22,374 +22,498 @@ app.config(function($stateProvider){
                             name: 'ui.sortable'
                         }
                     ]);
-                }
-				/*emailLists: function(Restangular , $site){
-					return Restangular.all('emailList/sendMailLists').getList();
-				}
-				/*
-				sites : function(Restangular){
-					return Restangular.one('supportTicket').customGET('sites');
-				},
-				accessLevels: function(Restangular , $site){
-					return Restangular.all('accessLevel/sendMailAccessLevels').getList();
-				},
-				superAdmin: function( Restangular ) {
-					return Restangular.one('user').customGET('isSuperAdmin');
-				},
+                },
 				sendgridIntegrations: function(Restangular , $site){
 					return Restangular.all('integration/getSendgridIntegrations').getList();
-				},*/
+				}
 			}
 		})
-}); 
+});
 
-app.controller("smartMailCreateController", function ($scope,toastr, $q, $modal,$localStorage, Restangular, $state, email, emailSettings, Upload) {
+app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $modal,$localStorage, Restangular, $state, email, emailSettings, sendgridIntegrations) {
+    $scope.sendgridIntegrations = sendgridIntegrations;
+    $scope.canceler = false;
+    $scope.email = email;
+    $scope.recipients = [];
+    $scope.recipient = '';
+    $scope.members = [];
+    $scope.chosen_segments = [];
+    $scope.counts = {};
+    $scope.recipient_type = 'single';
+    $scope.queueEmailData = {};
+    $scope.available_lists_search = '';
+    $scope.selected_lists_search = '';
 
-	$scope.canceler = false;
-	$scope.email = email;
+    $scope.chosen_segment_filters = {
+        list: false,
+        site: false,
+        level: false
+    }
 
-	$scope.showSignature={status:'false'};
-	
+    $scope.available_segment_filters = {
+        list: false,
+        site: false,
+        level: false
+    }
 
-	if (emailSettings)
-	{
-	    if( !$scope.email.mail_sending_address )
-	        $scope.email.mail_sending_address=emailSettings.sending_address;
-	    if( !$scope.email.mail_reply_address )
-	        $scope.email.mail_reply_address=emailSettings.replyto_address;
-	    if( !$scope.email.mail_signature )
-	        $scope.email.mail_signature=emailSettings.email_signature;
-	    if( !$scope.email.mail_name )
-	        $scope.email.mail_name=emailSettings.full_name;
-	    if( !$scope.email.admin )
-	        $scope.email.admin=emailSettings.test_email_address;
-	}
-	    
+    $scope.showChosenSegment = function(segment){
+        var name_match = false;
+        var type_match = false;
 
-	/*$scope.selectAllSites = function() {
-	    angular.forEach( $scope.sites, function(value, key){
-	        $scope.queueEmailData.siteMembers[value.id] = true;
-	    })
-	}
+        if( !$scope.selected_lists_search )
+            name_match = true;
+        else {
+            var name_regex = new RegExp( $scope.selected_lists_search.toLowerCase() );
 
-	$scope.selectAllEmailLists = function() {
-	    angular.forEach( $scope.emailLists, function(value, key){
-	        $scope.queueEmailData.emailLists[value.id] = true;
-	    })
-	}
+            if( segment.name.toLowerCase().match(name_regex) )
+                name_match = true;
+        }
 
-	$scope.selectAllAccessLevels = function() {
-	    angular.forEach( $scope.accessLevels, function(value, key){
-	        $scope.queueEmailData.accessLevels[value.id] = true;
-	    })
-	}*/
+        var any_true = false;
 
-	/*$scope.toggleDropdown = function(itemToSkip){
-	    var dropdowns = [
-	        'email_list_selector',
-	        'site_members_selector',
-	        'access_levels_selector',
-	        'ownership_type_selector',
-	        'sm_user_selector'
-	    ];
+        angular.forEach( $scope.chosen_segment_filters, function(value,key){
+            if( value == true )
+                any_true = true;
 
-	    angular.forEach( dropdowns, function( value ){
-	        if( value != itemToSkip )
-	            $scope[ value ] = false;
-	    });
-	    $scope[ itemToSkip ] = !$scope[ itemToSkip ];
-	}
+            if( segment.type == key && value == true )
+                type_match = true;
+        });
 
-	$scope.queuEmails = function() {
-	    if ($scope.queueEmailData.email_id)
-	    {
-	        var lists = [];
-	        var sites = [];
-	        angular.forEach( $scope.queueEmailData.emailLists, function( value , index ){
-	            if(value){
-	                lists.push(index);
-	            }
-	        });
-	        angular.forEach( $scope.queueEmailData.siteMembers, function( value , index ){
-	            if(value){
-	                sites.push(index);
-	            }
-	        });
+        if( !any_true )
+            type_match = true;
 
-	        $scope.queueEmailData['action'] = 3; // Send
-	        $scope.queueEmailData['_method'] = 'PUT';
-	        var new_hour = moment($scope.queueEmailData['send_time']).hours();
-	        var new_minute = moment($scope.queueEmailData['send_time']).minutes();
-	        var official_date = moment($scope.queueEmailData['send_date']).hours(new_hour);
-	        $scope.queueEmailData['send_date'] = moment(official_date).minutes(new_minute);
-	        Restangular.one('email', $scope.queueEmailData.email_id).customPOST($scope.queueEmailData).then(function(response){
-	            $state.go("admin.team.email.emailQueue");
-	        });
-	    }
-	}
+        return name_match && type_match;
+    }
 
-	$scope.send = function(){
-	    if ($scope.email.id)
-	        $scope.update();
-	    else {
-	        $scope.create();
-	    }
-	}
+    $scope.showAvailableSegment = function(segment){
+        var name_match = false;
+        var type_match = false;
 
-	$scope.listChanged = function(){
-	    var lists = [];
-	    var sites = [];
-	    $scope.queueEmailData.segmentQuery = '';
-	    if ($scope.canceler)
-	    {
-	        $scope.canceler.resolve();
-	    }
-	    $scope.canceler = $q.defer();
+        if( !$scope.available_lists_search )
+            name_match = true;
+        else {
+            var name_regex = new RegExp( $scope.available_lists_search.toLowerCase() );
 
-	    var subscriber_query = '';
-	    var member_query = '';
-	    if( $scope.queueEmailData.emailLists.indexOf(true) != -1) {
-	        var listsToCheck = [];
-	        angular.forEach($scope.queueEmailData.emailLists, function (value, index) {
-	            if (value) {
-	                listsToCheck.push(index);
-	            }
-	        });
-	        subscriber_query += 'email_list_id IN (' + listsToCheck.join(',') + ')';
-	    } else {
-	        var listsToCheck = [];
-	        angular.forEach($scope.emailLists, function( value, index ) {
-	            listsToCheck.push(value.id);
-	        });
-	        subscriber_query += 'email_list_id IN (' + listsToCheck.join(',') + ')';
-	    }
+            if( segment.name.toLowerCase().match(name_regex) )
+                name_match = true;
+        }
 
-	    if( $scope.queueEmailData.siteMembers.indexOf(true) != -1) {
-	        member_query += member_query == '' ? '' : ' AND ';
+        var any_true = false;
+        var any_false = false;
 
-	        var sitesToCheck = [];
-	        angular.forEach($scope.queueEmailData.siteMembers, function (value, index) {
-	            if (value) {
-	                var site = _.findWhere($scope.sites, {id: parseInt(index)}) || _.findWhere($scope.sites, {id: index + ''});
-	                if (typeof site != 'undefined') {
-	                    sitesToCheck.push('"' + site.subdomain + '"');
-	                }
-	            }
-	        });
-	        member_query += 'site IN (' + sitesToCheck.join(',') + ')';
-	    } else {
-	        member_query += member_query == '' ? '' : ' AND ';
-	        var sitesToCheck = [];
-	        angular.forEach($scope.sites, function( value, index ) {
-	            sitesToCheck.push('"' + value.subdomain + '"');
-	        });
-	        member_query += 'site IN (' + sitesToCheck.join(',') + ')';
-	    }
+        angular.forEach( $scope.available_segment_filters, function(value,key){
+            if( value == true )
+                any_true = true;
+            else
+                any_false = true;
 
-	    if( $scope.queueEmailData.accessLevels.indexOf(true) != -1) {
-	        var accessPassesToCheck = [];
-	        var refundPassesToCheck = [];
-	        angular.forEach($scope.queueEmailData.accessLevels, function (value, index) {
-	            if (value) {
-	                var access_level = _.findWhere($scope.accessLevels, {id: parseInt(index)}) || _.findWhere($scope.accessLevels, {id: index + ''});
-	                if (typeof access_level != 'undefined') {
-	                    if ($scope.queueEmailData.ownershipTypes.owned == true)
-	                        accessPassesToCheck.push( '"' +  access_level.name + '"' );
-	                    if ($scope.queueEmailData.ownershipTypes.refunded == true)
-	                        refundPassesToCheck.push( '"' +  access_level.name + '"' );
-	                }
-	            }
-	        });
+            if( segment.type == key && value == true )
+                type_match = true;
+        });
 
-	        if ($scope.queueEmailData.ownershipTypes.owned == true) {
-	            member_query += member_query == '' ? '' : ' AND ';
-	            member_query += 'access_pass IN (' + accessPassesToCheck.join(',') + ')';
-	        }
-	        if ($scope.queueEmailData.ownershipTypes.refunded == true) {
-	            member_query += member_query == '' ? '' : ' AND ';
-	            member_query += 'refund_pass IN (' + refundPassesToCheck.join(',') + ')';
-	        }
-	    }
+        if( segment.type == 'catch_all' && ( !any_false || !any_true ) )
+            type_match = true;
 
-	    if( $scope.isSuperAdmin ) {
+        if( !any_true )
+            type_match = true;
 
-	        var smUserRoles = [];
+        return name_match && type_match ? true : false;
+    }
 
-	        if( $scope.queueEmailData.smUsers.owners == true ) {
-	            smUserRoles.push('"Owner"');
-	        }
-	        if( $scope.queueEmailData.smUsers.primaryOwners == true ) {
-	            smUserRoles.push('"Primary Owner"');
-	        }
+    $scope.organizeSegments = function(){
+        $scope.calculatingSegments = true;
+        if ($scope.canceler)
+        {
+            $scope.canceler.resolve();
+        }
+        $scope.canceler = $q.defer();
 
-	        if( smUserRoles.length > 0) {
-	            member_query += member_query == '' ? '' : ' AND ';
-	            member_query += 'role IN (' + smUserRoles.join(',') + ')';
+        Restangular.one('email/calculateSubscribers').withHttpConfig({timeout: $scope.canceler.promise}).customPOST( {segments: $scope.chosen_segments} ).then(function(response){
+            $scope.calculatingSegments = false;
+            $scope.counts = response;
+        });
+    }
 
-	            if( $scope.queueEmailData.accessLevels.indexOf(true) == -1 || $scope.queueEmailData.siteMembers.indexOf(true) == -1 )
-	                member_query = 'role IN (' + smUserRoles.join(',') + ')';
-	        }
-	    }
+    /*
+     $scope.$watch( $scope.chosen_segments, function( newValue, oldValue){
 
-	    if( $scope.queueEmailData.accessLevels.indexOf(true) != -1 || $scope.queueEmailData.siteMembers.indexOf(true) != -1 || $scope.queueEmailData.emailLists.indexOf(true) != -1 || ( $scope.isSuperAdmin && smUserRoles.length > 0 ) )
-	    {
-	        if( $scope.queueEmailData.emailLists.indexOf(true) != -1 ) {
-	            if( $scope.queueEmailData.accessLevels.indexOf(true) != -1 || $scope.queueEmailData.siteMembers.indexOf(true) != -1 || ( $scope.isSuperAdmin && smUserRoles.length > 0 ) )
-	                $scope.queueEmailData.segmentQuery = member_query + ' AND ' + subscriber_query ;
-	            else
-	                $scope.queueEmailData.segmentQuery = subscriber_query;
-	        } else {
-	            $scope.queueEmailData.segmentQuery = member_query;
-	        }
-	    }
-	    else
-	    {
-	        $scope.queueEmailData.segmentQuery = member_query + ' OR ' + subscriber_query;
-	    }
+     });
+     */
+
+    $scope.selectSegment = function(segment){
+        $scope.chosen_segments.push( segment );
+        $scope.segments = _.without( $scope.segments, segment );
+        $scope.organizeSegments();
+    }
+
+    $scope.removeSegment = function(segment){
+        $scope.segments.push( segment );
+        $scope.chosen_segments = _.without( $scope.chosen_segments, segment );
+        $scope.organizeSegments();
+    }
+
+    $scope.selectAllSegments = function(){
+        angular.forEach( $scope.segments, function(segment){
+            $scope.chosen_segments.push( segment );
+            $scope.segments = _.without( $scope.segments, segment );
+        });
+
+        $scope.organizeSegments();
+    }
+
+    $scope.removeAllSegments = function(){
+        angular.forEach( $scope.chosen_segments, function(segment){
+            $scope.segments.push( segment );
+            $scope.chosen_segments = _.without( $scope.chosen_segments, segment );
+        });
+
+        $scope.organizeSegments();
+    }
+
+    $scope.loadSegments = function(){
+        if( !$scope.segments ) {
+            $scope.loading_segments = true;
+
+            Restangular.all('email/getSegments').getList().then(function(response){
+                $scope.segments = response;
+
+                var catch_all_segment = _.findWhere( $scope.segments, {type: 'catch_all'});
+
+                if( catch_all_segment )
+                    $scope.counts.total_available_recipients = catch_all_segment.count;
+
+                //$scope.segments = _.without( $scope.segments, catch_all_segment );//temporarily disabling this segment as it can't currently be queued
+
+                $scope.counts.total_available_segments = $scope.segments.length;
+
+                $scope.loading_segments = false;
+
+                angular.forEach($scope.chosen_segments, function(value){
+                    var segment = _.findWhere( $scope.segments, {target_id: value.target_id, type: value.type});
+
+                    $scope.segments = _.without( $scope.segments, segment );
+                });
+            });
+        }
+    }
+
+    if( $scope.email.id ) {
+        if( $scope.email.recipient_type )
+            $scope.recipient_type = $scope.email.recipient_type;
+
+        $scope.loading_segments = true;
+
+        Restangular.all('email/getSegments').getList().then(function (response) {
+            $scope.segments = response;
+            $scope.loading_segments = false;
+
+            var catch_all_segment = _.findWhere( $scope.segments, {type: 'catch_all'});
+
+            if( catch_all_segment )
+                $scope.counts.total_available_recipients = catch_all_segment.count;
+
+            $scope.counts.total_available_segments = $scope.segments.length;
+
+            angular.forEach($scope.email.recipients, function (value) {
+                if( value.type == 'segment' ) {
+                    if( value.recipient == 'catch_all_catch_all') {
+                        var segment = _.findWhere($scope.segments, {
+                            type: 'catch_all'
+                        });
+                        console.log('we do have a segment ', segment);
+                        var recipient_bits = ['catch_all','catch_all'];
+                    } else {
+                        var recipient_bits = value.recipient.split('_');
+
+                        var segment = _.findWhere($scope.segments, {
+                                type: recipient_bits[0],
+                                target_id: parseInt(recipient_bits[1])
+                            }) || _.findWhere($scope.segments, {
+                                type: recipient_bits[0],
+                                target_id: recipient_bits[1] + ''
+                            });
+                    }
+
+                    if( segment ) {
+                        $scope.segments = _.without($scope.segments, segment);
+
+                        segment.type = recipient_bits[0];
+                        segment.target_id = recipient_bits[1];
+                        segment.id = value.id;
+                        segment.intro = value.intro;
+                        segment.subject = value.subject;
+
+                        $scope.chosen_segments.push(segment);
+                    }
+                }
+                else if( value.type == 'members' ) {
+                    $scope.recipients.push( value.recipient );
+                }
+                else if( value.type == 'single' ) {
+                    $scope.recipient = value.recipient;
+                }
+            });
+
+            $scope.organizeSegments();
+        });
+    }
+
+    $scope.showSignature={status:'false'};
 
 
-	    console.log(' Segment Query: ' + $scope.queueEmailData.segmentQuery)
+    if (emailSettings)
+    {
+        if( !$scope.email.mail_sending_address )
+            $scope.email.mail_sending_address=emailSettings.sending_address;
+        if( !$scope.email.mail_reply_address )
+            $scope.email.mail_reply_address=emailSettings.replyto_address;
+        if( !$scope.email.mail_signature )
+            $scope.email.mail_signature=emailSettings.email_signature;
+        if( !$scope.email.mail_name )
+            $scope.email.mail_name=emailSettings.full_name;
+        if( !$scope.email.admin )
+            $scope.email.admin=emailSettings.test_email_address;
+    }
 
-	    Restangular.one('emailList').withHttpConfig({timeout: $scope.canceler.promise}).customPOST({segment_query: $scope.queueEmailData.segmentQuery}, 'users')
-	        .then(function (response) {
-	            $scope.users = response;
-	        })
-	}
+    $scope.segment_classes = {
+        site: 'success',
+        level: 'warning',
+        list: 'danger',
+        catch_all: 'primary'
+    }
 
-	$scope.listChanged();*/
+    $scope.editSegment = function(segment){
+        var modalInstance = $modal.open({
+            size: 'lg',
+            templateUrl: 'templates/admin/team/email/segmentIntro.html',
+            controller: "segmentIntroController",
+            scope: $scope,
+            resolve: {
+                segment: function () {
+                    return segment
+                }
+            }
 
-	$scope.previewEmail = function () {
+        });
+    }
 
-	    var modalInstance = $modal.open({
-	        templateUrl: '/templates/modals/previewEmail.html',
-	        controller: "modalController",
-	        scope: $scope
+    $scope.save = function() {
+        if( $scope.queueEmailData.send_date && $scope.queueEmailData.send_time ) {
+            var new_hour = moment($scope.queueEmailData['send_time']).hours();
+            var new_minute = moment($scope.queueEmailData['send_time']).minutes();
+            // Lets avoid using the same name for the input[date] field, it throws exception for illformed date.
+            $scope.email.send_at = moment($scope.queueEmailData['send_date']).hours(new_hour).minutes(new_minute);
+        }
+        if ($scope.email.id)
+            $scope.update();
+        else
+            $scope.create();
+    }
 
-	    });
-	};
+    $scope.update = function(){
 
-	$scope.showSettings=function()
-	{
-	    $scope.showSignature.status='true';
-	}
-	$scope.hideSettings=function()
-	{
-	    $scope.showSignature.status='false';
-	}
+        switch( $scope.recipient_type ) {
+            case 'single':
+                $scope.email.recipient = $scope.recipient;
+                break;
+            case 'members':
+                $scope.email.recipients = $scope.recipients;
+                break;
+            case 'segment':
+                $scope.email.intros = $scope.chosen_segments;
+                break;
+        }
 
-	// $scope.save = function(action){
-	//     console.log("scope email");
-	//     console.log($scope.email);
-	//     var new_hour = moment($scope.queueEmailData['send_time']).hours();
-	//     var new_minute = moment($scope.queueEmailData['send_time']).minutes();
-	//     var official_date = moment($scope.queueEmailData['send_date']).hours(new_hour);
-	//     $scope.queueEmailData['send_date'] = moment(official_date).minutes(new_minute);
-	    
-	//         $scope.email.action = 1;
-	//         $scope.action = action;
-	//         if ($scope.email.subject == '' || $scope.email.content == '')
-	//         {
-	//             notify({message: 'Subject and email body can not be empty', classes: 'alert-danger'});
-	//         }
-	//         else {
-	//             if ($scope.email.id){
-	//                 $scope.update();
-	//                 return;
-	//             }
-	//             $scope.create();
-	//         }
-	// }
+        $scope.email.recipient_type = $scope.recipient_type;
 
-	$scope.saveAndGoNextStep = function() {
-	    if ($scope.email.id)
-	    {
-	        $scope.email.put().then(function (response) {
-	            $state.go("admin.team.email.sendmail", {
-	                id: response.id
-	            });
-	        });
-	    }
-	    else
-	    {
-	        Restangular.service("email").post($scope.email).then(function (response) {
-	            $state.go("admin.team.email.sendmail", {
-	                id: response.id
-	            });
-	        });
-	    }
-	}
+        $scope.email.put().then(function(response){
 
-	$scope.sendPreview = function()
-	{
-	    if( $scope.email.admin ) {
-	        Restangular.service("email/sendTest").post($scope.email).then(function (response) {
-	            if (response.success == 1)
-	                toastr.success("Test email sent successfully");
-	            else if (response.success == -1)
-	                toastr.error("Test email is not sent because you have not set up your Reply To and Email From yet. Please set it up in Email Settings tab");
-	            return;
-	        });
-	    } else {
-	        toastr.warning("Please fill in the email you want to send preview to");
-	        return;
-	    }
-	}
+            angular.forEach($scope.email.recipients, function(value){
+                if( value.recipient == 'catch_all_catch_all') {
+                    var segment = _.findWhere($scope.chosen_segments, {
+                        type: 'catch_all',
+                        target_id: 'catch_all'
+                    });
+                } else {
+                    var recipient_bits = value.recipient.split('_');
 
-	$scope.saveEmail = function() {
-	    if ($scope.email.id)
-	        $scope.update();
-	    else
-	        $scope.create();
-	    $state.go("admin.team.email.emails");
-	}
+                    var segment = _.findWhere($scope.chosen_segments, {
+                            type: recipient_bits[0],
+                            target_id: parseInt(recipient_bits[1])
+                        }) || _.findWhere($scope.chosen_segments, {
+                            type: recipient_bits[0],
+                            target_id: recipient_bits[1] + ''
+                        });
+                }
 
-	$scope.update = function(){
-	    $scope.email.put().then(function(response){
-	        $scope.email.action = 1;
-	        $scope.email.id = response.id;
-	        //$scope.queueEmailData.email_id = $scope.email.id;
-	        //$scope.queuEmails();
-	        toastr.success("Your email has been saved");
-	    })
-	}
+                if( segment )
+                    segment.id = value.id;
+            });
 
-	$scope.create = function(){
-	    Restangular.service("email").post($scope.email).then(function(response){
-	        $scope.email.action = 1;
-	        $scope.email.id = response.id;
-	        //$scope.queueEmailData.email_id = $scope.email.id;
-	        //$scope.queuEmails();
-	        toastr.success("Your email has been saved");
-	    });
-	}
+            toastr.success("Your email has been saved");
 
-	$scope.saveSettings = function () {
-	    Restangular.one('emailSetting').post("settings", $scope.emailSettings).then(function (emailSettings) {
-	        toastr.success("Your email settings have been saved");
-	    } );
-	}
+            if( $scope.email.action && $scope.email.action == 3 )
+                toastr.success("Your email has been queued for sending!");
+        })
+    }
 
-	$scope.imageUpload = function(files,type){
+    $scope.create = function(){
 
-	    for (var i = 0; i < files.length; i++) {
-	        var file = files[i];
-	        Upload.upload({
-	            url: $scope.app.apiUrl + '/utility/upload',
-	            file: file
-	        })
-	            .success(function (data, status, headers, config) {
-	                console.log(data.file_name);
-	                var editor = $.summernote.eventHandler.getModule();
-	                file_location = '/uploads/'+data.file_name;
-	                if(type=='signature')
-	                    editor.insertImage($scope.editable2, data.file_name);
-	                else
-	                    editor.insertImage($scope.editable, data.file_name);
-	                // editor.insertImage($scope.editable, data.file_name);
-	            })
-	            .error(function (data, status, headers, config) {
-	                console.log('error status: ' + status);
-	            });
-	    }
-	}
+        switch( $scope.recipient_type ) {
+            case 'single':
+                $scope.email.recipient = $scope.recipient;
+                break;
+            case 'members':
+                $scope.email.recipients = $scope.recipients;
+                break;
+            case 'segment':
+                $scope.email.intros = $scope.chosen_segments;
+                break;
+        }
+
+        $scope.email.recipient_type = $scope.recipient_type;
+
+        Restangular.service("email").post($scope.email).then(function(response){
+            $scope.email = response;
+
+            angular.forEach($scope.email.recipients, function(value){
+                var recipient_bits = value.recipient.split('_');
+
+                var segment = _.findWhere($scope.chosen_segments, {type: recipient_bits[0], target_id: parseInt( recipient_bits[1] ) });
+
+                if( segment )
+                    segment.id = value.id;
+            });
+
+            toastr.success("Your email has been saved");
+
+            if( $scope.email.action && $scope.email.action == 3 )
+                toastr.success("Your email has been queued for sending!");
+        });
+    }
+
+    $scope.send = function(){
+        $scope.email.action = 3;
+        $scope.save();
+    }
+
+    $scope.preview = function () {
+
+        var modalInstance = $modal.open({
+            templateUrl: '/templates/modals/previewEmail.html',
+            controller: "modalController",
+            scope: $scope
+        });
+    };
+
+    $scope.sendPreview = function()
+    {
+        switch( $scope.recipient_type ) {
+            case 'single':
+                $scope.email.recipient = $scope.recipient;
+                break;
+            case 'members':
+                $scope.email.recipients = $scope.recipients;
+                break;
+            case 'segment':
+                $scope.email.intros = $scope.chosen_segments;
+                break;
+        }
+
+        $scope.email.recipient_type = $scope.recipient_type;
+
+        if( $scope.email.admin ) {
+            Restangular.service("email/sendTest").post($scope.email).then(function (response) {
+                if (response.success == 1) {
+                    $scope.success_count = response.count;
+                    toastr.success("Test email sent successfully");
+                }
+                else if (response.success == -1)
+                    toastr.error("Test email is not sent because you have not set up your Reply To and Email From yet. Please set it up in Email Settings tab");
+                return;
+            });
+        } else {
+            toastr.warning("Please fill in the email you want to send preview to");
+            return;
+        }
+    }
+
+    $scope.SetRecipientType = function( type ) {
+
+        $scope.recipient_type = type;
+
+        switch( type ) {
+            case 'single':
+                break;
+            case 'members':
+                break;
+            case 'segment':
+                $scope.loadSegments();
+                break;
+        }
+
+    };
+
+    $scope.formatNumber = function(number){
+        if( !number )
+            number = 0;
+
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    $scope.selectedSubscribers = function(){
+        var total = 0;
+
+        angular.forEach($scope.chosen_segments, function(value){
+            total += value.count;
+        });
+
+        return $scope.formatNumber( total );
+    }
+
+    $scope.selectMember = function($item,$model,$label){
+        if( $scope.recipients.indexOf( $item.email ) == -1 )
+            $scope.recipients.push( $item.email );
+
+        $scope.asyncSelected = '';
+    }
+
+    $scope.removeRecipient = function(recipient){
+        if( $scope.recipients.indexOf( recipient ) != -1 )
+            $scope.recipients = _.without( $scope.recipients, recipient );
+    }
+
+    $scope.searchMembers = function(q){
+        return Restangular.all('').customGET( 'emailSubscriber?p=1&q=' + encodeURIComponent( q ) ).then(function(data){
+            return data.items;
+        });
+    }
+
+    $scope.currentSortableOptions = {
+        connectWith: '.connectList',
+        stop: function(e, ui) {
+            $scope.organizeSegments();
+        }
+    };
+
+    $scope.GetMembers = function()
+    {
+        $scope.loading = true;
+        $scope.members = [];
+    };
+
+    $scope.showSettings=function()
+    {
+        $scope.showSignature.status='true';
+    }
+    $scope.hideSettings=function()
+    {
+        $scope.showSignature.status='false';
+    }
+
+    $scope.saveSettings = function () {
+        Restangular.one('emailSetting').post("settings", $scope.emailSettings).then(function (emailSettings) {
+            toastr.success("Your email settings have been saved");
+        } );
+    }
 });
