@@ -15,7 +15,9 @@
 
 			<div class="ui piled segment section_background_color" ng-class="{'loader':loading}">
 
-				<div ng-init="TriggerEmbeds()" class="ui embed" data-url="{{post.embed_content | extractsrc}}" data-placeholder="{{post.featured_image}}" data-icon="right circle arrow" ng-if="post.embed_content && post.embed_content.indexOf('<iframe') != -1"></div>
+				<div class="ui embed" data-url="{{post.embed_content | extractsrc}}" data-placeholder="{{post.featured_image}}" data-icon="right circle arrow" ng-if="post.embed_content && post.embed_content.indexOf('<iframe') != -1">
+					<div dynamic="post.embed_content" ng-if="post.embed_content"></div>
+				</div>
 
 				<div class="ui segment section_background_color" ng-if="post.embed_content && post.embed_content.indexOf('<iframe') == -1">
 					<div dynamic="post.embed_content" ng-if="post.embed_content"></div>
@@ -30,7 +32,7 @@
 				</div>
 
 				<div class="ui padded basic segment">
-					<a ng-if="is_site_admin || is_team_member" ui-sref="admin.site.livecasts.livecast({id: post.id})" class="">Edit</a>
+					<a ng-if="is_site_admin || is_team_member" ng-href="admin/site/content/blog/post/{{post.id}}" class="">Edit</a>
 
 					<h3 class="text-center" style="font-weight: bold;" ng-if="post.timeLeft > 0">
 						You can access to this content in:
@@ -55,7 +57,7 @@
 
 
 					<div class="panel-footer comments_go_here" ng-show="post.discussion_settings.show_comments" style="margin-bottom:20px;">
-                        <div ng-include="'templates/components/public/themes/default/common/comments.html'"></div>
+						<div ng-include="'templates/components/public/app/common/comments.html'"></div>
 					</div>
 
 				</div>
@@ -65,8 +67,8 @@
 		<div class="four wide column">
 
 			<div class="ui grid">
-				
-				<div ng-include="'templates/components/public/themes/default/common/sidebar.html'"></div>
+
+				<div ng-include="'templates/components/public/app/common/sidebar.html'"></div>
 			</div>
 
 		</div>

@@ -91,7 +91,7 @@ app.controller('PublicController', function ($scope, $rootScope, $localStorage,$
         //if($rootScope.current_theme == "semanc"){
             $scope.sidbar_template = "templates/components/public/common/theme-engine.html";
         //}else{
-        //    $scope.sidbar_template = "templates/public/common/right_sidebar.html";
+        //    $scope.sidbar_template = "components/public/common/right_sidebar.html";
         //}
     }
         

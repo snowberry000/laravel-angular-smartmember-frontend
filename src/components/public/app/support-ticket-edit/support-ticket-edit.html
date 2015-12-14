@@ -1,85 +1,106 @@
-<style>
-p {
-    white-space: pre-line;
-    margin-left:5px;
-    margin-right:5px;
-}
-</style>
-<div ng-if="loading" style="margin-bottom:40px;">
-    <h3>
-        Loading please wait . . .
-    </h3>
-</div>
-<div ng-if="!loading" class=" " style="padding: 0px;">
-	<div class="row">
-		<div class="row">
-		    <div class="col-md-8">
-		                <div class="panel panel-primary">
-		                    <div class="panel-heading" style="font-size:16px;font-weight:900;">
-                                {{ticket.subject}}
-                                <span class="pull-right ">Ticket ID : {{ticket.id}}</span>
-		                    </div>
-		                    <div class="panel-body" style="padding: 0px 0px; font-family: 'Open Sans'; height:auto">
-                                <div class="media" style="margin:10px;">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img style="max-width:50px;border-radius:5px;" class="media-object" src="{{ticket.user.profile_image ? ticket.user.profile_image : 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm'}}">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">{{ticket.user.first_name || ticket.user.last_name ? ticket.user.first_name + ' ' + ticket.user.last_name : ticket.user.email}}<span class="pull-right">{{moment.utc(ticket.created_at).fromNow()}}</span></h4>
-                                        <span dynamic="autop( linkify( ticket.message ) )"></span>
-                                        <div ng-if="ticket.attachment"><a href="{{ticket.attachment}}" target="_blank">{{ticket.attachment.split('/').pop()}}</a></div>
-                                    </div>
-                                </div>
-                                <div class="media" style="margin:10px;border-top: 2px solid rgba(204, 204, 204, 0.51);padding-top: 10px;" ng-repeat="reply in ticket.reply">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img style="max-width:50px;border-radius:5px;" class="media-object" src="{{reply.user.profile_image ? reply.user.profile_image : 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm'}}">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">{{reply.user.first_name || reply.user.last_name ? reply.user.first_name + ' ' + reply.user.last_name : reply.user.email}}<span class="pull-right">{{moment.utc(reply.created_at).fromNow()}}</span></h4>
-                                        <span dynamic="autop( linkify( reply.message ) )"></span>
-                                        <div ng-if="reply.attachment"><a href="{{reply.attachment}}" target="_blank">{{reply.attachment.split('/').pop()}}</a></div>
-                                    </div>
-                                </div>
-		                    	<div style="margin-top:70px !important;padding: 0px 20px;">
-		                    		<textarea style="height:auto" class="form-group" rows="2" cols="80"  ng-model="reply.message" placeholder="Type a message"></textarea>
-		                    	</div>
-                                <div style="margin:10px;" class="col-md-12">
-		                    		<a sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment" style="cursor:pointer;"><i class="fa fa-paperclip"></i> Add attachment</a>
-                                    <a ng-show="reply.attachment" href="reply.attachment" target="_blank" style="cursor:pointer;">{{reply.attachment.split('/').pop()}}</a>
-                                    <a ng-show="reply.attachment" ng-click="reply.attachment=''" style="cursor:pointer;color:#f00;font-size:18px;font-weight:bold;">&times;</a>
-                                    <a href="" class="btn btn-warning pull-right" ng-click="sendReply('solved')" style="margin-left: 5px;">Submit & Mark Complete</a>
-		                    		<a href="" class="btn btn-warning pull-right" ng-click="sendReply()">Submit</a>
-		                    	</div>
-		                    </div>
-		                </div>
-
-		    </div>
-		    <div class="col-md-4" style="background-color3 : #E9E9E9">
-		    	<div style="padding: 10px 0px !important; font-family: 'Open Sans'; height:auto">
-		    		<div class="row">
-		    			<div class="col-md-6">
-		    				<p>CREATED : 
-		    				</p>
-		    			</div>
-		    			<div class="col-md-6">
-		    				<p>{{moment(ticket.created_at).format('ll')}}</p>
-		    			</div>
-		    		</div>
-		    		<div class="row">
-		    			<div class="col-md-6">
-		    				<p>STATUS : 
-		    				</p>
-		    			</div>
-		    			<div class="col-md-6">
-		    				<p>{{ticket.status}}</p>
-		    			</div>
-		    		</div>
-		    	</div>
-		    </div>
+<div class="sixteen wide column" ng-if="!loading">
+	<div class="column">
+		<div class="ui compact segment basic">
+			<h2 class="ui header headline_text_color">
+				Ticket #{{ticket.id}}: {{ticket.subject}}
+			</h2>
 		</div>
 	</div>
+</div>
+<div class="twelve wide column">
+
+	<div class="ui piled segment section_background_color">
+
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui text loader">Loading</div>
+		</div>
+
+		<a class="ui red ribbon label">status: {{ticket.status}}</a>
+		<a class="ui tag label">created: {{moment(ticket.created_at).format('ll')}}</a>
+
+
+		<div class="ui comments" style="max-width:none;">
+			<div class="comment">
+				<a class="avatar">
+					<img src="{{ticket.user.profile_image ? ticket.user.profile_image : 'http://www.gravatar.com/avatar/' + ticket.user.email_hash + 'd=mm'}}">
+				</a>
+				<div class="content">
+					<a class="author">{{ticket.user.first_name || ticket.user.last_name ? ticket.user.first_name + ' ' + ticket.user.last_name : ticket.user.email}}</a>
+					<div class="metadata">
+						<div class="date">{{moment.utc(ticket.created_at).fromNow()}}</div>
+					</div>
+					<div class="text" dynamic="autop( linkify( ticket.message ) )">
+					</div>
+					<div class="actions" ng-if="ticket.attachment">
+						<a class="ui label" href="{{ticket.attachment}}" target="_blank">
+							{{ticket.attachment.split('/').pop()}}
+							<i class="fa fa-external-link icon"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="comment" ng-repeat="reply in ticket.reply">
+				<a class="avatar">
+					<img src="{{reply.user.profile_image ? reply.user.profile_image : 'http://www.gravatar.com/avatar/' + reply.user.email_hash + '?d=mm'}}">
+				</a>
+				<div class="content">
+					<a class="author">{{reply.user.first_name || reply.user.last_name ? reply.user.first_name + ' ' + reply.user.last_name : reply.user.email}}</a>
+					<div class="metadata">
+						<div class="date">{{moment.utc(reply.created_at).fromNow()}}</div>
+					</div>
+					<div class="text" dynamic="autop( linkify( reply.message ) )">
+					</div>
+
+					<div class="actions" ng-if="reply.attachment">
+						<a class="ui label" href="{{reply.attachment}}" target="_blank">
+							{{reply.attachment.split('/').pop()}}
+							<i class="fa fa-external-link icon"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<h4 class="ui horizontal divider header">
+				<i class="fa fa-edit icon"></i>
+				Add Reply
+			</h4>
+
+			<form class="ui reply form">
+				<div class="field">
+					<textarea froala ng-model="reply.message" placeholder="Type a message"></textarea>
+				</div>
+				<div class="field">
+					<a class="ui label" ng-href="reply.attachment" target="_blank" ng-show="reply.attachment">
+						{{reply.attachment.split('/').pop()}}
+						<i class="fa fa-external-link icon"></i>
+						<i class="red fa fa-times" ng-click="reply.attachment=''"></i>
+					</a>
+				</div>
+
+				<div class="ui grid">
+					<div class="row">
+						<div class="column">
+							<div class="ui primary labeled icon right floated button" ng-click="sendReply('solved')">
+								<i class="icon fa fa-check"></i> Submit & Mark Complete
+							</div>
+							<div class="ui primary labeled icon right floated button" ng-click="sendReply()">
+								<i class="icon fa fa-edit"></i> Submit
+							</div>
+							<div class="ui labeled icon button" sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment">
+								<i class="icon fa fa-paperclip"></i> Add attachment
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+
+</div>
+<div class="four wide column">
+
+	<div ng-include="'templates/components/public/app/common/sidebar.html'"></div>
+
 </div>

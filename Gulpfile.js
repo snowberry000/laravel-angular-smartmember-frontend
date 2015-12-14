@@ -102,15 +102,42 @@ var path = require('path');
 
 gulp.task('less', function () {
 
-  return gulp.src(['src/core/less/main.less','src/components/**/*.less'])
-  	.pipe(concat('src/core/less/main.min.less'))
-    .pipe(less(
-    	{
-    		paths: [path.join('src/core/less/')]
-    	}
-    ))
+  return gulp.src([
+	  'src/core/less/index.less',
+	  'src/components/**/*.less'
+  ])
+  	//.pipe(concat('index.min.less'))
+    .pipe(less())
     .pipe(concat('main.min.css'))
     .pipe(gulp.dest('dist/css/'));
+});
+
+gulp.task('styles', function () {
+
+	var lessOptions = {
+		paths: [
+			'components',
+			paths.src + '/core'
+		]
+	};
+
+	var indexFilter = $.filter('index.less');
+
+	return gulp.src([
+				paths.src + '/app/index.less',
+				paths.src + '/app/vendor.less'
+			])
+			.pipe(indexFilter)
+			.pipe($.inject(injectFiles, injectOptions))
+			.pipe(indexFilter.restore())
+			.pipe($.less())
+
+			.pipe($.autoprefixer())
+			.on('error', function handleError(err) {
+				console.error(err.toString());
+				this.emit('end');
+			})
+			.pipe(gulp.dest(paths.tmp + '/serve/app/'));
 });
 
 gulp.task('fonts', function () {
