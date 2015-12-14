@@ -159,14 +159,8 @@ if ( $subdomain != 'my' && count($requestParts) > 1 && count($requestParts) < 3)
 	<meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="styles/vendor.css">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="styles/app.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="bower/ui-iconpicker/dist/styles/ui-iconpicker.min.css"> 
-=======
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/app.css">
->>>>>>> 084246e5a20a21089ebd49f896e987b2ba5e76fa
 	<!-- bower:css -->
   	<!-- endinject -->
   	
