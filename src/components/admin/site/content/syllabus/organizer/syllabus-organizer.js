@@ -22,11 +22,11 @@ app.config(function($stateProvider){
 		})
 }); 
 app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $localStorage, $site , $user, $location, $stateParams, $modal, Restangular, toastr, $filter) {
-	$scope.open1 = function (next_item) {
+    $scope.open1 = function (next_item) {
         var modalInstance = $modal.open({
             size: 'lg',
             windowClass: 'lesson-modal-window',
-            templateUrl: '/templates/components/admin/site/content/syllabus/lesson/lesson.html',
+            templateUrl: 'templates/admin/site/content/syllabus/lesson.html',
             controller: 'LessonEditModalInstanceCtrl',
             resolve: {
                 next_item: function(){
@@ -66,7 +66,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
         $scope.module_item=module_item;
         var modalInstance = $modal.open({
             size: 'lg',
-            templateUrl: 'templates/modals/moduleModal.html',
+            templateUrl: 'templates/admin/site/content/syllabus/moduleModal.html',
             controller: "modalController",
             scope: $scope,
             resolve: {
@@ -78,7 +78,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
 
         modalInstance.result.then(function(){
         })
-        
+
     };
 
     $scope.updateModuleTitle=function(module_item,$name){
@@ -130,9 +130,6 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
     $scope.modules = {};
     $scope.init = function () {
         var details = $site;
-        console.log("details: ");
-        console.log(details);
-        console.log($site);
         if (details) {
             $.each(details.meta_data, function (key, data) {
                 $scope.options[data.key] = data.value;
@@ -557,7 +554,8 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
     $scope.setRedirectUrl = function(){
         $rootScope.syllabus_redirect_url = 'admin.site-content.syllabus';
     }
-});
+
+} );
 
 app.controller('LessonEditModalInstanceCtrl', function ($scope, $rootScope, $localStorage, $timeout ,  $state, next_item, access_level_types, access_levels , $location, $stateParams,$modal,$site , $modalInstance, $user , $filter, Restangular, toastr, $modules,Upload) {
     $scope.template_data = {
