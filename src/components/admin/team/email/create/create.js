@@ -39,7 +39,7 @@ app.controller("smartMailCreateController", function ($scope,toastr, $q, $timeou
     $scope.chosen_segments = [];
     $scope.counts = {};
     $scope.recipient_type = 'single';
-    $scope.queueEmailData = {}; 
+    $scope.queueEmailData = {};
     $scope.available_lists_search = '';
     $scope.selected_lists_search = '';
 
