@@ -179,6 +179,7 @@ if ( $subdomain != 'my' && count($requestParts) > 1 && count($requestParts) < 3)
    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
     <div ng-if="$state.current.name == 'public.app.checkout'">
       <script type="text/javascript" src="https://checkout.stripe.com/checkout.js"></script>
+    </div>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script
     <!--script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script-->
 	
