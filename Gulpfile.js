@@ -117,8 +117,8 @@ gulp.task('less', function () {
 });
 
 gulp.task('fonts', function () {
-	return gulp.src('src/core/fonts/')
-		.pipe(gulp.dest('dist/'));
+	return gulp.src(paths.fonts)
+		.pipe(gulp.dest('dist/fonts/'));
 });
 
 gulp.task('bpage', function () {
