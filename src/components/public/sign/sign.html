@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="styles/froala_style.min.css">
 <link rel="stylesheet" href="styles/sweetalert.css">
 
-<div ng-include="'templates/components/public/themes/default/dynamic-css.html'"></div>
+<div ng-include="'templates/components/public/app/common/dynamic-css.html'"></div>
 
 <wave-spinner ng-if="loading"></wave-spinner>
 <div class="row site_top_background_color sticky-header" ng-init="init();initialize();showNotifications()">
@@ -34,7 +34,7 @@
 <div class="row site_bottom_background_color sticky-footer">
 	<div class="ui grid container">
 		<div class="row">
-			<div class="column text-center" ng-include="'templates/components/public/themes/default/common/footer.html'"></div>
+			<div class="column text-center" ng-include="'templates/components/public/app/common/footer.html'"></div>
 		</div>
 	</div>
 </div>
