@@ -5,7 +5,19 @@ app.config(function($stateProvider){
 		.state("public.app.checkout",{
 			url: "/checkout/:id",
 			templateUrl: "/templates/components/public/app/checkout/checkout.html",
-			controller: "CheckoutController"
+			controller: "CheckoutController",
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'checkout',
+                            files: [
+                                'https://checkout.stripe.com/checkout.js'
+                            ]
+                        }
+                    ]);
+                }
+            }
 		})
 }); 
 
