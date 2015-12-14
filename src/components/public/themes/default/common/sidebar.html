@@ -7,12 +7,12 @@
 	</select>
 	<a class="btn btn-info btn-sm" type="button"
 	   ng-if='!facebook_groups' ng-click='joinGroup(group_id.selected)'>
-		<img src="/assets/images/facebook_group_connect.png" style="width: 100%;" alt=""/>
+		<img src="/images/facebook_group_connect.png" style="width: 100%;" alt=""/>
 	</a>
 	<span ng-if='facebook_groups'>
 		 <a ng-repeat="group in facebook_groups" target="_blank" href='https://www.facebook.com/{{group.remote_id}}'>
 			 <h3 ng-if="facebook_groups.length > 1">{{group.name}}</h3>
-			 <img src="/assets/images/facebook_group_view.png" style="width: 100%;" alt=""/>
+			 <img src="/images/facebook_group_view.png" style="width: 100%;" alt=""/>
 		 </a>
 	</span>
 </div>
