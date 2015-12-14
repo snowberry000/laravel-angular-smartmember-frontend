@@ -3,11 +3,12 @@
 <link rel="stylesheet" href="styles/char_counter.min.css">
 <link rel="stylesheet" href="styles/code_view.min.css">
 <link rel="stylesheet" href="styles/sweetalert.css">
+<link rel="stylesheet" href="styles/angular-toastr.min.css">
 
 <div ng-include="'templates/components/public/themes/default/dynamic-css.html'"></div>
 
 <wave-spinner ng-if="loading"></wave-spinner>
-<div class="row site_top_background_color" ng-init="init();initialize();showNotifications()">
+<div class="row site_top_background_color sticky-header" ng-init="init();initialize();showNotifications()">
 
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid container stackable'">
 
@@ -36,18 +37,18 @@
 		</div>
 	</div>
 </div>
-<div class="row m-t-lg site_middle_background_color">
+<div class="row m-t-lg m-b-lg site_middle_background_color sticky-content">
 
-	<div sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid container stackable'">
+	<div sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable'">
 		<ui-view class="row"></ui-view>
 	</div>
 </div>
-<div class="row site_bottom_background_color">
+<div class="row site_bottom_background_color sticky-footer">
 
 	<div class="ui grid container">
 		<div class="row">
-			<div class="column">
-				<div class="ui text stackable fluid menu">
+			<div class="column text-center">
+				<div class="ui text stackable compact menu">
 					<a class="item" ng-repeat="footer_menu_item in options.footer_menu_items | orderBy:'sort_order'" ng-href="{{footer_menu_item.url | parseurl}}">
 						{{footer_menu_item.label}}
 					</a>
