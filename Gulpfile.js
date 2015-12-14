@@ -14,7 +14,8 @@ var path = require('path');
 var paths = {
 	less: 'src/**/*.less',
 	js: 'src/**/*.js',
-	templates: 'src/**/*.html'
+	templates: 'src/**/*.html',
+	fonts: 'src/core/fonts/**/*'
 };
 
 gulp.task('bower', function(){
@@ -75,6 +76,7 @@ gulp.task('watch', function() {
     gulp.watch(paths.js, ['js']);
     gulp.watch(paths.less, ['less']);
     gulp.watch(paths.templates, ['templates']);
+    gulp.watch(paths.fonts, ['fonts']);
     gulp.watch('src/index.php', ['inject']);
 });
 
@@ -114,6 +116,11 @@ gulp.task('less', function () {
     .pipe(gulp.dest('dist/css/'));
 });
 
+gulp.task('fonts', function () {
+	return gulp.src(paths.fonts)
+		.pipe(gulp.dest('dist/fonts/'));
+});
+
 gulp.task('bpage', function () {
 
 	return gulp.src('src/bpage_stuff_for_dist/**/*')
@@ -122,8 +129,8 @@ gulp.task('bpage', function () {
 });
 
 
-gulp.task('compile',['inject','js','templates','less','img','bpage']);
-gulp.task('default',['inject','js','templates','less','img','bpage','watch']);
+gulp.task('compile',['inject','js','templates','less','img','bpage','fonts']);
+gulp.task('default',['inject','js','templates','less','img','bpage','fonts','watch']);
 
 
 
