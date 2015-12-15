@@ -5,12 +5,12 @@ app.config(function($stateProvider){
 		.state("admin.site.dashboard",{
 			url: "/dashboard",
 			templateUrl: "/templates/components/admin/site/dashboard/dashboard.html",
-			controller: "DashboardController",
+			controller: "DashboardController"/*,
 			 resolve: {
                 $site: function(Restangular){
                     return Restangular.one('site','details').get();
                 }
-            }
+            }*/
 		})
 }); 
 

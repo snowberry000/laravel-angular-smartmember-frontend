@@ -38,8 +38,7 @@ app.controller('InfoController', function ($scope, $rootScope,$location, $localS
 	{
 	    delete $localStorage.syllabus_format;
 	}
-
-	Restangular.one('module', 'home').get().then(function(response){
+	/*Restangular.one('module', 'home').get().then(function(response){
 	    $scope.loading=false;
 	    $modules=response;
 	    $scope.modules = $modules;
@@ -77,7 +76,7 @@ app.controller('InfoController', function ($scope, $rootScope,$location, $localS
 	    {   
 	        $rootScope.Modulelessons.push.apply( $rootScope.Modulelessons, $filter('orderBy')($scope.modules[i].lessons, 'sort_order') );
 	    }
-	});
+	});*/
 
 	$scope.cutString = function(s, n){
 		var cut= s.indexOf(' ', n);

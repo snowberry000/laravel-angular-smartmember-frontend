@@ -13,10 +13,10 @@ app.config(function($stateProvider){
                             name: 'ui.sortable'
                         }
                     ]);
-                },
+                }/*,
                 $site: function(Restangular){
                     return Restangular.one('site','details').get();
-                }
+                }*/
 
             }
 		})
