@@ -28,9 +28,6 @@ var app = angular.module( 'app', [
 	'ui-iconpicker'
 ]);
 
-
-
-
 app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
