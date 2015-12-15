@@ -7,7 +7,7 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/admin/site/membership/pass/pass.html",
 			controller: "PassController",
 			resolve: {
-				$access_pass: function( Restangular, $stateParams, $site )
+				$access_pass: function( Restangular, $stateParams, $site)
 				{
 					if( $stateParams.id )
 					{

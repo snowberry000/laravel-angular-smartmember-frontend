@@ -5,12 +5,12 @@ app.config(function($stateProvider){
 		.state("admin.site.membership",{
 			url: "/membership",
 			templateUrl: "/templates/components/admin/site/membership/membership.html",
-			controller: "MembershipController",
+			controller: "MembershipController"/*,
 			resolve: {
 				$site: function(Restangular,$rootScope){
                     return $rootScope.site;
                 }
-			}
+			}*/
 		})
 }); 
 
