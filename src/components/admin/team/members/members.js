@@ -5,11 +5,11 @@ app.config(function($stateProvider){
 		.state("admin.team.members",{
 			url: "/members",
 			templateUrl: "/templates/components/admin/team/members/members.html",
-			controller: "MembersController"
+			controller: "TeamMembersController"
 		})
 }); 
 
-app.controller("MembersController", function ($scope, $modal , $rootScope, $state, $localStorage, $location, Restangular, notify, $user) {
+app.controller("TeamMembersController", function ($scope, $modal , $rootScope, $state, $localStorage, $location, Restangular, notify, $user) {
 	$scope.sortOrder = 'created_at:DESC';
 	$scope.loading=true;
 

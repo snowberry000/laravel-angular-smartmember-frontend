@@ -9,7 +9,8 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('MembersController', function ($scope, $user, $localStorage,$site , $location, $stateParams, $modal, Restangular, toastr, $state) {
+app.controller('MembersController', function ($scope, $user, $localStorage,$site , $rootScope, $location, $stateParams, $modal, Restangular, toastr, $state) {
+    $scope.site = $site = $rootScope.site;
     $scope.user = _.findWhere($user.role , {site_id : $site.id})
 
     $scope.template_data = {
@@ -176,6 +177,8 @@ app.controller('MembersController', function ($scope, $user, $localStorage,$site
                 toastr.success("Access pass created!");
                 member.new_access_pass_saving = false;
                 member.new_access_level = 0;
+                if(!member.access_level)
+                    member.access_level = [];
                 member.access_level.push(member.new_access_pass);
                 member.access_level_selection = false;
             });
@@ -220,7 +223,7 @@ app.controller('MembersController', function ($scope, $user, $localStorage,$site
             }
         });
         modalInstance.result.then(function () {
-            Restangular.one('role' , member.id).remove().then(function () {
+            member.remove().then(function () {
                 $scope.data[ $scope.pagination.current_page] = _.without($scope.data[ $scope.pagination.current_page], member);
             });
         })
