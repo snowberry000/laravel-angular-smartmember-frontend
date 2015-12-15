@@ -12,10 +12,10 @@ app.config(function($stateProvider){
                 },
                 $wizards_server : function( Restangular , $site){
                     return Restangular.all('wizard').customGET('',{is_completed : 1 , site_id : $site.id})
-                },
+                }/*,
                 $site: function(Restangular){
                     return Restangular.one('site','details').get();
-                }
+                }*/
             }
 		})
 }); 

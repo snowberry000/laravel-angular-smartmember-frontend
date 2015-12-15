@@ -5,12 +5,12 @@ app.config(function($stateProvider){
 		.state("admin.site.pages",{
 			url: "/pages",
 			templateUrl: "/templates/components/admin/site/pages/pages.html",
-			controller: "PagesController",
+			controller: "PagesController"/*,
 			resolve: {
 				$site: function(Restangular){
                     return Restangular.one('site','details').get();
                 }
-			}
+			}*/
 		})
 }); 
 
