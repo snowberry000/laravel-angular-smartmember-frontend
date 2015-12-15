@@ -2,7 +2,7 @@ app.controller('resetController', function ($rootScope, $scope, $localStorage,$s
     var auth = Restangular.all('auth');
     $rootScope.is_admin = true;
     $rootScope.page_title = "Smartmember - Password Reset";
-
+    $scope.data = {};
     if ($location.search().error_message)
     {
         if ($location.search().error_message == "inprocess registration")
@@ -23,7 +23,7 @@ app.controller('resetController', function ($rootScope, $scope, $localStorage,$s
     }
 
     $scope.forgot = function(reset_email){
-        auth.customPOST({email :reset_email} , 'forgot').then(function(data){
+        auth.customPOST({email :$scope.data.reset_email} , 'forgot').then(function(data){
            if (data.message  && data.message == "no such email found") {
             toastr.error("The email you specified does not exist");
             } else {
