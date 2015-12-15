@@ -3,7 +3,7 @@ var app = angular.module("app");
 app.config(function($stateProvider){
 	$stateProvider
 		.state("admin.site.content.helpdesk.category",{
-			url: "/category",
+			url: "/category/:id",
 			templateUrl: "/templates/components/admin/site/content/helpdesk/category/category.html",
 			controller: "CategoryController",
 		    resolve: {
