@@ -27,13 +27,18 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PostController", function ($scope, $localStorage,$site , $timeout , $user , $location, $next_item , $state, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
+app.controller("PostController", function ($scope, $localStorage,$site , $rootScope , $timeout , $user , $location, $next_item , $state, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
 	$scope.template_data = {
         title: 'Post',
         cancel_route: 'admin.site.content.blog.posts',
         success_route: 'admin.site.content.blog.posts',
         transcript: false,
         access_choice: false
+    }
+    $scope.site = $site = $rootScope.site;
+
+    if(!$next_item.id){
+        $next_item.site_id = $scope.site.id;
     }
     var draft;
     var changed;
