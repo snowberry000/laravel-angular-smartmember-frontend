@@ -9,7 +9,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ProductsController", function ($scope, $localStorage, $modal, Restangular,$site, toastr) {
+app.controller("ProductsController", function ($scope, $localStorage, $rootScope , $modal, Restangular,$site, toastr) {
+		
+		$scope.site = $site = $rootScope.site;
 		if (_.findWhere($scope.site.integration,{type: 'stripe'})){
 			$scope.stripe_integrated = true;
 		}
@@ -31,7 +33,6 @@ app.controller("ProductsController", function ($scope, $localStorage, $modal, Re
 	    $scope.pagination.total_count = 1;
 
 	    $scope.paginate = function(){
-
 	        if( typeof $scope.data[ $scope.pagination.current_page] != 'object' ) {
 
 	            $scope.loading = true;
@@ -41,7 +42,6 @@ app.controller("ProductsController", function ($scope, $localStorage, $modal, Re
 	            if ($scope.query) {
 	                $params.q = encodeURIComponent( $scope.query );
 	            }
-
 	            Restangular.all('').customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' )).then(function (data) {
 	                $scope.loading = false;
 	                $scope.pagination.total_count = data.total_count;
