@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("LivecastsController", function ($scope,$modal,$http,$site,Restangular) {
+app.controller("LivecastsController", function ($scope,$rootScope,$modal,$http,$site,Restangular) {
 	$scope.template_data = {
         title: 'LIVECASTS',
         description: 'Embed live hangout & webinar code or display past recordings',
@@ -17,7 +17,7 @@ app.controller("LivecastsController", function ($scope,$modal,$http,$site,Restan
         edit_route: 'admin.site.content.livecast',
         api_object: 'livecast'
     }
-
+    $scope.site = $site = $rootScope.site;
     $scope.data = [];
     $scope.pagination = {current_page: 1};
     $scope.pagination.total_count = 1;

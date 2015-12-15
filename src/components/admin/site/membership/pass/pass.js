@@ -23,7 +23,10 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PassController", function ($scope, $localStorage, Restangular, $access_pass, roles, toastr, $state) {
+app.controller("PassController", function ($scope, $rootScope , $localStorage, Restangular, $access_pass, roles, toastr, $state) {
+		if(!$access_pass.id){
+			$access_pass.site_id = $rootScope.site.id;
+		}
 		$scope.access_pass = $access_pass;
 
 	    $scope.select2 = function() {

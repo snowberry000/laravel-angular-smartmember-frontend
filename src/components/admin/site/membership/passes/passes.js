@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PassesController", function ($scope, $localStorage, $site, $modal, Restangular, toastr) {
+app.controller("PassesController", function ($scope, $localStorage, $rootScope, $site, $modal, Restangular, toastr) {
 	$scope.template_data = {
 	    title: 'PASSES',
 	    description: 'Grant members access to your site\'s protected content.',
@@ -17,7 +17,7 @@ app.controller("PassesController", function ($scope, $localStorage, $site, $moda
 	    edit_route: 'admin.site.membership.pass',
 	    api_object: 'pass'
 	}
-
+	$scope.site = $site = $rootScope.site;
 	$scope.data = [];
 	$scope.pagination = {current_page: 1};
 	$scope.pagination.total_count = 1;

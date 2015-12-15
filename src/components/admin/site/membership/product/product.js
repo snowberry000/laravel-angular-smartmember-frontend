@@ -28,8 +28,12 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ProductController", function ($scope, $localStorage, $facebook_groups, $currency , Restangular,$access_level,toastr,$state) {
+app.controller("ProductController", function ($scope, $localStorage, $rootScope, $facebook_groups, $currency , Restangular,$access_level,toastr,$state) {
 	
+    $scope.site = $rootScope.site;
+    if(!$access_level.id){
+    	$access_level.site_id = $scope.site.id;
+    }
     $scope.default_currency = $currency.length > 0 ? $currency[0].value : 'USD';
 	$scope.access_level = $access_level;
 
