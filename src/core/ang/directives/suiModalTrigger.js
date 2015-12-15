@@ -17,3 +17,48 @@ app.directive( 'suiModalTrigger', [ '$rootScope', 'smModal', '$templateCache', f
 		}
 	};
 } ] );
+
+app.directive('suiModal', [ 'smModal', function( smModal ){
+	return {
+		transclude: true,
+		restrict: 'EA',
+		template: '{{name}}',
+		scope: {
+			useCtrl: "@",
+			email: "@"
+		},
+		link: function(scope, element, attrs) {
+
+			$( element ).click( function( e )
+			{
+				scope.open();
+			} );
+
+			scope.open = function(){
+
+				console.log( 'trying to open' );
+				smModal.show( attrs.state, {});
+
+				console.log( 'just opened?' );
+
+				/*var modalInstance = $modal.open({
+					templateUrl: templateDir+attrs.instanceTemplate +'.tpl.html',
+					controller:  scope.useCtrl,
+					size: 'lg',
+					windowClass: 'app-modal-window',
+					backdrop: true,
+					resolve: {
+						custEmail: function(){
+							return {email: scope.email};
+						}
+					}
+				});
+				modalInstance.result.then(function(){
+					console.log('Finished');
+				}, function(){
+					console.log('Modal dismissed at : ' + new Date());
+				});*/
+			};
+		}
+	};
+}]);
