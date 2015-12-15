@@ -2,7 +2,7 @@ app.directive('iboxTools', function ($timeout) {
     return {
         restrict: 'A',
         scope: true,
-        templateUrl: '/templates/components/admin/common/ibox_tools.html',
+        templateUrl: 'templates/components/admin/common/ibox_tools.html',
         controller: function ($scope, $element) {
             // Function for collapse ibox
             $scope.showhide = function () {
