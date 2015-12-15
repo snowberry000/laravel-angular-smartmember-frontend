@@ -67,37 +67,12 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 		{
 			$is_bridgepage = true;
 		}
-		else
-		{
-			$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/permalink/'.$permalink;
-			$curl = curl_init( $url );
-			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'subdomain:'.$subdomain, 'origin:http://'.$domain, 'referer:http://'.$domain, 'content-type:application/json' ) );
-			$resp = curl_exec( $curl );
-			if( $resp )
-			{
-				$resp = json_decode( $resp );
-
-				if( is_object( $resp ) && isset($resp->type) )
-				{
-					$is_bridgepage = ($resp->type === 'bridge_bpages' ? true : false);
-
-					if( $is_bridgepage )
-					{
-						$subdomain = $resp->subdomain;
-						$key = $domain.':'.$permalink.':subdomain';
-						$client->set( $key, $subdomain );
-					}
-				}
-			}
-			curl_close( $curl );
-		}
-
+		
 		function checkBridgepage( $tld, $subdomain, $domain )
 		{
 			try
 			{
-				$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/site/details';
+				$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/checkHomepageBP';
 				$curl = curl_init( $url );
 				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'subdomain:'.$subdomain, 'origin:http://'.$domain, 'referer:http://'.$domain, 'content-type:application/json' ) );
@@ -110,45 +85,13 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 			{
 				$data = false;
 			}
-			if( isset($data->meta_data) )
-			{
-				foreach( $data->meta_data as $key => $value )
-				{
-					if( $value->key == 'homepage_url' )
-					{
-						$homepage_url = $value->value;
-					}
-				}
-				$subdomain = $data->subdomain;
-			}
 
-			if( isset($homepage_url) )
+			if( isset($data->type) && $data->type == 'bridge_bpages' )
 			{
-				try
-				{
-					$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/permalink/'.$homepage_url;
-					$curl = curl_init( $url );
-					curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-					curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'subdomain:'.$subdomain, 'origin:http://'.$domain, 'referer:http://'.$domain, 'content-type:application/json' ) );
-					$response = curl_exec( $curl );
-					curl_close( $curl );
-					$response = json_decode( $response );
-				}
-				catch( Exception $e )
-				{
-					$response = false;
-				}
-				if( isset($response->type) )
-				{
-					switch( $response->type )
-					{
-						case 'bridge_bpages':
-							return array( 'permalink' => $homepage_url, 'subdomain' => $subdomain );
-							break;
-					}
-				}
+				return array( 'permalink' => $data->homepage_url, 'subdomain' => $subdomain );
+			} else {
+				return false;
 			}
-
 			return false;
 		}
 
