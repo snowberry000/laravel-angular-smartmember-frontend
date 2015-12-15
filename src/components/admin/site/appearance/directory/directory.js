@@ -5,7 +5,7 @@ app.config(function($stateProvider){
 		.state("admin.site.appearance.directory",{
 			url: "/directory",
 			templateUrl: "/templates/components/admin/site/appearance/directory/directory.html",
-			controller: "DirectoryController",
+			controller: "DirectoryListingController",
 			resolve: {
 				$listing: function( Restangular )
 				{
@@ -15,7 +15,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("DirectoryController", function ($scope, $localStorage, $modal, $listing, Restangular,$site, toastr, $filter) {
+app.controller("DirectoryListingController", function ($scope, $localStorage, $modal, $listing, Restangular,$site, toastr, $filter) {
     if($listing)
         $listing.expired_at =  moment($listing.expired_at).toDate();
     else
