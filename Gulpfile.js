@@ -138,6 +138,7 @@ gulp.task( 'less', function()
 			strictMath: true
 		} ) )
 		.pipe( concat( 'main.min.css' ) )
+		.pipe( minifycss() )
 		.pipe( gulp.dest( 'dist/css/' ) );
 
 
