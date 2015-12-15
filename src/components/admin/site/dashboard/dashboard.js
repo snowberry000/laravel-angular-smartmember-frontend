@@ -7,8 +7,8 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/admin/site/dashboard/dashboard.html",
 			controller: "DashboardController",
 			 resolve: {
-                $site: function(Restangular){
-                    return Restangular.one('site','details').get();
+                $site: function($rootScope){
+                    return $rootScope.site;
                 }
             }
 		})

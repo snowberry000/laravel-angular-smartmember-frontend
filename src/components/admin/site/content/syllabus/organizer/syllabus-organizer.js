@@ -13,16 +13,17 @@ app.config(function($stateProvider){
                             name: 'ui.sortable'
                         }
                     ]);
-                },
+                }/*,
                 $site: function(Restangular){
                     return Restangular.one('site','details').get();
-                }
+                }*/
 
             }
 		})
 }); 
 app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $localStorage, $site , $user, $location, $stateParams, $modal, Restangular, toastr, $filter) {
-	$scope.open1 = function (next_item) {
+	$site=$rootScope.site;
+    $scope.open1 = function (next_item) {
         var modalInstance = $modal.open({
             size: 'lg',
             windowClass: 'lesson-modal-window',
@@ -129,7 +130,9 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
     $scope.unassigned_lessons = {};
     $scope.modules = {};
     $scope.init = function () {
-        var details = $site;
+        console.log("asdasd");
+        console.log($rootScope.site);
+        var details = $rootScope.site;
         console.log("details: ");
         console.log(details);
         console.log($site);
@@ -351,7 +354,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
         }
     };
     $scope.updateLesson = function (lesson_item , module) {
-        var less = {'title': lesson_item.title, 'note': lesson_item.note , site_id: $site.id , id:lesson_item.id};
+        var less = {'title': lesson_item.title, 'note': lesson_item.note , site_id: $rootScope.site.id , id:lesson_item.id};
 
         if(lesson_item.id){
             lesson.customPUT(less, lesson_item.id).then(function (response) {
@@ -395,7 +398,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
             return;
         }
         var permalink = $filter('urlify')(title);
-        var newLesson = {'module_id': module_id , site_id : $site.id, 'title': title, access_level_type: 4, permalink: permalink};
+        var newLesson = {'module_id': module_id , site_id : $rootScope.site.id, 'title': title, access_level_type: 4, permalink: permalink};
 
         if(!moduleWithId.lessons)
             moduleWithId.lessons = [];
@@ -412,7 +415,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
         });
     }
     $scope.addUnassignedLesson = function () {
-        var newLesson = {'module_id': 0 , site_id: $site.id};
+        var newLesson = {'module_id': 0 , site_id: $rootScope.site.id};
         $scope.unassigned_lessons.push({count :  $scope.unassigned_lessons.length , lesson : newLesson , isOpen : false, isDripFeed: false});
 
     }

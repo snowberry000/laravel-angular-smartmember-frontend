@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("NoticesController", function ($scope,$state, $localStorage, $site , $modal, Restangular, toastr) {
+app.controller("NoticesController", function ($scope,$state, $rootScope, $localStorage, $site , $modal, Restangular, toastr) {
 	$scope.template_data = {
 	    title: 'SITE NOTICES',
 	    description: 'toastr your members of new things',
@@ -17,7 +17,7 @@ app.controller("NoticesController", function ($scope,$state, $localStorage, $sit
 	    edit_route: 'admin.site.membership.notice',
 	    api_object: 'siteNotice'
 	}
-
+	$scope.site = $site = $rootScope.site;
 	$scope.data = [];
 	$scope.pagination = {current_page: 1};
 	$scope.pagination.total_count = 1;

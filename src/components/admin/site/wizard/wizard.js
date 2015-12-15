@@ -16,8 +16,8 @@ app.config(function($stateProvider){
                 $wizard_server : function( Restangular , $stateParams , $site){
                     return Restangular.all('wizard').customGET('',{slug :$stateParams.id , site_id : $site.id})
                 },
-                $site: function(Restangular){
-                    return Restangular.one('site','details').get();
+                $site: function(Restangular,$rootScope){
+                    return $rootScope.site;
                 },
             }
 		})

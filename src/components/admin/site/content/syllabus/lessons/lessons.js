@@ -9,8 +9,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AdminLessonsController", function ($scope, $localStorage, $site , $state, $stateParams,$modal, $filter, Restangular, toastr) {
-	$scope.template_data = {
+app.controller("AdminLessonsController", function ($scope, $rootScope,$localStorage, $site , $state, $stateParams,$modal, $filter, Restangular, toastr) {
+	$site=$rootScope.site;
+    $scope.template_data = {
         title: 'LESSONS',
         description: 'Add lessons to your site for members to read / watch / hear.',
         singular: 'lesson',
@@ -18,7 +19,7 @@ app.controller("AdminLessonsController", function ($scope, $localStorage, $site 
         api_object: 'lesson'
     }
 
-    console.log("site:");
+    console.log("site asd:");
     console.log($site);
 
     $scope.data = [];
@@ -31,7 +32,7 @@ app.controller("AdminLessonsController", function ($scope, $localStorage, $site 
 
             $scope.loading = true;
 
-            var $params = {p: $scope.pagination.current_page, site_id: $site.id};
+            var $params = {p: $scope.pagination.current_page, site_id: $rootScope.site.id};
 
             if ($scope.query) {
                 $params.q = encodeURIComponent( $scope.query );

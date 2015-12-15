@@ -7,21 +7,26 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/admin/site/content/helpdesk/article/article.html",
 			controller: "ArticleController",
 		    resolve: {
-			    $article: function(Restangular, $site , $stateParams , $location) {
+			    $article: function(Restangular,$rootScope, $site , $stateParams , $location) {
 				    if($stateParams.id)
 					    return Restangular.one('supportArticle' , $stateParams.id).get();
 				    else if($location.search().clone){
 					    return Restangular.one('supportArticle', $location.search().clone).get();
 				    }
 				    else
-					    return {company_id : $site.company_id}
+					    return {company_id : 0}
 			    }
 		    }
 		})
 }); 
 
-app.controller("ArticleController", function ($scope,Upload, $location, $timeout , $user , $modal, $localStorage, $state, $article,$stateParams, $site, $filter, Restangular, toastr) {
+app.controller("ArticleController", function ($scope,$rootScope, Upload, $location, $timeout , $user , $modal, $localStorage, $state, $article,$stateParams, $site, $filter, Restangular, toastr) {
 	//$scope.page = $page;
+    if(!$article.id)
+    {
+        $article.company_id=$rootScope.site.company_id;
+    }
+
     var draft;
     var changed;
     if($location.search().clone){
@@ -54,7 +59,7 @@ app.controller("ArticleController", function ($scope,Upload, $location, $timeout
 
     $scope.saveCategory = function($model)
     {
-        $model.company_id=$site.company_id;
+        $model.company_id=$rootScope.site.company_id;
         Restangular.all('supportCategory').post($model).then(function(response){
             $scope.categories.push(response);
             toastr.success("Support category added successfully!");
@@ -127,7 +132,7 @@ app.controller("ArticleController", function ($scope,Upload, $location, $timeout
     }
     //disabling for now because this isn't the draft feature we wanted
     if(false && !$stateParams.id && !$location.search().clone)
-    Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'articles.content'}).then(function(response){
+    Restangular.all('draft').customGET('', {site_id : $rootScope.site.id , user_id : $user.id , key : 'articles.content'}).then(function(response){
         if(response.length){
             draft = response[0]
             $scope.loadDraft()
@@ -167,7 +172,7 @@ app.controller("ArticleController", function ($scope,Upload, $location, $timeout
     } , true)
 
     $scope.start = function(){
-        var data = {site_id : $site.id , user_id : $user.id , key : 'articles.content' , value : JSON.stringify($scope.article)}
+        var data = {site_id : $rootScope.site.id , user_id : $user.id , key : 'articles.content' , value : JSON.stringify($scope.article)}
         Restangular.all('draft').post(data).then(function(response){
             console.log(response);
             draft=response;

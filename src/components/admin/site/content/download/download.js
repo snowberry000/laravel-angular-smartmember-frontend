@@ -20,9 +20,14 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("DownloadController", function ($scope,Upload, $localStorage,$download, $user , $timeout , $location, $site, $state, $stateParams, $modal, Restangular, toastr, $filter) {
+app.controller("DownloadController", function ($scope,Upload,$rootScope, $localStorage,$download, $user , $timeout , $location, $site, $state, $stateParams, $modal, Restangular, toastr, $filter) {
 	var draft;
     var changed;
+    $scope.site = $site = $rootScope.site;
+
+    if(!$download.id){
+        $download.site_id = $scope.site.id;
+    }
     if($location.search().clone){
         delete $download.id;
         delete $download.access;

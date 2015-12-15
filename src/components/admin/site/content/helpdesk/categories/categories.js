@@ -9,8 +9,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("CategoriesController", function ($scope,$site, $modal,$localStorage, $state, $stateParams,$filter, Restangular, toastr) {
-	$scope.template_data = {
+app.controller("CategoriesController", function ($scope,$rootScope,$site, $modal,$localStorage, $state, $stateParams,$filter, Restangular, toastr) {
+	$site=$rootScope.site;
+    $scope.template_data = {
         title: 'HELPDESK_CATEGORIES',
         description: 'Group helpdesk articles together into categories to help organize your knowledgebase.',
         singular: 'helpdesk category',
@@ -28,7 +29,7 @@ app.controller("CategoriesController", function ($scope,$site, $modal,$localStor
 
             $scope.loading = true;
 
-            var $params = {p: $scope.pagination.current_page, site_id: $site.id};
+            var $params = {p: $scope.pagination.current_page, site_id: $rootScope.site.id};
 
             if ($scope.query) {
                 $params.q = encodeURIComponent( $scope.query );

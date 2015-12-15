@@ -7,8 +7,8 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/admin/site/content/content.html",
 			controller: "ContentController",
 			resolve: {
-				$site: function(Restangular){
-                    return Restangular.one('site','details').get();
+				$site: function(Restangular, $rootScope){
+                    return $rootScope.site;
                 }
 			}
 		})

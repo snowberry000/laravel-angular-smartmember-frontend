@@ -7,8 +7,8 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/admin/site/appearance/appearance.html",
 			controller: "AppearanceController",
 			 resolve: {
-                $site: function(Restangular){
-                    return Restangular.one('site','details').get();
+                $site: function(Restangular, $rootScope){
+                	return $rootScope.site;
                 }
             }
 		})

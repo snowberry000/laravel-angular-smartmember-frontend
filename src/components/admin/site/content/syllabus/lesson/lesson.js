@@ -31,7 +31,13 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("LessonController", function ($scope, $rootScope, $localStorage, $timeout ,  $state, $next_item , $location, $stateParams,$modal,$site , $user , $filter, Restangular, toastr, $modules,Upload) {
-	$scope.template_data = {
+	if(!$next_item.id)
+    {
+        $next_item.site_id=$rootScope.site.id;
+    }
+
+    $site=$rootScope.site;
+    $scope.template_data = {
         title: 'Lesson',
         cancel_route: 'admin.site.content.syllabus.lessons',
         success_route: 'admin.site.content.syllabus.lessons'

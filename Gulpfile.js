@@ -40,7 +40,7 @@ gulp.task( 'bower', function()
 
 	gulp.src( bowerFiles( '**/*.css' ) )
 		.pipe( concat( 'vendor.min.css' ) )
-		.pipe( minifycss() )
+		.pipe( minifycss({processImport: false}) )
 		.pipe( gulp.dest( 'dist/css/' ) );
 
 	return true;
@@ -138,6 +138,7 @@ gulp.task( 'less', function()
 			strictMath: true
 		} ) )
 		.pipe( concat( 'main.min.css' ) )
+		.pipe( minifycss({processImport: false}) )
 		.pipe( gulp.dest( 'dist/css/' ) );
 
 
@@ -162,7 +163,7 @@ gulp.task( 'replace_vendor', function()
 
 gulp.task( "upload", function()
 {
-	gulp.src( [ "dist/js/vendor.min.js", "dist/css/vendor.min.css", "dist/js/main.min.js" ] )
+	return gulp.src( [ "dist/js/vendor.min.js", "dist/css/vendor.min.css", "dist/js/main.min.js" ] )
 		.pipe( s3( {
 			Bucket: '/smpub/cdn', //  Required
 			ACL: 'public-read'
@@ -171,7 +172,6 @@ gulp.task( "upload", function()
 			maxRetries: 5
 		} ) );
 } );
-
 
 gulp.task( 'fonts', function()
 {
@@ -189,9 +189,9 @@ gulp.task( 'images', function()
 gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage' ] );
 gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'watch' ] );
 
-gulp.task( 'production', [ 'compile', 'upload' ], function()
+gulp.task( 'production', [ 'compile' ], function()
 {
-	runSequence( 'replace_vendor', function()
+	runSequence( 'replace_vendor','upload', function()
 	{
 
 	} );

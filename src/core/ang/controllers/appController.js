@@ -256,7 +256,7 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	/*
 	 This is depricated
 	 */
-	$scope.initialize = function()
+	/*$scope.initialize = function()
 	{
 		Restangular.one( 'site', 'details' ).get().then( function( details )
 		{
@@ -286,5 +286,5 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
             }
 
 		} );
-	};
+	};*/
 } );

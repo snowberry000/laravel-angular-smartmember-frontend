@@ -10,6 +10,7 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('NotesController', function ($scope, $site, $rootScope, $localStorage, Restangular , $modal) {
+    $site=$rootScope.site;
     $scope.template_data = {
         title: 'LESSON_NOTES',
         description: 'These are the notes your members have taken on the lessons they\'ve watched & read',
@@ -28,7 +29,7 @@ app.controller('NotesController', function ($scope, $site, $rootScope, $localSto
 
             $scope.loading = true;
 
-            var $params = {p: $scope.pagination.current_page, site_id: $site.id};
+            var $params = {p: $scope.pagination.current_page, site_id: $rootScope.site.id};
 
             if ($scope.query) {
                 $params.q = encodeURIComponent( $scope.query );

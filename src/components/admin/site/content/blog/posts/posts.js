@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PostsController", function ($scope, $localStorage, $site ,$state, $stateParams, $modal, $filter, Restangular, toastr) {
+app.controller("PostsController", function ($scope, $rootScope ,$localStorage, $site ,$state, $stateParams, $modal, $filter, Restangular, toastr) {
 	$scope.template_data = {
         title: 'BLOG_POSTS',
         description: 'Posts are the informational material of your site that go in the blog.',
@@ -17,6 +17,7 @@ app.controller("PostsController", function ($scope, $localStorage, $site ,$state
         edit_route: 'admin.site.content.blog.post',
         api_object: 'post'
     }
+    $scope.site = $site = $rootScope.site;
 
     $scope.data = [];
     $scope.pagination = {current_page: 1};

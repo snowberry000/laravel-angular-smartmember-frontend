@@ -9,8 +9,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ModulesController", function ($scope, $localStorage,$site , $location, $stateParams, $modal, Restangular, toastr) {
-	$scope.template_data = {
+app.controller("ModulesController", function ($scope,$rootScope, $localStorage,$site , $location, $stateParams, $modal, Restangular, toastr) {
+	$site=$rootScope.site;
+    $scope.template_data = {
         title: 'MODULES',
         description: 'Modules let you group together lessons - think "sections" or "chapters".',
         singular: 'module',
@@ -28,7 +29,7 @@ app.controller("ModulesController", function ($scope, $localStorage,$site , $loc
 
             $scope.loading = true;
 
-            var $params = {p: $scope.pagination.current_page, site_id: $site.id};
+            var $params = {p: $scope.pagination.current_page, site_id: $rootScope.site.id};
 
             if ($scope.query) {
                 $params.q = encodeURIComponent( $scope.query );

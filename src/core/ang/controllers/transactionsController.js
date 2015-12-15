@@ -1,5 +1,5 @@
 
-app.controller('TransactionsController', function ($scope, $localStorage,$site, Restangular,toastr) {
+app.controller('TransactionsController', function ($scope, $rootScope , $localStorage,$site, Restangular,toastr) {
     $scope.template_data = {
         title: 'TRANSACTIONS',
         description: 'Transactions are each sale / refund processed through this site by customers',
@@ -7,6 +7,8 @@ app.controller('TransactionsController', function ($scope, $localStorage,$site, 
         edit_route: '',
         api_object: 'transaction'
     }
+
+    $scope.site = $site = $rootScope.site;
 
     $scope.data = [];
     $scope.pagination = {current_page: 1};
