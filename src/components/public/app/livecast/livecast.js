@@ -5,11 +5,11 @@ app.config(function($stateProvider){
 		.state("public.app.livecast",{
 			url: "/livecast/:permalink",
 			templateUrl: "/templates/components/public/app/livecast/livecast.html",
-			controller: "LivecastController"
+			controller: "PublicLivecastController"
 		})
 }); 
 
-app.controller('LivecastController',function($scope,$rootScope,$http,$stateParams,$localStorage,Restangular){
+app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stateParams,$localStorage,Restangular){
 
     $scope.comment = '';
     $scope.child_comment = '';
