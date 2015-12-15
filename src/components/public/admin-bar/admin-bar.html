@@ -156,8 +156,8 @@
 			<i class="dropdown icon"></i>
 			<span class="text">{{ 'TEAM_SETTINGS' | translate }}</span>
 			<div class="menu">
-				<a class="item" sui-modal data-state="admin.team.settings">{{ 'SETTINGS' | translate }}</a>
-				<a class="item" sui-modal-trigger data-state="admin.team.profile">{{ 'DIRECTORY_LISTING' | translate }}</a>
+				<a class="item" sui-modal-trigger data-state="admin.team.settings" data-template="/templates/components/admin/team/settings/settings.html">{{ 'SETTINGS' | translate }}</a>
+				<a class="item" sui-modal-trigger data-state="admin.team.profile" data-template="/templates/components/admin/team/profile/profile.html">{{ 'DIRECTORY_LISTING' | translate }}</a>
 				<a class="item" sui-modal-trigger data-state="admin.team.members">{{ 'MEMBERS' | translate }}</a>
 			</div>
 		</div>

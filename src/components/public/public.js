@@ -30,8 +30,8 @@ app.controller( 'PublicController', function( $scope, $rootScope, smModal, $time
         $rootScope.app.show_engine = true;
     }
 
-	$rootScope.primary_modal = '';
-	$rootScope.secondary_modal = '';
+	$rootScope.loaded_modals = [];
+	$rootScope.primary_modal_template = '';
 
     $rootScope.meta_data = {};
 
