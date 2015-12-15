@@ -32,7 +32,7 @@ app.controller('PublicSupportController', function ($scope,$rootScope, $localSto
     }
 
     $scope.showFormat = function(format){
-        $localStorage.syllabus_format = format;
-        $scope.site.syllabus_format = format;
+        $localStorage.helpdesk_format = format;
+        $scope.site.helpdesk_format = format;
     }
 });

@@ -47,7 +47,7 @@
 					{{category.id ? category.title : ( $parent.$parent.$parent.$parent.options.default_support_category_title ) }}
 				</a>
 
-				<table class="ui very basic celled table" ng-if="helpdesk_format == 'list'">
+				<table class="ui very basic celled table" ng-if="site.helpdesk_format == 'list'">
 					<thead>
 						<tr>
 							<th></th>
@@ -67,7 +67,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="ui three cards syllabus_cards stackable m-t-xs" ng-if="helpdesk_format == 'thumbnail'">
+				<div class="ui three cards syllabus_cards stackable m-t-xs" ng-if="site.helpdesk_format == 'thumbnail'">
 					<a ng-href="/{{ article.permalink }}" class="card" ng-repeat="article in category.articles | filter: query | orderBy : 'sort_order'">
 						<div class="blurring dimmable image">
 							<div class="ui dimmer">

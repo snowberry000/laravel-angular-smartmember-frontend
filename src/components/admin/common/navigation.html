@@ -62,7 +62,7 @@
 				</a>
 			</li>
 			<li  ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-				<a ui-sref="admin.site.wizards">
+				<a ng-href="/admin/site/wizard/site_launch_wizard">
 					<i class="fa fa-fw fa-magic"></i>
 					<span class="nav-label">{{ 'SETUP_WIZARDS' | translate }}</span>
 				</a>
