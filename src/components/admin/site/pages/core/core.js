@@ -77,14 +77,14 @@ app.controller("CoreController", function ($scope) {
 			description: 'This is the page your members will use to log into your site',
 			image: '',
 			template: 'login',
-			url: '/sign/in'
+			url: '/sign/in/'
 		},
 		{
 			title: 'Registration Page',
 			description: 'This is the page your members will use to join your site',
 			image: '',
 			template: '',
-			url: '/sign/up'
+			url: '/sign/up/'
 		},
 	];
 });
