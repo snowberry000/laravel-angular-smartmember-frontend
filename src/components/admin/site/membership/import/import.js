@@ -5,11 +5,11 @@ app.config(function($stateProvider){
 		.state("admin.site.membership.import",{
 			url: "/import",
 			templateUrl: "/templates/components/admin/site/membership/import/import.html",
-			controller: "ImportController"
+			controller: "MembersImportController"
 		})
 }); 
 
-app.controller("ImportController", function ($scope) {
+app.controller("MembersImportController", function ($scope , Restangular, $state , toastr) {
 	$scope.page_title = "Import Members";
 	$scope.members = {};
 
