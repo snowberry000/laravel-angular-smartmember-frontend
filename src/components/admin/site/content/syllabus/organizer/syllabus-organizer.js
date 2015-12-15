@@ -129,7 +129,9 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
     $scope.unassigned_lessons = {};
     $scope.modules = {};
     $scope.init = function () {
-        var details = $site;
+        console.log("asdasd");
+        console.log($rootScope.site;);
+        var details = $rootScope.site;
         console.log("details: ");
         console.log(details);
         console.log($site);
