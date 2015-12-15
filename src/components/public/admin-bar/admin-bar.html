@@ -1,0 +1,268 @@
+<div class="header item">
+	Smart Member
+</div>
+
+<div class="ui pointing dropdown link item" sui-dropdown>
+	<i class="filter icon"></i>
+	<span class="text">Filter Posts</span>
+	<div class="menu">
+		<div class="ui icon search input">
+			<i class="search icon"></i>
+			<input type="text" placeholder="Search tags...">
+		</div>
+		<div class="divider"></div>
+		<div class="header">
+			<i class="tags icon"></i>
+			Tag Label
+		</div>
+		<div class="scrolling menu">
+			<div class="item">
+				<div class="ui red empty circular label"></div>
+				Important
+			</div>
+			<div class="item">
+				<div class="ui blue empty circular label"></div>
+				Announcement
+			</div>
+			<div class="item">
+				<div class="ui black empty circular label"></div>
+				Cannot Fix
+			</div>
+			<div class="item">
+				<div class="ui purple empty circular label"></div>
+				News
+			</div>
+			<div class="item">
+				<div class="ui orange empty circular label"></div>
+				Enhancement
+			</div>
+			<div class="item">
+				<div class="ui empty circular label"></div>
+				Change Declined
+			</div>
+			<div class="item">
+				<div class="ui yellow empty circular label"></div>
+				Off Topic
+			</div>
+			<div class="item">
+				<div class="ui pink empty circular label"></div>
+				Interesting
+			</div>
+			<div class="item">
+				<div class="ui green empty circular label"></div>
+				Discussion
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui dropdown item" sui-dropdown ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+	{{ 'SITE_CONTENT' | translate }}
+	<i class="dropdown icon"></i>
+	<div class="menu">
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'SYLLABUS' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.site.content.syllabus.lessons">{{ 'LESSONS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.content.syllabus.modules">{{ 'MODULES' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.content.syllabus.organizer">{{ 'ORGANIZER' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.content.syllabus.notes">{{ 'NOTES' | translate }}</a>
+			</div>
+		</div>
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'BLOG' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.site.content.blog.posts">{{ 'POSTS' | translate }}</a>
+			</div>
+		</div>
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'HELPDESK' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.site.content.helpdesk.articles">{{ 'ARTICLES' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.content.helpdesk.categories">{{ 'CATEGORIES' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.content.helpdesk.organizer">{{ 'ORGANIZER' | translate }}</a>
+			</div>
+		</div>
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'DOWNLOAD_CENTER' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.site.content.downloads">{{ 'DOWNLOADS' | translate }}</a>
+			</div>
+		</div>
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'LIVE_STREAMING' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.site.content.livecasts">{{ 'LIVECASTS' | translate }}</a>
+			</div>
+		</div>
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'SITE_PAGES' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.site.pages.core.list">{{ 'CORE_PAGES' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.pages.custom-pages">{{ 'CUSTOM_PAGES' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.pages.bridge-pages">{{ 'BRIDGE_PAGES' | translate }}</a>
+			</div>
+		</div>
+		<a class="item" sui-modal data-state="admin.site.content.import">{{ 'IMPORT' | translate }}</a>
+		<a class="item" sui-modal data-state="admin.site.content.stats">{{ 'STATS' | translate }}</a>
+	</div>
+</div>
+<div class="ui dropdown item" sui-dropdown>
+	Members
+	<i class="dropdown icon"></i>
+
+	<div class="menu">
+
+
+		<div class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'SITE_ACCESS' | translate }}</span>
+			<div class="menu">
+				<div class="item">
+					<i class="dropdown icon"></i>
+					<span class="text">{{ 'ACCESS_MANAGEMENT' | translate }}</span>
+					<div class="menu">
+						<a class="item" sui-modal data-state="admin.site.membership.products">{{ 'PRODUCTS' | translate }}</a>
+						<a class="item" sui-modal data-state="admin.site.membership.passes">{{ 'PASSES' | translate }}</a>
+					</div>
+				</div>
+				<div class="item">
+					<i class="dropdown icon"></i>
+					<span class="text">{{ 'FINANCE_MANAGEMENT' | translate }}</span>
+					<div class="menu">
+						<a class="item" sui-modal data-state="admin.site.membership.transactions">{{ 'TRANSACTIONS' | translate }}</a>
+						<a class="item" sui-modal data-state="wallboard" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
+						<a class="item" sui-modal data-state="admin.site.membership.finance_settings">{{ 'FINANCE_SETTINGS' | translate }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'SITE_MEMBERS' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.site.membership.members">{{ 'MEMBERS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.membership.notices">{{ 'CREATE_NOTICES' | translate }}</a>
+			</div>
+		</div>
+
+
+		<div class="item" ng-if="is_team_member">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'TEAM_SETTINGS' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.team.settings">{{ 'SETTINGS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.profile">{{ 'DIRECTORY_LISTING' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.members">{{ 'MEMBERS' | translate }}</a>
+			</div>
+		</div>
+		<a class="item" ui-sref="public.sign.out">Log out</a>
+	</div>
+</div>
+<div class="ui dropdown item" sui-dropdown>
+	Tools
+	<i class="dropdown icon"></i>
+
+	<div class="menu">
+
+		<div class="item" ng-if="is_team_member">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'MANAGE_EMAIL' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.team.email.emails">{{ 'EMAILS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.email.lists">{{ 'LISTS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.email.groups">{{ 'GROUPS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.email.subscribers">{{ 'SUBSCRIBERS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.email.autoresponders">{{ 'AUTORESPONDERS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.email.forms">{{ 'OPTIN_FORM' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.email.settings">{{ 'SETTINGS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.email.queue">{{ 'QUEUE' | translate }}</a>
+			</div>
+		</div>
+		<div class="item" ng-if="is_site_admin || is_agent || is_team_member">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'MANAGE_SUPPORT' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.team.helpdesk.tickets.open">{{ 'TICKETS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.helpdesk.settings" style="display:none;">{{ 'SETTINGS' | translate }}</a>
+			</div>
+		</div>
+		<div class="item" ng-if="is_team_member">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'MANAGE_AFFILIATES' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.team.jv.affiliates">{{ 'AFFILIATES' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.jv.teams">{{ 'AFFILIATE_TEAMS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.jv.fetcher">{{ 'JVZOO_FETCHER' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.jv.contests">{{ 'CONTESTS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.jv.stats">{{ 'STATS' | translate }}</a>
+			</div>
+		</div>
+		<div class="item" ng-if="is_team_member">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'INTEGRATIONS' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.team.integrations.available">{{ 'ADD_NEW' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.integrations.list">{{ 'MY_INTEGRATIONS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.team.integrations.connections">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui dropdown item" sui-dropdown ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+	Visuals
+	<i class="dropdown icon"></i>
+	<div class="menu">
+		<div class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'SITE_APPEARANCE' | translate }}</span>
+			<div class="menu">
+				<a class="item" sui-modal data-state="admin.site.appearance.settings">{{ 'APPEARANCE_GENERAL_SETTINGS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.appearance.menus">{{ 'NAVIGATION_MENUS' | translate }}</a>
+				<div class="item">
+					<i class="dropdown icon"></i>
+					<span class="text">{{ 'SIDEBAR_MANAGEMENT' | translate }}</span>
+					<div class="menu">
+						<a class="item" sui-modal data-state="admin.site.appearance.widgets">{{ 'WIDGETS' | translate }}</a>
+						<a class="item" sui-modal data-state="admin.site.appearance.banners">{{ 'BANNERS' | translate }}</a>
+						<a class="item" sui-modal data-state="admin.site.appearance.stats">{{ 'STATS' | translate }}</a>
+					</div>
+				</div>
+				<a class="item" sui-modal data-state="admin.site.pages.bridge-pages">{{ 'THEME_EDITOR' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.pages.bridge-pages">{{ 'SOCIAL_SETTINGS' | translate }}</a>
+				<a class="item" sui-modal data-state="admin.site.pages.bridge-pages">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
+			</div>
+		</div>
+		<a class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" sui-modal data-state="admin.site.appearance.directory">{{ 'DIRECTORY_PROFILE' | translate }}</a>
+
+	</div>
+</div>
+<div class="ui dropdown item" sui-dropdown>
+	Account
+	<i class="dropdown icon"></i>
+
+	<div class="menu">
+		<a class="item" sui-modal data-state="admin.account.settings">{{ 'MY_PROFILE' | translate }}</a>
+		<a class="item" sui-modal data-state="admin.team.sites" ng-if="is_team_member">{{ 'MY_ADMIN_SITES' | translate }}</a>
+		<a class="item" sui-modal data-state="admin.account.memberships">{{ 'MY_JOINED_SITES' | translate }}</a>
+		<a class="item" sui-modal data-state="admin.account.teams" ng-if="is_team_member">{{ 'MY_TEAMS' | translate }}</a>
+		<a class="item" ng-href="/admin/site/wizard/site_launch_wizard" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">{{ 'SETUP_WIZARDS' | translate }}</a>
+		<a class="item" ng-if="is_team_member" data-state="admin.team.wizard.team_setup_wizard">{{ 'SETUP_WIZARDS' | translate }}</a>
+
+	</div>
+</div>
+
+<a class="item">
+	About Us
+</a>
+<a class="item active">
+	Jobs
+</a>
+<a class="item">
+	Locations
+</a>
