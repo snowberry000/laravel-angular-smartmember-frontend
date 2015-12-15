@@ -25,6 +25,12 @@ app.config(function($stateProvider){
 app.controller("StatsController", function ($scope, $ad) {
 	$scope.ad = $ad[0];
 	$scope.ads = $ad;
+
+    angular.forEach( $scope.ads, function(value){
+        value.views = parseInt( value.views );
+        value.clicks = parseInt( value.clicks );
+    });
+
 	$scope.views = 0;
 	$scope.clicks = 0;
 
@@ -58,10 +64,8 @@ app.controller("StatsController", function ($scope, $ad) {
 	    });
 	}
 	if ($ad[0]) {
-	     
-	    
 	    $scope.charts = {"data" : [{label :"views" , data : $scope.views} , {label :"clicks" , data : $scope.clicks}], "options" : options};
-
+        console.log( 'chart data: ', $scope.charts );
 	    $scope.labels = ["View", "Clicks"];
 	    $scope.ad.views = $scope.views;
 	    $scope.ad.clicks = $scope.clicks;
