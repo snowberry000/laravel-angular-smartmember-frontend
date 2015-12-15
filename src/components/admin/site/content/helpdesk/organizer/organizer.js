@@ -5,7 +5,13 @@ app.config(function($stateProvider){
 		.state("admin.site.content.helpdesk.organizer",{
 			url: "/organizer",
 			templateUrl: "/templates/components/admin/site/content/helpdesk/organizer/organizer.html",
-			controller: "OrganizerController"
+			controller: "OrganizerController",
+            resolve: {
+                $site: function( Restangular )
+                {
+                    return Restangular.one( 'site', 'details' ).get();
+                }
+            }
 		})
 }); 
 
@@ -19,6 +25,8 @@ app.controller("OrganizerController", function ($scope,$site,$modal, $localStora
 
     $scope.init = function(){
         var details = $site;
+        console.log('details');
+        console.log(details);
         if (details) {
             $.each(details.meta_data, function (key, data) {
                 $scope.options[data.key] = data.value;
@@ -36,13 +44,23 @@ app.controller("OrganizerController", function ($scope,$site,$modal, $localStora
             }
         });
 
-        Restangular.all('supportArticle').getList({company_id:$site.company_id , category_id:0}).then(function (response) {
+        Restangular.all('').customGET("supportArticle?category_id=0&company_id="+$site.company_id).then(function (response) {
+            console.log("supportArticle");
+            console.log(response);
             if (response) {
-                $scope.unassigned_articles = response;
+                $scope.unassigned_articles = response.articles;
                 $scope.unassigned_articles = $filter('orderBy')($scope.unassigned_articles, 'sort_order');
                 $scope.$broadcast('dataloaded');
             }
         });
+
+        // Restangular.all('supportArticle').get({company_id:$site.company_id , category_id:0}).then(function (response) {
+        //     if (response) {
+        //         $scope.unassigned_articles = response;
+        //         $scope.unassigned_articles = $filter('orderBy')($scope.unassigned_articles, 'sort_order');
+        //         $scope.$broadcast('dataloaded');
+        //     }
+        // });
     }
 
     $scope.deleteArticle = function (article_item , category) {
