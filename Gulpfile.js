@@ -40,7 +40,7 @@ gulp.task( 'bower', function()
 
 	gulp.src( bowerFiles( '**/*.css' ) )
 		.pipe( concat( 'vendor.min.css' ) )
-		.pipe( minifycss() )
+		.pipe( minifycss({processImport: false}) )
 		.pipe( gulp.dest( 'dist/css/' ) );
 
 	return true;
@@ -51,7 +51,7 @@ gulp.task( 'js', function()
     return gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**"])
 		.pipe( angularFilesort() )
 		.pipe( ngAnnotate() )
-		.pipe( minifyjs() )
+		.pipe( minifyjs({processImport: false}) )
 		.pipe( concat( 'main.min.js' ) )
 		.pipe( gulp.dest( 'dist/js' ) );
 } );
