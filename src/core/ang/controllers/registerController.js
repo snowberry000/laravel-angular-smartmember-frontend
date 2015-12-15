@@ -1,4 +1,4 @@
-app.controller('registerController', function ($rootScope,$scope,toastr, ipCookie, $localStorage,$stateParams, $location, Restangular, FB, $state, $http) {
+app.controller('registerController', function ($rootScope,$scope,toastr, ipCookie, smModal, $localStorage,$stateParams, $location, Restangular, FB, $state, $http) {
 
     var auth = Restangular.all('auth');
     $rootScope.page_title = "Smartmember";
@@ -41,7 +41,6 @@ app.controller('registerController', function ($rootScope,$scope,toastr, ipCooki
         var user = $scope.user;
         delete user.password2;
         $scope.action = 1;
-
 
         if ($localStorage.hash){
             user.hash = $localStorage.hash;
@@ -117,4 +116,8 @@ app.controller('registerController', function ($rootScope,$scope,toastr, ipCooki
         }
 
     }
+
+    $scope.$on('$destroy' , function(){
+        smModal.hide( '.ui.modal');
+    })
 });
