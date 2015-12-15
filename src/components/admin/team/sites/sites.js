@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SitesController", function ($scope, $rootScope, $localStorage, $location, $user ,Restangular, $state, $modal, notify) {
+app.controller("SitesController", function ($scope, $rootScope, $localStorage, toastr , $location, $user ,Restangular, $state, $modal, notify) {
 	$scope.adminSites=[];
 	$scope.memberSites=[];
 	$scope.loading=true;
@@ -177,6 +177,7 @@ app.controller("SitesController", function ($scope, $rootScope, $localStorage, $
 	        
 	            $scope.sites.admin = _.without($scope.sites.admin, site);
 	            $scope.adminSites[$scope.adminPagination.current_page] = _.without($scope.adminSites[$scope.adminPagination.current_page], site);
+	        	toastr.success("Site deleted successfully!");
 	        });
 	    })
 	};
