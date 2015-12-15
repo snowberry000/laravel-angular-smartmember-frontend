@@ -51,7 +51,7 @@ gulp.task( 'js', function()
     return gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**"])
 		.pipe( angularFilesort() )
 		.pipe( ngAnnotate() )
-		.pipe( minifyjs({processImport: false}) )
+		.pipe( minifyjs() )
 		.pipe( concat( 'main.min.js' ) )
 		.pipe( gulp.dest( 'dist/js' ) );
 } );
@@ -138,7 +138,7 @@ gulp.task( 'less', function()
 			strictMath: true
 		} ) )
 		.pipe( concat( 'main.min.css' ) )
-		.pipe( minifycss() )
+		.pipe( minifycss({processImport: false}) )
 		.pipe( gulp.dest( 'dist/css/' ) );
 
 
@@ -172,7 +172,6 @@ gulp.task( "upload", function()
 			maxRetries: 5
 		} ) );
 } );
-
 
 gulp.task( 'fonts', function()
 {
