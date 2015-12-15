@@ -20,9 +20,14 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("LivecastController", function ($scope,$http,$site,$timeout , $user , $modal , Restangular,$state,$next_item, $location, $stateParams , $filter, Upload, toastr) {
+app.controller("LivecastController", function ($scope,$http,$site,$timeout , $rootScope , $user , $modal , Restangular,$state,$next_item, $location, $stateParams , $filter, Upload, toastr) {
 	var draft;
     var changed;
+    $scope.site = $site = $rootScope.site;
+
+    if(!$next_item.id){
+        $next_item.site_id = $scope.site.id;
+    }
     $scope.template_data = {
         title: 'Livecast',
         cancel_route: 'admin.site.content.livecasts',
