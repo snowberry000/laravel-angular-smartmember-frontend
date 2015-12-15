@@ -5,11 +5,11 @@ app.config(function($stateProvider){
 		.state("public.app.lesson",{
 			url: "/lesson/:permalink",
 			templateUrl: "/templates/components/public/app/lesson/lesson.html",
-			controller: "LessonController"
+			controller: "PublicLessonController"
 		})
 }); 
 
-app.controller('LessonController', function ($scope,$rootScope, $localStorage,$state , $stateParams,$modal, $filter, Restangular, toastr) {
+app.controller('PublicLessonController', function ($scope,$rootScope, $localStorage,$state , $stateParams,$modal, $filter, Restangular, toastr) {
     $scope.loading=true;
     $scope.comment = '';
     $scope.child_comment = '';
