@@ -5,12 +5,12 @@ app.config(function($stateProvider){
 		.state("admin.site.content",{
 			url: "/content",
 			templateUrl: "/templates/components/admin/site/content/content.html",
-			controller: "ContentController"/*,
+			controller: "ContentController",
 			resolve: {
-				$site: function(Restangular){
-                    return Restangular.one('site','details').get();
+				$site: function(Restangular, $rootScope){
+                    return $rootScope.site;
                 }
-			}*/
+			}
 		})
 }); 
 

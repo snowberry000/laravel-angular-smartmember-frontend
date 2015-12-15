@@ -9,8 +9,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ArticlesController", function ($scope, $modal,$localStorage, $state, $stateParams, $site, $filter, Restangular, toastr) {
-	$scope.template_data = {
+app.controller("ArticlesController", function ($scope,$rootScope, $modal,$localStorage, $state, $stateParams, $site, $filter, Restangular, toastr) {
+	$site=$rootScope.site;
+    $scope.template_data = {
         title: 'HELPDESK_ARTICLES',
         description: 'Create a knowledgebase for your members to help answer their most frequently asked questions.',
         singular: 'helpdesk article',
@@ -28,7 +29,7 @@ app.controller("ArticlesController", function ($scope, $modal,$localStorage, $st
 
             $scope.loading = true;
 
-            var $params = {p: $scope.pagination.current_page, site_id: $site.id};
+            var $params = {p: $scope.pagination.current_page, site_id: $rootScope.site.id};
 
             if ($scope.query) {
                 $params.q = encodeURIComponent( $scope.query );
@@ -49,7 +50,7 @@ app.controller("ArticlesController", function ($scope, $modal,$localStorage, $st
         $scope.loading = true;
         $scope.data = [];
         $scope.pagination = {current_page: 1};
-        var $params = { site_id :$site.id , p : $scope.pagination.current_page};
+        var $params = { site_id :$rootScope.site.id , p : $scope.pagination.current_page};
 
         if ($scope.query){
             $params.q = encodeURIComponent( $scope.query );

@@ -19,7 +19,7 @@ app.controller("OrganizerController", function ($scope,$site,$modal, $localStora
 	var category = Restangular.all("supportCategory");
     var article = Restangular.all("supportArticle");
     var pageMetaData = Restangular.all("siteMetaData");
-
+    $site=$rootScope.site;
     $scope.unassigned_articles = [];
     $scope.categories = [];
 

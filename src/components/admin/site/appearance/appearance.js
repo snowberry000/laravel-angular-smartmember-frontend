@@ -5,12 +5,12 @@ app.config(function($stateProvider){
 		.state("admin.site.appearance",{
 			url: "/appearance",
 			templateUrl: "/templates/components/admin/site/appearance/appearance.html",
-			controller: "AppearanceController"/*,
+			controller: "AppearanceController",
 			 resolve: {
-                $site: function(Restangular){
-                    return Restangular.one('site','details').get();
+                $site: function(Restangular, $rootScope){
+                	return $rootScope.site;
                 }
-            }*/
+            }
 		})
 }); 
 

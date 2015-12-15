@@ -17,8 +17,14 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ModuleController", function ($scope, $localStorage,$module, $state, $site , $stateParams, $modal, Restangular, toastr) {
-	$scope.module = $module;
+app.controller("ModuleController", function ($scope, $rootScope,$localStorage,$module, $state, $site , $stateParams, $modal, Restangular, toastr) {
+	if(!$module.id)
+    {
+        $module.site_id=$rootScope.site.id;
+    }
+    $site=$rootScope.site;
+
+    $scope.module = $module;
 
     $scope.range = function(min, max, step){
         step = step || 1;

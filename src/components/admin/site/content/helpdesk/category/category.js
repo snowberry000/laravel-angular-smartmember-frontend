@@ -17,8 +17,13 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("CategoryController", function ($scope, $localStorage, $state,$category, $stateParams, $site, $filter, Restangular, toastr) {
+app.controller("CategoryController", function ($scope,$rootScope, $localStorage, $state,$category, $stateParams, $site, $filter, Restangular, toastr) {
 	//$scope.page = $page;
+	if(!$category.id)
+	{
+		$category.company_id=$rootScope.site.company_id;
+	}
+	$site=$rootScope.site;
     $scope.category = $category;
     $scope.category.id ? $scope.page_title = 'Edit category' : $scope.page_title = 'Create category';
 
