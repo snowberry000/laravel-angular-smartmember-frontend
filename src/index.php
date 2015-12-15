@@ -191,20 +191,21 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 
 </head>
 <body resize style="height: auto;" class="md-skin fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
+
 <div id="wrapper" class="sticky-full-height" ui-view></div>
+
 
 <script src="js/vendor.min.js"></script>
 <script src="js/main.min.js"></script>
 
 <script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>
+<script src="bower/slimScroll/jquery.slimscroll.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.js"></script>
 <!--script src="js/library.min.js"></script-->
 <script type="text/javascript" src="bower/Flot/jquery.flot.resize.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
-
-<script ng-if="$state.current.name == 'public.app.checkout'" type="text/javascript" src="https://checkout.stripe.com/checkout.js"></script>
-<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script>
-<!--script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script-->
+<!--<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script>-->
+	<!--script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script-->
 
 </body>
 </html>
