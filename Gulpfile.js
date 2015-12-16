@@ -165,6 +165,10 @@ gulp.task( 'replace_vendor', function()
 		.pipe( replace( '<script src="js/vendor.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/vendor.min.js"></script>' ) )
 		.pipe( replace( '<script src="js/main.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/main.min.js"></script>' ) )
 		.pipe( replace( '<link rel="stylesheet" href="css/vendor.min.css">', '<link rel="stylesheet" href="https://smpub.s3.amazonaws.com/cdn/vendor.min.css">' ) )
+		.pipe( replace( '<script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>', '<script src="http://my.smartmember.com/bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>' ) )
+		.pipe( replace( '<script src="bower/slimScroll/jquery.slimscroll.min.js"></script>', '<script src="http://my.smartmember.com/bower/slimScroll/jquery.slimscroll.min.js"></script>' ) )
+		.pipe( replace( '<link rel="stylesheet" href="bower/footable/css/footable.core.css">', '<link rel="stylesheet" href="http://my.smartmember.com/bower/footable/css/footable.core.css">' ) )
+		.pipe( replace( '<link rel="stylesheet" href="css/main.min.css">', '<link rel="stylesheet" href="http://my.smartmember.com/css/main.min.css">' ) )
 		.pipe( gulp.dest( paths.dist + '/' ) );
 } );
 
@@ -194,7 +198,7 @@ gulp.task( 'images', function()
 
 
 gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'crawler' ] );
-gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'watch','crawler' ] );
+gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage','crawler' , 'watch'] );
 
 gulp.task( 'production', [ 'compile' ], function()
 {
