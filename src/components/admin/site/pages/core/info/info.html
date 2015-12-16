@@ -7,7 +7,7 @@
                 <div class="form-group row">
                     <label>
                         <div class="col-md-2">
-                            <input type="checkbox" name="show_sales_page" class=" input-lg pull-left" ng-model="site_options.sales_page_enabled" ng-true-value="1" ng-false-value="0" />
+                            <input type="checkbox" name="show_sales_page" class=" input-lg pull-left" ng-model="sales_options.sales_page_enabled" ng-true-value="1" ng-false-value="0" />
                         </div>
                         <div class="col-md-10">
                             <h4 class="text-left" style="line-height:50px; margin:0;">
@@ -30,7 +30,7 @@
                 <div class="form-group row">
                     <label>
                         <div class="col-md-2">
-                            <input type="checkbox" name="show_syllabus" class=" input-lg pull-left" ng-model="site_options.show_syllabus" ng-true-value="1" ng-false-value="0" />
+                            <input type="checkbox" name="show_syllabus" class=" input-lg pull-left" ng-model="sales_options.show_syllabus" ng-true-value="1" ng-false-value="0" />
                         </div>
                         <div class="col-md-10">
                             <h4 class="text-left" style="line-height:50px; margin:0;">
@@ -42,7 +42,7 @@
                 <div class="form-group row">
                     <label class="col-sm-12 control-label">Video / Embed Content</label>
                     <div class="col-sm-12">
-                        <textarea name="embed_content" class="form-control input-lg" ng-model="site_options.sales_page_embed"></textarea>
+                        <textarea name="embed_content" class="form-control input-lg" ng-model="sales_options.sales_page_embed"></textarea>
                         <span class="help-block m-b-none">
                         </span>
                     </div>
@@ -50,7 +50,7 @@
                 <div class="form-group row">
                     <label class="col-sm-12 control-label">Sales Page Intro</label>
                     <div class="col-sm-12">
-                        <textarea froala ng-model="site_options.sales_page_content"></textarea>
+                        <textarea froala ng-model="sales_options.sales_page_content"></textarea>
                         <span class="help-block m-b-none">
                         </span>
                     </div>
@@ -64,7 +64,7 @@
                 <div class="form-group row">
                     <label class="col-sm-12 control-label">Sales Page Outro</label>
                     <div class="col-sm-12">
-                        <textarea froala ng-model="site_options.sales_page_outro"></textarea>
+                        <textarea froala ng-model="sales_options.sales_page_outro"></textarea>
                     </div>
                 </div>
                 <button type="button" ng-click="saveSalesPage()" class="btn btn-lg btn-info" id="save_sales_page_btn">Save Changes</button>
