@@ -184,9 +184,10 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
 
-	<link rel="stylesheet" href="bower/ui-iconpicker/dist/styles/ui-iconpicker.min.css">
-	<link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="bower/ui-iconpicker/dist/styles/ui-iconpicker.min.css"> -->
+	<!-- <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css"> -->
 	<link rel="stylesheet" href="css/vendor.min.css">
+	<link rel="stylesheet" href="bower/footable/css/footable.core.css">
 	<link rel="stylesheet" href="css/main.min.css">
 
 </head>
@@ -202,8 +203,8 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 <script src="bower/slimScroll/jquery.slimscroll.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.js"></script>
 <!--script src="js/library.min.js"></script-->
-<script type="text/javascript" src="bower/Flot/jquery.flot.resize.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
+<!-- <script type="text/javascript" src="bower/Flot/jquery.flot.resize.js"></script> -->
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script> -->
 <!--<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script>-->
 	<!--script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script-->
 
