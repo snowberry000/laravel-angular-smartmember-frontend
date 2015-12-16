@@ -65,11 +65,11 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a class="ui close labeled icon button" ui-sref="public.sign.forgot">
+		<a class="ui close labeled icon button" ui-sref="public.sign.forgot" ng-click="CloseModal();">
 			Forgot password?
 			<i class="fa fa-wrench icon"></i>
 		</a>
-		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button">
+		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button" ng-click="CloseModal();">
 			Need help?
 			<i class="fa fa-life-ring icon"></i>
 		</a>

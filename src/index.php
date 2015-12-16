@@ -177,7 +177,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 ?>
 <!DOCTYPE html>
 
-<html ng-app='app' style="height:100%;" class="no-js {{$state.current.name.split('.').join(' ')}}" ng-controller="IndexAppController" ng-init="home_init()">
+<html ng-app='app' style="height:auto;"  class="no-js {{$state.current.name.split('.').join(' ')}}" ng-controller="IndexAppController" ng-init="home_init()">
 <head>
 	<base href="/"></base>
 	<title>Smart Member</title>
