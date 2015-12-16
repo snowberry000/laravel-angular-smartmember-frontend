@@ -17,10 +17,10 @@
 	</span>
 </div>
 <div class="ui centered ad m-b-md" ng-repeat="ad in ads">
-	<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-show="ad.custom_ad" class="ui fluid image" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
+	<a data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-show="ad.custom_ad" class="ui fluid image" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
 		<div ng-if="ad.custom_ad" class="col-md-12" dynamic="ad.custom_ad"></div>
 	</a>
-	<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-show="ad.banner_image_url" class="ui fluid image" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
+	<a data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-show="ad.banner_image_url" class="ui fluid image" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
 		<img ng-if="ad.banner_image_url" ng-src="{{ad.banner_image_url}}">
 	</a>
 </div>
