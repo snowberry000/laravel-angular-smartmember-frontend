@@ -189,7 +189,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 	<link rel="stylesheet" href="css/vendor.min.css">
 	<link rel="stylesheet" href="bower/footable/css/footable.core.css">
 	<link rel="stylesheet" href="css/main.min.css">
-
+	<link rel="shortcut icon" href="{{options.favicon}}" type="image/x-icon">
 </head>
 <body resize style="height: auto;" class="md-skin fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
 
