@@ -101,7 +101,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 		{
 			try
 			{
-				$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/checkHomepageBP';
+				$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/checkHomepageBP/' . $domain;
 				$curl = curl_init( $url );
 				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'subdomain:'.$subdomain, 'origin:http://'.$domain, 'referer:http://'.$domain, 'content-type:application/json' ) );
