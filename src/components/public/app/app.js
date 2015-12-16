@@ -8,7 +8,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AppController", function ($scope, $user , $rootScope, $localStorage,$location, $site, Restangular, toastr, $window) {
+app.controller("AppController", function ($scope, $user , $rootScope, $localStorage,$location, $site, Restangular, toastr, $window,$timeout) {
 	$rootScope.page_title = $site.name;
     $rootScope.site = $site;
     $rootScope.is_admin = false;
@@ -58,6 +58,10 @@ app.controller("AppController", function ($scope, $user , $rootScope, $localStor
         //{
            //$('head').append('<link rel="stylesheet" href="' + $theme_url + '"/>');
         //}
+
+        $timeout(function () { // You might need this timeout to be sure its run after DOM render.
+            $scope.bannerView(0);
+        }, 1, false);
     };
 
 
@@ -79,7 +83,8 @@ app.controller("AppController", function ($scope, $user , $rootScope, $localStor
 
     $scope.bannerView = function($id) {
         if ($scope.ads) {
-                Restangular.one('trackViews', $id).customPOST({});
+            var ad_id = $scope.ads[0];
+            Restangular.one('trackViews', ad_id.id).customPOST({});
         }
     }
 
