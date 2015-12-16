@@ -1,4 +1,4 @@
-<div class="twelve wide column" ng-init="init()">
+<div class="twelve wide column" ng-init="init();site.helpdesk_format = site.helpdesk_format ? site.helpdesk_format : 'list'">
 
 	<div class="row">
 		<div class="ui segment basic">
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 
-			<div class="ui raised segment section_background_color" ng-repeat="category in categories | orderBy : 'sort_order'" ng-if="category.articles.length > 0 && (!query || ( category.articles | filter: query).length > 0)">
+			<div  class="ui raised segment section_background_color" ng-repeat="category in categories | orderBy : 'sort_order'" ng-if="category.articles.length > 0 && (!query || ( category.articles | filter: query).length > 0)">
 				<a sm-class="'ui red ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'">
 					{{category.id ? category.title : ( $parent.$parent.$parent.$parent.options.default_support_category_title ) }}
 				</a>
