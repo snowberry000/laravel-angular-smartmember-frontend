@@ -50,14 +50,22 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
             $scope.site_options.isOpen = false;
         }
         else if(selected_url == 'download'){
-            console.log(item.site_id)
             Restangular.all('download').customGET('',{site_id: $site.id}).then(function(response){
                 var downloads = response;
-                downloads.items.forEach(function(entity){
+                downloads.forEach(function(entity){
                     entity.url = entity.permalink;
                 })
                 $scope.show_next = true;
-                $scope.loaded_items = downloads;
+                $scope.loaded_items.items = downloads;
+            })
+        }
+        else if(selected_url == 'post'){
+            Restangular.all(selected_url).customGET('',{site_id: $site.id}).then(function(response){
+                response.forEach(function(entity){
+                    entity.url = entity.permalink;
+                })
+                $scope.show_next = true;
+                $scope.loaded_items.items = response;
 
             })
         }
