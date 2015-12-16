@@ -52,6 +52,7 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
         else if(selected_url == 'download'){
             Restangular.all('download').customGET('',{site_id: $site.id}).then(function(response){
                 var downloads = response;
+                $scope.loaded_items={};
                 downloads.forEach(function(entity){
                     entity.url = entity.permalink;
                 })
@@ -60,6 +61,7 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
             })
         }
         else if(selected_url == 'post'){
+            $scope.loaded_items={};
             Restangular.all(selected_url).customGET('',{site_id: $site.id}).then(function(response){
                 response.forEach(function(entity){
                     entity.url = entity.permalink;
