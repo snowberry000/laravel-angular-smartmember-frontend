@@ -117,7 +117,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 
 			if( isset($data->type) && $data->type == 'bridge_bpages' )
 			{
-				return array( 'permalink' => $data->homepage_url, 'subdomain' => $subdomain );
+				return array( 'permalink' => $data->homepage_url, 'subdomain' => $data->subdomain );
 			} else {
 				return false;
 			}
