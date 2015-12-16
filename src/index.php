@@ -23,7 +23,7 @@ if( strpos( $domain, "smartmember" ) === false )
 
 if( $tld != 'com' && $tld != 'dev' && $tld != 'in' && $tld != 'soy' )
 {
-	$tld = 'new';
+	$tld = 'com';
 }
 
 $is_bridgepage = false;
@@ -31,6 +31,7 @@ $is_bridgepage = false;
 $requestParts = explode( '/', $_SERVER[ 'REQUEST_URI' ] );
 if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) < 3 )
 {
+
 	$permalink = $requestParts[ 1 ];
 	$pos = strpos( $permalink, '?' );
 	if( $pos !== false )
@@ -67,7 +68,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 		{
 			$is_bridgepage = true;
 		}
-		
+
 		function checkBridgepage( $tld, $subdomain, $domain )
 		{
 			try
@@ -97,12 +98,40 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 
 		if( !$is_bridgepage && $_SERVER[ 'REQUEST_URI' ] == '/' )
 		{
-			$response_data = checkBridgepage( $tld, $subdomain, $domain );
-			if( $response_data )
+
+			$key = $subdomain.':homepage:type';
+			$type = $client->get( $key );
+			$key = $subdomain.':homepage:permalink';
+			$permalink = $client->get($key);
+
+			if( !$type )
+			{
+				$key = $domain.':homepage:type';
+				$type = $client->get( $key );
+
+				if( $type && $type == 'bridge_bpages' )
+				{
+					$subdomain = $client->get( $domain.':homepage:subdomain' );
+					$permalink = $client->get($domain.':homepage:permalink');
+				}
+
+				if( empty($subdomain) )
+				{
+					$type = null;
+				}
+			}
+
+			if( $type && $type == 'bridge_bpages' )
 			{
 				$is_bridgepage = true;
-				$permalink = $response_data[ 'permalink' ];
-				$subdomain = $response_data[ 'subdomain' ];
+			} else {
+				$response_data = checkBridgepage( $tld, $subdomain, $domain );
+				if( $response_data )
+				{
+					$is_bridgepage = true;
+					$permalink = $response_data[ 'permalink' ];
+					$subdomain = $response_data[ 'subdomain' ];
+				}
 			}
 		}
 

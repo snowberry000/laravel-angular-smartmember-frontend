@@ -3,7 +3,8 @@
 function fetchBpageData($subdomain, $tld, $permalink)
 {
     try {
-        $url = 'http://api.smartmember.' . $tld . '/bridgePageByPermalink/' . $permalink;
+
+        $url = 'http'.($tld == "com" ? 's' : '').'://api.smartmember.' . $tld . '/bridgePageByPermalink/' . $permalink;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('subdomain:' . $subdomain, 'content-type:application/json'));
