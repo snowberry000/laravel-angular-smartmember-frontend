@@ -30,6 +30,8 @@ var paths = {
 	images: 'src/core/images/**/*'
 };
 
+
+
 gulp.task( 'bower', function()
 {
 	gulp.src( bowerFiles( '**/*.js' ) )
@@ -152,6 +154,11 @@ gulp.task( 'bpage', function()
 
 } );
 
+gulp.task('crawler', function() {
+	gulp.src('src/crawler.php')
+		.pipe(gulp.dest('dist/'));
+})
+
 gulp.task( 'replace_vendor', function()
 {
 	return gulp.src( paths.dist + '/index.php' )
@@ -186,8 +193,8 @@ gulp.task( 'images', function()
 } );
 
 
-gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage' ] );
-gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'watch' ] );
+gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'crawler' ] );
+gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'watch','crawler' ] );
 
 gulp.task( 'production', [ 'compile' ], function()
 {
