@@ -95,8 +95,6 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 				}
 			}
 			curl_close( $curl );
-			var_dump($key);
-			exit;
 		}
 
 		function checkBridgepage( $tld, $subdomain, $domain )
