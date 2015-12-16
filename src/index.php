@@ -67,6 +67,34 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 		if( $type && $type == 'bridge_bpages' )
 		{
 			$is_bridgepage = true;
+		} else
+		{
+			$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/permalink/'.$permalink;
+			$curl = curl_init( $url );
+			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'subdomain:'.$subdomain, 'origin:http://'.$domain, 'referer:http://'.$domain, 'content-type:application/json' ) );
+			$resp = curl_exec( $curl );
+			if( $resp )
+			{
+				$resp = json_decode( $resp );
+
+				if( is_object( $resp ) && isset($resp->type) )
+				{
+					$is_bridgepage = ($resp->type === 'bridge_bpages' ? true : false);
+
+					if( $is_bridgepage )
+					{
+						$subdomain = $resp->subdomain;
+						$key = $domain.':'.$permalink.':subdomain';
+						$client->set( $key, $subdomain );
+						$key2 = $subdomain.':'.$permalink.':type';
+						$client->set($key2, 'bridge_bpages');
+						$key2 = $domain.':'.$permalink.':type';
+						$client->set($key2, 'bridge_bpages');
+					}
+				}
+			}
+			curl_close( $curl );
 		}
 
 		function checkBridgepage( $tld, $subdomain, $domain )
