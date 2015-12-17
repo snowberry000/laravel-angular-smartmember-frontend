@@ -1,4 +1,4 @@
-<section>
+<div class="ui modal">
     <div class="wrapper wrapper-content  animated fadeInRight">
         <div class="ibox-content m-b-sm border-bottom">
             <div class="p-xs">
@@ -17,7 +17,7 @@
             <div class="col-lg-6">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <h3>Hidden</h3>
+                        <h3 class="ui header">Hidden</h3>
                         <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
                         <ul ui-sortable="sortableOptions"  class="sortable-list connectList agile-list" ng-model="hiddenAds">
                             <li class="{{task.statusClass}}-element" ng-repeat="ad in hiddenAds">
@@ -37,7 +37,7 @@
             <div class="col-lg-6">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <h3>In Display</h3>
+                        <h3 class="ui header">In Display</h3>
                         <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
                         <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="displayAds">
                             <li class="{{task.statusClass}}-element" ng-repeat="ad in displayAds">
@@ -56,4 +56,4 @@
             </div>
         </div>
     </div>
-</section>
+</div>

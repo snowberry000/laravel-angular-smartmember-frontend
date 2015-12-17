@@ -1,4 +1,4 @@
-<div class="animate-panel" ng-init="init()">
+<div class="ui modal" ng-init="init()">
 
     <div class="content">
         <div class="row">
@@ -8,8 +8,8 @@
 
                     <div class="panel-body">
 
-                        <form class="form-horizontal save_form" ng-submit="save()">
-                            <div class="form-group">
+                        <form class="ui form save_form" ng-submit="save()">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Download Title</label>
 
                                 <div class="col-sm-10">
@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Permalink</label>
 
                                 <div class="col-sm-10">
@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Download File</label>
 
                                 <div class="col-sm-10">
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">3rd-party Download Link</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="download_link" class="form-control input-lg"
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Download Button Text</label>
 
                                 <div class="col-sm-10">
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Description</label>
 
                                 <div class="col-sm-10">
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Who should have access to this?</label>
                                 <div class="col-sm-10">
                                     <select data-ng-options="al_type.id as al_type.name for al_type in access_level_types" class='form-control input-lg' ng-model="download.access_level_type"
@@ -99,7 +99,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group" ng-if="download.access_level_type == 2">
+                            <div class="field" ng-if="download.access_level_type == 2">
                                 <label class="col-sm-2 control-label"> </label>
 
                                 <div class="col-sm-10">
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Video / Embed Content</label>
 
                                 <div class="col-sm-10">
@@ -128,7 +128,7 @@
                             <div class="hr-line-dashed"></div>
                             <h3 class="text-center">Scheduling Settings</h3>
 
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Published on</label>
 
                                 <div class="col-sm-5">
@@ -148,7 +148,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">till</label>
 
                                 <div class="col-sm-5">
@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-md-12">
                                     <div class="col-md-1 col-md-offset-2">
                                         <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
@@ -180,7 +180,7 @@
                             <div class="hr-line-dashed"></div>
                             <h3 class="text-center">Drip-feed Settings <small>Only for free and paid members access level type</small></h3>
 
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Drip Feed Start After</label>
 
                                 <div class="col-sm-10">
@@ -198,7 +198,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group small_bottom_margin">
+                            <div class="field small_bottom_margin">
                                 <label class="col-md-12">
                                     <div class="col-md-1 col-md-offset-2">
                                         <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
@@ -213,7 +213,7 @@
                             <div class="hr-line-dashed"></div>
                             <h3 class="text-center">Facebook Sharing Settings</h3>
 
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Featured Image</label>
 
                                 <div class="col-sm-10">
@@ -236,7 +236,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-md-12">
                                     <div class="col-md-1 col-md-offset-2">
                                         <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
@@ -249,7 +249,7 @@
                                 </label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Share Title</label>
 
                                 <div class="col-sm-10">
@@ -262,7 +262,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Share Description</label>
 
                                 <div class="col-sm-10">
@@ -273,7 +273,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button id="download_submit" class="btn btn-brand" type="submit">Save changes</button>
                                     <a ui-sref="admin.site.content.downloads" class="btn btn-default" onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>

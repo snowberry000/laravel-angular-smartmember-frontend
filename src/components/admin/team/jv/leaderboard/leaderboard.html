@@ -1,8 +1,8 @@
 <div id="wrapper">
-	<div class="animate-panel">
+	<div class="ui modal">
 		<div class="content js-list">
 			<div class="row">
-                <h2> {{leaderboard.contest.title}}</h2>
+                <h2 class="ui header"> {{leaderboard.contest.title}}</h2>
                 <div class="col-md-8">
                     <div ng-if="leaderboard.updated_at" class="alert" style="background-color: #dff0d8; text-align:center;">
                          Last updated <strong>{{moment.utc(leaderboards.updated_at).fromNow()}}</strong>

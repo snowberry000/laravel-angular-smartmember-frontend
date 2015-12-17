@@ -1,7 +1,7 @@
 <div class=" wrapper wrapper-content animated fadeInRight" ng-init="init()">
 
     <div class="jumbotron" ng-hide="vimeo.access_token">
-        <h1>Connect to Your Vimeo Account</h1>
+        <h1 class="ui header">Connect to Your Vimeo Account</h1>
 
         <p>We'll display a list of your videos for easy button-click lesson creation!</p>
 
@@ -23,7 +23,7 @@
                             <div class="pull-left m-r-md">
                                 <i class="fa fa-video text-branded mid-icon"></i>
                             </div>
-                            <h2>Import Vimeo Videos</h2>
+                            <h2 class="ui header">Import Vimeo Videos</h2>
                             <div class="row" ng-if="vimeo_integrations.length >= 1">
                                 <div class="col-md-6">
                                     <span>Choose a different account</span>
@@ -60,7 +60,7 @@
                 <div class="col-md-offset-3 col-md-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Importing Videos</h5>
+                            <h5 class="ui header">Importing Videos</h5>
                         </div>
                         <div class="ibox-content">
                             <div class="spiner-example" style="text-align: center;padding: 20px;height: 100px;">
@@ -75,7 +75,7 @@
                 <div class="col-md-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Your imported videos</h5>
+                            <h5 class="ui header">Your imported videos</h5>
                             <div class="pull-right">
                                 Tag Filter &nbsp; &nbsp;
                                 <select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag"
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="ibox-content">
-                            <div class="form-group" ng-if="true || query || pagination.current_page > 1">
+                            <div class="field" ng-if="true || query || pagination.current_page > 1">
                                 <input type="text" placeholder="Search" class="form-control" ng-model="$parent.searchText" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
                             </div>
                             <div ng-if="wait" class="sk-spinner sk-spinner-three-bounce">

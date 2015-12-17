@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content">
+<div class="ui modal">
 	<div class="row animated fadeInRight">
 		<div class="col-lg-12">
 
@@ -9,7 +9,7 @@
 							<div class="pull-left m-r-md">
 								<i class="fa fa-exchange text-branded mid-icon"></i>
 							</div>
-							<h2>Connected accounts</h2>
+							<h2 class="ui header">Connected accounts</h2>
 							<span>Here you can view / remove any 3rd-party accounts you've connected.</span>
 						</div>
 						<div class="col-md-3 text-right">
@@ -35,7 +35,7 @@
 							<img width="60" height="60" src="{{_.findWhere(availableIntegrations,{id: account.type}).logo}}">
 						</div>
 						<div class="col-md-4">
-							<h2>{{_.findWhere(availableIntegrations,{id: account.type}).name}}</h2>
+							<h2 class="ui header">{{_.findWhere(availableIntegrations,{id: account.type}).name}}</h2>
 							<small>{{account.name ? account.name : (account.username ? account.username : account.remote_id)}}</small>
 						</div>
 						<div class="col-md-5">

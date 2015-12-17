@@ -1,28 +1,28 @@
-<div class="row wrapper wrapper-content animated fadeInRight">
+<div class="ui modal">
     <div class="row">
         <div class="col-md-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h2>Ticket Creator</h2>
+                    <h2 class="ui header">Ticket Creator</h2>
                 </div>
                 <div class="hr-line-dashed" style="background-color:white; margin:0px;"></div>
                 <div class="ibox-content">
                     <div class="hpanel">
                         <div class="panel-body">
                             <form name="ticketForm" novalidate>
-                                <div class="form-group row">
+                                <div class="field row">
                                     <label class="col-md-3">Subject</label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="text" ng-model="ticket.subject" required>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="field row">
                                     <label class="col-md-3">Requester's Name</label>
                                     <div class="col-md-9">
                                         <input class="form-control"  type="text" ng-model="ticket.user_name" required>
                                     </div>
                                 </div>
-                                <div class="row form-group">
+                                <div class="row field">
                                     <label class="col-md-3">Requester's Email</label>
                                     <div class="col-md-9">
                                     <ui-select ng-model="ticket.user_email" theme="select2" ng-disabled="disabled" style="width: 300px;" >
@@ -35,13 +35,13 @@
                                     </div>
                                     <hr>
                                 </div>
-                                <div class="form-group row" ng-init="ticket.site_id = ticket.sites[0].id">
+                                <div class="field row" ng-init="ticket.site_id = ticket.sites[0].id">
                                     <label class="col-md-3">Site</label>
                                     <div class="col-md-9">
                                         <select class="form-control" data-ng-options = "site.id as site.subdomain for site in sites" ng-model="ticket.site_id"></select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="field row">
                                     <label class="col-md-3">Assignee</label>
                                     <div class="col-md-9">
                                         <select ng-model="ticket.agent_id" class="form-control">
@@ -49,7 +49,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="field row">
                                     <label class="col-md-3">Message</label>
                                     <div class="col-md-9">
                                         <textarea class="form-control"  ng-model="ticket.message" required></textarea>

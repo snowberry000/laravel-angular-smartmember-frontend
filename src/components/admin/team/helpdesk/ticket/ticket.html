@@ -1,5 +1,5 @@
 
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="ui modal">
 	<div class="row">
 		<div class="col-lg-12">
 
@@ -10,7 +10,7 @@
 							<div class="pull-left m-r-md">
 								<i class="fa fa-globe text-branded mid-icon"></i>
 							</div>
-							<h2>{{ticket.subject}}</h2>
+							<h2 class="ui header">{{ticket.subject}}</h2>
 							<span>Ticket Status: <strong>{{ticket.status}}</strong></span>
 							<a ui-sref="admin.team.helpdesk.tickets.open" style="display: block;">Go back</a>
 						</div>
@@ -249,7 +249,7 @@
 
 				<div id="channel_actions_div">
 					<h5 ng-if="ticket.sm_tech" style="color:rgb(181, 82, 82);">*Submitted to SM Tech Team*</h5>
-					<h5>Details</h5>
+					<h5 class="ui header">Details</h5>
 
 					<p>
 						Created on {{moment.utc(ticket.created_at).format('ll')}} by
@@ -287,7 +287,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="row">
-								<h4>{{ticket.agent.first_name}} {{ticket.agent.last_name}}</h4>
+								<h4 class="ui header">{{ticket.agent.first_name}} {{ticket.agent.last_name}}</h4>
 								<span>{{ticket.agent.email}}</span>
 								<br/>
 								<a ng-init="$parent.change_agent=false" ng-hide="$parent.change_agent"

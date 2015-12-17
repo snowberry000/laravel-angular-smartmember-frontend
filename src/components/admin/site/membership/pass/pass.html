@@ -1,19 +1,19 @@
-<div class="animate-panel">
+<div class="ui modal">
     <div class="content">
 
-        <form method="get" class="form-horizontal" ng-submit="save()">
+        <form method="get" class="ui form" ng-submit="save()">
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="hpanel animated-panel zoomIn"
                          style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
                         <div class="panel-heading hbuilt">
-                            <h1><i class="ts_icon ts_icon_pencil clear_blue"></i>{{page_title}}</h1>
+                            <h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i>{{page_title}}</h1>
                         </div>
                         <div class="panel-body">
 
-                            <h4>User</h4> 
-                            <div class="form-group">
+                            <h4 class="ui header">User</h4>
+                            <div class="field">
                                 <style type="text/css">
                                     .select2-container {
                                         display: block !important;
@@ -30,8 +30,8 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <h4>Access Level</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Access Level</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <select data-ng-options="access_level.id as access_level.name for access_level in access_levels" name="access_level_id" ng-model="access_pass.access_level_id" ng-change="accessLevelChange(access_level)" class="no_bottom_margin">
 									</select>
@@ -44,8 +44,8 @@
 
                             <div class="hr-line-dashed"></div>
 
-                            <h4>Expire Date</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Expire Date</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                   <input type="date" class="form-control input-lg" ng-model="access_pass.expired_at" max-date="'2020-06-22'" />
 									<span class="help-block m-b-none">
@@ -53,7 +53,7 @@
 									</span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="field">
                                 <div class="col-sm-8">
                                     <button class="btn btn-brand" type="submit">Save changes</button>
                                     <a ui-sref='admin.site.membership.passes' class="btn btn-default">Cancel</a>

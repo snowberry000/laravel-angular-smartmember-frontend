@@ -1,13 +1,13 @@
-<h1><i class="ts_icon ts_icon_pencil clear_blue"></i> Settings</h1>
+<h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i> Settings</h1>
 
 <div class="card clearfix content_post">
     <div id="post_col" class="col span_6_of_6" ng-init="init()">
 
         <form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
 
-            <h2>Default Currency</h2>
+            <h2 class="ui header">Default Currency</h2>
             <p class="small_bottom_margin">
-            <div class="form-group">
+            <div class="field">
                 <label class="col-sm-4 control-label">Currency</label>
                 <div class="col-sm-8">
                     <select ng-model="site_options.currency" class="form-control input-lg">

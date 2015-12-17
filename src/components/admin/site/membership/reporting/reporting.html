@@ -63,7 +63,7 @@
 			<div class="hpanel">
 				<div class="panel-body h-200 stats">
 					<div class="stats-title pull-left">
-						<h4>New Members Today</h4>
+						<h4 class="ui header">New Members Today</h4>
 					</div>
 					<div class="clearfix"></div>
 					<div class="flot-chart" style="width:240px">
@@ -76,12 +76,12 @@
 						<div class="row">
 							<div class="col-xs-5" style="text-align: center;">
 								<small class="stat-label">Today</small>
-								<h4>{{summary.members_today}}<small>members</small>
+								<h4 class="ui header">{{summary.members_today}}<small>members</small>
 								<!--  <i class="fa fa-level-up text-success"></i></h4> -->
 							</div>
 							<div class="col-xs-7" style="text-align: center;">
 								<small class="stat-label">Yesterday</small>
-								<h4>{{summary.members_yesterday}} <small>members</small></h4>
+								<h4 class="ui header">{{summary.members_yesterday}} <small>members</small></h4>
 							</div>
 						</div>
 					</div>
@@ -95,7 +95,7 @@
 			<div class="hpanel">
 				<div class="panel-body h-200 stats">
 					<div class="stats-title pull-left">
-						<h4>New Members This Week</h4>
+						<h4 class="ui header">New Members This Week</h4>
 					</div>
 					<div class="clearfix"></div>
 					<div class="flot-chart" style="width:240px">
@@ -108,12 +108,12 @@
 						<div class="row">
 							<div class="col-xs-5" style="text-align: center;">
 								<small class="stat-label">This Week</small>
-								<h4>{{summary.members_this_week}} <small>members</small> 
+								<h4 class="ui header">{{summary.members_this_week}} <small>members</small>
 								<!-- <i class="fa fa-level-up text-success"></i></h4> -->
 							</div>
 							<div class="col-xs-7" style="text-align: center;">
 								<small class="stat-label">Last Week</small>
-								<h4>{{summary.members_last_week}} <small>members</small></h4>
+								<h4 class="ui header">{{summary.members_last_week}} <small>members</small></h4>
 							</div>
 						</div>
 					</div>
@@ -127,7 +127,7 @@
 			<div class="hpanel">
 				<div class="panel-body h-200 stats">
 					<div class="stats-title pull-left">
-						<h4>New Members This Month</h4>
+						<h4 class="ui header">New Members This Month</h4>
 					</div>
 					<div class="clearfix"></div>
 					<div class="flot-chart" style="width:240px">
@@ -140,12 +140,12 @@
 						<div class="row">
 							<div class="col-xs-5" style="text-align: center;">
 								<small class="stat-label">This Month</small>
-								<h4>{{summary.members_this_month}} <small>members</small>
+								<h4 class="ui header">{{summary.members_this_month}} <small>members</small>
 								<!--  <i class="fa fa-level-up text-success"></i></h4> -->
 							</div>
 							<div class="col-xs-7" style="text-align: center;">
 								<small class="stat-label">Last Month</small>
-								<h4>{{summary.members_last_month}} <small>members</small></h4>
+								<h4 class="ui header">{{summary.members_last_month}} <small>members</small></h4>
 							</div>
 						</div>
 					</div>
@@ -157,7 +157,7 @@
 		</div>
 	</div>
 
-	<h2>Latest Members <small><a href="admin/membership/members">view all</a></small></h2>
+	<h2 class="ui header">Latest Members <small><a href="admin/membership/members">view all</a></small></h2>
 
 	<div class="row">
 		<div class="col-md-3 animated-panel zoomIn" style="animation-delay: 0.5s; -webkit-animation-delay: 0.5s;" ng-repeat="member in summary.recent_members | limitTo:4">
@@ -167,7 +167,7 @@
 					<img alt="logo" ng-if="member.user.profile_image" class="img-circle m-b" style="width:50px; margin-bottom:8px" src="{{member.user.profile_image}}">
 					<img alt="logo" ng-if="!member.user.profile_image" class="img-circle m-b" style="width:50px; margin-bottom:8px" 
 						src="https://secure.gravatar.com/avatar/{{ member.user.email_hash }}?d=identicon&s=48">
-					<h3><a href=""> {{member.user.first_name}} {{member.user.last_name}} </a></h3>
+					<h3 class="ui header"><a href=""> {{member.user.first_name}} {{member.user.last_name}} </a></h3>
 					<p style="font-size:0.6em">
 						{{member.user.email}}
 					</p>
@@ -185,7 +185,7 @@
 					<span class="label label-success pull-right" ng-if="moment().format('ll') == moment(member.user.created_at).format('ll')">NEW</span>
 					<img alt="logo" ng-if="member.user.profile_image" class="img-circle m-b" style="width:50px; margin-bottom:8px" src="{{member.user.profile_image}}">
 					<img alt="logo" ng-if="!member.user.profile_image" class="img-circle m-b" style="width:50px; margin-bottom:8px" 
-						src="https://secure.gravatar.com/avatar/{{ member.user.email_hash }}?d=identicon&s=48">					<h3><a href=""> {{member.user.first_name}} {{member.user.last_name}} </a></h3>
+						src="https://secure.gravatar.com/avatar/{{ member.user.email_hash }}?d=identicon&s=48">					<h3 class="ui header"><a href=""> {{member.user.first_name}} {{member.user.last_name}} </a></h3>
 					<p style="font-size:0.6em">
 						{{member.user.email}}
 					</p>

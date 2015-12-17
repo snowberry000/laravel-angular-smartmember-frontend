@@ -1,14 +1,14 @@
-<h1><i class="ts_icon ts_icon_pencil clear_blue"></i> Autoresponders</h1>
+<h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i> Autoresponders</h1>
 <div class="card clearfix content_post">
     <div id="post_col" class="col span_1_of_1">
-        <form method="post" class="form-horizontal" ng-submit="save()">
+        <form method="post" class="ui form" ng-submit="save()">
             <div class="content">
                 <div class="row">
                     <div class="col-sm-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
                         <div class="hpanel">
                             <div class="panel-body">
-                                <h3>Autoresponder Name</h3>
-                                <div class="form-group">
+                                <h3 class="ui header">Autoresponder Name</h3>
+                                <div class="field">
                                     <div class="col-sm-12">
                                         <input type="text" name="name" class="form-control input-lg" ng-model="autoResponder.name">
                                         <span class="help-block m-b-none">
@@ -17,12 +17,12 @@
                                 </div>
                                 <div class="hr-line-dashed"></div>
 
-                                <h3> Email Sequence</h3>
+                                <h3 class="ui header"> Email Sequence</h3>
                                 <span class="help-block m-b-none">
                                     Once you add some emails, you may drag them around to change the order they are sent out
                                 </span>
-                                <h4>Email</h4>
-                                <div class="form-group">
+                                <h4 class="ui header">Email</h4>
+                                <div class="field">
                                     <div class="col-sm-9">
                                         <select class="form-control email_select" id="" placeholder="Add Email(s)" ng-init="emailId=0" ng-model="emailId">
                                             <option value="0" disabled selected>--select email--</option>
@@ -72,7 +72,7 @@
                                 </div>
                                 </div>
 
-                                <h3>Email lists</h3>
+                                <h3 class="ui header">Email lists</h3>
                                 <div class="panel panel-success">
                                     <div class="panel-heading">
                                         <div class="row">
@@ -96,7 +96,7 @@
                                 </div>
 
                    
-                                <div class="form-group">
+                                <div class="field">
                                     <div class="col-sm-8">
                                     <button class="btn btn-brand" type="submit">Save changes</button>
                                     <a ui-sref="admin.team.email.autoresponders" class="btn btn-default">Cancel</a>

@@ -1,212 +1,216 @@
-<h3>Site Options</h3>
+<div class="ui modal">
+	<h3 class="ui header">Site Options</h3>
 
-<p>Configure various settings for your site</p>
+	<p>Configure various settings for your site</p>
 
-<form method="get" class="form-horizontal save_form">
+	<form method="get" class="ui form save_form">
 
-    <div class="form-group">
-        <label class="col-sm-3 control-label">Site logo</label>
+		<div class="field">
+			<label class="col-sm-3 control-label">Site logo</label>
 
-        <div class="col-sm-9">
-            <button type="button" class="btn btn-danger set_site_logo"
-                    sm-uploader="site_logo" ng-model="site_options.site_logo">Choose Image
-            </button>
+			<div class="col-sm-9">
+				<button type="button" class="btn btn-danger set_site_logo"
+						sm-uploader="site_logo" ng-model="site_options.site_logo">Choose Image
+				</button>
 			<span class="help-block m-b-none">
 				This is your site logo, the one that appears next to the menu.
 			</span>
 
-            <div class="width-100 text-center">
-                <img class="site_logo_preview img-responsive img-thumbnail"
-                     ng-src="{{site_options.site_logo}}" ng-show="site_options.site_logo"
-                     style="width:auto;"/>
-            </div>
-            <br/>
+				<div class="width-100 text-center">
+					<img class="site_logo_preview img-responsive img-thumbnail"
+						 ng-src="{{site_options.site_logo}}" ng-show="site_options.site_logo"
+						 style="width:auto;"/>
+				</div>
+				<br/>
 
-            <div class="pull-right" ng-if="site_options.site_logo">
-                <a class="btn btn-danger" ng-click="site_options.site_logo=''"><i
-                        class="ace-icon fa fa-remove">Remove</i></a>
-            </div>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group row">
-        <label class="col-sm-3 control-label">Logo URL</label>
+				<div class="pull-right" ng-if="site_options.site_logo">
+					<a class="btn btn-danger" ng-click="site_options.site_logo=''"><i
+					 class="ace-icon fa fa-remove">Remove</i></a>
+				</div>
+			</div>
+		</div>
+		<div class="hr-line-dashed"></div>
+		<div class="field row">
+			<label class="col-sm-3 control-label">Logo URL</label>
 
-        <div class="col-sm-9">
-            <input type="text" name="logo_url" class="form-control input-lg"
-                   ng-model="site_options.logo_url">
+			<div class="col-sm-9">
+				<input type="text" name="logo_url" class="form-control input-lg"
+					   ng-model="site_options.logo_url">
             							<span class="help-block m-b-none">
             								By default the logo links to the public site....
             							</span>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group row">
-        <label class="col-sm-3 control-label">Logo Max Height</label>
+			</div>
+		</div>
+		<div class="hr-line-dashed"></div>
+		<div class="field row">
+			<label class="col-sm-3 control-label">Logo Max Height</label>
 
-        <div class="col-sm-9">
-            <input type="text" name="logo_max_height" class="form-control input-lg"
-                   ng-model="site_options.logo_max_height" placeholder="100px">
+			<div class="col-sm-9">
+				<input type="text" name="logo_max_height" class="form-control input-lg"
+					   ng-model="site_options.logo_max_height" placeholder="100px">
 				<span class="help-block m-b-none">
 					Set the custom height for your logo. Default is 100px
 				</span>
-        </div>
-    </div>
+			</div>
+		</div>
 
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">Site Favicon</label>
+		<div class="hr-line-dashed"></div>
+		<div class="field">
+			<label class="col-sm-3 control-label">Site Favicon</label>
 
-        <div class="col-sm-9">
-            <button type="button" class="btn btn-danger set_site_logo"
-                    sm-uploader="site_logo" ng-model="site_options.favicon">Choose Image
-            </button>
+			<div class="col-sm-9">
+				<button type="button" class="btn btn-danger set_site_logo"
+						sm-uploader="site_logo" ng-model="site_options.favicon">Choose Image
+				</button>
 			<span class="help-block m-b-none">
 				This is your site favicon which appears on the left corner of the browser tab. It must be 16 x 16
                 .ico or .png file
 			</span>
 
-            <div class="width-100 text-center">
-                <img class="site_logo_preview img-responsive img-thumbnail"
-                     ng-src="{{site_options.favicon}}" ng-show="site_options.favicon"
-                     style="width:auto;"/>
-            </div>
-            <br/>
+				<div class="width-100 text-center">
+					<img class="site_logo_preview img-responsive img-thumbnail"
+						 ng-src="{{site_options.favicon}}" ng-show="site_options.favicon"
+						 style="width:auto;"/>
+				</div>
+				<br/>
 
-            <div class="pull-right" ng-if="site_options.favicon">
-                <a class="btn btn-danger" ng-click="site_options.favicon=''"><i
-                        class="ace-icon fa fa-remove">Remove</i></a>
-            </div>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group row">
-        <label class="col-sm-3 control-label">Sign Box Border Size</label>
-        <div class="col-sm-9">
-            <input type="text" name="sign_box_border_size" class="form-control input-lg"
-                   ng-model="site_options.sign_box_border_size" placeholder="0px">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3" for="theme-color" style="text-align:right;">Sign Box Border Color</label>
-        <div class="col-sm-9">
-            <spectrum-colorpicker  name="sign_box_border_color" options="{showInput: true, preferredFormat: 'hex'}" ng-model="site_options.sign_box_border_color"></spectrum-colorpicker>
-        </div>
-    </div>
+				<div class="pull-right" ng-if="site_options.favicon">
+					<a class="btn btn-danger" ng-click="site_options.favicon=''"><i
+					 class="ace-icon fa fa-remove">Remove</i></a>
+				</div>
+			</div>
+		</div>
+		<div class="hr-line-dashed"></div>
+		<div class="field row">
+			<label class="col-sm-3 control-label">Sign Box Border Size</label>
+			<div class="col-sm-9">
+				<input type="text" name="sign_box_border_size" class="form-control input-lg"
+					   ng-model="site_options.sign_box_border_size" placeholder="0px">
+			</div>
+		</div>
+		<div class="field row">
+			<label class="col-sm-3" for="theme-color" style="text-align:right;">Sign Box Border Color</label>
+			<div class="col-sm-9">
+				<spectrum-colorpicker name="sign_box_border_color" options="{showInput: true, preferredFormat: 'hex'}" ng-model="site_options.sign_box_border_color"></spectrum-colorpicker>
+			</div>
+		</div>
 
-    <div class="hr-line-dashed"></div>
-    <div class="form-group row">
-        <label class="col-sm-3 control-label">Login Button Text</label>
-        <div class="col-sm-9">
-            <input type="text" name="login_button_text" class="form-control input-lg"
-                   ng-model="site_options.login_button_text" placeholder="Login">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 control-label">Register Button Text</label>
-        <div class="col-sm-9">
-            <input type="text" name="register_button_text" class="form-control input-lg"
-                   ng-model="site_options.register_button_text" placeholder="Register">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 control-label">Sign Button Text Color</label>
-        <div class="col-sm-9">
-            <spectrum-colorpicker name="sign_button_text_color" options="{showInput: true, preferredFormat: 'hex'}" ng-model="site_options.sign_button_text_color"></spectrum-colorpicker>
+		<div class="hr-line-dashed"></div>
+		<div class="field row">
+			<label class="col-sm-3 control-label">Login Button Text</label>
+			<div class="col-sm-9">
+				<input type="text" name="login_button_text" class="form-control input-lg"
+					   ng-model="site_options.login_button_text" placeholder="Login">
+			</div>
+		</div>
+		<div class="field row">
+			<label class="col-sm-3 control-label">Register Button Text</label>
+			<div class="col-sm-9">
+				<input type="text" name="register_button_text" class="form-control input-lg"
+					   ng-model="site_options.register_button_text" placeholder="Register">
+			</div>
+		</div>
+		<div class="field row">
+			<label class="col-sm-3 control-label">Sign Button Text Color</label>
+			<div class="col-sm-9">
+				<spectrum-colorpicker name="sign_button_text_color" options="{showInput: true, preferredFormat: 'hex'}" ng-model="site_options.sign_button_text_color"></spectrum-colorpicker>
             <span class="help-block m-b-none">
                 This color will be applied on Sign in/up buttons on relative page
             </span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 control-label">Sign Button Color</label>
-        <div class="col-sm-9">
-            <spectrum-colorpicker name="sign_button_color" options="{showInput: true, preferredFormat: 'hex'}" ng-model="site_options.sign_button_color"></spectrum-colorpicker>
-        </div>
-    </div>
+			</div>
+		</div>
+		<div class="field row">
+			<label class="col-sm-3 control-label">Sign Button Color</label>
+			<div class="col-sm-9">
+				<spectrum-colorpicker name="sign_button_color" options="{showInput: true, preferredFormat: 'hex'}" ng-model="site_options.sign_button_color"></spectrum-colorpicker>
+			</div>
+		</div>
 
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">Sign Page Background</label>
+		<div class="hr-line-dashed"></div>
+		<div class="field">
+			<label class="col-sm-3 control-label">Sign Page Background</label>
 
-        <div class="col-sm-9">
-            <button type="button" class="btn btn-danger" sm-uploader="sign_bg_image"
-                    ng-model="site_options.sign_bg_image">
-                Choose Image
-            </button>
+			<div class="col-sm-9">
+				<button type="button" class="btn btn-danger" sm-uploader="sign_bg_image"
+						ng-model="site_options.sign_bg_image">
+					Choose Image
+				</button>
             <span class="help-block m-b-none">
                 This image will appear Background of Sign in/up pages behind box
             </span>
 
-            <div class="width-100 text-center">
-                <img class="access_deny_image_preview img-responsive img-thumbnail"
-                     ng-src="{{site_options.sign_bg_image}}"
-                     ng-show="site_options.sign_bg_image"
-                     style="width:auto; max-height:250px;"/>
-            </div>
-            <input type="hidden" name="sign_bg_image" class="form-control input-lg"
-                   ng-model="site_options.sign_bg_image">
-            <br>
+				<div class="width-100 text-center">
+					<img class="access_deny_image_preview img-responsive img-thumbnail"
+						 ng-src="{{site_options.sign_bg_image}}"
+						 ng-show="site_options.sign_bg_image"
+						 style="width:auto; max-height:250px;"/>
+				</div>
+				<input type="hidden" name="sign_bg_image" class="form-control input-lg"
+					   ng-model="site_options.sign_bg_image">
+				<br>
 
-            <div class="pull-right" ng-if="site_options.sign_bg_image">
-                <a class="btn btn-danger" ng-click="site_options.sign_bg_image=''"><i
-                        class="ace-icon fa fa-remove">Remove</i></a>
-            </div>
-        </div>
-    </div>
+				<div class="pull-right" ng-if="site_options.sign_bg_image">
+					<a class="btn btn-danger" ng-click="site_options.sign_bg_image=''"><i
+					 class="ace-icon fa fa-remove">Remove</i></a>
+				</div>
+			</div>
+		</div>
 
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Restricted Access Image</label>
+		<div class="hr-line-dashed"></div>
+		<div class="field">
+			<label class="col-sm-2 control-label">Restricted Access Image</label>
 
-        <div class="col-sm-10">
-            <button type="button" class="btn btn-danger" sm-uploader="access_deny_image"
-                    ng-model="site_options.access_deny_image">
-                Choose Image
-            </button>
+			<div class="col-sm-10">
+				<button type="button" class="btn btn-danger" sm-uploader="access_deny_image"
+						ng-model="site_options.access_deny_image">
+					Choose Image
+				</button>
 							<span class="help-block m-b-none">
 								This image will appear when a user doesn't have the appropriate Access Level to view protected content
 							</span>
 
-            <div class="width-100 text-center">
-                <img class="access_deny_image_preview img-responsive img-thumbnail"
-                     ng-src="{{site_options.access_deny_image}}"
-                     ng-show="site_options.access_deny_image"
-                     style="width:auto;"/>
-            </div>
-            <input type="hidden" name="access_deny_image" class="form-control input-lg"
-                   ng-model="site_options.access_deny_image">
-            <br>
+				<div class="width-100 text-center">
+					<img class="access_deny_image_preview img-responsive img-thumbnail"
+						 ng-src="{{site_options.access_deny_image}}"
+						 ng-show="site_options.access_deny_image"
+						 style="width:auto;"/>
+				</div>
+				<input type="hidden" name="access_deny_image" class="form-control input-lg"
+					   ng-model="site_options.access_deny_image">
+				<br>
 
-            <div class="pull-right" ng-if="site_options.access_deny_image">
-                <a class="btn btn-danger" ng-click="site_options.access_deny_image=''"><i
-                        class="ace-icon fa fa-remove">Remove</i></a>
-            </div>
-        </div>
-    </div>
+				<div class="pull-right" ng-if="site_options.access_deny_image">
+					<a class="btn btn-danger" ng-click="site_options.access_deny_image=''"><i
+					 class="ace-icon fa fa-remove">Remove</i></a>
+				</div>
+			</div>
+		</div>
 
-    <div class="hr-line-dashed"></div>
-    <p class="bold no_bottom_margin">Display content availability publicly?</p>
+		<div class="hr-line-dashed"></div>
+		<p class="bold no_bottom_margin">Display content availability publicly?</p>
 
-    <p>Sometimes you may want to show your users how soon the content will be available publicly in your syllabus if you
-        choose to drip feed it. Enable that settings here: </p>
+		<p>Sometimes you may want to show your users how soon the content will be available publicly in your syllabus if you
+			choose to drip feed it. Enable that settings here:
+		</p>
 
-    <p class="no_bottom_margin">
-        <label class="checkbox normal">
-            <input type="checkbox" id="" name="" ng-model="site_options.display_dripfeed_text">
-            Display content availability publicly
-        </label>
-    </p>
-    <div class="hr-line-dashed"></div>
+		<p class="no_bottom_margin">
+			<label class="checkbox normal">
+				<input type="checkbox" id="" name="" ng-model="site_options.display_dripfeed_text">
+				Display content availability publicly
+			</label>
+		</p>
+		<div class="hr-line-dashed"></div>
 
-    <div class="form-group" style="padding-top:20px;">
-        <div class="col-sm-8 col-sm-offset-2">
-            <button class="btn btn-brand save_changes" type="button" ng-click="save()">
-                Save changes
-            </button>
-        </div>
-    </div>
-</form>
+		<div class="field" style="padding-top:20px;">
+			<div class="col-sm-8 col-sm-offset-2">
+				<button class="btn btn-brand save_changes" type="button" ng-click="save()">
+					Save changes
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+
 
 
 

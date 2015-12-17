@@ -1,4 +1,4 @@
-<div class="animate-panel" ng-init="init()">
+<div class="ui modal" ng-init="init()">
 	<div class="content">
 		<div>
 			<div class="row">
@@ -7,19 +7,19 @@
 				</div>
 				<div class="pull-left col-md-12 animated-panel zoomIn" style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
 					<div>
-						<h3>JV Page Builder</h3>
+						<h3 class="ui header">JV Page Builder</h3>
 						<!-- <span ng-if="emailLists.length == 0" class="label-warning"> You do not have an email list stored. The JV page can not be saved without specifying a mailing list.  </span>
 						<p>Build a custom JV page to announce your launch to affiliates!</p> -->
 					</div>
 				</div>
 			</div>
-		   <div class="form-group row">
+		   <div class="field row">
                 <label>
                     
                 </label>
             </div>
 	        <form name="jvform">
-			<div class="form-group row">
+			<div class="field row">
 				<div class="col-sm-12">
 					<input type="text" name="title" class="form-control input-lg" placeholder="Title" ng-model="jv.title" />
 					<span class="help-block m-b-none">
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
+			<div class="field row">
 				<div class="col-sm-12">
                     <textarea froala ng-model="jv.content"></textarea>
 					<span class="help-block m-b-none">
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
+			<div class="field row">
 				<label class="col-sm-12 control-label">Video / Embed Content</label>
 				<div class="col-sm-12">
 					<textarea name="embed_content" class="form-control input-lg" ng-model="jv.embed_content"></textarea>
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
+			<div class="field row">
 				<label class="col-sm-12 control-label">Email List (*required)</label>
 				<div class="col-sm-12">
 					<select ng-model="jv.email_list_id" required>
@@ -56,7 +56,7 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
+			<div class="field row">
 				<label class="col-sm-12 control-label">Subscribe Button Text</label>
 				<div class="col-sm-12">
 					<input type="text" name="download_button_text" class="form-control input-lg" ng-model="jv.subscribe_button_text" placeholder="Subscribe" />
@@ -64,14 +64,14 @@
 					</span>
 				</div>
 			</div>
-			<div class="form-group row">
+			<div class="field row">
 				<label class="col-sm-12 control-label">Subscribe Button Color</label>
 				<div class="col-sm-12">
 					<spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
 					 ng-model="jv.subscribe_button_color"></spectrum-colorpicker>
 				</div>
 			</div>
-			<div class="form-group row">
+			<div class="field row">
 	            <div class="col-sm-12 ">
 	                <h3 class="text-center pull-left">
 	                    <a href="/jvpage" target="_blank" data-bypass="true">
@@ -83,7 +83,7 @@
 	            </div>
 	        </div>
 
-			<div class="form-group row">
+			<div class="field row">
 				<label class="col-sm-12 control-label">Redirect Link</label>
 				
 
@@ -105,7 +105,7 @@
 
 			</div>
 
-			<div class="form-group row">
+			<div class="field row">
 				<label class="col-sm-12 control-label">Thank you note</label>
 				<div class="col-sm-12">
                     <textarea froala ng-model="jv.thankyou_note"></textarea>

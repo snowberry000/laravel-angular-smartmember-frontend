@@ -1,4 +1,4 @@
-<div class="animate-panel" ng-init="init()">
+<div class="ui modal" ng-init="init()">
 
     <div class="content">
         <div class="row">
@@ -7,8 +7,8 @@
 
                     <div class="panel-body">
 
-                        <form method="get" class="form-horizontal save_form" ng-submit="save()">
-                            <div class="form-group">
+                        <form method="get" class="ui form save_form" ng-submit="save()">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Page Title</label>
 
                                 <div class="col-sm-10">
@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Permalink</label>
 
                                 <div class="col-sm-10">
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Template</label>
 
                                 <div class="col-sm-10">
@@ -71,10 +71,10 @@
                             <div class="accordion_section" style="border-bottom: none;">
                                 <a class="accordion_trigger accordion_expand btn btn_outline"
                                    ng-click="facebook=!facebook">expand</a>
-                                <h4>Facebook Sharing Settings</h4>
+                                <h4 class="ui header">Facebook Sharing Settings</h4>
 
                                 <div ng-show="facebook">
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">Featured Image</label>
 
                                         <div class="col-sm-10">
@@ -99,7 +99,7 @@
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">Share Title</label>
 
                                         <div class="col-sm-10">
@@ -111,7 +111,7 @@
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">Share Description</label>
 
                                         <div class="col-sm-10">
@@ -121,7 +121,7 @@
                                     </span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">Facebook Retargeting Pixel ID</label>
 
                                         <div class="col-sm-10">
@@ -132,7 +132,7 @@
                                     </span>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">Facebook Conversion Tracking Pixel
                                             ID</label>
 
@@ -146,7 +146,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="field">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button class="btn btn-brand" type="submit">Save changes</button>
                                     <button ng-disabled="!bridgepage.id" type="button" class="btn btn-success"

@@ -1,4 +1,4 @@
-<!--<div class="animate-panel">
+<!--<div class="ui modal">
 
     <div class="content" ng-init="init()">
         <div class="row">
@@ -6,11 +6,11 @@
                 <div class="hpanel">
                     <div class="panel-body">
     
-                        <form class="form-horizontal save_form">
-                            <div class="form-group">
+                        <form class="ui form save_form">
+                            <div class="field">
                                 <h3 class="col-sm-4 col-sm-offset-2 control-label">{{page_title}}</h3>
                             </div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">livecast Title</label>
 
                                 <div class="col-sm-10">
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Permalink</label>
 
                                 <div class="col-sm-10">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Who should have access to this?</label>
                                 <div class="col-sm-10">
                                     <select data-ng-options="al_type.id as al_type.name for al_type in access_level_types" class='form-control input-lg' ng-model="livecast.access_level_type"
@@ -44,7 +44,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group" ng-if="livecast.access_level_type == 2">
+                            <div class="field" ng-if="livecast.access_level_type == 2">
                                 <label class="col-sm-2 control-label"> </label>
 
                                 <div class="col-sm-10">
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Livecast Content</label>
                                 <div class="col-sm-10">
                                     <textarea name="content" class="form-control input-lg"
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Video / Embed Content</label>
 
                                 <div class="col-sm-10">
@@ -84,7 +84,7 @@
                             <div class="hr-line-dashed"></div>
                             <h3 class="text-center">Discussion Settings</h3>
 
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Show Comments Section</label>
 
                                 <div class="col-sm-10">
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Show Newest Comments First</label>
 
                                 <div class="col-sm-10">
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Close to New Comments</label>
 
                                 <div class="col-sm-10">
@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Allow Replies</label>
 
                                 <div class="col-sm-10">
@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Automatically Publicize All Comments</label>
 
                                 <div class="col-sm-10">
@@ -171,7 +171,7 @@
                             <div class="hr-line-dashed"></div>
 
                             <h3 class="text-center">Scheduling Settings</h3>
-                                <div class="form-group">
+                                <div class="field">
                                     <label class="col-sm-2 control-label">Published on</label>
 
                                     <div class="col-sm-5">
@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="field">
                                     <label class="col-sm-2 control-label">till</label>
 
                                     <div class="col-sm-5">
@@ -209,7 +209,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-md-12">
                                     <div class="col-md-1 col-md-offset-2">
                                         <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
@@ -222,7 +222,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <h3 class="text-center">Drip-feed Settings<br/> <small>Only available for free and paid member acces lock type</small></h3>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Drip Feed Start After</label>
 
                                 <div class="col-sm-10">
@@ -240,7 +240,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group small_bottom_margin">
+                            <div class="field small_bottom_margin">
                                 <label class="col-md-12">
                                     <div class="col-md-1 col-md-offset-2">
                                         <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
@@ -256,7 +256,7 @@
                             <div class="hr-line-dashed"></div>
                             <h3 class="text-center">Facebook Sharing Settings</h3>
 
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Featured Image</label>
 
                                 <div class="col-sm-10">
@@ -277,7 +277,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-md-12">
                                     <div class="col-md-1 col-md-offset-2">
                                         <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
@@ -290,7 +290,7 @@
                                 </label>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Share Title</label>
 
                                 <div class="col-sm-10">
@@ -302,7 +302,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Share Description</label>
 
                                 <div class="col-sm-10">
@@ -313,7 +313,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button class="btn btn-brand" id="livecast_submit" type="submit" ng-click="save()">Save changes</button>
                                     <a ui-sref="admin.marketing.livecast" class="btn btn-default" onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
@@ -333,9 +333,9 @@
     
 </div>-->
 
-<div class="row wrapper border-bottom white-bg page-heading">
+<div class="ui modal">
     <div class="col-sm-8">
-        <h2>{{ page_title | translate }}</h2>
+        <h2 class="ui header">{{ page_title | translate }}</h2>
         <ol class="breadcrumb">
             <li>
                 <a ng-href="/">{{ 'HOME' | translate }}</a>
@@ -371,16 +371,16 @@
                         </tab-heading>
                         <div class="panel-body">
 
-                            <fieldset class="form-horizontal">
+                            <fieldset class="ui form">
                              
-                                <div class="form-group">
+                                <div class="field">
                                     <label class="col-sm-2 control-label">Presenter:</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="presenter" ng-model="next_item.presenter">
                                         <span class="help-block m-b-none">If filled in, this shows under the embedded video to show the name of the person presenting the next_item.</span>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="field">
                                     <label class="col-sm-2 control-label">Lesson Note:</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="note" ng-model="next_item.note">
@@ -396,7 +396,7 @@
                             Media
                         </tab-heading>
                         <div class="panel-body">
-                            <div class="form-group">
+                            <div class="field">
                                 <input type="hidden" name="featured_image" class="" ng-model="next_item.featured_image">
                                 <label class="col-sm-2 control-label">Featured Image:</label>
                                 <div class="col-sm-10">
@@ -405,7 +405,7 @@
                                     <span class="help-block m-b-none">This image will be shown when listing your content.</span>
                                 </div>
                             </div>
-                            <div class="form-group" ng-show="next_item.featured_image">
+                            <div class="field" ng-show="next_item.featured_image">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
                                     <img class="featured_image_preview img-responsive img-thumbnail"
@@ -413,7 +413,7 @@
                                          style="width:auto;"/>
                                 </div>
                             </div>
-                            <div class="form-group" ng-show="next_item.featured_image">
+                            <div class="field" ng-show="next_item.featured_image">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
                                     <a href="" ng-click="next_item.featured_image=''">
@@ -422,7 +422,7 @@
                                 
                                 </div>
                             </div>
-                            <div class="form-group" ng-show="next_item.featured_image">
+                            <div class="field" ng-show="next_item.featured_image">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
                                     <div>
@@ -438,7 +438,7 @@
                                                                 </span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Video / Embed Content:</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" name="embed_content" ng-model="next_item.embed_content"></textarea>

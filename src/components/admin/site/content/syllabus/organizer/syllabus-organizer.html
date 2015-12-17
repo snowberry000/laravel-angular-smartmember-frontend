@@ -10,7 +10,7 @@
 							<div class="pull-left m-r-md">
 								<i class="fa fa-globe text-branded mid-icon"></i>
 							</div>
-							<h2>Lesson organizer</h2>
+							<h2 class="ui header">Lesson organizer</h2>
 							<span>Add new lessons, modules, and re-order them with this organization tool</span>
 						</div>
 						<div class="col-md-3 text-right">
@@ -36,7 +36,7 @@
 		<div ng-if="!loading" class="col-lg-9 connectModulePanels" ui-sortable="ModuleSortableOptions">
 			<div class="ibox module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
 				<div class="ibox-title">
-					<h5>{{module.id ? module.title : options['default_module_title'] ? options['default_module_title']: 'Default'}}</h5>
+					<h5 class="ui header">{{module.id ? module.title : options['default_module_title'] ? options['default_module_title']: 'Default'}}</h5>
 					
 					<div ibox-tools class="pull-right">
 						
@@ -82,7 +82,7 @@
 		<div class="col-lg-3">
 			<div class="ibox">
 				<div class="ibox-title">
-					<h5>Add new module</h5>
+					<h5 class="ui header">Add new module</h5>
 				</div>
 				<div class="ibox-content">
 

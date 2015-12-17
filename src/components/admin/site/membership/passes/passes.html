@@ -1,6 +1,6 @@
 
 
-<div class="row wrapper wrapper-content animated fadeInRight">
+<div class="ui modal">
 
     <div class="row">
         <div class="col-lg-12">
@@ -11,7 +11,7 @@
                             <div class="pull-left m-r-md">
                                 <i class="fa fa-globe text-branded mid-icon"></i>
                             </div>
-                            <h2>{{ template_data.title | translate }}</h2>
+                            <h2 class="ui header">{{ template_data.title | translate }}</h2>
                             <span>{{template_data.description}}</span>
                         </div>
                         <div class="col-md-3 text-right">
@@ -29,7 +29,7 @@
 
             <div class="ibox float-e-margins">
                 <div class="ibox-content" style="padding-bottom: 70px;">
-                    <div class="form-group" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
+                    <div class="field" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
                         <label class="control-label" for="">Search:</label>
                         <input type="text" id="" name="" value="" class="form-control"  ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
                     </div>

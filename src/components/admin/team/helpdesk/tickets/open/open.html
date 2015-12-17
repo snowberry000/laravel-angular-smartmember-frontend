@@ -1,6 +1,6 @@
 <div class="ibox">
 	<div class="ibox-content">
-		<div class="form-group">
+		<div class="field">
 			<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" ng-if="pagination.total_count > 10 || query || pagination.currentPage > 1">
 		</div>
 		<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">

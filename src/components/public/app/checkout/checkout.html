@@ -15,7 +15,7 @@
 
 
 <div id="wrapper" ng-init="init()">
-	<div class="animate-panel">
+	<div class="ui modal">
 
 		<div class="row">
 			<div class="col-md-7 col-md-offset-1 animated-panel main_order_area" style="animation-delay: 0.9s; -webkit-animation-delay: 0.9s;">
@@ -32,7 +32,7 @@
 			<div class="col-md-3 animated-panel price_area" style="animation-delay: 1s; -webkit-animation-delay: 1s;">
 				<div class="hpanel hbgyellow">
 					<div class="panel-body" style="min-height:205px">
-						<div class="text-center"><h3>Amount:</h3>
+						<div class="text-center"><h3 class="ui header">Amount:</h3>
 
 							<p class="text-big font-light">
 								<span dynamic="_.findWhere( currencies, {id: access_level.currency} ).label"></span>

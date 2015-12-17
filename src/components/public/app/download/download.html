@@ -1,9 +1,9 @@
 <div ng-if="loading" style="margin-bottom:40px;">
-    <h3>
+    <h3 class="ui header">
         Loading please wait . . .
     </h3>
 </div>
-<div class="content animate-panel " style="padding: 0px;">
+<div class="content ui modal " style="padding: 0px;">
 	<div class="row">
 		<div ng-if="!loading" class="col-lg-8 zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
 			<div class="hpanel blog-article-box">
@@ -14,7 +14,7 @@
 					<div class="lesson_meta" style="min-height: 40px; position:relative;">
 						<span style="position:absolute; bottom: 5px; right: 5px; color: #34495e;" title="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times." alt="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times."><i class="fa fa-download"></i>{{download.history_count[0].count}}</span>
 					</div>
-					<h4>{{download.title}}
+					<h4 class="ui header">{{download.title}}
 					<a ng-if="is_site_admin || is_team_member" href="/admin/site/content/download/{{download.id}}" class="btn btn-success pull-right">Edit</a>
 					</h4>
 

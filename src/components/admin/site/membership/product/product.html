@@ -1,16 +1,16 @@
-<h1><i class="ts_icon ts_icon_pencil clear_blue"></i>{{page_title}}</h1>
-<div class="animate-panel">
+<h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i>{{page_title}}</h1>
+<div class="ui modal">
     <div class="content">
 
-        <form method="get" name="access_level_form" class="form-horizontal save_form" ng-submit="save()">
+        <form method="get" name="access_level_form" class="ui form save_form" ng-submit="save()">
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="hpanel animated-panel zoomIn"
                          style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
                         <div class="panel-body">
-                            <h4>Product Level Name</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Product Level Name</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <input type="text" ng-model="access_level.name" name="name" class="form-control input-lg">
                                     <span class="help-block m-b-none">
@@ -20,7 +20,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <!--
-                            <div class="form-group" style="">
+                            <div class="field" style="">
                                 <label class="col-sm-2 control-label">Payment Gateways</label>
 
                                 <div class="col-sm-10">
@@ -32,8 +32,8 @@
                             </div>
                             <div class="hr-line-dashed" style=""></div>
                             -->
-                            <h4>Sales Page Url</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Sales Page Url</h4>
+                            <div class="field">
 
                                 <div class="col-sm-12">
                         
@@ -47,8 +47,8 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <h4>Redirect Url</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Redirect Url</h4>
+                            <div class="field">
 
                                 <div class="col-sm-12">
                                     <input type="text" name="redirect_url"
@@ -68,8 +68,8 @@
                             Advanced Settings
                         </div>
                         <div class="panel-body">
-                            <h4>Granted Product Levels</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Granted Product Levels</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <select multiple ng-model="access_level.grants" class="form-control granted_access_levels">
                                         <option ng-selected="exists(al.id)" ng-repeat="al in access_levels" value={{al.id}}>{{al.name}}</option>
@@ -80,8 +80,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <h4>Facebook Group</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Facebook Group</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <select data-ng-options="group.remote_id as group.name for group in facebook_groups" class='form-control input-lg' ng-model="access_level.facebook_group_id" placeholder='Select Access Permission'>
                                     </select>
@@ -100,8 +100,8 @@
                             JVZoo Settings
                         </div>
                         <div class="panel-body">
-                            <h4>Product ID</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Product ID</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <input type="text" name="jvzoo_product_id" class="form-control input-lg"
                                            ng-model="access_level.product_id">
@@ -113,8 +113,8 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <h4>Buy Button</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Buy Button</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <textarea name="jvzoo_button" class="form-control" ng-model="access_level.jvzoo_button"></textarea>
                                     <span class="help-block m-b-none">
@@ -131,8 +131,8 @@
                         </div>
                         <div class="panel-body">
                             <div class="hr-line-dashed"></div>
-                            <h4>Payment Type</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Payment Type</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <select name="payment_type" class="form-control input-lg" ng-model="access_level.payment_interval">
                                         <option value="one_time">One Time</option>
@@ -144,7 +144,7 @@
                                 </div>
                             </div>
                             <h4 ng-if="access_level.payment_interval == 'one_time'">Expiration Period</h4>
-                            <div ng-if="access_level.payment_interval == 'one_time'" class="form-group">
+                            <div ng-if="access_level.payment_interval == 'one_time'" class="field">
 
                                 <div class="col-sm-12">
                                     <input type="number" min="0" name="redirect_url"
@@ -155,8 +155,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <h4>Price</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Price</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <div class="input-group m-b">
                                         <div class="input-group-btn" uib-dropdown>
@@ -171,7 +171,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <label>
 
                                     <h4 class="help-block m-b-none">
@@ -184,8 +184,8 @@
                             </div>
                             <div ng-hide="access_level.payment_interval == 'one_time'"
                                  ng-if="access_level.enable_trial || access_level.trial_amount != null">
-                                <h4>Trial Duration</h4>
-                                <div class="form-group">
+                                <h4 class="ui header">Trial Duration</h4>
+                                <div class="field">
                                     <div class="col-sm-6">
                                         <input type="text" name="redirect_url" placeholder="Duration"
                                                class="form-control input-lg"
@@ -200,9 +200,9 @@
                                         </select>
                                     </div>
                                 </div>
-                                <h4>Trial Price</h4>
+                                <h4 class="ui header">Trial Price</h4>
 
-                                <div class="form-group">
+                                <div class="field">
                                     <div class="col-sm-12">
                                         <div class="input-group m-b">
                                             <div class="input-group-btn" uib-dropdown>
@@ -219,7 +219,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <h4 ng-if="access_level.payment_interval!='one_time'">Stripe Plan ID</h4>
-                            <div class="form-group" ng-if="access_level.payment_interval!='one_time'">
+                            <div class="field" ng-if="access_level.payment_interval!='one_time'">
                                 <div class="col-sm-11">
                                     <input type="text" name="stripe_plan_id" class="form-control input-lg"
                                            ng-model="access_level.stripe_plan_id">
@@ -229,8 +229,8 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <h4>Payment Methods</h4>
-                            <div class="form-group">
+                            <h4 class="ui header">Payment Methods</h4>
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <select multiple ng-model="access_level.payment_methods" class="form-control used_payment_methods">
                                         <option ng-selected="paymentMethodExists(p.id) || !access_level.id" ng-repeat="p in payment_method_types | filter:validPaymentMethod" value={{p.id}}>{{p.name}}</option>
@@ -246,8 +246,8 @@
                             </div>
                             <span ng-if="payment_integrations.stripe.length > 1">
                                 <div class="hr-line-dashed"></div>
-                                <h4>Which Stripe Integration should be used?</h4>
-                                <div class="form-group">
+                                <h4 class="ui header">Which Stripe Integration should be used?</h4>
+                                <div class="field">
                                     <div class="col-sm-12">
                                         <select class="form-control" ng-model="access_level.stripe_integration" ng-change="changeAccount()">
                                             <option value="0" ng-selected="!access_level.stripe_integration">Use default integration</option>
@@ -263,8 +263,8 @@
                             </span>
                             <span ng-if="payment_integrations.paypal.length > 1">
                                 <div class="hr-line-dashed"></div>
-                                <h4>Which Paypal Integration should be used?</h4>
-                                <div class="form-group">
+                                <h4 class="ui header">Which Paypal Integration should be used?</h4>
+                                <div class="field">
                                     <div class="col-sm-12">
                                         <select class="form-control" ng-model="access_level.paypal_integration">
                                             <option value="0" ng-selected="!access_level.paypal_integration">Use default integration</option>
@@ -276,7 +276,7 @@
                                 </div>
                             </span>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <div class="field">
                                 <div class="col-sm-12">
                                     <h4 class="help-block m-b-none" >
                                         <input type="checkbox" ng-model="access_level.hide_unowned_content" ng-checked="access_level.hide_unowned_content==1" ng-true-value="1" ng-false-value="0" name="name">
@@ -288,7 +288,7 @@
                     </div>
                 </div>
                
-                <div class="form-group">
+                <div class="field">
                     <div class="col-sm-8 col-sm-offset-2">
                         <button class="btn btn-brand" type="submit">Save changes</button>
                         <a ng-if="!template_data.use_cancel_method" ui-sref='admin.site.membership.products'>Cancel</a>

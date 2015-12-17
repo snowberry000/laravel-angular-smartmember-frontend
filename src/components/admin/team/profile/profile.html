@@ -11,7 +11,7 @@
 									<div class="col-md-12"
 										 style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
 										<div class=" m-b-md">
-											<h3>Team Bio</h3>
+											<h3 class="ui header">Team Bio</h3>
 										</div>
 									</div>
 								</div>
@@ -28,8 +28,8 @@
 							<div class="list-group" style="margin:0px;">
 							</div>
 							<div class="panel-body">
-								<form method="get" class="form-horizontal save_form" ng-submit="save()">
-									<div class="form-group">
+								<form method="get" class="ui form save_form" ng-submit="save()">
+									<div class="field">
 										<label class="col-sm-2 control-label">Display Name</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control input-lg"
@@ -40,7 +40,7 @@
 										</div>
 									</div>
 									<div class="hr-line-dashed"></div>
-									<div class="form-group">
+									<div class="field">
 										<label class="col-sm-2 control-label">Subtitle</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control input-lg"
@@ -51,7 +51,7 @@
 										</div>
 									</div>
 									<div class="hr-line-dashed"></div>
-									<div class="form-group">
+									<div class="field">
 										<label class="col-sm-2 control-label">Description</label>
 										<div class="col-sm-10">
 											<textarea froala ng-model="company.bio"></textarea>
@@ -61,7 +61,7 @@
 										</div>
 									</div>
 									<div class="hr-line-dashed"></div>
-									<div class="form-group">
+									<div class="field">
 										<label class="col-sm-2 control-label">Permalink</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control input-lg" ng-model="company.permalink">
@@ -71,7 +71,7 @@
 										</div>
 									</div>
 									<div class="hr-line-dashed"></div>
-									<div class="form-group">
+									<div class="field">
 										<label class="col-sm-2 control-label">Featured Image</label>
 										<div class="col-sm-10">
 											<button type="button" class="btn btn-danger"
@@ -96,35 +96,35 @@
 									<div style="margin-bottom: 10px;" class="directory_stat_toggles">
 										<div class="accordion_section {{company.hide_total_lessons == 1 ? '' : 'active'}}">
 											<a class="accordion_expand btn btn_outline" ng-click="company.hide_total_lessons=!company.hide_total_lessons">{{company.hide_total_lessons ? 'Enable' : 'Disable'}}</a>
-											<h4>{{company.total_lessons}} lessons
+											<h4 class="ui header">{{company.total_lessons}} lessons
 												<small>total lessons count</small>
 											</h4>
 											<div class="clearfix"></div>
 										</div>
 										<div class="accordion_section {{company.hide_total_downloads == 1 ? '' : 'active'}}">
 											<a class="accordion_expand btn btn_outline" ng-click="company.hide_total_downloads=!company.hide_total_downloads">{{company.hide_total_downloads ? 'Enable' : 'Disable'}}</a>
-											<h4>{{company.total_downloads}} downloads
+											<h4 class="ui header">{{company.total_downloads}} downloads
 												<small>total downloads count</small>
 											</h4>
 											<div class="clearfix"></div>
 										</div>
 										<div class="accordion_section {{company.hide_members == 1 ? '' : 'active'}}">
 											<a class="accordion_expand btn btn_outline" ng-click="company.hide_members=!company.hide_members">{{company.hide_members ? 'Enable' : 'Disable'}}</a>
-											<h4>{{company.total_members}} members
+											<h4 class="ui header">{{company.total_members}} members
 												<small>number of members</small>
 											</h4>
 											<div class="clearfix"></div>
 										</div>
 										<div class="accordion_section {{company.hide_revenue == 1 ? '' : 'active'}}">
 											<a class="accordion_expand btn btn_outline" ng-click="company.hide_revenue=!company.hide_revenue">{{company.hide_revenue ? 'Enable' : 'Disable'}}</a>
-											<h4>${{company.total_revenue}}
+											<h4 class="ui header">${{company.total_revenue}}
 												<small>total revenue</small>
 											</h4>
 											<div class="clearfix"></div>
 										</div>
 										<div class="accordion_section {{company.hide_sites == 1 ? '' : 'active'}}">
 											<a class="accordion_expand btn btn_outline" ng-click="company.hide_sites=!company.hide_sites">{{company.hide_sites ? 'Enable' : 'Disable'}}</a>
-											<h4>{{company.total_sites_count}}
+											<h4 class="ui header">{{company.total_sites_count}}
 												<small>sites</small>
 											</h4>
 											<div class="clearfix"></div>
@@ -132,7 +132,7 @@
 									</div>
 
 									<div class="hr-line-dashed"></div>
-									<div class="form-group">
+									<div class="field">
 
 										<div class="col-sm-8 col-sm-offset-2">
 											<button class="btn btn-brand save_changes" type="submit">Save changes</button>

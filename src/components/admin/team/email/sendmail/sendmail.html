@@ -1,10 +1,10 @@
 <div style="min-height:500px;" ng-init="init()">
-    <div class="form-group">
+    <div class="field">
         <label>Choose E-mail to Send</label>
         <select class="form-control" ng-model="queueEmailData.email_id" data-ng-options="email.id as email.subject for email in emails">
         </select>
     </div>
-    <div class="form-group">
+    <div class="field">
         <label>Schedule date and time to send (leave blank to send now)</label>
         <div class="row" style="margin-top:20px;">
             <div class="col-md-6">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="field">
         <label>Choose who to send to</label>
         <ul class="criteria-list col-md-12" style="margin-top:20px;">
             <li title="" original-title="" style="position: relative;">
@@ -50,7 +50,7 @@
                                                         </label>
                                                     </li>
                                                 </ul>
-                                                <h5>Email lists:</h5>
+                                                <h5 class="ui header">Email lists:</h5>
                                                 <ul class="aui-list-section"
                                                     aria-label="Standard Issue Types">
                                                     <li ng-repeat="list in emailLists | filter: search" class="check-list-item  imagebacked 10000" role="option">
@@ -94,7 +94,7 @@
                                                         </label>
                                                     </li>
                                                 </ul>
-                                                <h5>Members of:</h5>
+                                                <h5 class="ui header">Members of:</h5>
                                                 <ul  class="aui-list-section"
                                                      aria-label="Standard Issue Types">
                                                     <li ng-repeat="site in sites | filter: site_search" class="check-list-item  imagebacked 10000" role="option">
@@ -136,7 +136,7 @@
                                                         </label>
                                                     </li>
                                                 </ul>
-                                                <h5></h5>
+                                                <h5 class="ui header"></h5>
                                                 <ul  class="aui-list-section">
                                                     <li ng-repeat="accessLevel in accessLevels | filter: access_level_search" class="check-list-item  imagebacked 10000" role="option">
                                                         <label class="item-label" title="{{_.findWhere(sites,{id: accessLevel.site_id}).name}}">
@@ -226,9 +226,9 @@
         </ul>
     </div>
 
-    <div class="form-group clear_both" ng-if="users.length > 0">
+    <div class="field clear_both" ng-if="users.length > 0">
         <label>Sending to {{users.length}}  Users</label>
-        <div class="tab-content bottom_margin clear_both">
+        <div class="ui modal">
             <div class="tab_pane large_bottom_padding selected">
                 <div class="admin_list_item member_item active" data-ng-repeat="user in users_to_show">
                     <a href="#" class=" member_preview_link member_image thumb_36" style="background-image: url(https://secure.gravatar.com/avatar/{{ member.email_hash }}?d=identicon&s=48); background-color: rgb(246, 246, 246);" aria-hidden="true"></a>
@@ -248,13 +248,13 @@
     </div>
     <pagination ng-if="users.length > 0" total-items="users.length" items-per-page="itemsPerPage" ng-model="pagination.currentPage" max-size="5" class="pagination-sm pull-right" boundary-links="false" ng-change="paginateIt()"></pagination>
 
-    <div class="form-group">
+    <div class="field">
         <label>
             <input type="checkbox" ng-model="exclude_email" class="">
             Enable Exclusion
         </label>
     </div>
-    <div class="form-group" ng-show="exclude_email">
+    <div class="field" ng-show="exclude_email">
         <label>Choose who not to send to</label>
         <ul class="criteria-list col-md-12" style="margin-top:20px;">
             <li title="" original-title="" style="position: relative;">
@@ -283,7 +283,7 @@
                                                         </label>
                                                     </li>
                                                 </ul>
-                                                <h5>Email lists:</h5>
+                                                <h5 class="ui header">Email lists:</h5>
                                                 <ul class="aui-list-section"
                                                     aria-label="Standard Issue Types">
                                                     <li ng-repeat="list in emailLists | filter: exclude_search" class="check-list-item  imagebacked 10000" role="option">
@@ -327,7 +327,7 @@
                                                         </label>
                                                     </li>
                                                 </ul>
-                                                <h5>Members of:</h5>
+                                                <h5 class="ui header">Members of:</h5>
                                                 <ul  class="aui-list-section"
                                                      aria-label="Standard Issue Types">
                                                     <li ng-repeat="site in sites | filter: exclude_site_search" class="check-list-item  imagebacked 10000" role="option">
@@ -369,7 +369,7 @@
                                                         </label>
                                                     </li>
                                                 </ul>
-                                                <h5></h5>
+                                                <h5 class="ui header"></h5>
                                                 <ul  class="aui-list-section">
                                                     <li ng-repeat="accessLevel in accessLevels | filter: exclude_access_level_search" class="check-list-item  imagebacked 10000" role="option">
                                                         <label class="item-label" title="{{_.findWhere(sites,{id: accessLevel.site_id}).name}}">
@@ -458,9 +458,9 @@
             </li>
         </ul>
     </div>
-    <div class="form-group clear_both" ng-show="exclude_email" ng-if="exclude_users.length > 0">
+    <div class="field clear_both" ng-show="exclude_email" ng-if="exclude_users.length > 0">
         <label>Not Sending to {{exclude_users.length}}  Users</label>
-        <div class="tab-content bottom_margin clear_both">
+        <div class="ui modal">
             <div class="tab_pane large_bottom_padding selected">
                 <div class="admin_list_item member_item active" data-ng-repeat="user in exclude_users_to_show">
                     <a href="#" class=" member_preview_link member_image thumb_36" style="background-image: url(https://secure.gravatar.com/avatar/{{ member.email_hash }}?d=identicon&s=48); background-color: rgb(246, 246, 246);" aria-hidden="true"></a>
@@ -484,7 +484,7 @@
 
     <pagination ng-if="exclude_users.length > 0" total-items="exclude_users.length" items-per-page="itemsPerPage" ng-model="exclude_pagination.currentPage" max-size="5" class="pagination-sm pull-right" boundary-links="false" ng-change="excludepaginateIt()" ng-show="exclude_email"></pagination>
 
-    <div class="form-group">
+    <div class="field">
         <a ng-click="send()" ng-disabled="users.length ==0 " class="btn btn-success">Send</a>
     </div>
 </div>

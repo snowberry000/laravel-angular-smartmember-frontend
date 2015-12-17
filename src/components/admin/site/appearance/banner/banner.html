@@ -1,5 +1,5 @@
 <section>
-    <div class="row wrapper wrapper-content animated fadeInRight">
+    <div class="ui modal">
         <div class="ibox-content m-b-sm border-bottom" style="margin-top:30px;">
             <div class="p-xs">
                 <div class="row">
@@ -7,7 +7,7 @@
                         <div class="pull-left m-r-md">
                             <i class="fa fa-globe text-branded mid-icon"></i>
                         </div>
-                        <h2>Banners</h2>
+                        <h2 class="ui header">Banners</h2>
                         <p class="font-bold text-success">Create banners to display in the sidebar!</p>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
 
                             <div class="panel-body">
                                 <div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">Destination Url</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="course_banner_url" class="form-control" ng-model="ad.banner_url">
@@ -44,7 +44,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="form-group" ng-if="!obj.showCustomAd">
+                                    <div class="field" ng-if="!obj.showCustomAd">
                                         <label class="col-sm-2 control-label" >Image</label>
                                         <div class="col-sm-10">
                                             <div style="min-height: 30px;margin-bottom: 15px;">
@@ -69,7 +69,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="form-group col-md-offset-2" style="margin-top:10px;" ng-if="!obj.showCustomAd">
+                                <!-- <div class="field col-md-offset-2" style="margin-top:10px;" ng-if="!obj.showCustomAd">
                                     <div class="col-sm-8">
                                         <button class="btn btn-brand save_changes" type="button" ng-click="save()">Save changes</button>
                                         <a class="btn btn-default" ui-sref="admin.site.appearance.banners">Cancel</a>

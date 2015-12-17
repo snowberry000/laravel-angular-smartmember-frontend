@@ -1,12 +1,12 @@
-<div class="animate-panel">
+<div class="ui modal">
     <div class="content">
 
         <div class="row">
             <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
                 <div class="hpanel">
                     <div class="panel-body">
-                        <form method="get" class="form-horizontal save_form">
-                            <div class="form-group">
+                        <form method="get" class="ui form save_form">
+                            <div class="field">
                                 <label class="col-sm-2 control-label">Homepage URL</label>
 
                                 <div class="col-sm-10">
@@ -29,10 +29,10 @@
                             <div class="hr-line-dashed"></div>
                             <div class="accordion_section">
                                 <a class="accordion_trigger accordion_expand btn btn_outline" ng-click="localization=!localization">expand</a>
-                                <h4>Localization Settings</h4>
+                                <h4 class="ui header">Localization Settings</h4>
 
                                 <div ng-show="localization">
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">'Syllabus' text</label>
 
                                         <div class="col-sm-10">
@@ -40,7 +40,7 @@
                                                    ng-model="site_options.syllabus_text" placeholder="Syllabus">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">'Search lessons...' text</label>
 
                                         <div class="col-sm-10">
@@ -48,7 +48,7 @@
                                                    ng-model="site_options.search_lesson_text" placeholder="Search lessons...">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">'Module' text</label>
 
                                         <div class="col-sm-10">
@@ -56,7 +56,7 @@
                                                    ng-model="site_options.module_text" placeholder="Module">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">'Course Info' text</label>
 
                                         <div class="col-sm-10">
@@ -64,7 +64,7 @@
                                                    ng-model="site_options.course_info_text" placeholder="Course Info">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">'Lessons' text</label>
 
                                         <div class="col-sm-10">
@@ -72,7 +72,7 @@
                                                    ng-model="site_options.lesson_text" placeholder="Lessons">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">'Begin/Continue this course' text</label>
 
                                         <div class="col-sm-10">
@@ -80,7 +80,7 @@
                                                    ng-model="site_options.begin_course_text" placeholder="Begin/Continue this course">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="field">
                                         <label class="col-sm-2 control-label">Cap Icon</label>
 
                                         <div class="col-sm-10">
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" style="padding-top:20px;">
+                            <div class="field" style="padding-top:20px;">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button class="btn btn-brand save_changes" type="button" ng-click="save()">
                                         Save changes

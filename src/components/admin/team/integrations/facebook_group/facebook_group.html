@@ -3,11 +3,11 @@
 <div class="ibox">
 	<div class="ibox-content">
 
-		<form method="get" class="form-horizontal" ng-submit="saveIntegration()">
+		<form method="get" class="ui form" ng-submit="saveIntegration()">
 
-			<h2>Integration Settings</h2>
+			<h2 class="ui header">Integration Settings</h2>
 
-			<div class="form-group m-t-sm">
+			<div class="field m-t-sm">
 				<label class="col-sm-3 control-label">Facebook App ID</label>
 
 				<div class="col-sm-9">
@@ -18,7 +18,7 @@
 
 			<div class="hr-line-dashed"></div>
 
-			<div class="form-group m-t-sm">
+			<div class="field m-t-sm">
 				<label class="col-sm-3 control-label">Facebook App Secret Key</label>
 
 				<div class="col-sm-9">
@@ -29,7 +29,7 @@
 
 			<div class="hr-line-dashed" ng-show="(current_integration.username && current_integration.password) || (current_integration.name && current_integration.remote_id)"></div>
 
-			<div class="form-group m-t-sm">
+			<div class="field m-t-sm">
 				<label class="col-sm-3 control-label" ng-show="(current_integration.username && current_integration.password) || (current_integration.name && current_integration.remote_id)">Facebook Group</label>
 
 				<div class="col-sm-9" ng-if="current_integration.name && current_integration.remote_id">
@@ -48,7 +48,7 @@
 
 			<div class="hr-line-dashed"></div>
 
-			<div class="form-group">
+			<div class="field">
 				<label class="col-sm-3 control-label"></label>
 
 				<div class="col-sm-9">
