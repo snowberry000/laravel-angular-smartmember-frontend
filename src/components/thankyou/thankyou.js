@@ -15,6 +15,19 @@ app.config(function($stateProvider){
                 }
             }
 		})
+        .state("thankyou2",{
+            url: "/thank-you",
+            templateUrl: "/templates/components/thankyou/thankyou.html",
+            controller: "ThankyouController",
+            resolve: {
+                $site: function(Restangular){
+                    return Restangular.one('site','details').get();
+                },
+                $access_levels: function(Restangular,$site) {
+                    return Restangular.all('accessLevel').getList({site_id: $site.id});
+                }
+            }
+        })
 }); 
 
 app.controller('ThankyouController', function ($scope, $site, $access_levels) {

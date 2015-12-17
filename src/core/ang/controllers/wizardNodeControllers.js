@@ -344,7 +344,7 @@ app.controller('menuWizardController', function ($rootScope,$scope, $http , $fil
       }
       else if(selected_url == 'download'){
         Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-            var downloads = response.downloads;
+            var downloads = response;
             downloads.forEach(function(entity){
                 entity.url = entity.permalink;
             })
@@ -364,7 +364,7 @@ app.controller('menuWizardController', function ($rootScope,$scope, $http , $fil
                 entity.url = entity.permalink;
             })
             $scope.show_next = true;
-            $scope.loaded_items = response;
+            $scope.loaded_items = response.items;
               
         })
       }
@@ -523,7 +523,7 @@ app.controller('accessWizardController', function ($rootScope,$scope, $http , $f
 		  }
 		  else if(selected_url == 'download'){
 		    Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-		        var downloads = response.downloads;
+		        var downloads = response;
 		        downloads.forEach(function(entity){
 		            entity.url = entity.permalink;
 		        })
@@ -543,7 +543,7 @@ app.controller('accessWizardController', function ($rootScope,$scope, $http , $f
 		            entity.url = entity.permalink;
 		        })
 		        $scope.show_next = true;
-		        $scope.loaded_items = response;
+		        $scope.loaded_items = response.items;
 		          
 		    })
 		  }

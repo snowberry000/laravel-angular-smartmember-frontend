@@ -96,7 +96,7 @@ app.controller("FreebieController", function ($scope, $localStorage,$site, $stat
       }
       else if(selected_url == 'download'){
         Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-            var downloads = response.downloads;
+            var downloads = response;
             downloads.forEach(function(entity){
                 entity.url = entity.permalink;
             })
@@ -116,7 +116,7 @@ app.controller("FreebieController", function ($scope, $localStorage,$site, $stat
                 entity.url = entity.permalink;
             })
             $scope.show_next = true;
-            $scope.loaded_items = response;
+            $scope.loaded_items = response.items;
               
         })
       }
