@@ -26,8 +26,9 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     $scope.tags = [];
 
     //for new pagination
+    $scope.site = $rootScope.site;
 
-    $scope.itemsPerPage = 10;
+    $scope.itemsPerPage = 25;
     $scope.pagination = {currentPage : 1};
 
     $scope.paginateIt = function() {
@@ -53,10 +54,10 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     $scope.callVimeo = function() {
         var user_id = $scope.vimeo.remote_id.toString();
         user_id = user_id.substring(7);
-        var $url = "https://api.vimeo.com/users/" + user_id + "/videos?page="+$scope.page;
+        var $url = "https://api.vimeo.com/users/" + user_id + "/videos?page="+$scope.page+"&per_page=50";
         $http.get($url,{headers: {'Authorization': 'Bearer ' + $scope.vimeo.access_token}})
             .then(function(response){
-                if (response.status != '500' && $scope.page <= 3)
+                if (response.status != '500')
                 {
                     if ($scope.videos){
                         if( response.data ) {
@@ -86,7 +87,10 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
     angular.forEach( $scope.site.integration, function(value,key){
         if( value.type == 'vimeo' )
+        {
             $scope.vimeo_integrations.push( value );
+        }
+
     });
 
     if( $scope.vimeo_integrations.length > 0 ) {
