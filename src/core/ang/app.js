@@ -28,6 +28,8 @@ var app = angular.module( 'app', [
 	'ngBusy'
 ]);
 
+
+
 app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
