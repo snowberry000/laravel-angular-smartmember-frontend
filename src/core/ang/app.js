@@ -25,7 +25,6 @@ var app = angular.module( 'app', [
 	'toastr',
 	'timer',
 	'localytics.directives',
-	'ui-iconpicker',
 	'ngBusy'
 ]);
 

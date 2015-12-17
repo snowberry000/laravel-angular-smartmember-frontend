@@ -27,7 +27,14 @@ app.config(function($stateProvider){
 				$companies: function( Restangular )
 				{
 					return Restangular.one( 'company/getUsersCompanies' ).get();
-				}
+				},
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['bower/slimScroll/jquery.slimscroll.min.js']
+                        }
+                    ]);
+                }
 			}
 		})
 }); 

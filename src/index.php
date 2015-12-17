@@ -199,8 +199,8 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 <script src="js/vendor.min.js"></script>
 <script src="js/main.min.js"></script>
 
-<script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>
-<script src="bower/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- <script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script> -->
+<!-- <script src="bower/slimScroll/jquery.slimscroll.min.js"></script> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.js"></script>
 <!--script src="js/library.min.js"></script-->
 <!-- <script type="text/javascript" src="bower/Flot/jquery.flot.resize.js"></script> -->
