@@ -11,7 +11,7 @@ app.config(function($stateProvider){
 				    if($stateParams.id)
 					    return Restangular.one('supportCategory' , $stateParams.id).get();
 				    else
-					    return {company_id : $site.company_id}
+					    return {};
 			    }
 		    }
 		})
