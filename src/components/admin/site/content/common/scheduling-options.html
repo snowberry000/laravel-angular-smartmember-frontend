@@ -80,6 +80,9 @@
 				<option value="months">Months</option>
 			</select>
 		</div>
+        <div class="col-sm-3">
+            <a ng-if="next_item.dripfeed_settings.duration || next_item.dripfeed_settings.interval" ng-click="next_item.dripfeed_settings = {}; next_item.remove_dripfeed = true;">Remove Dripfeed</a>
+        </div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Drip-feed Preview:</label>
