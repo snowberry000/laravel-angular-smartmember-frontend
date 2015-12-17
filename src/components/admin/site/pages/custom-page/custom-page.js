@@ -3,7 +3,7 @@ var app = angular.module("app");
 app.config(function($stateProvider){
 	$stateProvider
 		.state("admin.site.pages.custom-page",{
-			url: "/custom-page",
+			url: "/custom-page/:id?",
 			templateUrl: "/templates/components/admin/site/pages/custom-page/custom-page.html",
 			controller: "CustomPageController",
 			resolve: {
@@ -36,6 +36,12 @@ app.controller("CustomPageController", function ($scope, $rootScope, $localStora
         title: 'Pages',
         cancel_route: 'admin.pages.pages'
     }
+
+    if(!$next_item.id)
+    {
+        $next_item.site_id=$rootScope.site.id;
+    }
+
     var draft;
     var changed;
     if($location.search().clone){

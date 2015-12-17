@@ -14,7 +14,7 @@ app.config(function($stateProvider){
                         return Restangular.one('post', $location.search().clone).get();
                     }
                     else
-                        return {site_id : $site.id , access_level_type : 4}
+                        return {access_level_type : 4}
                 },
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
