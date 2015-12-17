@@ -8,26 +8,26 @@ var app = angular.module( 'app', [
 	'restangular',
 	'ipCookie',
 	'ngStorage',
-    'ngUrlify',
+	'ngUrlify',
 	'facebook',
 	'cgNotify',
 	'ngFileUpload',
 	'angular-spinkit',
 	'angularSpectrumColorpicker',
-    'oitozero.ngSweetAlert',
+	'oitozero.ngSweetAlert',
 	'froala',
-    'ui.bootstrap.popover',
-    'ui.bootstrap.modal',
-    'as.sortable', 
-    'xeditable',
+	'ui.bootstrap.popover',
+	'ui.bootstrap.modal',
+	'as.sortable',
+	'xeditable',
 	'ui.footable',
 	'ngAnimate',
 	'toastr',
 	'timer',
 	'localytics.directives',
-	'ngBusy'
-]);
-
+	'ngBusy',
+	'angularModalService'
+] );
 
 
 app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
@@ -38,7 +38,7 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, 
 	$rootScope.$location = $location;
 	$rootScope.moment = moment;
 	$rootScope.$state = $state;
-    $rootScope.smModal = smModal;
+	$rootScope.smModal = smModal;
 
 	var domainParts = $location.host().split( '.' );
 
@@ -99,7 +99,7 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, 
 			}
 		} );
 //
-    editableOptions.theme = 'bs3';
+	editableOptions.theme = 'bs3';
 
 	var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
@@ -120,8 +120,10 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, 
 		"subdomain": sub
 	};
 
-    if( location.href.indexOf( '?theme_options' ) > -1 )
-        $rootScope.app.show_engine = true;
+	if( location.href.indexOf( '?theme_options' ) > -1 )
+	{
+		$rootScope.app.show_engine = true;
+	}
 
 	Restangular.setBaseUrl( $rootScope.app.apiUrl );
 	Restangular.setDefaultHeaders( { 'Content-Type': 'application/json' } );
@@ -131,38 +133,47 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, 
 	delete $localStorage.user;
 	$localStorage.user = ipCookie( 'user' );
 
-    var getUrlVars = function() {
-        var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            vars[key] = decodeURIComponent(value);
-        });
-        return vars;
-    }
+	var getUrlVars = function()
+	{
+		var vars = {};
+		var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
+		{
+			vars[ key ] = decodeURIComponent( value );
+		} );
+		return vars;
+	}
 
-    var $_GET = getUrlVars();
+	var $_GET = getUrlVars();
 
-    if( $_GET['cbreceipt'] ) {
-        if (!$localStorage.user) {
-            var modalInstance = $modal.open({
-                templateUrl: 'templates/modals/transactionRegistration.html',
-                controller: 'signModalController',
-                resolve: {
-                    account: function(Restangular){
-                        return Restangular.all('').customGET('user/transactionAccount/' + $_GET['cbreceipt'] );
-                    }
-                }
-            });
+	if( $_GET[ 'cbreceipt' ] )
+	{
+		if( !$localStorage.user )
+		{
+			var modalInstance = $modal.open( {
+				templateUrl: 'templates/modals/transactionRegistration.html',
+				controller: 'signModalController',
+				resolve: {
+					account: function( Restangular )
+					{
+						return Restangular.all( '' ).customGET( 'user/transactionAccount/' + $_GET[ 'cbreceipt' ] );
+					}
+				}
+			} );
 
-            modalInstance.result.then(function(){
-                $state.go($state.current, $stateParams, {reload: true});
-            });
-        } else {
-            $http.defaults.headers.common['Authorization'] = "Basic " + $localStorage.user.access_token;
-            Restangular.all('').customGET('user/transactionAccess/' + $_GET['cbreceipt'] ).then(function(response){
-                location.href = location.href.substr(0, location.href.indexOf('?') );
-            });
-        }
-    }
+			modalInstance.result.then( function()
+			{
+				$state.go( $state.current, $stateParams, { reload: true } );
+			} );
+		}
+		else
+		{
+			$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
+			Restangular.all( '' ).customGET( 'user/transactionAccess/' + $_GET[ 'cbreceipt' ] ).then( function( response )
+			{
+				location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
+			} );
+		}
+	}
 
 	// if (! $localStorage.user && ipCookie('user')) {
 	//     $localStorage.user = ipCookie('user');
@@ -234,14 +245,14 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, 
 		{
 			e.preventDefault();
 //            $location.path('/sign/in/').search({message: 'a valid access token is required'});
-			window.location.href='http://' + location.hostname + "/sign/in/?message=a valid access token is required ";
+			window.location.href = 'http://' + location.hostname + "/sign/in/?message=a valid access token is required ";
 			//$state.go('sign.in',{message: 'a valid access token is required'});
 		}
 
 		if( isHome )
 		{
 			e.preventDefault();
-			window.location.href='http://' + location.hostname + "/sign/in/?message=a valid access token is required "
+			window.location.href = 'http://' + location.hostname + "/sign/in/?message=a valid access token is required "
 			//$state.go('sign.in');
 		}
 

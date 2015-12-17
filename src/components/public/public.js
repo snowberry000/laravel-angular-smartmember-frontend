@@ -23,17 +23,18 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'PublicController', function( $scope, $rootScope, smModal, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $site, $http, toastr, $window, Upload )
+app.controller( 'PublicController', function( $scope, $rootScope, smModal, $timeout, ModalService, $localStorage, $location, Restangular, $stateParams, $state, $site, $http, toastr, $window, Upload )
 {
-    if( location.href.indexOf( '?theme_options' ) > -1 )
-    {
-        $rootScope.app.show_engine = true;
-    }
+	if( location.href.indexOf( '?theme_options' ) > -1 )
+	{
+		$rootScope.app.show_engine = true;
+	}
 
-	$rootScope.loaded_modals = [];
-	$rootScope.primary_modal_template = '';
+	$scope.loaded_modals = [];
+	$scope.modals_configured = false;
+	$scope.primary_modal_template = 'templates/components/public/empty.html';
 
-    $rootScope.meta_data = {};
+	$rootScope.meta_data = {};
 
 	$rootScope.meta_data = {
 		site_background_color: '#FFFFFF',
@@ -63,6 +64,33 @@ app.controller( 'PublicController', function( $scope, $rootScope, smModal, $time
 		icon_size: 'fa-2x'
 	};
 
+	$scope.ShowModal = function( state )
+	{
+		var state_data = $state.get( state );
+		console.log( 'state_data', state_data );
+
+		// Just provide a template url, a controller and call 'showModal'.
+		ModalService.showModal( {
+			templateUrl: state_data.templateUrl,
+			//controller: state_data.controller
+			controller: function()
+			{
+				this.city = "New New York";
+			}
+		} ).then( function( modal )
+		{
+			// The modal object has the element built, if this is a bootstrap modal
+			// you can call 'modal' to show it, if it's a custom modal just show or hide
+			// it as you need to.
+			modal.element.modal( 'show' );
+			modal.close.then( function( result )
+			{
+				$scope.message = result ? "You said Yes" : "You said No";
+			} );
+		} );
+
+	};
+
 	$scope.menuItemLabel = function()
 	{
 		$( '.ui-iconpicker' ).toggleClass( 'open' );
@@ -73,12 +101,12 @@ app.controller( 'PublicController', function( $scope, $rootScope, smModal, $time
 	{
 		$timeout( function()
 		{
-            if( !the_modal )
-            {
-                the_modal = 'login';
-            }
+			if( !the_modal )
+			{
+				the_modal = 'login';
+			}
 
-            console.log( $state.current.name )
+			console.log( $state.current.name )
 
 			//smModal.hide( '.ui.modal.' + option);
 
@@ -95,15 +123,17 @@ app.controller( 'PublicController', function( $scope, $rootScope, smModal, $time
 
 	$scope.CloseModal = function( the_modal )
 	{
-        if( !the_modal )
-        {
-            smModal.hide( '.ui.modal' );
-        }
-        else
-            smModal.hide( '.ui.modal.' + the_modal + ':first' );
-    }
+		if( !the_modal )
+		{
+			smModal.hide( '.ui.modal' );
+		}
+		else
+		{
+			smModal.hide( '.ui.modal.' + the_modal + ':first' );
+		}
+	}
 
-    $scope.loginModal = function()
+	$scope.loginModal = function()
 	{
 		$rootScope.modal_popup_template = 'templates/components/public/sign/in/in.html';
 	}
@@ -167,12 +197,16 @@ app.controller( 'PublicController', function( $scope, $rootScope, smModal, $time
 			{
 				theme_option = _.findWhere( global_theme_options, { slug: value } );
 				if( theme_option )
+				{
 					$scope.current_theme_options.push( theme_option );
+				}
 			}
 			else if( typeof value == 'object' )
 			{
 				if( typeof value.slug != 'undefined' )
+				{
 					theme_option = _.findWhere( global_theme_options, { slug: value } );
+				}
 
 				theme_option = theme_option || {};
 
@@ -182,20 +216,22 @@ app.controller( 'PublicController', function( $scope, $rootScope, smModal, $time
 				} );
 
 				if( theme_option )
+				{
 					$scope.current_theme_options.push( theme_option );
+				}
 			}
 		} );
 		//Set Current Theme Settings
 		//if($rootScope.current_theme == "semanc"){
 
-        if( $state.includes( 'public.bridge-page' )  )
-        {
-            $scope.sidebar_template = "templates/components/public/bridge-page/options.html";
-        }
-        else
-        {
-            $scope.sidebar_template = "templates/components/public/common/theme-engine.html";
-        }
+		if( $state.includes( 'public.bridge-page' ) )
+		{
+			$scope.sidebar_template = "templates/components/public/bridge-page/options.html";
+		}
+		else
+		{
+			$scope.sidebar_template = "templates/components/public/common/theme-engine.html";
+		}
 		//}else{
 		//    $scope.sidbar_template = "templates/public/common/right_sidebar.html";
 		//}
@@ -272,7 +308,9 @@ app.controller( 'PublicController', function( $scope, $rootScope, smModal, $time
 					returnObject.file = data.file_name;
 
 					if( data.aws_key !== undefined )
+					{
 						returnObject.aws_key = data.aws_key;
+					}
 
 					$modalInstance.close( returnObject );
 				} ).error( function( data, status, headers, config )

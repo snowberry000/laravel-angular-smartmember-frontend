@@ -1,4 +1,4 @@
-app.directive( 'suiModalTrigger', [ '$rootScope', 'smModal', '$templateCache', function( $rootScope, smModal, $templateCache )
+app.directive( 'suiModalTrigger', [ 'smModal', '$templateCache', function()
 {
 	return {
 		restrict: 'A',
@@ -7,8 +7,7 @@ app.directive( 'suiModalTrigger', [ '$rootScope', 'smModal', '$templateCache', f
 			$( next_item ).click( function( e )
 			{
 				//smModal.ClearModals();
-				smModal.AddModal( attributes.template );
-				smModal.PopModals();
+				scope.ShowModal( attributes.template );
 
 				//smModal.show( attributes.state, {});
 

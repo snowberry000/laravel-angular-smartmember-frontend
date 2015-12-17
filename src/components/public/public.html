@@ -1,6 +1,13 @@
 <div class="ui menu" ng-show="isLoggedIn()" ng-include="'templates/components/public/admin-bar/admin-bar.html'">
 </div>
 
+<pre>1 {{loaded_modals}}</pre>
+<pre>2 {{primary_modal_template}}</pre>
+<pre>3 {{$root.loaded_modals}}</pre>
+
+<div ng-hide="1" ng-repeat="next_item in loaded_modals" ng-include="next_item"></div>
+<div class="ui modal primary" ng-include="primary_modal_template"></div>
+
 
 <div ui-view ng-class="(isLoggedIn() ? 'logged_in' : '') + (meta_data.page_background_style == 'boxed' ? ' ui container' : '') + ' sticky-full-height'"></div>
 
@@ -8,8 +15,3 @@
 <div ng-include="sidebar_template" class="admin"></div>
 <div ng-if="modal_popup_template" ng-include="modal_popup_template" class="admin"></div>
 
-<pre>{{loaded_modals}}</pre>
-<pre>{{$root}}</pre>
-<pre>{{$root.loaded_modals}}</pre>
-<div ng-repeat="next_item in $root.loaded_modals" ng-include="next_item"></div>
-<div ng-hide="1" class="ui modal primary" ng-include="$root.primary_modal_template"></div>
