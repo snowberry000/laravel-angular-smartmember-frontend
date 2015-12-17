@@ -3,7 +3,7 @@ var app = angular.module("app");
 app.config(function($stateProvider){
 	$stateProvider
 		.state("admin.site.pages.custom-page",{
-			url: "/custom-page",
+			url: "/custom-page/:id?",
 			templateUrl: "/templates/components/admin/site/pages/custom-page/custom-page.html",
 			controller: "CustomPageController",
 			resolve: {
