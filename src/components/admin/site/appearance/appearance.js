@@ -9,7 +9,15 @@ app.config(function($stateProvider){
 			 resolve: {
                 $site: function(Restangular, $rootScope){
                 	return $rootScope.site;
-                }
+                },
+                loadPlugin: function ($ocLazyLoad) {
+					return $ocLazyLoad.load([
+						{
+							name: 'ui-iconpicker',
+							files: ['bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js']
+						}
+					]);
+				}
             }
 		})
 }); 

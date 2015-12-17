@@ -15,21 +15,22 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SalesPageController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr) {
-	$scope.site_options = {};
-	 $.each($site_options, function (key, data) {
-	    $scope.site_options[data.key] = data.value;
-	});
-	 //$scope.site_options.isOpen = false;
-	 $rootScope.not_homepage_setting = false;
+app.controller("SalesPageController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr, $state) {
+	$scope.sales_options = {};
 
-	 $scope.save = function () {
-	     delete $scope.site_options.url;
-	     delete $scope.site_options.open;
-	     Restangular.all('siteMetaData').customPOST($scope.site_options, "save").then(function () {
-	         toastr.success("Options are saved!");
-	         $scope.site_options.isOpen = false;
-	         $localStorage.homepage_url = $scope.site_options.homepage_url;
-	     });
-	 }
+	$.each($site_options, function (key, data) {
+		if (data.key == 'sales_page_enabled'){
+			$scope.sales_options[data.key] = parseInt(data.value);
+		}else{
+			$scope.sales_options[data.key] = data.value;
+		}
+
+	});
+
+	$scope.saveSalesPage = function () {
+		Restangular.all("siteMetaData").customPOST($scope.sales_options, "save").then(function () {
+			toastr.success("Sales page saved!");
+			$state.go('admin.site.pages.core.list');
+		});
+	};
 });

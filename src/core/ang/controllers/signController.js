@@ -89,6 +89,7 @@ app.controller( 'signController', function( $rootScope, $scope, smModal, $timeou
 
         Restangular.all( 'auth' ).customPOST( user, "login" ).then( function( response )
         {
+
             $scope.postAuth( response );
             if( $location.search().message )
             {
@@ -127,6 +128,7 @@ app.controller( 'signController', function( $rootScope, $scope, smModal, $timeou
                 {
                     if( $state.current.name == 'public.sign.in' || $state.current.name == 'public.sign.in2' ) {
                         $state.go( 'public.app.home', {}, {reload: true} );
+                        $scope.CloseModal('login');
                     }
                     else {
                         $rootScope.modal_popup_template = false;

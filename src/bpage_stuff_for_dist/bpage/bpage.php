@@ -3,6 +3,7 @@
 function fetchBpageData($subdomain, $tld, $permalink)
 {
     try {
+
         $url = 'http://api.smartmember.' . $tld . '/bridgePageByPermalink/' . $permalink;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

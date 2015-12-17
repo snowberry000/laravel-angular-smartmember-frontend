@@ -64,11 +64,11 @@
                         }
                     </style>
                    <div ng-repeat="ad in ads" style="margin-top: 50px; display: block; orphans: 4321; border:2px;" >
-                   		<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-show="ad.custom_ad" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
+                   		<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-if="ad.custom_ad" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
 	                   		<div ng-if="ad.custom_ad" class="col-md-12" dynamic="ad.custom_ad">
 	                   		</div>
 	                   	</a>
-                       	<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-show="ad.banner_image_url" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
+                       	<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-if="ad.banner_image_url" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
                             <img ng-if="ad.banner_image_url" class="featured_image_preview img-responsive img-thumbnail" ng-src="{{ad.banner_image_url}}" style="width:auto;margin:0px auto;display: block;" />
                         </a>
                     </div>

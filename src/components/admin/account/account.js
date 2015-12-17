@@ -149,7 +149,7 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 		Restangular.all('linkedAccount').customPOST({id : account.id} , 'claim').then(function(response){
 			if (response && response.success)
 			{
-				toastr.error('Verification email sent ');
+				toastr.success('Verification email sent ');
                 account.claimed = true;
 			}
 			else 

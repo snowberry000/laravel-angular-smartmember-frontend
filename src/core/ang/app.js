@@ -25,8 +25,10 @@ var app = angular.module( 'app', [
 	'toastr',
 	'timer',
 	'localytics.directives',
-	'ui-iconpicker'
+	'ngBusy'
 ]);
+
+
 
 app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {

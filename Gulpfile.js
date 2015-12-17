@@ -13,6 +13,7 @@ var less = require( 'gulp-less' );
 var path = require( 'path' );
 var exists = require( 'path-exists' ).sync;
 var runSequence = require( 'run-sequence' );
+var exec = require('child_process').exec;
 
 var config = {
 	accessKeyId: "AKIAIYX347IAPYSI6HGQ",
@@ -29,6 +30,8 @@ var paths = {
 	fonts: 'src/core/fonts/**/*',
 	images: 'src/core/images/**/*'
 };
+
+
 
 gulp.task( 'bower', function()
 {
@@ -152,12 +155,21 @@ gulp.task( 'bpage', function()
 
 } );
 
+gulp.task('crawler', function() {
+	gulp.src('src/crawler.php')
+		.pipe(gulp.dest('dist/'));
+})
+
 gulp.task( 'replace_vendor', function()
 {
 	return gulp.src( paths.dist + '/index.php' )
 		.pipe( replace( '<script src="js/vendor.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/vendor.min.js"></script>' ) )
 		.pipe( replace( '<script src="js/main.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/main.min.js"></script>' ) )
 		.pipe( replace( '<link rel="stylesheet" href="css/vendor.min.css">', '<link rel="stylesheet" href="https://smpub.s3.amazonaws.com/cdn/vendor.min.css">' ) )
+		.pipe( replace( '<script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>', '<script src="http://my.smartmember.com/bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>' ) )
+		.pipe( replace( '<script src="bower/slimScroll/jquery.slimscroll.min.js"></script>', '<script src="http://my.smartmember.com/bower/slimScroll/jquery.slimscroll.min.js"></script>' ) )
+		.pipe( replace( '<link rel="stylesheet" href="bower/footable/css/footable.core.css">', '<link rel="stylesheet" href="http://my.smartmember.com/bower/footable/css/footable.core.css">' ) )
+		.pipe( replace( '<link rel="stylesheet" href="css/main.min.css">', '<link rel="stylesheet" href="http://my.smartmember.com/css/main.min.css">' ) )
 		.pipe( gulp.dest( paths.dist + '/' ) );
 } );
 
@@ -186,14 +198,17 @@ gulp.task( 'images', function()
 } );
 
 
-gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage' ] );
-gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'watch' ] );
+gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'crawler' ] );
+gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage','crawler' , 'watch'] );
 
-gulp.task( 'production', [ 'compile' ], function()
+gulp.task( 'production', [ 'compile'], function()
 {
-	runSequence( 'replace_vendor','upload', function()
+	runSequence( 'replace_vendor', function()
 	{
-
+		exec('gulp upload', function (err, stdout, stderr) {
+		    console.log(stdout);
+		    console.log(stderr);
+		});
 	} );
 } );
 
