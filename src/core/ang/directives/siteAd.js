@@ -3,7 +3,14 @@ app.directive('siteAd', ['$timeout', '$parse', function ($timeout, $parse) {
     restrict: 'A',
     link: function (scope, elem, attrs) {
          $timeout(function () { // You might need this timeout to be sure its run after DOM render.
-          	scope.bannerView(attrs.id);
+          	if(attrs.id != 'none')
+            {
+              scope.bannerView(attrs.id);
+            }
+            else
+            {
+              console.log('info called');
+            }
           	console.log('attrs: ');
           	console.log(attrs.id);
          }, 1, false);
