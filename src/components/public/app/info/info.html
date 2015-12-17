@@ -11,7 +11,7 @@
             <div dynamic="options.sales_page_content"></div>
         </div>
     </div>
-    <div ng-if="options.show_syllabus != '0' && options.show_syllabus != 0">
+    <div ng-if="options.show_syllabus != '0' && options.show_syllabus != 0 && options.show_syllabus != null">
         <div ng-include="'templates/components/public/app/common/syllabus.html'"></div>
     </div>
     <div class="row" ng-if="(salesPage=='preview' || !isLoggedIn()) && options.sales_page_outro" style="
@@ -21,7 +21,8 @@
         </div>
     </div>
 
-</div>
+
+<!-- </div>
 
 <div class="four wide column" >
     <div class="ui segment basic">
@@ -72,5 +73,5 @@
         <a site-ad data-id="{{ isLoggedIn()&&salesPage!='preview' ? 'none' : ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-if="ad.banner_image_url" class="ui fluid image" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
             <img ng-if="ad.banner_image_url" ng-src="{{ad.banner_image_url}}">
         </a>
-    </div>
+    </div> -->
 </div>

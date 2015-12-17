@@ -101,7 +101,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 		{
 			try
 			{
-				$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/checkHomepageBP';
+				$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/checkHomepageBP/' . $domain;
 				$curl = curl_init( $url );
 				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'subdomain:'.$subdomain, 'origin:http://'.$domain, 'referer:http://'.$domain, 'content-type:application/json' ) );
@@ -117,7 +117,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 
 			if( isset($data->type) && $data->type == 'bridge_bpages' )
 			{
-				return array( 'permalink' => $data->homepage_url, 'subdomain' => $subdomain );
+				return array( 'permalink' => $data->homepage_url, 'subdomain' => $data->subdomain );
 			} else {
 				return false;
 			}
@@ -189,7 +189,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 	<link rel="stylesheet" href="css/vendor.min.css">
 	<link rel="stylesheet" href="bower/footable/css/footable.core.css">
 	<link rel="stylesheet" href="css/main.min.css">
-
+	<link rel="shortcut icon" href="{{options.favicon}}" type="image/x-icon">
 </head>
 <body resize style="height: auto;" class="md-skin fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
 

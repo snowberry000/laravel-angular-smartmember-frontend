@@ -285,7 +285,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     $scope.editSegment = function(segment){
         var modalInstance = $modal.open({
             size: 'lg',
-            templateUrl: 'templates/admin/team/email/segmentIntro.html',
+            templateUrl: '/templates/components/admin/team/email/create/segmentIntro.html',
             controller: "segmentIntroController",
             scope: $scope,
             resolve: {
@@ -515,5 +515,23 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
         Restangular.one('emailSetting').post("settings", $scope.emailSettings).then(function (emailSettings) {
             toastr.success("Your email settings have been saved");
         } );
+    }
+});
+
+app.controller('segmentIntroController', function ($scope, $state, $modal, $uibModalInstance, Restangular, segment) {
+    $scope.segment = segment;
+
+    $scope.original_segment = angular.copy( $scope.segment );
+
+    $scope.cancel = function(){
+        angular.forEach( $scope.original_segment, function( value, key ){
+            $scope.segment[key] = value;
+        });
+
+        $uibModalInstance.close();
+    }
+
+    $scope.save = function(){
+        $uibModalInstance.close();
     }
 });
