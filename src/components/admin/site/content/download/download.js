@@ -13,8 +13,9 @@ app.config(function($stateProvider){
                     else if($location.search().clone){
                         return Restangular.one('download', $location.search().clone).get();
                     }
-                    else
-                        return {site_id : $site.id , access_level_type : 4, access_level_id : 0}
+                    else {
+                        return {site_id: $site.id, access_level_type: 4, access_level_id: 0};
+                    }
                 }
             }
 		})
@@ -23,6 +24,7 @@ app.config(function($stateProvider){
 app.controller("DownloadController", function ($scope,Upload,$rootScope, $localStorage,$download, $user , $timeout , $location, $site, $state, $stateParams, $modal, Restangular, toastr, $filter) {
 	var draft;
     var changed;
+    console.log( 'we made it this far' );
     $scope.site = $site = $rootScope.site;
 
     if(!$download.id){
