@@ -27,6 +27,10 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("BridgePageController", function ($scope, $localStorage, $site , $page ,$templates, $state, $stateParams, $modal, $filter, Restangular, toastr, Upload, $rootScope, $window, $emailLists, $sce) {
+    if(!$page.id)
+    {
+        $page.site_id=$rootScope.site.id;
+    }
 	$scope.bridgepage = $page;
     $scope.templates = $templates;
     $scope.visible = false;

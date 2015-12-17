@@ -14,7 +14,7 @@ app.config(function($stateProvider){
                     else if($location.search().clone){
                         return Restangular.one('livecast', $location.search().clone).get();
                     }
-                    return {site_id: $site.id , access_level_type : 4, access_level_id: 0};
+                    return {access_level_type : 4, access_level_id: 0};
                 }
             }
 		})

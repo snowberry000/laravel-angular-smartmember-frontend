@@ -14,7 +14,7 @@ app.config(function($stateProvider){
                         return Restangular.one('lesson', $location.search().clone).get();
                     }
                     else
-                        return {site_id : $site.id , access_level_type : 4, access_level_id : 0}
+                        return {access_level_type : 4, access_level_id : 0}
                 },
                 $modules: function(Restangular) {
                     return Restangular.all('module').customGET('');

@@ -193,7 +193,7 @@ app.controller("MenusController", function ($rootScope,$scope, $filter, $documen
 	            entity.url = entity.permalink;
 	        })
 	        $scope.show_next = true;
-	        $scope.loaded_items = response;
+	        $scope.loaded_items = response.items;
 	          
 	    })
 	  }
@@ -244,7 +244,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope, $rootScope, $modal
         }
         else if(selected_url == 'download'){
             Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-                var downloads = response.items;
+                var downloads = response;
                 downloads.forEach(function(entity){
                     entity.url = entity.permalink;
                 })
