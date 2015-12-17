@@ -23,16 +23,12 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'PublicController', function( $scope, $rootScope, smModal, $timeout, ModalService, $localStorage, $location, Restangular, $stateParams, $state, $site, $http, toastr, $window, Upload )
+app.controller( 'PublicController', function( $scope, $rootScope, $timeout, ModalService, $localStorage, $location, Restangular, $stateParams, $state, $site, $http, toastr, $window, Upload )
 {
 	if( location.href.indexOf( '?theme_options' ) > -1 )
 	{
 		$rootScope.app.show_engine = true;
 	}
-
-	$scope.loaded_modals = [];
-	$scope.modals_configured = false;
-	$scope.primary_modal_template = 'templates/components/public/empty.html';
 
 	$rootScope.meta_data = {};
 
@@ -94,53 +90,6 @@ app.controller( 'PublicController', function( $scope, $rootScope, smModal, $time
 	$scope.menuItemLabel = function()
 	{
 		$( '.ui-iconpicker' ).toggleClass( 'open' );
-	}
-
-
-	$scope.PopModal = function( the_modal )
-	{
-		$timeout( function()
-		{
-			if( !the_modal )
-			{
-				the_modal = 'login';
-			}
-
-			console.log( $state.current.name )
-
-			//smModal.hide( '.ui.modal.' + option);
-
-			smModal.toggle( '.ui.modal.' + the_modal + ':first', {
-				closable: $state.includes( 'public.sign' ) ? false : true,
-				allowMultiple: false,
-				blurring: false,
-				dimmerSettings: {
-					opacity: 0.3
-				}
-			} );
-		}, $state.includes( 'public.sign' ) ? 1000 : 100 );
-	};
-
-	$scope.CloseModal = function( the_modal )
-	{
-		if( !the_modal )
-		{
-			smModal.hide( '.ui.modal' );
-		}
-		else
-		{
-			smModal.hide( '.ui.modal.' + the_modal + ':first' );
-		}
-	}
-
-	$scope.loginModal = function()
-	{
-		$rootScope.modal_popup_template = 'templates/components/public/sign/in/in.html';
-	}
-
-	$scope.registerModal = function()
-	{
-		$rootScope.modal_popup_template = 'templates/components/public/sign/up/up.html';
 	}
 
 	var getUrlVars = function()
