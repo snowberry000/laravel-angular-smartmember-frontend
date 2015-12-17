@@ -32,14 +32,14 @@ app.controller('RefundPageController', function ($scope, $localStorage, $site, $
         if (ref.id) {
             Restangular.all('specialPage').customPUT(ref , ref.id)
             toastr.success("Refund Page has been saved");
-            $state.go('admin.site.pages.core.list');
+            $state.go('public.admin.site.pages.core.list');
         }
         else {
             Restangular.all('specialPage').post(ref).then(function (refund) {
                 refund.isOpen = false;
                 $scope.refund = refund;
                 toastr.success("Refund Page has been saved!");
-                $state.go('admin.site.pages.core.list');
+                $state.go('public.admin.site.pages.core.list');
             });
         }
     }

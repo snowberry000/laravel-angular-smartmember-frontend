@@ -17,7 +17,7 @@ app.config(function($stateProvider){
 
 app.controller("WallboardController", function ($scope,$site, Restangular) {
 	if(!$site.is_admin){
-	    $state.go('admin.account.memberships');
+	    $state.go('public.admin.account.memberships');
 	    return;
 	}
 

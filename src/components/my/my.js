@@ -119,7 +119,7 @@ app.controller("MyController", function ($scope, toast,$window, $company ,$rootS
 	    if($state.current.name.split('.')[1]=='smartmail'){
 	        console.log(access)
 	        if(!access ){
-	            $state.go('admin.team.sites');
+	            $state.go('public.admin.team.sites');
 	        }
 	    }
 
@@ -134,7 +134,7 @@ app.controller("MyController", function ($scope, toast,$window, $company ,$rootS
 	                {
 	                    toastr.success('Accounts linked');
 	                }
-	                $state.go("admin.account.settings", {}, {reload: true});
+	                $state.go("public.admin.account.settings", {}, {reload: true});
 	            })
 
 	            $localStorage.verification_hash = undefined;
@@ -157,7 +157,7 @@ app.controller("MyController", function ($scope, toast,$window, $company ,$rootS
 
 	    if($state.current.name.split('.')[1]=='team-wizard' || $state.current.name.split('.')[1]=='site-wizard'){       
 	          if($scope.team_role_name !='Primary Owner' ){     
-	              $state.go('admin.team.sites');
+	              $state.go('public.admin.team.sites');
 	              return;       
 	          }     
 	      }     
@@ -165,13 +165,13 @@ app.controller("MyController", function ($scope, toast,$window, $company ,$rootS
 	      if($state.current.name.split('.')[1]=='smartmail' || $state.current.name.split('.')[1]=='integrations' || $state.current.name.split('.')[1]=='affiliates' || $state.current.name.split('.')[1]=='team-management' || $state.current.name.split('.')[1]=='team-settings'){     
 	          console.log(access)       
 	          if(!access ){     
-	              $state.go('admin.team.sites');
+	              $state.go('public.admin.team.sites');
 	              return;       
 	          }     
 	      }     
 	      if($rootScope.current_company && !$rootScope.current_company.is_completed && $rootScope.is_team_member && $scope.team_role_name =='Primary Owner'){       
 	          $rootScope.is_not_allowed = true;     
-	          $state.go('admin.team.dashboard');
+	          $state.go('public.admin.team.dashboard');
 	          return false;     
 	      }
 

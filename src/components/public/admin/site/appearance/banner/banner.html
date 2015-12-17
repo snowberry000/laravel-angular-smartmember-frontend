@@ -1,0 +1,99 @@
+<section>
+    <div class="ui modal">
+        <div class="ibox-content m-b-sm border-bottom" style="margin-top:30px;">
+            <div class="p-xs">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="pull-left m-r-md">
+                            <i class="fa fa-globe text-branded mid-icon"></i>
+                        </div>
+                        <h2 class="ui header">Banners</h2>
+                        <p class="font-bold text-success">Create banners to display in the sidebar!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="hpanel">
+                            <div class="list-group" style="margin:0px;">
+                                <!-- <span class="list-group-item active" style="border-radius: 0px;  background-color: #34495e;border-color: #34495e;color: #ffffff" ng-show="ad.banner_image_url">
+                                    <img class="featured_image_preview img-responsive img-thumbnail" ng-src="{{ad.banner_image_url}}" style="width:auto;" />
+                                </span> -->
+                                <span ng-if="ad.banner_image_url&&!ad.custom_ad" class="list-group-item active" style="border-radius: 0px;  background-color: #34495e;border-color: #34495e;color: #ffffff" ng-show="ad.banner_image_url">
+                                    <img class="featured_image_preview img-responsive img-thumbnail" ng-src="{{ad.banner_image_url}}" style="width:auto;" />
+                                </span>
+                                <style>
+                                    img{
+                                        max-width :100%;
+                                    }
+                                </style>
+
+                                <div class="col-md-12" ng-if="ad.banner_image_url"><i class="ace-icon fa fa-remove" ng-click="ad.banner_image_url=''">Remove</i></div>
+                            </div>
+
+                            <div class="panel-body">
+                                <div>
+                                    <div class="field">
+                                        <label class="col-sm-2 control-label">Destination Url</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="course_banner_url" class="form-control" ng-model="ad.banner_url">
+                                            <span class="help-block m-b-none">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="field" ng-if="!obj.showCustomAd">
+                                        <label class="col-sm-2 control-label" >Image</label>
+                                        <div class="col-sm-10">
+                                            <div style="min-height: 30px;margin-bottom: 15px;">
+                                                <button ng-if="!obj.showCustomAd"  type="button" class="btn btn-danger" sm-uploader="site_logo" ng-model="ad.banner_image_url" ng-click="ad.custom_ad=''">Choose Image</button>
+                                            </div>
+                                            <div class="width-100 text-center">
+                                                <img class="course_banner_image_preview img-responsive img-thumbnail" src="" style="display:none;width:auto;">
+                                            </div>
+                                            <div class="col-md-12" style='padding-left: 0px; margin-top: -10px'>
+                                                <div style="padding-left:0px;padding-right:0px;padding-top:9px;">
+                                                    <label style="width:100%; font-weight: normal">
+                                                        <input type="checkbox" class="" ng-true-value=1 ng-true-value=0 name="course_banner_open_in_new_tab" ng-model="ad.open_in_new_tab" ng-checked="ad.open_in_new_tab" style="float:left; margin-right: 10px;">
+                                                        Open link in new tab
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                            <input type="hidden" name="course_banner_image" class="form-control input-lg" value="">
+                                            <span class="help-block m-b-none">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="field col-md-offset-2" style="margin-top:10px;" ng-if="!obj.showCustomAd">
+                                    <div class="col-sm-8">
+                                        <button class="btn btn-brand save_changes" type="button" ng-click="save()">Save changes</button>
+                                        <a class="btn btn-default" ui-sref="public.admin.site.appearance.banners">Cancel</a>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-brand save_changes" type="button" ng-click="save()">Save changes</button> <!-- ngIf: !template_data.use_cancel_method -->
+                                <a class="btn btn-default" ui-sref="public.admin.site.appearance.banners">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

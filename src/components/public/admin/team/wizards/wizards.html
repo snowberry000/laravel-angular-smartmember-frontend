@@ -1,0 +1,28 @@
+
+
+<div class="ui modal">
+	<div class="row animated fadeInRight">
+
+		<div class="ibox-content page-heading clear_box">
+			<div class="p-xs">
+				<div class="row">
+					<div class="col-md-9">
+						<div class="pull-left m-r-md">
+							<i class="fa fa-magic text-branded mid-icon"></i>
+						</div>
+						<h2 class="ui header">{{ 'TEAM_SETUP_WIZARD' | translate }}</h2>
+						<span>Complete the steps below to setup your team.</span>
+					</div>
+					<div class="col-md-3 text-right">
+						<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+							<i class="fa fa-question"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div ng-include="'templates/components/public/admin/common/wizards.html'"></div>
+
+	</div>
+</div>

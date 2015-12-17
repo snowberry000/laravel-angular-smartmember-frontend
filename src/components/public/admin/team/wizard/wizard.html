@@ -1,0 +1,40 @@
+<div class="ui modal">
+
+	<div class="row">
+		<div class="col-lg-12">
+
+			<div class="ibox-content clear_box page-heading">
+				<div class="jumbotron">
+					<h1 class="ui header">Welcome to Smart Member!</h1>
+					<p>You've successfully registered an account, and we've created your first team - named {{ current_company.name }}.
+						Continue using the wizard below to update your info, and to create your first site!
+					</p>
+				</div>
+
+				<div class="p-xs">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="pull-left m-r-md">
+								<i class="fa fa-magic text-branded mid-icon"></i>
+							</div>
+							<h2 class="ui header">{{ static_wizard.name }}</h2>
+							<span>Follow the steps below to <strong>{{static_wizard.name}}</strong>.</span>
+						</div>
+						<div class="col-md-3 text-right">
+							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+								<i class="fa fa-question"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div ng-include="'templates/components/public/admin/common/wizard.html'"></div>
+		</div>
+	</div>
+</div>
+

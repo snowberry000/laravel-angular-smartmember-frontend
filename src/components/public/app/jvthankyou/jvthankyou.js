@@ -43,13 +43,13 @@ app.controller('JvthankyouController', function ($scope, Restangular, $localStor
         if ($scope.jv.id) {
             $scope.jv.put();
             toastr.success("JV Page has been saved!");
-            $state.go('admin.site.pages.core.list');
+            $state.go('public.admin.site.pages.core.list');
         }
         else {
             Restangular.all('affiliateJVPage').post($scope.jv).then(function (jv) {
                 $scope.jv = jv;
                 toastr.success("JV Page has been saved!");
-                $state.go('admin.site.pages.core.list');
+                $state.go('public.admin.site.pages.core.list');
             });
         }
     }

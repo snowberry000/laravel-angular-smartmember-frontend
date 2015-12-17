@@ -43,13 +43,13 @@ app.controller('FreeBonusController', function ($scope, $localStorage,$site, $st
             console.log(bonus)
             Restangular.all('specialPage').customPUT(bonus , bonus.id);
             toastr.success("Free Bonus Page has been saved");
-            $state.go('admin.site.pages.core.list');
+            $state.go('public.admin.site.pages.core.list');
         }
         else {
             Restangular.all('specialPage').post(bonus).then(function (bonus) {
                 $scope.bonus = bonus;
                 toastr.success("Free Bonus Page has been saved");
-                $state.go('admin.site.pages.core.list');
+                $state.go('public.admin.site.pages.core.list');
             });
         }
     }

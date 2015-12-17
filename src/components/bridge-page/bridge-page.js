@@ -244,7 +244,7 @@ app.controller("BridgePageController", function ($scope, $localStorage, $site , 
         $scope.bridgepage.site_id = $site.id;
         if ($scope.bridgepage.id) {
             $scope.bridgepage.put();
-            $state.go("admin.site.pages.bridge-pages");
+            $state.go("public.admin.site.pages.bridge-pages");
             toastr.success("Bridge page has been updated!");
         }
         else {
@@ -252,10 +252,10 @@ app.controller("BridgePageController", function ($scope, $localStorage, $site , 
                 $scope.bridgepage = page;
 
                 if( typeof cloned == 'undefined' || cloned != true) {
-                    $state.go("admin.site.pages.bridge-pages");
+                    $state.go("public.admin.site.pages.bridge-pages");
                     toastr.success("Bridge page has been saved!");
                 } else {
-                    $state.go("admin.site.pages.bridge-page",{id: page.id});
+                    $state.go("public.admin.site.pages.bridge-page",{id: page.id});
                     window.scrollTo(0,0);
                     toastr.success("Bridge page has been cloned!");
                 }

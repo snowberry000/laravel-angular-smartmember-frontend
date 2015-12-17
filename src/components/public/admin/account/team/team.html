@@ -1,0 +1,114 @@
+<div class="ui modal">
+	<div class="col-lg-10">
+		<h2 class="ui header">{{ team.id ? 'UPDATE_TEAM' : 'CREATE_TEAM' | translate }}</h2>
+		<ol class="breadcrumb">
+			<li>
+				<a ng-href="/">{{ 'HOME' | translate }}</a>
+			</li>
+			<li class="active">
+				<strong>{{ team.id ? 'UPDATE_TEAM' : 'CREATE_TEAM' | translate }}</strong>
+			</li>
+		</ol>
+	</div>
+	<div class="col-lg-2">
+
+	</div>
+	<div class="ui modal">
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5 class="ui header">{{!team.id ? 'Create a new team' : 'Update team details'}} <small ng-hide="team.id"></small>
+						</h5>
+						<div ibox-tools></div>
+					</div>
+					<div class="ibox-content">
+
+						<form ng-submit="save()" class="ui form">
+
+							<div class="field">
+								<label class="col-sm-2 control-label">Name</label>
+
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="name" ng-model="site.name" placeholder="My Awesome Site" required>
+								<span class="help-block m-b-none">
+									This is the primary name for your site; it will show up for your public site visitors,
+									members, customers, and be the default title of your site in search engines.
+								</span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+
+							<div class="field">
+								<label class="col-sm-2 control-label">Site URL / Subdomain</label>
+
+								<div class="col-sm-10">
+									<div class="input-group m-b">
+										<span class="input-group-addon">http://</span>
+										<input type="text" class="form-control" name="url_slug" ng-model="site.subdomain" placeholder="" required>
+										<span class="input-group-addon">.smartmember.com</span>
+									</div>
+								<span class="help-block m-b-none">
+									This is the url where visitors can find your site. You can always access it from
+									<strong>{{site.subdomain ? site.subdomain : 'yoursite'}}.smartmember.com</strong> but can also
+									map it to a brand new domain like www.widgets.com using the domain mapping options below.
+								</span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+
+							<div class="field">
+								<label class="col-sm-2 control-label">Domain Mapping <small>(optional)</small></label>
+
+								<div class="col-sm-10">
+									<div class="input-group m-b">
+										<span class="input-group-addon">http://</span>
+										<input type="text" class="form-control" name="" ng-model="site.domain" placeholder="www.widgets.com">
+									</div>
+								<span class="help-block m-b-none">
+									For advanced users, if you'd like to map this site to it's own unique domain name instead of the
+									subdomain version provided above, enter it's domain here and read
+									<a href="http://help.smartmember.com/lesson/domain-mapping" target="_blank">these instructions</a>
+									to finish configuring it.
+								</span>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+
+							<div class="field" ng-if="!site.id && clone_sites.length > 1">
+								<label class="col-sm-2 control-label">Kick-start Templates <small>(optional)</small></label>
+
+								<div class="col-sm-8">
+									<select class="form-control m-b" ng-model="site.clone_id" data-ng-options = "clone_site.id as clone_site.name for clone_site in clone_sites" ng-change="changeSite(site.clone_id)"></select>
+								<span class="help-block m-b-none">
+									We've setup a bunch of done-for-you sites full of content, banners, downloadables,
+									blog posts, support articles, branding - the whole package. Optionally select
+									one to preview / use it; your site will start as a 100% clone of it to help get you
+									started quicker.
+								</span>
+								</div>
+								<div class="col-sm-2">
+									<a ng-if="!current_clone_site.domain && site.clone_id!=0" href="http://{{current_clone_site.subdomain}}.{{app.domain}}" target="_blank" class="btn">Preview</a>
+									<a ng-if="current_clone_site.domain && site.clone_id!=0" href="http://{{current_clone_site.domain}}" target="_blank" class="btn">Preview</a>
+								</div>
+							</div>
+							<div class="hr-line-dashed" ng-if="!site.id && clone_sites.length > 1"></div>
+
+							<div class="field">
+								<div class="col-sm-4 col-sm-offset-2">
+									<button class="btn btn-brand" type="submit" ng-disabled="saving">
+										{{saving ? ( !site.id ? 'Creating site...please wait' : 'Saving site...' ) : 'Save changes'}}
+									</button>
+									<a ui-sref="public.admin.account.memberships" class="btn btn-white">Cancel</a>
+								</div>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

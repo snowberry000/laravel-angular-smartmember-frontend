@@ -63,15 +63,13 @@ app.controller( 'PublicController', function( $scope, $rootScope, $timeout, Moda
 	$scope.ShowModal = function( state )
 	{
 		var state_data = $state.get( state );
-		console.log( 'state_data', state_data );
+		console.log( 'state_data', state, state_data );
 
 		// Just provide a template url, a controller and call 'showModal'.
 		ModalService.showModal( {
 			templateUrl: state_data.templateUrl,
-			//controller: state_data.controller
-			controller: function()
+			controller: state_data.controller ? state_data.controller : function()
 			{
-				this.city = "New New York";
 			}
 		} ).then( function( modal )
 		{

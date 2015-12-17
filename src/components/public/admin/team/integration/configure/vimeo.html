@@ -1,0 +1,39 @@
+<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+    <div class="sk-bounce1"></div>
+    <div class="sk-bounce2"></div>
+    <div class="sk-bounce3"></div>
+</div>
+<div ng-if="!loading">
+	<div class="field" ng-if="account_choices.length > 0">
+		<label class="col-sm-2 control-label">Choose Vimeo Account</label>
+
+		<div class="col-sm-10">
+			<div class="col-lg-8 m-l-n">
+				<select class="form-control m-b" placeholder="Choose an account..." ng-model="current_integration.connected_account_id">
+					<optgroup label="Accounts">
+						<option ng-repeat="account in account_choices" ng-selected="current_integration.connected_account_id == account.id" value="{{account.id}}">{{account.name ? account.name : (account.username ? account.username : account.remote_id)}}</option>
+					</optgroup>
+				</select>
+			</div>
+			<div class="col-lg-4 m-l-n">
+				or <button class="btn btn-primary" ng-click="connectVimeoAccount()">connect new account</button>
+			</div>
+		</div>
+	</div>
+	<div class="hr-line-dashed"></div>
+
+	<div class="field" ng-hide="account_choices.length > 0">
+		<button class="same_window btn btn-lg btn-brand" ng-click="connectVimeoAccount()" >
+			Connect a Vimeo Account
+		</button>
+	</div>
+
+	<div class="field">
+		<div class="col-sm-4 col-sm-offset-2">
+			<button class="btn btn-brand" ng-click="saveIntegration()" ng-disabled="!current_integration.connected_account_id || current_integration.connected_account_id == 0">
+				{{current_integration.id ? 'Save changes' : 'Add Integration'}}
+			</button>
+			<a ui-sref="public.admin.team.integrations.available" class="btn btn-white">Cancel</a>
+		</div>
+	</div>
+</div>

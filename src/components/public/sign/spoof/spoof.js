@@ -44,7 +44,7 @@ app.controller( 'SpoofController', function( $rootScope, $scope, toastr, ipCooki
             {
                 $localStorage.cbreceipt = false;
             }
-            $state.go( 'admin.account.memberships' );
+            $state.go( 'public.admin.account.memberships' );
         }
     }
 } )
