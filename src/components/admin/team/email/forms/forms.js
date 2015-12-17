@@ -110,7 +110,7 @@ app.controller("EmailFormsController", function ($scope, $rootScope, $modal,$loc
         }
         else if(selected_url == 'download'){
             Restangular.all('').customGET('download',{site_id: $site.id}).then(function(response){
-                var downloads = response.downloads;
+                var downloads = response;
                 downloads.forEach(function(entity){
                     entity.redirect_url = entity.permalink;
                 })
@@ -130,7 +130,7 @@ app.controller("EmailFormsController", function ($scope, $rootScope, $modal,$loc
                     entity.redirect_url = entity.permalink;
                 })
                 $scope.show_next = true;
-                $scope.loaded_items = response;
+                $scope.loaded_items = response.items;
 
             })
         }

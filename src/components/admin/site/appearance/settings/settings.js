@@ -54,7 +54,7 @@ app.controller("SettingsController", function ($scope, $rootScope, $localStorage
 	   else if(selected_url == 'download'){
 	     console.log(item.site_id)
 	     Restangular.all('').customGET('download',{site_id: $site.id}).then(function(response){
-	         var downloads = response.downloads;
+	         var downloads = response;
 	         downloads.forEach(function(entity){
 	             entity.url = entity.permalink;
 	         })
@@ -74,7 +74,7 @@ app.controller("SettingsController", function ($scope, $rootScope, $localStorage
 	             entity.url = entity.permalink;
 	         })
 	         $scope.show_next = true;
-	         $scope.loaded_items = response;
+	         $scope.loaded_items = response.items;
 	           
 	     })
 	   }
