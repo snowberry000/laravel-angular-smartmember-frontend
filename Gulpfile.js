@@ -13,6 +13,7 @@ var less = require( 'gulp-less' );
 var path = require( 'path' );
 var exists = require( 'path-exists' ).sync;
 var runSequence = require( 'run-sequence' );
+var exec = require('child_process').exec;
 
 var config = {
 	accessKeyId: "AKIAIYX347IAPYSI6HGQ",
@@ -200,11 +201,14 @@ gulp.task( 'images', function()
 gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'crawler' ] );
 gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage','crawler' , 'watch'] );
 
-gulp.task( 'production', [ 'compile' ], function()
+gulp.task( 'production', [ 'compile'], function()
 {
-	runSequence( 'replace_vendor','upload', function()
+	runSequence( 'replace_vendor', function()
 	{
-
+		exec('gulp upload', function (err, stdout, stderr) {
+		    console.log(stdout);
+		    console.log(stderr);
+		});
 	} );
 } );
 
