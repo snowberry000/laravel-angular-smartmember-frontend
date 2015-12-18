@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("CategoriesController", function ($scope,$rootScope,$site, $modal,$localStorage, $state, $stateParams,$filter, Restangular, toastr) {
+app.controller("CategoriesController", function ($scope,$rootScope,$site, $localStorage, $state, $stateParams,$filter, Restangular, toastr) {
 	$site=$rootScope.site;
     $scope.template_data = {
         title: 'HELPDESK_CATEGORIES',

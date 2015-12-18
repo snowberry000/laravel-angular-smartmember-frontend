@@ -15,7 +15,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("OrganizerController", function ($scope,$rootScope,$site,$modal, $localStorage, $state, $stateParams,$filter, Restangular, toastr) {
+app.controller("OrganizerController", function ($scope,$rootScope,$site, $localStorage, $state, $stateParams,$filter, Restangular, toastr) {
 	var category = Restangular.all("supportCategory");
     var article = Restangular.all("supportArticle");
     var pageMetaData = Restangular.all("siteMetaData");

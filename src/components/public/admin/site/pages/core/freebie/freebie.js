@@ -15,7 +15,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("FreebieController", function ($scope, $localStorage,$site, $state , $location , $anchorScroll, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
+app.controller("FreebieController", function ($scope, $localStorage,$site, $state , $location , $anchorScroll, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.bonus = {};
     $scope.loading=true;
 

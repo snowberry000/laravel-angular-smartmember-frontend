@@ -17,7 +17,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AgentStatsController", function ($scope, $localStorage,$rootScope,$agents, $state, $user, $modal, Restangular, notify,$site,$unassigned_tickets , $my_open_tickets , $sites) {
+app.controller("AgentStatsController", function ($scope, $localStorage,$rootScope,$agents, $state, $user,  Restangular, notify,$site,$unassigned_tickets , $my_open_tickets , $sites) {
 	 $scope.agents=$agents;
 	 $scope.user = $user;
 	 $scope.my_open_tickets = $my_open_tickets.tickets;

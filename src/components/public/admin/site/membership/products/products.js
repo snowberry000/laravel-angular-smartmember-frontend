@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ProductsController", function ($scope, $localStorage, $rootScope , $modal, Restangular,$site, toastr) {
+app.controller("ProductsController", function ($scope, $localStorage, $rootScope ,  Restangular,$site, toastr) {
 		
 		$scope.site = $site = $rootScope.site;
 		if (_.findWhere($scope.site.integration,{type: 'stripe'})){

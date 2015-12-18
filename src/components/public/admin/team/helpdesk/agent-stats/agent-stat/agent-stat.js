@@ -14,7 +14,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AgentStatController", function ($scope, $localStorage,$rootScope,$agents, $agent_id,$state, $user, $modal, Restangular, notify,$site,$support_tickets) {
+app.controller("AgentStatController", function ($scope, $localStorage,$rootScope,$agents, $agent_id,$state, $user,  Restangular, notify,$site,$support_tickets) {
 	$scope.agent= _.find($agents, function(agent){ return agent.id == $agent_id; });
     $scope.jobtitle="";
     for(var i=0;i<$scope.agent.type.length;i++)

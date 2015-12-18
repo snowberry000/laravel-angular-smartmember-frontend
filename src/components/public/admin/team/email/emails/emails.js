@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailsController", function ($scope,$rootScope, $localStorage,$state, $modal, Restangular, toastr ) {
+app.controller("EmailsController", function ($scope,$rootScope, $localStorage,$state,  Restangular, toastr ) {
 
 	var access =null;
 	$site=$rootScope.site;

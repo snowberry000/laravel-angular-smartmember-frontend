@@ -23,7 +23,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("TeamWizardController", function ($scope, $rootScope, $location,$stateParams, $filter, $state, $company, $http, $user, $localStorage, $modal, Restangular, $wizard, $nodes , $wizard_server ,toastr ) {
+app.controller("TeamWizardController", function ($scope, $rootScope, $location,$stateParams, $filter, $state, $company, $http, $user, $localStorage,  Restangular, $wizard, $nodes , $wizard_server ,toastr ) {
 	$scope.static_wizard = $wizard;
     $rootScope.wizard = [];
     if($scope.static_wizard && $scope.static_wizard.nodes){

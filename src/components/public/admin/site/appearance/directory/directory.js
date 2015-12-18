@@ -16,7 +16,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "DirectoryListingController", function( $scope,$rootScope, $localStorage, $modal, Restangular, toastr, $filter )
+app.controller( "DirectoryListingController", function( $scope,$rootScope, $localStorage,  Restangular, toastr, $filter )
 {
 	$site=$rootScope.site;
 

@@ -21,7 +21,7 @@ app.config(function($stateProvider){
             }
 		})
 }); 
-app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $localStorage, $site , $user, $location, $stateParams, $modal, Restangular, toastr, $filter) {
+app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $localStorage, $site , $user, $location, $stateParams,  Restangular, toastr, $filter) {
 	$site=$rootScope.site;
     $scope.open1 = function (next_item) {
         var modalInstance = $modal.open({
@@ -562,7 +562,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
     }
 });
 
-app.controller('LessonEditModalInstanceCtrl', function ($scope, $rootScope, $localStorage, $timeout ,  $state, next_item, access_level_types, access_levels , $location, $stateParams,$modal,$site , $modalInstance, $user , $filter, Restangular, toastr, $modules,Upload) {
+app.controller('LessonEditModalInstanceCtrl', function ($scope, $rootScope, $localStorage, $timeout ,  $state, next_item, access_level_types, access_levels , $location, $stateParams,$site , $modalInstance, $user , $filter, Restangular, toastr, $modules,Upload) {
     $scope.template_data = {
         title: 'Lesson',
         use_cancel_method: true

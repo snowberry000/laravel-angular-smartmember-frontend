@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PassesController", function ($scope, $localStorage, $rootScope, $site, $modal, Restangular, toastr) {
+app.controller("PassesController", function ($scope, $localStorage, $rootScope, $site,  Restangular, toastr) {
 	$scope.template_data = {
 	    title: 'PASSES',
 	    description: 'Grant members access to your site\'s protected content.',

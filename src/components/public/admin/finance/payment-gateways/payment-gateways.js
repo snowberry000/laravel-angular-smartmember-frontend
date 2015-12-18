@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PaymentGatewaysController", function ($scope, $localStorage, $modal, Restangular,$site, notify) {
+app.controller("PaymentGatewaysController", function ($scope, $localStorage,  Restangular,$site, notify) {
 	$scope.copyToClipBoard = function()
 	{
 		return "copied";

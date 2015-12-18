@@ -1,4 +1,4 @@
-app.controller('specialPagesController', function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr, $state) {
+app.controller('specialPagesController', function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams,  Restangular, toastr, $state) {
     
     $homepage_url=_.find($scope.site.meta_data, function(temp){ return temp.key == 'homepage_url'; });
     if($homepage_url)

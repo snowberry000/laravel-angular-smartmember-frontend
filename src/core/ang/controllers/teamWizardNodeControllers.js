@@ -1,4 +1,4 @@
-app.controller( 'teamNameWizardController', function( $scope, $state, $rootScope, $filter, $http, $localStorage, $modal, Restangular, toastr )
+app.controller( 'teamNameWizardController', function( $scope, $state, $rootScope, $filter, $http, $localStorage,  Restangular, toastr )
 {
 	$scope.current_node = $scope.$parent;
 	/*$rootScope.$watch( 'current_company_changed', function( company )
@@ -27,7 +27,7 @@ app.controller( 'teamNameWizardController', function( $scope, $state, $rootScope
 	}
 } );
 
-app.controller( 'teamBioWizardController', function( $scope, $state, $rootScope, $filter, $http, $localStorage, $modal, Restangular, toastr )
+app.controller( 'teamBioWizardController', function( $scope, $state, $rootScope, $filter, $http, $localStorage,  Restangular, toastr )
 {
 	$scope.current_node = $scope.$parent;
 	$rootScope.$watch( 'current_company_changed', function( current_company_changed )
@@ -89,7 +89,7 @@ app.controller( 'teamBioWizardController', function( $scope, $state, $rootScope,
 	}
 } );
 
-app.controller( 'inviteMembersWizardController', function( $scope, $state, $rootScope, $filter, $http, $localStorage, $modal, Restangular, toastr )
+app.controller( 'inviteMembersWizardController', function( $scope, $state, $rootScope, $filter, $http, $localStorage,  Restangular, toastr )
 {
 	$scope.team_members = {};
 	$scope.current_node = $scope.$parent;
@@ -131,7 +131,7 @@ app.controller( 'inviteMembersWizardController', function( $scope, $state, $root
 
 } );
 
-app.controller( 'siteWizardController', function( $scope, $rootScope, $localStorage, $http, $modal, Restangular, toastr )
+app.controller( 'siteWizardController', function( $scope, $rootScope, $localStorage, $http,  Restangular, toastr )
 {
 	$scope.site = {};
 	$scope.clone_sites = [];
@@ -187,7 +187,7 @@ app.controller( 'siteWizardController', function( $scope, $rootScope, $localStor
     }
 } );
 
-app.controller( 'teamIconWizardController', function( $scope, $rootScope, $localStorage, $http, $modal, Restangular, toastr )
+app.controller( 'teamIconWizardController', function( $scope, $rootScope, $localStorage, $http,  Restangular, toastr )
 {
 	$scope.current_node = $scope.$parent;
 	$scope.$watch( 'current_company_changed', function( current_company_changed )

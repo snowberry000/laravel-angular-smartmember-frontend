@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SettingsController", function ($scope, $rootScope, $localStorage, $location, $stateParams, $modal, Restangular, toastr) {
+app.controller("SettingsController", function ($scope, $rootScope, $localStorage, $location, $stateParams,  Restangular, toastr) {
 	 $rootScope.not_homepage_setting = false;
 	 $site_options=null;
 	 $site=$rootScope.site;

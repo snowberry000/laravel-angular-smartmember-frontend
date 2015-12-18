@@ -22,7 +22,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("DownloadController", function ($scope,$stateParams,Upload,$rootScope, $localStorage,$download, $user , $timeout , $location, $site, $state, $stateParams, $modal, Restangular, toastr, $filter) {
+app.controller("DownloadController", function ($scope,$stateParams,Upload,$rootScope, $localStorage,$download, $user , $timeout , $location, $site, $state, $stateParams,  Restangular, toastr, $filter) {
 	var draft;
     var changed;
     var seo = {};

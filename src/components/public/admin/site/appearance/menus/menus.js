@@ -19,7 +19,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("MenusController", function ($rootScope,$scope, $filter, $document , $localStorage, $location,$stateParams, $modal, Restangular, toastr) {
+app.controller("MenusController", function ($rootScope,$scope, $filter, $document , $localStorage, $location,$stateParams,  Restangular, toastr) {
 	$scope.sales_option = {};
 	$site=$rootScope.site;
 	$menus=null;

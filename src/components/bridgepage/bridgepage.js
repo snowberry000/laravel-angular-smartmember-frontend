@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('BridgepageController', function ($scope, $localStorage, $interpolate, $state, $stateParams, $modal, $filter, Restangular, toastr, $location, $sce, $rootScope) {
+app.controller('BridgepageController', function ($scope, $localStorage, $interpolate, $state, $stateParams,  $filter, Restangular, toastr, $location, $sce, $rootScope) {
     $scope.loading=true;
     Restangular.one('bridgePageByPermalink', $stateParams.permalink).get().then(function(response){
         $page=response;

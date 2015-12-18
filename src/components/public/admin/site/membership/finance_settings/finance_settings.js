@@ -14,7 +14,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("FinanceSettingsController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr) {
+app.controller("FinanceSettingsController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams,  Restangular, toastr) {
 	 $scope.site_options = {};
 	 $.each($site_options, function (key, data) {
 	    $scope.site_options[data.key] = data.value;

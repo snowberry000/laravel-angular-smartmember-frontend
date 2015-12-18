@@ -23,7 +23,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("MyController", function ($scope, toast,$window, $company ,$rootScope, $state, $location, $modal, Restangular,$localStorage, notify,$site,$user) {
+app.controller("MyController", function ($scope, toast,$window, $company ,$rootScope, $state, $location,  Restangular,$localStorage, notify,$site,$user) {
 
 		$scope.site = $site;
 		$scope.companies = [];

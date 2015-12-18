@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AdminLessonsController", function( $scope, $rootScope, $localStorage, $state, $stateParams, $modal, $filter, Restangular, toastr )
+app.controller( "AdminLessonsController", function( $scope, $rootScope, $localStorage, $state, $stateParams,  $filter, Restangular, toastr )
 {
 	$site = $rootScope.site;
 	$scope.template_data = {
@@ -20,9 +20,6 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 		edit_route: 'public.admin.site.content.syllabus.lesson',
 		api_object: 'lesson'
 	}
-
-	console.log( "site asd:" );
-	console.log( $site );
 
 	$scope.data = [];
 	$scope.pagination = { current_page: 1 };

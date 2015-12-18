@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicPageController', function ($scope, $localStorage,$rootScope, $state, $stateParams, $modal, $filter, Restangular, toastr) {
+app.controller('PublicPageController', function ($scope, $localStorage,$rootScope, $state, $stateParams,  $filter, Restangular, toastr) {
     
     $scope.comment = '';
     $scope.child_comment = '';

@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SitesController", function ($scope, $rootScope, $localStorage, toastr , $location, $user ,Restangular, $state, $modal, notify) {
+app.controller("SitesController", function ($scope, $rootScope, $localStorage, toastr , $location, $user ,Restangular, $state,  notify) {
 	$scope.adminSites=[];
 	$scope.memberSites=[];
 	$scope.loading=true;

@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("LivecastsController", function ($scope,$rootScope,$modal,$http,$site,Restangular) {
+app.controller("LivecastsController", function ($scope,$rootScope,$http,$site,Restangular) {
 	$scope.template_data = {
         title: 'LIVECASTS',
         description: 'Embed live hangout & webinar code or display past recordings',

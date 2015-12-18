@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailSubscribersController", function ($scope, $localStorage, $modal, Restangular, toastr, $site, $state) {
+app.controller("EmailSubscribersController", function ($scope, $localStorage,  Restangular, toastr, $site, $state) {
 	
 	$scope.template_data = {
 	    title: 'SUBSCRIBERS',

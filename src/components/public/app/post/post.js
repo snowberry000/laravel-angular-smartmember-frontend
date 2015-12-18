@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicPostController', function ($scope,$rootScope, $localStorage, $state, $stateParams, $modal, $filter, Restangular, toastr) {
+app.controller('PublicPostController', function ($scope,$rootScope, $localStorage, $state, $stateParams,  $filter, Restangular, toastr) {
     $scope.comment = '';
     $scope.child_comment = '';
     $scope.user = $localStorage.user;

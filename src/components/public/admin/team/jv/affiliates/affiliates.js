@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AffiliatesController", function ($scope, $localStorage, $modal, $site ,Restangular) {
+app.controller("AffiliatesController", function ($scope, $localStorage,  $site ,Restangular) {
 
 	$scope.template_data = {
 	    title: 'AFFILIATES',

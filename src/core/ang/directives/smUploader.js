@@ -1,4 +1,4 @@
-app.directive('smUploader', function ($localStorage, $modal, $parse, notify, Restangular) {
+app.directive('smUploader', function ($localStorage,  $parse, notify, Restangular) {
     return {
         restrict: 'A',
         require: 'ngModel',

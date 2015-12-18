@@ -104,31 +104,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 		icon_size: 'fa-2x'
 	};
 
-	$scope.ShowModal = function( state )
-	{
-		var state_data = $state.get( state );
-		console.log( 'state_data', state, state_data );
-
-		// Just provide a template url, a controller and call 'showModal'.
-		ModalService.showModal( {
-			templateUrl: state_data.templateUrl,
-			controller: state_data.controller ? state_data.controller : function()
-			{
-			}
-		} ).then( function( modal )
-		{
-			// The modal object has the element built, if this is a bootstrap modal
-			// you can call 'modal' to show it, if it's a custom modal just show or hide
-			// it as you need to.
-			modal.element.modal( 'show' );
-			modal.close.then( function( result )
-			{
-				$scope.message = result ? "You said Yes" : "You said No";
-			} );
-		} );
-
-	};
-
 	$scope.menuItemLabel = function()
 	{
 		$( '.ui-iconpicker' ).toggleClass( 'open' );

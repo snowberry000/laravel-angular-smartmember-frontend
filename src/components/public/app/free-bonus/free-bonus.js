@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('FreeBonusController', function ($scope,$site,$rootScope, $localStorage, $state , $location , $anchorScroll, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
+app.controller('FreeBonusController', function ($scope,$site,$rootScope, $localStorage, $state , $location , $anchorScroll, $stateParams,  $filter, Restangular, toastr, Upload) {
     $scope.bonus = {};
     $scope.loading=true;
 

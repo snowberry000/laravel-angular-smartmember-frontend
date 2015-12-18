@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicLessonController', function ($scope,$rootScope, $localStorage,$state , $stateParams,$modal, $filter, Restangular, toastr) {
+app.controller('PublicLessonController', function ($scope,$rootScope, $localStorage,$state , $stateParams, $filter, Restangular, toastr) {
     $scope.loading=true;
     $scope.comment = '';
     $scope.child_comment = '';

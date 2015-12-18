@@ -16,7 +16,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SiteoptionsController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr) {
+app.controller("SiteoptionsController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams,  Restangular, toastr) {
 	$scope.site_options = {};
 
 	$.each($site_options, function (key, data) {

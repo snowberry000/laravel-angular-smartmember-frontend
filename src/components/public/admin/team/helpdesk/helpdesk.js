@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("HelpdeskController", function ($scope, $rootScope , $localStorage,$state, $modal, Restangular, notify) {
+app.controller("HelpdeskController", function ($scope, $rootScope , $localStorage,$state,  Restangular, notify) {
 	if($rootScope.is_not_allowed){
         $state.go('public.admin.team.dashboard');
         return false;

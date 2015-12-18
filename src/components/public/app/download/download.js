@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicDownloadController', function ($scope, $rootScope ,$localStorage, $state, $stateParams, $modal, Restangular, toastr, $filter) {
+app.controller('PublicDownloadController', function ($scope, $rootScope ,$localStorage, $state, $stateParams,  Restangular, toastr, $filter) {
     $download={};
     $scope.loading=true;
     Restangular.one('downloadByPermalink' , $stateParams.permalink).get().then(function(response){

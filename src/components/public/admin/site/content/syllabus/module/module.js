@@ -21,7 +21,7 @@ app.config( function( $stateProvider )
         } )
 } );
 
-app.controller( "ModuleController", function( $scope, $rootScope, $localStorage, $module, $state, $site, $stateParams, $modal, Restangular, toastr )
+app.controller( "ModuleController", function( $scope, $rootScope, $localStorage, $module, $state, $site, $stateParams,  Restangular, toastr )
 {
 	if( !$module.id )
 	{

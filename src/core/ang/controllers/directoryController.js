@@ -1,4 +1,4 @@
-app.controller('DirectoryController', function ($scope, $rootScope, $localStorage, $location, $user ,Restangular, $state, $modal, notify) {
+app.controller('DirectoryController', function ($scope, $rootScope, $localStorage, $location, $user ,Restangular, $state,  notify) {
 
     $scope.adminSites=[];
     $scope.memberSites=[];

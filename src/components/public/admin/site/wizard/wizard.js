@@ -23,7 +23,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('WizardController', function ($scope, $stateParams ,$rootScope , $location , $state , $site , $filter , $http ,$user , $localStorage, $modal, Restangular,$wizard,$wizard_server,$nodes, toastr) {
+app.controller('WizardController', function ($scope, $stateParams ,$rootScope , $location , $state , $site , $filter , $http ,$user , $localStorage,  Restangular,$wizard,$wizard_server,$nodes, toastr) {
     $scope.static_wizard = $wizard;
     $rootScope.wizard = [];
 

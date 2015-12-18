@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('LessonsController', function ($scope, $rootScope, $localStorage,  $state, $stateParams,$modal, $filter, Restangular, toastr,$location) {
+app.controller('LessonsController', function ($scope, $rootScope, $localStorage,  $state, $stateParams, $filter, Restangular, toastr,$location) {
 
 
     $scope.lesson_count = 0;

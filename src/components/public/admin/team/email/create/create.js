@@ -30,7 +30,7 @@ app.config(function($stateProvider){
 		})
 });
 
-app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $modal,$localStorage, Restangular, $state, email, emailSettings, sendgridIntegrations) {
+app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, email, emailSettings, sendgridIntegrations) {
     $scope.sendgridIntegrations = sendgridIntegrations;
     $scope.canceler = false;
     $scope.email = email;
@@ -518,7 +518,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     }
 });
 
-app.controller('segmentIntroController', function ($scope, $state, $modal, $uibModalInstance, Restangular, segment) {
+app.controller('segmentIntroController', function ($scope, $state,  $uibModalInstance, Restangular, segment) {
     $scope.segment = segment;
 
     $scope.original_segment = angular.copy( $scope.segment );

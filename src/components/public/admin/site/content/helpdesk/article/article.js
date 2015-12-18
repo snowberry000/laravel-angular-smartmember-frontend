@@ -20,7 +20,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ArticleController", function ($scope,$rootScope, Upload, $location, $timeout , $user , $modal, $localStorage, $state, $article,$stateParams, $site, $filter, Restangular, toastr) {
+app.controller("ArticleController", function ($scope,$rootScope, Upload, $location, $timeout , $user ,  $localStorage, $state, $article,$stateParams, $site, $filter, Restangular, toastr) {
 	//$scope.page = $page;
     if(!$article.id)
     {

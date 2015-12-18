@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PendingController", function ($scope ,$location, $localStorage,$rootScope, $state, $user, $modal, Restangular, notify,$site) {
+app.controller("PendingController", function ($scope ,$location, $localStorage,$rootScope, $state, $user,  Restangular, notify,$site) {
 
 	$scope.tickets=[];
 	$scope.sites =[];

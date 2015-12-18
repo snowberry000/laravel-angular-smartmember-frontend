@@ -29,7 +29,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailSubscriberExportController", function ($scope, $modal, $localStorage, Restangular, toastr, $state, emailLists, sites, emails, accessLevels, superAdmin, Upload) {
+app.controller("EmailSubscriberExportController", function ($scope,  $localStorage, Restangular, toastr, $state, emailLists, sites, emails, accessLevels, superAdmin, Upload) {
 	
     $scope.emailLists = emailLists;
     $scope.accessLevels = accessLevels;

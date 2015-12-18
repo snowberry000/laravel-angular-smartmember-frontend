@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("DownloadsController", function ($scope,$rootScope, $localStorage, $state, $stateParams, $modal, Restangular, toastr, $filter) {
+app.controller("DownloadsController", function ($scope,$rootScope, $localStorage, $state, $stateParams,  Restangular, toastr, $filter) {
     $site=$rootScope.site;
     $downloads=null;
 

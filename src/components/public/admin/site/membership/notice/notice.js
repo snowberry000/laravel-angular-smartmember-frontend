@@ -19,7 +19,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("NoticeController", function ($scope,$state, $localStorage, $notification , $modal, Restangular, toastr, Upload) {
+app.controller("NoticeController", function ($scope,$state, $localStorage, $notification ,  Restangular, toastr, Upload) {
 	if($notification.id)
 	{
 	    $scope.site_notice = $notification;

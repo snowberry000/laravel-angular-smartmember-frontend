@@ -21,7 +21,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailSettingsController", function ($scope,Upload, $localStorage, $location, Restangular, $modal, toastr, emailSettings) {
+app.controller("EmailSettingsController", function ($scope,Upload, $localStorage, $location, Restangular,  toastr, emailSettings) {
 	$scope.emailSettings = emailSettings;
 
 	$scope.imageUpload = function(files){

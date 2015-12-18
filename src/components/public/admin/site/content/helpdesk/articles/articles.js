@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ArticlesController", function ($scope,$rootScope, $modal,$localStorage, $state, $stateParams, $site, $filter, Restangular, toastr) {
+app.controller("ArticlesController", function ($scope,$rootScope, $localStorage, $state, $stateParams, $site, $filter, Restangular, toastr) {
 	$site=$rootScope.site;
     $scope.template_data = {
         title: 'HELPDESK_ARTICLES',

@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AffiliateTeamsController", function ($scope, $localStorage, $site , $modal, Restangular) {
+app.controller("AffiliateTeamsController", function ($scope, $localStorage, $site ,  Restangular) {
 
 	$scope.template_data = {
 	    title: 'AFFILIATE_TEAMS',

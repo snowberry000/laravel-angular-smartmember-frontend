@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("TeamsController", function ($scope, $rootScope, $companies, $localStorage, $location, $user ,Restangular, $window, $modal, notify) {
+app.controller("TeamsController", function ($scope, $rootScope, $companies, $localStorage, $location, $user ,Restangular, $window,  notify) {
 	$scope.teams = $companies;
 
 	$scope.ChangeTeam = function(company)

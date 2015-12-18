@@ -39,7 +39,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('AdminController', function ($scope,Upload ,$window,$sessionStorage, $localStorage,$rootScope, $state,$user, $modal, Restangular, notify,$site,$access_levels,$support_tickets,$companies,$location) {
+app.controller('AdminController', function ($scope,Upload ,$window,$sessionStorage, $localStorage,$rootScope, $state,$user,  Restangular, notify,$site,$access_levels,$support_tickets,$companies,$location) {
     var access=null;
     var new_company =null;
     $rootScope.site=$site;

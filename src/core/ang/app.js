@@ -1,7 +1,6 @@
 var app = angular.module( 'app', [
 	'ui.router',                    // Routing
 	'oc.lazyLoad',                  // ocLazyLoad
-	'ui.bootstrap',                 // Ui Bootstrap
 	'pascalprecht.translate',       // Idle timer
 	'ngSanitize',                    // ngSanitize
 	'cfp.loadingBar',
@@ -16,8 +15,6 @@ var app = angular.module( 'app', [
 	'angularSpectrumColorpicker',
 	'oitozero.ngSweetAlert',
 	'froala',
-	'ui.bootstrap.popover',
-	'ui.bootstrap.modal',
 	'as.sortable',
 	'xeditable',
 	'ui.footable',
@@ -30,7 +27,7 @@ var app = angular.module( 'app', [
 ] );
 
 
-app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
+app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http,  $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
 	$calledurl = window.location.host;

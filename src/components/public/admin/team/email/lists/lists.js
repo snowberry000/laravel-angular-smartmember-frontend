@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailListsController", function ($scope, $localStorage,$rootScope , $location,  $modal, Restangular, toastr) {
+app.controller("EmailListsController", function ($scope, $localStorage,$rootScope , $location,   Restangular, toastr) {
 
 	$scope.blockCalls=false;
 	$scope.processingCall=false;

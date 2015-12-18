@@ -15,7 +15,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("LoginController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr, $state) {
+app.controller("LoginController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams,  Restangular, toastr, $state) {
 	$scope.site_options = {};
 
     $scope.site=$site;

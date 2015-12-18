@@ -1,4 +1,4 @@
-app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScope, $location, $localStorage, Restangular, notify, $modal, Upload )
+app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScope, $location, $localStorage, Restangular, notify,  Upload )
 {
 	$scope.$user = null;
 	$scope.$user = $localStorage.user;

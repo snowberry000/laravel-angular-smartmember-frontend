@@ -15,7 +15,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("RefundController", function ($scope, $localStorage, $site, $state, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
+app.controller("RefundController", function ($scope, $localStorage, $site, $state, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.refund = {};
     $scope.loading=true;
     Restangular.all('specialPage').getList({site_id:$site.id , type:'Refund Page'}).then(function(response){

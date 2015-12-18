@@ -1,6 +1,6 @@
 var app = angular.module( "app" );
 
-app.controller( 'AdminBarController', function( $scope, $rootScope, $localStorage, $state, $stateParams, $modal, $filter, Restangular, toastr, $location )
+app.controller( 'AdminBarController', function( $scope, $rootScope, $localStorage, $state, $stateParams,  $filter, Restangular, toastr, $location )
 {
 	$scope.loading_sites = true;
     //Restangular.one( 'company/getUsersSitesAndTeams' ).get().then( function(response){

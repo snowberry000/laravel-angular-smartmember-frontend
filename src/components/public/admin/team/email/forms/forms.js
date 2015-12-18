@@ -25,7 +25,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailFormsController", function ($scope, $rootScope, $modal,$localStorage, Restangular, toastr, $state, emailLists, $site, Upload, $sites) {
+app.controller("EmailFormsController", function ($scope, $rootScope, $localStorage, Restangular, toastr, $state, emailLists, $site, Upload, $sites) {
 
     $scope.site_options = {};
     $scope.emailLists = emailLists;

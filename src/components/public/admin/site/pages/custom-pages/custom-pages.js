@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("CustomPagesController", function ($scope, $localStorage, $site, $state, $stateParams, $modal, $filter, Restangular, toastr) {
+app.controller("CustomPagesController", function ($scope, $localStorage, $site, $state, $stateParams,  $filter, Restangular, toastr) {
 	$scope.template_data = {
         title: 'PAGES',
         description: 'Create pages to fill your site with content for your members to read / watch / hear.',

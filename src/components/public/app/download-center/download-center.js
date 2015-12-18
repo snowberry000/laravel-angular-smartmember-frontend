@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $localStorage, $state, $stateParams, $modal, Restangular, toastr, $filter, $window) {
+app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $localStorage, $state, $stateParams,  Restangular, toastr, $filter, $window) {
     
     $rootScope.page_title = 'Downloads';
     $scope.loading=true;

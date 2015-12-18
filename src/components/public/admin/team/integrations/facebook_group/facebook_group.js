@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("FacebookGroupController", function ($scope, toastr,$localStorage, $modal, Restangular, $http, notify,Facebook) {
+app.controller("FacebookGroupController", function ($scope, toastr,$localStorage,  Restangular, $http, notify,Facebook) {
 		$scope.facebook_groups = [];
 		$scope.group_id = {}
 		$scope.group_id.selected = $scope.site.is_admin ? 0 : $scope.site.facebook_group_id

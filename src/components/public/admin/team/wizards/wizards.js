@@ -20,7 +20,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("TeamWizardsController", function ($scope, $rootScope , $location , $state , $site , $filter , $http ,$user , $localStorage, $modal, Restangular,$wizards, $wizards_server , toastr) {
+app.controller("TeamWizardsController", function ($scope, $rootScope , $location , $state , $site , $filter , $http ,$user , $localStorage,  Restangular,$wizards, $wizards_server , toastr) {
 	$rootScope.wizards = $wizards;
 	$rootScope.wizards_server = $wizards_server;
 	//$rootScope.parent_wizard = $scope;

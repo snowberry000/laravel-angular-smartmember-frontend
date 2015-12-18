@@ -1,4 +1,4 @@
-app.controller('siteSettingsWizardController', function ($scope, $rootScope , $filter , $http , $localStorage, $modal, Restangular, toastr) {
+app.controller('siteSettingsWizardController', function ($scope, $rootScope , $filter , $http , $localStorage,  Restangular, toastr) {
 	$scope.site = $rootScope.site;
 	$scope.intention_feature = _.findWhere($rootScope.wizard , {'slug' : 'settings'});
 
@@ -29,7 +29,7 @@ app.controller('siteSettingsWizardController', function ($scope, $rootScope , $f
 	}
 });
 
-app.controller('sendgridWizardController', function ($rootScope,$scope, $http , $filter, $document , $localStorage, $location , $stateParams, $modal, Restangular, toastr) {
+app.controller('sendgridWizardController', function ($rootScope,$scope, $http , $filter, $document , $localStorage, $location , $stateParams,  Restangular, toastr) {
     $scope.current_node = $scope.$parent;
 
     $scope.integration = {
@@ -90,7 +90,7 @@ app.controller('sendgridWizardController', function ($rootScope,$scope, $http , 
     }
 });
 
-app.controller('paypalWizardController', function ($rootScope,$scope, $http , $filter, $document , $localStorage, $location , $stateParams, $modal, Restangular, toastr) {
+app.controller('paypalWizardController', function ($rootScope,$scope, $http , $filter, $document , $localStorage, $location , $stateParams,  Restangular, toastr) {
     $scope.current_node = $scope.$parent;
 
     $scope.integration = {
@@ -152,7 +152,7 @@ app.controller('paypalWizardController', function ($rootScope,$scope, $http , $f
     }
 });
 
-app.controller('menuWizardController', function ($rootScope,$scope, $http , $filter, $document , $localStorage, $location , $stateParams, $modal, $ocLazyLoad, Restangular, toastr) {
+app.controller('menuWizardController', function ($rootScope,$scope, $http , $filter, $document , $localStorage, $location , $stateParams,  $ocLazyLoad, Restangular, toastr) {
     $scope.wizard_mode = true;
 
     $scope.sales_option = {};
@@ -392,7 +392,7 @@ app.controller('menuWizardController', function ($rootScope,$scope, $http , $fil
 
 });
 
-app.controller('accessWizardController', function ($rootScope,$scope, $http , $filter, $document , $localStorage, $location , $stateParams, $modal, Restangular, toastr) {
+app.controller('accessWizardController', function ($rootScope,$scope, $http , $filter, $document , $localStorage, $location , $stateParams,  Restangular, toastr) {
 	    
 	    $scope.access_level = {};
         $scope.template_data = {
@@ -553,7 +553,7 @@ app.controller('accessWizardController', function ($rootScope,$scope, $http , $f
         }
 });
 
-app.controller('postWizardController', function ($scope, $rootScope , $filter , $localStorage, $modal, Restangular, toastr) {
+app.controller('postWizardController', function ($scope, $rootScope , $filter , $localStorage,  Restangular, toastr) {
     $scope.template_data = {
         title: 'Post',
         use_cancel_method: true,
@@ -691,7 +691,7 @@ app.controller('postWizardController', function ($scope, $rootScope , $filter , 
     }
 });
 
-app.controller('lessonWizardController', function ($scope, $rootScope , $filter , $http , $localStorage, $modal, Restangular, toastr) {
+app.controller('lessonWizardController', function ($scope, $rootScope , $filter , $http , $localStorage,  Restangular, toastr) {
     $scope.template_data = {
         title: 'Lesson',
         use_cancel_method: true
@@ -975,7 +975,7 @@ app.controller('lessonWizardController', function ($scope, $rootScope , $filter 
     };
 });
 
-app.controller('siteLogoWizardController', function ($scope, $rootScope , $filter , $http , $localStorage, $modal, Restangular, toastr) {
+app.controller('siteLogoWizardController', function ($scope, $rootScope , $filter , $http , $localStorage,  Restangular, toastr) {
     $scope.current_node = $scope.$parent;
     $scope.site_options = {};
 
@@ -1001,7 +1001,7 @@ app.controller('siteLogoWizardController', function ($scope, $rootScope , $filte
 
 });
 
-app.controller('modulesWizardController', function ($scope, $rootScope , $filter , $http , $localStorage, $modal, Restangular, toastr) {
+app.controller('modulesWizardController', function ($scope, $rootScope , $filter , $http , $localStorage,  Restangular, toastr) {
     $scope.current_node = $scope.$parent;
     $scope.module = {site_id : $rootScope.site.id};
     //$rootScope.modules = [];
@@ -1076,7 +1076,7 @@ app.controller('modulesWizardController', function ($scope, $rootScope , $filter
     };
 });
 
-app.controller('lockContentWizardController', function ($scope, $rootScope , $filter , $http , $localStorage, $modal, Restangular, toastr) {
+app.controller('lockContentWizardController', function ($scope, $rootScope , $filter , $http , $localStorage,  Restangular, toastr) {
     $scope.current_node = $scope.$parent;
     $scope.access_levels = [
         {"id" : 1 , "title" : "Public"} ,
@@ -1107,7 +1107,7 @@ app.controller('lockContentWizardController', function ($scope, $rootScope , $fi
     }
 });
 
-app.controller('inviteMembersWizardController', function ($scope, $rootScope , $filter , $http , $localStorage, $modal, Restangular, toastr) {
+app.controller('inviteMembersWizardController', function ($scope, $rootScope , $filter , $http , $localStorage,  Restangular, toastr) {
     $scope.current_node = $scope.$parent;
     $scope.members = {};
     $scope.access_level_hash = {};

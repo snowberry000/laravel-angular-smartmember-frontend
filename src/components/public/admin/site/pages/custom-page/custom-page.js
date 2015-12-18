@@ -31,7 +31,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("CustomPageController", function ($scope, $rootScope, $localStorage, $location, $site , $timeout , $user , $next_item ,$state, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
+app.controller("CustomPageController", function ($scope, $rootScope, $localStorage, $location, $site , $timeout , $user , $next_item ,$state, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.template_data = {
         title: 'Pages',
         cancel_route: 'public.admin.pages.pages'

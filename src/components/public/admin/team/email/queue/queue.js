@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailQueueController", function ($scope, $localStorage, $location, $state, Restangular, $modal, toastr, $site) {
+app.controller("EmailQueueController", function ($scope, $localStorage, $location, $state, Restangular,  toastr, $site) {
 	$scope.template_data = {
 	    title: 'EMAIL REPORTING',
 	    description: 'Queued emails are sent out as quick as every 60 seconds, 4000 at a time.',

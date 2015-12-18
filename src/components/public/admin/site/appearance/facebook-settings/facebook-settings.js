@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("FacebookSettingsController", function ($scope, $localStorage, $location, $stateParams, $modal, Restangular,toastr) {
+app.controller("FacebookSettingsController", function ($scope, $localStorage, $location, $stateParams,  Restangular,toastr) {
 	var pageMetaData = Restangular.all("siteMetaData");
 	$scope.settings = {};
 	$scope.facebookInit = function () {

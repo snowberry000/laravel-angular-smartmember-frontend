@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("NoticesController", function ($scope,$state, $rootScope, $localStorage, $site , $modal, Restangular, toastr) {
+app.controller("NoticesController", function ($scope,$state, $rootScope, $localStorage, $site ,  Restangular, toastr) {
 	$scope.template_data = {
 	    title: 'SITE NOTICES',
 	    description: 'toastr your members of new things',

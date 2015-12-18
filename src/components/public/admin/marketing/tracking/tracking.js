@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("TrackingController", function ($scope, $rootScope, $localStorage, $location,$stateParams, $modal, Restangular, toastr) {
+app.controller("TrackingController", function ($scope, $rootScope, $localStorage, $location,$stateParams,  Restangular, toastr) {
 
 
 	$site_options=null;

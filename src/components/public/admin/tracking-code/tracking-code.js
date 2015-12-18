@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("TrackingCodeController", function ($scope,$state, $localStorage, $modal, Restangular, toastr) {
+app.controller("TrackingCodeController", function ($scope,$state, $localStorage,  Restangular, toastr) {
 	$scope.showModal = function(){
 	    $name = 'Member Stats Dashboard';
 	    console.log($state.current.name);
