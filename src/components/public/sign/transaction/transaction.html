@@ -119,7 +119,12 @@
                     Or
                 </div>
                 <div class="column">
-
+                    <div class="ui message" ng-if="email_taken && !verification_sent && verification_failed">
+                        <div class="header">
+                            Verification Code Invalid
+                        </div>
+                        Verification code was invalid, <a href="#" class="alert-link" ng-click="sendVerificationCode()">click here to be sent a new verification code</a>.
+                    </div>
                     <form class="ui form" ng-submit="associateNewAccount()">
                         <h3>Please register</h3>
                         <div class="field">
