@@ -24,7 +24,6 @@ app.controller('PublicController', function ($scope, $rootScope, smModal, $timeo
         $rootScope.app.show_engine = true;
 
     $rootScope.meta_data = {};
-
     $rootScope.meta_data = {
         site_background_color: '#FFFFFF',
         navigation_background_color: '#FFFFFF',
@@ -69,7 +68,7 @@ app.controller('PublicController', function ($scope, $rootScope, smModal, $timeo
 
             //smModal.hide( '.ui.modal.' + option);
 
-            smModal.toggle( '.ui.modal.' + the_modal +':first', {
+            smModal.toggle( '.ui.modal.' + the_modal +':nth-child(1)', {
                 closable: $state.includes('public.sign') ? false : true,
                 allowMultiple: false,
                 blurring: false,
@@ -85,15 +84,26 @@ app.controller('PublicController', function ($scope, $rootScope, smModal, $timeo
         if( !the_modal )
             smModal.hide( '.ui.modal' );
         else
-            smModal.hide( '.ui.modal.' + the_modal +':first' );
+            smModal.hide( '.ui.modal.' + the_modal +':nth-child(1)' );
     }
 
     $scope.loginModal = function(){
-        $rootScope.modal_popup_template = 'templates/components/public/sign/in/in.html';
+        if ($rootScope.modal_popup_template == 'templates/components/public/sign/in/in.html')
+        {
+            $scope.PopModal('login');
+        } else {
+            $rootScope.modal_popup_template = 'templates/components/public/sign/in/in.html';
+        }
+
     }
 
     $scope.registerModal = function(){
-        $rootScope.modal_popup_template = 'templates/components/public/sign/up/up.html';
+        if ($rootScope.modal_popup_template == 'templates/components/public/sign/up/up.html')
+        {
+            $scope.PopModal('register');
+        } else {
+            $rootScope.modal_popup_template = 'templates/components/public/sign/up/up.html';
+        }
     }
 
     var getUrlVars = function() {
