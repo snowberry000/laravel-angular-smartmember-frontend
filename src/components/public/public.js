@@ -23,7 +23,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'PublicController', function( $scope,$q,$site,$user, $rootScope, $timeout, ModalService, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
+app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootScope, $timeout, ModalService, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
 {
 	// $site=null;
 	// $user=null;
@@ -43,11 +43,11 @@ app.controller( 'PublicController', function( $scope,$q,$site,$user, $rootScope,
 	// 	$q.all([$siteCall, $userCall]).then(function(res){ console.log(res);$scope.loading=false;  $scope.initPublicSite();});
 	// }
 
-	$rootScope.user=$user;
-	$rootScope.site=$site;
-	alert("public");
+	$rootScope.user = $user;
+	$rootScope.site = $site;
 
-	$scope.initPublicSite = function(){
+	$scope.initPublicSite = function()
+	{
 		$rootScope.$_GET = getUrlVars();
 
 		if( $rootScope.$_GET[ 'cbreceipt' ] )
@@ -67,8 +67,6 @@ app.controller( 'PublicController', function( $scope,$q,$site,$user, $rootScope,
 		}
 		$scope.setMetaData();
 	}
-	
-
 
 
 	if( location.href.indexOf( '?theme_options' ) > -1 )
@@ -146,7 +144,6 @@ app.controller( 'PublicController', function( $scope,$q,$site,$user, $rootScope,
 		return vars;
 	}
 
-	
 
 	$scope.setMetaData = function()
 	{
@@ -259,7 +256,6 @@ app.controller( 'PublicController', function( $scope,$q,$site,$user, $rootScope,
 		$state.go( $state.current, $stateParams, { reload: 'public.app' } );
 	}
 
-	
 
 	$scope.upload = function( files )
 	{
@@ -301,5 +297,5 @@ app.controller( 'PublicController', function( $scope,$q,$site,$user, $rootScope,
 
 	$scope.initPublicSite();
 
-	
+
 } );

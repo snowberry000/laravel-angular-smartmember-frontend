@@ -68,7 +68,7 @@
 				</a>
 			</li>
 			<li class="" ng-class="$state.includes('public.admin.site.content') ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-paragraph"></i>
 					<span class="nav-label">{{ 'SITE_CONTENT' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -178,16 +178,16 @@
 					</li>
 				</ul>
 			</li>
-			
+
 			<li class="" ng-class="($state.includes('public.admin.site.membership.products') || $state.includes('public.admin.site.membership.passes') || $state.includes('public.admin.site.membership.transactions')) ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-unlock-alt"></i>
 					<span class="nav-label">{{ 'SITE_ACCESS' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
 				</a>
 				<ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('public.admin.site.membership.products') || $state.includes('public.admin.site.membership.passes') || $state.includes('public.admin.site.membership.transactions')}">
 					<li ng-class="$state.includes('public.admin.site.membership.products') || $state.includes('public.admin.site.membership.passes') ? 'active' : '' ">
-						<a href="">
+						<a href="#">
 							{{ 'ACCESS_MANAGEMENT' | translate }}
 
 							<span class="fa fa-fw arrow"></span>
@@ -206,7 +206,7 @@
 						</ul>
 					</li>
 					<li ng-class="$state.includes('public.admin.site.membership.transactions') ? 'active' : ''">
-						<a href="">
+						<a href="#">
 							{{ 'FINANCE_MANAGEMENT' | translate }}
 
 							<span class="fa fa-fw arrow"></span>
@@ -232,7 +232,7 @@
 				</ul>
 			</li>
 			<li class="" ng-class="($state.includes('public.admin.site.membership.members') || $state.includes('public.admin.site.membership.notices')) ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-group"></i>
 					<span class="nav-label">{{ 'SITE_MEMBERS' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -251,7 +251,7 @@
 				</ul>
 			</li>
 			<li ng-class="$state.includes('public.admin.site.pages') ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-file-o"></i>
 					<span class="nav-label">{{ 'SITE_PAGES' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -275,7 +275,7 @@
 				</ul>
 			</li>
 			<li class="" ng-class="$state.includes('public.admin.site.appearance') || $state.includes('public.admin.marketing') ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-eye"></i>
 					<span class="nav-label">{{ 'SITE_APPEARANCE' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -337,7 +337,7 @@
 				</ul>
 			</li>
 			<li class="" ng-class="$state.includes('public.admin.site.appearance') || $state.includes('public.admin.marketing') ? 'active' : '' " ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" ng-hide="current_company.locked">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-flag-o"></i>
 					<span class="nav-label">{{ 'DIRECTORY_LISTING' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -373,7 +373,7 @@
 				</a>
 			</li>
 			<li ng-if="is_team_member"  ng-class=" $state.includes('public.admin.team.email.emails') ? 'active' : '' ">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-envelope-o"></i>
 					<span class="nav-label">{{ 'MANAGE_EMAIL' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -422,7 +422,7 @@
 				</ul>
 			</li>
 			<li ng-class=" $state.includes('public.admin.team.helpdesk') ? 'active' : ''" ng-if="is_site_admin || is_agent || is_team_member">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-support"></i>
 					<span class="nav-label">{{ 'MANAGE_SUPPORT' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -441,7 +441,7 @@
 				</ul>
 			</li>
 			<li ng-if="is_team_member" ng-class="$state.includes('public.admin.team.jv') ? 'active' : '' ">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-fighter-jet"></i>
 					<span class="nav-label">{{ 'MANAGE_AFFILIATES' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -475,7 +475,7 @@
 				</ul>
 			</li>
 			<li ng-if="is_team_member"  ng-class="$state.includes('public.admin.team.integrations') ? 'active' : '' ">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-exchange"></i>
 					<span class="nav-label">{{ 'INTEGRATIONS' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
@@ -500,7 +500,7 @@
 			</li>
 
 			<li ng-if="is_team_member"  ng-class="$state.includes('public.admin.team.settings') || $state.includes('public.admin.team.profile') || $state.includes('public.admin.team.members') ? 'active' : ''">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-fw fa-gear"></i>
 					<span class="nav-label">{{ 'TEAM_SETTINGS' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>

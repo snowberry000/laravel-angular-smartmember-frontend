@@ -20,7 +20,7 @@ app.controller('PublicDownloadController', function ($scope, $rootScope ,$localS
     });
 
     $scope.updateStats = function(download){
-        Restangular.all('get').customGET('download/'+download.id).then(function(response){
+        Restangular.all('get').customGET('download/' + download.id).then(function(response){
             if( ( response.aws_key != undefined && response.aws_key != '' ) || ( response.my_url != undefined && response.my_url != '' ) )
                 location.href = $scope.app.apiUrl + '/utility/download?' + ( response.aws_key != undefined ? 'aws_key=' + response.aws_key : 'file=' + response.my_url );
             else{
