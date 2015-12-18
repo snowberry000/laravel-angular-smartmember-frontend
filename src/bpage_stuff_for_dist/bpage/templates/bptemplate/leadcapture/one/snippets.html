@@ -239,7 +239,7 @@
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1">
 
-                                <input {{bridgepage.swapspot.mark_name_required}} placeholder="Full Name..." name="{{bridgepage.swapspot.optin_name_field}}" class="name_input" type="text">
+                                <input {{bridgepage.swapspot.mark_name_required}} placeholder="Full Name..." name="{{bridgepage.swapspot.optin_name_field}}" class="name_input" type="text" style="display: {{bridgepage.swapspot.mark_name_visible || 'block'}}" >
                                 <span class="error_name error" style="display: none;">You rname is required!</span>
 								<input required placeholder="Email Address..." name="{{bridgepage.swapspot.optin_email_field}}" class="email_input" type="email">
                                 <span class="error_email error" style="display: none;">You rname is required!</span>
