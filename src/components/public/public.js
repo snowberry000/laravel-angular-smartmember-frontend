@@ -23,8 +23,54 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'PublicController', function( $scope, $rootScope, $timeout, ModalService, $localStorage, $location, Restangular, $stateParams, $state, $site, $http, toastr, $window, Upload )
+app.controller( 'PublicController', function( $scope,$q,$site,$user, $rootScope, $timeout, ModalService, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
 {
+	// $site=null;
+	// $user=null;
+	// $scope.loading=true;
+
+	// $scope.resolveDependencies = function() {
+	// 	$siteCall = Restangular.one( 'site', 'details' ).get().then(function(response){
+	// 		$site = response;
+	// 		$rootScope.site=$site;
+	// 	});
+
+	// 	$userCall = Restangular.one( 'user', $localStorage.user.id ).get().then(function(response){
+	// 		$user=response;
+	// 		$rootScope.user=$user;
+	// 	});
+
+	// 	$q.all([$siteCall, $userCall]).then(function(res){ console.log(res);$scope.loading=false;  $scope.initPublicSite();});
+	// }
+
+	$rootScope.user=$user;
+	$rootScope.site=$site;
+	alert("public");
+
+	$scope.initPublicSite = function(){
+		$rootScope.$_GET = getUrlVars();
+
+		if( $rootScope.$_GET[ 'cbreceipt' ] )
+		{
+			if( !$localStorage.user )
+			{
+				$rootScope.modal_popup_template = 'templates/public/themes/default/sign/transactionAccountSetup.html';
+			}
+			else
+			{
+				$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
+				Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
+				{
+					location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
+				} );
+			}
+		}
+		$scope.setMetaData();
+	}
+	
+
+
+
 	if( location.href.indexOf( '?theme_options' ) > -1 )
 	{
 		$rootScope.app.show_engine = true;
@@ -100,23 +146,7 @@ app.controller( 'PublicController', function( $scope, $rootScope, $timeout, Moda
 		return vars;
 	}
 
-	$rootScope.$_GET = getUrlVars();
-
-	if( $rootScope.$_GET[ 'cbreceipt' ] )
-	{
-		if( !$localStorage.user )
-		{
-			$rootScope.modal_popup_template = 'templates/public/themes/default/sign/transactionAccountSetup.html';
-		}
-		else
-		{
-			$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
-			Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
-			{
-				location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
-			} );
-		}
-	}
+	
 
 	$scope.setMetaData = function()
 	{
@@ -229,11 +259,7 @@ app.controller( 'PublicController', function( $scope, $rootScope, $timeout, Moda
 		$state.go( $state.current, $stateParams, { reload: 'public.app' } );
 	}
 
-	$scope.$watch( 'files', function()
-	{
-		console.log( 'anything running here?' );
-		$scope.upload( $scope.files );
-	} );
+	
 
 	$scope.upload = function( files )
 	{
@@ -267,5 +293,13 @@ app.controller( 'PublicController', function( $scope, $rootScope, $timeout, Moda
 		}
 	};
 
-	$scope.setMetaData();
+	$scope.$watch( 'files', function()
+	{
+		console.log( 'anything running here?' );
+		$scope.upload( $scope.files );
+	} );
+
+	$scope.initPublicSite();
+
+	
 } );

@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicSupportTicketEditController', function ($scope,$site,$localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
+app.controller('PublicSupportTicketEditController', function ($scope,$site,$rootScope,$localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
     $scope.loading=true;
     Restangular.one('supportTicket' , $stateParams.id).get().then(function(response){
         $scope.loading=false;

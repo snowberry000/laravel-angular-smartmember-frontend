@@ -7,10 +7,6 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/admin/site/appearance/menus/menus.html",
 			controller: "MenusController",
 			resolve: {
-				$menus: function( Restangular )
-				{
-					return Restangular.one( 'site', 'details' ).get();
-				},
 				loadPlugin: function ($ocLazyLoad) {
 					return $ocLazyLoad.load([
 						{
@@ -23,8 +19,37 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("MenusController", function ($rootScope,$scope, $filter, $document , $localStorage, $location, $site, $menus , $stateParams, $modal, Restangular, toastr) {
+app.controller("MenusController", function ($rootScope,$scope, $filter, $document , $localStorage, $location,$stateParams, $modal, Restangular, toastr) {
 	$scope.sales_option = {};
+	$site=$rootScope.site;
+	$menus=null;
+
+	$scope.resolve=function(){
+		Restangular.one( 'site', 'details' ).get().then(function(response){
+			$menus=response;
+			$scope.init();
+		});
+	}
+
+	$scope.init=function(){
+		$.each($menus.meta_data, function (key, data) {
+		    $scope.sales_option[data.key] = data.value;
+		});
+
+		angular.forEach($menus.menu_items, function(value, key) {
+		    value.isOpen = false;
+		});
+
+		angular.forEach($menus.footer_menu_items, function(value, key) {
+		    value.isOpen = false;
+		});
+
+		$scope.menu_items = $filter('orderBy')($menus.menu_items, 'sort_order');
+		$scope.footer_menu_items = $filter('orderBy')($menus.footer_menu_items, 'sort_order');
+
+	}
+
+
 
 	$scope.open1 = function (next_item, menu) {
 	    var modalInstance = $modal.open({
@@ -62,21 +87,7 @@ app.controller("MenusController", function ($rootScope,$scope, $filter, $documen
 	    }
 	};
 
-	$.each($menus.meta_data, function (key, data) {
-	    $scope.sales_option[data.key] = data.value;
-	});
-
-	angular.forEach($menus.menu_items, function(value, key) {
-	    value.isOpen = false;
-	});
-
-	angular.forEach($menus.footer_menu_items, function(value, key) {
-	    value.isOpen = false;
-	});
-
-	$scope.menu_items = $filter('orderBy')($menus.menu_items, 'sort_order');
-	$scope.footer_menu_items = $filter('orderBy')($menus.footer_menu_items, 'sort_order');
-
+	
 	$scope.addMenuItem = function (newItem) {
 	    //$scope.newItem.url='';
 	    Restangular.all("siteMenuItem").customPOST($scope.newItem).then(function (response) {
@@ -218,6 +229,8 @@ app.controller("MenusController", function ($rootScope,$scope, $filter, $documen
 	    orderChanged: function($event) {console.log("orderchange"+$event);},//Do what you want},
 	    containment: '#board'//optional param.
 	};
+
+	$scope.resolve();
 });
 app.controller('MenuItemModalInstanceCtrl', function ($scope, $rootScope, $modalInstance, next_item, menu, Restangular, toastr, $modal) {
     $scope.next_item = next_item;

@@ -5,25 +5,29 @@ app.config(function($stateProvider){
 		.state("public.admin.site.appearance.banner",{
 			url: "/banner/:id?",
 			templateUrl: "/templates/components/public/admin/site/appearance/banner/banner.html",
-			controller: "BannerController",
-			resolve: {
-				$ad: function( Restangular, $stateParams, $site )
-				{
-					if( $stateParams.id )
-					{
-						return Restangular.one( 'siteAds', $stateParams.id ).get();
-					}
-					else
-					{
-						return {};
-					}
-				}
-			}
+			controller: "BannerController"
 		})
 }); 
 
-app.controller("BannerController", function ($scope,$state, $http, $ad, $site, Restangular, toastr,Upload) {
-	$scope.ad = $ad;
+app.controller("BannerController", function ($scope, $rootScope, $state, $http, Restangular, toastr,Upload) {
+	
+	$site=$rootScope.site;
+
+	$scope.resolve = function () {
+		if( $stateParams.id )
+		{
+			Restangular.one( 'siteAds', $stateParams.id ).get().then(function(response){
+				$ad=response;
+				$scope.ad = $ad;
+			});
+		}
+		else
+		{
+			$ad={};
+			$scope.ad = $ad;
+		}
+		
+	}
 
 	$scope.imageUpload = function(files , type){
 
@@ -63,4 +67,6 @@ app.controller("BannerController", function ($scope,$state, $http, $ad, $site, R
 	        });
 	    }
 	}
+
+	$scope.resolve();
 });

@@ -22,55 +22,86 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("DownloadController", function ($scope,Upload,$rootScope, $localStorage,$download, $user , $timeout , $location, $site, $state, $stateParams, $modal, Restangular, toastr, $filter) {
+app.controller("DownloadController", function ($scope,$stateParams,Upload,$rootScope, $localStorage,$download, $user , $timeout , $location, $site, $state, $stateParams, $modal, Restangular, toastr, $filter) {
 	var draft;
     var changed;
+    var seo = {};
+    $download=null;
+    var timeout = null;
 
     $scope.site = $site = $rootScope.site;
 
-    if(!$download.id){
-        $download.site_id = $scope.site.id;
+    $scope.resolve =function (){
+        if($stateParams.id)
+            Restangular.one('download' , $stateParams.id).get().then(function(response){
+                $scope.init();
+            });
+        else if($location.search().clone){
+            Restangular.one('download', $location.search().clone).get().then(function(response){
+                $scope.init();
+            });
+        }
+        else {
+            $download={access_level_type: 4, access_level_id: 0};
+            $scope.init();
+        }
     }
-    if($location.search().clone){
-        delete $download.id;
-        delete $download.access;
-        delete $download.author_id;
-        delete $download.history_count;
-        delete $download.user_count;
-        delete $download.site;
+
+    $scope.init=function(){
+        if(!$download.id){
+            $download.site_id = $scope.site.id;
+        }
+        if($location.search().clone){
+            delete $download.id;
+            delete $download.access;
+            delete $download.author_id;
+            delete $download.history_count;
+            delete $download.user_count;
+            delete $download.site;
+        }
+        $scope.download = $download;
+        if ($scope.download.end_published_date)
+            $scope.download.end_published_date = new Date(moment($scope.download.end_published_date).format('l'));
+        else
+            $scope.download.end_published_date = null;
+        if ($scope.download.published_date)
+        {
+            $scope.download.published_date = new Date(moment($scope.download.published_date).format('l'));
+        } else {
+            $scope.download.published_date = new Date();
+            $scope.download.published_date.setSeconds(0);
+            $scope.download.published_date.setMilliseconds(0);
+        }
+        $scope.download.access_level_type = parseInt( $scope.download.access_level_type );
+        $scope.download.access_level_id = parseInt( $scope.download.access_level_id );
+
+        if( $scope.download.access_level_type == 3 )
+            $scope.download.access_level_type = 2;
+
+        $scope.download.media_item = $download.media_item || {};
+
+        if ($download.seo_settings) {
+            $.each($download.seo_settings, function (key, data) {
+                seo[data.meta_key] = data.meta_value;
+
+            });
+        }
+        $scope.download.dripfeed_settings = $download.dripfeed;
+        $scope.download.seo_settings = seo;
+        $scope.$watch('download' , function(download , oldDownload){
+            if(typeof changed == "undefined")
+                changed = false;
+            else
+                changed = true;
+            if (download != oldDownload && changed && !$scope.download.id && !$location.search().clone) {
+                  if (timeout) {
+                    $timeout.cancel(timeout)
+                  }
+                  timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
+                }
+        } , true)
     }
 
-
-
-    $scope.download = $download;
-    if ($scope.download.end_published_date)
-        $scope.download.end_published_date = new Date(moment($scope.download.end_published_date).format('l'));
-    else
-        $scope.download.end_published_date = null;
-    if ($scope.download.published_date)
-    {
-        $scope.download.published_date = new Date(moment($scope.download.published_date).format('l'));
-    } else {
-        $scope.download.published_date = new Date();
-        $scope.download.published_date.setSeconds(0);
-        $scope.download.published_date.setMilliseconds(0);
-    }
-    $scope.download.access_level_type = parseInt( $scope.download.access_level_type );
-    $scope.download.access_level_id = parseInt( $scope.download.access_level_id );
-
-    if( $scope.download.access_level_type == 3 )
-        $scope.download.access_level_type = 2;
-
-    $scope.download.media_item = $download.media_item || {};
-    var seo = {};
-    if ($download.seo_settings) {
-        $.each($download.seo_settings, function (key, data) {
-            seo[data.meta_key] = data.meta_value;
-
-        });
-    }
-    $scope.download.dripfeed_settings = $download.dripfeed;
-    $scope.download.seo_settings = seo;
 
     $scope.imageUpload = function(files){
 
@@ -139,13 +170,13 @@ app.controller("DownloadController", function ($scope,Upload,$rootScope, $localS
         
     }
     //disabling for now because this isn't the draft feature we wanted
-    if(false && !$stateParams.id && !$location.search().clone)
-    Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'downloads.content'}).then(function(response){
-        if(response.length){
-            draft = response[0]
-            $scope.loadDraft()
-        }
-    })
+    // if(false && !$stateParams.id && !$location.search().clone)
+    // Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'downloads.content'}).then(function(response){
+    //     if(response.length){
+    //         draft = response[0]
+    //         $scope.loadDraft()
+    //     }
+    // })
     $scope.loadDraft = function(){
         var value = JSON.parse(draft.value);
         var modalInstance = $modal.open({
@@ -165,19 +196,7 @@ app.controller("DownloadController", function ($scope,Upload,$rootScope, $localS
         })
     }
 
-    var timeout = null;
-    $scope.$watch('download' , function(download , oldDownload){
-        if(typeof changed == "undefined")
-            changed = false;
-        else
-            changed = true;
-        if (download != oldDownload && changed && !$scope.download.id && !$location.search().clone) {
-              if (timeout) {
-                $timeout.cancel(timeout)
-              }
-              timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
-            }
-    } , true)
+    
 
     $scope.start = function(){
         var data = {site_id : $site.id , user_id : $user.id , key : 'downloads.content' , value : JSON.stringify($scope.download)}
@@ -190,4 +209,6 @@ app.controller("DownloadController", function ($scope,Upload,$rootScope, $localS
     $scope.downloadFile = function(media){
         location.href = $scope.app.apiUrl + '/utility/download?' + ( media.aws_key != undefined ? 'aws_key=' + media.aws_key : 'file=' + media.url );
     }
+
+    $scope.resolve();
 });

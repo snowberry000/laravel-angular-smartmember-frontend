@@ -40,40 +40,120 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('AdminController', function ($scope,Upload ,$window,$sessionStorage, $localStorage,$rootScope, $state,$user, $modal, Restangular, notify,$site,$access_levels,$support_tickets,$companies,$location) {
-    $rootScope.user = $user;
+    var access=null;
+    var new_company =null;
+    $rootScope.site=$site;
+    $rootScope.user=$user;
+    console.log('admin user:');
+    console.log($rootScope.user);
+    alert("admin");
 
-     if($site && $site.meta_data){
-        angular.forEach( $site.meta_data, function( value, key )
+    $scope.resolveAdmin = function () {
+            $rootScope.user = $user;
+
+            if($site && $site.meta_data){
+                angular.forEach( $site.meta_data, function( value, key )
+                    {
+                        if(value && value.key)
+                            $site[value.key] = parseInt(value.value);
+                    } 
+                );
+            }
+            if(typeof $site['show_wizard'] == 'undefined')
+                $site['show_wizard'] = 1;
+            
+            $scope.site = $site;
+            console.log($scope.site)
+
+            if ($user.id == $localStorage.user.id)
+                $rootScope.user.access_token = $localStorage.user.access_token;
+            
+            $scope.access_levels = $access_levels;
+            if($scope.options )
+            $scope.options.theme = '';
+            $scope.support_ticket_count = $site.unread_support_ticket;
+            $scope.companies = $companies.companies;
+            $rootScope.companies = $scope.companies;
+            $scope.current_company = _.find($scope.companies, {selected: 1});
+            $scope.sites = _.find($companies.sites , function(k , s){
+                return parseInt(s) == $scope.current_company.id;
+            } )
+
+            $rootScope.is_admin = $site.is_admin;
+            $rootScope.adminLoggedIn=$site.is_admin;
+            $rootScope.page_title = $site.name + " - " + "Admin";
+            $rootScope.site = $scope.site;
+
+            $scope.HideAdminMenu();
+
+            $scope.isAgentOrGreater();
+
+            $scope.getPrimaryAdminNotifications();
+            //////////////
+
+            $scope.agent_access = $scope.agent_access.concat($scope.member_access);                        
+            $scope.admin_access = []; //not used for now
+            $scope.team_access = []; //not used for now
+
+            $rootScope.is_agent = $scope.isAgent($user.role);
+            $rootScope.is_site_admin = $scope.isAdmin($user.role);
+            $rootScope.is_team_member = $scope.isTeamMember($user.role);
+            $rootScope.team_role_name = $scope.teamRoleName($user.role);
+
+            $scope.is_team_member = $rootScope.is_team_member;
+            $scope.is_agent = $rootScope.is_agent;
+            $scope.is_site_admin = $rootScope.is_site_admin;
+            $scope.team_role_name = $rootScope.team_role_name;
+
+            //if not logged in
+            if (!$scope.$storage.user){
+                $state.go('public.app.login');
+            }   
+            //if it is a member and trying to access unauthorized route
+            if($scope.member_access.indexOf($state.current.name) < 0 && !($rootScope.is_site_admin || $rootScope.is_team_member || $rootScope.is_agent)){
+                $state.go('public.admin.account.memberships');
+                return;
+            }
+            //if it is an agent and trying to access unauthorized route
+            if($scope.agent_access.indexOf($state.current.name) < 0  && !($rootScope.is_site_admin || $rootScope.is_team_member)){
+                $state.go('public.admin.account.memberships');
+                return;
+            }
+            //if it is an admin and trying to access unauthorized route
+            if($scope.agent_access.indexOf($state.current.name) < 0 && $state.current.name.split('.')[1] != 'site' && !$rootScope.is_team_member){
+                $state.go('public.admin.account.memberships');
+                return;
+            }
+
+            access = $scope.isTeamMember($user.role);
+            console.log($state.current)
+            if($state.current.name.split('.')[1]=='affiliates'){
+                if(!access ){
+                    $state.go('public.admin.account.memberships');
+                }
+            }
+
+            new_company = _.find($scope.companies, {id : $scope.site.company_id});
+
+            if (new_company && $scope.site.company_id && $scope.current_company && $scope.current_company.id && $scope.site.company_id != $scope.current_company.id)
             {
-                if(value && value.key)
-                    $site[value.key] = parseInt(value.value);
-            } 
-        );
+                $scope.current_company = new_company;
+                Restangular.one('user/setCompany').customPOST({'current_company_id' : $scope.current_company.id}).then(function(response){
+                    Restangular.one('user' , $localStorage.user.id).get().then(function(response){
+                        $rootScope.user = response;
+                        $user = $rootScope.user;
+
+                        $rootScope.is_agent = $scope.isAgent($user.role);
+                        $rootScope.is_site_admin = $scope.isAdmin($user.role);
+                        $rootScope.is_team_member = $scope.isTeamMember($user.role);
+                        $rootScope.team_role_name = $scope.teamRoleName($user.role);
+                    });
+                });
+            }
+
     }
-    if(typeof $site['show_wizard'] == 'undefined')
-        $site['show_wizard'] = 1;
-    
-    $scope.site = $site;
-    console.log($scope.site)
 
-    if ($user.id == $localStorage.user.id)
-        $rootScope.user.access_token = $localStorage.user.access_token;
     
-	$scope.access_levels = $access_levels;
-    if($scope.options )
-    $scope.options.theme = '';
-    $scope.support_ticket_count = $site.unread_support_ticket;
-    $scope.companies = $companies.companies;
-    $rootScope.companies = $scope.companies;
-    $scope.current_company = _.find($scope.companies, {selected: 1});
-    $scope.sites = _.find($companies.sites , function(k , s){
-        return parseInt(s) == $scope.current_company.id;
-    } )
-
-    $rootScope.is_admin = $site.is_admin;
-    $rootScope.adminLoggedIn=$site.is_admin;
-    $rootScope.page_title = $site.name + " - " + "Admin";
-    $rootScope.site = $scope.site;
 
 
     $scope.HideAdminMenu = function() {
@@ -82,7 +162,7 @@ app.controller('AdminController', function ($scope,Upload ,$window,$sessionStora
 
     };
 
-    $scope.HideAdminMenu();
+    
 
     $scope.showNotifications = function()
     {
@@ -147,7 +227,7 @@ app.controller('AdminController', function ($scope,Upload ,$window,$sessionStora
         $scope.isAgentOrGreaterCheck = $rootScope.isAgentOrGreaterCheck;
     }
 
-    $scope.isAgentOrGreater();
+    
 
     $scope.isAgent = function(role){
         if( typeof role == 'undefined' )
@@ -209,7 +289,7 @@ app.controller('AdminController', function ($scope,Upload ,$window,$sessionStora
         return false;
     }
 
-    $scope.getPrimaryAdminNotifications();
+    
 
     $scope.teamRoleName = function(role){
         for (var i = role.length -1; i >= 0; i -- ) {
@@ -247,77 +327,7 @@ app.controller('AdminController', function ($scope,Upload ,$window,$sessionStora
     $scope.agent_access = ['public.admin.site.membership' , 'public.admin.team.helpdesk' , 'public.admin.team.helpdesk.agent-stats' ,
                             'public.admin.team.helpdesk.agent-stats.agent-stat' , 'public.admin.team.helpdesk.tickets' ,
                             'public.admin.team.helpdesk.settings' , 'public.admin.team.helpdesk.ticket'];
-    $scope.agent_access = $scope.agent_access.concat($scope.member_access);                        
-    $scope.admin_access = []; //not used for now
-    $scope.team_access = []; //not used for now
-
-    $rootScope.is_agent = $scope.isAgent($user.role);
-    $rootScope.is_site_admin = $scope.isAdmin($user.role);
-    $rootScope.is_team_member = $scope.isTeamMember($user.role);
-    $rootScope.team_role_name = $scope.teamRoleName($user.role);
-
-    $scope.is_team_member = $rootScope.is_team_member;
-    $scope.is_agent = $rootScope.is_agent;
-    $scope.is_site_admin = $rootScope.is_site_admin;
-    $scope.team_role_name = $rootScope.team_role_name;
-
-    //if not logged in
-    if (!$scope.$storage.user){
-        $state.go('public.app.login');
-    }   
-    //if it is a member and trying to access unauthorized route
-    if($scope.member_access.indexOf($state.current.name) < 0 && !($rootScope.is_site_admin || $rootScope.is_team_member || $rootScope.is_agent)){
-        $state.go('public.admin.account.memberships');
-        return;
-    }
-    //if it is an agent and trying to access unauthorized route
-    if($scope.agent_access.indexOf($state.current.name) < 0  && !($rootScope.is_site_admin || $rootScope.is_team_member)){
-        $state.go('public.admin.account.memberships');
-        return;
-    }
-    //if it is an admin and trying to access unauthorized route
-    if($scope.agent_access.indexOf($state.current.name) < 0 && $state.current.name.split('.')[1] != 'site' && !$rootScope.is_team_member){
-        $state.go('public.admin.account.memberships');
-        return;
-    }
-
-    var access = $scope.isTeamMember($user.role);
-    console.log($state.current)
-    if($state.current.name.split('.')[1]=='affiliates'){
-        if(!access ){
-            $state.go('public.admin.account.memberships');
-        }
-    }
-
-    /*if (!$site.is_admin){
-        $state.go('public.app.lessons');
-    }*/
-
-    //$rootScope.hasAffiliateAccess = $scope.isManagerOwnerOrPrimaryAdmin($user);
-    //$rootScope.hasContentAccess = $scope.isAdminOrManagerOwnerOrPrimaryAdmin($user);
-    //$rootScope.hasSiteRolesAccess = $scope.isManagerOwnerOrPrimaryAdmin($user);
-    //$rootScope.hasDeleteSitesAccess = $scope.isManagerOwnerOrPrimaryAdmin($user);
-    //$rootScope.hasCreateSitesAccess = $scope.isManagerOwnerOrPrimaryAdmin($user);
-
-    // Company check should be after we are sure the user is an public.admin.
-
-    var new_company = _.find($scope.companies, {id : $scope.site.company_id});
-
-    if (new_company && $scope.site.company_id && $scope.current_company && $scope.current_company.id && $scope.site.company_id != $scope.current_company.id)
-    {
-        $scope.current_company = new_company;
-        Restangular.one('user/setCompany').customPOST({'current_company_id' : $scope.current_company.id}).then(function(response){
-            Restangular.one('user' , $localStorage.user.id).get().then(function(response){
-                $rootScope.user = response;
-                $user = $rootScope.user;
-
-                $rootScope.is_agent = $scope.isAgent($user.role);
-                $rootScope.is_site_admin = $scope.isAdmin($user.role);
-                $rootScope.is_team_member = $scope.isTeamMember($user.role);
-                $rootScope.team_role_name = $scope.teamRoleName($user.role);
-            });
-        });
-    }
+    
 
 	$scope.showComingSoon = function(){
         $name = 'This feature is coming soon';

@@ -5,19 +5,19 @@ app.config(function($stateProvider){
 		.state("public.admin.site.appearance.banners",{
 			url: "/banners",
 			templateUrl: "/templates/components/public/admin/site/appearance/banners/banners.html",
-			controller: "BannersController",
-            resolve: {
-                $ads: function( Restangular, $site )
-                {
-                    return Restangular.all( 'siteAds' ).getList( { site_id: $site.id, custom_ad: false } );
-                }
-            }
+			controller: "BannersController"
 		})
 }); 
 
-app.controller("BannersController", function ($scope, $state,$http, $ads, $site, Restangular, toastr, $modal) {
-	    $scope.ads = $ads;
-
+app.controller("BannersController", function ($scope, $rootScope, $state,$http, Restangular, toastr, $modal) {
+	    
+	$site=$rootScope.site;
+	$scope.resolve = function (response){
+		Restangular.all( 'siteAds' ).getList( { site_id: $site.id, custom_ad: false } ).then(function(response){
+			$ads=response;
+			$scope.ads = $ads;
+		});
+	}
 	    $scope.currentPage = 1;
 
 	    $scope.loadMore = function(){
@@ -77,7 +77,7 @@ app.controller("BannersController", function ($scope, $state,$http, $ads, $site,
 	            toastr.success("Banner saved!");
 	        });
 	    }
-
+	    $scope.resolve();
 
 	    $scope.dragControlListeners = {
 	        accept: function (sourceItemHandleScope, destSortableScope){

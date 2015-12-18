@@ -5,37 +5,48 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.list",{
 			url: "/list/:id?",
 			templateUrl: "/templates/components/public/admin/team/email/list/list.html",
-			controller: "smartMailListController",
-			resolve: {
-				emailList: function(Restangular, $stateParams, $site){
-					if ($stateParams.id){
-						return Restangular.one('emailList', $stateParams.id).get();
-					}
-					return {company_id: $site.company_id};
-				}
-			}
+			controller: "smartMailListController"
 		})
 }); 
 
-app.controller("smartMailListController", function ($scope, $localStorage, Restangular, toastr, $state, emailList, $site) {
-
-	$scope.emailList = emailList;
-
-	$scope.dirty = {};
-
-	if ($scope.emailList.segment_query)
-	    $scope.dirty.value = $scope.emailList.segment_query;
-
-	if ($scope.emailList.subscribers)
+app.controller("smartMailListController", function ($scope,$rootScope, $stateParams, $localStorage, Restangular, toastr, $state) {
+	$site=$rootScope.site;
+	emailList=null;
+	$scope.resolve = function ()
 	{
-	    var result = [];
-	    angular.forEach($scope.emailList.subscribers, function(value) {
-	        this.push(value.email);
-	    }, result);
-
-	    $scope.emailList.subscribers = result.join(',');
+		if ($stateParams.id){
+			Restangular.one('emailList', $stateParams.id).get().then(function(response){
+				emailList=response;
+				$scope.emailList = emailList;
+				$scope.initialize();
+			});
+		}
+		else
+		{
+			emailList={company_id: $site.company_id};
+			$rootScope.emailList=emailList;
+			$scope.initialize();
+		}
 	}
 
+	$scope.initialize = function () {
+		$scope.dirty = {};
+		
+		if ($scope.emailList.segment_query)
+		    $scope.dirty.value = $scope.emailList.segment_query;
+
+		if ($scope.emailList.subscribers)
+		{
+		    var result = [];
+		    angular.forEach($scope.emailList.subscribers, function(value) {
+		        this.push(value.email);
+		    }, result);
+
+		    $scope.emailList.subscribers = result.join(',');
+		}
+	}
+
+	
 	$scope.save = function(){
 	    $scope.emailList.segment_query = $scope.dirty.value;
 	    if ($scope.emailList.id){
@@ -278,4 +289,6 @@ app.controller("smartMailListController", function ($scope, $localStorage, Resta
 	function on_attach() {
 	    console.log("Attached");
 	}
+
+	$scope.initialize();
 });

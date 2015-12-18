@@ -6,18 +6,24 @@ app.config(function($stateProvider){
 			url: "/downloads",
 			templateUrl: "/templates/components/public/admin/site/content/downloads/downloads.html",
 			controller: "DownloadsController",
-            resolve: {
-                $downloads: function(Restangular, $site) {
-                    return Restangular.all('').customGET('download');
-                }
-            }
 		})
 }); 
 
-app.controller("DownloadsController", function ($scope, $localStorage, $downloads , $site, $state, $stateParams, $modal, Restangular, toastr, $filter) {
-	console.log($downloads);
-    $scope.downloads =$downloads;
+app.controller("DownloadsController", function ($scope,$rootScope, $localStorage, $state, $stateParams, $modal, Restangular, toastr, $filter) {
+    $site=$rootScope.site;
+    $downloads=null;
+
+    $scope.resolve =function(){
+        Restangular.all('').customGET('download').then(function(response){
+            $downloads=response;
+            console.log($downloads);
+            $scope.downloads =$downloads;
+        });
+    }
+
+    
     $scope.currentPage = 1;
+
 
     $scope.dragControlListeners = {
         accept: function (sourceItemHandleScope, destSortableScope){
@@ -79,4 +85,5 @@ app.controller("DownloadsController", function ($scope, $localStorage, $download
             });
         })
     };
+    $scope.resolve();
 });

@@ -7,15 +7,6 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/admin/site/content/blog/post/post.html",
 			controller: "PostController",
             resolve: {
-                $next_item: function(Restangular, $site , $stateParams , $location) {
-                    if($stateParams.id)
-                        return Restangular.one('post' , $stateParams.id).get();
-                    else if($location.search().clone){
-                        return Restangular.one('post', $location.search().clone).get();
-                    }
-                    else
-                        return {access_level_type : 4}
-                },
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
@@ -27,8 +18,92 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PostController", function ($scope, $localStorage,$site , $rootScope , $timeout , $user , $location, $next_item , $state, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
-	$scope.template_data = {
+app.controller("PostController", function ($scope, $localStorage, $stateParams , $rootScope , $timeout  , $location, $state, $stateParams, $modal, $filter, Restangular, toastr, Upload) {
+	$site=$rootScope.site;
+    $user=$rootScope.user;
+    $next_item=null;
+    var draft;
+    var changed;
+    var seo = {};
+    var timeout = null;
+
+    $scope.resolve=function(){
+        if($stateParams.id)
+            Restangular.one('post' , $stateParams.id).get().then(function(response){
+                $next_item=response;
+                $scope.next_item=$next_item;
+                $scope.init();
+            });
+        else if($location.search().clone){
+            Restangular.one('post', $location.search().clone).get().then(function(response){
+                $next_item=response;
+                $scope.next_item = $next_item;
+                $scope.init();
+            });
+        }
+        else
+        {
+            $next_item = {access_level_type : 4};
+            $scope.next_item=$next_item;
+            $scope.init();
+        }
+            
+    }
+
+    $scope.init = function(){
+        if(!$next_item.id){
+            $next_item.site_id = $scope.site.id;
+        }
+        $scope.next_item.id ? $scope.page_title = 'Edit post' : $scope.page_title = 'Create post';
+
+        if($location.search().clone){
+            delete $next_item.id;
+            delete $next_item.access;
+            delete $next_item.site;
+        }
+
+        if ($scope.next_item.seo_settings) {
+            $.each($scope.next_item.seo_settings, function (key, data) {
+                seo[data.meta_key] = data.meta_value;
+
+            });
+        }
+
+        if ($scope.next_item.end_published_date)
+            $scope.next_item.end_published_date = new Date(moment($scope.next_item.end_published_date).format('l'));
+        else
+            $scope.next_item.end_published_date = null;
+        if ($scope.next_item.published_date)
+        {
+            $scope.next_item.published_date = new Date(moment($scope.next_item.published_date).format('l'));
+        } else {
+            $scope.next_item.published_date = new Date();
+            $scope.next_item.published_date.setSeconds(0);
+            $scope.next_item.published_date.setMilliseconds(0);
+        }
+        $scope.next_item.seo_settings = seo;
+        Restangular.all('post').customGET('getMostUsed/'+$site.id).then(function(response){
+            $scope.next_item.most_used_categories = response.most_used_categories;
+            $scope.next_item.most_used_tags = response.most_used_tags;
+        })
+
+
+        $scope.$watch('post' , function(post , oldPost){
+            if(typeof changed == "undefined")
+                changed = false;
+            else
+                changed = true;
+            if (post != oldPost && changed && !$scope.next_item.id && !$location.search().clone) {
+                  if (timeout) {
+                    $timeout.cancel(timeout)
+                  }
+                  timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
+                }
+        } , true)
+
+    }
+
+    $scope.template_data = {
         title: 'Post',
         cancel_route: 'public.admin.site.content.blog.posts',
         success_route: 'public.admin.site.content.blog.posts',
@@ -37,51 +112,13 @@ app.controller("PostController", function ($scope, $localStorage,$site , $rootSc
     }
     $scope.site = $site = $rootScope.site;
 
-    if(!$next_item.id){
-        $next_item.site_id = $scope.site.id;
-    }
-    var draft;
-    var changed;
-    if($location.search().clone){
-        delete $next_item.id;
-        delete $next_item.access;
-        delete $next_item.site;
-    }
-
-    $scope.next_item = $next_item;
-
-    $scope.next_item.id ? $scope.page_title = 'Edit post' : $scope.page_title = 'Create post';
-
-    var seo = {};
-    if ($scope.next_item.seo_settings) {
-        $.each($scope.next_item.seo_settings, function (key, data) {
-            seo[data.meta_key] = data.meta_value;
-
-        });
-    }
     $scope.range = function(min, max, step){
         step = step || 1;
         var input = [];
         for (var i = min; i <= max; i += step) input.push(i);
         return input;
     };
-    if ($scope.next_item.end_published_date)
-        $scope.next_item.end_published_date = new Date(moment($scope.next_item.end_published_date).format('l'));
-    else
-        $scope.next_item.end_published_date = null;
-    if ($scope.next_item.published_date)
-    {
-        $scope.next_item.published_date = new Date(moment($scope.next_item.published_date).format('l'));
-    } else {
-        $scope.next_item.published_date = new Date();
-        $scope.next_item.published_date.setSeconds(0);
-        $scope.next_item.published_date.setMilliseconds(0);
-    }
-    $scope.next_item.seo_settings = seo;
-    Restangular.all('post').customGET('getMostUsed/'+$site.id).then(function(response){
-        $scope.next_item.most_used_categories = response.most_used_categories;
-        $scope.next_item.most_used_tags = response.most_used_tags;
-    })
+    
 
     $scope.saveAsDraft = function () {
         if( $scope.next_item.permalink == '' )
@@ -176,13 +213,13 @@ app.controller("PostController", function ($scope, $localStorage,$site , $rootSc
         }
     }
     //disabling for now because this isn't the draft feature we wanted
-    if(false && !$stateParams.id && !$location.search().clone)
-    Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'posts.content'}).then(function(response){
-        if(response.length){
-            draft = response[0]
-            $scope.loadDraft()
-        }
-    })
+    // if(false && !$stateParams.id && !$location.search().clone)
+    // Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'posts.content'}).then(function(response){
+    //     if(response.length){
+    //         draft = response[0]
+    //         $scope.loadDraft()
+    //     }
+    // })
     $scope.loadDraft = function(){
         var value = JSON.parse(draft.value);
         var modalInstance = $modal.open({
@@ -202,19 +239,7 @@ app.controller("PostController", function ($scope, $localStorage,$site , $rootSc
         })
     }
 
-    var timeout = null;
-    $scope.$watch('post' , function(post , oldPost){
-        if(typeof changed == "undefined")
-            changed = false;
-        else
-            changed = true;
-        if (post != oldPost && changed && !$scope.next_item.id && !$location.search().clone) {
-              if (timeout) {
-                $timeout.cancel(timeout)
-              }
-              timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
-            }
-    } , true)
+    
 
     $scope.start = function(){
         var data = {site_id : $site.id , user_id : $user.id , key : 'posts.content' , value : JSON.stringify($scope.next_item)}
@@ -224,4 +249,6 @@ app.controller("PostController", function ($scope, $localStorage,$site , $rootSc
             console.log(response);
         })
     }
+
+    $scope.resolve();
 });

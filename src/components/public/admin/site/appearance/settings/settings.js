@@ -5,23 +5,24 @@ app.config(function($stateProvider){
 		.state("public.admin.site.appearance.settings",{
 			url: "/settings",
 			templateUrl: "/templates/components/public/admin/site/appearance/settings/settings.html",
-			controller: "SettingsController",
-			resolve: {
-				$site_options: function( Restangular )
-				{
-					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'site_logo', 'access_deny_image', 'logo_url', 'homepage_url','sign_box_border_size','sign_box_border_color','login_button_text','register_button_text','sign_button_text_color','sign_button_color','sign_bg_image' ] );
-				}
-			}
+			controller: "SettingsController"
 		})
 }); 
 
-app.controller("SettingsController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr) {
-	 $scope.site_options = {};
-	 $.each($site_options, function (key, data) {
-	    $scope.site_options[data.key] = data.value;
-	});
-	 $scope.site_options.isOpen = false;
+app.controller("SettingsController", function ($scope, $rootScope, $localStorage, $location, $stateParams, $modal, Restangular, toastr) {
 	 $rootScope.not_homepage_setting = false;
+	 $site_options=null;
+	 $site=$rootScope.site;
+	 $scope.resolve =function() {
+	 	Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'currency' ] ).then(function(response){
+	 		$site_options=response;
+	 		 $scope.site_options = {};
+	 		 $.each($site_options, function (key, data) {
+	 		    $scope.site_options[data.key] = data.value;
+	 		});
+	 		 $scope.site_options.isOpen = false;
+	 	});
+	 }
 
 	 $scope.updateMenuItem = function ( model ) {
 	     $scope.site_options.cap_icon = model.custom_icon;
@@ -79,4 +80,6 @@ app.controller("SettingsController", function ($scope, $rootScope, $localStorage
 	     })
 	   }
 	 }
+
+	 $scope.resolve();
 });

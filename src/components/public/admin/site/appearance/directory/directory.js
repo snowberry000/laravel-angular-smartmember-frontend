@@ -16,21 +16,30 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "DirectoryListingController", function( $scope, $localStorage, $modal, $listing, Restangular, $site, toastr, $filter )
+app.controller( "DirectoryListingController", function( $scope,$rootScope, $localStorage, $modal, Restangular, toastr, $filter )
 {
-	if( $listing )
-    {
-        $listing.expired_at = moment( $listing.expired_at ).toDate();
-    }
-    else
-    {
-        $listing = {};
-    }
-    $scope.listing = $listing;
-	$scope.hide_lessons = $listing.hide_lessons;
-	$scope.hide_downloads = $listing.hide_downloads;
-	$scope.hide_members = $listing.hide_members;
-	$scope.hide_revenue = $listing.hide_revenue;
+	$site=$rootScope.site;
+
+	$scope.resolve=function(){
+		Restangular.one( 'directory', 'siteListing' ).get().then(function(response){
+			$listing=response;
+			if( $listing )
+		    {
+		        $listing.expired_at = moment( $listing.expired_at ).toDate();
+		    }
+		    else
+		    {
+		        $listing = {};
+		    }
+		    $scope.listing = $listing;
+			$scope.hide_lessons = $listing.hide_lessons;
+			$scope.hide_downloads = $listing.hide_downloads;
+			$scope.hide_members = $listing.hide_members;
+			$scope.hide_revenue = $listing.hide_revenue;
+		});
+	}
+	
+	
 
 
 	$scope.onBlurTitle = function( $event )
@@ -67,4 +76,6 @@ app.controller( "DirectoryListingController", function( $scope, $localStorage, $
 			toastr.success( "Your directory listings has been received." );
 		} );
 	}
+
+	$scope.resolve();
 } );

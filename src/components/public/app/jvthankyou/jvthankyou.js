@@ -5,17 +5,12 @@ app.config(function($stateProvider){
 		.state("public.app.jvthankyou",{
 			url: "/jvthankyou",
 			templateUrl: "/templates/components/public/app/jvthankyou/jvthankyou.html",
-			controller: "JvthankyouController",
-            resolve: {
-                emailLists: function() {
-                    return {};
-                }
-            }
+			controller: "JvthankyouController"
 		})
 }); 
 
-app.controller('JvthankyouController', function ($scope, Restangular, $localStorage, $location, toastr, $state, $site, emailLists, Upload) {
-    $scope.emailLists = emailLists;
+app.controller('JvthankyouController', function ($scope, $site,$rootScope, Restangular, $localStorage, $location, toastr, $state, Upload) {
+    $scope.emailLists = {};
     $scope.jv = {}
     $scope.isChecked = false; 
     $scope.urlPopover = {isOpen : false};

@@ -10,7 +10,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicSupportTicketsController', function ($scope,$site,$localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
+app.controller('PublicSupportTicketsController', function ($scope, $site,$rootScope,$localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
     $scope.loading=true;
     Restangular.all('supportTicket').customGET('userTickets').then(function(response){
         $scope.loading=false;

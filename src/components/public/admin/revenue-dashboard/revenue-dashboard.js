@@ -5,17 +5,11 @@ app.config(function($stateProvider){
 		.state("public.admin.revenue-dashboard",{
 			url: "/revenue-dashboard",
 			templateUrl: "/templates/components/public/admin/revenue-dashboard/revenue-dashboard.html",
-			controller: "RevenueDashboardController",
-			resolve: {
-				$transactions: function( Restangular, $site )
-				{
-					return Restangular.all( 'transaction' ).getList( { site_id: $site.id } );
-				}
-			}
+			controller: "RevenueDashboardController"
 		})
 }); 
 
-app.controller("RevenueDashboardController", function ($scope) {
+app.controller("RevenueDashboardController", function ($scope,$rootScope) {
 	$scope.template_data = {
 	    title: 'TRANSACTIONS',
 	    description: 'Transactions are each sale / refund processed through this site by customers',
@@ -23,7 +17,7 @@ app.controller("RevenueDashboardController", function ($scope) {
 	    edit_route: '',
 	    api_object: 'transaction'
 	}
-
+	$site=$rootScope.site;
 	$scope.data = [];
 	$scope.pagination = {current_page: 1};
 	$scope.pagination.total_count = 1;

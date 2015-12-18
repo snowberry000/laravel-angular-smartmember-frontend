@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PostsController", function ($scope, $rootScope ,$localStorage, $site ,$state, $stateParams, $modal, $filter, Restangular, toastr) {
+app.controller("PostsController", function ($scope, $rootScope ,$localStorage,$state, $stateParams, $modal, $filter, Restangular, toastr) {
 	$scope.template_data = {
         title: 'BLOG_POSTS',
         description: 'Posts are the informational material of your site that go in the blog.',

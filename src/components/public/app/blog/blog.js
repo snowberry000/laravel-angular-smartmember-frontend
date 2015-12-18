@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller( 'BlogController', function( $scope, $rootScope, $localStorage, Restangular, $site, notify )
+app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStorage, Restangular, notify )
 {
 	$scope.posts = [];
 	$scope.loading=true;

@@ -5,10 +5,10 @@ app.config(function($stateProvider){
 		.state("public.admin.site.content.blog",{
 			url: "/blog",
 			templateUrl: "/templates/components/public/admin/site/content/blog/blog.html",
-			controller: "BlogController"
+			controller: "SiteBlogController"
 		})
 }); 
 
-app.controller("BlogController", function ($scope) {
+app.controller("SiteBlogController", function ($scope) {
 
 });

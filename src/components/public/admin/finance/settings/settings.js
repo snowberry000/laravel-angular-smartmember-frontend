@@ -5,22 +5,24 @@ app.config(function($stateProvider){
 		.state("public.admin.finance.settings",{
 			url: "/settings",
 			templateUrl: "/templates/components/public/admin/finance/settings/settings.html",
-			controller: "SettingsController",
-			resolve: {
-				$site_options: function( Restangular )
-				{
-					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'currency' ] );
-				}
-			}
+			controller: "SettingsController"
 		})
 }); 
 
-app.controller("SettingsController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr) {
-	 $scope.site_options = {};
-	 $.each($site_options, function (key, data) {
-	    $scope.site_options[data.key] = data.value;
-	});
-	 $scope.site_options.isOpen = false;
+app.controller("SettingsController", function ($scope, $rootScope, $localStorage, $location , $stateParams, $modal, Restangular, toastr) {
+	 
+	 $site_options=null;
+	 $site=$rootScope.site;
+	 $scope.resolve =function() {
+	 	Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'currency' ] ).then(function(response){
+	 		$site_options=response;
+	 		 $scope.site_options = {};
+	 		 $.each($site_options, function (key, data) {
+	 		    $scope.site_options[data.key] = data.value;
+	 		});
+	 		 $scope.site_options.isOpen = false;
+	 	});
+	 }
 
 	 $scope.save = function () {
 	     delete $scope.site_options.url;
@@ -31,4 +33,6 @@ app.controller("SettingsController", function ($scope, $rootScope, $localStorage
 	         $localStorage.homepage_url = $scope.site_options.homepage_url;
 	     });
 	 }
+
+	 $scope.resolve();
 });

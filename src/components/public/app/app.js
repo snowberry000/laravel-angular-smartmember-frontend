@@ -8,9 +8,10 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AppController", function ($scope, $user , $rootScope, $localStorage,$location, $site, Restangular, toastr, $window,$timeout) {
-	$rootScope.page_title = $site.name;
-    $rootScope.site = $site;
+app.controller("AppController", function ($scope ,$site,$user, $rootScope, $localStorage,$location, Restangular, toastr, $window,$timeout) {
+
+    $rootScope.page_title = $site.name;
+    
     $rootScope.is_admin = false;
     $scope.site = $site;
 

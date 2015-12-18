@@ -11,6 +11,7 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("TeamController", function ($scope, $rootScope , $localStorage , $state) {
+	alert("team");
 	if($rootScope.is_not_allowed){
 	    $state.go('public.admin.team.dashboard');
 	    return false;

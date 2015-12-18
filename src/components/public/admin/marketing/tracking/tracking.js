@@ -6,22 +6,24 @@ app.config(function($stateProvider){
 			url: "/tracking",
 			templateUrl: "/templates/components/public/admin/marketing/tracking/tracking.html",
 			controller: "TrackingController",
-			resolve: {
-				$site_options: function( Restangular )
-				{
-					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'google_analytics_id', 'facebook_retargetting_pixel', 'facebook_conversion_pixel', 'bing_id' ] );
-				}
-			}
 		})
 }); 
 
-app.controller("TrackingController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams, $modal, Restangular, toastr) {
-	 $scope.site_options = {};
-	 $.each($site_options, function (key, data) {
-	    $scope.site_options[data.key] = data.value;
-	});
-	 
-	 $scope.site_options.isOpen = false;
+app.controller("TrackingController", function ($scope, $rootScope, $localStorage, $location,$stateParams, $modal, Restangular, toastr) {
+
+
+	$site_options=null;
+	$site=$rootScope.site;
+	$scope.resolve =function() {
+		Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'currency' ] ).then(function(response){
+			$site_options=response;
+			 $scope.site_options = {};
+			 $.each($site_options, function (key, data) {
+			    $scope.site_options[data.key] = data.value;
+			});
+			 $scope.site_options.isOpen = false;
+		});
+	}
 
 	 $scope.save = function () {
 	     delete $scope.site_options.url;
@@ -32,5 +34,7 @@ app.controller("TrackingController", function ($scope, $rootScope, $localStorage
 	         $localStorage.homepage_url = $scope.site_options.homepage_url;
 	     });
 	 }
+
+	 $scope.resolve();
 
 });

@@ -7,10 +7,6 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/admin/site/appearance/widgets/widgets.html",
 			controller: "WidgetsController",
             resolve: {
-                $ads: function( Restangular, $site )
-                {
-                    return Restangular.all( 'siteAds' ).getList( { site_id: $site.id } );
-                },
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
@@ -22,9 +18,26 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("WidgetsController", function ($scope, $state,$http, $ads, $site, Restangular, toastr, $modal) {
-	$scope.displayAds=[];
-	$scope.hiddenAds=[];
+app.controller("WidgetsController", function ($scope,$rootScope, $state,$http, Restangular, toastr, $modal) {
+
+	$site=$rootScope.site;
+	$ads=null;
+
+	$scope.init = function(){
+		Restangular.all( 'siteAds' ).getList( { site_id: $site.id } ).then(function(response){
+			$ads=response;
+			$scope.displayAds=[];
+			$scope.hiddenAds=[];
+			$scope.divide($ads);
+
+			console.log("display ads: ");
+			console.log($scope.displayAds);
+			console.log("hidden ads: ");
+			console.log($scope.hiddenAds);
+
+		});
+	}
+	
 
 	$scope.divide=function($allAds){
 	    $.each($allAds,function(key,value){
@@ -38,13 +51,7 @@ app.controller("WidgetsController", function ($scope, $state,$http, $ads, $site,
 	        }
 	    });
 	}
-	$scope.divide($ads);
-
-	console.log("display ads: ");
-	console.log($scope.displayAds);
-	console.log("hidden ads: ");
-	console.log($scope.hiddenAds);
-
+	
 	$scope.currentPage = 1;
 
 	$scope.loadMore = function(){
@@ -114,6 +121,8 @@ app.controller("WidgetsController", function ($scope, $state,$http, $ads, $site,
 	         });
 	     })
 	}
+
+	$scope.init();
 
 	$scope.dragControlListeners = {
 	    accept: function (sourceItemHandleScope, destSortableScope){

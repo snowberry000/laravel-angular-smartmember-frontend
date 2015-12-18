@@ -23,7 +23,7 @@
     "gulp-replace-path": "^0.4.0",
     "gulp-s3-upload": "^1.5.1",
     "gulp-uglify": "^1.4.1",
-    "main-bower-files": "^2.9.0",
+    "main-bower-files": "^2.11.0",
     "path-exists": "^2.1.0",
     "run-sequence": "^1.1.5"
   }

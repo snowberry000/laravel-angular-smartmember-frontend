@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicSupportTicketController', function ($scope,Upload,$site, $localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
+app.controller('PublicSupportTicketController', function ($scope,$site,Upload,$rootScope, $localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
     $scope.ticket = {};
     $scope.init = function(){
         $scope.ticket.type = $stateParams.type || 'normal';

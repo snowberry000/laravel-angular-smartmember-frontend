@@ -5,17 +5,12 @@ app.config(function($stateProvider){
 		.state("public.app.jvpage",{
 			url: "/jvpage",
 			templateUrl: "/templates/components/public/app/jvpage/jvpage.html",
-			controller: "JvpageController",
-            resolve: {
-                emailLists: function() {
-                    return {};
-                }
-            }
+			controller: "JvpageController"
 		})
 }); 
 
-app.controller('JvpageController', function ($scope, Restangular, $localStorage, $location, toastr, $state, $site, emailLists, Upload) {
-    $scope.emailLists = emailLists;
+app.controller('JvpageController', function ($scope,$site, Restangular,$rootScope, $localStorage, $location, toastr, $state, Upload) {
+    $scope.emailLists = {};
     $scope.jv = {}
     $scope.isChecked = false; 
     $scope.urlPopover = {isOpen : false};

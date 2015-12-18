@@ -5,22 +5,30 @@ app.config(function($stateProvider){
 		.state("public.admin.finance.summary",{
 			url: "/summary",
 			templateUrl: "/templates/components/public/admin/finance/summary/summary.html",
-			controller: "SummaryController",
-			resolve: {
-				$summary: function( Restangular, $site )
-				{
-					return Restangular.all( 'transaction' ).customGET( 'summary' );
-				}
-			}
+			controller: "SummaryController"
 		})
 }); 
 
-app.controller("SummaryController", function ($scope,$summary, $localStorage,$site, Restangular) {
-		$scope.summary = $summary;
-		$scope.summary.sales_ratio = 0.0;
-		$scope.summary.refunds_ratio = 0.0;
-		$scope.summary.sales_percentage = 0.0;
-		$scope.summary.refunds_percentage = 0.0;
+app.controller("SummaryController", function ($scope, $rootScope, $localStorage, Restangular) {
+		$site=$rootScope.site;
+		$summary=null;
+
+		$scope.resolve=function(){
+			Restangular.all( 'transaction' ).customGET( 'summary' ).then(function(response){
+				$summary=response;
+				$scope.summary = $summary;
+				$scope.summary.sales_ratio = 0.0;
+				$scope.summary.refunds_ratio = 0.0;
+				$scope.summary.sales_percentage = 0.0;
+				$scope.summary.refunds_percentage = 0.0;
+				$scope.init();
+			});
+		}
+
+		
+
+		
+		
 
 		$scope.colours = [{
 	          "fillColor": "rgba(0, 102, 0, 1)",
@@ -56,4 +64,5 @@ app.controller("SummaryController", function ($scope,$summary, $localStorage,$si
 	            });
 	        }
 		}	
+		$scope.resolve();
 });

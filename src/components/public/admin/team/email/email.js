@@ -10,6 +10,7 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("EmailController", function ($scope, $rootScope , $localStorage,$state, $modal, Restangular, notify) {
+	alert("email");
 	if($rootScope.is_not_allowed){
         $state.go('public.admin.team.dashboard');
         return false;

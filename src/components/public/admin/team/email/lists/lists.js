@@ -6,23 +6,16 @@ app.config(function($stateProvider){
 			url: "/lists",
 			templateUrl: "/templates/components/public/admin/team/email/lists/lists.html",
 			controller: "EmailListsController",
-			resolve: {
-				emailLists: function(Restangular , $site){
-					return Restangular.all('emailList').getList();
-				},
-				$site: function(Restangular,$site){
-					return $site;
-				}
-			}
 		})
 }); 
 
-app.controller("EmailListsController", function ($scope, $localStorage,$site , $location,  $modal, Restangular, toastr) {
+app.controller("EmailListsController", function ($scope, $localStorage,$rootScope , $location,  $modal, Restangular, toastr) {
 
 	$scope.blockCalls=false;
 	$scope.processingCall=false;
 	$scope.currentPage = 1;
 	$scope.loading = true;
+	$site=$rootScope.site;
 
 	Restangular.all('emailList').getList()
 	    .then(function(response){

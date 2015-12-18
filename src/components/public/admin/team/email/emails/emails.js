@@ -5,22 +5,41 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.emails",{
 			url: "/emails",
 			templateUrl: "/templates/components/public/admin/team/email/emails/emails.html",
-			controller: "EmailsController",
-			resolve: {
-				emails: function(Restangular , $site){
-					return Restangular.all('email').getList();
-				}
-			}
+			controller: "EmailsController"
 		})
 }); 
 
-app.controller("EmailsController", function ($scope, $localStorage,$state, $modal, Restangular, toastr, $site, emails , $user) {
+app.controller("EmailsController", function ($scope,$rootScope, $localStorage,$state, $modal, Restangular, toastr ) {
 
-	$scope.blockCalls=false;
-	$scope.processingCall=false;
-	$scope.emails=emails;
-	$scope.query = '';
-	$scope.currentPage = 1;
+	var access =null;
+	$site=$rootScope.site;
+	$user=$rootScope.user;
+	console.log('user: ');
+	console.log($user)
+	$scope.initialize=function()
+	{
+		Restangular.all('email').getList().then(function(response){
+			emails=response;
+			$scope.emails=emails;
+			var access = $scope.hasAccess($user.role);
+			if($state.current.name.split('.')[1]=='smartmail'){
+			    console.log(access)
+			    if(!access ){
+			       $state.go('public.admin.account.memberships');
+			    }
+			}
+		});
+		$scope.blockCalls=false;
+		$scope.processingCall=false;
+		
+		$scope.query = '';
+		$scope.currentPage = 1;
+	}
+
+
+	
+
+	
 
 	$scope.hasAccess=function(role)
 	{
@@ -44,13 +63,7 @@ app.controller("EmailsController", function ($scope, $localStorage,$state, $moda
 	    return false;
 	}
 
-	var access = $scope.hasAccess($user.role);
-	if($state.current.name.split('.')[1]=='smartmail'){
-	    console.log(access)
-	    if(!access ){
-	        $state.go('public.admin.account.memberships');
-	    }
-	}
+	
 
 	$scope.loadMore =function()
 	{
@@ -133,4 +146,6 @@ app.controller("EmailsController", function ($scope, $localStorage,$state, $moda
 	        });
 	    })
 	};
+
+	$scope.initialize();
 });
