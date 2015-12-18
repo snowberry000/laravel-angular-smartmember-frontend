@@ -79,6 +79,29 @@ app.controller('PublicController', function ($scope, $rootScope, smModal, $timeo
         }, $state.includes('public.sign') ? 1000 : 100 );
     };
 
+    $scope.PopStaticModal = function( the_modal )
+    {
+        $timeout( function()
+        {
+            if( !the_modal )
+                the_modal = 'login';
+
+            console.log($state.current.name)
+
+            //smModal.hide( '.ui.modal.' + option);
+
+            smModal.toggle( '.ui.modal.' + the_modal +':nth-child(1)', {
+                closable: false,
+                allowMultiple: false,
+                blurring: false,
+                backdrop: 'static',
+                dimmerSettings: {
+                    opacity: 0.3
+                }
+            } );
+        }, $state.includes('public.sign') ? 1000 : 100 );
+    };
+
     $scope.CloseModal = function( the_modal )
     {
         if( !the_modal )
