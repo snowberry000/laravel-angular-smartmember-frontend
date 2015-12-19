@@ -85,9 +85,15 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 				$bpage_data = curl_exec( $curl );
 				curl_close( $curl );
 
+				if( empty( $bpage_data ) )
+					$bpage_data = 'notbp';
+
 				$client->set($redisKeys['data'], $bpage_data);
 			}
 		}
+
+		if( $bpage_data == 'notbp' )
+			$bpage_data = '';
 
 		if( !empty( $html ) || !empty( $bpage_data ) )
 		{
