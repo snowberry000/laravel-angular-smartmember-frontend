@@ -27,7 +27,7 @@ var app = angular.module( 'app', [
 ] );
 
 
-app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http,  $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
+app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $http,  $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
 	$calledurl = window.location.host;
@@ -36,6 +36,7 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http,  $state,
 	$rootScope.moment = moment;
 	$rootScope.$state = $state;
 	$rootScope.smModal = smModal;
+	$rootScope.smSidebar = smSidebar;
 
 	var domainParts = $location.host().split( '.' );
 

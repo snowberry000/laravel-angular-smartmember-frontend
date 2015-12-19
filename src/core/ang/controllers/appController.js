@@ -1,5 +1,7 @@
 app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScope, $location, $localStorage, Restangular, notify,  Upload )
 {
+	$rootScope.left_sidebar_contents = '';
+
 	$scope.$user = null;
 	$scope.$user = $localStorage.user;
 	$scope.$state = $state;

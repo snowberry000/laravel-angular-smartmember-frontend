@@ -13,44 +13,16 @@
 		<div class="divider"></div>
 		<div class="header">
 			<i class="globe icon"></i>
-			Your Sites
+			Navigate To Your Sites
 		</div>
 		<div class="scrolling menu">
-			<div class="item">
+			<div class="item" ng-repeat="next_item in admin_sites">
 				<div class="ui red empty circular label"></div>
-				Important
+				{{next_item.name}}
 			</div>
-			<div class="item">
-				<div class="ui blue empty circular label"></div>
-				Announcement
-			</div>
-			<div class="item">
-				<div class="ui black empty circular label"></div>
-				Cannot Fix
-			</div>
-			<div class="item">
-				<div class="ui purple empty circular label"></div>
-				News
-			</div>
-			<div class="item">
-				<div class="ui orange empty circular label"></div>
-				Enhancement
-			</div>
-			<div class="item">
-				<div class="ui empty circular label"></div>
-				Change Declined
-			</div>
-			<div class="item">
-				<div class="ui yellow empty circular label"></div>
-				Off Topic
-			</div>
-			<div class="item">
-				<div class="ui pink empty circular label"></div>
-				Interesting
-			</div>
-			<div class="item">
-				<div class="ui green empty circular label"></div>
-				Discussion
+			<div class="item" ng-repeat="next_item in member_sites">
+				<div class="ui red empty circular label"></div>
+				{{next_item.name}}
 			</div>
 		</div>
 	</div>
@@ -58,6 +30,7 @@
 <div class="ui dropdown item" sui-dropdown ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
 	{{ 'SITE_CONTENT' | translate }}
 	<i class="dropdown icon"></i>
+
 	<div class="menu">
 		<div class="item">
 			<i class="dropdown icon"></i>
@@ -161,7 +134,6 @@
 				<a class="item" ng-click="smModal.Show('public.admin.team.members')">{{ 'MEMBERS' | translate }}</a>
 			</div>
 		</div>
-		<a class="item" ui-sref="public.sign.out">Log out</a>
 	</div>
 </div>
 <div class="ui dropdown item" sui-dropdown>
@@ -217,6 +189,7 @@
 <div class="ui dropdown item" sui-dropdown ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
 	Visuals
 	<i class="dropdown icon"></i>
+
 	<div class="menu">
 		<div class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
 			<i class="dropdown icon"></i>
@@ -242,27 +215,32 @@
 
 	</div>
 </div>
-<div class="ui dropdown item" sui-dropdown>
-	Account
-	<i class="dropdown icon"></i>
 
-	<div class="menu">
-		<a class="item" ng-click="smModal.Show('public.admin.account.settings')">{{ 'MY_PROFILE' | translate }}</a>
-		<a class="item" ng-click="smModal.Show('public.admin.team.sites')" ng-if="is_team_member">{{ 'MY_ADMIN_SITES' | translate }}</a>
-		<a class="item" ng-click="smModal.Show('public.admin.account.memberships')">{{ 'MY_JOINED_SITES' | translate }}</a>
-		<a class="item" ng-click="smModal.Show('public.admin.account.teams')" ng-if="is_team_member">{{ 'MY_TEAMS' | translate }}</a>
-		<a class="item" ng-click="smModal.Show('public.admin.site.wizard')" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">{{ 'SETUP_WIZARDS' | translate }}</a>
-		<a class="item" ng-if="is_team_member" data-state="public.admin.team.wizard.team_setup_wizard">{{ 'SETUP_WIZARDS' | translate }}</a>
-
-	</div>
+<div class="item">
+	<a class="ui primary button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html')">
+		<i class="options icon"></i>
+		Theme Options
+	</a>
 </div>
 
-<a class="item">
-	About Us
-</a>
-<a class="item active">
-	Jobs
-</a>
-<a class="item">
-	Locations
-</a>
+
+<div class="right menu">
+	<div class="ui dropdown item" sui-dropdown>
+		<i class="settings icon"></i>
+		Account
+		<i class="dropdown icon"></i>
+
+		<div class="menu">
+			<a class="item" ng-click="smModal.Show('public.admin.account.settings')">{{ 'MY_PROFILE' | translate }}</a>
+			<a class="item" ng-click="smModal.Show('public.admin.team.sites')" ng-if="is_team_member">{{ 'MY_ADMIN_SITES' | translate }}</a>
+			<a class="item" ng-click="smModal.Show('public.admin.account.memberships')">{{ 'MY_JOINED_SITES' | translate }}</a>
+			<a class="item" ng-click="smModal.Show('public.admin.account.teams')" ng-if="is_team_member">{{ 'MY_TEAMS' | translate }}</a>
+			<a class="item" ng-click="smModal.Show('public.admin.site.wizard')" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">{{ 'SETUP_WIZARDS' | translate }}</a>
+			<a class="item" ng-if="is_team_member" data-state="public.admin.team.wizard.team_setup_wizard">{{ 'SETUP_WIZARDS' | translate }}</a>
+
+		</div>
+	</div>
+	<div class="item">
+		<a class="ui primary button" ui-sref="public.sign.out">Log out</a>
+	</div>
+</div>

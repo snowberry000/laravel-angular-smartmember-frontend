@@ -193,8 +193,8 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 </head>
 <body resize style="height: auto;" class="md-skin fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
 
-<div id="wrapper" class="sticky-full-height" ui-view></div>
-
+<div ng-if="left_sidebar_contents" class="ui left vertical menu sidebar left_sidebar_contents" ng-include="left_sidebar_contents"></div>
+<div id="wrapper" class="pusher sticky-full-height" ui-view></div>
 
 <script src="js/vendor.min.js"></script>
 <script src="js/main.min.js"></script>

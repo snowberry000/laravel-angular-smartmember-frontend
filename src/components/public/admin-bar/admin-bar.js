@@ -1,18 +1,39 @@
 var app = angular.module( "app" );
 
-app.controller( 'AdminBarController', function( $scope, $rootScope, $localStorage, $state, $stateParams,  $filter, Restangular, toastr, $location )
+app.controller( 'AdminBarController', function( $scope, $rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr, $location )
 {
 	$scope.loading_sites = true;
-    //Restangular.one( 'company/getUsersSitesAndTeams' ).get().then( function(response){
-     //   console.log('we have data admin data: ', response.admin );
-      //  console.log('we have data membership data: ', response.member );
-    //});
-
-    /* not sure if you need any of this
-    Restangular.all( 'site' ).customGET( 'members' ).then( function( response )
+	Restangular.one( 'company/getUsersSitesAndTeams' ).get().then( function( response )
 	{
-		console.log( "The Response: ", response );
+		$scope.loading_sites = false;
 
+		$scope.admin_sites = [];//response.admin;
+		$scope.member_sites = [];//response.member;
+
+		$.each( response.admin, function( key, value )
+		{
+			if( value && value.sites )
+			{
+				$.each( value.sites, function( key2, value2 )
+				{
+					$scope.admin_sites.push( value2 );
+				} );
+			}
+		} );
+
+		$.each( response.member, function( key, value )
+		{
+			if( value && value.sites )
+			{
+				$.each( value.sites, function( key2, value2 )
+				{
+					$scope.member_sites.push( value2 );
+				} );
+			}
+		} );
+
+
+		console.log( 'we have data admin data: ', response.admin );
+		console.log( 'we have data membership data: ', response.member );
 	} );
-    */
 } );

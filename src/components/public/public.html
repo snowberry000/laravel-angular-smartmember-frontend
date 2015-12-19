@@ -1,9 +1,5 @@
-<div class="ui top fixed menu" ng-show="isLoggedIn()" ng-include="'templates/components/public/admin-bar/admin-bar.html'">
+<div class="ui top fixed menu admin_bar" ng-show="isLoggedIn()" ng-include="'templates/components/public/admin-bar/admin-bar.html'">
 </div>
-
 <div ui-view ng-class="(isLoggedIn() ? 'logged_in' : '') + (meta_data.page_background_style == 'boxed' ? ' ui container' : '') + ' sticky-full-height'"></div>
 
-<!-- Right Sidebar -->
-<div ng-include="sidebar_template" class="admin"></div>
-<div ng-if="modal_popup_template" ng-include="modal_popup_template" class="admin"></div>
 
