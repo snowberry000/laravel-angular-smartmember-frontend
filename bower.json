@@ -62,7 +62,7 @@
     "semantic": "semantic-ui#~2.1.6",
     "sweetalert": "~1.1.3",
     "angular-modal-service": "~0.6.9",
-    "ng-busy": "http://bitbucket.org/smartmember/ng-busy.git#~0.2.0"
+    "ng-busy": "https://bitbucket.org/smartmember/ng-busy.git#~0.3.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.4"
