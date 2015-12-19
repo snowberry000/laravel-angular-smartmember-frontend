@@ -1,4 +1,4 @@
-<div class="ui modal register" ng-controller="registerController" ng-init="PopModal('register');init()">
+<div class="ui modal">
 	<div class="header">
 		Sign up to {{site.name}}
 	</div>
@@ -45,7 +45,7 @@
 								to be sent a new code.
 							</p>
 						</div>
-						<button busy type="submit" class="ui blue submit button">
+						<button  type="submit" class="ui blue submit button">
 							{{site_options.register_button_text ? site_options.register_button_text : 'Sign Up'}}
 						</button>
 					</form>
@@ -54,11 +54,7 @@
 					Or
 				</div>
 				<div class="center aligned seven wide column">
-					<a ng-if="$state.includes('public.sign')" ui-sref="public.sign.in" class="close ui big green labeled icon button">
-						<i class="fa fa-user icon"></i>
-						Login
-					</a>
-					<a ng-if="!$state.includes('public.sign')" ng-click="loginModal()" class="close ui big green labeled icon button">
+					<a ng-click="smModal.Show('public.sign.in')" class="close ui big green labeled icon button">
 						<i class="fa fa-user icon"></i>
 						Login
 					</a>
@@ -72,7 +68,7 @@
 			Need help?
 			<i class="fa fa-life-ring icon"></i>
 		</a>
-		<div ng-if="!$state.includes('public.sign')" class="close ui black button" ng-click="CloseModal();">
+		<div ng-if="!$state.includes('public.sign')" class="close ui black button">
 			Close
 		</div>
 	</div>

@@ -4,11 +4,7 @@ app.config(function($stateProvider){
 	$stateProvider
 		.state("public.sign",{
 			url: "/sign",
-			templateUrl: "/templates/components/public/sign/sign.html",
-			controller: "signController"
+			templateUrl: "/templates/components/public/sign/sign.html"
 		})
-}); 
-
-app.controller("SignController", function ($scope) {
-
 });
+

@@ -159,6 +159,15 @@
             </div>
         </div>
         <div class="clearfix"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Hide Name Field</label>
+
+            <div class="col-sm-10">
+                <input type="checkbox" name="mark_name_visible" class=""
+                       ng-model="bridgepage.swapspot.mark_name_visible" ng-true-value="'none'" ng-false-value="'block'">
+            </div>
+        </div>
+        <div class="clearfix"></div>
         <div class="form-group" ng-show="bridgepage.swapspot.optin_type == '3rdparty'">
             <label class="col-sm-2 control-label">Mark Name field as required?</label>
 
@@ -168,6 +177,9 @@
             </div>
         </div>
         <div class="clearfix"></div>
+
+
+
         <div class="form-group">
             <label class="col-sm-2 control-label">Turn opt-in into members</label>
 

@@ -19,7 +19,11 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				// it as you need to.
 				modal.element.modal( {
 					observeChanges: true,
-					inverted: false
+					inverted: false,
+					duration: 100,
+					dimmerSettings: {
+						opacity:0.3
+					}
 				} ).modal( 'show' );
 
 				modal.close.then( function( result )

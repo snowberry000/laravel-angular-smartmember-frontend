@@ -1,4 +1,4 @@
-<div class="ui modal forgot" ng-controller="resetController" ng-init="PopModal('forgot');init()">
+<div class="ui modal">
 	<div class="header">
 		Recover your Password for {{site.name}}
 	</div>
@@ -57,11 +57,11 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a class="ui close labeled icon button" ui-sref="public.sign.in">
+		<a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.in')">
 			Login
 			<i class="fa fa-user icon"></i>
 		</a>
-		<a class="ui close labeled icon button" ui-sref="public.sign.up">
+		<a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.up')">
 			Sign Up
 			<i class="fa fa-edit icon"></i>
 		</a>

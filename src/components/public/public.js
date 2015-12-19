@@ -23,7 +23,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootScope, $timeout, ModalService, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
+app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootScope, smModal, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
 {
 	// $site=null;
 	// $user=null;
@@ -186,19 +186,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 		//}
 	}
 
-
-	$scope.themeSelected = function()
-	{
-		$localStorage.theme = $scope.options.theme;
-
-		//$scope.RefreshScreen();
-	}
-
-	$scope.openThemeSelection = function()
-	{
-		$scope.options.theme_selection = true;
-	}
-
 	$scope.cancelThemeSelection = function()
 	{
 		var picker = $scope.options.theme;
@@ -242,9 +229,9 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 			var file = files;
 
 			Upload.upload( {
-					url: $scope.app.apiUrl + '/utility/upload' + ( $scope.privacy ? '?private=' + $scope.privacy : '' ),
-					file: file
-				} )
+				url: $scope.app.apiUrl + '/utility/upload' + ( $scope.privacy ? '?private=' + $scope.privacy : '' ),
+				file: file
+			} )
 				.success( function( data, status, headers, config )
 				{
 					var returnObject = {};
@@ -258,9 +245,9 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 
 					$modalInstance.close( returnObject );
 				} ).error( function( data, status, headers, config )
-			{
-				console.log( 'error status: ' + data );
-			} );
+				{
+					console.log( 'error status: ' + data );
+				} );
 		}
 	};
 

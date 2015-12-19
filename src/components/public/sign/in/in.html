@@ -1,4 +1,4 @@
-<div class="ui modal login" ng-controller="signController" ng-init="PopModal('login');init()">
+<div class="ui modal">
 	<div class="header">
 		Login to {{site.name}}
 	</div>
@@ -44,7 +44,7 @@
 								<i class="fa fa-lock icon"></i>
 							</div>
 						</div>
-						<button type="submit" class="ui green submit button" ng-disabled="!user.email || !user.password">Login</button>
+						<button busy type="submit" class="ui green submit button" ng-disabled="!user.email || !user.password">Login</button>
 					</form>
 				</div>
 				<div class="ui vertical divider">
@@ -55,7 +55,7 @@
 						<i class="fa fa-edit icon"></i>
 						Sign Up
 					</a>
-					<a ng-if="!$state.includes('public.sign')" ng-click="registerModal()" class="close ui big blue labeled icon button">
+					<a ng-if="!$state.includes('public.sign')" ng-click="smModal.Show('public.sign.up')" class="close ui big blue labeled icon button">
 						<i class="fa fa-edit icon"></i>
 						Sign Up
 					</a>
@@ -65,7 +65,7 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a class="ui close labeled icon button" ui-sref="public.sign.forgot" ng-click="CloseModal();">
+		<a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.forgot')">
 			Forgot password?
 			<i class="fa fa-wrench icon"></i>
 		</a>
@@ -73,7 +73,7 @@
 			Need help?
 			<i class="fa fa-life-ring icon"></i>
 		</a>
-		<div ng-if="!$state.includes('public.sign')" class="close ui black button" ng-click="CloseModal();">
+		<div ng-if="!$state.includes('public.sign')" class="close ui black button">
 			Close
 		</div>
 	</div>

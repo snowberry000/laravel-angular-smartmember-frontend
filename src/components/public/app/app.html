@@ -14,9 +14,9 @@
 		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
 			<div class="column" style="text-align: right;">
 				<div class="ui buttons" ng-show="!isLoggedIn()">
-					<a class="ui button" href="#" ng-click="loginModal()">Log-in</a>
+					<a class="ui button" href="#" ng-click="smModal.Show('public.sign.in')">Log-in</a>
 					<div class="or"></div>
-					<a class="ui positive button" href="#" ng-click="registerModal()">Sign up</a>
+					<a class="ui positive button" href="#" ng-click="smModal.Show('public.sign.up')">Sign up</a>
 				</div>
 				<div class="ui buttons" ng-show="isLoggedIn()">
 					<button class="ui button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">Join</button>

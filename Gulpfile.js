@@ -54,7 +54,7 @@ gulp.task( 'js', function()
     return gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**"])
 		.pipe( angularFilesort() )
 		.pipe( ngAnnotate() )
-		.pipe( minifyjs() )
+		//.pipe( minifyjs() )
 		.pipe( concat( 'main.min.js' ) )
 		.pipe( gulp.dest( 'dist/js' ) );
 } );
