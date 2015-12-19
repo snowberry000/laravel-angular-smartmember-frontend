@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
+app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
 {
 
 	$rootScope.page_title = "Smart member";
@@ -19,31 +19,6 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 	{
 		$rootScope.redirectedFromLoginMessage = true;
 	}
-
-
-	Restangular.one( 'site', 'details' ).get().then( function( response )
-	{
-		$logoItem = _.find( response.meta_data, function( item )
-		{
-			return item.key == 'site_logo';
-		} );
-		if( $logoItem )
-		{
-			$scope.site_logo = $logoItem.value;
-		}
-		else
-		{
-			$scope.site_logo = "http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/Smart-Member-Gray-Icon-Text-01.png";
-		}
-
-		$scope.site = response;
-		$rootScope.site = response;
-
-		angular.forEach( response.meta_data, function( value )
-		{
-			$scope.site_options[ value.key ] = value.value;
-		} );
-	} );
 
 	//$scope.site_logo = "http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/Smart-Member-Gray-Icon-Text-01.png";
 	$scope.action = 0;
@@ -127,7 +102,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 		{
 			Restangular.one( 'user', $localStorage.user.id ).get().then( function( response )
 			{
-				if( $scope.isAgentOrGreater( response ) )
+				if( false )// || $scope.isAgentOrGreater( response ) )
 				{
 					$state.go( 'admin.site.dashboard' );
 					return;
@@ -137,13 +112,13 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 					if( $state.current.name == 'public.sign.in' || $state.current.name == 'public.sign.in2' )
 					{
 						$state.go( 'public.app.home', {}, { reload: true } );
-						$scope.CloseModal( 'login' );
+						smModal.Close();
 					}
 					else
 					{
 						$rootScope.modal_popup_template = false;
 						$state.go( $state.current, $stateParams, { reload: true } );
-						$scope.CloseModal( 'login' );
+						smModal.Close();
 						return;
 					}
 				}

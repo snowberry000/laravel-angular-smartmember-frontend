@@ -33,6 +33,10 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				} );
 			} );
 		},
+		Close: function( state )
+		{
+			$('.ui.modal').modal('hide all');
+		},
 		show_old: function( modal_id, options )
 		{
 			$( modal_id ).modal( options ).modal( 'show' );

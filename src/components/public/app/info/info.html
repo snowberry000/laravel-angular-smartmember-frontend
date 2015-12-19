@@ -1,77 +1,24 @@
-<div class="twelve wide column" ng-if="options.sales_page_enabled==1 && !isLoggedIn() || salesPage == 'preview'" ng-hide="isLoggedIn() && salesPage != 'preview'">
-    <div class="row" ng-if="(salesPage == 'preview' || !isLoggedIn()) && options.sales_page_embed">
-        <div class="ui segment section_background_color">
-            <div ng-class="{'video-container':options.sales_page_embed.indexOf('<iframe') != -1}">
-                <div dynamic="options.sales_page_embed"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row" ng-if="(salesPage == 'preview' || !isLoggedIn()) && options.sales_page_content">
-        <div class="ui segment section_background_color">
-            <div dynamic="options.sales_page_content"></div>
-        </div>
-    </div>
-    <div ng-if="options.show_syllabus != '0' && options.show_syllabus != 0 && options.show_syllabus != null">
-        <div ng-include="'templates/components/public/app/common/syllabus.html'"></div>
-    </div>
-    <div class="row" ng-if="(salesPage=='preview' || !isLoggedIn()) && options.sales_page_outro" style="
+<div class="sixteen wide column" ng-if="options.sales_page_enabled==1 && !isLoggedIn() || salesPage == 'preview'" ng-hide="isLoggedIn() && salesPage != 'preview'">
+	<div class="row" ng-if="(salesPage == 'preview' || !isLoggedIn()) && options.sales_page_embed">
+		<div class="ui segment section_background_color">
+			<div ng-class="{'video-container':options.sales_page_embed.indexOf('<iframe') != -1}">
+				<div dynamic="options.sales_page_embed"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-if="(salesPage == 'preview' || !isLoggedIn()) && options.sales_page_content">
+		<div class="ui segment section_background_color">
+			<div dynamic="options.sales_page_content"></div>
+		</div>
+	</div>
+	<div ng-if="options.show_syllabus != '0' && options.show_syllabus != 0 && options.show_syllabus != null">
+		<div ng-include="'templates/components/public/app/common/syllabus.html'"></div>
+	</div>
+	<div class="row" ng-if="(salesPage=='preview' || !isLoggedIn()) && options.sales_page_outro" style="
     margin-top: 20px;">
-        <div class="ui segment section_background_color">
-            <div dynamic="options.sales_page_outro"></div>
-        </div>
-    </div>
+		<div class="ui segment section_background_color">
+			<div dynamic="options.sales_page_outro"></div>
+		</div>
+	</div>
 
-
-<!-- </div>
-
-<div class="four wide column" >
-    <div class="ui segment basic">
-        <div class="ui one statistics">
-            <div class="primary statistic">
-                <div class="value header headline_text_color">
-                    <i class="icon fa {{meta_data.cap_icon ? meta_data.cap_icon : 'fa-graduation-cap'}}"></i>
-                    {{lesson_count}}
-                </div>
-                <div class="primary label header headline_text_color">
-                    {{meta_data.lesson_text ? meta_data.lesson_text : 'Lessons'}}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="ui segment section_background_color">
-        <a ng-if="lesson_count > 0" href="/{{modules[0].lessons[0].permalink}}" class="large fluid ui animated main_button_background_color main_button_text_color button" tabindex="0" ng-click="assignCounter(modules[0].lessons[0].showCounter)">
-            <div class="visible content">
-                {{meta_data.begin_course_text ? meta_data.begin_course_text : 'Begin / Continue This Course'}}
-            </div>
-            <div class="hidden content">
-                <i class="fa-long-arrow-right icon fa"></i>
-            </div>
-        </a>
-    </div>
-    <div class="ui segment" ng-controller="FacebookGroupController" ng-if='site.facebook_group_id'>
-        <h2 class="ui header" ng-if='!facebook_groups'>Join The Discussion</h2>
-        <p ng-if='!facebook_groups'>Join our private member-only facebook group discussion and connect with other
-            members of this site.
-        </p>
-        <select ng-selected="0" data-ng-options="group.remote_id as group.username for group in facebook_groups" class='form-control input-lg hide' ng-model="group_id.selected" placeholder='Select Facebook Group' style="display: none;">
-        </select>
-        <a class="btn btn-info btn-sm" type="button"
-           ng-if='!facebook_groups' ng-click='joinGroup(group_id.selected)'>
-            <img src="/images/facebook_group_connect.png" style="width: 100%;" alt=""/>
-        </a>
-        <span ng-if='facebook_groups'>
-             <a ng-repeat="group in facebook_groups" target="_blank" href='https://www.facebook.com/{{group.remote_id}}'>
-                 <h3 ng-if="facebook_groups.length > 1">{{group.name}}</h3>
-                 <img src="/images/facebook_group_view.png" style="width: 100%;" alt=""/>
-             </a>
-        </span>
-    </div>
-    <div ng-repeat="ad in ads">
-        <a site-ad data-id="{{ isLoggedIn()&&salesPage!='preview' ? 'none' : ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-if="ad.custom_ad" class="ui fluid image" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
-            <div ng-if="ad.custom_ad" class="col-md-12" dynamic="ad.custom_ad"></div>
-        </a>
-        <a site-ad data-id="{{ isLoggedIn()&&salesPage!='preview' ? 'none' : ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-if="ad.banner_image_url" class="ui fluid image" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
-            <img ng-if="ad.banner_image_url" ng-src="{{ad.banner_image_url}}">
-        </a>
-    </div> -->
 </div>
