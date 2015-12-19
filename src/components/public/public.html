@@ -1,4 +1,4 @@
-<div class="ui menu" ng-show="isLoggedIn()" ng-include="'templates/components/public/admin-bar/admin-bar.html'">
+<div class="ui top fixed menu" ng-show="isLoggedIn()" ng-include="'templates/components/public/admin-bar/admin-bar.html'">
 </div>
 
 <div ui-view ng-class="(isLoggedIn() ? 'logged_in' : '') + (meta_data.page_background_style == 'boxed' ? ' ui container' : '') + ' sticky-full-height'"></div>
