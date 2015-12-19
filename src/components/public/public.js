@@ -45,6 +45,9 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 
 	$rootScope.user = $user;
 	$rootScope.site = $site;
+	$scope.current_site_domain = window.location.host;
+
+	console.log( "THE SITE", $site );
 
 	$scope.initPublicSite = function()
 	{
