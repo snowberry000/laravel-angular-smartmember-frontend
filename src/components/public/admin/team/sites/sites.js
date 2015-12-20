@@ -12,6 +12,8 @@ app.config( function( $stateProvider )
 
 app.controller( "SitesController", function( $scope, $rootScope, $localStorage, toastr, $location, Restangular, $state, notify )
 {
+	$user = $rootScope.user;
+
 	$scope.adminSites = [];
 	$scope.memberSites = [];
 	$scope.loading = true;
@@ -133,8 +135,8 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 	{
 		$sites = response;
 		$scope.loading = false;
-		$scope.adminPagination.total_count = $sites.public.admin.count;
-		$sites.admin = $sites.public.admin.sites;
+		$scope.adminPagination.total_count = $sites.admin.count;
+		$sites.admin = $sites.admin.sites;
 		$sites.member = $sites.member.sites;
 
 
@@ -171,7 +173,7 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 		$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
 		var isMemberTraining = _.find( $sites.member, { 'subdomain': 'training' } );
 		var isAdminTraining = _.find( $sites.admin, { 'subdomain': 'training' } );
-		$scope.can_see_sites = isMemberTraining || isAdminTraining || (($sites.admin) && ($sites.public.admin.length > 0));
+		$scope.can_see_sites = isMemberTraining || isAdminTraining || (($sites.admin) && ($sites.admin.length > 0));
 		$scope.can_add_sites = isMemberTraining || isAdminTraining;
 		$scope.is_customer = isMemberTraining || isAdminTraining;
 
@@ -227,10 +229,10 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 		Restangular.all( 'site' ).customGET( 'members?p=' + ($scope.adminPagination.current_page) + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( response )
 		{
 			$sites = response;
-			$scope.adminPagination.total_count = $sites.public.admin.count;
-			$sites.admin = $sites.public.admin.sites;
+			$scope.adminPagination.total_count = $sites.admin.count;
+			$sites.admin = $sites.admin.sites;
 			$sites.member = $sites.member.sites;
-			// if(response.public.admin.length>0 || response.member.length>0)
+			// if(response.admin.length>0 || response.member.length>0)
 			//     $scope.disable = false;
 
 			angular.forEach( $sites.admin, function( site, key )
@@ -254,8 +256,8 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 				site.is_agent = $scope.isAgent( $user.role );
 
 			} );
-			$scope.sites.admin = $scope.sites.public.admin.concat( $sites.admin );
-			console.log( $scope.sites.public.admin.length )
+			$scope.sites.admin = $scope.sites.admin.concat( $sites.admin );
+			console.log( $scope.sites.admin.length )
 			$scope.sites.member = $scope.sites.member.concat( $sites.member );
 			$scope.adminSites[ $scope.adminPagination.current_page ] = $sites.admin;
 			$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
@@ -276,10 +278,10 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 		{
 			$scope.loading = false;
 			$sites = response;
-			$scope.adminPagination.total_count = $sites.public.admin.count;
-			$sites.admin = $sites.public.admin.sites;
+			$scope.adminPagination.total_count = $sites.admin.count;
+			$sites.admin = $sites.admin.sites;
 			$sites.member = $sites.member.sites;
-			// if(response.public.admin.length>0 || response.member.length>0)
+			// if(response.admin.length>0 || response.member.length>0)
 			//     $scope.disable = false;
 
 			angular.forEach( $sites.admin, function( site, key )
@@ -303,8 +305,8 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 				site.is_agent = $scope.isAgent( $user.role );
 
 			} );
-			$scope.sites.admin = $scope.sites.public.admin.concat( $sites.admin );
-			console.log( $scope.sites.public.admin.length )
+			$scope.sites.admin = $scope.sites.admin.concat( $sites.admin );
+			console.log( $scope.sites.admin.length )
 			$scope.sites.member = $scope.sites.member.concat( $sites.member );
 			$scope.adminSites[ $scope.adminPagination.current_page ] = $sites.admin;
 			$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
