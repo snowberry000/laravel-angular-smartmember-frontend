@@ -9,7 +9,7 @@
 		<div class="ui right action left icon search input">
 			<i class="search icon"></i>
 			<input type="text" placeholder="Search sites...">
-			<button type="button" class="ui red labeled icon button">
+			<button type="button" class="ui red labeled icon button" ng-click="smModal.Show('public.admin.team.site')">
 				<i class="plus icon"></i> New Site
 			</button>
 		</div>
@@ -27,6 +27,11 @@
 				<div class="ui red empty circular label"></div>
 				{{next_item.subdomain}}.smartmember.com
 			</div>
+		</div>
+		<div class="header text-center">
+			<button type="button" class="ui red labeled icon button" ng-click="smModal.Show('public.admin.team.sites')">
+				<i class="setting icon"></i> Manage Sites
+			</button>
 		</div>
 	</div>
 </div>
@@ -208,9 +213,8 @@
 								<a class="item" ng-click="smModal.Show('public.admin.site.appearance.stats')">{{ 'STATS' | translate }}</a>
 							</div>
 						</div>
-						<a class="item" ng-click="smModal.Show('public.admin.site.pages.bridge-pages')">{{ 'THEME_EDITOR' | translate }}</a>
-						<a class="item" ng-click="smModal.Show('public.admin.site.pages.bridge-pages')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
-						<a class="item" ng-click="smModal.Show('public.admin.site.pages.bridge-pages')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
 					</div>
 				</div>
 				<a class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" ng-click="smModal.Show('public.admin.site.appearance.directory')">{{ 'DIRECTORY_PROFILE' | translate }}</a>

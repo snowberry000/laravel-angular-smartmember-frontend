@@ -1,0 +1,14 @@
+<div class="right floated content">
+	<div class="ui small button" ng-click="open1(next_item, 'main')">edit</div>
+	<div class="ui small button" ng-click="deleteMenuItem(next_item)">delete</div>
+</div>
+
+<i ng-if="!next_item.custom_icon && next_item.icon" class="{{next_item.icon}} icon"></i>
+<i ng-if="next_item.custom_icon && next_item.custom_icon.indexOf('fa fa-') != -1" class="{{next_item.custom_icon}} icon"></i>
+<img ng-show="next_item.featured_image" ng-if="next_item.custom_icon && next_item.custom_icon.indexOf('fa fa-') == -1" class="ui avatar image" src="{{next_item.custom_icon}}">
+
+<div class="content">
+	<div class="header">{{next_item.label}}</div>
+	<span class="font-bold" ng-if="next_item.url.indexOf('http://') == -1 && next_item.url.indexOf('https://') == -1">http://{{(app.domain ? app.domain : app.subdomain + '.' + app.rootDomain) + '/' + next_item.url}}</span>
+	<span class="font-bold" ng-if="next_item.url.indexOf('http://') != -1 || next_item.url.indexOf('https://') != -1">{{next_item.url}}</span>
+</div>
