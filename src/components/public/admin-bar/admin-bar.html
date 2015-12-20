@@ -36,7 +36,7 @@
 	</div>
 </div>
 
-<a class="ui item" style="width: 200px;">
+<a class="ui item" style="width: 200px;" ng-click="smModal.Show('public.admin.site.wizard')" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
 	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="14" data-total="20" sui-progress>
 		<div class="bar">
 			<div class="progress"></div>
@@ -243,7 +243,6 @@
 			<a class="item" ng-click="smModal.Show('public.admin.team.sites')" ng-if="is_team_member">{{ 'MY_ADMIN_SITES' | translate }}</a>
 			<a class="item" ng-click="smModal.Show('public.admin.account.memberships')">{{ 'MY_JOINED_SITES' | translate }}</a>
 			<a class="item" ng-click="smModal.Show('public.admin.account.teams')" ng-if="is_team_member">{{ 'MY_TEAMS' | translate }}</a>
-			<a class="item" ng-click="smModal.Show('public.admin.site.wizard')" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">{{ 'SETUP_WIZARDS' | translate }}</a>
 			<a class="item" ng-if="is_team_member" data-state="public.admin.team.wizard.team_setup_wizard">{{ 'SETUP_WIZARDS' | translate }}</a>
 
 		</div>

@@ -34,7 +34,7 @@ app.controller( 'SiteController', function( $scope, toastr, $state, $localStorag
 	}
 
 	$scope.clone_sites = Restangular.all( 'site' ).getList( { cloneable: 1 } );
-	$scope.site = Restangular.one('site','details').get();
+	$scope.site = Restangular.one( 'site', 'details' ).get();
 
 	$scope.changeSite = function( id )
 	{
