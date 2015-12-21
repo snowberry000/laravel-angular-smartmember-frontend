@@ -14,6 +14,13 @@ app.config(function($stateProvider){
                         return Restangular.one('user',$localStorage.user.id).get();
                     }
                     return {};
+                },
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['bower/slimScroll/jquery.slimscroll.min.js']
+                        }
+                    ]);
                 }
             }
 		})
