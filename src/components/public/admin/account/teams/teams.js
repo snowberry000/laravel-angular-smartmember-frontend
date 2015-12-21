@@ -9,9 +9,11 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("TeamsController", function ($scope, $rootScope, $companies, $localStorage, $location, $user ,Restangular, $window,  notify) {
-	$scope.teams = $companies;
-
+app.controller("TeamsController", function ($scope, $rootScope, $localStorage, $location ,Restangular, $window) {
+	Restangular.one( 'company/getUsersCompanies' ).get().then(function(response){
+		$scope.teams = response;
+	})
+	$user = $rootScope.user;
 	$scope.ChangeTeam = function(company)
 	{
 		Restangular.one('user/setCompany').customPOST({'current_company_id' : company.id}).then(function(response){

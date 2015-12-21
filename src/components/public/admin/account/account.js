@@ -9,8 +9,8 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('AccountController', function ($scope,$rootScope, $state, $location, $localStorage,$user ,Restangular, toastr) {
-	$scope.user = $user;
+app.controller('AccountController', function ($scope,$rootScope, $state, $location, $localStorage ,Restangular, toastr) {
+	$scope.user = $user = $rootScope.user;
 	$scope.full_name = $scope.user.first_name + ' ' + $scope.user.last_name;
 	$scope.full_name=$scope.full_name.trim();
 	$scope.emailAdding=false;

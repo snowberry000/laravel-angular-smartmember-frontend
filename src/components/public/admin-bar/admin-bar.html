@@ -243,7 +243,7 @@
 			<a class="item" ng-click="smModal.Show('public.admin.team.sites')" ng-if="is_team_member">{{ 'MY_ADMIN_SITES' | translate }}</a>
 			<a class="item" ng-click="smModal.Show('public.admin.account.memberships')">{{ 'MY_JOINED_SITES' | translate }}</a>
 			<a class="item" ng-click="smModal.Show('public.admin.account.teams')" ng-if="is_team_member">{{ 'MY_TEAMS' | translate }}</a>
-			<a class="item" ng-if="is_team_member" data-state="public.admin.team.wizard.team_setup_wizard">{{ 'SETUP_WIZARDS' | translate }}</a>
+			<a class="item" ng-if="is_team_member" ng-click="smModal.Show('public.admin.team.wizard' , { 'id' : 'team_setup_wizard'})">{{ 'SETUP_WIZARDS' | translate }}</a>
 
 		</div>
 	</div>
