@@ -1,40 +1,18 @@
 <div class="ui modal">
+	<i class="close icon"></i>
 
-	<div class="row">
-		<div class="col-lg-12">
-
-			<div class="ibox-content clear_box page-heading">
-				<div class="p-xs">
-					<div class="row">
-						<div class="col-md-9">
-							<div class="pull-left m-r-md">
-								<i class="fa fa-fighter-jet text-branded mid-icon"></i>
-							</div>
-							<h2 class="ui header">{{ template_data.title | translate }}</h2>
-							<span>{{template_data.description}}</span>
-						</div>
-						<div class="col-md-3 text-right">
-							<a ng-click="smModal.Show(template_data.edit_route)" class="btn btn-brand m-t-md btn-large ng-scope">
-								<i class="fa fa-plus"></i>
-								Create new {{template_data.singular}}
-							</a>
-							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-								<i class="fa fa-question"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
+	<div class="header">
+		<i class="paragraph icon"></i>
+		{{ template_data.title | translate }}
 	</div>
-	<div class="row">
-		<div class="col-lg-12">
+	<div class="content">
+		<div class="description">
+			<p>{{template_data.description}}</p>
 
-			<div class="ibox">
+			<div class="ibox float-e-margins">
 				<div class="ibox-content">
-					<div class="field">
-						<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
+					<div class="field" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
+						<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 					</div>
 					<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
 						<div class="sk-bounce1"></div>
@@ -97,6 +75,16 @@
 					</div>
 				</div>
 			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ng-click="smModal.Show(template_data.edit_route)" class="ui right labeled icon button">
+			Create new {{template_data.singular}}
+			<i class="checkmark icon"></i>
+		</a>
+		<div class="ui black deny button close">
+			Close
 		</div>
 	</div>
 </div>
