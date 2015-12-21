@@ -14,7 +14,7 @@ app.controller("SettingsController", function ($scope, $rootScope, $localStorage
 	 $site_options=null;
 	 $site=$rootScope.site;
 	 $scope.resolve =function() {
-	 	Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'currency' ] ).then(function(response){
+	 	Restangular.all( 'siteMetaData' ).getList().then(function(response){
 	 		$site_options=response;
 	 		 $scope.site_options = {};
 	 		 $.each($site_options, function (key, data) {

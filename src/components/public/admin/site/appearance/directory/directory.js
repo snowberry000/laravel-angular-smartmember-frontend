@@ -6,13 +6,7 @@ app.config( function( $stateProvider )
 		.state( "public.admin.site.appearance.directory", {
 			url: "/directory",
 			templateUrl: "/templates/components/public/admin/site/appearance/directory/directory.html",
-			controller: "DirectoryListingController",
-			resolve: {
-				$listing: function( Restangular )
-				{
-					return Restangular.one( 'directory', 'siteListing' ).get();
-				}
-			}
+			controller: "DirectoryListingController"
 		} )
 } );
 

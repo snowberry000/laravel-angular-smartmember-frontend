@@ -5,11 +5,11 @@ app.config(function($stateProvider){
 		.state("public.admin.finance.settings",{
 			url: "/settings",
 			templateUrl: "/templates/components/public/admin/finance/settings/settings.html",
-			controller: "SettingsController"
+			controller: "FinanceSettingsController"
 		})
 }); 
 
-app.controller("SettingsController", function ($scope, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr) {
+app.controller("FinanceSettingsController", function ($scope, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr) {
 	 
 	 $site_options=null;
 	 $site=$rootScope.site;
