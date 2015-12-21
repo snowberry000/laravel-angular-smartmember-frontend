@@ -19,6 +19,7 @@ app.config(function($stateProvider){
 });
 
 app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, $stateParams ) {
+    console.log($stateParams);
     $sendgridIntegrations = Restangular.all('integration/getSendgridIntegrations').getList().then(function(response){$scope.sendgridIntegrations = response});
     $scope.canceler = false;
     if ( $stateParams.id ) {

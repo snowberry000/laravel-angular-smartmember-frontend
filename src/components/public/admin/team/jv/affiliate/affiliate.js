@@ -17,17 +17,20 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AffiliateController", function ($scope, $localStorage,$stateParams, $rootScope ,Restangular, toastr, $state) {
+app.controller("AffiliateController", function ($scope, $localStorage,$stateParams, $rootScope ,Restangular, toastr, $state , smModal) {
 	$site = $rootScope.site;
 	if ( $stateParams.id ) {
 		Restangular.one('affiliate', $stateParams.id).get().then(function(response){
 			$scope.affiliate = response;
+			$scope.page_title = $scope.affiliate.id ? 'Edit Affiliate' : 'Create Affiliate';
 		})
 	}
-	else
+	else{
+
+		$scope.page_title = $scope.affiliate.id ? 'Edit Affiliate' : 'Create Affiliate';
 		$scope.affiliate = {company_id: $site.company_id};
+	}
 	
-	$scope.page_title = $scope.affiliate.id ? 'Edit Affiliate' : 'Create Affiliate';
 	$scope.save = function(){
 	    console.log($scope.affiliate);
 	    if ($scope.affiliate.id){
@@ -40,7 +43,7 @@ app.controller("AffiliateController", function ($scope, $localStorage,$statePara
 	$scope.update = function(){
 	    $scope.affiliate.put().then(function(response){
 	        toastr.success("Changes saved!");
-	        $state.go("public.admin.team.jv.affiliates");
+	        smModal.Show("public.admin.team.jv.affiliates");
 	        
 	    });
 	}
@@ -49,7 +52,7 @@ app.controller("AffiliateController", function ($scope, $localStorage,$statePara
 	    $scope.affiliate.company_id=$site.company_id;
 	    Restangular.service("affiliate").post($scope.affiliate).then(function(response){
 	        toastr.success("Created!");
-	        $state.go("public.admin.team.jv.affiliates");
+	        smModal.Show("public.admin.team.jv.affiliates");
 	    });
 	}
 });

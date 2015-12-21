@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ContestController", function ($scope, $filter,Upload, $localStorage, $rootScope, Restangular, toastr, $state, $stateParams) {
+app.controller("ContestController", function ($scope, $filter,Upload, $localStorage, $rootScope, Restangular, toastr, $state, $stateParams , smModal) {
 	$site = $rootScope.site;
 	if ( $stateParams.id ) {
 		$content = Restangular.one('affiliateContest', $stateParams.id).get().then(function(response){
@@ -131,7 +131,7 @@ app.controller("ContestController", function ($scope, $filter,Upload, $localStor
 	$scope.update = function(){
 	    $scope.contest.put().then(function(response){
 	        toastr.success("Changes saved!");
-	        $state.go("public.admin.team.jv.contests");
+	        smModal.Show("public.admin.team.jv.contests");
 	    });
 	}
 
@@ -147,7 +147,7 @@ app.controller("ContestController", function ($scope, $filter,Upload, $localStor
 	$scope.create = function(){
 	    Restangular.service("affiliateContest").post($scope.contest).then(function(response){
 	        toastr.success("Changes saved!");
-	        $state.go("public.admin.team.jv.contests");
+	        smModal.Show("public.admin.team.jv.contests");
 	    });
 	}
 });

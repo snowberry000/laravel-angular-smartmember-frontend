@@ -5,7 +5,8 @@ app.config(function($stateProvider){
 		.state("public.admin.team.jv.fetcher",{
 			url: "/fetcher",
 			templateUrl: "/templates/components/public/admin/team/jv/fetcher/fetcher.html",
-			controller: "FetcherController"
+			controller: "FetcherController",
+			
 		})
 }); 
 

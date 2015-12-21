@@ -1,16 +1,26 @@
 app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalService )
 {
 	return {
-		Show: function( state )
+		Show: function( state , params)
 		{
 			var state_data = $state.get( state );
 			console.log( 'state_data', state, state_data );
-
+			console.log(stateParams)
+			var stateParams = {};
+			if(params){
+				angular.forEach(params , function(value , key){
+					stateParams[key] = value;
+				})
+			}
+			
 			// Just provide a template url, a controller and call 'showModal'.
 			ModalService.showModal( {
 				templateUrl: state_data.templateUrl,
 				controller: state_data.controller ? state_data.controller : function()
 				{
+				},
+				inputs: {
+				    $stateParams : stateParams
 				}
 			} ).then( function( modal )
 			{
