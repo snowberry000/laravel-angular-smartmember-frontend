@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('InfoController', function ($scope, $rootScope,$location, $localStorage , $state, $stateParams,$modal, $filter, Restangular, notify,$location) {
+app.controller('InfoController', function ($scope, $rootScope,$location, $localStorage , $state, $stateParams,$modal, $filter, Restangular, notify) {
 
     $scope.isLoggedIn = function()
     {

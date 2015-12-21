@@ -761,19 +761,6 @@ app.controller('lessonWizardController', function ($scope, $rootScope , $filter 
     }
 
 	$scope.next_item.dripfeed_settings = {};
-	if ($scope.next_item.published_date)
-	{
-	    $scope.next_item.published_date = new Date(moment($scope.next_item.published_date).format('l'));
-	} else {
-	    $scope.next_item.published_date = new Date();
-	    $scope.next_item.published_date.setSeconds(0);
-	    $scope.next_item.published_date.setMilliseconds(0);
-	}
-	if ($scope.next_item.end_published_date)
-	    $scope.next_item.end_published_date = new Date(moment($scope.next_item.end_published_date).format('l'));
-	else
-	    $scope.next_item.end_published_date = null;
-
 	$scope.next_item.discussion_settings = {};
 	$scope.next_item.transcript_content_public == 1 ? $scope.next_item.transcript_content_public = true : $scope.next_item.transcript_content_public = false;
 
