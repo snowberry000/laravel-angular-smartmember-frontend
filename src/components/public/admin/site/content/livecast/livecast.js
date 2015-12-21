@@ -15,21 +15,6 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
     $scope.site = $site = $rootScope.site;
     $user = $rootScope.user;
 
-    if ( $stateParams.id ) {
-        $next_item = Restangular.one('livecast', $stateParams.id).get().then(function(response){$scope.next_item = response , $scope.initialize()});
-    }
-    else if($location.search().clone){
-        $next_item = Restangular.one('livecast', $location.search().clone).get().then(function(response){$scope.next_item = response , $scope.initialize()});
-    }
-    else
-        $scope.next_item = {access_level_type : 4, access_level_id: 0};
-
-    $scope.template_data = {
-        title: 'Livecast',
-        cancel_route: 'public.admin.site.content.livecasts',
-        success_route: 'public.admin.site.content.livecasts'
-    }
-
     $scope.initialize = function(){
         if(!$scope.next_item.id){
             $scope.next_item.site_id = $scope.site.id;
@@ -153,6 +138,23 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
         }
         $scope.next_item.seo_settings = seo;
 
+    }
+
+    if ( $stateParams.id ) {
+        $next_item = Restangular.one('livecast', $stateParams.id).get().then(function(response){$scope.next_item = response , $scope.initialize()});
+    }
+    else if($location.search().clone){
+        $next_item = Restangular.one('livecast', $location.search().clone).get().then(function(response){$scope.next_item = response , $scope.initialize()});
+    }
+    else{
+        $scope.next_item = {access_level_type : 4, access_level_id: 0};
+        $scope.initialize();
+    }
+
+    $scope.template_data = {
+        title: 'Livecast',
+        cancel_route: 'public.admin.site.content.livecasts',
+        success_route: 'public.admin.site.content.livecasts'
     }
 
     $scope.strip_tags = function(input, allowed) {

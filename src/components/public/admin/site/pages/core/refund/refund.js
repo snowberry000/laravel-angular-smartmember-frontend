@@ -15,8 +15,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("RefundController", function ($scope, $localStorage, $site, $state, $stateParams,  $filter, Restangular, toastr, Upload) {
+app.controller("RefundController", function ($scope, $localStorage, smModal , $rootScope, $state, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.refund = {};
+    $site = $rootScope.site;
     $scope.loading=true;
     Restangular.all('specialPage').getList({site_id:$site.id , type:'Refund Page'}).then(function(response){
         $refund=response;
@@ -38,14 +39,14 @@ app.controller("RefundController", function ($scope, $localStorage, $site, $stat
         if (ref.id) {
             Restangular.all('specialPage').customPUT(ref , ref.id)
             toastr.success("Refund Page has been saved");
-            $state.go('public.admin.site.pages.core.list');
+            smModal.Show('public.admin.site.pages.core.list');
         }
         else {
             Restangular.all('specialPage').post(ref).then(function (refund) {
                 refund.isOpen = false;
                 $scope.refund = refund;
                 toastr.success("Refund Page has been saved!");
-                $state.go('public.admin.site.pages.core.list');
+                smModal.Show('public.admin.site.pages.core.list');
             });
         }
     }

@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 			resolve: {
 				$site_options: function( Restangular )
 				{
-					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'download_center_text', 'download_center_sub_text', 'downloads_text', 'access_level_status_color' ] );
+					
 				}
 			}
 		})

@@ -5,12 +5,12 @@ app.config(function($stateProvider){
 		.state("public.admin.site.pages.core.syllabus",{
 			url: "/syllabus",
 			templateUrl: "/templates/components/public/admin/site/pages/core/syllabus/syllabus.html",
-			controller: "SyllabusController"
+			controller: "SyllabusSettingsController"
 		})
 }); 
 
-app.controller("SyllabusController", function ($scope,$rootScope,$state,$site,Restangular,toastr) {
-	$scope.site = $site;
+app.controller("SyllabusSettingsController", function ($scope,$rootScope,$state,Restangular,toastr) {
+	$scope.site = $site = $rootScope.site;
 
     $scope.save = function(){
         Restangular.one('site',$site.id)

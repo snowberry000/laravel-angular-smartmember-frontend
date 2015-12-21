@@ -15,10 +15,10 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("FreebieController", function ($scope, $localStorage,$site, $state , $location , $anchorScroll, $stateParams,  $filter, Restangular, toastr, Upload) {
+app.controller("FreebieController", function ($scope, $localStorage,$rootScope, smModal , $state , $location , $anchorScroll, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.bonus = {};
     $scope.loading=true;
-
+    $site = $rootScope.site;
     Restangular.all('specialPage').getList({site_id:$site.id , type:'Free Bonus'}).then(function(response){
         $bonus=response;
         $scope.loading=false;
@@ -49,13 +49,13 @@ app.controller("FreebieController", function ($scope, $localStorage,$site, $stat
             console.log(bonus)
             Restangular.all('specialPage').customPUT(bonus , bonus.id);
             toastr.success("Free Bonus Page has been saved");
-            $state.go('public.admin.site.pages.core.list');
+            smModal.Show('public.admin.site.pages.core.list');
         }
         else {
             Restangular.all('specialPage').post(bonus).then(function (bonus) {
                 $scope.bonus = bonus;
                 toastr.success("Free Bonus Page has been saved");
-                $state.go('public.admin.site.pages.core.list');
+                smModal.Show('public.admin.site.pages.core.list');
             });
         }
     }
