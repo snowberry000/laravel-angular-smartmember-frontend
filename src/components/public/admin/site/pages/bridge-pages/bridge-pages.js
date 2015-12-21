@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("BridgePagesController", function ($scope, $localStorage, $site, $state, $stateParams,  $filter, Restangular, toastr) {
+app.controller("BridgePagesController", function ($scope, $localStorage, $state, $rootScope ,$stateParams,  $filter, Restangular, toastr) {
 	$scope.template_data = {
         title: 'BRIDGE PAGES',
         description: 'Bridge Pages are your "marketing" pages. They are stand-alone designed pages used to collect leads or inform visitors of something - like a product, service, update, video, you name it! They exist on their own url\'s and stand separate from your site\'s normal theme.',
@@ -17,7 +17,7 @@ app.controller("BridgePagesController", function ($scope, $localStorage, $site, 
         edit_route: 'public.admin.site.pages.bridge-page',
         api_object: 'bridgePage'
     }
-
+    $site = $rootScope.site;
     $scope.data = [];
     $scope.pagination = {current_page: 1};
     $scope.pagination.total_count = 1;

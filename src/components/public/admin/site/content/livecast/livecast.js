@@ -5,33 +5,154 @@ app.config(function($stateProvider){
 		.state("public.admin.site.content.livecast",{
 			url: "/livecast/:id?",
 			templateUrl: "/templates/components/public/admin/site/content/livecast/livecast.html",
-			controller: "LivecastController",
-            resolve: {
-                $next_item: function(Restangular, $stateParams, $site , $location) {
-                    if ( $stateParams.id ) {
-                        return Restangular.one('livecast', $stateParams.id).get();
-                    }
-                    else if($location.search().clone){
-                        return Restangular.one('livecast', $location.search().clone).get();
-                    }
-                    return {access_level_type : 4, access_level_id: 0};
-                }
-            }
+			controller: "LivecastController"
 		})
 }); 
 
-app.controller("LivecastController", function ($scope,$http,$site,$timeout , $rootScope , $user , $modal , Restangular,$state,$next_item, $location, $stateParams , $filter, Upload, toastr) {
+app.controller("LivecastController", function ($scope,$http,$timeout , $rootScope  , smModal , Restangular,$state, $location, $stateParams , $filter, Upload, toastr) {
 	var draft;
     var changed;
     $scope.site = $site = $rootScope.site;
+    $user = $rootScope.user;
 
-    if(!$next_item.id){
-        $next_item.site_id = $scope.site.id;
+    if ( $stateParams.id ) {
+        $next_item = Restangular.one('livecast', $stateParams.id).get().then(function(response){$scope.next_item = response , $scope.initialize()});
     }
+    else if($location.search().clone){
+        $next_item = Restangular.one('livecast', $location.search().clone).get().then(function(response){$scope.next_item = response , $scope.initialize()});
+    }
+    else
+        $scope.next_item = {access_level_type : 4, access_level_id: 0};
+
     $scope.template_data = {
         title: 'Livecast',
         cancel_route: 'public.admin.site.content.livecasts',
         success_route: 'public.admin.site.content.livecasts'
+    }
+
+    $scope.initialize = function(){
+        if(!$scope.next_item.id){
+            $scope.next_item.site_id = $scope.site.id;
+        }
+
+        if($location.search().clone){
+            delete $scope.next_item.id;
+            delete $scope.next_item.access;
+            delete $scope.next_item.author_id;
+            delete $scope.next_item.site;
+        }
+
+        //speed blogging stuff here
+        if( !$scope.next_item.id )
+        {
+            $scope.next_item.content = $scope.next_item.content || '';
+
+            angular.forEach($_GET,function(value,key){
+                switch( key ) {
+                    case 'src':
+                        switch( $_GET['type'] ) {
+                            case 'embed':
+                                if (value.match(/www\.youtube\.com/)) {
+                                    var video_id = value.split('v=')[1];
+                                    var ampersandPosition = video_id.indexOf('&');
+                                    if (ampersandPosition != -1) {
+                                        video_id = video_id.substring(0, ampersandPosition);
+                                    }
+                                    $scope.next_item.embed_content = '<iframe src="https://www.youtube.com/embed/' + video_id + '" allowfullscreen frameborder="0"></iframe>';
+                                    $scope.next_item.featured_image = 'http://img.youtube.com/vi/' + video_id + '/0.jpg';
+                                    $.ajax({
+                                        url: 'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyBdolPnARgmjt4K5xz-FJ3V5_N5_7A_QeU&part=snippet&id=' + video_id,
+                                        dataType: "json",
+                                        async: false,
+                                        success: function (data) {
+                                            if (typeof data.items[0] != 'undefined' && typeof data.items[0].snippet != 'undefined') {
+                                                $scope.next_item.content += data.items[0].snippet.description;
+                                                $scope.next_item.title = data.items[0].snippet.title;
+                                            }
+                                        }
+                                    });
+                                }
+                                else if (value.match(/vimeo\.com/)) {
+                                    var matches = value.match(/player\.vimeo\.com\/video\/([0-9]*)/);
+
+                                    var video_id = matches[1];
+
+                                    $.ajax({
+                                        url: 'http://vimeo.com/api/v2/video/' + video_id + '.json',
+                                        dataType: 'jsonp',
+                                        async: false,
+                                        success: function (json_data) {
+                                            $scope.next_item.featured_image = json_data[0].thumbnail_large;
+                                            $scope.next_item.content += json_data[0].description;
+                                            $scope.next_item.title = json_data[0].title;
+                                        }
+                                    });
+                                }
+                                break;
+                            case 'image':
+                                $scope.next_item.featured_image = value;
+                                $scope.next_item.content += '<img src="' + value + '" />';
+                                break;
+                        }
+                        break;
+                    case 'title':
+                        $scope.next_item.title = $scope.strip_tags( value );
+                        $scope.next_item.title = $scope.lesson.title.trim();
+                        break;
+                    case 'content':
+                    case 'description':
+                        $scope.next_item.content += '<br>' + value;
+                        break;
+                    case 'featured_image':
+                        $scope.next_item.featured_image = value;
+                        break;
+                    case 'image':
+                        $scope.next_item.title = value.split('/').pop();
+                        $scope.next_item.content += '<img src="' + value + '" />';
+                        $scope.next_item.featured_image = value;
+                        break;
+                }
+            });
+
+            angular.forEach($_GET,function(value,key){
+                switch( key ) {
+                    case 'source_title':
+                        if( $_GET['source_url'] )
+                            $scope.next_item.content += '<br>Source: <a href="' + $_GET['source_url'] + '" target="_blank">' + value + '</a>';
+                        break;
+                }
+            });
+        }
+
+        if ($scope.next_item.end_published_date)
+            $scope.next_item.end_published_date = new Date(moment($scope.next_item.end_published_date).format('l'));
+        else
+            $scope.next_item.end_published_date = null;
+
+        if ($scope.next_item.published_date)
+        {
+            $scope.next_item.published_date = new Date(moment($scope.next_item.published_date).format('l'));
+        } else {
+            $scope.next_item.published_date = new Date();
+            $scope.next_item.published_date.setSeconds(0);
+            $scope.next_item.published_date.setMilliseconds(0);
+        }
+        $scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
+        $scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
+
+        if( $scope.next_item.access_level_type == 3 )
+            $scope.next_item.access_level_type = 2;
+
+        $scope.next_item.id ? $scope.page_title = 'Edit livecast' : $scope.page_title = 'Create livecast';
+
+        var seo = {};
+        if ($scope.next_item.seo_settings) {
+            $.each($scope.next_item.seo_settings, function (key, data) {
+                seo[data.meta_key] = data.meta_value;
+            });
+        }
+        $scope.next_item.seo_settings = seo;
+
     }
 
     $scope.strip_tags = function(input, allowed) {
@@ -57,131 +178,14 @@ app.controller("LivecastController", function ($scope,$http,$site,$timeout , $ro
 
     var $_GET = $scope.getUrlVars();
 
-    if($location.search().clone){
-        delete $next_item.id;
-        delete $next_item.access;
-        delete $next_item.author_id;
-        delete $next_item.site;
-    }
-
-    $scope.next_item = $next_item;
-
-    //speed blogging stuff here
-    if( !$scope.next_item.id )
-    {
-        $scope.next_item.content = $scope.next_item.content || '';
-
-        angular.forEach($_GET,function(value,key){
-            switch( key ) {
-                case 'src':
-                    switch( $_GET['type'] ) {
-                        case 'embed':
-                            if (value.match(/www\.youtube\.com/)) {
-                                var video_id = value.split('v=')[1];
-                                var ampersandPosition = video_id.indexOf('&');
-                                if (ampersandPosition != -1) {
-                                    video_id = video_id.substring(0, ampersandPosition);
-                                }
-                                $scope.next_item.embed_content = '<iframe src="https://www.youtube.com/embed/' + video_id + '" allowfullscreen frameborder="0"></iframe>';
-                                $scope.next_item.featured_image = 'http://img.youtube.com/vi/' + video_id + '/0.jpg';
-                                $.ajax({
-                                    url: 'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyBdolPnARgmjt4K5xz-FJ3V5_N5_7A_QeU&part=snippet&id=' + video_id,
-                                    dataType: "json",
-                                    async: false,
-                                    success: function (data) {
-                                        if (typeof data.items[0] != 'undefined' && typeof data.items[0].snippet != 'undefined') {
-                                            $scope.next_item.content += data.items[0].snippet.description;
-                                            $scope.next_item.title = data.items[0].snippet.title;
-                                        }
-                                    }
-                                });
-                            }
-                            else if (value.match(/vimeo\.com/)) {
-                                var matches = value.match(/player\.vimeo\.com\/video\/([0-9]*)/);
-
-                                var video_id = matches[1];
-
-                                $.ajax({
-                                    url: 'http://vimeo.com/api/v2/video/' + video_id + '.json',
-                                    dataType: 'jsonp',
-                                    async: false,
-                                    success: function (json_data) {
-                                        $scope.next_item.featured_image = json_data[0].thumbnail_large;
-                                        $scope.next_item.content += json_data[0].description;
-                                        $scope.next_item.title = json_data[0].title;
-                                    }
-                                });
-                            }
-                            break;
-                        case 'image':
-                            $scope.next_item.featured_image = value;
-                            $scope.next_item.content += '<img src="' + value + '" />';
-                            break;
-                    }
-                    break;
-                case 'title':
-                    $scope.next_item.title = $scope.strip_tags( value );
-                    $scope.next_item.title = $scope.lesson.title.trim();
-                    break;
-                case 'content':
-                case 'description':
-                    $scope.next_item.content += '<br>' + value;
-                    break;
-                case 'featured_image':
-                    $scope.next_item.featured_image = value;
-                    break;
-                case 'image':
-                    $scope.next_item.title = value.split('/').pop();
-                    $scope.next_item.content += '<img src="' + value + '" />';
-                    $scope.next_item.featured_image = value;
-                    break;
-            }
-        });
-
-        angular.forEach($_GET,function(value,key){
-            switch( key ) {
-                case 'source_title':
-                    if( $_GET['source_url'] )
-                        $scope.next_item.content += '<br>Source: <a href="' + $_GET['source_url'] + '" target="_blank">' + value + '</a>';
-                    break;
-            }
-        });
-    }
-    $scope.next_item.dripfeed_settings = $next_item.dripfeed || {};
+    
+    //$scope.next_item.dripfeed_settings = $next_item.dripfeed || {};
     $scope.range = function(min, max, step){
         step = step || 1;
         var input = [];
         for (var i = min; i <= max; i += step) input.push(i);
         return input;
     };
-    if ($scope.next_item.end_published_date)
-        $scope.next_item.end_published_date = new Date(moment($scope.next_item.end_published_date).format('l'));
-    else
-        $scope.next_item.end_published_date = null;
-
-    if ($scope.next_item.published_date)
-    {
-        $scope.next_item.published_date = new Date(moment($scope.next_item.published_date).format('l'));
-    } else {
-        $scope.next_item.published_date = new Date();
-        $scope.next_item.published_date.setSeconds(0);
-        $scope.next_item.published_date.setMilliseconds(0);
-    }
-    $scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
-    $scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
-
-    if( $scope.next_item.access_level_type == 3 )
-        $scope.next_item.access_level_type = 2;
-
-    $scope.next_item.id ? $scope.page_title = 'Edit livecast' : $scope.page_title = 'Create livecast';
-
-    var seo = {};
-    if ($scope.next_item.seo_settings) {
-        $.each($scope.next_item.seo_settings, function (key, data) {
-            seo[data.meta_key] = data.meta_value;
-        });
-    }
-    $scope.next_item.seo_settings = seo;
 
     $scope.setPermalink = function ($event) {
         if(!$scope.next_item.permalink)
@@ -214,7 +218,7 @@ app.controller("LivecastController", function ($scope,$http,$site,$timeout , $ro
             $scope.next_item.access_level_id = 0;
         if($scope.next_item.id){
             $scope.next_item.put().then(function(){
-                $state.go('public.admin.site.content.livecasts');
+                smModal.Show('public.admin.site.content.livecasts');
                 toastr.success("Livecast updated!");
             });
         }
@@ -222,7 +226,7 @@ app.controller("LivecastController", function ($scope,$http,$site,$timeout , $ro
             Restangular.all('livecast').post($scope.next_item).then(function(response){
                 if(draft)
                     Restangular.one('draft' , draft.id).remove();
-                $state.go('public.admin.site.content.livecasts');
+                smModal.Show('public.admin.site.content.livecasts');
                 toastr.success("Livecast Created!");
 
             })

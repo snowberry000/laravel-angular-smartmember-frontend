@@ -5,7 +5,7 @@ app.config(function($stateProvider){
 		.state("bridge-page",{
 			url: "/bridge-page/:id?",
 			templateUrl: "/templates/components/bridge-page/bridge-page.html",
-			controller: "BridgePageController",
+			controller: "PublicBridgePageController",
 			resolve: {
 				$page: function( Restangular, $site, $stateParams )
 				{
@@ -26,7 +26,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("BridgePageController", function ($scope, $localStorage, $site , $page ,$templates, $state, $stateParams,  $filter, Restangular, toastr, Upload, $rootScope, $window, $emailLists, $sce) {
+app.controller("PublicBridgePageController", function ($scope, $localStorage, $site , $page ,$templates, $state, $stateParams,  $filter, Restangular, toastr, Upload, $rootScope, $window, $emailLists, $sce) {
 	$scope.bridgepage = $page;
     $scope.templates = $templates;
     $scope.visible = false;

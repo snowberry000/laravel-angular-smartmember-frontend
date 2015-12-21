@@ -152,7 +152,7 @@
                                     <button ng-disabled="!bridgepage.id" type="button" class="btn btn-success"
                                             ng-click="cloneBridgePage()">Save & Clone
                                     </button>
-                                    <a ui-sref="public.admin.site.pages.bridge-pages" class="btn btn-default"
+                                    <a ng-click="smModal.Show('public.admin.site.pages.bridge-pages')" class="btn btn-default"
                                        onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
                                 </div>
                             </div>

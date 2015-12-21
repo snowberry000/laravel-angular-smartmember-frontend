@@ -9,16 +9,7 @@ app.config(function($stateProvider){
 			resolve: {
                 $next_item: function( Restangular, $site, $stateParams, $location )
 				{
-					if( $stateParams.id )
-						return Restangular.one( 'customPage', $stateParams.id ).get();
-					else if( $location.search().clone )
-                    {
-                        return Restangular.one( 'customPage', $location.search().clone ).get();
-                    }
-                    else
-                    {
-                        return { site_id: $site.id, access_level_type: 4, access_level_id: 0 }
-                    }
+					
                 },
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -31,42 +22,60 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("CustomPageController", function ($scope, $rootScope, $localStorage, $location, $site , $timeout , $user , $next_item ,$state, $stateParams,  $filter, Restangular, toastr, Upload) {
+app.controller("CustomPageController", function ($scope, $rootScope, smModal , $localStorage, $location , $timeout ,$state, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.template_data = {
         title: 'Pages',
         cancel_route: 'public.admin.pages.pages'
     }
+    $site = $rootScope.site;
+    $user = $rootScope.user;
 
-    if(!$next_item.id)
-    {
-        $next_item.site_id=$rootScope.site.id;
+    $scope.initialize = function(){
+        if(!$scope.next_item.id)
+        {
+            $scope.next_item = $rootScope.site.id;
+        }
+
+        if($location.search().clone){
+            delete $scope.next_item.id;
+            delete $scope.next_item.access;
+            delete $scope.next_item.site;
+        }
+
+        $scope.next_item.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
+        $scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
+        $scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
+
+        if( $scope.next_item.access_level_type == 3 )
+            $scope.next_item.access_level_type = 2;
+
+        var seo = {};
+        if ($scope.next_item.seo_settings) {
+            $.each($next_item.seo_settings, function (key, data) {
+                seo[data.meta_key] = data.meta_value;
+            });
+        }
+        $scope.next_item.seo_settings = seo;
     }
+
+    
+
+    if( $stateParams.id )
+        Restangular.one( 'customPage', $stateParams.id ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
+    else if( $location.search().clone )
+    {
+        Restangular.one( 'customPage', $location.search().clone ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
+    }
+    else
+    {
+        $scope.next_item = $next_item = { site_id: $site.id, access_level_type: 4, access_level_id: 0 }
+        $scope.initialize();
+    }
+
+   
 
     var draft;
     var changed;
-    if($location.search().clone){
-        delete $next_item.id;
-        delete $next_item.access;
-        delete $next_item.site;
-
-    }
-
-    $scope.next_item = $next_item;
-
-    $scope.next_item.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
-    $scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
-    $scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
-
-    if( $scope.next_item.access_level_type == 3 )
-        $scope.next_item.access_level_type = 2;
-
-    var seo = {};
-    if ($scope.next_item.seo_settings) {
-        $.each($next_item.seo_settings, function (key, data) {
-            seo[data.meta_key] = data.meta_value;
-        });
-    }
-    $scope.next_item.seo_settings = seo;
 
     $scope.imageUpload = function(files , type){
         for (var i = 0; i < files.length; i++) {
@@ -117,7 +126,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, $localStora
             $scope.next_item.access_level_id = 0;
         if ($scope.next_item.id) {
             $scope.next_item.put();
-            $state.go("public.admin.site.pages.custom-pages");
+            smModal.Show("public.admin.site.pages.custom-pages");
             toastr.success("Page has been updated!");
         }
         else {
@@ -125,7 +134,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, $localStora
                 if(draft)
                     Restangular.one('draft' , draft.id).remove();
                 $scope.next_item = page;
-                $state.go("public.admin.site.pages.custom-pages");
+                smModal.Show("public.admin.site.pages.custom-pages");
                 toastr.success("Custom page has been saved!");
             });
         }

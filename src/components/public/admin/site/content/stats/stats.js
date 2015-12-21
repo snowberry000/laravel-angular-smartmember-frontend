@@ -8,7 +8,7 @@ app.config(function($stateProvider){
 			controller: "SiteStatsController",
 		    resolve : {
 			    summary : function (Restangular) {
-				    return Restangular.all('site').customGET('summary');
+				    return 
 			    },
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -21,8 +21,10 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SiteStatsController", function ($scope, $state, Restangular, summary) {
-	$scope.summary = summary;
+app.controller("SiteStatsController", function ($scope, $state, Restangular) {
+
+    $summary = Restangular.all('site').customGET('summary').then(function(response){$scope.summary = response; summary = response ;$scope.init()})
+
     console.log($scope.summary);
 
     $scope.series = ['Count',];

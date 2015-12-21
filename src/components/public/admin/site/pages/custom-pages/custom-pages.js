@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("CustomPagesController", function ($scope, $localStorage, $site, $state, $stateParams,  $filter, Restangular, toastr) {
+app.controller("CustomPagesController", function ($scope, $localStorage, $rootScope, $state, $stateParams,  $filter, Restangular, toastr) {
 	$scope.template_data = {
         title: 'PAGES',
         description: 'Create pages to fill your site with content for your members to read / watch / hear.',
@@ -19,7 +19,7 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $site, 
     }
 
     var page = Restangular.all("customPage");
-
+    $site = $rootScope.site;
     $scope.data = [];
     $scope.pagination = {current_page: 1};
     $scope.pagination.total_count = 1;
