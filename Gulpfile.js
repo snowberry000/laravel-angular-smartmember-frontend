@@ -60,7 +60,7 @@ gulp.task( 'js', function()
 		.pipe( gulp.dest( 'dist/js' ) );
 
 	gulp.src(["src/**/*.e2e.js"])
-		.pipe( concat( 'e2e.js' ) )
+		.pipe( concat( 'e2e.tests.js' ) )
 		.pipe( gulp.dest( 'src/tests' ) );
 
 	return true;
@@ -103,10 +103,9 @@ gulp.task( 'templates', function()
 
 gulp.task( 'test-e2e', function()
 {
-	return gulp.src(["./dist/tests/e2e.js"])
+	return gulp.src(["./src/tests/e2e.tests.js"])
 		.pipe(protractor({
-			configFile: "test/protractor.config.js",
-			args: ['--baseUrl', 'http://127.0.0.1:8000']
+			configFile: "./src/tests/e2e.conf.js"
 		}))
 		.on('error', function(e) { throw e })
 } );

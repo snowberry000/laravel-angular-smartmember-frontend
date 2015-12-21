@@ -11,7 +11,7 @@ exports.config = {
 
 	maxSessions: 1,
 	specs: [
-		'e2e.js'
+		'e2e.tests.js'
 	],
 	jasmineNodeOpts: {
 		showColors: true,
