@@ -1,18 +1,21 @@
-app.controller('specialPagesController', function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams,  Restangular, toastr, $state) {
+app.controller('specialPagesController', function ($scope, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr, $state) {
+    $site = $rootScope.site;
+    $site_options = Restangular.all( 'siteMetaData' ).getList().then(function(response){$scope.site_options = response ; $scope.initialize()});
     
-    $homepage_url=_.find($scope.site.meta_data, function(temp){ return temp.key == 'homepage_url'; });
-    if($homepage_url)
-        $scope.site_options = {homepage_url:$homepage_url.value};
-    else
-        $scope.site_options ={};
-    
-    $scope.site=$site;
-    $.each($site_options, function (key, data) {
-        $scope.site_options[data.key] = data.value;
-    });
-    $scope.site_options.isOpen = false;
-    $rootScope.not_homepage_setting = false;
-
+    $scope.initialize = function(){
+        $homepage_url=_.find($scope.site.meta_data, function(temp){ return temp.key == 'homepage_url'; });
+        if($homepage_url)
+            $scope.site_options = {homepage_url:$homepage_url.value};
+        else
+            $scope.site_options ={};
+        
+        $scope.site=$site;
+        $.each($site_options, function (key, data) {
+            $scope.site_options[data.key] = data.value;
+        });
+        $scope.site_options.isOpen = false;
+        $rootScope.not_homepage_setting = false;
+    }
     //this looks like it doesn't belong here, but it actually is needed to make the icon picker work
     //the function name has to be updateMenuItem because it is what the icon picker directive looks for
     $scope.updateMenuItem = function ( model ) {

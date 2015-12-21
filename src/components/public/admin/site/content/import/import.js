@@ -14,9 +14,11 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, $videosAdded, toastr) {
+app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, toastr) {
 	var lesson = Restangular.all("lesson");
-
+    Restangular.all('').customGET('lesson?type=vimeo&bypass_paging=true').then(function(response){
+        $videosAdded = response;
+    })
     $scope.videos = false;
     $scope.vimeo_integrations = [];
     $scope.vimeo = {};

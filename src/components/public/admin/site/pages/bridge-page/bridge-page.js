@@ -5,85 +5,93 @@ app.config(function($stateProvider){
 		.state("public.admin.site.pages.bridge-page",{
 			url: "/bridge-page/:id?",
 			templateUrl: "/templates/components/public/admin/site/pages/bridge-page/bridge-page.html",
-			controller: "BridgePageController",
-			resolve: {
-				$page: function( Restangular, $site, $stateParams )
-				{
-					if( $stateParams.id )
-						return Restangular.one( 'bridgePage', $stateParams.id ).get();
-					else
-						return { site_id: $site.id, access_level_type: 4 }
-				},
-				$templates: function( Restangular )
-				{
-					return Restangular.all( 'bridgeTemplate' ).customGETLIST( 'getlist' );
-				},
-				$emailLists: function( Restangular, $site )
-				{
-					return Restangular.all( 'emailList' ).getList();
-				}
-			}
+			controller: "BridgePageController"
 		})
 }); 
 
-app.controller("BridgePageController", function ($scope, $localStorage, $site , $page ,$templates, $state, $stateParams,  $filter, Restangular, toastr, Upload, $rootScope, $window, $emailLists, $sce) {
-    if(!$page.id)
-    {
-        $page.site_id=$rootScope.site.id;
-    }
-	$scope.bridgepage = $page;
-    $scope.templates = $templates;
-    $scope.visible = false;
+app.controller("BridgePageController", function ($scope, $localStorage , smModal , $q , $state, $stateParams,  $filter, Restangular, toastr, Upload, $rootScope, $window, $sce) {
+    
+    $site = $rootScope.site;
+
+    $scope.initialize = function(){
+        if(!$scope.bridgepage.id)
+        {
+            $scope.bridgepage.site_id=$rootScope.site.id;
+        }
+        $scope.visible = false;
 
 
-    $scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.'+ $rootScope.app.domain : $rootScope.app.domain;
-    if ($scope.bridgepage.id == undefined)
-    {
-        $scope.template = $scope.templates[1];
-    } else {
-        $scope.template = _.findWhere($scope.templates, {id: $scope.bridgepage.template_id});
-    }
-    $scope.bridgepage.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
+        $scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.'+ $rootScope.app.domain : $rootScope.app.domain;
+        if ($scope.bridgepage.id == undefined)
+        {
+            $scope.template = $scope.templates[1];
+        } else {
+            $scope.template = _.findWhere($scope.templates, {id: $scope.bridgepage.template_id});
+        }
+        $scope.bridgepage.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
 
-    var seo = {};
-    if ($page.seo_settings) {
-        $.each($page.seo_settings, function (key, data) {
-            seo[data.meta_key] = data.meta_value;
+        var seo = {};
+        if ($scope.bridgepage.seo_settings) {
+            $.each($scope.bridgepage.seo_settings, function (key, data) {
+                seo[data.meta_key] = data.meta_value;
 
-        });
-    }
-    $scope.bridgepage.seo_settings = seo;
+            });
+        }
+        $scope.bridgepage.seo_settings = seo;
 
-    var swapspot = {};
-    //initiate default swapspot value
-    if ($page.swapspots)
-    {
-        $.each($page.swapspots, function (key, data) {
-           swapspot[data.name] = data.value;
-        });
-    }
-    $scope.bridgepage.swapspot = swapspot;
-    $scope.emailLists = $emailLists;
+        var swapspot = {};
+        //initiate default swapspot value
+        if ($scope.bridgepage.swapspots)
+        {
+            $.each($scope.bridgepage.swapspots, function (key, data) {
+               swapspot[data.name] = data.value;
+            });
+        }
+        $scope.bridgepage.swapspot = swapspot;
+        $scope.emailLists = $emailLists;
 
-    if ($scope.bridgepage.id == undefined)
-    {
-        $scope.bridgepage.swapspot.greentime = 0;
-        $scope.bridgepage.swapspot.enable_timer = 'block';
-        $scope.bridgepage.swapspot.timer_settings = 2;
-        $scope.bridgepage.swapspot.duration = 1;
-        $scope.bridgepage.swapspot.interval = 'hours';
-        $scope.bridgepage.swapspot.show_guarantee_text = 'block';
-        $scope.bridgepage.swapspot.time_end_action = 1;
-        $scope.bridgepage.swapspot.enable_popup = 0;
-        $scope.bridgepage.swapspot.emailListId = $emailLists[0];
-    } else {
-        $scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl($scope.bridgepage.swapspot.optin_action);
-        $scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, {id: $scope.bridgepage.swapspot.sm_list_id });
+        if ($scope.bridgepage.id == undefined)
+        {
+            $scope.bridgepage.swapspot.greentime = 0;
+            $scope.bridgepage.swapspot.enable_timer = 'block';
+            $scope.bridgepage.swapspot.timer_settings = 2;
+            $scope.bridgepage.swapspot.duration = 1;
+            $scope.bridgepage.swapspot.interval = 'hours';
+            $scope.bridgepage.swapspot.show_guarantee_text = 'block';
+            $scope.bridgepage.swapspot.time_end_action = 1;
+            $scope.bridgepage.swapspot.enable_popup = 0;
+            $scope.bridgepage.swapspot.emailListId = $emailLists[0];
+        } else {
+            $scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl($scope.bridgepage.swapspot.optin_action);
+            $scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, {id: $scope.bridgepage.swapspot.sm_list_id });
+        }
+        if ($scope.bridgepage.swapspot.enable_popup)
+        {
+            $scope.bridgepage.swapspot.enable_popup = parseInt($scope.bridgepage.swapspot.enable_popup);
+        }
+
+        if ($scope.bridgepage.swapspot.enable_timer)
+        {
+            $scope.bridgepage.swapspot.timer_column = 'col-sm-8';
+        } else {
+            $scope.bridgepage.swapspot.timer_column = 'col-sm-12';
+        }
     }
-    if ($scope.bridgepage.swapspot.enable_popup)
-    {
-        $scope.bridgepage.swapspot.enable_popup = parseInt($scope.bridgepage.swapspot.enable_popup);
+
+    $templates = Restangular.all( 'bridgeTemplate' ).customGETLIST( 'getlist' ).then(function(response){$scope.templates = response;})
+    $emailLists = Restangular.all( 'emailList' ).getList().then(function(response){$scope.emailLists = response;})
+    if( $stateParams.id )
+        $page = Restangular.one( 'bridgePage', $stateParams.id ).get().then(function(response){ $scope.bridgepage = response ; })
+    else{
+        $scope.bridgepage = $page = { site_id: $site.id, access_level_type: 4 }
     }
+
+    $dependencies = [$templates , $emailLists];
+    if($stateParams.id){
+        $dependencies.push($page);
+    }
+
+    $q.all($dependencies).then(function(response){$scope.initialize()})
 
     $scope.range = function(min, max, step){
         step = step || 1;
@@ -117,13 +125,6 @@ app.controller("BridgePageController", function ($scope, $localStorage, $site , 
         {
             $scope.bridgepage.swapspot.timestamp = moment($scope.bridgepage.swapspot.day).format('x');
         }
-    }
-
-    if ($scope.bridgepage.swapspot.enable_timer)
-    {
-        $scope.bridgepage.swapspot.timer_column = 'col-sm-8';
-    } else {
-        $scope.bridgepage.swapspot.timer_column = 'col-sm-12';
     }
 
     $scope.toTimeStampGreen = function()
@@ -245,7 +246,7 @@ app.controller("BridgePageController", function ($scope, $localStorage, $site , 
         $scope.bridgepage.site_id = $site.id;
         if ($scope.bridgepage.id) {
             $scope.bridgepage.put();
-            $state.go("public.admin.site.pages.bridge-pages");
+            smModal.Show("public.admin.site.pages.bridge-pages");
             toastr.success("Bridge page has been updated!");
         }
         else {
@@ -253,10 +254,10 @@ app.controller("BridgePageController", function ($scope, $localStorage, $site , 
                 $scope.bridgepage = page;
 
                 if( typeof cloned == 'undefined' || cloned != true) {
-                    $state.go("public.admin.site.pages.bridge-pages");
+                    smModal.Show("public.admin.site.pages.bridge-pages");
                     toastr.success("Bridge page has been saved!");
                 } else {
-                    $state.go("public.admin.site.pages.bridge-page",{id: page.id});
+                    smModal.Show("public.admin.site.pages.bridge-page",{id: page.id});
                     window.scrollTo(0,0);
                     toastr.success("Bridge page has been cloned!");
                 }

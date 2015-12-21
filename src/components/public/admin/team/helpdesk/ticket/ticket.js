@@ -5,60 +5,76 @@ app.config(function($stateProvider){
 		.state("public.admin.team.helpdesk.ticket",{
 			url: "/ticket/:id?",
 			templateUrl: "/templates/components/public/admin/team/helpdesk/ticket/ticket.html",
-			controller: "TicketController",
-			resolve: {
-                $ticket: function(Restangular , $stateParams){
-                    if ($stateParams.id)
-                        return Restangular.one('supportTicket' , $stateParams.id).get();
-                }
-            }
+			controller: "TicketController"
 		})
 }); 
 
-app.controller("TicketController", function ($scope, $localStorage, $state, $stateParams, $ticket,$user, $filter, Restangular, toastr ) {
+app.controller("TicketController", function ($scope, $localStorage, $state, $rootScope, $stateParams, $filter, Restangular, toastr ) {
 
-	$scope.ticket = $ticket.ticket;
+	$user = $rootScope.user;
+	if ($stateParams.id)
+	    $ticket = Restangular.one('supportTicket' , $stateParams.id).get().then(function(response){$scope.ticket = response.ticket; $ticket = response.ticket ; $scope.init()});
+	else
+		$scope.ticket = {};
+	
 	$scope.current_user_id = $user.id;
 	$scope.agents = [];
+	$scope.init = function(){
 
-	Restangular.service('role/agents').getList().then(function(data){
+		$scope.advanced_info = $ticket.advanced_info;
+		$scope.recent_tickets = $ticket.recent_tickets;
+		$scope.statuses = [
+		    {value : "Open" , id: "open" },
+		    {value :  "Pending", id: "pending"},
+		    {value : "Solved" , id: "solved"},
+		    {value : "Spam" , id: "spam"},
+		]
 
-	    angular.forEach(data, function(value){
-	        if( typeof value.user != 'undefined' ) {
-	            var user_name = value.user.first_name + ' ' + value.user.last_name;
-	            var name_bits = user_name.split(' ');
-	            var initials = '';
-	            if( name_bits.length > 1)
-	                initials = name_bits[0].charAt(0).toUpperCase() + name_bits[1].charAt(0).toUpperCase();
-	            else
-	                initials = name_bits[0].charAt(0).toUpperCase() + name_bits[0].charAt(1).toUpperCase();
 
-	            $scope.agents.push({
-	                id: value.user.id,
-	                name: user_name,
-	                email:value.user.email,
-	                profile_image: value.user.profile_image,
-	                initials: initials
-	            });
-	        }
-	    });
+		$scope.reply = {parent_id : $scope.ticket.id , company_id : $scope.ticket.company_id};
+		$scope.send_email = false;
 
-	    var isAgent = _.find($scope.agents , {'id':$user.id}) || _.find($scope.agents , {'id':$user.id + ''});
-	    console.log($scope.agents)
-	    if(isAgent){
-	        $scope.display_replies = $scope.ticket.reply.concat($scope.ticket.notes)
-	        $scope.display_replies = $scope.display_replies.concat( $scope.ticket.actions );
-	        $scope.display_replies = _.sortBy($scope.display_replies, 'created_at');
 
-	        angular.forEach( $scope.display_replies, function( value, key ) {
-	            console.log( key, ' => ', $scope.formatDate( value.created_at ) );
-	        });
+		Restangular.service('role/agents').getList().then(function(data){
 
-	    } else {
-	        $scope.display_replies = $scope.ticket.reply.concat( $scope.ticket.actions );
-	        _.sortBy($scope.display_replies, 'created_at');
-	    }
-	});
+		    angular.forEach(data, function(value){
+		        if( typeof value.user != 'undefined' ) {
+		            var user_name = value.user.first_name + ' ' + value.user.last_name;
+		            var name_bits = user_name.split(' ');
+		            var initials = '';
+		            if( name_bits.length > 1)
+		                initials = name_bits[0].charAt(0).toUpperCase() + name_bits[1].charAt(0).toUpperCase();
+		            else
+		                initials = name_bits[0].charAt(0).toUpperCase() + name_bits[0].charAt(1).toUpperCase();
+
+		            $scope.agents.push({
+		                id: value.user.id,
+		                name: user_name,
+		                email:value.user.email,
+		                profile_image: value.user.profile_image,
+		                initials: initials
+		            });
+		        }
+		    });
+
+		    var isAgent = _.find($scope.agents , {'id':$user.id}) || _.find($scope.agents , {'id':$user.id + ''});
+		    console.log($scope.agents)
+		    if(isAgent){
+		        $scope.display_replies = $scope.ticket.reply.concat($scope.ticket.notes)
+		        $scope.display_replies = $scope.display_replies.concat( $scope.ticket.actions );
+		        $scope.display_replies = _.sortBy($scope.display_replies, 'created_at');
+
+		        angular.forEach( $scope.display_replies, function( value, key ) {
+		            console.log( key, ' => ', $scope.formatDate( value.created_at ) );
+		        });
+
+		    } else {
+		        $scope.display_replies = $scope.ticket.reply.concat( $scope.ticket.actions );
+		        _.sortBy($scope.display_replies, 'created_at');
+		    }
+		});
+	}
+	
 
 	$scope.isImage = function( file ) {
 	    return ['jpg','jpeg','png','gif','bmp'].indexOf( file.split('/').pop().split('.').pop().toLowerCase() ) != -1;
@@ -180,18 +196,7 @@ app.controller("TicketController", function ($scope, $localStorage, $state, $sta
 	    }
 	}
 
-	$scope.advanced_info = $ticket.advanced_info;
-	$scope.recent_tickets = $ticket.recent_tickets;
-	$scope.statuses = [
-	    {value : "Open" , id: "open" },
-	    {value :  "Pending", id: "pending"},
-	    {value : "Solved" , id: "solved"},
-	    {value : "Spam" , id: "spam"},
-	]
-
-
-	$scope.reply = {parent_id : $scope.ticket.id , company_id : $scope.ticket.company_id};
-	$scope.send_email = false;
+	
 	$scope.sendReply = function()
 	{
 	    if($scope.admin_mode){

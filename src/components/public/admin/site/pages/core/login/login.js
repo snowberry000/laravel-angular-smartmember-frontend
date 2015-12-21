@@ -9,22 +9,24 @@ app.config(function($stateProvider){
             resolve: {
                 $site_options: function( Restangular )
                 {
-                    return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'create_account_url', 'login_page_text' ] );
+                    return 
                 }
             }
 		})
 }); 
 
-app.controller("LoginController", function ($scope, $rootScope, $localStorage, $location, $site , $site_options , $stateParams,  Restangular, toastr, $state) {
-	$scope.site_options = {};
+app.controller("LoginController", function ($scope, smModal, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr, $state) {
+	
+    $scope.site=$rootScope.site;
+    Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'create_account_url', 'login_page_text' ] ).then(function(response){
+        $scope.site_options = {};
+        $.each(response, function (key, data) {
+            $scope.site_options[data.key] = data.value;
+        });
 
-    $scope.site=$site;
-
-    $.each($site_options, function (key, data) {
-        $scope.site_options[data.key] = data.value;
-    });
-
-    $scope.site_options.isOpen = false;
+        $scope.site_options.isOpen = false;
+    })
+    
 
     $scope.save = function () {
         delete $scope.site_options.url;
@@ -33,7 +35,7 @@ app.controller("LoginController", function ($scope, $rootScope, $localStorage, $
             toastr.success("Options are saved");
             $scope.site_options.isOpen = false;
             $localStorage.homepage_url = $scope.site_options.homepage_url;
-            $state.go('public.admin.site.pages.core.list');
+            smModal.Show('public.admin.site.pages.core.list');
         });
     }
 

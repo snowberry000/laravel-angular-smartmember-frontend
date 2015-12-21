@@ -15,7 +15,7 @@
                             <span>{{template_data.description}}</span>
                         </div>
                         <div class="col-md-3 text-right">
-                            <a ui-sref="public.bridge-page" class="btn btn-brand btn-large m-t-md">
+                            <a ng-click="smModal.Show('public.admin.site.pages.bridge-page')" class="btn btn-brand btn-large m-t-md">
                                 <i class="fa fa-plus"></i>
                                 Create new {{template_data.singular}}
                             </a>
@@ -58,7 +58,7 @@
                                     {{moment.utc(next_item.created_at).fromNow()}}
                                 </td>
                                 <td class="text-right">
-                                    <a href="{{$state.href( template_data.edit_route, {id: next_item.id } )}}" class="btn btn-brand btn-outline btn-sm">
+                                    <a ng-click="smModal.Show( template_data.edit_route, {id: next_item.id } )" class="btn btn-brand btn-outline btn-sm">
                                         Edit
                                         <i class="fa fa-pencil"></i>
                                     </a>

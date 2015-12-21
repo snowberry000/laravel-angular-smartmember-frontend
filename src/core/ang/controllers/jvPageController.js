@@ -1,24 +1,27 @@
-app.controller('JVPageController', function ($scope, Restangular, $localStorage, $location, toastr, $state, $site, emailLists, Upload) {
-    $scope.emailLists = emailLists;
+app.controller('JVPageController', function ($scope,smModal, Restangular, $localStorage, $location, toastr, $state, $rootScope, Upload) {
     $scope.jv = {}
     $scope.isChecked = false; 
     $scope.urlPopover = {isOpen : false};
     $scope.loading = true;
-
+    $site = $rootScope.site;
     $scope.init = function() {
-        Restangular.all('affiliateJVPage').getList({company_id : $site.company_id}).then(function (jv) {
-            $scope.loading = false;
-            if(jv.length>0){
-                $scope.jv = jv[0];
-            } 
-            else {
-                $scope.jv.company_id = $site.company_id;  
-                $scope.jv.title = "";
-            }
+        Restangular.all( 'emailList/sendMailLists' ).getList().then(function(response){
+            $scope.emailLists = response;
+            Restangular.all('affiliateJVPage').getList({company_id : $site.company_id}).then(function (jv) {
+                $scope.loading = false;
+                if(jv.length>0){
+                    $scope.jv = jv[0];
+                } 
+                else {
+                    $scope.jv.company_id = $site.company_id;  
+                    $scope.jv.title = "";
+                }
 
-            $scope.jv.subscribe_button_text = $scope.jv.subscribe_button_text ? 
-                                                    $scope.jv.subscribe_button_text : '';
-        });
+                $scope.jv.subscribe_button_text = $scope.jv.subscribe_button_text ? 
+                                                        $scope.jv.subscribe_button_text : '';
+            });
+        })
+        
     }
 
     $scope.save = function () {
@@ -27,13 +30,13 @@ app.controller('JVPageController', function ($scope, Restangular, $localStorage,
         if ($scope.jv.id) {
             $scope.jv.put();
             toastr.success("JV Page has been saved!");
-            $state.go('admin.site.pages.core.list');
+            smModal.Show('admin.site.pages.core.list');
         }
         else {
             Restangular.all('affiliateJVPage').post($scope.jv).then(function (jv) {
                 $scope.jv = jv;
                 toastr.success("JV Page has been saved!");
-                $state.go('admin.site.pages.core.list');
+                smModal.Show('admin.site.pages.core.list');
             });
         }
     }

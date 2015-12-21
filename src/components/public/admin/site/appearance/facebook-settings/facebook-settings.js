@@ -22,7 +22,7 @@ app.controller("FacebookSettingsController", function ($scope, $localStorage, $l
 	    });
 
 	};
-
+	$scope.facebookInit();
 	$scope.saveFacebook = function () {
 	    pageMetaData.customPOST($scope.settings, "save").then(function () {
 	        toastr.success("Settings are saved");
