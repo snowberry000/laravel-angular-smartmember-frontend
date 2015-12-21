@@ -21,7 +21,7 @@ if( strpos( $domain, "smartmember" ) === false )
 	$rootDomain = "smartmember.com";
 }
 
-if( $tld != 'com' && $tld != 'dev' && $tld != 'in' && $tld != 'soy' )
+if( !in_array( $tld, ['com','dev','in','soy'] ) )
 {
 	$tld = 'com';
 }
@@ -29,9 +29,9 @@ if( $tld != 'com' && $tld != 'dev' && $tld != 'in' && $tld != 'soy' )
 $is_bridgepage = false;
 
 $requestParts = explode( '/', $_SERVER[ 'REQUEST_URI' ] );
+
 if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) < 3 )
 {
-
 	$permalink = $requestParts[ 1 ];
 	$pos = strpos( $permalink, '?' );
 	if( $pos !== false )
@@ -39,139 +39,92 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 		$permalink = substr( $permalink, 0, $pos );
 	}
 
-	try
+	//we know these are reserved routes, so no need to check if they are bridge pages
+	$reserved_permalinks = array(
+		'lessons',
+		'info',
+		'home',
+		'thank-you',
+		'thankyou',
+		'wallboard',
+		'sign',
+		'download-center',
+		'admin',
+		'domain-not-found',
+		'blog',
+		'jvpage',
+		'refund-page',
+		'support-ticket',
+		'support',
+		'support-tickets'
+	);
+
+	if( !in_array( $permalink, $reserved_permalinks ) )
 	{
 		require_once 'bpage/php/redis/Autoloader.php';
 		Predis\Autoloader::register();
 		$client = new Predis\Client();
 
-		$key = $subdomain.':'.$permalink.':type';
-		$type = $client->get( $key );
-
-		if( !$type )
+		try
 		{
-			$key = $domain.':'.$permalink.':type';
-			$type = $client->get( $key );
-
-			if( $type && $type == 'bridge_bpages' )
+			$paramSwaps = [ ];
+			if( count( $_GET ) > 0 )
 			{
-				$subdomain = $client->get( $domain.':'.$permalink.':subdomain' );
-			}
+				$getParams = array_keys( $_GET );
+				sort( $getParams, SORT_NATURAL );
 
-			if( empty($subdomain) )
-			{
-				$type = null;
-			}
-		}
+				$getKey = '';
 
-		if( $type && $type == 'bridge_bpages' )
-		{
-			$is_bridgepage = true;
-		} else
-		{
-			$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/permalink/'.$permalink;
-			$curl = curl_init( $url );
-			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'subdomain:'.$subdomain, 'origin:http://'.$domain, 'referer:http://'.$domain, 'content-type:application/json' ) );
-			$resp = curl_exec( $curl );
-			if( $resp )
-			{
-				$resp = json_decode( $resp );
-
-				if( is_object( $resp ) && isset($resp->type) )
+				foreach( $getParams as $param )
 				{
-					$is_bridgepage = ($resp->type === 'bridge_bpages' ? true : false);
-
-					if( $is_bridgepage )
-					{
-						$subdomain = $resp->subdomain;
-						$key = $domain.':'.$permalink.':subdomain';
-						$client->set( $key, $subdomain );
-						$key2 = $subdomain.':'.$permalink.':type';
-						$client->set($key2, 'bridge_bpages');
-						$key2 = $domain.':'.$permalink.':type';
-						$client->set($key2, 'bridge_bpages');
-					}
+					$getKey .= $param . '=' . $_GET[ $param ] . '&';
+					$paramSwaps[ $param ] = $_GET[ $param ];
 				}
 			}
-			curl_close( $curl );
-		}
-
-		function checkBridgepage( $tld, $subdomain, $domain )
-		{
-			try
+			else
 			{
-				$url = 'http'.($tld == 'com' ? 's' : '').'://api.smartmember.'.$tld.'/checkHomepageBP/' . $domain;
-				$curl = curl_init( $url );
-				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'subdomain:'.$subdomain, 'origin:http://'.$domain, 'referer:http://'.$domain, 'content-type:application/json' ) );
-				$data = curl_exec( $curl );
-				$respCode = curl_getinfo( $curl );
-				curl_close( $curl );
-				$data = json_decode( $data );
+				$getKey = 'default';
 			}
-			catch( Exception $e )
+			$redisKeys = [ ];
+
+			$redisKeys[ 'html' ] = $domain . ':' . $permalink . ':' . $getKey . ':html';
+
+			$html = $client->get( $redisKeys[ 'html' ] );
+
+			if( empty( $html ) )
 			{
-				$data = false;
-			}
+				$redisKeys[ 'data' ] = $domain . ':' . $permalink . ':data';
+				$bpage_data          = $client->get( $redisKeys[ 'data' ] );
 
-			if( isset($data->type) && $data->type == 'bridge_bpages' )
-			{
-				return array( 'permalink' => $data->homepage_url, 'subdomain' => $data->subdomain );
-			} else {
-				return false;
-			}
-			return false;
-		}
-
-		if( !$is_bridgepage && $_SERVER[ 'REQUEST_URI' ] == '/' )
-		{
-
-			$key = $subdomain.':homepage:type';
-			$type = $client->get( $key );
-			$key = $subdomain.':homepage:permalink';
-			$permalink = $client->get($key);
-
-			if( !$type )
-			{
-				$key = $domain.':homepage:type';
-				$type = $client->get( $key );
-
-				if( $type && $type == 'bridge_bpages' )
+				if( empty( $bpage_data ) )
 				{
-					$subdomain = $client->get( $domain.':homepage:subdomain' );
-					$permalink = $client->get($domain.':homepage:permalink');
-				}
+					$url  = 'http://api.smartmember.' . $tld . '/bridgePageDataOrFalse';
+					$curl = curl_init( $url );
+					curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+					curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'origin:http://' . $domain, 'referer:http://' . $domain . $_SERVER[ 'REQUEST_URI' ], 'content-type:application/json' ) );
+					$bpage_data = curl_exec( $curl );
+					curl_close( $curl );
 
-				if( empty($subdomain) )
-				{
-					$type = null;
+					if( empty( $bpage_data ) )
+						$bpage_data = 'notbp';
+
+					$client->set( $redisKeys[ 'data' ], $bpage_data );
 				}
 			}
 
-			if( $type && $type == 'bridge_bpages' )
+			if( !empty( $bpage_data ) && $bpage_data == 'notbp' )
+				$bpage_data = '';
+
+			if( !empty( $html ) || !empty( $bpage_data ) )
 			{
-				$is_bridgepage = true;
-			} else {
-				$response_data = checkBridgepage( $tld, $subdomain, $domain );
-				if( $response_data )
-				{
-					$is_bridgepage = true;
-					$permalink = $response_data[ 'permalink' ];
-					$subdomain = $response_data[ 'subdomain' ];
-				}
+				include 'bpage/bpage.php';
+				return;
 			}
 		}
-
-		if( $is_bridgepage )
+		catch( Exception $e )
 		{
-			include 'bpage/bpage.php';
 
-			return;
 		}
-	}
-	catch( Exception $e )
-	{
 	}
 }
 ?>

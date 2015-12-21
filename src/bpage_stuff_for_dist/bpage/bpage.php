@@ -1,22 +1,5 @@
 <?php
 
-function fetchBpageData($subdomain, $tld, $permalink)
-{
-    try {
-
-        $url = 'http://api.smartmember.' . $tld . '/bridgePageByPermalink/' . $permalink;
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('subdomain:' . $subdomain, 'content-type:application/json'));
-        $data = curl_exec($curl);
-        curl_close($curl);
-    } catch (Exception $e) {
-        $data = false;
-    }
-
-    return $data;
-}
-
 function extractKeyValue($str, $separator)
 {
     $parts = explode($separator, $str);
@@ -143,42 +126,11 @@ function fetchBpageHTML($data, $params)
     return $html;
 }
 
-$redisKeys = [
-    "data" => $subdomain . ':' . $permalink . ':data',
-    "html" => $subdomain . ':' . $permalink . ':html'
-];
-
-// Handle get parameters
-$paramSwaps = [];
-
-// temporarily always fresh fetch
-//$_GET['random'] = microtime();
-
-if (count($_GET) > 0) {
-    $getParams = array_keys($_GET);
-    sort($getParams, SORT_NATURAL);
-    $getKey = '';
-    foreach ($getParams as $param) {
-        $getKey .= $param . '=' . $_GET[$param] . '&';
-        $paramSwaps[$param] = $_GET[$param];
-    }
-
-    $redisKeys['html'] = $subdomain . ':' . $permalink . ':' . $getKey . ':html';
-}
-
-// Lookup cache for the data.
-$html = $client->get($redisKeys['html']);
 $title = '';
-if (!$html) {
-    $data = $client->get($redisKeys['data']);
-    if (!$data) {
-        $data = fetchBpageData($subdomain, $tld, $permalink);
-        if ($data) {
-            $client->set($redisKeys['data'], $data);
-        }
-    }
+if( !$html )
+{
+	$data = json_decode( $bpage_data );
 
-    $data = json_decode($data);
     $html = fetchBpageHTML($data, $paramSwaps);
     //remove dynamic video
     $html = preg_replace('/\<div class\=\"videoWrapper\" dynamic=\"(.*)<\/div>/i', "", $html);
