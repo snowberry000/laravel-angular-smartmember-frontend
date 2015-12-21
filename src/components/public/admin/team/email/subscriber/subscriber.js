@@ -8,35 +8,41 @@ app.config(function($stateProvider){
 			controller: "EmailSubscriberController",
 			resolve: {
 				emailSubscriber: function(Restangular, $stateParams, $site){
-					if ($stateParams.id){
-						return Restangular.one('emailSubscriber', $stateParams.id).get();
-					}
-					return {company_id: $site.company_id};
+					
 				},
 				emailLists: function(Restangular , $site){
-					return Restangular.all('emailList').getList({list_type: 'user'});
+					return 
 				},
-				$site: function($site){
-					return $site;
-				}
 
 			}
 		})
 }); 
 
-app.controller("EmailSubscriberController", function ($scope, $localStorage, Restangular, toastr, $state, emailSubscriber, emailLists,$site) {
+app.controller("EmailSubscriberController", function ($scope,$q, $localStorage,$rootScope, $stateParams ,Restangular, toastr, $state) {
 	
-	$scope.emailsubscriber = emailSubscriber;
+	$site = $rootScope.site;
+	if ($stateParams.id){
+		$emailSubscriber = Restangular.one('emailSubscriber', $stateParams.id).get().then(function(response){$scope.emailsubscriber = response})
+	}else{
+		$scope.emailSubscriber = {company_id: $site.company_id};
+	}
+	$emailLists = Restangular.all('emailList').getList({list_type: 'user'}).then(function(response){$scope.emailLists = response;})
 	$scope.emailSubscribers = [];
-	$scope.emailLists = emailLists;
+	$dependencies = [$emailLists];
+	if($stateParams.id){
+		$dependencies.push($emailLists);
+	}
+	$q.all($dependencies).then(function(res){
+		if ($scope.emailsubscriber.email_lists) {
+		    $scope.emailsubscriber.lists = {};
+		    $.each($scope.emailsubscriber.email_lists, function(key, data) {
+		        $scope.emailsubscriber.lists[data.id] = true;
+		    });
+		}
+	})
 	console.log($scope.emailsubscriber);
 
-	if ($scope.emailsubscriber.email_lists) {
-	    $scope.emailsubscriber.lists = {};
-	    $.each($scope.emailsubscriber.email_lists, function(key, data) {
-	        $scope.emailsubscriber.lists[data.id] = true;
-	    });
-	}
+	
 
 	$scope.addInSubscribersList = function(){
 	    var $name_emailArr=[];
