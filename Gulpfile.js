@@ -105,7 +105,6 @@ gulp.task( 'templates', function()
 
 gulp.task( 'test-e2e', function()
 {
-	gulp.task('webdriver_standalone', webdriver_standalone);
 
 	return gulp.src(["./src/tests/e2e.tests.js"])
 		.pipe(protractor({
@@ -113,8 +112,7 @@ gulp.task( 'test-e2e', function()
 		}))
 		.on('error', function(e) { throw e })
 } );
-
-
+gulp.task('webdriver_standalone', webdriver_standalone);
 
 
 gulp.task( 'watch', function()
@@ -222,6 +220,7 @@ gulp.task( 'images', function()
 
 gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'crawler' ] );
 gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage','crawler' , 'watch'] );
+gulp.task( 'test', [ 'webdriver_standalone', 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
 {
