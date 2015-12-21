@@ -1,23 +1,6 @@
-<style>
-    .segment_item {
-        margin: 0 !important;
-        font-size: 14px;
-    }
 
-    .segment_parent {
-        border: 1px solid #f9f9f9;
-        border-radius: 5px;
-        text-align: center;
-        background: #f9f9f9;
-        padding: 0 !important;
-    }
-
-    .segment_parent ul {
-        height: 400px;
-        overflow-y: scroll;
-    }
-</style>
 <div class="ui modal">
+    <i class="close icon"></i>
 
     <div class="row">
         <div class="col-lg-12">
@@ -293,7 +276,7 @@
                             <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" ng-click="save()" title="Save"><i class="fa fa-pencil"></i> Save Changes</a>
                             <a class="btn btn-default" data-toggle="tooltip" data-placement="top" ng-click="preview()" title="Preview"><i class="fa fa-reply"></i> Preview</a>
                             <a class="btn btn-info" data-toggle="tooltip" data-placement="top" ng-click="send()" title="Save & Send"><i class="fa fa-send"></i> Save & Send</a>
-                            <a class="btn btn-danger" data-toggle="tooltip" data-placement="top" ui-sref="public.admin.team.email.emails" title="Preview"><i class="fa fa-times"></i> Cancel</a>
+                            <a class="btn btn-danger" data-toggle="tooltip" data-placement="top" ng-click="smModal.Show('public.admin.team.email.emails')" title="Preview"><i class="fa fa-times"></i> Cancel</a>
                         </div>
                         <div class="clearfix"></div>
 

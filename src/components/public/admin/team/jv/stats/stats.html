@@ -1,7 +1,5 @@
-<style>
-	.h-200 {height: 300px !important;}
-</style>
 
+<div class="ui modal">
 <div class="tab-content bottom_margin clear_both" ng-init="init()">
     <div class="tab_pane large_bottom_padding selected">
 <section>
@@ -199,7 +197,7 @@
 	</div> -->
 
 	<p style="text-align:center;margin:30px 0px;">
-		<a href="/admin/team/jv/affiliates" class="btn btn-lg btn-brand">View All affiliates</a>
+		<a ng-click="smModal.Show('public.admin.team.jv.affiliates')" class="btn btn-lg btn-brand">View All affiliates</a>
 	</p>
 </section>
 </div>

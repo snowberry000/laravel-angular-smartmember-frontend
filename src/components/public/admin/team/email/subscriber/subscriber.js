@@ -5,38 +5,35 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.subscriber",{
 			url: "/subscriber/:id?",
 			templateUrl: "/templates/components/public/admin/team/email/subscriber/subscriber.html",
-			controller: "EmailSubscriberController",
-			resolve: {
-				emailSubscriber: function(Restangular, $stateParams, $site){
-					if ($stateParams.id){
-						return Restangular.one('emailSubscriber', $stateParams.id).get();
-					}
-					return {company_id: $site.company_id};
-				},
-				emailLists: function(Restangular , $site){
-					return Restangular.all('emailList').getList({list_type: 'user'});
-				},
-				$site: function($site){
-					return $site;
-				}
-
-			}
+			controller: "EmailSubscriberController"
 		})
 }); 
 
-app.controller("EmailSubscriberController", function ($scope, $localStorage, Restangular, toastr, $state, emailSubscriber, emailLists,$site) {
+app.controller("EmailSubscriberController", function ($scope,$q, smModal,$localStorage,$rootScope, $stateParams ,Restangular, toastr, $state) {
 	
-	$scope.emailsubscriber = emailSubscriber;
+	$site = $rootScope.site;
+	if ($stateParams.id){
+		$emailSubscriber = Restangular.one('emailSubscriber', $stateParams.id).get().then(function(response){$scope.emailsubscriber = response})
+	}else{
+		$scope.emailSubscriber = {company_id: $site.company_id};
+	}
+	$emailLists = Restangular.all('emailList').getList({list_type: 'user'}).then(function(response){$scope.emailLists = response;})
 	$scope.emailSubscribers = [];
-	$scope.emailLists = emailLists;
+	$dependencies = [$emailLists];
+	if($stateParams.id){
+		$dependencies.push($emailLists);
+	}
+	$q.all($dependencies).then(function(res){
+		if ($scope.emailsubscriber.email_lists) {
+		    $scope.emailsubscriber.lists = {};
+		    $.each($scope.emailsubscriber.email_lists, function(key, data) {
+		        $scope.emailsubscriber.lists[data.id] = true;
+		    });
+		}
+	})
 	console.log($scope.emailsubscriber);
 
-	if ($scope.emailsubscriber.email_lists) {
-	    $scope.emailsubscriber.lists = {};
-	    $.each($scope.emailsubscriber.email_lists, function(key, data) {
-	        $scope.emailsubscriber.lists[data.id] = true;
-	    });
-	}
+	
 
 	$scope.addInSubscribersList = function(){
 	    var $name_emailArr=[];
@@ -107,7 +104,7 @@ app.controller("EmailSubscriberController", function ($scope, $localStorage, Res
 	        toastr.success("Changes Saved!");
 	        $scope.sendIter++;
 	        if($scope.redirect)
-	            $state.go("public.admin.team.email.subscribers");
+	        	smModal.Show("public.admin.team.email.subscribers");
 	    })
 	}
 
@@ -122,7 +119,7 @@ app.controller("EmailSubscriberController", function ($scope, $localStorage, Res
 	        {
 	            console.log("i am printing subscribers count "+$scope.sendIter);
 	            toastr.success($scope.totalAdded+" Subscribers Added!");
-	            $state.go("public.admin.team.email.subscribers");
+	            smModal.Show("public.admin.team.email.subscribers");
 	        }
 	    });
 	}

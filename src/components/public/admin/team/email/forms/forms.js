@@ -5,36 +5,18 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.forms",{
 			url: "/forms",
 			templateUrl: "/templates/components/public/admin/team/email/forms/forms.html",
-			controller: "EmailFormsController",
-			resolve: {
-				emailLists : function(Restangular, $site) {
-					return Restangular.all('emailList').getList();
-				},
-				$sites : function(Restangular){
-					return Restangular.one('supportTicket').customGET('sites');
-				},
-				loadPlugin: function ($ocLazyLoad) {
-					return $ocLazyLoad.load([
-						{
-							name: 'ui.codemirror'
-						}
-					]);
-				}
-
-			}
+			controller: "EmailFormsController"
 		})
 }); 
 
-app.controller("EmailFormsController", function ($scope, $rootScope, $localStorage, Restangular, toastr, $state, emailLists, $site, Upload, $sites) {
+app.controller("EmailFormsController", function ($scope, $rootScope, $localStorage, Restangular, toastr, $state, Upload, $q) {
 
     $scope.site_options = {};
-    $scope.emailLists = emailLists;
-    $scope.emailListId = emailLists[0];
+   
     $scope.site_options.isOpen = false;
     $scope.site_options.redirect_url = '';
     $scope.url = $scope.app.apiUrl + '/optin';
     $scope.myForm = '';
-    $scope.sites = $sites.sites;
     $scope.show_name_input = true;
     $scope.editorOptions2 = {
         lineNumbers: true,
@@ -43,8 +25,13 @@ app.controller("EmailFormsController", function ($scope, $rootScope, $localStora
 	    mode: 'htmlmixed'
     };
 
+    $scope.loading = true;
+    $site=$rootScope.site;
 
+    $emailList = Restangular.all('emailList').getList().then(function(response){console.log(response);$scope.emailLists = response; $scope.emailListId = response[0];})
+    $sites = Restangular.one('supportTicket').customGET('sites').then(function(response){console.log(response);$scope.sites = response.sites;})
 
+    $q.all([$emailList , $sites]).then(function(res){$scope.loading = false;})
     $scope.copied = function()
     {
         toastr.success("Link copied");

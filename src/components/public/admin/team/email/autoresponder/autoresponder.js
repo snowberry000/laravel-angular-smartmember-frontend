@@ -5,56 +5,48 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.autoresponder",{
 			url: "/autoresponder/:id",
 			templateUrl: "/templates/components/public/admin/team/email/autoresponder/autoresponder.html",
-			controller: "AutoresponderController",
-			resolve: {
-				autoResponder: function(Restangular, $stateParams, $site){
-					if ($stateParams.id){
-						return Restangular.one('emailAutoResponder', $stateParams.id).get();
-					}
-					return {company_id: $site.company_id};
-				},
-				$site: function($site){
-					return $site;
-				},
-				emails: function(Restangular, $site) {
-					return Restangular.all('email').getList();
-				},
-				emailLists : function(Restangular, $site) {
-					return Restangular.all('emailList').getList();
-				}
-			}
+			controller: "AutoresponderController"
 		})
 }); 
 
-app.controller("AutoresponderController", function ($filter,$scope, $localStorage, Restangular,toastr, $site,notify, $state, autoResponder, emails, emailLists) {
+app.controller("AutoresponderController", function ($filter,smModal,$scope,$rootScope, $q ,$localStorage, Restangular,toastr,notify, $state, $stateParams) {
 	
-	$scope.emails = emails;
-	$scope.emailLists = emailLists;
-	$scope.autoResponder = autoResponder;
+	$site = $rootScope.site;
+	$emails = Restangular.all('email').getList().then(function(response){$scope.emails = response});
+	$emailLists = Restangular.all('emailList').getList().then(function(response){$scope.emailLists = response});
+
+	if ($stateParams.id){
+		$autoResponder = Restangular.one('emailAutoResponder', $stateParams.id).get().then(function(response){
+			$scope.autoResponder = response;
+			if (!$scope.autoResponder.id){
+			    $scope.autoResponder.emails = [];
+			}
+			else
+			{
+			    $scope.tempAutoResponder={company_id:$site.company_id,emails:[],lists:{}};
+			    for(var i=0;i<$scope.autoResponder.emails.length;i++)
+			    {
+			        $scope.tempAutoResponder.emails.push({email_id:$scope.autoResponder.emails[i].id, subject:$scope.autoResponder.emails[i].subject, delay:$scope.autoResponder.emails[i].pivot.delay, unit:$scope.autoResponder.emails[i].pivot.unit,sort_order:$scope.autoResponder.emails[i].pivot.sort_order});
+			    }
+			    for(var i=0;i<$scope.autoResponder.email_lists.length;i++)
+			    {
+			        $scope.tempAutoResponder.lists[$scope.autoResponder.email_lists[i].id]=true;
+			    }
+			    delete $scope.autoResponder.emails;
+			    $scope.autoResponder.emails=$scope.tempAutoResponder.emails;
+			    $scope.autoResponder.lists=$scope.tempAutoResponder.lists;
+			    delete $scope.autoResponder.email_lists;
+			    $scope.autoResponder.emails=$filter('orderBy')($scope.autoResponder.emails, 'sort_order');
+			}
+		});
+	}else{
+		$autoResponder = {company_id: $site.company_id};
+	}
+	$scope.loading = true;
+	$q.all([$emails , $emailLists , $autoResponder]).then(function(res){$scope.loading = false})
+
 	$scope.emailId = false;
-	if (!$scope.autoResponder.id){
-	    $scope.autoResponder.emails = [];
-	}
-	else
-	{
-	    $scope.tempAutoResponder={company_id:$site.company_id,emails:[],lists:{}};
-	    for(var i=0;i<$scope.autoResponder.emails.length;i++)
-	    {
-	        $scope.tempAutoResponder.emails.push({email_id:$scope.autoResponder.emails[i].id, subject:$scope.autoResponder.emails[i].subject, delay:$scope.autoResponder.emails[i].pivot.delay, unit:$scope.autoResponder.emails[i].pivot.unit,sort_order:$scope.autoResponder.emails[i].pivot.sort_order});
-	    }
-	    for(var i=0;i<$scope.autoResponder.email_lists.length;i++)
-	    {
-	        $scope.tempAutoResponder.lists[$scope.autoResponder.email_lists[i].id]=true;
-	    }
-	    delete $scope.autoResponder.emails;
-	    $scope.autoResponder.emails=$scope.tempAutoResponder.emails;
-	    $scope.autoResponder.lists=$scope.tempAutoResponder.lists;
-	    delete $scope.autoResponder.email_lists;
-	    $scope.autoResponder.emails=$filter('orderBy')($scope.autoResponder.emails, 'sort_order');
-	}
-
-
-
+	
 	$scope.addEmail = function() {
 	    if (!$scope.emailId) return;
 
@@ -122,7 +114,8 @@ app.controller("AutoresponderController", function ($filter,$scope, $localStorag
 	$scope.update = function(){
 	    $scope.autoResponder.put().then(function(response){
 	        toastr.success("Changes Saved!");
-	        $state.go("public.admin.team.email.autoresponders");
+	        smModal.Show("public.admin.team.email.autoresponders");
+	        //$state.go("public.admin.team.email.autoresponders");
 	    })
 	}
 
@@ -134,7 +127,8 @@ app.controller("AutoresponderController", function ($filter,$scope, $localStorag
 	        //         templateUrl : 'templates/modals/notifyTemplate.html'
 	        //     });
 	        toastr.success("Auto Responder created!");
-	        $state.go("public.admin.team.email.autoresponders");
+	        smModal.Show("public.admin.team.email.autoresponders");
+	       // $state.go("public.admin.team.email.autoresponders");
 	    });
 	}
 });

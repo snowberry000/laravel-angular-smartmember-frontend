@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "EmailQueueController", function( $scope, $localStorage, $location, $state, Restangular, toastr )
+app.controller( "EmailQueueController", function( $scope,smModal,$rootScope, $localStorage, $location, $state, Restangular, toastr )
 {
 	$site = $rootScope.site;
 
@@ -159,6 +159,6 @@ app.controller( "EmailQueueController", function( $scope, $localStorage, $locati
 
 	$scope.editJob = function( job )
 	{
-		$state.go( 'public.admin.team.email.sendmail', { 'job': job } );
+		smModal.Show('public.admin.team.email.sendmail', { 'job': job });
 	}
 } );

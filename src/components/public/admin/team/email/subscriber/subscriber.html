@@ -92,7 +92,7 @@
 							<button id="" ng-if="!emailsubscriber.id" type="button" ng-disabled="emailSubscribers.length==0" ng-click="saveList()" class="btn btn_default" data-style="expand-right">
 								<span class="ladda-label">Save Changes</span>
 							</button>
-							<a ui-sref="public.admin.team.email.subscribers" class="btn btn-default">Cancel</a>
+							<a ng-click="smModal.Show('public.admin.team.email.subscribers')" class="btn btn-default">Cancel</a>
 						</p>
 					</form>
 

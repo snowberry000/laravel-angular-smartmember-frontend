@@ -5,35 +5,12 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.export",{
 			url: "/export",
 			templateUrl: "/templates/components/public/admin/team/email/export/export.html",
-			controller: "EmailSubscriberExportController",
-			resolve: {
-				emailLists: function(Restangular , $site){
-					return Restangular.all('emailList/sendMailLists').getList();
-				},
-				$site: function($site){
-					return $site;
-				},
-				sites : function(Restangular){
-					return Restangular.one('supportTicket').customGET('sites');
-				},
-				emails: function(Restangular , $site){
-					return Restangular.all('email').getList();
-				},
-				accessLevels: function(Restangular , $site){
-					return Restangular.all('accessLevel/sendMailAccessLevels').getList();
-				},
-				superAdmin: function( Restangular ) {
-					return Restangular.one('user').customGET('isSuperAdmin');
-				}
-			}
+			controller: "EmailSubscriberExportController"
 		})
 }); 
 
-app.controller("EmailSubscriberExportController", function ($scope,  $localStorage, Restangular, toastr, $state, emailLists, sites, emails, accessLevels, superAdmin, Upload) {
-	
-    $scope.emailLists = emailLists;
-    $scope.accessLevels = accessLevels;
-    $scope.isSuperAdmin = superpublic.admin.isSuperAdmin;
+app.controller("EmailSubscriberExportController", function ($scope,$q,  $localStorage, Restangular, toastr, $state , Upload) {
+	    
     $scope.currentPage = 1;
     $scope.itemsPerPage = 10;
     $scope.pagination = {currentPage : 1};
@@ -54,8 +31,17 @@ app.controller("EmailSubscriberExportController", function ($scope,  $localStora
         }
     };
 
-    $scope.sites = sites.sites;
-    $scope.emails = emails;
+    $scope.resolve = function(){
+        $emailLists = Restangular.all('emailList/sendMailLists').getList().then(function(response){$scope.emailLists = response ; });
+        $sites = Restangular.one('supportTicket').customGET('sites').then(function(response){$scope.sites = response.sites})
+        $emails = Restangular.all('email').getList().then(function(response){$scope.emails = response;})
+        $accessLevels = Restangular.all('accessLevel/sendMailAccessLevels').getList().then(function(response){$scope.accessLevels = response;})
+        $superAdmin = Restangular.one('user').customGET('isSuperAdmin').then(function(response){$scope.isSuperAdmin = response.isSuperAdmin;})
+        
+        $q.all([$emailLists , $sites , $emails , $accessLevels , $superAdmin]).then(function(res){  $scope.listChanged();})
+    }
+
+    $scope.resolve();
 
     $scope.paginateIt = function() {
         var begin = (($scope.pagination.currentPage - 1) * $scope.itemsPerPage),
@@ -237,5 +223,5 @@ app.controller("EmailSubscriberExportController", function ($scope,  $localStora
             })*/
     }
 
-    $scope.listChanged();
+  
 });

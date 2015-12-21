@@ -52,7 +52,7 @@
 								</td>
 								<td class="text-right" style="width: 160px;">
 									<div class="btn-group">
-										<a ui-sref="smModal.Show('public.admin.team.email.create',{id: next_item.id})" class="btn btn-brand btn-outline btn-xs">
+										<a ng-click="smModal.Show('public.admin.team.email.create' , {'id' : next_item.id})" class="btn btn-brand btn-outline btn-xs">
 											Edit / Send
 											<i class="fa fa-pencil"></i>
 										</a>

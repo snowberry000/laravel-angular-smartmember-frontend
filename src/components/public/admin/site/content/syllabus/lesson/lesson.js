@@ -6,27 +6,8 @@ app.config( function( $stateProvider )
 		.state( "public.admin.site.content.syllabus.lesson", {
 			url: "/lesson/:id?",
 			templateUrl: "/templates/components/public/admin/site/content/syllabus/lesson/lesson.html",
-			controller: "LessonController",
+			controller: "SyllabusLessonController",
 			resolve: {
-				$next_item: function( Restangular, $site, $stateParams, $location )
-				{
-					if( $stateParams.id )
-					{
-						return Restangular.one( 'lesson', $stateParams.id ).get();
-					}
-					else if( $location.search().clone )
-                    {
-                        return Restangular.one( 'lesson', $location.search().clone ).get();
-                    }
-                    else
-                    {
-                        return { access_level_type: 4, access_level_id: 0 }
-                    }
-                },
-                $modules: function( Restangular )
-                {
-					return Restangular.all( 'module' ).customGET( '' );
-				},
 				loadPlugin: function( $ocLazyLoad )
 				{
 					return $ocLazyLoad.load( [
@@ -39,19 +20,267 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "LessonController", function( $scope, $rootScope, $localStorage, $timeout, $state, $next_item, $location, $stateParams,  $site, $user, $filter, Restangular, toastr, $modules, Upload )
+app.controller( "SyllabusLessonController", function( $scope,smModal, $q, $rootScope, $localStorage, $timeout, $state, $location, $stateParams,  $filter, Restangular, toastr, Upload )
 {
-	if( !$next_item.id )
-	{
-		$next_item.site_id = $rootScope.site.id;
+	$site = $rootScope.site;
+	$user = $rootScope.user;
+	$next_item=null;
+	$modules=null;
+	$scope.options={};
+	
+
+	var matches;
+	var interval;
+	var timeout = null;
+	var draft;
+	var changed;
+	var seo = {};
+	var video_id;
+	var ampersandPosition;
+
+	$scope.resolve = function () {
+		$nextItemRequest=null;
+		$modulesRequest=null;
+
+		if( $stateParams.id )
+		{
+			$nextItemRequest = Restangular.one( 'lesson', $stateParams.id ).get().then(function(response){
+				$next_item=response;
+			});
+		}
+		else if( $location.search().clone )
+        {
+            $nextItemRequest = Restangular.one( 'lesson', $location.search().clone ).get().then(function(response){
+            	$next_item=response;
+            });
+        }
+        else
+        {
+            $next_item = { access_level_type: 4, access_level_id: 0 }
+        }
+
+        $modulesRequest = Restangular.all( 'module' ).customGET( '' ).then(function(response){
+        	$modules=response;
+        });
+
+        if($nextItemRequest)
+        	$q.all([$nextItemRequest,$modulesRequest]).then(function(res){ $scope.init();});
+        else
+        	$q.all([$modulesRequest]).then(function(res){ $scope.init();});
+
 	}
 
-	$site = $rootScope.site;
-	$scope.template_data = {
-		title: 'Lesson',
-		cancel_route: 'public.admin.site.content.syllabus.lessons',
-		success_route: 'public.admin.site.content.syllabus.lessons'
+	$scope.init = function (){
+		if( !$next_item.id )
+		{
+			$next_item.site_id = $rootScope.site.id;
+		}
+		$scope.template_data = {
+			title: 'Lesson',
+			cancel_route: 'public.admin.site.content.syllabus.lessons',
+			success_route: 'public.admin.site.content.syllabus.lessons'
+		}
+
+			if( $location.search().clone )
+			{
+				delete $next_item.id;
+				delete $next_item.author_id;
+				delete $next_item.access;
+			}
+
+
+			if( $modules.items.length > 0 )
+		    {
+		        $scope.modules = $modules.items;
+		    }
+		    else
+		    {
+		        $scope.modules = null;
+		    }
+		    $scope.newModule = {};
+		    $scope.options.theme = '';
+
+			$scope.next_item = $next_item;
+
+			//speed blogging stuff here
+			if( !$scope.next_item.id )
+			{
+				$scope.next_item.content = $scope.next_item.content || '';
+
+				angular.forEach( $_GET, function( value, key )
+				{
+					switch( key )
+					{
+						case 'src':
+							switch( $_GET[ 'type' ] )
+							{
+								case 'embed':
+									if( value.match( /www\.youtube\.com/ ) )
+									{
+										video_id = value.split( 'v=' )[ 1 ];
+										ampersandPosition = video_id.indexOf( '&' );
+										if( ampersandPosition != -1 )
+										{
+											video_id = video_id.substring( 0, ampersandPosition );
+										}
+										$scope.next_item.embed_content = '<iframe src="https://www.youtube.com/embed/' + video_id + '" allowfullscreen frameborder="0"></iframe>';
+										$scope.next_item.featured_image = 'http://img.youtube.com/vi/' + video_id + '/0.jpg';
+										$.ajax( {
+											url: 'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyBdolPnARgmjt4K5xz-FJ3V5_N5_7A_QeU&part=snippet&id=' + video_id,
+											dataType: "json",
+											async: false,
+											success: function( data )
+											{
+												if( typeof data.items[ 0 ] != 'undefined' && typeof data.items[ 0 ].snippet != 'undefined' )
+												{
+													$scope.next_item.content += data.items[ 0 ].snippet.description;
+													$scope.next_item.title = data.items[ 0 ].snippet.title;
+												}
+											}
+										} );
+									}
+									else if( value.match( /vimeo\.com/ ) )
+									{
+										matches = value.match( /player\.vimeo\.com\/video\/([0-9]*)/ );
+
+										video_id = matches[ 1 ];
+
+										$.ajax( {
+											url: 'http://vimeo.com/api/v2/video/' + video_id + '.json',
+											dataType: 'jsonp',
+											async: false,
+											success: function( json_data )
+											{
+												$scope.next_item.featured_image = json_data[ 0 ].thumbnail_large;
+												$scope.next_item.content += json_data[ 0 ].description;
+												$scope.next_item.title = json_data[ 0 ].title;
+											}
+										} );
+									}
+									break;
+								case 'image':
+									$scope.next_item.featured_image = value;
+									$scope.next_item.content += '<img src="' + value + '" />';
+									break;
+							}
+							break;
+						case 'title':
+							$scope.next_item.title = $scope.strip_tags( value );
+							$scope.next_item.title = $scope.lesson.title.trim();
+							break;
+						case 'content':
+						case 'description':
+							$scope.next_item.content += '<br>' + value;
+							break;
+						case 'featured_image':
+							$scope.next_item.featured_image = value;
+							break;
+						case 'image':
+							$scope.next_item.title = value.split( '/' ).pop();
+							$scope.next_item.content += '<img src="' + value + '" />';
+							$scope.next_item.featured_image = value;
+							break;
+					}
+				} );
+
+				angular.forEach( $_GET, function( value, key )
+				{
+					switch( key )
+					{
+						case 'source_title':
+		                    if( $_GET[ 'source_url' ] )
+		                    {
+		                        $scope.next_item.content += '<br>Source: <a href="' + $_GET[ 'source_url' ] + '" target="_blank">' + value + '</a>';
+		                    }
+		                    break;
+		            }
+		        } );
+		    }
+
+		    $scope.next_item.dripfeed_settings = $next_item.dripfeed || {};
+			if( $scope.next_item.published_date )
+			{
+				$scope.next_item.published_date = new Date( moment( $scope.next_item.published_date ).format( 'l' ) );
+			}
+			else
+			{
+				$scope.next_item.published_date = new Date();
+				$scope.next_item.published_date.setSeconds( 0 );
+				$scope.next_item.published_date.setMilliseconds( 0 );
+			}
+			if( $scope.next_item.end_published_date )
+		    {
+		        $scope.next_item.end_published_date = new Date( moment( $scope.next_item.end_published_date ).format( 'l' ) );
+		    }
+		    else
+		    {
+		        $scope.next_item.end_published_date = null;
+		    }
+
+		    $scope.next_item.discussion_settings = $next_item.discussion_settings || {};
+			$scope.next_item.id ? $scope.page_title = 'Edit lesson' : $scope.page_title = 'Create lesson';
+			$scope.next_item.transcript_content_public == 1 ? $scope.next_item.transcript_content_public = true : $scope.next_item.transcript_content_public = false;
+			$scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
+			$scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
+
+		    if( $scope.next_item.access_level_type == 3 )
+		    {
+		        $scope.next_item.access_level_type = 2;
+		    }
+
+		    
+			if( $next_item.seo_settings )
+			{
+				$.each( $next_item.seo_settings, function( key, data )
+				{
+					seo[ data.meta_key ] = data.meta_value;
+
+				} );
+			}
+			$scope.next_item.seo_settings = seo;
+
+			if( false && !$stateParams.id && !$location.search().clone )
+			{
+			    Restangular.all( 'draft' ).customGET( '', {
+			        site_id: $site.id,
+			        user_id: $user.id,
+			        key: 'lessons.content'
+			    } ).then( function( response )
+			    {
+			        if( response.length )
+			        {
+			            draft = response[ 0 ];
+			            $scope.loadDraft();
+			        }
+			    } )
+			}
+
+			$scope.$watch( 'lesson', function( lesson, oldLesson )
+			{
+				if( typeof changed == "undefined" )
+		        {
+		            changed = false;
+		        }
+		        else
+		        {
+		            changed = true;
+		        }
+		        if( lesson != oldLesson && changed && !$scope.next_item.id && !$location.search().clone )
+				{
+					if( timeout )
+					{
+						$timeout.cancel( timeout )
+					}
+					timeout = $timeout( $scope.start, 3000 );  // 1000 = 1 second
+				}
+			}, true );
+
+			$scope.setPermalink();
 	}
+	
+
+	
+	
 
 	$scope.strip_tags = function( input, allowed )
 	{
@@ -78,11 +307,7 @@ app.controller( "LessonController", function( $scope, $rootScope, $localStorage,
 		return vars;
 	}
 
-	var $_GET = $scope.getUrlVars();
-
-	var interval;
-	var draft;
-	var changed;
+	
 	$scope.func = function()
 	{
 		var modalInstance = $modal.open( {
@@ -96,163 +321,7 @@ app.controller( "LessonController", function( $scope, $rootScope, $localStorage,
 		} )
 	}
 
-	if( $location.search().clone )
-	{
-		delete $next_item.id;
-		delete $next_item.author_id;
-		delete $next_item.access;
-	}
-
-
-	if( $modules.items.length > 0 )
-    {
-        $scope.modules = $modules.items;
-    }
-    else
-    {
-        $scope.modules = null;
-    }
-    $scope.newModule = {};
-    $scope.options.theme = '';
-
-	$scope.next_item = $next_item;
-
-	//speed blogging stuff here
-	if( !$scope.next_item.id )
-	{
-		$scope.next_item.content = $scope.next_item.content || '';
-
-		angular.forEach( $_GET, function( value, key )
-		{
-			switch( key )
-			{
-				case 'src':
-					switch( $_GET[ 'type' ] )
-					{
-						case 'embed':
-							if( value.match( /www\.youtube\.com/ ) )
-							{
-								var video_id = value.split( 'v=' )[ 1 ];
-								var ampersandPosition = video_id.indexOf( '&' );
-								if( ampersandPosition != -1 )
-								{
-									video_id = video_id.substring( 0, ampersandPosition );
-								}
-								$scope.next_item.embed_content = '<iframe src="https://www.youtube.com/embed/' + video_id + '" allowfullscreen frameborder="0"></iframe>';
-								$scope.next_item.featured_image = 'http://img.youtube.com/vi/' + video_id + '/0.jpg';
-								$.ajax( {
-									url: 'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyBdolPnARgmjt4K5xz-FJ3V5_N5_7A_QeU&part=snippet&id=' + video_id,
-									dataType: "json",
-									async: false,
-									success: function( data )
-									{
-										if( typeof data.items[ 0 ] != 'undefined' && typeof data.items[ 0 ].snippet != 'undefined' )
-										{
-											$scope.next_item.content += data.items[ 0 ].snippet.description;
-											$scope.next_item.title = data.items[ 0 ].snippet.title;
-										}
-									}
-								} );
-							}
-							else if( value.match( /vimeo\.com/ ) )
-							{
-								var matches = value.match( /player\.vimeo\.com\/video\/([0-9]*)/ );
-
-								var video_id = matches[ 1 ];
-
-								$.ajax( {
-									url: 'http://vimeo.com/api/v2/video/' + video_id + '.json',
-									dataType: 'jsonp',
-									async: false,
-									success: function( json_data )
-									{
-										$scope.next_item.featured_image = json_data[ 0 ].thumbnail_large;
-										$scope.next_item.content += json_data[ 0 ].description;
-										$scope.next_item.title = json_data[ 0 ].title;
-									}
-								} );
-							}
-							break;
-						case 'image':
-							$scope.next_item.featured_image = value;
-							$scope.next_item.content += '<img src="' + value + '" />';
-							break;
-					}
-					break;
-				case 'title':
-					$scope.next_item.title = $scope.strip_tags( value );
-					$scope.next_item.title = $scope.lesson.title.trim();
-					break;
-				case 'content':
-				case 'description':
-					$scope.next_item.content += '<br>' + value;
-					break;
-				case 'featured_image':
-					$scope.next_item.featured_image = value;
-					break;
-				case 'image':
-					$scope.next_item.title = value.split( '/' ).pop();
-					$scope.next_item.content += '<img src="' + value + '" />';
-					$scope.next_item.featured_image = value;
-					break;
-			}
-		} );
-
-		angular.forEach( $_GET, function( value, key )
-		{
-			switch( key )
-			{
-				case 'source_title':
-                    if( $_GET[ 'source_url' ] )
-                    {
-                        $scope.next_item.content += '<br>Source: <a href="' + $_GET[ 'source_url' ] + '" target="_blank">' + value + '</a>';
-                    }
-                    break;
-            }
-        } );
-    }
-
-    $scope.next_item.dripfeed_settings = $next_item.dripfeed || {};
-	if( $scope.next_item.published_date )
-	{
-		$scope.next_item.published_date = new Date( moment( $scope.next_item.published_date ).format( 'l' ) );
-	}
-	else
-	{
-		$scope.next_item.published_date = new Date();
-		$scope.next_item.published_date.setSeconds( 0 );
-		$scope.next_item.published_date.setMilliseconds( 0 );
-	}
-	if( $scope.next_item.end_published_date )
-    {
-        $scope.next_item.end_published_date = new Date( moment( $scope.next_item.end_published_date ).format( 'l' ) );
-    }
-    else
-    {
-        $scope.next_item.end_published_date = null;
-    }
-
-    $scope.next_item.discussion_settings = $next_item.discussion_settings || {};
-	$scope.next_item.id ? $scope.page_title = 'Edit lesson' : $scope.page_title = 'Create lesson';
-	$scope.next_item.transcript_content_public == 1 ? $scope.next_item.transcript_content_public = true : $scope.next_item.transcript_content_public = false;
-	$scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
-	$scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
-
-    if( $scope.next_item.access_level_type == 3 )
-    {
-        $scope.next_item.access_level_type = 2;
-    }
-
-    var seo = {};
-	if( $next_item.seo_settings )
-	{
-		$.each( $next_item.seo_settings, function( key, data )
-		{
-			seo[ data.meta_key ] = data.meta_value;
-
-		} );
-	}
-	$scope.next_item.seo_settings = seo;
+	
 	$scope.range = function( min, max, step )
 	{
 		step = step || 1;
@@ -314,7 +383,7 @@ app.controller( "LessonController", function( $scope, $rootScope, $localStorage,
         $scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
 	}
 
-	$scope.setPermalink();
+	
 
 	$scope.onBlurSlug = function( $event )
 	{
@@ -409,32 +478,18 @@ app.controller( "LessonController", function( $scope, $rootScope, $localStorage,
 			toastr.success( "Lesson has been saved" );
 			if( $rootScope.syllabus_redirect_url )
 			{
-				$state.go( $rootScope.syllabus_redirect_url );
+				smModal.Show($rootScope.syllabus_redirect_url);
 				$rootScope.syllabus_redirect_url = '';
 			}
 			else
 			{
-				$state.go( $scope.template_data.success_route );
+				smModal.Show($scope.template_data.success_route);
 			}
 		} )
 
 	}
 	//disabling for now as this is not the draft feature we wanted.
-    if( false && !$stateParams.id && !$location.search().clone )
-    {
-        Restangular.all( 'draft' ).customGET( '', {
-            site_id: $site.id,
-            user_id: $user.id,
-            key: 'lessons.content'
-        } ).then( function( response )
-        {
-            if( response.length )
-            {
-                draft = response[ 0 ];
-                $scope.loadDraft();
-            }
-        } )
-    }
+   
     $scope.loadDraft = function()
     {
         var value = JSON.parse( draft.value );
@@ -458,26 +513,7 @@ app.controller( "LessonController", function( $scope, $rootScope, $localStorage,
 				//$scope.start();
 			} )
 	}
-	var timeout = null;
-	$scope.$watch( 'lesson', function( lesson, oldLesson )
-	{
-		if( typeof changed == "undefined" )
-        {
-            changed = false;
-        }
-        else
-        {
-            changed = true;
-        }
-        if( lesson != oldLesson && changed && !$scope.next_item.id && !$location.search().clone )
-		{
-			if( timeout )
-			{
-				$timeout.cancel( timeout )
-			}
-			timeout = $timeout( $scope.start, 3000 );  // 1000 = 1 second
-		}
-	}, true )
+	
 
 	$scope.start = function()
 	{
@@ -493,4 +529,6 @@ app.controller( "LessonController", function( $scope, $rootScope, $localStorage,
 			draft = response;
 		} )
 	}
+	$scope.resolve();
+	var $_GET = $scope.getUrlVars();
 } );

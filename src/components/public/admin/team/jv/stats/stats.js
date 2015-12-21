@@ -20,10 +20,10 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AffiliateStatsController", function( $scope, $rootScope, $state, Restangular )
+app.controller( "AffiliateStatsController", function( $scope, $rootScope, $state, Restangular , smModal)
 {
 	$user = $rootScope.user;
-	$scope.summary = Restangular.all( 'affiliate' ).customGET( 'summary' );
+	$summary = Restangular.all( 'affiliate' ).customGET( 'summary' ).then(function(response){$scope.summary = response ; $summary = response; $scope.init()});
 	$scope.series = [ 'Affiliates' ];
 
 	$scope.hasAccess = function( role )
@@ -65,7 +65,7 @@ app.controller( "AffiliateStatsController", function( $scope, $rootScope, $state
 		console.log( access )
 		if( !access )
 		{
-			$state.go( 'public.admin.account.memberships' );
+			smModal.Show( 'public.admin.account.memberships' );
 		}
 	}
 

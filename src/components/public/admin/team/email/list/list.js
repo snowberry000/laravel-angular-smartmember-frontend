@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("smartMailListController", function ($scope,$rootScope, $stateParams, $localStorage, Restangular, toastr, $state) {
+app.controller("smartMailListController", function ($scope,smModal,$rootScope, $stateParams, $localStorage, Restangular, toastr, $state) {
 	$site=$rootScope.site;
 	emailList=null;
 	$scope.resolve = function ()
@@ -70,13 +70,13 @@ app.controller("smartMailListController", function ($scope,$rootScope, $statePar
 	            };
 	            toastr.success("List updated!");
 	        })
-	        $state.go("public.admin.team.email.import",{id:$scope.emailList.id})
+	        smModal.Show("public.admin.team.email.import",{id:$scope.emailList.id});
 	        return;
 	    }
 	    $scope.emailList.company_id = $site.company_id;
 	    Restangular.service("emailList").post($scope.emailList).then(function(response){
 	        toastr.success("List created!");
-	        $state.go("public.admin.team.email.import",{id:response.id})
+	        smModal.Show("public.admin.team.email.import",{id:response.id});
 	    });
 
 	}
@@ -90,7 +90,7 @@ app.controller("smartMailListController", function ($scope,$rootScope, $statePar
 	            }
 	        };
 	        toastr.success("List updated!");
-	        $state.go("public.admin.team.email.lists");
+	        smModal.Show("public.admin.team.email.lists");
 	    })
 	}
 
@@ -98,7 +98,7 @@ app.controller("smartMailListController", function ($scope,$rootScope, $statePar
 	    $scope.emailList.company_id = $site.company_id;
 	    Restangular.service("emailList").post($scope.emailList).then(function(response){
 	        toastr.success("List created!");
-	        $state.go("public.admin.team.email.lists");
+	        smModal.Show("public.admin.team.email.lists");
 	    });
 	}
 
@@ -290,5 +290,5 @@ app.controller("smartMailListController", function ($scope,$rootScope, $statePar
 	    console.log("Attached");
 	}
 
-	$scope.initialize();
+	//$scope.initialize();
 });

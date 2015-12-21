@@ -96,11 +96,11 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     if( $scope.vimeo_integrations.length > 0 ) {
         var selected_integration = _.findWhere($scope.vimeo_integrations, {default: 1}) || _.findWhere( $scope.vimeo_integrations, {default: "1"});
 
-        if( !selected_integration )
+        if( !selected_integration || !selected_integration.access_token )
             selected_integration = $scope.vimeo_integrations[0];
 
-        if( selected_integration ) {
-            console.log(selected_integration);
+        if( selected_integration && selected_integration.access_token ) {
+            console.log('yes');
             $scope.selected_account = selected_integration.id;
             $scope.vimeo.access_token = selected_integration.account.access_token;
             $scope.vimeo.remote_id = selected_integration.account.remote_id;

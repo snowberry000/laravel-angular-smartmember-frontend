@@ -5,24 +5,16 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.settings",{
 			url: "/settings",
 			templateUrl: "/templates/components/public/admin/team/email/settings/settings.html",
-			controller: "EmailSettingsController",
-			resolve: {
-				emailSettings: function(Restangular, $site) {
-					return Restangular.all('emailSetting').customGET('settings');
-				},
-				loadPlugin: function ($ocLazyLoad) {
-					return $ocLazyLoad.load([
-						{
-							name: 'summernote'
-						}
-					]);
-				}
-			}
+			controller: "EmailSettingsController"
 		})
 }); 
 
-app.controller("EmailSettingsController", function ($scope,Upload, $localStorage, $location, Restangular,  toastr, emailSettings) {
-	$scope.emailSettings = emailSettings;
+app.controller("EmailSettingsController", function ($scope,Upload, $rootScope, $localStorage, $location, Restangular,  toastr) {
+	
+	$scope.loading = true;
+	$site=$rootScope.site;
+
+	Restangular.all('emailSetting').customGET('settings').then(function(response){console.log(response);$scope.emailSettings = response;})
 
 	$scope.imageUpload = function(files){
 

@@ -1,12 +1,12 @@
-<style>
-.env_admin .btn {
-    padding: 2px 10px 2px;
-    font-size: 13px; 
-    vertical-align: center !important;
-}
-</style>
-
-<div id="wrapper" ng-init="init()" >
+<div class="ui modal">
+    <style>
+        .env_admin .btn {
+            padding: 2px 10px 2px;
+            font-size: 13px; 
+            vertical-align: center !important;
+        }
+    </style>
+    <div id="wrapper" >
 
     <div class="jumbotron">
         <h1 class="ui header">Support Creator</h1>
@@ -62,7 +62,7 @@
 
                                         </div>
                                         <div class="col-md-2">
-                                            <a ng-href="/admin/site/content/helpdesk/article/{{article.id}}" ><i class="fa fa-pencil"></i></a>
+                                            <a  ng-click="smModal.Show('public.admin.site.content.helpdesk.article',{id: article.id})" ><i class="fa fa-pencil"></i></a>
                                             <a class="delete_lesson" data-bypass="true" ng-click="deleteArticle(article , category)"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
@@ -81,4 +81,5 @@
         </div>
     </div>
 
+    </div>
 </div>

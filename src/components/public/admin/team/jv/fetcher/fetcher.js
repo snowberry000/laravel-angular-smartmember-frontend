@@ -6,16 +6,12 @@ app.config(function($stateProvider){
 			url: "/fetcher",
 			templateUrl: "/templates/components/public/admin/team/jv/fetcher/fetcher.html",
 			controller: "FetcherController",
-			resolve: {
-				company_hash: function(Restangular){
-					return Restangular.one('company/getCurrentCompanyHash').get();
-				},
-			}
+			
 		})
 }); 
 
-app.controller("FetcherController", function ($scope, $localStorage, toastr, $state, company_hash) {
-	$scope.url = $scope.app.apiUrl + '/jvzoo/' + company_hash;
+app.controller("FetcherController", function ($scope, $localStorage, toastr, $state , Restangular) {
+	$company_hash = Restangular.one('company/getCurrentCompanyHash').get().then(function(response){$scope.url = $scope.app.apiUrl + '/jvzoo/' + response;})
 
 	$scope.init = function(){
 	    var clipboard = new Clipboard('#copy-button');

@@ -21,8 +21,10 @@ app.config(function($stateProvider){
             }
 		})
 }); 
-app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $localStorage, $site , $user, $location, $stateParams,  Restangular, toastr, $filter) {
+app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $localStorage, $location, $stateParams,  Restangular, toastr, $filter) {
 	$site=$rootScope.site;
+    $user=$rootScope.user;
+    $scope.options={};
     $scope.open1 = function (next_item) {
         var modalInstance = $modal.open({
             size: 'lg',
@@ -560,6 +562,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
     $scope.setRedirectUrl = function(){
         $rootScope.syllabus_redirect_url = 'public.admin.site-content.syllabus';
     }
+    $scope.init();
 });
 
 app.controller('LessonEditModalInstanceCtrl', function ($scope, $rootScope, $localStorage, $timeout ,  $state, next_item, access_level_types, access_levels , $location, $stateParams,$site , $modalInstance, $user , $filter, Restangular, toastr, $modules,Upload) {
@@ -740,4 +743,5 @@ app.controller('LessonEditModalInstanceCtrl', function ($scope, $rootScope, $loc
         });
         $modalInstance.dismiss('cancel');
     };
+    
 });

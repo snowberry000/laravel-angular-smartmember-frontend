@@ -7,9 +7,7 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/admin/team/jv/team/team.html",
 			controller: "AffiliateTeamController",
 			resolve: {
-				affiliates: function(Restangular, $site) {
-					return Restangular.all('').customGET('affiliate?bypass_paging=true');
-				},
+			
 				affiliate_team: function(Restangular,$stateParams, $site) {
 					if ( $stateParams.id ) {
 						return Restangular.one('affiliateTeam',$stateParams.id ).get();
@@ -20,16 +18,29 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AffiliateTeamController", function ($scope, $localStorage, Restangular, toastr, $state, affiliates, affiliate_team) {
-	$scope.affiliate_team =  affiliate_team;
-	$scope.affiliates = affiliates.items;
-
-	for (var i = 0; i < $scope.affiliates.length; i++) {
-	    $scope.affiliates[i]['affiliate_id'] = $scope.affiliates[i].id;
-	};
-
-	$scope.page_title = $scope.affiliate_team.id ? 'Edit Team' : 'Create Team';
-
+app.controller("AffiliateTeamController", function ($scope, $q , $localStorage, Restangular, toastr, $state , $rootScope, $stateParams , smModal) {
+	$site = $rootScope.site;
+	$affiliates = Restangular.all('').customGET('affiliate?bypass_paging=true').then(function(response){
+		$scope.affiliates = response.items;
+		for (var i = 0; i < $scope.affiliates.length; i++) {
+		    $scope.affiliates[i]['affiliate_id'] = $scope.affiliates[i].id;
+		};
+	})
+	if ( $stateParams.id ) {
+		$affiliate_team =  Restangular.one('affiliateTeam',$stateParams.id ).get().then(function(response){
+			$scope.affiliate_team =  response;
+		})
+	}
+	else
+		$scope.affiliate_team = {company_id: $site.company_id};
+	
+	$dependencies = [$affiliates];
+	if($stateParams.id)
+		$dependencies.push($affiliate_team);
+	
+	$q.all($dependencies).then(function(response){$scope.page_title = $scope.affiliate_team.id ? 'Edit Team' : 'Create Team'; 
+		
+	});
 
 	$scope.save = function(){
 	    if ($scope.affiliate_team.id){
@@ -53,7 +64,7 @@ app.controller("AffiliateTeamController", function ($scope, $localStorage, Resta
 	    Restangular.service("affiliateTeam").post($scope.affiliate_team).then(function(response){
 	        toastr.success("Team created!");
 	        
-	        $state.go("public.admin.team.jv.teams");
+	        smModal.Show("public.admin.team.jv.teams");
 	    });
 	}
 
@@ -69,7 +80,7 @@ app.controller("AffiliateTeamController", function ($scope, $localStorage, Resta
 	    $scope.affiliate_team.put().then(function(response){
 	        toastr.success("Team saved!");
 	       
-	        $state.go("public.admin.team.jv.teams");
+	        smModal.Show("public.admin.team.jv.teams");
 	    });
 	}
 });

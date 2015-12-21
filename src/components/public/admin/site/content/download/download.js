@@ -5,30 +5,17 @@ app.config(function($stateProvider){
 		.state("public.admin.site.content.download",{
 			url: "/download/:id?",
 			templateUrl: "/templates/components/public/admin/site/content/download/download.html",
-			controller: "DownloadController",
-            resolve: {
-                $download: function(Restangular, $site , $stateParams , $location) {
-                    if($stateParams.id)
-                        return Restangular.one('download' , $stateParams.id).get();
-                    else if($location.search().clone){
-                        console.log( 'not here' );
-                        return Restangular.one('download', $location.search().clone).get();
-                    }
-                    else {
-                        return {access_level_type: 4, access_level_id: 0};
-                    }
-                }
-            }
+			controller: "DownloadController"
 		})
 }); 
 
-app.controller("DownloadController", function ($scope,$stateParams,Upload,$rootScope, $localStorage,$download, $user , $timeout , $location, $site, $state, $stateParams,  Restangular, toastr, $filter) {
+app.controller("DownloadController", function ($scope,smModal,$stateParams,Upload,$rootScope, $localStorage , $timeout , $location, $state, $stateParams,  Restangular, toastr, $filter) {
 	var draft;
     var changed;
     var seo = {};
     $download=null;
     var timeout = null;
-
+    $scope.user = $user = $rootScope.user;
     $scope.site = $site = $rootScope.site;
 
     $scope.resolve =function (){
@@ -155,7 +142,7 @@ app.controller("DownloadController", function ($scope,$stateParams,Upload,$rootS
             delete $scope.download.user_count;
             delete $scope.download.site;
             $scope.download.put();
-            $state.go("public.admin.site.content.downloads");
+            smModal.Show("public.admin.site.content.downloads");
             toastr.success("Download has been saved");
         }
         else {
@@ -163,7 +150,7 @@ app.controller("DownloadController", function ($scope,$stateParams,Upload,$rootS
                 if(draft)
                     Restangular.one('draft' , draft.id).remove();
                 $scope.download = download;
-                $state.go("public.admin.site.content.downloads");
+                smModal.Show("public.admin.site.content.downloads");
                 toastr.success("Download has been saved!");
             });
         }

@@ -14,11 +14,11 @@
                             <span>{{template_data.description}}</span>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a ng-href="{{$state.href( template_data.edit_route )}}" class="btn btn-brand m-t-md btn-large ng-scope">
+                            <a ng-click="smModal.Show( template_data.edit_route )" class="btn btn-brand m-t-md btn-large ng-scope">
                                 <i class="fa fa-plus"></i>
                                 Add Subscriber
                             </a>
-                            <a ui-sref="public.admin.team.email.export" class="btn btn-brand m-t-md btn-large ng-scope">
+                            <a ng-click="smModal.Show('public.admin.team.email.export')" class="btn btn-brand m-t-md btn-large ng-scope">
                                 <i class="fa fa-plus"></i>
                                 Export
                             </a>

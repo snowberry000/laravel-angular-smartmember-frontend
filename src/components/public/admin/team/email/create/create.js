@@ -7,33 +7,110 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/admin/team/email/create/create.html",
 			controller: "smartMailCreateController",
 			resolve: {
-				email: function(Restangular, $stateParams, $site) {
-					if ( $stateParams.id ) {
-						return Restangular.one('email', $stateParams.id).get();
-					}
-					return {company_id: $site.company_id};
-				},
-				emailSettings: function(Restangular, $site) {
-					return Restangular.all('emailSetting').customGET('settings');
-				},
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'ui.sortable'
                         }
                     ]);
-                },
-				sendgridIntegrations: function(Restangular , $site){
-					return Restangular.all('integration/getSendgridIntegrations').getList();
-				}
+                }
 			}
 		})
 });
 
-app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, email, emailSettings, sendgridIntegrations) {
-    $scope.sendgridIntegrations = sendgridIntegrations;
+app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, $stateParams ) {
+    console.log($stateParams);
+    $sendgridIntegrations = Restangular.all('integration/getSendgridIntegrations').getList().then(function(response){$scope.sendgridIntegrations = response});
     $scope.canceler = false;
-    $scope.email = email;
+    if ( $stateParams.id ) {
+        $email = Restangular.one('email', $stateParams.id).get().then(function(response){$scope.email = response});
+    }
+    else
+        $scope.email = {company_id: $site.company_id};    
+    $emailSettings = Restangular.all('emailSetting').customGET('settings').then(function(response){
+        $scope.emailSettings = response;
+    })
+    $dependencies = [$sendgridIntegrations , $emailSettings];
+    if($stateParams.id)
+        $dependencies.push($email);
+    $q.all($dependencies).then(function(res){
+        if ($scope.emailSettings)
+        {
+            if( !$scope.email.mail_sending_address )
+                $scope.email.mail_sending_address = $scope.emailSettings.sending_address;
+            if( !$scope.email.mail_reply_address )
+                $scope.email.mail_reply_address = $scope.emailSettings.replyto_address;
+            if( !$scope.email.mail_signature )
+                $scope.email.mail_signature = $scope.emailSettings.email_signature;
+            if( !$scope.email.mail_name )
+                $scope.email.mail_name = $scope.emailSettings.full_name;
+            if( !$scope.email.admin )
+                $scope.email.admin = $scope.emailSettings.test_email_address;
+        }
+
+        if( $scope.email.id ) {
+        if( $scope.email.recipient_type )
+            $scope.recipient_type = $scope.email.recipient_type;
+
+        $scope.loading_segments = true;
+
+        Restangular.all('email/getSegments').getList().then(function (response) {
+            $scope.segments = response;
+            $scope.loading_segments = false;
+
+            var catch_all_segment = _.findWhere( $scope.segments, {type: 'catch_all'});
+
+            if( catch_all_segment )
+                $scope.counts.total_available_recipients = catch_all_segment.count;
+
+            $scope.counts.total_available_segments = $scope.segments.length;
+
+            angular.forEach($scope.email.recipients, function (value) {
+                if( value.type == 'segment' ) {
+                    if( value.recipient == 'catch_all_catch_all') {
+                        var segment = _.findWhere($scope.segments, {
+                            type: 'catch_all'
+                        });
+                        console.log('we do have a segment ', segment);
+                        var recipient_bits = ['catch_all','catch_all'];
+                    } else {
+                        var recipient_bits = value.recipient.split('_');
+
+                        var segment = _.findWhere($scope.segments, {
+                                type: recipient_bits[0],
+                                target_id: parseInt(recipient_bits[1])
+                            }) || _.findWhere($scope.segments, {
+                                type: recipient_bits[0],
+                                target_id: recipient_bits[1] + ''
+                            });
+                    }
+
+                    if( segment ) {
+                        $scope.segments = _.without($scope.segments, segment);
+
+                        segment.type = recipient_bits[0];
+                        segment.target_id = recipient_bits[1];
+                        segment.id = value.id;
+                        segment.intro = value.intro;
+                        segment.subject = value.subject;
+
+                        $scope.chosen_segments.push(segment);
+                    }
+                }
+                else if( value.type == 'members' ) {
+                    $scope.recipients.push( value.recipient );
+                }
+                else if( value.type == 'single' ) {
+                    $scope.recipient = value.recipient;
+                }
+            });
+
+            $scope.organizeSegments();
+        });
+    }
+
+
+    })
     $scope.recipients = [];
     $scope.recipient = '';
     $scope.members = [];
@@ -197,83 +274,9 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
         }
     }
 
-    if( $scope.email.id ) {
-        if( $scope.email.recipient_type )
-            $scope.recipient_type = $scope.email.recipient_type;
-
-        $scope.loading_segments = true;
-
-        Restangular.all('email/getSegments').getList().then(function (response) {
-            $scope.segments = response;
-            $scope.loading_segments = false;
-
-            var catch_all_segment = _.findWhere( $scope.segments, {type: 'catch_all'});
-
-            if( catch_all_segment )
-                $scope.counts.total_available_recipients = catch_all_segment.count;
-
-            $scope.counts.total_available_segments = $scope.segments.length;
-
-            angular.forEach($scope.email.recipients, function (value) {
-                if( value.type == 'segment' ) {
-                    if( value.recipient == 'catch_all_catch_all') {
-                        var segment = _.findWhere($scope.segments, {
-                            type: 'catch_all'
-                        });
-                        console.log('we do have a segment ', segment);
-                        var recipient_bits = ['catch_all','catch_all'];
-                    } else {
-                        var recipient_bits = value.recipient.split('_');
-
-                        var segment = _.findWhere($scope.segments, {
-                                type: recipient_bits[0],
-                                target_id: parseInt(recipient_bits[1])
-                            }) || _.findWhere($scope.segments, {
-                                type: recipient_bits[0],
-                                target_id: recipient_bits[1] + ''
-                            });
-                    }
-
-                    if( segment ) {
-                        $scope.segments = _.without($scope.segments, segment);
-
-                        segment.type = recipient_bits[0];
-                        segment.target_id = recipient_bits[1];
-                        segment.id = value.id;
-                        segment.intro = value.intro;
-                        segment.subject = value.subject;
-
-                        $scope.chosen_segments.push(segment);
-                    }
-                }
-                else if( value.type == 'members' ) {
-                    $scope.recipients.push( value.recipient );
-                }
-                else if( value.type == 'single' ) {
-                    $scope.recipient = value.recipient;
-                }
-            });
-
-            $scope.organizeSegments();
-        });
-    }
+    
 
     $scope.showSignature={status:'false'};
-
-
-    if (emailSettings)
-    {
-        if( !$scope.email.mail_sending_address )
-            $scope.email.mail_sending_address=emailSettings.sending_address;
-        if( !$scope.email.mail_reply_address )
-            $scope.email.mail_reply_address=emailSettings.replyto_address;
-        if( !$scope.email.mail_signature )
-            $scope.email.mail_signature=emailSettings.email_signature;
-        if( !$scope.email.mail_name )
-            $scope.email.mail_name=emailSettings.full_name;
-        if( !$scope.email.admin )
-            $scope.email.admin=emailSettings.test_email_address;
-    }
 
     $scope.segment_classes = {
         site: 'success',

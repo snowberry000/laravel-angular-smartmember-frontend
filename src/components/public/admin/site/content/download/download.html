@@ -1,8 +1,8 @@
-<div class="ui modal" ng-init="init()">
+<div class="ui modal">
 
     <div class="content">
         <div class="row">
-            <input class="isAgentOrGreaterCheck" value={{isAgentOrGreaterCheck}} type="hidden" />
+            <input class="isAgentOrGreaterCheck" value="{{isAgentOrGreaterCheck}}" type="hidden" />
             <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
                 <div class="hpanel">
 
@@ -276,7 +276,7 @@
                             <div class="field">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button id="download_submit" class="btn btn-brand" type="submit">Save changes</button>
-                                    <a ui-sref="public.admin.site.content.downloads" class="btn btn-default" onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
+                                    <a ng-click="smModal.Show('public.admin.site.content.downloads')" class="btn btn-default">Cancel</a>
                                   
                                 </div>
                             </div>

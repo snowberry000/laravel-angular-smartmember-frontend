@@ -5,45 +5,76 @@ app.config(function($stateProvider){
 		.state("public.admin.site.content.helpdesk.article",{
 			url: "/article/:id?",
 			templateUrl: "/templates/components/public/admin/site/content/helpdesk/article/article.html",
-			controller: "ArticleController",
-		    resolve: {
-			    $article: function(Restangular,$rootScope, $site , $stateParams , $location) {
-				    if($stateParams.id)
-					    return Restangular.one('supportArticle' , $stateParams.id).get();
-				    else if($location.search().clone){
-					    return Restangular.one('supportArticle', $location.search().clone).get();
-				    }
-				    else
-					    return {company_id : 0}
-			    }
-		    }
+			controller: "ArticleController"
 		})
 }); 
 
-app.controller("ArticleController", function ($scope,$rootScope, Upload, $location, $timeout , $user ,  $localStorage, $state, $article,$stateParams, $site, $filter, Restangular, toastr) {
+app.controller("ArticleController", function ($scope,$rootScope, Upload, $location, $timeout  ,  $localStorage, $state, smModal,$stateParams, $filter, Restangular, toastr) {
 	//$scope.page = $page;
-    if(!$article.id)
-    {
-        $article.company_id=$rootScope.site.company_id;
-    }
-
+    $user=$rootScope.user;
+    $site=$rootScope.site;
+    $article=null;
     var draft;
     var changed;
-    if($location.search().clone){
-        delete $article.id;
-        delete $article.access;
-        delete $article.author_id;
+    var timeout = null;
+
+    $scope.resolve =function(){
+        if($stateParams.id)
+            Restangular.one('supportArticle' , $stateParams.id).get().then(function(response){
+                $article = response;
+                $scope.init();
+            });
+        else if($location.search().clone){
+            Restangular.one('supportArticle', $location.search().clone).get().then(function(response){
+                $article = response;
+                $scope.init();
+            });
+        }
+        else
+        {
+            $article = {company_id : 0};
+            $scope.init();
+        }
     }
-    $scope.article = $article;
-    $scope.article.id ? $scope.page_title = 'Edit article' : $scope.page_title = 'Create article';
-    $scope.categories = [];
 
-    Restangular.all('supportCategory').getList({public_list:true,category_list:true}).then(function(response){
-        $scope.categories = response;
-        
-    });
+    $scope.init=function(){
+        if(!$article.id)
+        {
+            $article.company_id=$rootScope.site.company_id;
+        }
+        if($location.search().clone){
+            delete $article.id;
+            delete $article.access;
+            delete $article.author_id;
+        }
+        $scope.article = $article;
+        $scope.article.id ? $scope.page_title = 'Edit article' : $scope.page_title = 'Create article';
+        $scope.categories = [];
+        Restangular.all('supportCategory').getList({public_list:true,category_list:true}).then(function(response){
+            $scope.categories = response;
+        });
 
-
+        if(false && !$stateParams.id && !$location.search().clone)
+        Restangular.all('draft').customGET('', {site_id : $rootScope.site.id , user_id : $user.id , key : 'articles.content'}).then(function(response){
+            if(response.length){
+                draft = response[0]
+                $scope.loadDraft()
+            }
+        });
+        $scope.$watch('article' , function(article , oldArticle){
+            if(typeof changed == "undefined")
+                changed = false;
+            else
+                changed = true;
+            if (article != oldArticle && changed && !$scope.article.id && !$location.search().clone) {
+                  if (timeout) {
+                    $timeout.cancel(timeout)
+                  }
+                  timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
+                }
+        } , true);
+    }
+    
     $scope.openCategoryModel = function () {
         var modalInstance = $modal.open({
             size: 'lg',
@@ -85,18 +116,6 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
         }
     }
 
-    
-
-
-    $scope.init = function(){
-        if($stateParams.article_id){
-            Restangular.one('supportArticle',$stateParams.article_id).get().then(function(response){
-                $scope.article = response;
-            })
-        }
-
-    }
-
     $scope.save = function(){
         if( $scope.article.permalink == '' )
             this.onBlurTitle(null);
@@ -110,14 +129,14 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
         if($scope.article.id){
             $scope.article.put();
             toastr.success("Support article edited successfully!");
-            $state.go("public.admin.site.content.helpdesk.articles");
+            smModal.Show("public.admin.site.content.helpdesk.articles");
         }
         else{
             Restangular.all('supportArticle').post($scope.article).then(function(response){
                 if(draft)
                     Restangular.one('draft' , draft.id).remove();
                 toastr.success("Support article added successfully!");
-                $state.go("public.admin.site.content.helpdesk.articles");
+                smModal.Show("public.admin.site.content.helpdesk.articles");
             })
         }
     }
@@ -131,13 +150,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
             $scope.article.permalink = $filter('urlify')($scope.article.permalink);
     }
     //disabling for now because this isn't the draft feature we wanted
-    if(false && !$stateParams.id && !$location.search().clone)
-    Restangular.all('draft').customGET('', {site_id : $rootScope.site.id , user_id : $user.id , key : 'articles.content'}).then(function(response){
-        if(response.length){
-            draft = response[0]
-            $scope.loadDraft()
-        }
-    })
+    
     $scope.loadDraft = function(){
         var value = JSON.parse(draft.value);
         var modalInstance = $modal.open({
@@ -156,20 +169,6 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
             });
         })
     }
-
-    var timeout = null;
-    $scope.$watch('article' , function(article , oldArticle){
-        if(typeof changed == "undefined")
-            changed = false;
-        else
-            changed = true;
-        if (article != oldArticle && changed && !$scope.article.id && !$location.search().clone) {
-              if (timeout) {
-                $timeout.cancel(timeout)
-              }
-              timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
-            }
-    } , true)
 
     $scope.start = function(){
         var data = {site_id : $rootScope.site.id , user_id : $user.id , key : 'articles.content' , value : JSON.stringify($scope.article)}

@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AutorespondersController", function ($scope,$filter, $localStorage,  Restangular, notify) {
+app.controller("AutorespondersController", function ($scope,smModal,$filter, $localStorage,  Restangular, notify) {
 	
 	$scope.template_data = {
 	    title: 'AUTORESPONDERS',

@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "EmailSubscribersController", function( $scope, $localStorage, Restangular, toastr, $state )
+app.controller( "EmailSubscribersController", function( $scope, $rootScope ,$localStorage, Restangular, toastr, $state )
 {
 	$site = $rootScope.site;
 

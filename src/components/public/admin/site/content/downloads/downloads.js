@@ -5,11 +5,11 @@ app.config(function($stateProvider){
 		.state("public.admin.site.content.downloads",{
 			url: "/downloads",
 			templateUrl: "/templates/components/public/admin/site/content/downloads/downloads.html",
-			controller: "DownloadsController",
+			controller: "DownloadsController"
 		})
 }); 
 
-app.controller("DownloadsController", function ($scope,$rootScope, $localStorage, $state, $stateParams,  Restangular, toastr, $filter) {
+app.controller("DownloadsController", function ($scope,$rootScope,smModal, $localStorage, $state, $stateParams,  Restangular, toastr, $filter) {
     $site=$rootScope.site;
     $downloads=null;
 
@@ -52,7 +52,7 @@ app.controller("DownloadsController", function ($scope,$rootScope, $localStorage
     $scope.update=function()
     {
         Restangular.all("/download/putDownloads").post({"downloads":$scope.postDownloads}).then(function(response){
-            $state.go("public.admin.site.content.downloads");
+            smModal.Show("public.admin.site.content.downloads");
             toastr.success("Success! Changes saved");
         });
     }
