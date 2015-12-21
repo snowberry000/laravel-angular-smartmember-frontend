@@ -15,7 +15,8 @@ var exists = require( 'path-exists' ).sync;
 var runSequence = require( 'run-sequence' );
 var exec = require('child_process').exec;
 var protractor = require("gulp-protractor").protractor;
-var webdriver_standalone = require("gulp-protractor").webdriver_standalone;
+var shell = require('gulp-shell')
+
 
 var config = {
 	accessKeyId: "AKIAIYX347IAPYSI6HGQ",
@@ -103,16 +104,9 @@ gulp.task( 'templates', function()
 		.pipe( gulp.dest( 'dist/templates' ) );
 } );
 
-gulp.task( 'test-e2e', function()
-{
-
-	return gulp.src(["./src/tests/e2e.tests.js"])
-		.pipe(protractor({
-			configFile: "./src/tests/e2e.conf.js"
-		}))
-		.on('error', function(e) { throw e })
-} );
-gulp.task('webdriver_standalone', webdriver_standalone);
+gulp.task( 'test-e2e', shell.task([
+	'protractor src/tests/e2e.conf.js'
+]));
 
 
 gulp.task( 'watch', function()
@@ -220,7 +214,7 @@ gulp.task( 'images', function()
 
 gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'crawler' ] );
 gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage','crawler' , 'watch'] );
-gulp.task( 'test', [ 'webdriver_standalone', 'test-e2e'] );
+gulp.task( 'test', [ 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
 {
