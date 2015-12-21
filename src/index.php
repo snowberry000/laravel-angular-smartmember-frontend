@@ -32,10 +32,6 @@ $requestParts = explode( '/', $_SERVER[ 'REQUEST_URI' ] );
 
 if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) < 3 )
 {
-	require_once 'bpage/php/redis/Autoloader.php';
-	Predis\Autoloader::register();
-	$client = new Predis\Client();
-
 	$permalink = $requestParts[ 1 ];
 	$pos = strpos( $permalink, '?' );
 	if( $pos !== false )
@@ -43,66 +39,94 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 		$permalink = substr( $permalink, 0, $pos );
 	}
 
-	try
+	//we know these are reserved routes, so no need to check if they are bridge pages
+	$reserved_permalinks = array(
+		'lessons',
+		'info',
+		'home',
+		'thank-you',
+		'thankyou',
+		'wallboard',
+		'sign',
+		'download-center',
+		'admin',
+		'domain-not-found',
+		'blog',
+		'jvpage',
+		'refund-page',
+		'support-ticket',
+		'support',
+		'support-tickets'
+	);
+
+	if( !in_array( $permalink, $reserved_permalinks ) )
 	{
-		$paramSwaps = [];
-		if( count($_GET) > 0 )
+		require_once 'bpage/php/redis/Autoloader.php';
+		Predis\Autoloader::register();
+		$client = new Predis\Client();
+
+		try
 		{
-			$getParams = array_keys( $_GET );
-			sort( $getParams, SORT_NATURAL );
-
-			$getKey = '';
-
-			foreach( $getParams as $param )
+			$paramSwaps = [ ];
+			if( count( $_GET ) > 0 )
 			{
-				$getKey .= $param . '=' . $_GET[ $param ] . '&';
-				$paramSwaps[ $param ] = $_GET[ $param ];
+				$getParams = array_keys( $_GET );
+				sort( $getParams, SORT_NATURAL );
+
+				$getKey = '';
+
+				foreach( $getParams as $param )
+				{
+					$getKey .= $param . '=' . $_GET[ $param ] . '&';
+					$paramSwaps[ $param ] = $_GET[ $param ];
+				}
 			}
-		}
-		else
-		{
-			$getKey = 'default';
-		}
-		$redisKeys = [];
-
-		$redisKeys['html'] = $domain . ':' . $permalink . ':' . $getKey . ':html';
-
-		$html = $client->get( $redisKeys['html'] );
-
-		$html = '';
-
-		if( empty( $html ) )
-		{
-			$redisKeys['data'] = $domain . ':' . $permalink . ':data';
-			$bpage_data = $client->get( $redisKeys['data'] );
-
-			if( empty( $bpage_data ) )
+			else
 			{
-				$url  = 'http://api.smartmember.' . $tld . '/bridgePageDataOrFalse';
-				$curl = curl_init( $url );
-				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'origin:http://' . $domain, 'referer:http://' . $domain . $_SERVER[ 'REQUEST_URI' ], 'content-type:application/json' ) );
-				$bpage_data = curl_exec( $curl );
-				curl_close( $curl );
+				$getKey = 'default';
+			}
+			$redisKeys = [ ];
+
+			$redisKeys[ 'html' ] = $domain . ':' . $permalink . ':' . $getKey . ':html';
+
+			$html = $client->get( $redisKeys[ 'html' ] );
+
+			$html = '';
+
+			if( empty( $html ) )
+			{
+				$redisKeys[ 'data' ] = $domain . ':' . $permalink . ':data';
+				$bpage_data          = $client->get( $redisKeys[ 'data' ] );
 
 				if( empty( $bpage_data ) )
-					$bpage_data = 'notbp';
+				{
+					$url  = 'http://api.smartmember.' . $tld . '/bridgePageDataOrFalse';
+					$curl = curl_init( $url );
+					curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+					curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'origin:http://' . $domain, 'referer:http://' . $domain . $_SERVER[ 'REQUEST_URI' ], 'content-type:application/json' ) );
+					$bpage_data = curl_exec( $curl );
+					curl_close( $curl );
 
-				$client->set($redisKeys['data'], $bpage_data);
+					if( empty( $bpage_data ) )
+						$bpage_data = 'notbp';
+
+					$client->set( $redisKeys[ 'data' ], $bpage_data );
+				}
+			}
+
+			if( $bpage_data == 'notbp' )
+				$bpage_data = '';
+
+			if( !empty( $html ) || !empty( $bpage_data ) )
+			{
+				include 'bpage/bpage.php';
+				return;
 			}
 		}
-
-		if( $bpage_data == 'notbp' )
-			$bpage_data = '';
-
-		if( !empty( $html ) || !empty( $bpage_data ) )
+		catch( Exception $e )
 		{
-			include 'bpage/bpage.php';
-			return;
+
 		}
-	}
-	catch( Exception $e )
-	{
 	}
 }
 ?>
