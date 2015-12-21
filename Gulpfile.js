@@ -52,19 +52,20 @@ gulp.task( 'bower', function()
 
 gulp.task( 'js', function()
 {
-    gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**", "!src/**/*.e2e.js"])
+    gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**","!src/tests/*", "!src/**/*.e2e.js"])
 		.pipe( angularFilesort() )
 		.pipe( ngAnnotate() )
 		//.pipe( minifyjs() )
 		.pipe( concat( 'main.min.js' ) )
 		.pipe( gulp.dest( 'dist/js' ) );
 
-	gulp.src(["src/**/*.e2e.js"])
+	 gulp.src(["src/**/*.e2e.js","!src/tests/*","!src/tests/**"])
 		.pipe( concat( 'e2e.tests.js' ) )
 		.pipe( gulp.dest( 'src/tests' ) );
 
 	return true;
 } );
+
 
 gulp.task( 'inject', function()
 {
