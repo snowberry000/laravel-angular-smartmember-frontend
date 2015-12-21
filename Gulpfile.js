@@ -14,6 +14,7 @@ var path = require( 'path' );
 var exists = require( 'path-exists' ).sync;
 var runSequence = require( 'run-sequence' );
 var exec = require('child_process').exec;
+var protractor = require("gulp-protractor").protractor;
 
 var config = {
 	accessKeyId: "AKIAIYX347IAPYSI6HGQ",
@@ -51,12 +52,18 @@ gulp.task( 'bower', function()
 
 gulp.task( 'js', function()
 {
-    return gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**"])
+    gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**", "!src/**/*.e2e.js"])
 		.pipe( angularFilesort() )
 		.pipe( ngAnnotate() )
 		//.pipe( minifyjs() )
 		.pipe( concat( 'main.min.js' ) )
 		.pipe( gulp.dest( 'dist/js' ) );
+
+	gulp.src(["src/**/*.e2e.js"])
+		.pipe( concat( 'e2e.js' ) )
+		.pipe( gulp.dest( 'src/tests' ) );
+
+	return true;
 } );
 
 gulp.task( 'inject', function()
@@ -93,6 +100,18 @@ gulp.task( 'templates', function()
 		.pipe( replace( "/core", "/tpl" ) )
 		.pipe( gulp.dest( 'dist/templates' ) );
 } );
+
+gulp.task( 'test-e2e', function()
+{
+	return gulp.src(["./dist/tests/e2e.js"])
+		.pipe(protractor({
+			configFile: "test/protractor.config.js",
+			args: ['--baseUrl', 'http://127.0.0.1:8000']
+		}))
+		.on('error', function(e) { throw e })
+} );
+
+
 
 
 gulp.task( 'watch', function()
