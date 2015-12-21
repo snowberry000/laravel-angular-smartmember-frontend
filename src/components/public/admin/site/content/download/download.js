@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("DownloadController", function ($scope,smModal,$stateParams,Upload,$rootScope, $localStorage , $timeout , $location, $state, $stateParams,  Restangular, toastr, $filter) {
+app.controller("DownloadController", function ($scope,smModal,$stateParams,Upload,$rootScope, $localStorage , $timeout , $location, $state,  Restangular, toastr, $filter) {
 	var draft;
     var changed;
     var seo = {};

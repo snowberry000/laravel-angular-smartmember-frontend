@@ -1,5 +1,5 @@
 
-app.controller('themeEngineController', function ($rootScope, $scope, $state , $localStorage, $location,$rootScope, $stateParams,  Restangular, toastr) {
+app.controller('themeEngineController', function ($rootScope, $scope, $state , $localStorage, $location, $stateParams,  Restangular, toastr) {
 
     $scope.original_data = [];
 

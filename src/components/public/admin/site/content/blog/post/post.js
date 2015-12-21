@@ -20,7 +20,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "PostController", function( $scope, $localStorage, $stateParams, $rootScope, $timeout, $location,smModal ,$state, $stateParams,  $filter, Restangular, toastr, Upload )
+app.controller( "PostController", function( $scope, $localStorage, $stateParams, $rootScope, $timeout, $location,smModal ,$state,  $filter, Restangular, toastr, Upload )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
