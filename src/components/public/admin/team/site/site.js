@@ -6,21 +6,11 @@ app.config( function( $stateProvider )
 		.state( "public.admin.team.site", {
 			url: "/site/:id?",
 			templateUrl: "/templates/components/public/admin/team/site/site.html",
-			controller: "SiteController",
-			resolve: {
-				$site: function( Restangular, $stateParams )
-				{
-					if( $stateParams.id )
-					{
-						return Restangular.one( 'site', $stateParams.id ).get();
-					}
-					return {};
-				}
-			}
+			controller: "SiteController"
 		} )
 } );
 
-app.controller( 'SiteController', function( $scope, toastr, $state, $localStorage, $location, Restangular, notify )
+app.controller( 'SiteController', function( $scope, toastr, $state, smModal,$localStorage, $location, Restangular, notify )
 {
 	$scope.save = function()
 	{
@@ -34,7 +24,7 @@ app.controller( 'SiteController', function( $scope, toastr, $state, $localStorag
 	}
 
 	$scope.clone_sites = Restangular.all( 'site' ).getList( { cloneable: 1 } );
-	$scope.site = Restangular.one( 'site', 'details' ).get();
+	$scope.site = $rootScope.site;
 
 	$scope.changeSite = function( id )
 	{
@@ -45,7 +35,7 @@ app.controller( 'SiteController', function( $scope, toastr, $state, $localStorag
 		$scope.site.put().then( function( response )
 		{
 			toastr.success( "Site Edited!" );
-			$state.go( "admin.team.sites" );
+			smModal.Show("admin.team.sites");
 		}, function( response )
 		{
 			$scope.saving = false;

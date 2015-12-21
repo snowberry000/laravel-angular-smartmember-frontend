@@ -1,6 +1,7 @@
-app.controller('DirectoryController', function ($scope, $rootScope, $localStorage, $location, $user ,Restangular, $state,  notify) {
+app.controller('DirectoryController', function ($scope,smModal, $rootScope, $localStorage, $location ,Restangular, $state,  notify) {
 
     $scope.adminSites=[];
+    $user=$rootScope.user;
     $scope.memberSites=[];
     $scope.loading=true;
     if (!$scope.$storage.user){
@@ -135,9 +136,9 @@ app.controller('DirectoryController', function ($scope, $rootScope, $localStorag
             //  || $sites.admin.length > 0
             if (($scope.is_customer) && $state.current.name != 'admin.account.memberships' )
             {
-                $state.go("admin.team.sites");
+                smModal.Show('admin.team.sites');
             } else if( $state.current.name != 'admin.team.sites' ) {
-                $state.go("admin.account.memberships")
+                smModal.Show('admin.account.memberships');
             }
             $rootScope.can_add_sites = $scope.can_add_sites;
 

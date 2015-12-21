@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "SitesController", function( $scope, $rootScope, $localStorage, toastr, $location, Restangular, $state, notify )
+app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, toastr, $location, Restangular, $state, notify )
 {
 	$user = $rootScope.user;
 
