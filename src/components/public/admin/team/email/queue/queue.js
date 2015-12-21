@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "EmailQueueController", function( $scope, $localStorage, $location, $state, Restangular, toastr )
+app.controller( "EmailQueueController", function( $scope,$rootScope, $localStorage, $location, $state, Restangular, toastr )
 {
 	$site = $rootScope.site;
 
