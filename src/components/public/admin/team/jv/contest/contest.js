@@ -5,41 +5,41 @@ app.config(function($stateProvider){
 		.state("public.admin.team.jv.contest",{
 			url: "/contest/:id?",
 			templateUrl: "/templates/components/public/admin/team/jv/contest/contest.html",
-			controller: "ContestController",
-			resolve: {
-				contest : function(Restangular, $stateParams, $site) {
-					if ( $stateParams.id ) {
-						return Restangular.one('affiliateContest', $stateParams.id).get();
-					}
-					return {company_id: $site.company_id};
-				}
-			}
+			controller: "ContestController"
 		})
 }); 
 
-app.controller("ContestController", function ($scope, $filter,Upload, $localStorage, Restangular, toastr, $state, contest) {
+app.controller("ContestController", function ($scope, $filter,Upload, $localStorage, $rootScope, Restangular, toastr, $state, $stateParams) {
+	$site = $rootScope.site;
+	if ( $stateParams.id ) {
+		$content = Restangular.one('affiliateContest', $stateParams.id).get().then(function(response){
+			$scope.contest = response;
 
-	$scope.contest = contest;
-
-	if(!$scope.contest.type)
-	    $scope.contest.type="sales";
-
-	console.log(contest);
-	$scope.dateOptions = {
-	    changeYear: true,
-	    formatYear: 'yy',
-	    startingDay: 1
+		})
 	}
-	$scope.contest.id ? $scope.page_title = 'Edit contest' : $scope.page_title = 'Create contest';
+	else
+		$scope.contest =  {company_id: $site.company_id};
+	
+	$scope.initialize = function(){
+		if(!$scope.contest.type)
+	    	$scope.contest.type="sales";
 
-	$scope.format = 'MM/dd/yy';
-	$scope.minDate = new Date();
-	$scope.contest.start_date=new Date(moment.utc(contest.start_date));
-	$scope.contest.end_date=new Date(moment.utc(contest.end_date));
-	$scope.status = {
-	    opened: [false, false]
-	};
+	    $scope.contest.id ? $scope.page_title = 'Edit contest' : $scope.page_title = 'Create contest';
+	    $scope.dateOptions = {
+	        changeYear: true,
+	        formatYear: 'yy',
+	        startingDay: 1
+	    }
 
+	    $scope.format = 'MM/dd/yy';
+	    $scope.minDate = new Date();
+	    $scope.contest.start_date=new Date(moment.utc($scope.contest.start_date));
+	    $scope.contest.end_date=new Date(moment.utc($scope.contest.end_date));
+	    $scope.status = {
+	        opened: [false, false]
+	    };
+	}
+	
 	
 	$scope.imageUpload = function(files){
 

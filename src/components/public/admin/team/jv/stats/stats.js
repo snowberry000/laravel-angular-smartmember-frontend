@@ -23,7 +23,7 @@ app.config( function( $stateProvider )
 app.controller( "AffiliateStatsController", function( $scope, $rootScope, $state, Restangular )
 {
 	$user = $rootScope.user;
-	$scope.summary = Restangular.all( 'affiliate' ).customGET( 'summary' );
+	$summary = Restangular.all( 'affiliate' ).customGET( 'summary' ).then(function(response){$scope.summary = response ; $summary = response; $scope.init()});
 	$scope.series = [ 'Affiliates' ];
 
 	$scope.hasAccess = function( role )

@@ -12,17 +12,21 @@ app.config(function($stateProvider){
 						return Restangular.one('affiliate', $stateParams.id).get();
 					}
 					return {company_id: $site.company_id};
-				},
-				$site: function($site) {
-					return $site;
 				}
-
 			}
 		})
 }); 
 
-app.controller("AffiliateController", function ($scope, $localStorage, Restangular, toastr, $state, affiliate,$site) {
-	$scope.affiliate = affiliate;
+app.controller("AffiliateController", function ($scope, $localStorage,$stateParams, $rootScope ,Restangular, toastr, $state) {
+	$site = $rootScope.site;
+	if ( $stateParams.id ) {
+		Restangular.one('affiliate', $stateParams.id).get().then(function(response){
+			$scope.affiliate = response;
+		})
+	}
+	else
+		$scope.affiliate = {company_id: $site.company_id};
+	
 	$scope.page_title = $scope.affiliate.id ? 'Edit Affiliate' : 'Create Affiliate';
 	$scope.save = function(){
 	    console.log($scope.affiliate);

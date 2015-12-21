@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("BannerController", function ($scope, $rootScope, $state, $http, Restangular, toastr,Upload) {
+app.controller("BannerController", function ($scope, $rootScope, $state, $http,$stateParams, Restangular, toastr,Upload) {
 	
 	$site=$rootScope.site;
 

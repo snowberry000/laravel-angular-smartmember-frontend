@@ -7,9 +7,7 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/admin/team/jv/team/team.html",
 			controller: "AffiliateTeamController",
 			resolve: {
-				affiliates: function(Restangular, $site) {
-					return Restangular.all('').customGET('affiliate?bypass_paging=true');
-				},
+			
 				affiliate_team: function(Restangular,$stateParams, $site) {
 					if ( $stateParams.id ) {
 						return Restangular.one('affiliateTeam',$stateParams.id ).get();
@@ -20,16 +18,24 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AffiliateTeamController", function ($scope, $localStorage, Restangular, toastr, $state, affiliates, affiliate_team) {
-	$scope.affiliate_team =  affiliate_team;
-	$scope.affiliates = affiliates.items;
+app.controller("AffiliateTeamController", function ($scope, $q , $localStorage, Restangular, toastr, $state , $rootScope, $stateParams) {
+	$site = $rootScope.site;
+	$affiliate_team = Restangular.all('').customGET('affiliate?bypass_paging=true').then(function(response){$scope.affiliate_team =  response;})
+	if ( $stateParams.id ) {
+		$affiliates =  Restangular.one('affiliateTeam',$stateParams.id ).get().then(function(response){$scope.affiliates = response.items;})
+	}
+	else
+		$scope.affiliates = {company_id: $site.company_id};
+	
+	$dependencies = [$affiliate_team];
+	if($stateParams.id)
+		$dependencies.push($affiliates);
+	
+	$q.all($dependencies).then(function(response){$scope.page_title = $scope.affiliate_team.id ? 'Edit Team' : 'Create Team';});
 
 	for (var i = 0; i < $scope.affiliates.length; i++) {
 	    $scope.affiliates[i]['affiliate_id'] = $scope.affiliates[i].id;
 	};
-
-	$scope.page_title = $scope.affiliate_team.id ? 'Edit Team' : 'Create Team';
-
 
 	$scope.save = function(){
 	    if ($scope.affiliate_team.id){

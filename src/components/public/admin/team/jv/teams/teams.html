@@ -14,7 +14,7 @@
 							<span>{{template_data.description}}</span>
 						</div>
 						<div class="col-md-3 text-right">
-							<a ui-sref="{{template_data.edit_route}}" class="btn btn-brand m-t-md btn-large ng-scope">
+							<a ng-click="smModal.Show(template_data.edit_route)" class="btn btn-brand m-t-md btn-large ng-scope">
 								<i class="fa fa-plus"></i>
 								Create new {{template_data.singular}}
 							</a>
