@@ -1,5 +1,5 @@
 <div class="ui modal">
-    <div class="content">
+    <div class="content row">
 
         <form method="get" class="ui form" ng-submit="save()">
 
@@ -56,7 +56,7 @@
                             <div class="field">
                                 <div class="col-sm-8">
                                     <button class="btn btn-brand" type="submit">Save changes</button>
-                                    <a ui-sref='public.admin.site.membership.passes' class="btn btn-default">Cancel</a>
+                                    <a ng-click="smModal.Show('public.admin.site.membership.passes')" class="btn btn-default">Cancel</a>
                                     
                                 </div>
                             </div>

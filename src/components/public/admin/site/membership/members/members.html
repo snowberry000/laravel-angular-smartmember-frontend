@@ -1,7 +1,5 @@
-
-
 <div class="ui modal">
-
+<div class="row">
     <div class="ibox-content m-b-sm border-bottom">
         <div class="p-xs">
             <div class="row">
@@ -13,7 +11,7 @@
                     <span>{{template_data.description}}</span>
                 </div>
                 <div class="col-md-3">
-                    <a ui-sref="public.admin.site.membership.import" class="btn btn-brand btn-large ng-scope">
+                    <a ng-click="smModal.Show('public.admin.site.membership.import')" class="btn btn-brand btn-large ng-scope">
                         <i class="fa fa-plus"></i>
                         Import Members
                     </a>
@@ -129,6 +127,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--
 <div class="ui modal">

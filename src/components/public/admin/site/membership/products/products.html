@@ -15,7 +15,7 @@
                             <span>{{template_data.description}}</span>
                         </div>
                         <div class="col-md-3 text-right">
-                            <a ng-href="{{$state.href( template_data.edit_route )}}" class="btn btn-brand btn-large m-t-md">
+                            <a ng-click="smModal.Show('public.admin.site.membership.product')" class="btn btn-brand btn-large m-t-md">
                                 <i class="fa fa-plus"></i>
                                 Create new {{template_data.singular}}
                             </a>

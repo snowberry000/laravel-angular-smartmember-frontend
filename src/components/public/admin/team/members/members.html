@@ -1,8 +1,4 @@
-
-
-
 <div class="ui modal">
-
     <div class="row">
         <div class="col-lg-12">
 
@@ -17,7 +13,7 @@
                             <span>{{template_data.description}}</span>
                         </div>
                         <div class="col-md-3 text-right">
-                            <a ui-sref="public.admin.team.invite" class="btn btn-brand m-t-md btn-large">
+                            <a ng-click="smModal.Show('public.admin.team.invite')" class="btn btn-brand m-t-md btn-large">
                                 <i class="fa fa-plus"></i>
                                 Invite team  members
                             </a>

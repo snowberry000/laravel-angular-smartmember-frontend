@@ -9,8 +9,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("TeamInviteController", function ($scope,toastr, $state, $localStorage, $rootScope, $location, Restangular, notify , $user) {
+app.controller("TeamInviteController", function ($scope,smModal,toastr, $state, $localStorage, $rootScope, $location, Restangular, notify ) {
 	$scope.team_members = {};
+	$user=$rootScope.user;
 	$scope.save = function() {
 	    Restangular.one("teamRole").customPOST($scope.team_members, 'import').then(function(response) {
             // notify({
@@ -19,7 +20,7 @@ app.controller("TeamInviteController", function ($scope,toastr, $state, $localSt
             //         templateUrl : 'templates/modals/notifyTemplate.html'
             //     });
             toastr.success("Import was successful!");
-	        $state.go('public.admin.team.members');
+	        smModal.Show('public.admin.team.members');
 	    });
 	}
 	$scope.$watch('current_company' , function(current_company){

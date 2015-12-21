@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "TeamMembersController", function( $scope, $rootScope, $state, $localStorage, $location, Restangular, notify )
+app.controller( "TeamMembersController", function( $scope, $rootScope, $state, $localStorage, $location, Restangular )
 {
 	$scope.sortOrder = 'created_at:DESC';
 	$scope.loading = true;

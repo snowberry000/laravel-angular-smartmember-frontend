@@ -5,75 +5,105 @@ app.config(function($stateProvider){
 		.state("public.admin.site.membership.product",{
 			url: "/product/:id?",
 			templateUrl: "/templates/components/public/admin/site/membership/product/product.html",
-			controller: "ProductController",
-			resolve: {
-				$access_level: function( Restangular, $stateParams, $site )
-				{
-					if( $stateParams.id )
-					{
-						return Restangular.one( 'accessLevel', $stateParams.id ).get();
-					}
-					return { site_id: $site.id };
-				}
-				,
-				$facebook_groups: function( Restangular, $site )
-				{
-					return Restangular.one( 'facebook' ).customGET( 'groups' );
-				},
-				$currency: function( Restangular )
-				{
-					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'currency' ] );
-				}
-			}
+			controller: "ProductController"
 		})
 }); 
 
-app.controller("ProductController", function ($scope, $localStorage, $rootScope, $facebook_groups, $currency , Restangular,$access_level,toastr,$state) {
+app.controller("ProductController", function ($scope, $q, $stateParams,smModal, $localStorage, $rootScope,  Restangular,toastr,$state) {
 	
-    $scope.site = $rootScope.site;
-    if(!$access_level.id){
-    	$access_level.site_id = $scope.site.id;
-    }
-    $scope.default_currency = $currency.length > 0 ? $currency[0].value : 'USD';
-	$scope.access_level = $access_level;
+	$site=$rootScope.site;
+	var paypal =null;
+	var stripe=null;
+	$access_level=null;
+	$facebook_groups=null;
+	$currency=null;
 
-    $scope.payment_integrations = {stripe:[],paypal:[]};
 
-    angular.forEach( $scope.site.integration, function(value,key){
-        if( value.type == 'stripe' )
-            $scope.payment_integrations.stripe.push( value );
-        if( value.type == 'paypal' )
-            $scope.payment_integrations.paypal.push( value );
-    });
+	$scope.resolve = function(){
+		$accessLevelRequest=null;
+		$facebookGroupsRequest=null;
+		$currencyRequest=null;
+		if( $stateParams.id )
+		{
+			$accessLevelRequest = Restangular.one( 'accessLevel', $stateParams.id ).get().then(function(response){
+				$access_level=response;
+			});
+		}
+		else
+		{
+			$access_level = { site_id: $site.id };
+		}
 
-    if( $scope.access_level.expiration_period )
-        $scope.access_level.expiration_period = parseInt( $scope.access_level.expiration_period );
+		$facebookGroupsRequest = Restangular.one( 'facebook' ).customGET( 'groups' ).then(function(response){
+			$facebook_groups=response;
+		});
 
-    if( typeof $scope.access_level.currency == 'undefined' || $scope.access_level.currency == '' )
-        $scope.access_level.currency = $scope.default_currency;
+		$currencyRequest = Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'currency' ] ).then(function(response){
+			$currency=response;
+		});
 
-	$scope.facebook_groups = $facebook_groups;
-	if (_.findWhere($scope.site.integration,{type: 'facebook'})){
-		$scope.facebook_integrated = true;
+		if($accessLevelRequest)
+			$q.all([$accessLevelRequest,$facebookGroupsRequest,$currencyRequest]).then(function(response){
+				$scope.init();
+			});
+		else
+		{
+			$q.all([$facebookGroupsRequest,$currencyRequest]).then(function(response){
+				$scope.init();
+			});
+		}
+
+		
 	}
-	if($scope.access_level.facebook_group_id)
-		$scope.access_level.facebook_group_id = $scope.access_level.facebook_group_id.toString();
-	console.log($scope.access_level.facebook_group_id) 
-    var paypal = _.findWhere($scope.site.integration,{type: 'paypal'})
-    var stripe = _.findWhere($scope.site.integration,{type: 'stripe'})
 
-    if( stripe === undefined )
-        $scope.stripe_checkout = false;
-    else
-        $scope.stripe_checkout = true;
+	$scope.init = function() {
+	    $scope.site = $rootScope.site;
+	    if(!$access_level.id){
+	    	$access_level.site_id = $scope.site.id;
+	    }
+	    $scope.default_currency = $currency.length > 0 ? $currency[0].value : 'USD';
+		$scope.access_level = $access_level;
 
-    if( paypal === undefined || paypal.remote_id == '' )
-        $scope.paypal_checkout = false;
-    else
-        $scope.paypal_checkout = true;
+	    $scope.payment_integrations = {stripe:[],paypal:[]};
 
-	console.log("access levels: "+$scope.access_level);
-	$scope.access_level.isOpen = false;
+	    angular.forEach( $scope.site.integration, function(value,key){
+	        if( value.type == 'stripe' )
+	            $scope.payment_integrations.stripe.push( value );
+	        if( value.type == 'paypal' )
+	            $scope.payment_integrations.paypal.push( value );
+	    });
+
+	    if( $scope.access_level.expiration_period )
+	        $scope.access_level.expiration_period = parseInt( $scope.access_level.expiration_period );
+
+	    if( typeof $scope.access_level.currency == 'undefined' || $scope.access_level.currency == '' )
+	        $scope.access_level.currency = $scope.default_currency;
+
+		$scope.facebook_groups = $facebook_groups;
+		if (_.findWhere($scope.site.integration,{type: 'facebook'})){
+			$scope.facebook_integrated = true;
+		}
+		if($scope.access_level.facebook_group_id)
+			$scope.access_level.facebook_group_id = $scope.access_level.facebook_group_id.toString();
+		console.log($scope.access_level.facebook_group_id) 
+	    paypal = _.findWhere($scope.site.integration,{type: 'paypal'})
+	    stripe = _.findWhere($scope.site.integration,{type: 'stripe'})
+
+	    if( stripe === undefined )
+	        $scope.stripe_checkout = false;
+	    else
+	        $scope.stripe_checkout = true;
+
+	    if( paypal === undefined || paypal.remote_id == '' )
+	        $scope.paypal_checkout = false;
+	    else
+	        $scope.paypal_checkout = true;
+
+		console.log("access levels: "+$scope.access_level);
+		$scope.access_level.isOpen = false;
+	}
+
+    
 
 	$scope.save = function(){
 		delete $scope.access_level.isOpen;
@@ -98,21 +128,21 @@ app.controller("ProductController", function ($scope, $localStorage, $rootScope,
 
 	$scope.update = function(){
 		$scope.access_level.put().then(function(response){
-			for (var i = 0; i < $scope.access_levels.length; i++) {
-				if($scope.access_levels[i].id == response.id){
-					$scope.access_levels[i] = response;
-				}
-			};
+			// for (var i = 0; i < $scope.access_levels.length; i++) {
+			// 	if($scope.access_levels[i].id == response.id){
+			// 		$scope.access_levels[i] = response;
+			// 	}
+			// };
             toastr.success("Product level updated!");
-			$state.go("public.admin.site.membership.products");
+			smModal.Show("public.admin.site.membership.products");
 		})
 	}
 
 	$scope.create = function(){
 		Restangular.service("accessLevel").post($scope.access_level).then(function(response){
-			$scope.access_levels.push(response);
+			//$scope.access_levels.push(response);
             toastr.success("Product level created!");
-			$state.go("public.admin.site.membership.products");
+            smModal.Show("public.admin.site.membership.products");
 		});
 	}
 
@@ -190,4 +220,6 @@ app.controller("ProductController", function ($scope, $localStorage, $rootScope,
 	    })
 	  }
 	}
+
+	$scope.resolve();
 });

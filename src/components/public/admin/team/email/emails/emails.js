@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailsController", function ($scope,$rootScope, $localStorage,$state,  Restangular, toastr ) {
+app.controller("EmailsController", function ($scope,smModal,$rootScope, $localStorage,$state,  Restangular, toastr ) {
 
 	var access =null;
 	$site=$rootScope.site;
@@ -25,7 +25,7 @@ app.controller("EmailsController", function ($scope,$rootScope, $localStorage,$s
 			if($state.current.name.split('.')[1]=='smartmail'){
 			    console.log(access)
 			    if(!access ){
-			       $state.go('public.admin.account.memberships');
+			    	smModal.Show('public.admin.account.memberships');
 			    }
 			}
 		});

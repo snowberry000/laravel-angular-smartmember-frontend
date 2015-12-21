@@ -15,7 +15,7 @@
 							<span>Create and send email to your members &amp; subscribers.</span>
 						</div>
 						<div class="col-md-3 text-right">
-							<a ui-sref="public.admin.team.email.create" class="btn btn-brand m-t-md btn-large">
+							<a ng-click="smModal.Show('public.admin.team.email.create')" class="btn btn-brand m-t-md btn-large">
 								<i class="fa fa-plus"></i>
 								Create new email
 							</a>
@@ -52,7 +52,7 @@
 								</td>
 								<td class="text-right" style="width: 160px;">
 									<div class="btn-group">
-										<a ui-sref="public.admin.team.email.create({id: next_item.id})" class="btn btn-brand btn-outline btn-xs">
+										<a ui-sref="smModal.Show('public.admin.team.email.create',{id: next_item.id})" class="btn btn-brand btn-outline btn-xs">
 											Edit / Send
 											<i class="fa fa-pencil"></i>
 										</a>

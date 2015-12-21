@@ -1,6 +1,6 @@
-<h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i>{{page_title}}</h1>
 <div class="ui modal">
-    <div class="content">
+<!-- <h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i>{{page_title}}</h1> -->
+    <div class="content row">
 
         <form method="get" name="access_level_form" class="ui form save_form" ng-submit="save()">
 
@@ -291,14 +291,13 @@
                 <div class="field">
                     <div class="col-sm-8 col-sm-offset-2">
                         <button class="btn btn-brand" type="submit">Save changes</button>
-                        <a ng-if="!template_data.use_cancel_method" ui-sref='public.admin.site.membership.products'>Cancel</a>
-                        <a ng-if="template_data.use_cancel_method" ng-click="cancel()" class="btn btn-white">Cancel</a>
+                        <a ng-click="smModal.Show('public.admin.site.membership.products')">Cancel</a>
+                        <!-- <a ng-if="template_data.use_cancel_method" ng-click="cancel()" class="btn btn-white">Cancel</a> -->
                     </div>
                 </div>
         
             </div>
 
         </form>
-
     </div>
 </div>
