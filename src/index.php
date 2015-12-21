@@ -91,8 +91,6 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 
 			$html = $client->get( $redisKeys[ 'html' ] );
 
-			$html = '';
-
 			if( empty( $html ) )
 			{
 				$redisKeys[ 'data' ] = $domain . ':' . $permalink . ':data';
@@ -114,7 +112,7 @@ if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <
 				}
 			}
 
-			if( $bpage_data == 'notbp' )
+			if( !empty( $bpage_data ) && $bpage_data == 'notbp' )
 				$bpage_data = '';
 
 			if( !empty( $html ) || !empty( $bpage_data ) )
