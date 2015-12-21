@@ -9,8 +9,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ArticlesController", function ($scope,$rootScope, $localStorage, $state, $stateParams, $site, $filter, Restangular, toastr) {
+app.controller("ArticlesController", function ($scope,$rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr) {
 	$site=$rootScope.site;
+    
     $scope.template_data = {
         title: 'HELPDESK_ARTICLES',
         description: 'Create a knowledgebase for your members to help answer their most frequently asked questions.',

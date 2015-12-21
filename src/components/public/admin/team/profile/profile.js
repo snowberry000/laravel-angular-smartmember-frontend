@@ -5,19 +5,21 @@ app.config(function($stateProvider){
 		.state("public.admin.team.profile",{
 			url: "/profile",
 			templateUrl: "/templates/components/public/admin/team/profile/profile.html",
-			controller: "TeamProfileController",
-			resolve : {
-                $company : function(Restangular , $stateParams){
-                    return Restangular.one('company/getUsersCompanies').get();
-                }
-            }
+			controller: "TeamProfileController"
 		})
 }); 
 
-app.controller("TeamProfileController", function ($scope, $localStorage,$state, $rootScope , Restangular, toastr, $company , $user, $filter) {
-	$scope.company = {};
-  if($company && $company.companies)
-    $scope.company = _.find($company.companies, {selected : 1});
+app.controller("TeamProfileController", function ($scope, $localStorage,$state, $rootScope , Restangular, toastr, $filter) {
+  $company =null;
+  $user=$rootScope.user;
+  Restangular.one('company/getUsersCompanies').get().then(function(response){
+    $company=response;
+    $scope.company = {};
+    if($company && $company.companies)
+      $scope.company = _.find($company.companies, {selected : 1});
+    $scope.company.display_name = $scope.company.display_name ? $scope.company.display_name : $scope.company.name;
+  });
+  
 
     $scope.onBlurTitle = function ($event) {
         if (! $scope.company.permalink)
@@ -28,7 +30,7 @@ app.controller("TeamProfileController", function ($scope, $localStorage,$state, 
             $scope.company.permalink = $filter('urlify')($scope.company.permalink);
     }
 
-  $scope.company.display_name = $scope.company.display_name ? $scope.company.display_name : $scope.company.name;
+  
 
   // $scope.imageUpload = function(files , type){
   //   for (var i = 0; i < files.length; i++) {

@@ -1,4 +1,3 @@
-
 <div class="ui modal">
 
 	<div class="row">
@@ -15,7 +14,7 @@
 							<span>{{template_data.description}}</span>
 						</div>
 						<div class="col-md-3 text-right">
-							<a ui-sref="{{template_data.edit_route}}" class="btn btn-brand btn-large m-t-md">
+							<a ng-click="smModal.Show(template_data.edit_route);"class="btn btn-brand btn-large m-t-md">
 								<i class="fa fa-plus"></i>
 								Create new {{template_data.singular}}
 							</a>
@@ -52,7 +51,7 @@
 								</td>
 								<td class="text-right" style="width: 135px;">
 									<div class="btn-group">
-										<a href="/admin/site/content/helpdesk/category/{{next_item.id}}" class="btn btn-brand btn-outline btn-xs">
+										<a ng-click="smModal.Show('public.admin.site.content.helpdesk.category',{id: next_item.id});" class="btn btn-brand btn-outline btn-xs">
 											Edit
 											<i class="fa fa-pencil"></i>
 										</a>

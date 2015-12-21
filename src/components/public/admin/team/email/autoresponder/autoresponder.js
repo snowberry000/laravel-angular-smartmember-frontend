@@ -5,19 +5,11 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.autoresponder",{
 			url: "/autoresponder/:id",
 			templateUrl: "/templates/components/public/admin/team/email/autoresponder/autoresponder.html",
-			controller: "AutoresponderController",
-			resolve: {
-				autoResponder: function(Restangular, $stateParams, $site){
-					if ($stateParams.id){
-						return Restangular.one('emailAutoResponder', $stateParams.id).get();
-					}
-					return {company_id: $site.company_id};
-				},
-			}
+			controller: "AutoresponderController"
 		})
 }); 
 
-app.controller("AutoresponderController", function ($filter,$scope,$rootScope, $q ,$localStorage, Restangular,toastr,notify, $state, $stateParams) {
+app.controller("AutoresponderController", function ($filter,smModal,$scope,$rootScope, $q ,$localStorage, Restangular,toastr,notify, $state, $stateParams) {
 	
 	$site = $rootScope.site;
 	$emails = Restangular.all('email').getList().then(function(response){$scope.emails = response});
@@ -122,6 +114,7 @@ app.controller("AutoresponderController", function ($filter,$scope,$rootScope, $
 	$scope.update = function(){
 	    $scope.autoResponder.put().then(function(response){
 	        toastr.success("Changes Saved!");
+	        smModal.Show("public.admin.team.email.autoresponders");
 	        //$state.go("public.admin.team.email.autoresponders");
 	    })
 	}
@@ -134,6 +127,7 @@ app.controller("AutoresponderController", function ($filter,$scope,$rootScope, $
 	        //         templateUrl : 'templates/modals/notifyTemplate.html'
 	        //     });
 	        toastr.success("Auto Responder created!");
+	        smModal.Show("public.admin.team.email.autoresponders");
 	       // $state.go("public.admin.team.email.autoresponders");
 	    });
 	}

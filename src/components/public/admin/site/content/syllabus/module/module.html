@@ -1,60 +1,62 @@
-<div class="row wrapper border-bottom white-bg page-heading" style="padding-top:30px;" ng-init="init()">
-    <div class="ibox-content m-b-sm border-bottom">
-        <div class="p-xs">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-3">
-                        <div class="pull-left m-r-md">
-                            <i class="fa fa-globe text-branded mid-icon"></i>
+<div class="ui modal">
+    <div class="row wrapper border-bottom white-bg page-heading" style="padding-top:30px;" >
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="p-xs">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <div class="pull-left m-r-md">
+                                <i class="fa fa-globe text-branded mid-icon"></i>
+                            </div>
+                            <h2 class="ui header">Module Creation</h2>
                         </div>
-                        <h2 class="ui header">Module Creation</h2>
-                    </div>
-                    <div class="col-md-8">
-                        <p class="font-bold text-success">It's what you and customers will see to distinguish one section of lessons from another.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content" >
-                    <div class="field row">
-                        <label class="col-md-2">Module name</label>
                         <div class="col-md-8">
-                            <input type="text" name="title" class="form-control" ng-model="module.title">
+                            <p class="font-bold text-success">It's what you and customers will see to distinguish one section of lessons from another.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="field" style="display: none;">
-            <label class="col-sm-2 control-label">Drip Feed Start After</label>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content" >
+                        <div class="field row">
+                            <label class="col-md-2">Module name</label>
+                            <div class="col-md-8">
+                                <input type="text" name="title" class="form-control" ng-model="module.title">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field" style="display: none;">
+                <label class="col-sm-2 control-label">Drip Feed Start After</label>
 
-            <div class="col-sm-10">
-                <select ng-model="module.dripfeed_settings.duration"
-                        class="form-control pull-left" style="width:75px;">
-                    <option ng-repeat="n in range(1,30)" ng-selected="n==module.dripfeed_settings.duration" value="{{n}}">{{n}}</option>
-                </select>
+                <div class="col-sm-10">
+                    <select ng-model="module.dripfeed_settings.duration"
+                            class="form-control pull-left" style="width:75px;">
+                        <option ng-repeat="n in range(1,30)" ng-selected="n==module.dripfeed_settings.duration" value="{{n}}">{{n}}</option>
+                    </select>
 
-                <select ng-model="module.dripfeed_settings.interval"
-                        class="form-control pull-left" style="margin-left:5px;width: 120px;">
-                    <option value="hours" selected>Hours</option>
-                    <option value="days">Days</option>
-                    <option value="months">Months</option>
-                </select>
+                    <select ng-model="module.dripfeed_settings.interval"
+                            class="form-control pull-left" style="margin-left:5px;width: 120px;">
+                        <option value="hours" selected>Hours</option>
+                        <option value="days">Days</option>
+                        <option value="months">Months</option>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-sm-4 col-sm-offset-2">
-                            <button class="btn btn-brand" type="button" ng-click="save()">Save changes</button> <!-- ngIf: !template_data.use_cancel_method -->
-                            <a ui-sref="public.admin.site.content.syllabus.modules" class="btn btn-white ng-scope">Cancel</a>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-brand" type="button" ng-click="save()">Save changes</button> <!-- ngIf: !template_data.use_cancel_method -->
+                                <a ng-click="smModal.Show('public.admin.site.content.syllabus.modules')" class="btn btn-white ng-scope">Cancel</a>
+                            </div>
                         </div>
                     </div>
                 </div>

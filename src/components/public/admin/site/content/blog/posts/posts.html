@@ -40,7 +40,7 @@
 							</td>
 							<td class="text-right" style="width: 235px;">
 								<div class="btn-group">
-									<a ui-sref="{{template_data.edit_route}}({id: next_item.id })" class="btn btn-brand btn-outline btn-xs">
+									<a ng-click="smModal.Show(template_data.edit_route,{id: next_item.id })" class="btn btn-brand btn-outline btn-xs">
 										Edit
 										<i class="fa fa-pencil"></i>
 									</a>

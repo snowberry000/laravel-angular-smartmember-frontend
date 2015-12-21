@@ -1,53 +1,52 @@
+<div class="ui modal">
+	<div class="row">
+		<div class="col-lg-12">
 
-	<div class="ui modal">
-		<div class="row">
-			<div class="col-lg-12">
-
-				<div class="ibox-content page-heading clear_box">
-					<div class="p-xs">
-						<div class="row">
-							<div class="col-md-9">
-								<div class="pull-left m-r-md">
-									<i class="fa fa-gear text-branded mid-icon"></i>
-								</div>
-								<h2 class="ui header">{{ 'TEAM_SETTINGS' | translate }} for <em>{{current_company.name}}</em></h2>
-								<span>Change your team name and more on this page.</span>
+			<div class="ibox-content page-heading clear_box">
+				<div class="p-xs">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="pull-left m-r-md">
+								<i class="fa fa-gear text-branded mid-icon"></i>
 							</div>
-							<div class="col-md-3 text-right">
-								<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-									<i class="fa fa-question"></i>
-								</button>
-							</div>
+							<h2 class="ui header">{{ 'TEAM_SETTINGS' | translate }} for <em>{{current_company.name}}</em></h2>
+							<span>Change your team name and more on this page.</span>
+						</div>
+						<div class="col-md-3 text-right">
+							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+								<i class="fa fa-question"></i>
+							</button>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="ibox float-e-margins">
-					<div class="ibox-title">
-					</div>
-					<div class="ibox-content">
-						<form class="ui form" ng-submit="save()">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+				</div>
+				<div class="ibox-content">
+					<form class="ui form" ng-submit="save()">
 
-							<div class="field">
-								<label class="col-sm-2 control-label">Name</label>
+						<div class="field">
+							<label class="col-sm-2 control-label">Name</label>
 
-								<div class="col-sm-10">
-									<input type="text" class="form-control" name="name" ng-model="company.name" placeholder="My Awesome Team" required>
-								<span class="help-block m-b-none">
-									{{ 'FORM_COMPANY_NAME_HELPBLOCK' | translate }}
-								</span>
-								</div>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name" ng-model="company.name" placeholder="My Awesome Team" required>
+							<span class="help-block m-b-none">
+								{{ 'FORM_COMPANY_NAME_HELPBLOCK' | translate }}
+							</span>
 							</div>
-							<div class="hr-line-dashed"></div>
+						</div>
+						<div class="hr-line-dashed"></div>
 
-							<div class="field">
-								<div class="col-sm-4 col-sm-offset-2">
-									<button class="btn btn-brand" type="submit">{{ 'SAVE_CHANGES' | translate }}</button>
-								</div>
+						<div class="field">
+							<div class="col-sm-4 col-sm-offset-2">
+								<button class="btn btn-brand" type="submit">{{ 'SAVE_CHANGES' | translate }}</button>
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>

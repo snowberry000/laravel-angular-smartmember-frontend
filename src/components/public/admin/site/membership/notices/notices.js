@@ -26,7 +26,6 @@ app.controller( "NoticesController", function( $scope, $state, $rootScope, $loca
 
 	$scope.paginate = function()
 	{
-
 		if( typeof $scope.data[ $scope.pagination.current_page ] != 'object' )
 		{
 

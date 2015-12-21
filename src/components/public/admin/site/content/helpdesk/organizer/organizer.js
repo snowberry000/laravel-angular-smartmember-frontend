@@ -5,23 +5,18 @@ app.config(function($stateProvider){
 		.state("public.admin.site.content.helpdesk.organizer",{
 			url: "/organizer",
 			templateUrl: "/templates/components/public/admin/site/content/helpdesk/organizer/organizer.html",
-			controller: "OrganizerController",
-            resolve: {
-                $site: function( Restangular )
-                {
-                    return Restangular.one( 'site', 'details' ).get();
-                }
-            }
+			controller: "OrganizerController"
 		})
 }); 
 
-app.controller("OrganizerController", function ($scope,$rootScope,$site, $localStorage, $state, $stateParams,$filter, Restangular, toastr) {
+app.controller("OrganizerController", function ($scope,$rootScope,$localStorage, $state, $stateParams,$filter, Restangular, toastr) {
 	var category = Restangular.all("supportCategory");
     var article = Restangular.all("supportArticle");
     var pageMetaData = Restangular.all("siteMetaData");
     $site=$rootScope.site;
     $scope.unassigned_articles = [];
     $scope.categories = [];
+    $scope.options={};
 
     $scope.init = function(){
         var details = $site;
@@ -228,6 +223,8 @@ app.controller("OrganizerController", function ($scope,$rootScope,$site, $localS
         orderChanged: function($event) {console.log("orderchange"+$event);},//Do what you want},
         containment: '#board'//optional param.
     };
+
+    $scope.init();
 
 
 });

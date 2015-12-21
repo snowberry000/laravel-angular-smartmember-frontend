@@ -20,7 +20,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "PostController", function( $scope, $localStorage, $stateParams, $rootScope, $timeout, $location, $state, $stateParams,  $filter, Restangular, toastr, Upload )
+app.controller( "PostController", function( $scope, $localStorage, $stateParams, $rootScope, $timeout, $location,smModal ,$state, $stateParams,  $filter, Restangular, toastr, Upload )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
@@ -171,7 +171,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		{
 
 			$scope.next_item.put();
-			$state.go( "public.admin.site.content.blog.posts" );
+			smModal.Show("public.admin.site.content.blog.posts");
 			toastr.success( "Your post has been updated!" );
 		}
 		else
@@ -185,7 +185,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 }
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
-				$state.go( "public.admin.site.content.blog.posts" );
+                smModal.Show("public.admin.site.content.blog.posts");
 			} );
 		}
 	}
@@ -205,7 +205,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		{
 
 			$scope.next_item.put();
-			$state.go( "public.admin.site.content.blog.posts" );
+			smModal.Show("public.admin.site.content.blog.posts");
 			toastr.success( "Your post has been updated!" );
 
 		}
@@ -221,7 +221,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 }
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
-				$state.go( "public.admin.site.content.blog.posts" );
+				smModal.Show("public.admin.site.content.blog.posts" );
 			} );
 		}
 	}

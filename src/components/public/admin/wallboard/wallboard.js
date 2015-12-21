@@ -7,16 +7,11 @@ app.config( function( $stateProvider )
 			url: "/wallboard",
 			templateUrl: "/templates/components/public/admin/wallboard/wallboard.html",
 			controller: "WallboardController",
-			resolve: {
-				$site: function( Restangular )
-				{
-					return Restangular.one( 'site', 'details' ).get();
-				}
-			}
+
 		} )
 } );
 
-app.controller( "WallboardController", function( $scope, Restangular )
+app.controller( "WallboardController", function($rootScope, $scope, Restangular )
 {
 	$site = $rootScope.site;
 

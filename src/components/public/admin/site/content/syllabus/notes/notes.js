@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('NotesController', function ($scope, $site, $rootScope, $localStorage, Restangular , $modal) {
+app.controller('NotesController', function ($scope, $rootScope, $localStorage, Restangular ) {
     $site=$rootScope.site;
     $scope.template_data = {
         title: 'LESSON_NOTES',

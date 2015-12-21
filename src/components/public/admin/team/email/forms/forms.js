@@ -5,20 +5,7 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.forms",{
 			url: "/forms",
 			templateUrl: "/templates/components/public/admin/team/email/forms/forms.html",
-			controller: "EmailFormsController",
-			resolve: {
-				$sites : function(Restangular){
-					return Restangular.one('supportTicket').customGET('sites');
-				},
-				loadPlugin: function ($ocLazyLoad) {
-					return $ocLazyLoad.load([
-						{
-							name: 'ui.codemirror'
-						}
-					]);
-				}
-
-			}
+			controller: "EmailFormsController"
 		})
 }); 
 

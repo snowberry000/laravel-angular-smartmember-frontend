@@ -5,20 +5,11 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.subscriber",{
 			url: "/subscriber/:id?",
 			templateUrl: "/templates/components/public/admin/team/email/subscriber/subscriber.html",
-			controller: "EmailSubscriberController",
-			resolve: {
-				emailSubscriber: function(Restangular, $stateParams, $site){
-					
-				},
-				emailLists: function(Restangular , $site){
-					return 
-				},
-
-			}
+			controller: "EmailSubscriberController"
 		})
 }); 
 
-app.controller("EmailSubscriberController", function ($scope,$q, $localStorage,$rootScope, $stateParams ,Restangular, toastr, $state) {
+app.controller("EmailSubscriberController", function ($scope,$q, smModal,$localStorage,$rootScope, $stateParams ,Restangular, toastr, $state) {
 	
 	$site = $rootScope.site;
 	if ($stateParams.id){
@@ -113,7 +104,7 @@ app.controller("EmailSubscriberController", function ($scope,$q, $localStorage,$
 	        toastr.success("Changes Saved!");
 	        $scope.sendIter++;
 	        if($scope.redirect)
-	            $state.go("public.admin.team.email.subscribers");
+	        	smModal.Show("public.admin.team.email.subscribers");
 	    })
 	}
 
@@ -128,7 +119,7 @@ app.controller("EmailSubscriberController", function ($scope,$q, $localStorage,$
 	        {
 	            console.log("i am printing subscribers count "+$scope.sendIter);
 	            toastr.success($scope.totalAdded+" Subscribers Added!");
-	            $state.go("public.admin.team.email.subscribers");
+	            smModal.Show("public.admin.team.email.subscribers");
 	        }
 	    });
 	}

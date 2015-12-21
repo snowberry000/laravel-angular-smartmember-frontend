@@ -1,6 +1,6 @@
-
+<div class="ui modal">
 <section>
-<a ui-sref="public.admin.site.content.download" class="btn btn_outline float_right">
+<a ng-click="smModal.Show('public.admin.site.content.download')" class="btn btn_outline float_right">
     <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
     Create New Download
 </a>
@@ -10,9 +10,7 @@
 </p>
 
 <div id="wrapper" ng-init="initDownloads()">
-    <div class="ui modal">
-
-
+    <div>
         <div class="content">
             <div class="row">
                 <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;" infinite-scroll="loadMore()" infinite-scroll-distance='1' infinite-scroll-disabled="disable">
@@ -35,7 +33,7 @@
                                             <li style="margin-top:5px;border:none;padding-left:2px;padding-right:2px;" class="list-group-item download_item" data-as-sortable-item data-component="{{download}}" data-id="{{download.id}}" ng-repeat="download in downloads">
                                                 <div class="row" data-as-sortable-item-handle>
                                                     <div class="col-md-2">
-                                                        <a ng-href="admin/site/content/download/{{download.id}}">
+                                                        <a ng-click="smModal.Show('public.admin.site.content.download',{'id': download.id})" href="#">
                                                             <span class="text-success font-bold">{{download.title}}</span>
                                                         </a>
                                                     </div>
@@ -71,3 +69,4 @@
     </div>
 </div>
 </section>
+</div>

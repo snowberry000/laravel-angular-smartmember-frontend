@@ -1,6 +1,5 @@
 <div class="ui modal">
-
-	<div class="content" ng-init="init()">
+	<div class="content" >
 		<div class="row">
 			<div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
 				<div class="hpanel">
@@ -107,7 +106,7 @@
 							<div class="field">
 								<div class="col-sm-8 col-sm-offset-2">
 									<button class="btn btn-brand" ng-click="save()">Save changes</button>
-									<a href="/admin/site/content/helpdesk/articles" class="btn btn-default" onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
+									<a ng-click="smModal.Show('public.admin.site.content.helpdesk.articles');" class="btn btn-default" onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
 									
 								</div>
 							</div>

@@ -64,11 +64,11 @@
 								</td>
 								<td class="text-right" style="width: 185px;">
 									<div class="btn-group">
-										<a ui-sref="public.admin.team.email.list({id: next_item.id})" class="btn btn-brand btn-outline btn-xs">
+										<a ng-click="smModal.Show('public.admin.team.email.list',{id: next_item.id})" class="btn btn-brand btn-outline btn-xs">
 											<i class="fa fa-pencil"></i>
 											Edit
 										</a>
-										<a ng-if="next_item.list_type!='segment'" ui-sref="public.admin.team.email.import({id: next_item.id})" class="btn btn-primary btn-outline btn-xs">
+										<a ng-if="next_item.list_type!='segment'" ng-click="smModal.Show('public.admin.team.email.import',{id: next_item.id})" class="btn btn-primary btn-outline btn-xs">
 											<i class="fa fa-group"></i>
 											Import
 										</a>

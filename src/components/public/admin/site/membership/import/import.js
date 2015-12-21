@@ -9,14 +9,14 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("MembersImportController", function ($scope , Restangular, $state , toastr) {
+app.controller("MembersImportController", function ($scope , Restangular, $state , smModal, toastr) {
 	$scope.page_title = "Import Members";
 	$scope.members = {};
 
 	$scope.save = function() {
 	    Restangular.one("role").customPOST($scope.members, 'import').then(function(response) {
 	        toastr.success("Import was successful");
-	        $state.go('public.admin.site.membership.members');
+	        smModal.Show('public.admin.site.membership.members');
 	    });
 	}
 });

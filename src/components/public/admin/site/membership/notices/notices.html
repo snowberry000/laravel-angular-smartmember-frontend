@@ -10,9 +10,6 @@
             </li>
         </ol>
     </div>
-</div>
-
-<div class="ui modal">
 
     <div class="ibox-content m-b-sm border-bottom">
         <div class="p-xs">
@@ -25,7 +22,8 @@
                     <span>{{template_data.description}}</span>
                 </div>
                 <div class="col-md-4">
-                    <a ng-href="{{$state.href( template_data.edit_route )}}" class="btn btn-brand btn-large ng-scope">
+                    {{template_data.edit_route}}
+                    <a ng-click="smModal.Show('public.admin.site.membership.notice')" class="btn btn-brand btn-large ng-scope">
                         <i class="fa fa-plus"></i>
                         Create new {{template_data.singular}}
                     </a>
@@ -68,7 +66,7 @@
                                 {{moment.utc(next_item.created_at).fromNow()}}
                             </td>
                             <td class="text-right">
-                                <a href="{{$state.href( template_data.edit_route, {id: next_item.id } )}}" class="btn btn-brand btn-outline btn-sm">
+                                <a ng-click="smModal.Show(template_data.edit_route,{id: next_item.id })" class="btn btn-brand btn-outline btn-sm">
                                     Edit
                                     <i class="fa fa-pencil"></i>
                                 </a>

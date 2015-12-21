@@ -13,7 +13,7 @@
 							<span>Feel free to edit, view, and administrate them.</span>
 						</div>
 						<div class="col-md-3 text-right">
-							<a class="btn btn-brand btn-large m-t-md" ng-if="(can_create_sites || is_team_primaryOwner) && (site.locked != 1 && site.locked != '1' && current_company.locked != 1 && current_company.locked != '1' ) && !site.max_count_reached " ui-sref="public.admin.team.site">
+							<a class="btn btn-brand btn-large m-t-md" ng-if="(can_create_sites || is_team_primaryOwner) && (site.locked != 1 && site.locked != '1' && current_company.locked != 1 && current_company.locked != '1' ) && !site.max_count_reached " ng-click="smModal.Show('public.admin.team.site')">
 								<i class="fa fa-plus"></i>
 								Create new site
 							</a>
@@ -90,7 +90,7 @@
 								<i class="fa fa-star"></i>
 							</a>
 
-							<a href="/admin/team/site/{{site.id}}" ng-if="is_team_member && $parent.is_team_member" class="btn btn-link btn-sm">
+							<a ng-click="smModal.Show('public.admin.team.site',{id: site.id})" ng-if="is_team_member && $parent.is_team_member" class="btn btn-link btn-sm">
 								Edit
 								<i class="fa fa-pencil"></i>
 							</a>

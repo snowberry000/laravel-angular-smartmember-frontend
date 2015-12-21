@@ -1,4 +1,5 @@
-<div class="row wrapper wrapper-content animated fadeInRight" style="padding-top:30px;">
+<div class="ui modal">
+    <div class="row wrapper wrapper-content animated fadeInRight" style="padding-top:30px;">
     <div class="row">
         <div class="col-md-12">
             <div class="ibox float-e-margins">
@@ -61,7 +62,7 @@
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <button class="btn btn-brand" type="button" ng-click="save()">Save changes</button> <!-- ngIf: !template_data.use_cancel_method -->
-                                    <a ui-sref="public.admin.site.membership.notices" class="btn btn-white ng-scope">Cancel</a>
+                                    <a ng-click="smModal.Show('public.admin.site.membership.notices')" class="btn btn-white ng-scope">Cancel</a>
                                 </div>
                             </div>
                         </div>
@@ -69,5 +70,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>

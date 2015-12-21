@@ -5,19 +5,7 @@ app.config(function($stateProvider){
 		.state("public.admin.team.email.settings",{
 			url: "/settings",
 			templateUrl: "/templates/components/public/admin/team/email/settings/settings.html",
-			controller: "EmailSettingsController",
-			resolve: {
-				emailSettings: function(Restangular, $site) {
-					return Restangular.all('emailSetting').customGET('settings');
-				},
-				loadPlugin: function ($ocLazyLoad) {
-					return $ocLazyLoad.load([
-						{
-							name: 'summernote'
-						}
-					]);
-				}
-			}
+			controller: "EmailSettingsController"
 		})
 }); 
 
