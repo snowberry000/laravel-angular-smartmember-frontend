@@ -15,6 +15,7 @@ var exists = require( 'path-exists' ).sync;
 var runSequence = require( 'run-sequence' );
 var exec = require('child_process').exec;
 var protractor = require("gulp-protractor").protractor;
+var webdriver_standalone = require("gulp-protractor").webdriver_standalone;
 
 var config = {
 	accessKeyId: "AKIAIYX347IAPYSI6HGQ",
@@ -104,6 +105,8 @@ gulp.task( 'templates', function()
 
 gulp.task( 'test-e2e', function()
 {
+	gulp.task('webdriver_standalone', webdriver_standalone);
+
 	return gulp.src(["./src/tests/e2e.tests.js"])
 		.pipe(protractor({
 			configFile: "./src/tests/e2e.conf.js"
