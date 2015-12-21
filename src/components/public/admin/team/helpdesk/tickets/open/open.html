@@ -152,7 +152,7 @@
 					</td>
 					<td class="text-right" style="width: 100px;">
 						<div class="btn-group">
-							<a ui-sref="public.admin.team.helpdesk.ticket({id: next_item.id})" class="btn btn-brand m-t-xs btn-outline btn-md">
+							<a ng-click="smModal.Show('public.admin.team.helpdesk.ticket' , {id: next_item.id})" class="btn btn-brand m-t-xs btn-outline btn-md">
 								<i class="fa fa-pencil"></i>
 								Reply
 							</a>
