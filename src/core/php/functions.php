@@ -1,6 +1,5 @@
 <?php
-if( file_exists('local-config.php' ) )
-	include_once( 'local-config.php' );
+include_once( 'local-config.php' );
 
 function DetectAndPerformBridgePageThings()
 {
