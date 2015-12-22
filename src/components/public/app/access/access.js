@@ -5,7 +5,6 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.app.access", {
 			url: "/access/:hash",
-			templateUrl: "/templates/components/public/app/access/access.html",
 			controller: "AccessController"
 		} )
 } );
@@ -13,16 +12,15 @@ app.config( function( $stateProvider )
 app.controller( 'AccessController', function( $scope, $rootScope, $location, notify, $localStorage, $stateParams, smModal,  Restangular )
 {
 	$scope.hash = '';
-	$user = $rootScope.user;
 
 	if( $stateParams.hash )
 	{
 		$localStorage.hash = $stateParams.hash;
 
-		if( $user )
+		if( $localStorage.user )
 		{
 			// Since they're already logged in, we should send this hash incase it needs to "do" something
-			console.log( "logged in, submitting hash" );
+			console.log( "logged in, submitting hash", $user );
 
 			// $user =
 			//Restangular.all( '' ).customGET( 'user/transactionAccess/' + $stateParams.hash ).then( function( response )
