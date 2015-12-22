@@ -4,7 +4,6 @@ app.factory( 'smSidebar', ['$rootScope', function($rootScope)
 		Show: function( the_sidebar, template_file )
 		{
 			$rootScope.left_sidebar_contents = 'templates/components/public/sidebars/' + template_file;
-			console.log( "SIDEBAR CONTENT: ", $rootScope.left_sidebar_contents );
 
 			$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar({
 				transition: 'overlay',

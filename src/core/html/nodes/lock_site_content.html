@@ -1,33 +1,50 @@
-<fieldset class="form-horizontal">
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Access Preference:</label>
-		<div class="col-sm-8">
-			<select class="form-control" ng-model="access_type">
-				<option value="{{access_level.id}}" ng-repeat="access_level in access_levels">{{access_level.title}}</option>
-			</select>
-			<span class="help-block m-b-none">
-				Choose who you'd like to see your site's content. Only the selected types of visitors / members / customers
-			can see it - everyone else will be told it's unavailable.
-			</span>
+<div class="ui modal">
+	<i class="close icon"></i>
+	
+	<div class="header">
+		<i class="paragraph icon"></i>
+	</div>
+	<div class="content">
+		<div class="description">
+		
+			<fieldset class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Access Preference:</label>
+					<div class="col-sm-8">
+						<select class="form-control" ng-model="access_type">
+							<option value="{{access_level.id}}" ng-repeat="access_level in access_levels">{{access_level.title}}</option>
+						</select>
+						<span class="help-block m-b-none">
+							Choose who you'd like to see your site's content. Only the selected types of visitors / members / customers
+						can see it - everyone else will be told it's unavailable.
+						</span>
+					</div>
+				</div>
+				<div class="hr-line-dashed" ng-if="access_type==3"></div>
+				<div class="form-group" ng-if="access_type==3">
+					<label class="col-sm-2 control-label">Restriction Name:</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" ng-model="access.access_level_name" placeholder="Enter a product or level name">
+						<span class="help-block m-b-none">
+							This is usually the name of a product or type of level (ex. Gold, Silver, Package B, etc.) that a member must own.
+						</span>
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+			</fieldset>
+			
 		</div>
 	</div>
-	<div class="hr-line-dashed" ng-if="access_type==3"></div>
-	<div class="form-group" ng-if="access_type==3">
-		<label class="col-sm-2 control-label">Restriction Name:</label>
-		<div class="col-sm-8">
-			<input type="text" class="form-control" ng-model="access.access_level_name" placeholder="Enter a product or level name">
-			<span class="help-block m-b-none">
-				This is usually the name of a product or type of level (ex. Gold, Silver, Package B, etc.) that a member must own.
-			</span>
+	<div class="actions">
+		<!-- SAMPLE ACTION BUTTON -->
+		<a ng-click="lock()" class="ui right labeled icon button">
+			Save & Continue
+			<i class="checkmark icon"></i>
+		</a>
+		<!-- /SAMPLE ACTION BUTTON -->
+		
+		<div class="ui black deny button close" ng-click="cancel()">
+			Close
 		</div>
 	</div>
-	<div class="hr-line-dashed"></div>
-	<div class="form-group">
-		<div class="col-sm-8 col-sm-offset-2">
-			<button class="btn btn-brand save_changes" type="button" ng-click="lock()">
-				Save & Continue
-			</button>
-			<a class="btn btn-white" ng-click="HideBox( node )">Skip</a>
-		</div>
-	</div>
-</fieldset>
+</div>

@@ -6,24 +6,18 @@ app.config( function( $stateProvider )
 		.state( "public.admin.site.wizard", {
 			url: "/wizard/:id",
 			templateUrl: "/templates/components/public/admin/site/wizard/wizard.html",
-			controller: "WizardController",
-			resolve: {
-				$site: function( Restangular, $rootScope )
-				{
-					return $rootScope.site;
-				},
-			}
+			controller: "WizardController"
 		} )
 } );
 
-app.controller( 'WizardController', function( $scope, $stateParams, $rootScope, $location, Wizards, $state, $filter, $http, $localStorage, Restangular, Nodes, toastr )
+app.controller( 'WizardController', function( $scope, smModal, $stateParams, $rootScope, $location, Wizards, $state, $filter, $http, $localStorage, Restangular, Nodes, toastr )
 {
 	$user = $rootScope.user;
 	$site = $rootScope.site;
 
 	$wizard = Wizards.GetCurrent( $stateParams.id );
 	$nodes = Nodes.GetAll();
-	$wizard_server = Restangular.all( 'wizard' ).customGET( '', { slug: $stateParams.id, site_id: $site.id } ).then( function() {
+	$wizard_server = Restangular.all( 'wizard' ).customGET( '', { slug: $stateParams.id, site_id: $site.id } ).then( function(response) {
 
 		$scope.static_wizard = $wizard;
 		$rootScope.wizard = [];
@@ -39,7 +33,7 @@ app.controller( 'WizardController', function( $scope, $stateParams, $rootScope, 
 			} )
 		}
 
-		$rootScope.wizard_server = $wizard_server && $wizard_server.length ? $wizard_server[ 0 ] : { completed_nodes: [] };
+		$rootScope.wizard_server = response && response.length ? response[ 0 ] : { completed_nodes: [] };
 		$rootScope.parent_wizard = $scope;
 		$rootScope.$user = $user;
 		$rootScope.current_changed = -1;
@@ -116,15 +110,17 @@ app.controller( 'WizardController', function( $scope, $stateParams, $rootScope, 
 
 	$scope.cancel = function( node )
 	{
+		smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
 		if( node )
 		{
-			node.HideBox( node );
+			//node.HideBox( node );
 		}
 	}
 
 	$scope.back = function()
 	{
-		$state.go( 'public.admin.site.wizards' );
+		//$state.go( 'public.admin.site.wizards' );
+		smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
 		return;
 	}
 
@@ -139,7 +135,7 @@ app.controller( 'WizardController', function( $scope, $stateParams, $rootScope, 
 		console.log( 'Current node id is ', current );
 		if( node )
 		{
-			node.HideBox( node );
+			//node.HideBox( node );
 		}
 
 		$http.defaults.headers.common[ 'subdomain' ] = $rootScope.site.subdomain;
@@ -184,9 +180,11 @@ app.controller( 'WizardController', function( $scope, $stateParams, $rootScope, 
 		{
 			Restangular.all( "wizard" ).customPUT( params, $rootScope.wizard_server.id ).then( function( response )
 			{
+				smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
 				$rootScope.wizard_server = response;
 				/*if(response && response.options)
 				 $rootScope.wizard_server.options = JSON.parse(response.options);*/
+				$rootScope.site.wizard_step++;
 				if( !params.is_completed )
 				{
 					$rootScope.current_changed = current + 1;
@@ -215,6 +213,8 @@ app.controller( 'WizardController', function( $scope, $stateParams, $rootScope, 
 				{
 					$scope.wizard_server.is_completed = true;
 				}
+				$rootScope.site.wizard_step++;
+				smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
 				var first_incomplete_step = _.findWhere( $rootScope.wizard, { completed: false } );
 
 				if( first_incomplete_step )

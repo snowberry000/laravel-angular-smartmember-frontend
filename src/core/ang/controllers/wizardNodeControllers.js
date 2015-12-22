@@ -719,7 +719,7 @@ app.controller('lessonWizardController', function ($scope, $rootScope , $filter 
 
 
 	$scope.newModule={};
-	$scope.options.theme = '';
+	$scope.options = {theme : ''};
 	$scope.current_node = $scope.$parent;
 	$scope.next_item = {};
 	/*$rootScope.$watch('current_changed' , function(current_changed){
@@ -985,6 +985,10 @@ app.controller('siteLogoWizardController', function ($scope, $rootScope , $filte
             $scope.saving = false;
         });
     }
+    $scope.cancel = function() {
+        $rootScope.parent_wizard.cancel($scope.current_node);
+    }
+
 
 });
 
@@ -1061,6 +1065,11 @@ app.controller('modulesWizardController', function ($scope, $rootScope , $filter
             });
         })
     };
+
+    $scope.cancel = function() {
+        $rootScope.parent_wizard.cancel($scope.current_node);
+    }
+
 });
 
 app.controller('lockContentWizardController', function ($scope, $rootScope , $filter , $http , $localStorage,  Restangular, toastr) {
@@ -1092,6 +1101,11 @@ app.controller('lockContentWizardController', function ($scope, $rootScope , $fi
         });
         
     }
+
+    $scope.cancel = function() {
+        $rootScope.parent_wizard.cancel($scope.current_node);
+    }
+
 });
 
 app.controller('inviteMembersWizardController', function ($scope, $rootScope , $filter , $http , $localStorage,  Restangular, toastr) {
@@ -1116,5 +1130,10 @@ app.controller('inviteMembersWizardController', function ($scope, $rootScope , $
             $rootScope.parent_wizard.next(4 , $scope.current_node);
         });
     }
+
+    $scope.cancel = function() {
+        $rootScope.parent_wizard.cancel($scope.current_node);
+    }
+
 
 });
