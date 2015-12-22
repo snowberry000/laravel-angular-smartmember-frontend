@@ -12,7 +12,7 @@
 			<div class="ui three cards" ng-init="init()">
 				<a class="ui card" ng-if="node.completed || node.enabled" ng-repeat="(key,node) in wizard" id="{{ $index }}" data-enabled="{{node.enabled}}" ng-click="smModal.Show('',{} , {'templateUrl' : node.template , 'controller' : node.controller});" wizardnode>
 					<div class="image">
-						<img src="/images/avatar2/large/kristy.png">
+						<img src="{{ ::node.image }}">
 					</div>
 					<div class="content">
 						<div class="header">
@@ -24,7 +24,7 @@
 					</div>
 					<div class="extra content">
 						<i class="user icon"></i>
-						22 Friends
+
 					</div>
 				</a>
 			</div>
