@@ -62,7 +62,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 	{
 		if( !$localStorage.user )
 		{
-			smModal.Show('public.sign.in');
+			smModal.Show('public.sign.in', {modal_options:{closable:false}});
 			//window.location.href = 'http://' + $rootScope.subdomain + '.' + $rootScope.app.domain + "/sign/in/";
 			//return;
 		}

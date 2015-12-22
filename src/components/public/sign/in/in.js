@@ -26,6 +26,8 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 	$scope.user = {};
 	$scope.hash = '';
 	$scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.' + $rootScope.app.domain : $rootScope.app.domain;
+
+
 	if( $stateParams.hash )
 	{
 		$localStorage.hash = $stateParams.hash;

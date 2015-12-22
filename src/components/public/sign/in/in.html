@@ -1,6 +1,6 @@
 <div class="ui modal">
 	<div class="header">
-		Login to {{site.name}}
+		Login to {{site.name || 'Smart Member'}}
 	</div>
 	<div class="content">
 		<div class="description">
@@ -51,11 +51,11 @@
 					Or
 				</div>
 				<div class="center aligned seven wide column">
-					<a ng-if="$state.includes('public.sign')"  ng-href="{{site_options.create_account_url || '/sign/up'}}" class="close ui big blue labeled icon button">
+					<a ng-if="site_options.create_account_url" ng-href="{{site_options.create_account_url}}" class="close ui big blue labeled icon button">
 						<i class="fa fa-edit icon"></i>
 						Sign Up
 					</a>
-					<a ng-if="!$state.includes('public.sign')" ng-click="smModal.Show('public.sign.up')" class="close ui big blue labeled icon button">
+					<a ng-if="!site_options.create_account_url" ng-click="smModal.Show('public.sign.up', $state.includes('public.my') ? {modal_options:{closable:false}} : null)" class="ui big blue labeled icon button">
 						<i class="fa fa-edit icon"></i>
 						Sign Up
 					</a>
@@ -65,7 +65,7 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.forgot')">
+		<a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.forgot', $state.includes('public.my') ? {modal_options:{closable:false}} : null)">
 			Forgot password?
 			<i class="fa fa-wrench icon"></i>
 		</a>
@@ -73,7 +73,7 @@
 			Need help?
 			<i class="fa fa-life-ring icon"></i>
 		</a>
-		<div ng-if="!$state.includes('public.sign')" class="close ui black button">
+		<div ng-if="!$state.includes('public.my')" class="close ui black button">
 			Close
 		</div>
 	</div>
