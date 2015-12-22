@@ -1,7 +1,7 @@
 
 
 <div class="ui modal">
-	<div class="row animated fadeInRight">
+	<div class="row content">
 		<div class="col-lg-12">
 
 			<div class="ibox-content page-heading clear_box">
@@ -88,12 +88,12 @@
 							</tbody>
 						</table>
 						</p>
-						<p>
+						<!-- <p>
 							<button id="" ng-if="!emailsubscriber.id" type="button" ng-disabled="emailSubscribers.length==0" ng-click="saveList()" class="btn btn_default" data-style="expand-right">
 								<span class="ladda-label">Save Changes</span>
 							</button>
 							<a ng-click="smModal.Show('public.admin.team.email.subscribers')" class="btn btn-default">Cancel</a>
-						</p>
+						</p> -->
 					</form>
 
 				</div>
@@ -101,4 +101,11 @@
 			</div>
 		</div>
 	</div>
+	<div class="actions">
+        <button id="" ng-if="!emailsubscriber.id" ng-disabled="emailSubscribers.length==0" ng-click="saveList()" class="ui right labeled icon button">
+        	Save Changes
+        	<i class="checkmark icon"></i>
+        </button>
+        <a ng-click="smModal.Show('public.admin.team.email.subscribers')" class="ui black deny button close" >Cancel</a>
+    </div>
 </div>

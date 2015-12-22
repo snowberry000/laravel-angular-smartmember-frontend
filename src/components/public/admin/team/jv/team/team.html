@@ -1,6 +1,5 @@
-
 <div class="ui modal">
-
+<div class="content">
 	<div class="row">
 		<div class="col-lg-12">
 
@@ -58,19 +57,28 @@
 						</div>
 						<div class="hr-line-dashed"></div>
 
-						<div class="field m-t-sm">
+						<!-- <div class="field m-t-sm">
 							<label class="col-sm-2 control-label"></label>
 
 							<div class="col-sm-10">
 								<button class="btn btn-brand" type="submit">Save</button>
 								<a ng-click="smModal.Show('public.admin.team.jv.teams')" class="btn btn-default">Cancel</a>
 							</div>
-						</div>
+						</div> -->
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</form>
-
+</div>
+<div class="actions">
+        <button ng-click="save()" class="ui right labeled icon button">
+            Save changes
+            <i class="checkmark icon"></i>
+        </button>
+        <div class="ui black deny button close" ng-click="smModal.Show('public.admin.team.jv.teams')">
+            Cancel
+        </div>
+    </div>
 </div>

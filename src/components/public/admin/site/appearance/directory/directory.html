@@ -1,6 +1,4 @@
 <div class="ui modal">
-
-
 	<div class="content">
 		<div>
 			<div class="row">
@@ -175,12 +173,12 @@
 									</div>
 								</div>
 								<div class="hr-line-dashed"></div>
-								<div class="field">
+								<!-- <div class="field">
 
 									<div class="col-sm-8 col-sm-offset-2">
 										<button class="btn btn-brand save_changes" type="submit">Save changes</button>
 									</div>
-								</div>
+								</div> -->
 							</form>
 
 						</div>
@@ -190,8 +188,14 @@
 			</div>
 
 		</div>
-
 	</div>
-
-
+	<div class="actions">
+	    <button ng-click="save()" class="ui right labeled icon button">
+	        Save changes
+	        <i class="checkmark icon"></i>
+	    </button>
+	    <div class="ui black deny button close">
+	        Close
+	    </div>
+	</div>
 </div>

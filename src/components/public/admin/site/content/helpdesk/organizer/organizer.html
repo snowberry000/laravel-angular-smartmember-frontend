@@ -1,85 +1,83 @@
 <div class="ui modal">
-    <style>
-        .env_admin .btn {
-            padding: 2px 10px 2px;
-            font-size: 13px; 
-            vertical-align: center !important;
-        }
-    </style>
-    <div id="wrapper" >
+    <div class="content">
+        <style>
+            .env_admin .btn {
+                padding: 2px 10px 2px;
+                font-size: 13px; 
+                vertical-align: center !important;
+            }
+        </style>
+        <div id="wrapper" >
 
-    <div class="jumbotron">
-        <h1 class="ui header">Support Creator</h1>
-        <p>Create and arrange articles and categories below to piece together a good support area for your customers</p>
+        <div class="jumbotron">
+            <h1 class="ui header">Support Creator</h1>
+            <p>Create and arrange articles and categories below to piece together a good support area for your customers</p>
+        </div>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-9 module_parent">
 
-                <button type="button" class="btn btn-lg btn-block btn-brand save_course" style="padding-top: 15px;padding-bottom: 15px;font-size: 20px; ;" ng-click="saveSupport()">Save Changes</button>
+                <div data-as-sortable="dragModuleControlListeners" data-ng-model="categories" id='12'>
+                    <div data-ng-repeat="category in categories" data-as-sortable-item>
+                        <div class="module_item panel panel-primary" data-component="category" data-id="{{category.id ? category.id : 0}}">
 
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-9 module_parent">
-
-            <div data-as-sortable="dragModuleControlListeners" data-ng-model="categories" id='12'>
-                <div data-ng-repeat="category in categories" data-as-sortable-item>
-                    <div class="module_item panel panel-primary" data-component="category" data-id="{{category.id ? category.id : 0}}">
-
-                        <div class="panel-heading" data-as-sortable-item-handle>
-                            <a e-placeholder="Enter Category Name" editable-text="category.title" onaftersave="updateCategory(category)" ng-show="category.id">
-                                {{category.title || 'Empty'}}
-                            </a>
-                            <a e-placeholder="Enter Category Name" editable-text="$parent.$parent.$parent.$parent.options.default_support_category_title" onaftersave="updateCategory(category)" ng-hide="category.id">
-                                {{$parent.$parent.$parent.$parent.options.default_support_category_title || 'Other'}}
-                            </a>{{!category.id ? ' (this is the default category)' : '' }}
-                            <div class="pull-right">
-                                <a class="btn btn-brand btn-xs add_lesson" data-bypass="true" ng-click="addArticle(category.id ? category.id : 0)">
-                                    add article
+                            <div class="panel-heading" data-as-sortable-item-handle>
+                                <a e-placeholder="Enter Category Name" editable-text="category.title" onaftersave="updateCategory(category)" ng-show="category.id">
+                                    {{category.title || 'Empty'}}
                                 </a>
-                                <a class="delete_module" data-bypass="true" ng-click="deleteCategory(category.id)" ng-if="category.id">
-                                    <span class="fa fa-trash"></span>
-                                </a>
+                                <a e-placeholder="Enter Category Name" editable-text="$parent.$parent.$parent.$parent.options.default_support_category_title" onaftersave="updateCategory(category)" ng-hide="category.id">
+                                    {{$parent.$parent.$parent.$parent.options.default_support_category_title || 'Other'}}
+                                </a>{{!category.id ? ' (this is the default category)' : '' }}
+                                <div class="pull-right">
+                                    <a class="btn btn-brand btn-xs add_lesson" data-bypass="true" ng-click="addArticle(category.id ? category.id : 0)">
+                                        add article
+                                    </a>
+                                    <a class="delete_module" data-bypass="true" ng-click="deleteCategory(category.id)" ng-if="category.id">
+                                        <span class="fa fa-trash"></span>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
 
-                        <div ng-init="isOpen = false">
-                            <ul class="list-group" data-as-sortable="dragControlListeners" data-ng-model="category.articles" is-disabled="disableSortable.value">
-                                <li data-as-sortable-item style="height:1px;" ng-if="category.articles.length == 0"></li>
-                                <li class="lesson_item list-group-item"  data-ng-repeat="article in category.articles" data-as-sortable-item data-component="article" data-id="{{article.id}}" >
-                                    <div class="row" data-as-sortable-item-handle ng-class="{'disable-sortable':isOpen==true}">
-                                        <div class="col-md-7">
-                                            <a  e-placeholder="Enter Article Name" editable-text="article.title" onaftersave="updateArticle(article , category)">{{ article.title || 'Empty'}}</a>
-                                        </div>
-                                        <div class="col-md-3">
-
-                                            <div class="pull-right lec-more-det" ng-show="article.note" style="min-width:0px;">
-                                                <a e-placeholder="Enter Notes" editable-text="article.note" onaftersave="updateArticle(article , category)">{{ lesson.note || 'Empty'}}</a>
+                            <div ng-init="isOpen = false">
+                                <ul class="list-group" data-as-sortable="dragControlListeners" data-ng-model="category.articles" is-disabled="disableSortable.value">
+                                    <li data-as-sortable-item style="height:1px;" ng-if="category.articles.length == 0"></li>
+                                    <li class="lesson_item list-group-item"  data-ng-repeat="article in category.articles" data-as-sortable-item data-component="article" data-id="{{article.id}}" >
+                                        <div class="row" data-as-sortable-item-handle ng-class="{'disable-sortable':isOpen==true}">
+                                            <div class="col-md-7">
+                                                <a  e-placeholder="Enter Article Name" editable-text="article.title" onaftersave="updateArticle(article , category)">{{ article.title || 'Empty'}}</a>
                                             </div>
-                                            <div class="clearfix"></div>
+                                            <div class="col-md-3">
 
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a  ng-click="smModal.Show('public.admin.site.content.helpdesk.article',{id: article.id})" ><i class="fa fa-pencil"></i></a>
-                                            <a class="delete_lesson" data-bypass="true" ng-click="deleteArticle(article , category)"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </li>
+                                                <div class="pull-right lec-more-det" ng-show="article.note" style="min-width:0px;">
+                                                    <a e-placeholder="Enter Notes" editable-text="article.note" onaftersave="updateArticle(article , category)">{{ lesson.note || 'Empty'}}</a>
+                                                </div>
+                                                <div class="clearfix"></div>
 
-                            </ul>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a  ng-click="smModal.Show('public.admin.site.content.helpdesk.article',{id: article.id})" ><i class="fa fa-pencil"></i></a>
+                                                <a class="delete_lesson" data-bypass="true" ng-click="deleteArticle(article , category)"><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
                         </div>
-
                     </div>
                 </div>
-            </div>
 
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-lg btn-brand add_module" style="padding: 15px 48px 18px;font-size: 20px;" ng-click="addCategory(category)">Add Category</button>
+            </div>
         </div>
-        <div class="col-md-3">
-            <button type="button" class="btn btn-lg btn-brand add_module" style="padding: 15px 48px 18px;font-size: 20px;" ng-click="addCategory(category)">Add Category</button>
+
         </div>
     </div>
-
+    <div class="actions">
+        <button type="button" class="ui right labeled icon button" ng-click="saveSupport()">Save Changes</button>
+        <a class="ui black deny button close">Close</a>
     </div>
 </div>

@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PassController", function ($scope,smModal, $stateParams, $rootScope , $localStorage, Restangular, toastr, $state) {
+app.controller("PassController", function ($scope,smModal, $q, $stateParams, $rootScope , $localStorage, Restangular, toastr, $state) {
 	$access_pass=null;
 	role=null;
 		$scope.resolve = function(){

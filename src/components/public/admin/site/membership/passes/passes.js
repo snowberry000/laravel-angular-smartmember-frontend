@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "PassesController", function( $scope, $localStorage, $rootScope, Restangular, toastr )
+app.controller( "PassesController", function( $scope, $q,$localStorage, $rootScope, Restangular, toastr )
 {
 	$scope.template_data = {
 		title: 'PASSES',

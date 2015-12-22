@@ -1,7 +1,6 @@
 <div class="ui modal">
-	<div class="row">
+	<div class="row content">
 		<div class="col-lg-12">
-
 			<div class="ibox-content page-heading clear_box">
 				<div class="p-xs">
 					<div class="row">
@@ -38,15 +37,18 @@
 							</div>
 						</div>
 						<div class="hr-line-dashed"></div>
-
-						<div class="field">
-							<div class="col-sm-4 col-sm-offset-2">
-								<button class="btn btn-brand" type="submit">{{ 'SAVE_CHANGES' | translate }}</button>
-							</div>
-						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="actions">
+	    <button ng-click="save()" class="ui right labeled icon button">
+	        Save changes
+	        <i class="checkmark icon"></i>
+	    </button>
+	    <div class="ui black deny button close" >
+	        Close
+	    </div>
 	</div>
 </div>

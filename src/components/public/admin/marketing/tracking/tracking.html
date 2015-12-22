@@ -1,7 +1,6 @@
 <div class="ui modal">
 <h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i> Tracking Code</h1>
-
-<div class="card clearfix content_post">
+<div class="content">
     <div id="post_col" class="col span_6_of_6" ng-init="init()">
 
         <form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
@@ -37,12 +36,17 @@
                 <input type="text" name="bing_webmaster_tag" class="no_bottom_margin" ng-model="site_options.bing_webmaster_tag" />
                 <small>For example: 0FC3FD705126161B0252E755A56</small>
             </p>
-            <button class="btn btn-brand save_changes" type="button" ng-click="save()">
-                Save changes
-            </button>
-
         </form>
 
+    </div>
+</div>
+<div class="actions">
+    <button ng-click="save()" class="ui right labeled icon button">
+        Save changes
+        <i class="checkmark icon"></i>
+    </button>
+    <div class="ui black deny button close">
+        Close
     </div>
 </div>
 </div>

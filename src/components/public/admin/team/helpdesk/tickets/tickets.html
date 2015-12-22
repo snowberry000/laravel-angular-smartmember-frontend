@@ -1,5 +1,5 @@
 <div class="ui modal">
-
+<div class="content">
 	<div class="row">
 		<div class="col-lg-12">
 
@@ -13,7 +13,7 @@
 							<h2 class="ui header">{{ 'HELPDESK_TICKETS' | translate }}</h2>
 							<span>See all help requests by your visitors, members, and customers.</span>
 						</div>
-						<div class="col-md-3 text-right">
+						<!-- <div class="col-md-3 text-right">
 							<a ui-sref="public.admin.team.helpdesk.creator" class="btn btn-brand m-t-md btn-large ng-scope">
 								<i class="fa fa-plus"></i>
 								Create new ticket
@@ -21,7 +21,7 @@
 							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
 								<i class="fa fa-question"></i>
 							</button>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -48,4 +48,11 @@
 
 		</div>
 	</div>
+</div>
+<div class="actions">
+    <a ng-click="smModal.Show('public.admin.team.helpdesk.creator')" class="ui right labeled icon button">
+        Create new Ticket
+        <i class="fa fa-plus"></i>
+    </a>
+</div>
 </div>

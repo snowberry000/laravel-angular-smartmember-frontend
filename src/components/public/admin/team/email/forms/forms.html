@@ -1,6 +1,6 @@
 
 <div class="ui modal">
-
+<div class="content">
     <div class="row">
         <div class="col-lg-12">
 
@@ -53,8 +53,8 @@
                                                 ng-options="emailList.name for emailList in emailLists">
                                         </select>
                                     </div>
-                                    <div class='col-sm-4 ' >
-                                        <a ng-click='createNewList()'><small class='text-small'>Create New List</small></a>
+                                    <div class='col-sm-4 ' style="margin-top:10px;">
+                                        <a ng-click='createNewList()' class="ui right labeled icon button"><small class='text-small'>Create New List</small></a>
                                     </div>
                                 </div>
                                     
@@ -114,11 +114,11 @@
 
                         <div class="hr-line-dashed"></div>
 
-                        <div class="field">
+                        <!-- <div class="field">
                             <div class="col-sm-4 col-sm-offset-2">
                                 <button class="btn btn-brand" type="" ng-click="setForm()">Create / Refresh form</button>
                             </div>
-                        </div>
+                        </div> -->
                     </form>
 
                 </div>
@@ -140,6 +140,16 @@
             </div>
         </div>
     </div>
+</div>
+<div class="actions">
+    <a ng-click="setForm()" class="ui right labeled icon button">
+        Create / Refresh form
+        <i class="fa fa-plus"></i>
+    </a>
+    <div class="ui black deny button close">
+        Close
+    </div>
+</div>
 </div>
 
 

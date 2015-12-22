@@ -5,15 +5,7 @@ app.config(function($stateProvider){
 		.state("public.admin.team.jv.affiliate",{
 			url: "/affiliate/:id?",
 			templateUrl: "/templates/components/public/admin/team/jv/affiliate/affiliate.html",
-			controller: "AffiliateController",
-			resolve: {
-				affiliate: function(Restangular, $stateParams, $site) {
-					if ( $stateParams.id ) {
-						return Restangular.one('affiliate', $stateParams.id).get();
-					}
-					return {company_id: $site.company_id};
-				}
-			}
+			controller: "AffiliateController"
 		})
 }); 
 
@@ -26,9 +18,8 @@ app.controller("AffiliateController", function ($scope, $localStorage,$statePara
 		})
 	}
 	else{
-
-		$scope.page_title = $scope.affiliate.id ? 'Edit Affiliate' : 'Create Affiliate';
 		$scope.affiliate = {company_id: $site.company_id};
+		$scope.page_title = $scope.affiliate.id ? 'Edit Affiliate' : 'Create Affiliate';	
 	}
 	
 	$scope.save = function(){

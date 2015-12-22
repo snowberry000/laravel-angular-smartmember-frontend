@@ -1,8 +1,10 @@
-app.controller('IntegrationsController', function ($scope,$q, $localStorage, $location,$rootScope , $stateParams, $state, Restangular, $http, toastr ) {
+app.controller('IntegrationsController', function ($scope,$q,smModal, $localStorage, $location,$rootScope , $stateParams, $state, Restangular, $http, toastr ) {
     if($rootScope.is_not_allowed){
-        $state.go('admin.team.dashboard');
+        smModal.Show("public.admin.team.dashboard");
         return false;
     }
+
+    $site=$rootScope.site;
 
     console.log('stateParams');
     console.log($stateParams);
@@ -84,7 +86,7 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
 
             if( !$scope.current_integration.id && $scope.integration.instructions_only )
             {
-                $state.go("admin.team.integration.choose", {integration: $stateParams.integration } );
+                smModal.Show("public.admin.team.integration.choose",{integration: $stateParams.integration } );
             }
 
 
@@ -278,6 +280,8 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
 
     $scope.addIntegration = function(entity_id) {
         var params = {};
+        console.log("entityID");
+        console.log(entity_id);
 
         switch( entity_id ) {
             case 'team':
@@ -287,8 +291,7 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
                 params.site_id = entity_id;
                 break;
         }
-
-        $state.go("admin.team.integration.configure", params);
+        smModal.Show("public.admin.team.integration.configure",params );
     }
 
     
@@ -421,16 +424,15 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
                     }
                     break;
                 default:
-                    $state.go('admin.team.integrations.list');
+                    smModal.Show("public.admin.team.integrations.list");
             }
         }else if($stateParams.integration == 'vimeo' && $rootScope.vimeo_redirect_url){
             delete $rootScope.vimeo_redirect_url;
-            $state.go('admin.site.content.import', {}, { reload: true });
-
+            smModal.Show("public.admin.site.content.import", {}, { reload: true });
         }
         else
         {
-            $state.go('admin.team.integrations.list');
+            smModal.Show("public.admin.team.integrations.list");
         }
     }
 
@@ -510,7 +512,7 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
         }, function () {
             Restangular.one('integration' , integration_id).remove().then(function () {
                 toastr.success("Integration was removed");
-                $state.go('admin.team.integrations.list');
+                smModal.Show("public.admin.team.integrations.list");
             });
         });
     }

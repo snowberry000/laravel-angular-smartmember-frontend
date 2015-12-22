@@ -1,7 +1,7 @@
 <div class="ui modal">
     <div class="content row">
 
-        <form method="get" class="ui form" ng-submit="save()">
+        <form method="get" class="ui form" >
 
             <div class="row">
                 <div class="col-md-12">
@@ -53,18 +53,27 @@
 									</span>
                                 </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="col-sm-8">
                                     <button class="btn btn-brand" type="submit">Save changes</button>
                                     <a ng-click="smModal.Show('public.admin.site.membership.passes')" class="btn btn-default">Cancel</a>
-                                    
                                 </div>
-                            </div>
+                            </div> -->
+                            
                         </div>
                     </div>
                 </div>
                
             </div>
         </form>
+    </div>
+    <div class="actions">
+        <button ng-click="save()" class="ui right labeled icon button">
+            Save changes
+            <i class="checkmark icon"></i>
+        </button>
+        <div class="ui black deny button close" ng-click="smModal.Show('public.admin.site.membership.passes')">
+            Cancel
+        </div>
     </div>
 </div>

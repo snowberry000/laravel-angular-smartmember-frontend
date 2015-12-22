@@ -1,8 +1,6 @@
 <div class="ui modal">
-
-	<div class="row">
+	<div class="row content">
 		<div class="col-lg-12">
-
 			<div class="ibox-content page-heading clear_box">
 				<div class="p-xs">
 					<div class="row">
@@ -13,7 +11,7 @@
 							<h2 class="ui header">{{ template_data.title | translate }}</h2>
 							<span>{{template_data.description}}</span>
 						</div>
-						<div class="col-md-3 text-right">
+						<!-- <div class="col-md-3 text-right">
 							<a ng-click="smModal.Show(template_data.edit_route);"class="btn btn-brand btn-large m-t-md">
 								<i class="fa fa-plus"></i>
 								Create new {{template_data.singular}}
@@ -21,11 +19,10 @@
 							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
 								<i class="fa fa-question"></i>
 							</button>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
-
 			<div class="ibox float-e-margins">
 				<div class="ibox-content">
 					<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
@@ -73,6 +70,13 @@
 			</div>
 		</div>
 	</div>
+	<div class="actions">
+		<a ng-click="smModal.Show(template_data.edit_route);"class="ui right labeled icon button">
+			<i class="fa fa-plus"></i>
+			Create new {{template_data.singular}}
+		</a>
+		<a class="ui black deny button close" >Close</a>
+    </div>
 </div>
 
 

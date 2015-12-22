@@ -1,5 +1,5 @@
 <div class="ui modal">
-    <div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="content">
         <div class="ibox-content m-b-sm border-bottom">
             <div class="p-xs">
                 <div class="row">
@@ -8,8 +8,8 @@
                         <h2 class="ng-binding">Widgets</h2>
                         <span>Widget images that display on your site sidebar.</span>
                     </div>
-                    <div class="col-md-4"><a  class="btn btn-brand btn-large ng-scope" ng-click="smModal.Show('admin.site.appearance.widget')"><i class="fa fa-plus"></i> Create New Widget</a>
-                    </div>
+                   <!--  <div class="col-md-4"><a  class="btn btn-brand btn-large ng-scope" ng-click="smModal.Show('admin.site.appearance.widget')"><i class="fa fa-plus"></i> Create New Widget</a>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -54,6 +54,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="actions">
+        <a ng-click="smModal.Show('admin.site.appearance.widget')" class="ui right labeled icon button">
+            Create Widget
+            <i class="fa fa-plus"></i>
+        </a>
+        <div class="ui black deny button close">
+            Close
         </div>
     </div>
 </div>

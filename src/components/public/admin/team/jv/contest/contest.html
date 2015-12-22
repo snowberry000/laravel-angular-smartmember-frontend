@@ -1,5 +1,5 @@
 <div class="ui modal">
-<div class="row wrapper wrapper-content animated fadeInRight" style="padding-top:30px;">
+<div class="row content">
     <div class="row">
         <div class="col-md-12">
             <div class="ibox float-e-margins">
@@ -96,21 +96,17 @@
                 </div> -->
                 
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-brand" type="button" ng-click="save()">Save changes</button> <!-- ngIf: !template_data.use_cancel_method -->
-                                    <a ng-click="smModal.Show('public.admin.team.jv.contests')" class="btn btn-white ng-scope">Cancel</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
+    </div>
+</div>
+<div class="actions">
+    <button ng-click="save()" class="ui right labeled icon button">
+        Save changes
+        <i class="checkmark icon"></i>
+    </button>
+    <div class="ui black deny button close" ng-click="smModal.Show('public.admin.team.jv.contests')">
+        Cancel
     </div>
 </div>
 </div>

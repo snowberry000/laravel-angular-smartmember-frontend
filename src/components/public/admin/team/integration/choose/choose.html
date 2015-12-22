@@ -1,5 +1,5 @@
-<div class="ibox">
-	<div class="ibox-content">
+<div class="ui modal">
+	<div class="content">
 		<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
 		    <div class="sk-bounce1"></div>
 		    <div class="sk-bounce2"></div>
@@ -21,13 +21,16 @@
 						<option ng-repeat="site in sites" value="{{site.id}}" ng-selected="site.id == chosen_entity" >{{(site.domain ? site.domain : site.subdomain+'.'+app.rootDomain)}}</option>
 					</optgroup>
 				</select>
-
-				<a ng-click="$parent.chosen_entity == 0 ? '' : addIntegration($parent.chosen_entity)" ng-disabled="$parent.chosen_entity == 0" class="btn btn-lg btn-brand">
+				<a ng-click="$parent.chosen_entity == 0 ? '' : addIntegration($parent.chosen_entity)" ng-disabled="$parent.chosen_entity == 0" class="ui right labeled icon button" >
 					Add {{integration.short_name || integration.name}} Integration
 				</a>
-
 			</div>
 		</div>
-
 	</div>
+	<div class="actions">
+	    <div class="ui black deny button close" ng-click="smModal.Show('public.admin.team.integrations.available')">
+	        Cancel
+	    </div>
+	</div>
+	
 </div>

@@ -16,6 +16,8 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 
 	$rootScope.is_admin = false;
 	$scope.site = $site;
+	var options = {};
+	$scope.options={};
 
 	$scope.is_member = $site.is_member;
 	$scope.facebook_group = _.findWhere( $scope.site.integration, { type: 'facebook_group' } );

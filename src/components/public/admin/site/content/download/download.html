@@ -1,5 +1,4 @@
 <div class="ui modal">
-
     <div class="content">
         <div class="row">
             <input class="isAgentOrGreaterCheck" value="{{isAgentOrGreaterCheck}}" type="hidden" />
@@ -273,13 +272,6 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="field">
-                                <div class="col-sm-8 col-sm-offset-2">
-                                    <button id="download_submit" class="btn btn-brand" type="submit">Save changes</button>
-                                    <a ng-click="smModal.Show('public.admin.site.content.downloads')" class="btn btn-default">Cancel</a>
-                                  
-                                </div>
-                            </div>
                         </form>
 
                     </div>
@@ -288,9 +280,10 @@
             </div>
 
         </div>
-
     </div>
-
-
+    <div class="actions">
+        <button id="download_submit" class="ui right labeled icon button" type="submit">Save changes</button>
+        <a ng-click="smModal.Show('public.admin.site.content.downloads')" class="ui black deny button close">Cancel</a>
+    </div>
 </div>
 

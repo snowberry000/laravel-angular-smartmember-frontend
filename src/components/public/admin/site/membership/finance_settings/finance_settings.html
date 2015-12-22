@@ -1,6 +1,6 @@
 <div class="ui modal">
 <h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i> Settings</h1>
-<div class="card clearfix content_post">
+<div class="card clearfix content content_post">
     <div id="post_col" class="col span_6_of_6" ng-init="init()">
 
         <form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
@@ -21,13 +21,17 @@
                 </div>
             </div>
             </p>
-
-            <button class="btn btn-brand save_changes" type="button" ng-click="save()">
-                Save changes
-            </button>
-
         </form>
 
+    </div>
+</div>
+<div class="actions">
+    <button ng-click="save()" class="ui right labeled icon button">
+        Save changes
+        <i class="checkmark icon"></i>
+    </button>
+    <div class="ui black deny button close">
+        Close
     </div>
 </div>
 </div>

@@ -14,6 +14,7 @@ app.controller( "TeamMembersController", function( $scope, $rootScope, $state, $
 {
 	$scope.sortOrder = 'created_at:DESC';
 	$scope.loading = true;
+	$user=$rootScope.user;
 
 
 	$scope.role_types = [

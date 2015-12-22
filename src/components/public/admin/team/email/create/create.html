@@ -1,5 +1,6 @@
 
 <div class="ui modal">
+    <div class="content">
     <i class="close icon"></i>
 
     <div class="row">
@@ -270,7 +271,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="ibox">
+                <!-- <div class="ibox">
                     <div class="ibox-content">
                         <div class="text-right">
                             <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" ng-click="save()" title="Save"><i class="fa fa-pencil"></i> Save Changes</a>
@@ -282,9 +283,27 @@
 
 
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
     </form>
+    </div>
+    <div class="actions">
+        <button ng-click="save()" class="ui right labeled icon button">
+            Save changes
+            <i class="checkmark icon"></i>
+        </button>
+        <button ng-click="preview()" class="ui right labeled icon button">
+            Preview
+            <i class="fa fa-reply"></i>
+        </button>
+        <button ng-click="send()" class="ui right labeled icon button">
+            Save & Send
+            <i class="fa fa-send"></i>
+        </button>
+        <div class="ui black deny button close" ng-click="smModal.Show('public.admin.team.email.emails')">
+            Cancel
+        </div>
+    </div>
 </div>
