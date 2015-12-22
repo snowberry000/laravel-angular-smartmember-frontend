@@ -1,39 +1,42 @@
-app.config(function($httpProvider, $urlRouterProvider,$locationProvider){
+app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
+{
 	$locationProvider.html5Mode( {
 		enabled: true,
 		requireBase: true
 	} );
 
 	$httpProvider.interceptors.push( 'httpInterceptor' );
-		
+
 	var parts = location.hostname.split( '.' );
 	var subdomain = parts.shift();
-	if( subdomain == "my" )
-	{
-		$urlRouterProvider.when( '/', function($injector){
-			var $rootScope = $injector.get('$rootScope');
-			if($rootScope.$storage.user && $rootScope.$storage.user.access_token){
-				if ($rootScope.$storage.user.company_id != 0)
-				{
-					return '/admin/account/teams';
-				} else {
-					return '/admin/account/memberships'
-				}
 
-			}else{
-				return '/sign/in';
-			}
-		} );
-	}
+	$urlRouterProvider.when( '/', function( $injector )
+	{
+		var $state = $injector.get( '$state' );
+
+		console.log( "On when('/')" );
+		if( subdomain == "my" )
+		{
+			console.log( "Going to 'public.my' state from /" );
+			$state.go( "public.my" );
+		}
+		else
+		{
+			console.log( "Going to 'public.app.home' state from /" );
+			$state.go( "public.app.home" );
+		}
+	} );
 
 	$urlRouterProvider.otherwise( function( $injector )
 	{
+		console.log( "On otherwise" );
 		var $state = $injector.get( '$state' );
 		var Restangular = $injector.get( 'Restangular' );
 
 		if( subdomain == "my" )
 		{
-			$state.go( "admin.account.memberships" );
+			console.log( "Going to 'public.my' state from non-/" );
+			$state.go( "public.my" );
 		}
 		else
 		{
@@ -69,4 +72,4 @@ app.config(function($httpProvider, $urlRouterProvider,$locationProvider){
 			}
 		}
 	} );
-});
+} );
