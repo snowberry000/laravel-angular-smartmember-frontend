@@ -1,9 +1,13 @@
 <?php
 header( 'Access-Control-Allow-Origin: *' );
+
+include_once( 'php/functions.php' );
+
+DetectAndPerformBridgePageThings();
 ?>
 <!DOCTYPE html>
 
-<html ng-app='app' style="height:auto;"  class="no-js {{$state.current.name.split('.').join(' ')}}" ng-controller="IndexAppController" ng-init="home_init()">
+<html ng-app='app' style="height:auto;" class="no-js {{$state.current.name.split('.').join(' ')}}" ng-controller="IndexAppController" ng-init="home_init()">
 <head>
 	<base href="/"></base>
 	<title>Smart Member</title>
@@ -32,7 +36,7 @@ header( 'Access-Control-Allow-Origin: *' );
 <!-- <script type="text/javascript" src="bower/Flot/jquery.flot.resize.js"></script> -->
 <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script> -->
 <!--<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script>-->
-	<!--script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script-->
+<!--script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script-->
 
 </body>
 </html>

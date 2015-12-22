@@ -141,15 +141,6 @@
 						<a class="item" ng-click="smModal.Show('public.admin.site.membership.notices')">{{ 'CREATE_NOTICES' | translate }}</a>
 					</div>
 				</div>
-				<div class="item" ng-if="is_team_member">
-					<i class="dropdown icon"></i>
-					<span class="text">{{ 'TEAM_SETTINGS' | translate }}</span>
-					<div class="menu">
-						<a class="item" ng-click="smModal.Show('public.admin.team.settings')">{{ 'SETTINGS' | translate }}</a>
-						<a class="item" ng-click="smModal.Show('public.admin.team.profile')">{{ 'DIRECTORY_LISTING' | translate }}</a>
-						<a class="item" ng-click="smModal.Show('public.admin.team.members')">{{ 'MEMBERS' | translate }}</a>
-					</div>
-				</div>
 			</div>
 		</div>
 		<div ng-if="is_team_member" class="ui top left pointing dropdown icon button" sui-dropdown>
@@ -244,6 +235,8 @@
 			<a class="item" ng-click="smModal.Show('public.admin.account.memberships')">{{ 'MY_JOINED_SITES' | translate }}</a>
 			<a class="item" ng-click="smModal.Show('public.admin.account.teams')" ng-if="is_team_member">{{ 'MY_TEAMS' | translate }}</a>
 			<a class="item" ng-if="is_team_member" ng-click="smModal.Show('public.admin.team.wizard' , { 'id' : 'team_setup_wizard'})">{{ 'SETUP_WIZARDS' | translate }}</a>
+			<a class="item" ng-click="smModal.Show('public.admin.team.profile')">{{ 'DIRECTORY_LISTING' | translate }}</a>
+
 
 		</div>
 	</div>
