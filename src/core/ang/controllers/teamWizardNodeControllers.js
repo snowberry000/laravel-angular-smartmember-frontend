@@ -89,7 +89,7 @@ app.controller( 'teamBioWizardController', function( $scope, $state, $rootScope,
 	}
 } );
 
-app.controller( 'inviteMembersWizardController', function( $scope, $state, $rootScope, $filter, $http, $localStorage,  Restangular, toastr )
+app.controller( 'inviteTeamMembersWizardController', function( $scope, $state, $rootScope, $filter, $http, $localStorage,  Restangular, toastr )
 {
 	$scope.team_members = {};
 	$scope.current_node = $scope.$parent;

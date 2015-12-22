@@ -719,7 +719,7 @@ app.controller('lessonWizardController', function ($scope, $rootScope , $filter 
 
 
 	$scope.newModule={};
-	$scope.options.theme = '';
+	$scope.options = {theme : ''};
 	$scope.current_node = $scope.$parent;
 	$scope.next_item = {};
 	/*$rootScope.$watch('current_changed' , function(current_changed){

@@ -6,13 +6,7 @@ app.config( function( $stateProvider )
 		.state( "public.admin.site.wizard", {
 			url: "/wizard/:id",
 			templateUrl: "/templates/components/public/admin/site/wizard/wizard.html",
-			controller: "WizardController",
-			resolve: {
-				$site: function( Restangular, $rootScope )
-				{
-					return $rootScope.site;
-				},
-			}
+			controller: "WizardController"
 		} )
 } );
 
@@ -23,7 +17,7 @@ app.controller( 'WizardController', function( $scope, $stateParams, $rootScope, 
 
 	$wizard = Wizards.GetCurrent( $stateParams.id );
 	$nodes = Nodes.GetAll();
-	$wizard_server = Restangular.all( 'wizard' ).customGET( '', { slug: $stateParams.id, site_id: $site.id } ).then( function() {
+	$wizard_server = Restangular.all( 'wizard' ).customGET( '', { slug: $stateParams.id, site_id: $site.id } ).then( function(response) {
 
 		$scope.static_wizard = $wizard;
 		$rootScope.wizard = [];
@@ -39,7 +33,7 @@ app.controller( 'WizardController', function( $scope, $stateParams, $rootScope, 
 			} )
 		}
 
-		$rootScope.wizard_server = $wizard_server && $wizard_server.length ? $wizard_server[ 0 ] : { completed_nodes: [] };
+		$rootScope.wizard_server = response && response.length ? response[ 0 ] : { completed_nodes: [] };
 		$rootScope.parent_wizard = $scope;
 		$rootScope.$user = $user;
 		$rootScope.current_changed = -1;
