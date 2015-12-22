@@ -23,7 +23,6 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		site_id: $site.id
 	} ).then( function( response )
 	{
-
 		console.log( "THE WIZARD: ", $wizard );
 		$scope.static_wizard = $wizard;
 		$rootScope.wizard = [];
@@ -49,6 +48,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 			$scope.id = 0;
 			console.log( 'scope is reset' );
 		}
+
 
 		if( $rootScope.wizard_server )
 		{

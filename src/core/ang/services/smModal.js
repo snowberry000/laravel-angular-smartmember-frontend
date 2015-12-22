@@ -77,6 +77,10 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 		{
 			$( '.ui.modal' ).modal( 'hide all' );
 		},
+		Refresh: function()
+		{
+			$( '.ui.modal' ).modal( 'refresh' );
+		},
 		show_old: function( modal_id, options )
 		{
 			$( modal_id ).modal( options ).modal( 'show' );
