@@ -100,47 +100,55 @@
 				<a class="item" ng-click="smModal.Show('public.admin.site.pages.bridge-pages')">{{ 'BRIDGE_PAGES' | translate }}</a>
 			</div>
 		</div>
+		<a class="item" ng-click="smModal.Show('public.admin.site.membership.notices')">Site notices</a>
 		<a class="item" ng-click="smModal.Show('public.admin.site.content.import')">{{ 'IMPORT' | translate }}</a>
 		<a class="item" ng-click="smModal.Show('public.admin.site.content.stats')">{{ 'STATS' | translate }}</a>
 	</div>
 </div>
-<div class="ui item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" >
+<div class="ui item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
 	<div class="ui small basic icon buttons">
+
+		<div ng-if="is_site_admin" class="ui top left pointing dropdown icon button" sui-dropdown>
+			<i class="setting icon"></i>
+
+			<div class="menu">
+				<a class="item" ng-click="smModal.Show('public.admin.site.appearance.settings')">{{ 'APPEARANCE_GENERAL_SETTINGS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.appearance.menus')">{{ 'NAVIGATION_MENUS' | translate }}</a>
+				<div class="item">
+					<i class="dropdown icon"></i>
+					<span class="text">{{ 'SIDEBAR_MANAGEMENT' | translate }}</span>
+					<div class="menu">
+						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.widgets')">{{ 'WIDGETS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.banners')">{{ 'BANNERS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.stats')">{{ 'STATS' | translate }}</a>
+					</div>
+				</div>
+				<a class="item" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
+				<a class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" ng-click="smModal.Show('public.admin.site.appearance.directory')">Directory Listing</a>
+				<div class="item">
+					<i class="dropdown icon"></i>
+					<span class="text">Plugins</span>
+					<div class="menu">
+						<a class="item" ng-click="smModal.Show('public.admin.team.integrations.available')">Add new plugin</a>
+						<a class="item" ng-click="smModal.Show('public.admin.team.integrations.list')">Installed plugins</a>
+						<a class="item" ng-click="smModal.Show('public.admin.team.integrations.connections')">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="ui top left pointing dropdown icon button" sui-dropdown>
 			<i class="users icon"></i>
 
 			<div class="menu">
-				<div class="item" >
-					<i class="dropdown icon"></i>
-					<span class="text">{{ 'SITE_ACCESS' | translate }}</span>
-					<div class="menu">
-						<div class="item">
-							<i class="dropdown icon"></i>
-							<span class="text">{{ 'ACCESS_MANAGEMENT' | translate }}</span>
-							<div class="menu">
-								<a class="item" ng-click="smModal.Show('public.admin.site.membership.products')">{{ 'PRODUCTS' | translate }}</a>
-								<a class="item" ng-click="smModal.Show('public.admin.site.membership.passes')">{{ 'PASSES' | translate }}</a>
-							</div>
-						</div>
-						<div class="item">
-							<i class="dropdown icon"></i>
-							<span class="text">{{ 'FINANCE_MANAGEMENT' | translate }}</span>
-							<div class="menu">
-								<a class="item" ng-click="smModal.Show('public.admin.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
-								<a class="item" ng-click="smModal.Show('public.admin.wallboard')" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
-								<a class="item" ng-click="smModal.Show('public.admin.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-					<i class="dropdown icon"></i>
-					<span class="text">{{ 'SITE_MEMBERS' | translate }}</span>
-					<div class="menu">
-						<a class="item" ng-click="smModal.Show('public.admin.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
-						<a class="item" ng-click="smModal.Show('public.admin.site.membership.notices')">{{ 'CREATE_NOTICES' | translate }}</a>
-					</div>
-				</div>
+				<a class="item" ng-click="smModal.Show('public.admin.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.membership.products')">{{ 'PRODUCTS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.membership.passes')">{{ 'PASSES' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.wallboard')" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
+
 			</div>
 		</div>
 		<div ng-if="is_team_member" class="ui top left pointing dropdown icon button" sui-dropdown>
@@ -176,54 +184,18 @@
 				<a class="item" ng-click="smModal.Show('public.admin.team.jv.stats')">{{ 'STATS' | translate }}</a>
 			</div>
 		</div>
-		<div class="ui top left pointing dropdown icon button" ng-if="is_team_member" sui-dropdown>
-			<i class="lightning icon"></i>
-
-			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.team.integrations.available')">{{ 'ADD_NEW' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.admin.team.integrations.list')">{{ 'MY_INTEGRATIONS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.admin.team.integrations.connections')">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
-			</div>
-		</div>
-		<div class="ui top left pointing dropdown icon button" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" sui-dropdown>
-			<i class="unhide icon"></i>
-
-			<div class="menu">
-				<div class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-					<i class="dropdown icon"></i>
-					<span class="text">{{ 'SITE_APPEARANCE' | translate }}</span>
-					<div class="menu">
-						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.settings')">{{ 'APPEARANCE_GENERAL_SETTINGS' | translate }}</a>
-						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.menus')">{{ 'NAVIGATION_MENUS' | translate }}</a>
-						<div class="item">
-							<i class="dropdown icon"></i>
-							<span class="text">{{ 'SIDEBAR_MANAGEMENT' | translate }}</span>
-							<div class="menu">
-								<a class="item" ng-click="smModal.Show('public.admin.site.appearance.widgets')">{{ 'WIDGETS' | translate }}</a>
-								<a class="item" ng-click="smModal.Show('public.admin.site.appearance.banners')">{{ 'BANNERS' | translate }}</a>
-								<a class="item" ng-click="smModal.Show('public.admin.site.appearance.stats')">{{ 'STATS' | translate }}</a>
-							</div>
-						</div>
-						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
-						<a class="item" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
-					</div>
-				</div>
-				<a class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" ng-click="smModal.Show('public.admin.site.appearance.directory')">{{ 'DIRECTORY_PROFILE' | translate }}</a>
-
-			</div>
-		</div>
 	</div>
 </div>
 
 
+<div class="item" ng-if="is_admin || is_team_member">
+	<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html')">
+		<i class="options icon"></i>
+		Theme
+	</a>
+</div>
 <div class="right menu">
 
-	<div class="item" ng-if="is_admin || is_team_member">
-		<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html')">
-			<i class="options icon"></i>
-			Theme Options
-		</a>
-	</div>
 	<div class="ui dropdown item" sui-dropdown>
 		<i class="settings icon"></i>
 		Account
