@@ -21,14 +21,11 @@ app.controller( 'AccessController', function( $scope, $rootScope, $location, not
 
 		if( $user )
 		{
-			// Since they're already logged in, we should send this hash incase it needs to "do" something
-			console.log( "logged in, submitting hash" );
-
-			// $user =
-			//Restangular.all( '' ).customGET( 'user/transactionAccess/' + $stateParams.hash ).then( function( response )
-			//{
-			//	location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
-			//} );
+            Restangular.all( 'user' ).customPOST( {hash: $localStorage.hash}, "associateHash" ).then( function( response )
+            {
+                $localStorage.hash = false;
+                location.href = '/';
+            } );
 		}
 		else
 		{
