@@ -71,6 +71,36 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 		$scope.setMetaData();
 	}
 
+	$scope.GetAdminBarInclude = function()
+	{
+		if( $scope.isLoggedIn() && !$scope.isSitelessPage() )
+			return 'templates/components/public/admin-bar/admin-bar.html';
+
+		return;
+	}
+
+	$scope.isSitelessPage = function()
+	{
+		var parts = location.hostname.split( '.' );
+		var subdomain = parts.shift();
+
+		if( subdomain == 'my' )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	$scope.isLoggedIn = function()
+	{
+		if( $localStorage.user && $localStorage.user.id )
+		{
+			return true;
+		}
+		return false;
+	}
+
 
 	if( location.href.indexOf( '?theme_options' ) > -1 )
 	{
