@@ -26,6 +26,17 @@ app.controller("WidgetsController", function ($scope, $state,$http, $ads, $site,
 	$scope.displayAds=[];
 	$scope.hiddenAds=[];
 
+    $scope.available_widgets = [
+        {
+            slug: 'text',
+            template: '/templates/components/admin/site/appearance/widgets/widgets/text/text.html'
+        },
+        {
+            slug: 'banner',
+            template: '/templates/components/admin/site/appearance/widgets/widgets/banner/banner.html'
+        }
+    ];
+
 	$scope.divide=function($allAds){
 	    $.each($allAds,function(key,value){
 	        if(value.display)
