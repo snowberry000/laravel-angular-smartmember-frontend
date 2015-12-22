@@ -28,6 +28,12 @@ ErrorDocument 404 /pricing
 
 <ifModule mod_rewrite.c>
         RewriteEngine On
+        RewriteCond %{HTTP_HOST} ^chrisrecord\.smartmember\.com [NC]
+        RewriteRule ^webinar$ https://attendee.gotowebinar.com/register/5940448390915346946 [R=302,L]
+</ifModule>
+
+<ifModule mod_rewrite.c>
+        RewriteEngine On
         RewriteCond %{HTTP_HOST} ^sm\.smartmember\.com [NC]
         RewriteRule ^/?$ http://my.smartmember.com/ [R=301,L]
 </ifModule>
