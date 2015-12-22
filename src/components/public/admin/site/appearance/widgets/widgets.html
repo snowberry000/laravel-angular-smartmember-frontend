@@ -7,26 +7,31 @@
     </div>
     <div class="content">
         <div class="description">
-            <p>Set up the widgets that show in your sidebar</p>
+            <div class="ui two column stackable grid container">
+                <div class="column">
+                    <p>Set up the widgets that show in your sidebar</p>
 
-            <h2 class="ui header">Hidden</h2>
-            <p>Drag to "In Display" to add widget to sidebar</p>
+                    <h2 class="ui header">Hidden</h2>
+                    <p>Drag to "In Display" to add widget to sidebar</p>
 
-            <div class="ui middle aligned divided animated relaxed list connectList" data-as-sortable="dragControlListeners" data-ng-model="available_widgets">
-                <div class="content" data-as-sortable-item data-component="{{widget}}" ng-repeat="widget in available_widgets">
-                    <div ng-include="widget.template" data-as-sortable-item-handle class="admin"></div>
+                    <div class="ui middle aligned divided animated relaxed list connectList" data-as-sortable="dragControlListeners" data-ng-model="available_widgets">
+                        <div class="ui segment" data-as-sortable-item data-component="{{widget}}" ng-repeat="widget in available_widgets">
+                            <div ng-include="widget.template" data-as-sortable-item-handle class="admin"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="column">
+                    <h2 class="ui header">In Display</h2>
+                    <p></p>
 
-            <h2 class="ui header">In Display</h2>
-            <p></p>
-
-            <div class="ui middle aligned divided animated relaxed list connectList" data-as-sortable="dragControlListeners" data-ng-model="displayAds">
-                <div class="content" data-as-sortable-item data-component="{{widget}}"  ng-repeat="widget in displayAds">
-                    <div data-as-sortable-item-handle>
-                        <span ng-if="widget.banner_image_url">
-                            <img src="{{widget.banner_image_url}}" height="100" />
-                        </span>
+                    <div class="ui middle aligned divided animated relaxed list connectList" data-as-sortable="dragControlListeners" data-ng-model="displayAds">
+                        <div class="content" data-as-sortable-item data-component="{{widget}}"  ng-repeat="widget in displayAds">
+                            <div data-as-sortable-item-handle>
+                            <span ng-if="widget.banner_image_url">
+                                <img src="{{widget.banner_image_url}}" height="100" />
+                            </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
