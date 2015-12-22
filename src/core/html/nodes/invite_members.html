@@ -1,61 +1,79 @@
-<fieldset class="form-horizontal">
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Invite via Email:</label>
-		<div class="col-sm-8">
-			<textarea class="form-control" ng-model="members.emails"></textarea>
-		<span class="help-block m-b-none">
-			Paste in the email addresses of whom you'd like invites sent to join your site. They'll
-			get accounts created for them and receive their credentials to login - all done for you.
-		</span>
-		<span class="help-block m-b-none">
-			<strong>note:</strong> separate each email by spaces, commas, or 1 per line.
-		</span>
+<div class="ui modal">
+	<i class="close icon"></i>
+	
+	<div class="header">
+		<i class="paragraph icon"></i>
+	</div>
+	<div class="content">
+		<div class="description">
+		
+			<fieldset class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Invite via Email:</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" ng-model="members.emails"></textarea>
+					<span class="help-block m-b-none">
+						Paste in the email addresses of whom you'd like invites sent to join your site. They'll
+						get accounts created for them and receive their credentials to login - all done for you.
+					</span>
+					<span class="help-block m-b-none">
+						<strong>note:</strong> separate each email by spaces, commas, or 1 per line.
+					</span>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" ng-if="$rootScope.access_level_hash"></div>
+				<div class="form-group" ng-if="$rootScope.access_level_hash">
+					<label class="col-sm-2 control-label">Unlocked Signup URL:</label>
+					<div class="col-sm-8">
+						<input disabled="" ng-if="site.domain" class="col-md-8 form-control" value="http://{{site.domain}}/sign/up/hash={{$rootScope.access_level_hash}}"/>
+						<input disabled="" ng-if="!site.domain" class="col-md-8 form-control" value="http://{{site.subdomain}}.{{app.domain}}/sign/up/hash={{$rootScope.access_level_hash}}"/>
+
+					<span class="help-block m-b-none">
+						Hand out the above url to people if you'd like them to sign up to your site and instantly get access to
+						your locked content. They'll go through the normal signup process, but will be treated as if they just
+						bought your product.
+					</span>
+					<span class="help-block m-b-none">
+						<strong>note:</strong> this is a great choice for inviting JV's to come preview your content while
+						still keeping it restricted from the general public.
+					</span>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Free Signup URL:</label>
+					<div class="col-sm-8">
+						<input disabled="" ng-if="site.domain" class="col-md-8 form-control" value="http://{{site.domain}}/sign/up"/>
+						<input disabled="" ng-if="!site.domain" class="col-md-8 form-control" value="http://{{site.subdomain}}.{{app.domain}}/sign/up"/>
+
+				    <span class="help-block m-b-none">
+				        Hand out the above url to people if you'd like them to sign up to your site as regular members.
+				    </span>
+					<span class="help-block m-b-none">
+						<strong>note:</strong> this is a great choice for inviting potential customers of your site. Having them
+						signup to your site gives you the ability to email them like a lead!
+					</span>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+
+			</fieldset>
+			
 		</div>
 	</div>
-
-	<div class="hr-line-dashed" ng-if="$rootScope.access_level_hash"></div>
-	<div class="form-group" ng-if="$rootScope.access_level_hash">
-		<label class="col-sm-2 control-label">Unlocked Signup URL:</label>
-		<div class="col-sm-8">
-			<input disabled="" ng-if="site.domain" class="col-md-8 form-control" value="http://{{site.domain}}/sign/up/hash={{$rootScope.access_level_hash}}"/>
-			<input disabled="" ng-if="!site.domain" class="col-md-8 form-control" value="http://{{site.subdomain}}.{{app.domain}}/sign/up/hash={{$rootScope.access_level_hash}}"/>
-
-		<span class="help-block m-b-none">
-			Hand out the above url to people if you'd like them to sign up to your site and instantly get access to
-			your locked content. They'll go through the normal signup process, but will be treated as if they just
-			bought your product.
-		</span>
-		<span class="help-block m-b-none">
-			<strong>note:</strong> this is a great choice for inviting JV's to come preview your content while
-			still keeping it restricted from the general public.
-		</span>
+	<div class="actions">
+		<!-- SAMPLE ACTION BUTTON -->
+		<a ng-click="invite()" class="ui right labeled icon button">
+			Send Invites
+			<i class="checkmark icon"></i>
+		</a>
+		<!-- /SAMPLE ACTION BUTTON -->
+		
+		<div class="ui black deny button close" ng-click="skiplaststep()">
+			Close
 		</div>
 	</div>
-
-	<div class="hr-line-dashed"></div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Free Signup URL:</label>
-		<div class="col-sm-8">
-			<input disabled="" ng-if="site.domain" class="col-md-8 form-control" value="http://{{site.domain}}/sign/up"/>
-			<input disabled="" ng-if="!site.domain" class="col-md-8 form-control" value="http://{{site.subdomain}}.{{app.domain}}/sign/up"/>
-
-	    <span class="help-block m-b-none">
-	        Hand out the above url to people if you'd like them to sign up to your site as regular members.
-	    </span>
-		<span class="help-block m-b-none">
-			<strong>note:</strong> this is a great choice for inviting potential customers of your site. Having them
-			signup to your site gives you the ability to email them like a lead!
-		</span>
-		</div>
-	</div>
-
-	<div class="hr-line-dashed"></div>
-	<div class="form-group">
-		<div class="col-sm-8 col-sm-offset-2">
-			<button class="btn btn-brand save_changes" type="button" ng-click="invite()">
-				Send Invites
-			</button>
-			<a class="btn btn-white" ng-click="skiplaststep()">Skip</a>
-		</div>
-	</div>
-</fieldset>
+</div>
