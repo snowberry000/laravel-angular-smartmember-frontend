@@ -1,7 +1,7 @@
 app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalService )
 {
 	return {
-		Show: function( state , params , state_data)
+		Show: function( state , params , state_data ,cb)
 		{
 			if(state_data)
 				var state_data = state_data;
@@ -42,7 +42,9 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				modal.close.then( function( result )
 				{
 					console.log( "I guess we closed it?" );
-					$scope.message = result ? "You said Yes" : "You said No";
+					//$scope.message = result ? "You said Yes" : "You said No";
+					if(cb)
+						cb(result);
 				} );
 			} );
 		},

@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "ProductsController", function( $scope, $localStorage, $rootScope, Restangular, toastr )
+app.controller( "ProductsController", function( $scope, $localStorage, smModal, $rootScope, Restangular, toastr )
 {
 	$scope.site = $site = $rootScope.site;
 	if( _.findWhere( $scope.site.integration, { type: 'stripe' } ) )
@@ -84,9 +84,26 @@ app.controller( "ProductsController", function( $scope, $localStorage, $rootScop
 		} )
 	}
 
+	$scope.afterDelete = function(id){
+
+		if(id){
+			var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+			{
+				return next_item.id === id;
+			} );
+
+			itemWithId.remove().then( function()
+			{
+				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+			} );
+		}
+		
+	}
 
 	$scope.delete = function( id )
 	{
+		smModal.Show('public.app.delete' , {route : 'accessLevel' , id : id} , null , $scope.afterDelete);
+		/*
 		var modalInstance = $modal.open( {
 			templateUrl: 'templates/modals/deleteConfirm.html',
 			controller: "modalController",
@@ -110,7 +127,7 @@ app.controller( "ProductsController", function( $scope, $localStorage, $rootScop
 			{
 				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
 			} );
-		} )
+		} )*/
 	};
 
 	$scope.refreshHash = function( $access )

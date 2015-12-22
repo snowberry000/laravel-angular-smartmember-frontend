@@ -1,0 +1,32 @@
+
+<div class="ui modal">
+    <i class="close icon"></i>
+    
+    <div class="header">
+        <i class="paragraph icon"></i>
+        Are you sure?
+    </div>
+    <div class="content">
+        <div class="description">
+            <p>You will not be able to recover after deletion!</p>
+        
+            <div class="sa-icon sa-warning pulseWarning" style="display: block;">
+                <span class="sa-body pulseWarningIns"></span>
+                <span class="sa-dot pulseWarningIns"></span>
+            </div>
+            
+        </div>
+    </div>
+    <div class="actions">
+        <!-- SAMPLE ACTION BUTTON -->
+        <a ng-click="ok(id)" class="ui right labeled icon button">
+            Yes, delete it!
+            <i class="checkmark icon"></i>
+        </a>
+        <!-- /SAMPLE ACTION BUTTON -->
+        
+        <div class="ui black deny button close" ng-click="cancel()">
+            No, cancel!
+        </div>
+    </div>
+</div>
