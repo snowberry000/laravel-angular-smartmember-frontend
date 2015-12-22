@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'SiteController', function( $scope, toastr, $state, smModal,$localStorage, $location, Restangular, notify )
+app.controller( 'SiteController', function( $scope, toastr, $rootScope, $state, smModal,$localStorage, $location, Restangular, notify )
 {
 	$scope.save = function()
 	{

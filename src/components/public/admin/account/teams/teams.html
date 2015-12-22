@@ -1,5 +1,5 @@
 <div class="ui modal">
-	<div class="row animated fadeInRight">
+	<div class="row animated content">
 		<div class="col-lg-12">
 
 			<div class="ibox-content page-heading clear_box">
@@ -11,15 +11,6 @@
 							</div>
 							<h2 class="ui header">These are your teams!</h2>
 							<span>They manage all your sites.</span>
-						</div>
-						<div class="col-md-3">
-							<a class="btn btn-brand btn-large m-t-md" ui-sref="public.admin.account.team" ng-hide="1">
-								<i class="fa fa-plus"></i>
-								Create new team
-							</a>
-							<button class="btn btn-outline btn-primary m-t-md pull-right" ng-hide="1">
-								<i class="fa fa-info-circle"></i>
-							</button>
 						</div>
 					</div>
 				</div>
@@ -79,6 +70,15 @@
 				</div>
 			</div>
 
+		</div>
+	</div>
+	<div class="actions">
+		<a class="ui right labeled icon button" ng-click="smModal.Show('public.admin.account.team')" ng-hide="1">
+			<i class="fa fa-plus"></i>
+			Create new team
+		</a>
+		<div class="ui black deny button close">
+			Close
 		</div>
 	</div>
 </div>

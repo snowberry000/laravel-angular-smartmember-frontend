@@ -1,5 +1,4 @@
 <div class="ui modal" ng-init="init()">
-
     <div class="content">
         <div class="row">
             <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
@@ -146,7 +145,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button class="btn btn-brand" type="submit">Save changes</button>
                                     <button ng-disabled="!bridgepage.id" type="button" class="btn btn-success"
@@ -155,7 +154,7 @@
                                     <a ng-click="smModal.Show('public.admin.site.pages.bridge-pages')" class="btn btn-default"
                                        onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
                                 </div>
-                            </div>
+                            </div> -->
                         </form>
 
                     </div>
@@ -164,9 +163,14 @@
             </div>
 
         </div>
-
     </div>
-
-
+    <div class="actions">
+        <button class="ui right labeled icon button" ng-click="save()">Save changes</button>
+        <button ng-disabled="!bridgepage.id" type="button" class="ui right labeled icon button"
+                ng-click="cloneBridgePage()">Save & Clone
+        </button>
+        <a class="ui black deny button close" ng-click="smModal.Show('public.admin.site.pages.bridge-pages')" 
+           onclick="return confirm('Are you sure you want to discard your draft? This cannot be undone.');">Cancel</a>
+    </div>
 </div>
 
