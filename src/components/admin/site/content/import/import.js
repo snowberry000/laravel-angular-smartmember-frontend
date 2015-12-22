@@ -27,7 +27,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
     //for new pagination
     $scope.site = $rootScope.site;
-
+    console.log('This is site', $scope.site);
     $scope.itemsPerPage = 25;
     $scope.pagination = {currentPage : 1};
 
