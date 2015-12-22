@@ -22,7 +22,16 @@ app.controller( 'AccessController', function( $scope, $rootScope, $location, not
             Restangular.all( 'user' ).customPOST( {hash: $localStorage.hash}, "associateHash" ).then( function( response )
             {
                 $localStorage.hash = false;
-                location.href = '/';
+
+	            if( $rootScope.app.subdomain == 'sm' )
+	            {
+		            window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
+	            }
+	            else
+	            {
+		            location.href = '/';
+	            }
+
             } );
 		}
 		else
