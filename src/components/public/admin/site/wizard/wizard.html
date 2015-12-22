@@ -1,40 +1,74 @@
 <div class="ui modal">
+	<i class="close icon"></i>
 
-	<div class="row">
-		<div class="col-lg-12">
+	<div class="header">
+		<i class="paragraph icon"></i>
+		{{ static_wizard.name }}
+	</div>
+	<div class="content">
+		<div class="description">
+			<p>Now that you've created a site, it's time to fill it with content. Follow the steps below to
+				pretty it up and get members waiting out the door to get in!</p>
 
-			<div class="ibox-content clear_box page-heading">
-				<div class="jumbotron">
-					<h1 class="ui header">{{site.name}} - nice one!</h1>
-					<p>Now that you've created a site, it's time to fill it with content. Follow the steps below to
-						pretty it up and get members waiting out the door to get in!
-					</p>
-				</div>
 
-				<div class="p-xs">
-					<div class="row">
-						<div class="col-md-9">
-							<div class="pull-left m-r-md">
-								<i class="fa fa-magic text-branded mid-icon"></i>
+			<div ng-if="0" class="row wizard_steps_container" ng-init="init()">
+				<div class="col-md-12">
+
+					<div>
+						<div class="ibox-title forum-item {{node.completed ? 'complete' : ''}} {{$index == current_changed ? 'active' : ''}}" ng-disabled="node.completed" ng-click="ShowBox( node , $index)">
+							<div class="row">
+								<div class="col-md-1 col-xs-3">
+								<span class="fa-stack fa-2x">
+									<i class="fa {{node.completed ? 'fa-check-circle-o' : 'fa-circle-thin'}} fa-stack-2x"></i>
+									<strong class="fa-stack-1x" ng-hide="node.completed">{{key + 1}}</strong>
+								</span>
+								</div>
+								<div class="col-md-10 col-xs-9">
+									<h2 class="forum-item-title">{{ ::node.heading }}</h2>
+									<div class="forum-sub-title">
+										{{ ::node.description }}
+									</div>
+								</div>
 							</div>
-							<h2 class="ui header">{{ static_wizard.name }}</h2>
-							<span>Follow the steps below to <strong>{{static_wizard.name}}</strong>.</span>
 						</div>
-						<div class="col-md-3 text-right">
-							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-								<i class="fa fa-question"></i>
-							</button>
+						<div class="ibox-content forum-item active" style="display: {{$index == 0 ? 'block' : 'hidden'}}">
+
+							<ng-include ng-init="init($index , node)" src="node.template" dynamic-ctrl="node.controller" class="container-fluid node_include_container animated fadeInRight"></ng-include>
+
+							<div class="clearfix"></div>
 						</div>
 					</div>
+
 				</div>
+			</div>
+
+
+
+			<div class="ui three cards" ng-init="init()">
+				<a class="ui card" ng-if="node.completed || node.enabled" ng-repeat="(key,node) in wizard" id="{{ $index }}" data-enabled="{{node.enabled}}" ng-click="smModal.Show('public.admin.team.integration.choose',{integration: integration.id});" wizardnode>
+					<div class="image">
+						<img src="/images/avatar2/large/kristy.png">
+					</div>
+					<div class="content">
+						<div class="header">
+							{{ ::node.heading }}
+						</div>
+						<div class="description">
+							{{ ::node.description }}
+						</div>
+					</div>
+					<div class="extra content">
+						<i class="user icon"></i>
+						22 Friends
+					</div>
+				</a>
 			</div>
 
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			<div ng-include="'templates/components/public/admin/common/wizard.html'"></div>
+	<div class="actions">
+		<div class="ui black deny button close">
+			Close
 		</div>
 	</div>
 </div>
-
