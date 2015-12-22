@@ -18,17 +18,10 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <h3 class="ui header">Hidden</h3>
-                        <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
+                        <p class="small"><i class="fa fa-hand-o-up"></i> Drag widget to the right column to add to sidebar</p>
                         <ul ui-sortable="sortableOptions"  class="sortable-list connectList agile-list" ng-model="hiddenAds">
-                            <li class="{{task.statusClass}}-element" ng-repeat="ad in hiddenAds">
-                                <div ng-if="ad.custom_ad" dynamic="ad.custom_ad"></div>
-                                <span ng-if="ad.banner_image_url">
-                                    <img src="{{ad.banner_image_url}}" height="100"></img>
-                                </span>
-                                <div class="agile-detail">
-                                    <!-- <a href="#" class="pull-right btn btn-xs btn-white">{{ad.banner_url}}</a> -->
-                                    <i class="fa fa-clock-o"></i> {{moment.utc(ad.created_at).fromNow()}}
-                                </div>
+                            <li class="success-element" ng-repeat="widget in available_widgets">
+                                <div ng-include="widget.template" class="admin"></div>
                             </li>
                         </ul>
                     </div>
@@ -43,7 +36,7 @@
                             <li class="{{task.statusClass}}-element" ng-repeat="ad in displayAds">
                                 <div ng-if="ad.custom_ad" dynamic="ad.custom_ad"></div>
                                 <span ng-if="ad.banner_image_url">
-                                    <img src="{{ad.banner_image_url}}" height="100"></img>
+                                    <img src="{{ad.banner_image_url}}" height="100" />
                                 </span>
                                 <div class="agile-detail">
                                     <!-- <a href="#" class="pull-right btn btn-xs btn-white">{{ad.banner_url}}</a> -->

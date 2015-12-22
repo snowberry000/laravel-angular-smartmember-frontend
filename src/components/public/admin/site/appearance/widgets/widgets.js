@@ -26,6 +26,17 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
 	$site = $rootScope.site;
 	$ads = null;
 
+    $scope.available_widgets = [
+        {
+            slug: 'text',
+            template: '/templates/components/public/admin/site/appearance/widgets/widgets/text/text.html'
+        },
+        {
+            slug: 'banner',
+            template: '/templates/components/public/admin/site/appearance/widgets/widgets/banner/banner.html'
+        }
+    ];
+
 	$scope.init = function()
 	{
 		Restangular.all( 'siteAds' ).getList( { site_id: $site.id } ).then( function( response )
