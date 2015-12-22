@@ -26,8 +26,8 @@
 				<div class="form-group" ng-if="$rootScope.access_level_hash">
 					<label class="col-sm-2 control-label">Unlocked Signup URL:</label>
 					<div class="col-sm-8">
-						<input disabled="" ng-if="site.domain" class="col-md-8 form-control" value="http://{{site.domain}}/sign/up/hash={{$rootScope.access_level_hash}}"/>
-						<input disabled="" ng-if="!site.domain" class="col-md-8 form-control" value="http://{{site.subdomain}}.{{app.domain}}/sign/up/hash={{$rootScope.access_level_hash}}"/>
+						<input disabled="" ng-if="site.domain" class="col-md-8 form-control" value="http://{{site.domain}}/access/{{$rootScope.access_level_hash}}"/>
+						<input disabled="" ng-if="!site.domain" class="col-md-8 form-control" value="http://{{site.subdomain}}.{{app.domain}}/access/{{$rootScope.access_level_hash}}"/>
 
 					<span class="help-block m-b-none">
 						Hand out the above url to people if you'd like them to sign up to your site and instantly get access to

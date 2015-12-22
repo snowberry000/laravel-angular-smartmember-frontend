@@ -54,8 +54,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 	$rootScope.site = $site;
 	$scope.current_site_domain = window.location.host;
 
-	console.log( "THE SITE", $site );
-
 	$scope.initPublicSite = function()
 	{
 		$rootScope.$_GET = getUrlVars();
@@ -177,7 +175,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 		}
 
 		$scope.current_theme_options = [];
-		console.log( 'current theme: ', $rootScope.current_theme );
 
 		angular.forEach( $rootScope.current_theme.theme_options, function( value )
 		{
@@ -261,7 +258,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 
 	$scope.upload = function( files )
 	{
-		console.log( 'how about here?', files );
 		if( files )
 		{
 			$scope.loading = true;
@@ -293,7 +289,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 
 	$scope.$watch( 'files', function()
 	{
-		console.log( 'anything running here?' );
 		$scope.upload( $scope.files );
 	} );
 

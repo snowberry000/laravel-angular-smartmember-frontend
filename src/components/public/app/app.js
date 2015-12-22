@@ -99,7 +99,7 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 
 	$scope.bannerView = function( $id )
 	{
-		if( $scope.ads )
+		if( $scope.ads.length > 0 )
 		{
 			var ad_id = $scope.ads[ 0 ];
 			Restangular.one( 'trackViews', ad_id.id ).customPOST( {} );

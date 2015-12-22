@@ -36,8 +36,8 @@
                                     {{next_item.name}}
                                 </td>
                                 <td>
-                                    <input ng-if="site.domain" class="col-md-8 form-control" value="http://{{site.domain}}/sign/up/hash={{next_item.hash}}" />
-                                    <input ng-if="!site.domain" class="col-md-8 form-control" value="http://{{site.subdomain}}.{{app.domain}}/sign/up/hash={{next_item.hash}}" />
+                                    <input ng-if="site.domain" class="col-md-8 form-control" value="http://{{site.domain}}/access/{{next_item.hash}}" />
+                                    <input ng-if="!site.domain" class="col-md-8 form-control" value="http://{{site.subdomain}}.{{app.domain}}/access/{{next_item.hash}}" />
                                     <br>
                                     <a class="col-md-8 text-center" ng-click="refreshHash(next_item)"><u>Reset</u><i class="fa fa-refresh" style="margin-left:5px;"></i></a>
                                 </td>

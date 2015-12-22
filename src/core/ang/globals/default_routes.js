@@ -14,15 +14,12 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 	{
 		var $state = $injector.get( '$state' );
 
-		console.log( "On when('/')" );
 		if( subdomain == "my" )
 		{
-			console.log( "Going to 'public.my' state from /" );
 			$state.go( "public.my" );
 		}
 		else
 		{
-			console.log( "Going to 'public.app.home' state from /" );
 			$state.go( "public.app.home" );
 		}
 	} );
