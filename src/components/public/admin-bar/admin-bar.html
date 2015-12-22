@@ -21,11 +21,11 @@
 		<div class="scrolling menu">
 			<div class="item" ng-repeat="next_item in admin_sites">
 				<div class="ui red empty circular label"></div>
-				{{next_item.subdomain}}.smartmember.com
+				<a href='http://{{next_item.subdomain}}.smartmember.com' target="_blank">{{next_item.subdomain}}.smartmember.com</a>
 			</div>
 			<div class="item" ng-repeat="next_item in member_sites">
 				<div class="ui red empty circular label"></div>
-				{{next_item.subdomain}}.smartmember.com
+				<a href='http://{{next_item.subdomain}}.smartmember.com' target="_blank">{{next_item.subdomain}}.smartmember.com</a>
 			</div>
 		</div>
 		<div class="header text-center">
@@ -37,9 +37,9 @@
 </div>
 
 <a class="ui item" style="width: 200px;" ng-click="smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
-	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="14" data-total="20" sui-progress>
-		<div class="bar">
-			<div class="progress"></div>
+	<div ng-if="site.wizard_step" class="ui indicating progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step}}" data-total="5" data-percent="{{site.wizard_step * 100 / 5}}" sui-progress>
+		<div class="bar" style="transition-duration: 300ms; width: {{ site.wizard_step / 5 * 100 }}%;">
+			<div class="progress">{{site.wizard_step}} of 5 steps</div>
 		</div>
 		<div class="label" style="font-size: 0.8em;">Setup Wizard</div>
 	</div>
