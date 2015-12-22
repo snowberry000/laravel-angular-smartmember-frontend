@@ -21,11 +21,11 @@
 		<div class="scrolling menu">
 			<div class="item" ng-repeat="next_item in admin_sites">
 				<div class="ui red empty circular label"></div>
-				<a href='http://{{next_item.subdomain}}.smartmember.com' target="_blank">{{next_item.subdomain}}.smartmember.com</a>
+				<a href='http://{{next_item.subdomain}}.smartmember.{{app.env}}'>{{next_item.subdomain}}.smartmember.{{app.env}}</a>
 			</div>
 			<div class="item" ng-repeat="next_item in member_sites">
 				<div class="ui red empty circular label"></div>
-				<a href='http://{{next_item.subdomain}}.smartmember.com' target="_blank">{{next_item.subdomain}}.smartmember.com</a>
+				<a href='http://{{next_item.subdomain}}.smartmember.{{app.env}}'>{{next_item.subdomain}}.smartmember.{{app.env}}</a>
 			</div>
 		</div>
 		<div class="header text-center">
