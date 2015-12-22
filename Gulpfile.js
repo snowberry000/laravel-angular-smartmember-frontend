@@ -31,7 +31,8 @@ var paths = {
 	templates: 'src/**/*.html',
 	dist: 'dist',
 	fonts: 'src/core/fonts/**/*',
-	images: 'src/core/images/**/*'
+	images: 'src/core/images/**/*',
+	php: 'src/core/php/**/*'
 };
 
 
@@ -116,6 +117,7 @@ gulp.task( 'watch', function()
 	gulp.watch( paths.templates, [ 'templates' ] );
 	gulp.watch( paths.fonts, [ 'fonts' ] );
 	gulp.watch( paths.images, [ 'images' ] );
+	gulp.watch( paths.php, [ 'php' ] );
 	gulp.watch( 'src/index.php', [] );
 } );
 
@@ -211,9 +213,15 @@ gulp.task( 'images', function()
 		.pipe( gulp.dest( 'dist/images/' ) );
 } );
 
+gulp.task( 'php', function()
+{
+	return gulp.src( paths.php )
+		.pipe( gulp.dest( 'dist/php/' ) );
+} );
 
-gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage', 'crawler' ] );
-gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'fonts', 'bpage','crawler' , 'watch'] );
+
+gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ] );
+gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' , 'watch'] );
 gulp.task( 'test', [ 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
