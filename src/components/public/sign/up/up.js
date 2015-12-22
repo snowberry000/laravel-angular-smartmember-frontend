@@ -142,7 +142,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		{
 			if( $scope.isSitelessPage() )
 			{
-				smModal.Show('public.admin.team.wizard', {modal_options:{closable:false}});
+				smModal.Show('public.admin.wizard', {modal_options:{closable:false}});
 			}
 			else
 			{

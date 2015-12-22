@@ -45,7 +45,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 			else
 			{
 				// if we don't have a site, we should go through the setup wizard
-				smModal.Show('public.admin.team.wizard', {modal_options:{closable:false}});
+				smModal.Show('public.admin.wizard', {modal_options:{closable:false}});
 				console.log( "Lets do the setup wizard!" );
 			}
 		} );

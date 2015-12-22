@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.admin.site.wizard", {
+		.state( "public.admin.wizard", {
 			url: "/wizard/:id",
-			templateUrl: "/templates/components/public/admin/site/wizard/wizard.html",
+			templateUrl: "/templates/components/public/admin/wizard/wizard.html",
 			controller: "WizardController"
 		} )
 } );
@@ -110,7 +110,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 
 	$scope.cancel = function( node )
 	{
-		smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
+		smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'});
 		if( node )
 		{
 			//node.HideBox( node );
@@ -119,8 +119,8 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 
 	$scope.back = function()
 	{
-		//$state.go( 'public.admin.site.wizards' );
-		smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
+		//$state.go( 'public.admin.wizards' );
+		smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'});
 		return;
 	}
 
@@ -180,7 +180,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		{
 			Restangular.all( "wizard" ).customPUT( params, $rootScope.wizard_server.id ).then( function( response )
 			{
-				smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
+				smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'});
 				$rootScope.wizard_server = response;
 				/*if(response && response.options)
 				 $rootScope.wizard_server.options = JSON.parse(response.options);*/
@@ -214,7 +214,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 					$scope.wizard_server.is_completed = true;
 				}
 				$rootScope.site.wizard_step++;
-				smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
+				smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'});
 				var first_incomplete_step = _.findWhere( $rootScope.wizard, { completed: false } );
 
 				if( first_incomplete_step )
