@@ -1,6 +1,4 @@
 <?php
-include_once( 'local-config.php' );
-
 function DetectAndPerformBridgePageThings()
 {
 	if( defined( 'DISABLE_BP' ) && DISABLE_BP )
