@@ -110,15 +110,17 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 
 	$scope.cancel = function( node )
 	{
+		smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
 		if( node )
 		{
-			node.HideBox( node );
+			//node.HideBox( node );
 		}
 	}
 
 	$scope.back = function()
 	{
-		$state.go( 'public.admin.site.wizards' );
+		//$state.go( 'public.admin.site.wizards' );
+		smModal.Show('public.admin.site.wizard' , {id : 'site_launch_wizard'});
 		return;
 	}
 
