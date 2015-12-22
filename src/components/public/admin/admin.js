@@ -123,34 +123,6 @@ app.controller( 'AdminController', function( $scope, Upload, $window, $sessionSt
 		{
 			$state.go( 'public.app.login' );
 		}
-		//if it is a member and trying to access unauthorized route
-		if( $scope.member_access.indexOf( $state.current.name ) < 0 && !($rootScope.is_site_admin || $rootScope.is_team_member || $rootScope.is_agent) )
-		{
-			$state.go( 'public.admin.account.memberships' );
-			return;
-		}
-		//if it is an agent and trying to access unauthorized route
-		if( $scope.agent_access.indexOf( $state.current.name ) < 0 && !($rootScope.is_site_admin || $rootScope.is_team_member) )
-		{
-			$state.go( 'public.admin.account.memberships' );
-			return;
-		}
-		//if it is an admin and trying to access unauthorized route
-		if( $scope.agent_access.indexOf( $state.current.name ) < 0 && $state.current.name.split( '.' )[ 1 ] != 'site' && !$rootScope.is_team_member )
-		{
-			$state.go( 'public.admin.account.memberships' );
-			return;
-		}
-
-		access = $scope.isTeamMember( $user.role );
-		console.log( $state.current )
-		if( $state.current.name.split( '.' )[ 1 ] == 'affiliates' )
-		{
-			if( !access )
-			{
-				$state.go( 'public.admin.account.memberships' );
-			}
-		}
 
 		new_company = _.find( $scope.companies, { id: $scope.site.company_id } );
 
@@ -380,24 +352,6 @@ app.controller( 'AdminController', function( $scope, Upload, $window, $sessionSt
 
 		return '';
 	}
-
-	/*$scope.isAdminOrManagerOwnerOrPrimaryAdmin = function(user){
-	 var primaryAdmin = _.findWhere(user.type ,{role_type : 1});
-	 var owner = _.findWhere(user.type ,{role_type : 2});
-	 var manager = _.findWhere(user.type ,{role_type : 3});
-	 var admin = _.findWhere(user.type ,{role_type : 4});
-	 if(primaryAdmin||owner||manager||admin){
-	 return true;
-	 }
-
-	 return false;
-	 }*/
-
-	$scope.member_access = [ 'public.admin.account.memberships', 'public.admin.account', 'public.admin.account.settings',
-		'public.admin.account.profile', 'public.admin.account.photo' ];
-	$scope.agent_access = [ 'public.admin.site.membership', 'public.admin.team.helpdesk', 'public.admin.team.helpdesk.agent-stats',
-		'public.admin.team.helpdesk.agent-stats.agent-stat', 'public.admin.team.helpdesk.tickets',
-		'public.admin.team.helpdesk.settings', 'public.admin.team.helpdesk.ticket' ];
 
 
 	$scope.showComingSoon = function()

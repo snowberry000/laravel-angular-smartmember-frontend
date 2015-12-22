@@ -26,6 +26,8 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 	$scope.user = {};
 	$scope.hash = '';
 	$scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.' + $rootScope.app.domain : $rootScope.app.domain;
+
+
 	if( $stateParams.hash )
 	{
 		$localStorage.hash = $stateParams.hash;
@@ -98,47 +100,30 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 			$localStorage.cbreceipt = false;
 		}
 		$rootScope.first_login_view = true;
-		if( response.is_site )
+
+		Restangular.one( 'user', $localStorage.user.id ).get().then( function( response )
 		{
-			Restangular.one( 'user', $localStorage.user.id ).get().then( function( response )
+			if( false )// || $scope.isAgentOrGreater( response ) )
 			{
-				if( false )// || $scope.isAgentOrGreater( response ) )
+				$state.go( 'admin.site.dashboard' );
+				return;
+			}
+			else
+			{
+				if( $state.current.name == 'public.sign.in' || $state.current.name == 'public.sign.in2' )
 				{
-					$state.go( 'admin.site.dashboard' );
+					$state.go( 'public.app.home', {}, { reload: true } );
+					smModal.Close();
+				}
+				else
+				{
+					$rootScope.modal_popup_template = false;
+					$state.go( $state.current, $stateParams, { reload: true } );
+					smModal.Close();
 					return;
 				}
-				else
-				{
-					if( $state.current.name == 'public.sign.in' || $state.current.name == 'public.sign.in2' )
-					{
-						$state.go( 'public.app.home', {}, { reload: true } );
-						smModal.Close();
-					}
-					else
-					{
-						$rootScope.modal_popup_template = false;
-						$state.go( $state.current, $stateParams, { reload: true } );
-						smModal.Close();
-						return;
-					}
-				}
-			} )
-		}
-		else
-		{
-			Restangular.one( 'company/getUsersCompanies' ).get().then( function( response )
-			{
-				var selected_team = _.find( response.companies, { selected: 1 } );
-				if( !selected_team )
-				{
-					$state.go( 'admin.account.memberships' );
-				}
-				else
-				{
-					$state.go( 'admin.team.dashboard' );
-				}
-			} )
-		}
+			}
+		} )
 	}
 
 	$scope.isAgentOrGreater = function( $user )

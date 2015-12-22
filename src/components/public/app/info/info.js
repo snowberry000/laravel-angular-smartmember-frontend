@@ -11,14 +11,6 @@ app.config(function($stateProvider){
 
 app.controller('InfoController', function ($scope, $rootScope,$location, $localStorage , $state, $stateParams, $filter, Restangular, notify) {
 
-    $scope.isLoggedIn = function()
-    {
-        if( $localStorage.user && $localStorage.user.id )
-        {
-            return true;
-        }
-        return false;
-    }
 
 	$scope.lesson_count = 0;
 	$rootScope.page_title = 'Sales Page';

@@ -1,6 +1,6 @@
 <div class="ui modal">
 	<div class="header">
-		Sign up to {{site.name}}
+		Sign up to {{site.name || 'Smart Member'}}
 	</div>
 
 	<div class="content">
@@ -54,7 +54,7 @@
 					Or
 				</div>
 				<div class="center aligned seven wide column">
-					<a ng-click="smModal.Show('public.sign.in')" class="close ui big green labeled icon button">
+					<a ng-click="smModal.Show('public.sign.in', $state.includes('public.my') ? {modal_options:{closable:false}} : null)" class="ui big green labeled icon button">
 						<i class="fa fa-user icon"></i>
 						Login
 					</a>
@@ -68,7 +68,7 @@
 			Need help?
 			<i class="fa fa-life-ring icon"></i>
 		</a>
-		<div ng-if="!$state.includes('public.sign')" class="close ui black button">
+		<div ng-if="!$state.includes('public.my')" class="close ui black button">
 			Close
 		</div>
 	</div>
