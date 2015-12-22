@@ -104,13 +104,13 @@
 		<a class="item" ng-click="smModal.Show('public.admin.site.content.stats')">{{ 'STATS' | translate }}</a>
 	</div>
 </div>
-<div class="ui item">
+<div class="ui item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" >
 	<div class="ui small basic icon buttons">
 		<div class="ui top left pointing dropdown icon button" sui-dropdown>
 			<i class="users icon"></i>
 
 			<div class="menu">
-				<div class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+				<div class="item" >
 					<i class="dropdown icon"></i>
 					<span class="text">{{ 'SITE_ACCESS' | translate }}</span>
 					<div class="menu">
@@ -152,7 +152,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="ui top left pointing dropdown icon button" sui-dropdown>
+		<div ng-if="is_team_member" class="ui top left pointing dropdown icon button" sui-dropdown>
 			<i class="send icon"></i>
 
 			<div class="menu">
@@ -227,7 +227,7 @@
 
 <div class="right menu">
 
-	<div class="item">
+	<div class="item" ng-if="is_admin || is_team_member">
 		<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html')">
 			<i class="options icon"></i>
 			Theme Options
