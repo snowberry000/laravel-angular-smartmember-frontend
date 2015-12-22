@@ -1,5 +1,4 @@
 <div class="ui modal">
-	<i class="close icon"></i>
 
 	<div class="header">
 		<i class="configure icon"></i>
@@ -9,14 +8,13 @@
 		<div class="description">
 			<p>Here you can update your password, change your email, and merge accounts</p>
 
-			<div class="ibox">
-				<div class="ibox-title">
-					<h3 class="ui header">Update username</h3>
+			<div class="ui styled fluid accordion" sui-accordion>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Update username
 				</div>
-				<div class="ibox-content">
-
-					<form accept-encoding="UTF-8" class="ui form m-t-md">
-
+				<div class="content">
+					<div class="ui form transition hidden">
 						<div class="field">
 							<label class="col-sm-3 control-label">Username</label>
 
@@ -35,19 +33,15 @@
 								<button class="btn btn-primary" ng-click="saveUsername()">Update username</button>
 							</div>
 						</div>
-
-					</form>
-
+					</div>
 				</div>
-
-			</div>
-			<div class="ibox">
-				<div class="ibox-title">
-					<h3 class="ui header">Change password</h3>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Change password
 				</div>
-				<div class="ibox-content">
+				<div class="content">
 
-					<form method="post" accept-encoding="UTF-8" class="ui form m-t-md">
+					<div class="ui form transition hidden">
 
 						<div class="field">
 							<label class="col-sm-3 control-label">Current Password</label>
@@ -77,18 +71,16 @@
 							</div>
 						</div>
 
-					</form>
+					</div>
 
 				</div>
-			</div>
-
-			<div class="ibox">
-				<div class="ibox-title">
-					<h3 class="ui header">Profile Photo</h3>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Profile Photo
 				</div>
-				<div class="ibox-content">
+				<div class="content">
 
-					<form method="post" accept-encoding="UTF-8" class="ui form m-t-md">
+					<div class="ui form transition hidden">
 
 						<div class="field">
 							<label class="col-sm-3 control-label">Profile Photo</label>
@@ -112,23 +104,16 @@
 							</div>
 						</div>
 
-					</form>
+					</div>
 
 				</div>
-			</div>
-
-			<div class="ibox">
-				<div class="ibox-title">
-					<h3 class="ui header">Email Addresses</h3>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Update / edit / add email addresses
 				</div>
-				<div class="ibox-content">
+				<div class="content">
 
-					<p class="">
-						These are the emails associated with your account. Add more below if you'd like (can also
-						merge accounts).
-					</p>
-
-					<table class="ui fixed single line celled stackable table" data-page-size="15" foonice>
+					<table class="ui fixed single line celled stackable table transition hidden" data-page-size="15" foonice>
 						<thead>
 							<tr>
 								<th data-toggle="true">My Emails</th>
@@ -168,9 +153,12 @@
 
 						</tbody>
 					</table>
+					<div class="ui form transition hidden">
 
-					<form accept-encoding="UTF-8" class="ui form m-t-md">
-
+						<p class="">
+							These are the emails associated with your account. Add more below if you'd like (can also
+							merge accounts).
+						</p>
 						<div class="field">
 							<label class="col-sm-3 control-label">Add email address</label>
 
@@ -194,19 +182,15 @@
 							</div>
 						</div>
 
-					</form>
+
+					</div>
 
 				</div>
-
 			</div>
 
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui positive right labeled icon button">
-			Yep, that's me
-			<i class="checkmark icon"></i>
-		</div>
 		<div class="ui black deny button close">
 			Close
 		</div>

@@ -20,7 +20,7 @@ app.controller( 'AccessController', function( $scope, $rootScope, $location, not
 		if( $localStorage.user )
 		{
 			// Since they're already logged in, we should send this hash incase it needs to "do" something
-			console.log( "logged in, submitting hash", $user );
+			console.log( "logged in, submitting hash" );
 
 			// $user =
 			//Restangular.all( '' ).customGET( 'user/transactionAccess/' + $stateParams.hash ).then( function( response )
