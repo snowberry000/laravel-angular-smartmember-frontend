@@ -6,25 +6,28 @@ app.config( function( $stateProvider )
 		.state( "public.admin.site.appearance.widgets", {
 			url: "/widgets",
 			templateUrl: "/templates/components/public/admin/site/appearance/widgets/widgets.html",
-			controller: "WidgetsController",
-			resolve: {
-				loadPlugin: function( $ocLazyLoad )
-				{
-					return $ocLazyLoad.load( [
-						{
-							name: 'ui.sortable'
-						}
-					] );
-				}
-			}
+			controller: "WidgetsController"
 		} )
 } );
 
-app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http, Restangular, toastr )
+app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http, Restangular, toastr, $ocLazyLoad )
 {
 
 	$site = $rootScope.site;
 	$ads = null;
+
+    $scope.dragControlListeners = {
+        accept: function (sourceItemHandleScope, destSortableScope){
+            return true;
+        },
+        itemMoved: function ($event) {console.log("moved");},//Do what you want},
+        orderChanged: function($event) {console.log("orderchange");},//Do what you want},
+
+        dragEnd: function ($event) {
+            $(window).off();
+        },
+        connectWith: ".connectList"
+    };
 
     $scope.available_widgets = [
         {
@@ -113,10 +116,6 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
 		console.log( $scope.postAds );
 		$scope.update();
 	}
-
-	$scope.sortableOptions = {
-		connectWith: ".connectList"
-	};
 
 	$scope.update = function()
 	{

@@ -1,61 +1,35 @@
 <div class="ui modal">
-    <div class="content">
-        <div class="ibox-content m-b-sm border-bottom">
-            <div class="p-xs">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="pull-left m-r-md"><i class="fa fa-paperclip text-branded mid-icon"></i></div>
-                        <h2 class="ng-binding">Widgets</h2>
-                        <span>Widget images that display on your site sidebar.</span>
-                    </div>
-                   <!--  <div class="col-md-4"><a  class="btn btn-brand btn-large ng-scope" ng-click="smModal.Show('admin.site.appearance.widget')"><i class="fa fa-plus"></i> Create New Widget</a>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <h3 class="ui header">Hidden</h3>
-                        <p class="small"><i class="fa fa-hand-o-up"></i> Drag widget to the right column to add to sidebar</p>
-                        <ul ui-sortable="sortableOptions"  class="sortable-list connectList agile-list" ng-model="hiddenAds">
-                            <li class="success-element" ng-repeat="widget in available_widgets">
-                                <div ng-include="widget.template" class="admin"></div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <h3 class="ui header">In Display</h3>
-                        <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
-                        <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="displayAds">
-                            <li class="{{task.statusClass}}-element" ng-repeat="ad in displayAds">
-                                <div ng-if="ad.custom_ad" dynamic="ad.custom_ad"></div>
-                                <span ng-if="ad.banner_image_url">
-                                    <img src="{{ad.banner_image_url}}" height="100" />
-                                </span>
-                                <div class="agile-detail">
-                                    <!-- <a href="#" class="pull-right btn btn-xs btn-white">{{ad.banner_url}}</a> -->
-                                    <i class="fa fa-clock-o"></i> {{moment.utc(ad.created_at).fromNow()}}
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <i class="close icon"></i>
+
+    <div class="header">
+        <i class="paragraph icon"></i>
+        Widgets
     </div>
-    <div class="actions">
-        <a ng-click="smModal.Show('admin.site.appearance.widget')" class="ui right labeled icon button">
-            Create Widget
-            <i class="fa fa-plus"></i>
-        </a>
-        <div class="ui black deny button close">
-            Close
+    <div class="content">
+        <div class="description">
+            <p>Set up the widgets that show in your sidebar</p>
+
+            <h2 class="ui header">Hidden</h2>
+            <p>Drag to "In Display" to add widget to sidebar</p>
+
+            <div class="ui middle aligned divided animated relaxed list connectList" data-as-sortable="dragControlListeners" data-ng-model="available_widgets">
+                <div class="content" data-as-sortable-item data-component="{{widget}}" ng-repeat="widget in available_widgets">
+                    <div ng-include="widget.template" data-as-sortable-item-handle class="admin"></div>
+                </div>
+            </div>
+
+            <h2 class="ui header">In Display</h2>
+            <p></p>
+
+            <div class="ui middle aligned divided animated relaxed list connectList" data-as-sortable="dragControlListeners" data-ng-model="displayAds">
+                <div class="content" data-as-sortable-item data-component="{{widget}}"  ng-repeat="widget in displayAds">
+                    <div data-as-sortable-item-handle>
+                        <span ng-if="widget.banner_image_url">
+                            <img src="{{widget.banner_image_url}}" height="100" />
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
