@@ -5,7 +5,6 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.app.access", {
 			url: "/access/:hash",
-			templateUrl: "/templates/components/public/app/access/access.html",
 			controller: "AccessController"
 		} )
 } );
@@ -13,13 +12,12 @@ app.config( function( $stateProvider )
 app.controller( 'AccessController', function( $scope, $rootScope, $location, notify, $localStorage, $stateParams, smModal,  Restangular )
 {
 	$scope.hash = '';
-	$user = $rootScope.user;
 
 	if( $stateParams.hash )
 	{
 		$localStorage.hash = $stateParams.hash;
 
-		if( $user )
+		if( $localStorage.user )
 		{
             Restangular.all( 'user' ).customPOST( {hash: $localStorage.hash}, "associateHash" ).then( function( response )
             {
