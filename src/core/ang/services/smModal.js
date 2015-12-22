@@ -36,9 +36,13 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				}
 			} ).then( function( modal )
 			{
+				var parts = location.hostname.split( '.' );
+				var subdomain = parts.shift();
+
 				var the_options = {
 					observeChanges: true,
 					duration: 100,
+					closable: subdomain == 'my' ? false : true,
 					dimmerSettings: {
 						opacity: 0.3
 					}

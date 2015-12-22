@@ -45,7 +45,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 			else
 			{
 				// if we don't have a site, we should go through the setup wizard
-				smModal.Show('public.admin.wizard', {modal_options:{closable:false}});
+				smModal.Show('public.admin.wizard', {id: 'account_wizard'});
 				console.log( "Lets do the setup wizard!" );
 			}
 		} );
@@ -63,7 +63,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 	{
 		if( !$localStorage.user )
 		{
-			smModal.Show('public.sign.in', {modal_options:{closable:false}});
+			smModal.Show('public.sign.in');
 			//window.location.href = 'http://' + $rootScope.subdomain + '.' + $rootScope.app.domain + "/sign/in/";
 			//return;
 		}

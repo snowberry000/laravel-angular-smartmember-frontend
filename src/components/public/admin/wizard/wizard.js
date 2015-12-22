@@ -15,10 +15,16 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	$user = $rootScope.user;
 	$site = $rootScope.site;
 
+	console.log( "Wizards.GetCurrent( $stateParams.id )", $stateParams );
 	$wizard = Wizards.GetCurrent( $stateParams.id );
 	$nodes = Nodes.GetAll();
-	$wizard_server = Restangular.all( 'wizard' ).customGET( '', { slug: $stateParams.id, site_id: $site.id } ).then( function(response) {
+	$wizard_server = Restangular.all( 'wizard' ).customGET( '', {
+		slug: $stateParams.id,
+		site_id: $site.id
+	} ).then( function( response )
+	{
 
+		console.log( "THE WIZARD: ", $wizard );
 		$scope.static_wizard = $wizard;
 		$rootScope.wizard = [];
 
@@ -106,11 +112,12 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 			}
 		}
 
-	});
+	} );
 
 	$scope.cancel = function( node )
 	{
-		smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'});
+		console.log( "cancel node: ", node, $rootScope.wizard_server, $scope );
+		smModal.Show( 'public.admin.wizard', { id: $scope.static_wizard.slug } );
 		if( node )
 		{
 			//node.HideBox( node );
@@ -120,7 +127,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	$scope.back = function()
 	{
 		//$state.go( 'public.admin.wizards' );
-		smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'});
+		smModal.Show( 'public.admin.wizard', { id: 'site_launch_wizard' } );
 		return;
 	}
 
@@ -180,7 +187,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		{
 			Restangular.all( "wizard" ).customPUT( params, $rootScope.wizard_server.id ).then( function( response )
 			{
-				smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'});
+				smModal.Show( 'public.admin.wizard', { id: 'site_launch_wizard' } );
 				$rootScope.wizard_server = response;
 				/*if(response && response.options)
 				 $rootScope.wizard_server.options = JSON.parse(response.options);*/
@@ -214,7 +221,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 					$scope.wizard_server.is_completed = true;
 				}
 				$rootScope.site.wizard_step++;
-				smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'});
+				smModal.Show( 'public.admin.wizard', { id: 'site_launch_wizard' } );
 				var first_incomplete_step = _.findWhere( $rootScope.wizard, { completed: false } );
 
 				if( first_incomplete_step )
