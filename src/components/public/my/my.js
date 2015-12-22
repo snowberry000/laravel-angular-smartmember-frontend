@@ -31,7 +31,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 
 			var goto = '';
 
-			if( response.admin && response.admin[0].sites )
+			if( response.admin.length > 0 && response.admin[0].sites.length > 0 )
 			{
 				goto = response.admin[0].sites[0].domain ? response.admin[0].sites[0].domain : response.admin[0].sites[0].subdomain + '.smartmember.' + $rootScope.app.env;
 			}
@@ -45,6 +45,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 			else
 			{
 				// if we don't have a site, we should go through the setup wizard
+				smModal.Show('public.admin.team.wizard', {modal_options:{closable:false}});
 				console.log( "Lets do the setup wizard!" );
 			}
 		} );

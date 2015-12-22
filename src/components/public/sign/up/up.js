@@ -136,11 +136,19 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		}
 		if( $rootScope.app.subdomain == 'sm' )
 		{
-			window.location.href = 'http://my.smartmember.' + ($rootScope.app.rootDomain.indexOf( 'smartmember' ) != -1 ? 'com' : $rootScope.app.env) + '/admin/team/wizard/team_setup_wizard';
+			window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
 		}
 		else
 		{
-			$state.go( "admin.account.memberships" );
+			if( $scope.isSitelessPage() )
+			{
+				smModal.Show('public.admin.team.wizard', {modal_options:{closable:false}});
+			}
+			else
+			{
+				smModal.Close();
+			}
+			//$state.go( "admin.account.memberships" );
 		}
 
 	}
