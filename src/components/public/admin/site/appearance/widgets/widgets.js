@@ -10,45 +10,18 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http, Restangular, toastr, $ocLazyLoad )
+app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http, Restangular, toastr, $ocLazyLoad, $timeout )
 {
 
 	$site = $rootScope.site;
 	$ads = null;
-
-    $scope.dragControlListeners = {
-        accept: function (sourceItemHandleScope, destSortableScope){
-            return true;
-        },
-        itemMoved: function ($event) {console.log("moved");},//Do what you want},
-        orderChanged: function($event) {console.log("orderchange");},//Do what you want},
-
-        dragEnd: function ($event) {
-            $(window).off();
-        },
-        connectWith: ".connectList"
-    };
-
-    $scope.available_widgets = [
-        {
-            slug: 'text',
-            template: '/templates/components/public/admin/site/appearance/widgets/widgets/text/text.html'
-        },
-        {
-            slug: 'banner',
-            template: '/templates/components/public/admin/site/appearance/widgets/widgets/banner/banner.html'
-        }
-    ];
+    $scope.sidebar_id = 1;
 
 	$scope.init = function()
 	{
-		Restangular.all( 'siteAds' ).getList( { site_id: $site.id } ).then( function( response )
+		Restangular.all( 'widget' ).getList( { site_id: $site.id, sidebar_id: $scope.sidebar_id } ).then( function( response )
 		{
-			$ads = response;
-			$scope.displayAds = [];
-			$scope.hiddenAds = [];
-			$scope.divide( $ads );
-
+			$scope.widgets = response;
 		} );
 	}
 

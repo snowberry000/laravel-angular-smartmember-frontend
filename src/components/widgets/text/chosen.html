@@ -1,0 +1,8 @@
+<div ng-controller="WidgetChosenTextController">
+    <strong>Text</strong>
+    <i class="angle down icon" style="float:right;" ng-if="!show_settings" ng-click="show_settings=true"></i>
+    <i class="angle up icon" style="float:right;" ng-if="show_settings" ng-click="show_settings=false"></i>
+    <div ng-if="show_settings">
+        settings
+    </div>
+</div>

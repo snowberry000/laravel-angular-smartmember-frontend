@@ -23,7 +23,8 @@ var app = angular.module( 'app', [
 	'timer',
 	'localytics.directives',
 	'ngBusy',
-	'angularModalService'
+	'angularModalService',
+    'ngDragDrop'
 ] );
 
 
@@ -262,6 +263,10 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 			cfpLoadingBar.complete();
 		} );
 
+    $rootScope.available_widgets = [
+        'text',
+        'banner'
+    ];
 } );
 
 
