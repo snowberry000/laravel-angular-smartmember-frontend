@@ -1,4 +1,10 @@
 <div class="ui modal">
+	<i class="close icon"></i>
+
+	<div class="header">
+	    <i class="paragraph icon"></i>
+	    {{ template_data.title | translate }}
+	</div>
 	<div class="content">
 		<div>
 			<div class="row">
@@ -103,10 +109,18 @@
 						<span class="help-block m-b-none">
 							Optionally you can choose to have this "free item" go to any url instead of downloading a file.
 						</span>
-						<button type="button" class="btn btn-lg btn-info" id="save_sales_page_btn" ng-click="save()">Save Changes</button>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="actions">
+	    <div ng-click="save()" class="ui right labeled icon button">
+	       Save changes
+	        <i class="checkmark icon"></i>
+	    </div>
+	    <div class="ui black deny button close">
+	        Close
+	    </div>
 	</div>
 </div>

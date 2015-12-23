@@ -1,4 +1,10 @@
 <div class="ui modal" ng-init="initSalesPage()">
+    <i class="close icon"></i>
+
+    <div class="header">
+        <i class="paragraph icon"></i>
+        {{ template_data.title | translate }}
+    </div>
     <div class="content">
         <div>
             <h3 class="ui header">Sales Page Builder</h3>
@@ -67,9 +73,17 @@
                         <textarea froala ng-model="sales_options.sales_page_outro"></textarea>
                     </div>
                 </div>
-                <button type="button" ng-click="saveSalesPage()" class="btn btn-lg btn-info" id="save_sales_page_btn">Save Changes</button>
 
             </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div ng-click="saveSalesPage()" class="ui right labeled icon button">
+           Save changes
+            <i class="checkmark icon"></i>
+        </div>
+        <div class="ui black deny button close">
+            Close
         </div>
     </div>
 </div>

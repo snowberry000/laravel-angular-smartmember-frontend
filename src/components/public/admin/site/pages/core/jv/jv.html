@@ -1,4 +1,10 @@
 <div class="ui modal" ng-init="init()">
+	<i class="close icon"></i>
+
+	<div class="header">
+	    <i class="paragraph icon"></i>
+	    {{ template_data.title | translate }}
+	</div>
 	<div class="content">
 		<div>
 			<div class="row">
@@ -111,10 +117,18 @@
                     <textarea froala ng-model="jv.thankyou_note"></textarea>
 					<span class="help-block m-b-none">
 					</span>
-					<button type="button" class="btn btn-lg btn-info" id="save_sales_page_btn" ng-click="save()">Save Changes</button>
 				</div>
 			</div>
 			</form>
 		</div>
+	</div>
+	<div class="actions">
+	    <div ng-click="save()" class="ui right labeled icon button">
+	       Save changes
+	        <i class="checkmark icon"></i>
+	    </div>
+	    <div class="ui black deny button close">
+	        Close
+	    </div>
 	</div>
 </div>
