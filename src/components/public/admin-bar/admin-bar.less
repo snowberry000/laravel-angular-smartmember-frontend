@@ -1,4 +1,22 @@
-.public .admin_bar {
-  z-index: 999999;
-  min-height: 62px !important;
+.public {
+  .admin_bar {
+    z-index: 97 !important;
+  }
+  .top_sidebar_contents {
+    z-index: 99 !important;
+  }
+  .left_sidebar_contents {
+    z-index: 98 !important;
+    background: #ffffff;
+  }
+  .admin_bar,
+  .top_sidebar_contents .ui.menu:first-child {
+    min-height: 62px !important;
+  }
+  .left_sidebar_contents .ui.form:first-child {
+    margin-top: 72px !important;
+  }
 }
+
+
+

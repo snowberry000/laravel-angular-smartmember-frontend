@@ -4,7 +4,10 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 
 	self.Show = function( the_sidebar, template_file )
 	{
-		$rootScope.left_sidebar_contents = 'templates/components/public/sidebars/' + template_file;
+		if( the_sidebar == '.left_sidebar_contents' )
+			$rootScope.left_sidebar_contents = 'templates/components/public/sidebars/' + template_file;
+		else if( the_sidebar == '.top_sidebar_contents' )
+			$rootScope.top_sidebar_contents = 'templates/components/public/sidebars/' + template_file;
 
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( {
 			transition: 'overlay',

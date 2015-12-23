@@ -53,6 +53,7 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 	$rootScope.user = $user;
 	$rootScope.site = $site;
 	$scope.current_site_domain = window.location.host;
+	$rootScope.active_theme_option_section = 'layout';
 
 	$scope.initPublicSite = function()
 	{

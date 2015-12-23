@@ -189,7 +189,7 @@
 
 
 <div class="item" ng-if="is_admin || is_team_member" title="Customize the look n' feel of your site" sui-popup>
-	<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html')">
+	<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		<i class="options icon"></i>
 		Theme
 	</a>

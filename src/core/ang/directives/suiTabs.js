@@ -6,7 +6,13 @@ app.directive( 'suiTabs', function()
 		{
 			console.log( $(next_item), $(next_item).find('.item' ) );
 
-			$(next_item).find('.item' ).tab();
+			var options = {
+				context : attributes.context || ''
+			};
+
+			console.log( options );
+
+			$(next_item).find('.item' ).tab( options );
 		}
 	};
 } );

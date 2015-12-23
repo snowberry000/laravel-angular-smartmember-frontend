@@ -23,7 +23,8 @@ DetectAndPerformBridgePageThings();
 </head>
 <body resize style="height: auto;" class="md-skin fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
 
-<div class="ui left vertical menu sidebar left_sidebar_contents" ><ng-include src="left_sidebar_contents"></ng-include></div>
+<div class="ui top sidebar top_sidebar_contents" ><ng-include src="top_sidebar_contents"></ng-include></div>
+<div class="ui sidebar vertical menu left left_sidebar_contents" ><ng-include src="left_sidebar_contents"></ng-include></div>
 <div id="wrapper" class="pusher sticky-full-height" ui-view></div>
 
 <script src="js/vendor.min.js"></script>
