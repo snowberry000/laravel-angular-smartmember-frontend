@@ -79,6 +79,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 		},
 		Refresh: function()
 		{
+			//alert('refresh')
 			$( '.ui.modal' ).modal( 'refresh' );
 		},
 		show_old: function( modal_id, options )
