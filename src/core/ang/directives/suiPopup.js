@@ -1,4 +1,4 @@
-app.directive( 'suiPopup', function()
+app.directive( 'suiPopup', function(smModal)
 {
 	return {
 		restrict: 'A',
@@ -7,18 +7,38 @@ app.directive( 'suiPopup', function()
 			var the_options = {
 				hoverable: attributes.edit ? true : (attributes.hoverable || false),
 				position : attributes.position || 'top center',
-				html: attributes.edit ? '<button class="ui tiny red button" ng-click="smModal.Show(\'' + attributes.state + '\'' + (attributes.stateattributes ? ',' + attributes.stateattributes : '') + ');">edit</button>' : '',
+				//popup: '.special.popup',
+				html: attributes.edit ? '<button class="ui tiny red button edit-admin" data-state="' + attributes.state + 
+											'"  data-attributes="' + attributes.stateattributes + 
+											'">edit button</button>' : '',
 				target : attributes.target || '',
 				exclusive: true,
 				preserve: true,
 				delay: {
 					show: 100,
 					hide: attributes.edit ? 500 : 20
+				},
+				onShow: function(){
+					$(".edit-admin").on('click',function(event){
+						event.preventDefault();
+
+						console.log($(this).data('attributes'));
+
+						if ($(this).data('attributes')){
+							smModal.Show($(this).data('state'), $(this).data('attributes'));
+						}else{
+							smModal.Show($(this).data('state'));
+						}
+
+						
+						$(this).off(event);
+					});
+				},
+				onHide: function(){
+					$(".edit-admin").unbind('click');
+					return true;
 				}
 			};
-
-			//console.log( the_options, attributes );
-
 			$(next_item).popup(the_options);
 		}
 	};
