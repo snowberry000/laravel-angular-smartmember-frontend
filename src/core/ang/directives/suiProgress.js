@@ -5,8 +5,12 @@ app.directive( 'suiProgress', function()
 		link: function( scope, next_item, attributes )
 		{
 			$(next_item).progress({
-				success : 'Setup Complete!'
+				success : 'Wizard completed!'
+			});
+
+			scope.$watch(attributes.value, function(value){
+				$(next_item).progress('increment', value);//( value );
 			});
 		}
 	};
-} );
+});

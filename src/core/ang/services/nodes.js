@@ -11,6 +11,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/other/appearance/settings.html",
 					"controller" : "siteSettingsWizardController",
 					"image": "/images/image.png",
+					"icon": "user",
 					"enabled" : true ,
 					"completed" : false ,
 				} ,
@@ -23,6 +24,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/site/membership/product.html",
 					"controller" : "accessWizardController",
 					"image": "/images/image.png",
+					"icon": "user",
 					"enabled" : true ,
 					"completed" : false
 				} ,
@@ -35,6 +37,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/dmin/wizard/lesson_creation.html",
                     "controller" : "lessonWizardController",
 					"image": "/images/image.png",
+					"icon": "user",
 					"enabled" : true ,
 					"completed" : false
 				} ,
@@ -47,6 +50,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/site/appearance/menus.html",
 					"controller" : "menuWizardController",
 					"image": "/images/image.png",
+					"icon": "user",
 					"enabled" : true ,
 					"completed" : false
 				}
@@ -59,6 +63,7 @@ app.factory('Nodes', function () {
                     "template" : "templates/components/public/admin/team/integrations/wizard_sendgrid.html",
                     "controller" : "sendgridWizardController",
 	                "image": "/images/image.png",
+	                "icon": "user",
                     "enabled" : true ,
                     "completed" : false
                 } ,
@@ -70,6 +75,7 @@ app.factory('Nodes', function () {
                     "template" : "templates/components/public/admin/team/integrations/wizard_paypal.html",
                     "controller" : "paypalWizardController",
 	                "image": "/images/image.png",
+	                "icon": "user",
                     "enabled" : true ,
                     "completed" : false
                 } ,
@@ -81,6 +87,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/site/content/blog/post.html",
 					"controller" : "postWizardController",
 					"image": "/images/image.png",
+					"icon": "user",
 					"enabled" : true ,
 					"completed" : false
 				} ,
@@ -93,6 +100,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/wizard/nodes/upload_site_logo.html",
 					"controller" : "siteLogoWizardController",
 					"image": "/images/image.png",
+					"icon": "find",
 					"enabled" : true ,
 					"completed" : false ,
 				} ,
@@ -105,6 +113,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/wizard/nodes/create_site_modules.html",
 					"controller" : "modulesWizardController",
 					"image": "/images/image.png",
+					"icon": "folder open outline",
 					"enabled" : true ,
 					"completed" : false ,
 				} ,
@@ -117,6 +126,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/wizard/nodes/lesson_creation.html",
 					"controller" : "lessonWizardController",
 					"image": "/images/image.png",
+					"icon": "write",
 					"enabled" : true ,
 					"completed" : false ,
 				} ,
@@ -129,6 +139,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/wizard/nodes/lock_site_content.html",
 					"controller" : "lockContentWizardController",
 					"image": "/images/image.png",
+					"icon": "lock",
 					"enabled" : true ,
 					"completed" : false ,
 				} ,
@@ -141,6 +152,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/wizard/nodes/invite_members.html",
 					"controller" : "inviteMembersWizardController",
 					"image": "/images/image.png",
+					"icon": "add user",
 					"enabled" : true ,
 					"completed" : false ,
 				} ,
@@ -153,6 +165,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/wizard/nodes/update_team_name.html",
 					"controller" : "teamNameWizardController",
 					"image": "/images/image.png",
+					"icon": "user",
 					"enabled" : true ,
 					"completed" : false ,
 				},
@@ -165,6 +178,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/wizard/nodes/create_new_site.html",
 					"controller" : "siteWizardController",
 					"image": "/images/image.png",
+					"icon": "user",
 					"enabled" : true ,
 					"completed" : false ,
 				}

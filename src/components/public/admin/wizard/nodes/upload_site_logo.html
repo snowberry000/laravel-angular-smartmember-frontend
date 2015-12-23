@@ -1,53 +1,39 @@
 <div class="ui modal">
-	<i class="close icon"></i>
-	
 	<div class="header">
-		<i class="paragraph icon"></i>
-		
+		<i class="magic icon"></i>
+		Pick a logo for your site
 	</div>
 	<div class="content">
 		<div class="description">
-		
-			<form method="get" class="form-horizontal save_form">
 
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Image / logo</label>
+			<p>Before adding content to your site, upload it's logo (if you have one). It will show up
+			at the top of your site and anywhere where it's listed publicly.</p>
 
-					<div class="col-sm-9">
-						<button type="button" class="btn btn-danger set_site_logo"
-								sm-uploader="site_logo" ng-model="site_options.site_logo">Choose Image
-						</button>
-			            							<span class="help-block m-b-none">
-			            								This is your sites logo and will show anywhere your site is listed both publicly and here in the
-														admin area.
-			            							</span>
-
-						<div class="width-100 text-center">
-							<img class="site_logo_preview img-responsive img-thumbnail"
-								 ng-src="{{site_options.site_logo}}" ng-show="site_options.site_logo"
-								 style="width:auto;"/>
-						</div>
-						<br/>
-
-						<div class="pull-right" ng-if="site_options.site_logo">
-							<a class="btn btn-danger" ng-click="site_options.site_logo=''"><i
-							 class="ace-icon fa fa-remove">Remove</i></a>
-						</div>
-					</div>
+			<div class="ui form">
+				<div class="inline field">
+					<label>Upload image / logo</label>
+					<button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.site_logo">
+						<i class="upload icon"></i>
+						Choose File
+					</button>
 				</div>
-				<div class="hr-line-dashed"></div>
-			</form>
+				<div class="field">
+					<img class="ui fluid image" ng-src="{{site_options.site_logo}}" ng-show="site_options.site_logo">
+
+				</div>
+			</div>
 			
 		</div>
 	</div>
 	<div class="actions">
-		<!-- SAMPLE ACTION BUTTON -->
-		<a ng-click="save()" ng-disabled="saving" class="ui right labeled icon button">
-			{{saving ? 'Saving site logo' : 'Save & Continue'}}
+		<a busy ng-click="save()" class="ui right labeled icon button">
+			Save & continue
 			<i class="checkmark icon"></i>
 		</a>
-		<!-- /SAMPLE ACTION BUTTON -->
-		
+		<button class="ui red right labeled icon button" ng-if="site_options.site_logo" ng-click="site_options.site_logo=''">
+			Clear
+			<i class="remove icon"></i>
+		</button>
 		<div class="ui black deny button close" ng-click="cancel()">
 			Close
 		</div>
