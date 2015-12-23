@@ -1,47 +1,51 @@
-<div class="ibox">
-	<div class="ibox-content">
+<div class="ui modal">
+	<div class="content">
+		<div class="ibox">
+			<div class="ibox-content">
 
-		<div class="row">
-			<div class="col-md-9">
-				<h2 class="ui header">Setup Instructions</h2>
-				<p>Here are the steps necessary to add the {{integration.name}} integration.</p>
-			</div>
-			<div class="col-md-3 text-right">
-				<a class="btn btn-primary m-t-md" ng-init="setup_instructions_expanded = !integration_id" ng-click="setup_instructions_expanded = !setup_instructions_expanded">
-					{{!setup_instructions_expanded && 'expand' || 'close'}}
-				</a>
-			</div>
-		</div>
+				<div class="row">
+					<div class="col-md-9">
+						<h2 class="ui header">Setup Instructions</h2>
+						<p>Here are the steps necessary to add the {{integration.name}} integration.</p>
+					</div>
+					<div class="col-md-3 text-right">
+						<a class="btn btn-primary m-t-md" ng-init="setup_instructions_expanded = !integration_id" ng-click="setup_instructions_expanded = !setup_instructions_expanded">
+							{{!setup_instructions_expanded && 'expand' || 'close'}}
+						</a>
+					</div>
+				</div>
 
-		<div class="container-fluid m-b-lg" ng-if="setup_instructions_expanded">
-			<hr>
-			<div class="row">
-				<div class="col-md-2">
-					<h3 class="ui header">Step 1</h3>
-				</div>
-				<div class="col-md-10">
-					<p>Visit <a href="http://paypal.com" target="_blank">www.paypal.com <i class="fa fa-external-linkfa-sm"></i></a> to login or register an account.</p>
-					<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/paypal-step-1.png">
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="col-md-2">
-					<h3 class="ui header">Step 2</h3>
-				</div>
-				<div class="col-md-10">
-					<p>Click the <strong>Profile</strong> menu button in the top navigation, then select <strong>Profile and settings</strong>.</p>
-					<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/paypal-step-2.png">
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="col-md-2">
-					<h3 class="ui header">Step 3</h3>
-				</div>
-				<div class="col-md-10">
-					<p>Copy the <strong>Primary</strong> email listed in your account.</p>
-					<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/paypal-step-3.png">
+				<div class="container-fluid m-b-lg" ng-if="setup_instructions_expanded">
+					<hr>
+					<div class="row">
+						<div class="col-md-2">
+							<h3 class="ui header">Step 1</h3>
+						</div>
+						<div class="col-md-10">
+							<p>Visit <a href="http://paypal.com" target="_blank">www.paypal.com <i class="fa fa-external-linkfa-sm"></i></a> to login or register an account.</p>
+							<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/paypal-step-1.png">
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-2">
+							<h3 class="ui header">Step 2</h3>
+						</div>
+						<div class="col-md-10">
+							<p>Click the <strong>Profile</strong> menu button in the top navigation, then select <strong>Profile and settings</strong>.</p>
+							<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/paypal-step-2.png">
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-2">
+							<h3 class="ui header">Step 3</h3>
+						</div>
+						<div class="col-md-10">
+							<p>Copy the <strong>Primary</strong> email listed in your account.</p>
+							<img class="img-responsive img-thumbnail" src="https://s3.amazonaws.com/smpub/media/paypal-step-3.png">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

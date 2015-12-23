@@ -300,7 +300,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                 params.site_id = entity_id;
                 break;
         }
-        smModal.Show("public.admin.team.integration.configure", params);
+        smModal.Show("", params , {controller : 'IntegrationsController' , templateUrl : 'templates/components/public/admin/team/integration/configure/' + $stateParams.integration + '.html'});
     }
 
     
