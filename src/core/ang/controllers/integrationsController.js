@@ -179,6 +179,15 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             long_description: '<p><a href="http://www.jvzoo.com/register/446025" target="_blank">JVZoo</a> allows you to accept payments from the JVZoo affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
+            id: 'clickbank',
+            name: 'ClickBank: Payment Gateway',
+            short_name: 'ClickBank Payment',
+            sites_only: true,
+            description: 'Allow your customers to buy your Products with ClickBank',
+            logo: 'http://rosalindgardner.com/blog/wp-content/uploads/Clickbank-logo.gif',
+            long_description: '<p><a href="http://www.clickbank.com" target="_blank">ClickBank</a> allows you to accept payments from the ClickBank affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
+        },
+        {
             id: 'paypal',
             name: 'Paypal',
             description: 'Allow your customers to buy your Products with Paypal.',
@@ -291,7 +300,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                 params.site_id = entity_id;
                 break;
         }
-        smModal.Show("public.admin.team.integration.configure",params );
+        smModal.Show("public.admin.team.integration.configure", params);
     }
 
     
