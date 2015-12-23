@@ -17,7 +17,7 @@ app.directive( 'suiPopup', function()
 				}
 			};
 
-			console.log( the_options, attributes );
+			//console.log( the_options, attributes );
 
 			$(next_item).popup(the_options);
 		}
