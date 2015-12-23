@@ -264,8 +264,8 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 		} );
 
     $rootScope.available_widgets = [
-        'text',
-        'banner'
+        {type: 'text'},
+        {type: 'banner'}
     ];
 } );
 
