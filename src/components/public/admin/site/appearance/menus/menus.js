@@ -129,14 +129,22 @@ app.controller("MenusController", function ($rootScope,$scope, $filter, $documen
 		menu = JSON.parse(menu);
 		console.log(menu);
 		if(menu && (typeof menu.icon) != 'undefined'){
+			var itemWithId = _.find( $scope.menu_items , function( next_item )
+			{
+				return next_item.id == menu.id;
+			});
 			Restangular.one("siteMenuItem", menu.id).remove().then(function () {
 			    toastr.success("Success!  Menu Item deleted!");
-			    $scope.menu_items = _.without($scope.menu_items, menu);
+			    $scope.menu_items = _.without($scope.menu_items, itemWithId);
 			});
 		}else if(menu){
+			var itemWithId = _.find( $scope.footer_menu_items , function( next_item )
+			{
+				return next_item.id == menu.id;
+			});
 			Restangular.one("siteFooterMenuItem", menu.id).remove().then(function () {
 			    toastr.success("Success! Footer Menu Item deleted!");
-			    $scope.footer_menu_items = _.without($scope.footer_menu_items, menu);
+			    $scope.footer_menu_items = _.without($scope.footer_menu_items, itemWithId);
 			});
 		}
 	    
