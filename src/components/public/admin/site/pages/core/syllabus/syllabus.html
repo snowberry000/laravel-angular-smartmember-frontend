@@ -1,4 +1,10 @@
 <div class="ui modal">
+	<i class="close icon"></i>
+
+	<div class="header">
+	    <i class="paragraph icon"></i>
+	    {{ template_data.title | translate }}
+	</div>
 	<div class="content">
 		<div>
 			<div class="row">
@@ -56,12 +62,16 @@
 					</div>
 				</div>
 				
-				<div >
-					<div class="col-sm-12">
-						<button style='margin-top: 30px' type="button" class="btn btn-lg btn-info" id="save_sales_page_btn" ng-click="save()">Save Changes</button>
-					</div>
-				</div>
 			</div>
 		</div>
+	</div>
+	<div class="actions">
+	    <div ng-click="save()" class="ui right labeled icon button">
+	       Save changes
+	        <i class="checkmark icon"></i>
+	    </div>
+	    <div class="ui black deny button close">
+	        Close
+	    </div>
 	</div>
 </div>
