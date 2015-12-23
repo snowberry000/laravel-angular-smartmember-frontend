@@ -11,13 +11,13 @@
 
 	</div>
 	<div class="pointing icon menu">
-		<a class="item active" title="View as desktop" sui-popup>
+		<a class="item {{viewport == '' ? 'active' :''}}" ng-click="toggleViewPort('')" title="View as desktop" sui-popup>
 			<i class="desktop icon"></i>
 		</a>
-		<a class="item" title="View as tablet" sui-popup>
+		<a class="item {{viewport == 'viewport-tablet' ? 'active' :''}}" ng-click="toggleViewPort('viewport-tablet')" title="View as tablet" sui-popup>
 			<i class="tablet icon"></i>
 		</a>
-		<a class="item" title="View as mobile" sui-popup>
+		<a class="item {{viewport == 'viewport-mobile' ? 'active' :''}}" ng-click="toggleViewPort('viewport-mobile')" title="View as mobile" sui-popup>
 			<i class="mobile icon"></i>
 		</a>
 	</div>

@@ -2,16 +2,19 @@
 app.controller('themeEngineController', function ($rootScope, $scope, smSidebar, $state , $localStorage, $location, $stateParams,  Restangular, toastr) {
 
     $scope.original_data = [];
-
+    $rootScope.viewport = ''
     console.log( ' theme options: ', $scope.current_theme_options );
 
     $scope.toggleSidebar = function(option){
         if($rootScope.sidebar == option)
             return;
-        if($rootScope.sidebar == 'layout')
-            $rootScope.sidebar = 'colors';
-        else
-            $rootScope.sidebar = 'layout';
+        $rootScope.sidebar = option;
+    }
+
+    $scope.toggleViewPort = function(option){
+        if($rootScope.viewport == option)
+            return;
+        $rootScope.viewport = option;
     }
 
     $scope.save = function(){

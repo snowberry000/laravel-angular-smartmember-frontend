@@ -7,7 +7,7 @@ DetectAndPerformBridgePageThings();
 ?>
 <!DOCTYPE html>
 
-<html ng-app='app' style="height:auto;" class="no-js {{$state.current.name.split('.').join(' ')}}" ng-controller="IndexAppController" ng-init="home_init()">
+<html ng-app='app' style="height:auto;" class="no-js {{$state.current.name.split('.').join(' ')}}"  ng-controller="IndexAppController" ng-init="home_init()">
 <head>
 	<base href="/"></base>
 	<title>Smart Member</title>
@@ -21,7 +21,7 @@ DetectAndPerformBridgePageThings();
 	<link rel="stylesheet" href="css/main.min.css">
 	<link rel="shortcut icon" href="{{options.favicon}}" type="image/x-icon">
 </head>
-<body resize style="height: auto;" class="md-skin fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
+<body resize style="height: auto;" class="md-skin fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{viewport}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
 
 <div class="ui top sidebar top_sidebar_contents" ><ng-include src="top_sidebar_contents"></ng-include></div>
 <div class="ui sidebar vertical menu left left_sidebar_contents" ><ng-include src="left_sidebar_contents"></ng-include></div>
