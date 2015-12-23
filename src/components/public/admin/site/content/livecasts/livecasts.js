@@ -66,27 +66,15 @@ app.controller("LivecastsController", function ($scope,$rootScope,$http,Restangu
         })
     }
 
-    $scope.delete = function (id) {
+    $scope.deleteResource = function (id) {
 
-        var modalInstance = $modal.open({
-            templateUrl: 'templates/modals/deleteConfirm.html',
-            controller: "modalController",
-            scope: $scope,
-            resolve: {
-                id: function () {
-                    return id
-                }
-            }
-
-        });
-        modalInstance.result.then(function () {
+        
             var itemWithId = _.find($scope.data[ $scope.pagination.current_page ], function (next_item) {
-                return next_item.id === id;
+                return next_item.id == id;
             });
 
             itemWithId.remove().then(function () {
                 $scope.data[ $scope.pagination.current_page ] = _.without($scope.data[ $scope.pagination.current_page ], itemWithId);
             });
-        })
     };
 });
