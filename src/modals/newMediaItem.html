@@ -1,4 +1,8 @@
 <div class="ui medium modal">
+    <div class="header">
+        <i class="upload icon"></i>
+        Upload
+    </div>
     <div class="content">
       <div class="modal-body">
           <style>
@@ -26,7 +30,7 @@
                   background: #F8F8F8;
                   border: 5px dashed #DDD;
                   text-align: center;
-                  padding: 150px 10px 0 10px;
+                  padding: 150px 10px 150px 10px;
                   margin-left: 10px;
               }
               .drop-box.dragover {
@@ -39,7 +43,7 @@
           </style>
 
           <div class="loader-holder-50" ng-show="loading">
-              <div class="loader">Loading...</div>
+              <div class="loader">Uploading...</div>
           </div>
           <div class="col-md-12 height40" ng-hide="loading">
               <form  method="post">
@@ -47,6 +51,11 @@
                   </div>
                </form>
           </div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui negative button" ng-hide="loading">
+        Cancel
       </div>
     </div>
 </div>
