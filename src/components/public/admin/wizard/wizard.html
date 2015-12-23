@@ -9,22 +9,16 @@
 			<p>Now that you've created a site, it's time to fill it with content. Follow the steps below to
 				pretty it up and get members waiting out the door to get in!</p>
 
-			<div class="ui three cards" ng-init="init()">
-				<a class="ui card" ng-if="node.completed || node.enabled" ng-repeat="(key,node) in wizard" id="{{ $index }}" data-enabled="{{node.enabled}}" ng-click="smModal.Show('',{} , {'templateUrl' : node.template , 'controller' : node.controller});" wizardnode>
-					<div class="image">
-						<img src="{{ ::node.image }}">
+			<div class="ui four cards" ng-init="init()">
+				<a class="ui card" ng-if="node.completed || node.enabled" ng-repeat="(key,node) in wizard" id="{{ $index }}" data-enabled="{{node.enabled}}" ng-click="smModal.Show('',{} , {'templateUrl' : node.template , 'controller' : node.controller});" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false" wizardnode>
+					<div class="image text-center p-sm">
+						<i class="huge icons">
+							<i class="big {{node.completed ? 'green' : 'red'}} {{hoverIn ? 'loading sun' : (node.completed ? 'thin circle' : 'square outline')}} icon"></i>
+							<i class="{{node.completed ? 'green' : 'red'}} {{ node.icon }} icon"></i>
+						</i>
 					</div>
-					<div class="content">
-						<div class="header">
-							{{ ::node.heading }}
-						</div>
-						<div class="description">
-							{{ ::node.description }}
-						</div>
-					</div>
-					<div class="extra content">
-						<i class="user icon"></i>
-
+					<div class="extra">
+						{{ ::node.heading }}
 					</div>
 				</a>
 			</div>

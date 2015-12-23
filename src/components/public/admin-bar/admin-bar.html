@@ -36,8 +36,8 @@
 </div>
 
 <a class="ui item" style="width: 200px;" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" sui-popup>
-	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step <=5 ? site.wizard_step : 5}}" data-total="5" data-percent="{{site.wizard_step * 100 / 5}}" sui-progress>
-		<div class="bar" style="transition-duration: 300ms; width: {{ (site.wizard_step <=5 ? site.wizard_step : 5) / 5 * 100 }}%;">
+	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step <=5 ? site.wizard_step : 5}}" data-total="5" sui-progress>
+		<div class="bar">
 			<div class="progress">{{site.wizard_step}} of 5 steps</div>
 		</div>
 		<div class="label" style="font-size: 0.8em;">Setup Wizard</div>
