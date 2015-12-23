@@ -18,7 +18,7 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 
 	self.Close = function( the_sidebar )
 	{
-		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).modal( 'hide' );
+		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( 'hide' );
 	};
 
 	self.Init = function( the_sidebar )
