@@ -68,22 +68,11 @@ app.controller("DownloadsController", function ($scope,$rootScope,smModal, $loca
         });
     }
 
-    $scope.delete = function (download) {
-        var modalInstance = $modal.open({
-            templateUrl: '/templates/modals/deleteConfirm.html',
-            controller: "modalController",
-            scope: $scope,
-            resolve: {
-                id: function () {
-                    return download.id
-                }
-            }
-        });
-        modalInstance.result.then(function () {
+    $scope.deleteResource = function (download) {
+        
             Restangular.one('download' , download.id).remove().then(function () {
                 $scope.downloads = _.without($scope.downloads, download);
             });
-        })
     };
     $scope.resolve();
 });
