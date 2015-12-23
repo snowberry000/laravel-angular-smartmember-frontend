@@ -36,4 +36,12 @@ app.controller( 'AdminBarController', function( $scope, $rootScope, $localStorag
 		console.log( 'we have data admin data: ', response.admin );
 		console.log( 'we have data membership data: ', response.member );
 	} );
+
+	$scope.selectFirstSite = function(event){
+		if (event.which == 13){
+			
+		}
+		
+	}
+
 } );

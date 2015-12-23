@@ -18,7 +18,7 @@ app.directive( 'suiPopup', function(smModal)
 					show: 100,
 					hide: attributes.edit ? 500 : 20
 				},
-				onShow: function(){
+				onVisible: function(){
 					$(".edit-admin").on('click',function(event){
 						event.preventDefault();
 
