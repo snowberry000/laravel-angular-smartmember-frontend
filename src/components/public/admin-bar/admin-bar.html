@@ -2,7 +2,7 @@
 	Smart Member
 </div>
 
-<div class="ui pointing dropdown link item" sui-dropdown>
+<div class="ui pointing dropdown link item" title="View, create, and navigate your sites" sui-dropdown sui-popup>
 	<i class="globe icon"></i>
 	<span class="text">{{current_site_domain}}</span>
 	<div class="menu" ng-controller="AdminBarController">
@@ -35,16 +35,17 @@
 	</div>
 </div>
 
-<a class="ui item" style="width: 200px;" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+<a class="ui item" style="width: 200px;" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" sui-popup>
 	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step <=5 ? site.wizard_step : 5}}" data-total="5" data-percent="{{site.wizard_step * 100 / 5}}" sui-progress>
 		<div class="bar" style="transition-duration: 300ms; width: {{ (site.wizard_step <=5 ? site.wizard_step : 5) / 5 * 100 }}%;">
 			<div class="progress">{{site.wizard_step}} of 5 steps</div>
 		</div>
 		<div class="label" style="font-size: 0.8em;">Setup Wizard</div>
 	</div>
+
 </a>
 
-<div class="ui dropdown item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" sui-dropdown>
+<div class="ui dropdown item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" title="Create new content to display on your site" sui-dropdown sui-popup>
 	<div class="ui right labeled icon green button">
 		<i class="write icon"></i>
 		Create
@@ -107,7 +108,7 @@
 <div class="ui item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
 	<div class="ui small basic icon buttons">
 
-		<div ng-if="is_team_member" class="ui top left pointing dropdown icon button" sui-dropdown>
+		<div ng-if="is_team_member" class="ui top left pointing dropdown icon button" title="Update general site settings" sui-popup sui-dropdown>
 			<i class="setting icon"></i>
 
 			<div class="menu">
@@ -150,7 +151,7 @@
 
 			</div>
 		</div>
-		<div ng-if="is_team_member" class="ui top left pointing dropdown icon button" sui-dropdown>
+		<div ng-if="is_team_member" class="ui top left pointing dropdown icon button" title="Send email to your members & subscribers" sui-dropdown sui-popup>
 			<i class="send icon"></i>
 
 			<div class="menu">
@@ -164,7 +165,7 @@
 				<a class="item" ng-click="smModal.Show('public.admin.team.email.queue')">{{ 'QUEUE' | translate }}</a>
 			</div>
 		</div>
-		<div class="ui top left pointing dropdown icon button" ng-if="is_site_admin || is_agent || is_team_member" sui-dropdown>
+		<div class="ui top left pointing dropdown icon button" ng-if="is_site_admin || is_agent || is_team_member" title="Assist your members through the Helpdesk" sui-dropdown sui-popup>
 			<i class="life ring icon"></i>
 
 			<div class="menu">
@@ -172,7 +173,7 @@
 				<a class="item" ng-click="smModal.Show('public.admin.team.helpdesk.settings')" style="display:none;">{{ 'SETTINGS' | translate }}</a>
 			</div>
 		</div>
-		<div class="ui top left pointing dropdown icon button" ng-if="is_team_member" sui-dropdown>
+		<div class="ui top left pointing dropdown icon button" ng-if="is_team_member" title="Manage the affiliates promoting your site" sui-dropdown sui-popup>
 			<i class="sitemap icon"></i>
 
 			<div class="menu">
@@ -187,7 +188,7 @@
 </div>
 
 
-<div class="item" ng-if="is_admin || is_team_member">
+<div class="item" ng-if="is_admin || is_team_member" title="Customize the look n' feel of your site" sui-popup>
 	<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html')">
 		<i class="options icon"></i>
 		Theme
@@ -195,7 +196,7 @@
 </div>
 <div class="right menu">
 
-	<div class="ui dropdown item" sui-dropdown>
+	<div class="ui dropdown item" title="Update general account settings" sui-dropdown sui-popup>
 		<i class="settings icon"></i>
 		Account
 		<i class="dropdown icon"></i>
