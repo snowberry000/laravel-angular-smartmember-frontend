@@ -40,7 +40,6 @@ app.controller( 'AdminBarController', function( $scope, $rootScope, $localStorag
 	$scope.selectFirstSite = function(event){
 		if (event.which == 13){
 			
-			
 		}
 		
 	}
