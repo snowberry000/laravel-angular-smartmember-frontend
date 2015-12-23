@@ -162,7 +162,6 @@ app.controller('IntegrationsController', function ($scope,$q, $localStorage, $lo
             id: 'jvtool',
             name: 'JVZoo: Affiliate Grabber',
             short_name: 'JVZoo',
-            instructions_only: true,
             description: 'Add Affiliates through our JVZoo Chrome Extension',
             logo: '/images/integrations/jvzoo.jpeg',
             long_description: '<p class="font-bold text-success">Automatically add your JVZoo affiliates in this section</p> <p class=""> Install the JVzoo Extension following the instructions provided, and every time you visit JVzoo the extension will automatically add your affiliates in this management area. You can add affiliates from these JVzoo locations.</p> <p style="text-align:center;"> <a target="_blank" href="https://www.jvzoo.com/sellers/youraffiliates?f_aff=&f_prod=&f_stat=&r=25000" data-bypass="true">Your Affiliates</a> | <a target="_blank" href="https://www.jvzoo.com/sellers/affiliaterequests?f_aff=&r=250000" data-bypass="true">Affiliate Requests</a> </p>'
