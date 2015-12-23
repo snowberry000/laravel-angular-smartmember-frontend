@@ -1,0 +1,64 @@
+<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+    <div class="sk-bounce1"></div>
+    <div class="sk-bounce2"></div>
+    <div class="sk-bounce3"></div>
+</div>
+<div ng-if="!loading" class="card clearfix large_top_margin">
+    <h4 style="margin-bottom:20px;">Configure ClickBank Payments for <strong>{{current_site.name}}</strong></h4>
+
+
+    <form method="get" class="ui form" ng-submit="saveIntegration()">
+
+        <h2 class="ui header">ClickBank Settings</h2>
+
+        <div class="field m-t-md">
+            <label class="col-sm-3 control-label">ClickBank Secret Key</label>
+
+            <div class="col-sm-9">
+                <input type="text" class="form-control" ng-model="current_integration.remote_id">
+                <span class="help-block m-b-none">This is the Secret Key that will be used to decrypt encrypted sales data transferred by ClickBank</span>
+            </div>
+        </div>
+
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <label class="col-sm-3 control-label"></label>
+
+            <div class="col-sm-9">
+                <button class="btn btn-brand" type="submit" ng-disabled="!current_integration.remote_id">Save changes</button>
+                <a ui-sref="public.admin.team.integrations.{{integration_id ? 'list' : 'available'}}" class="btn btn-white">cancel</a>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="clear_both"></div>
+    <div class="col span_2_of_6 small">
+        Set this Url as your ClickBank IPN Url.
+    </div>
+    <div class="col span_4_of_6 ">
+        <label class="small">
+            <div class="input-group" ng-init="init()">
+                <input class="form-control input-lg endpoint-api" id="copy_me" disabled value="{{app.apiUrl + '/transaction?type=clickbank&subdomain=' + current_site.subdomain}}" />
+                    <span class="input-group-btn">
+                        <a class="btn btn-brand copy-button" style="height:45px;"  data-clipboard-target="#copy_me" data-clipboard-action="copy" clip-copy="app.apiUrl + '/transaction?type=clickbank&subdomain=' + current_site.subdomain" ng-click="copied()" >Copy</a>
+                    </span>
+            </div>
+        </label>
+    </div>
+    <div class="clear_both"></div>
+    <div class="col span_2_of_6 small">
+        Set this Url as the thank you page in your ClickBank product if you wish to use the built in thank you page.
+    </div>
+    <div class="col span_4_of_6 ">
+        <label class="small">
+            <div class="input-group">
+                <input class="form-control input-lg endpoint-api" id="copy_me2" disabled value="{{'http://' + ( current_site.domain ? current_site.domain : current_site.subdomain + '.' + app.rootDomain ) + '/thank-you'}}" />
+                    <span class="input-group-btn">
+                        <a class="btn btn-brand copy-button" style="height:45px;" data-clipboard-target="#copy_me2" data-clipboard-action="copy" clip-copy="'http://' + ( current_site.domain ? current_site.domain : current_site.subdomain + '.' + app.rootDomain ) + '/thank-you'" ng-click="copied()" >Copy</a>
+                    </span>
+            </div>
+        </label>
+    </div>
+    <div class="clear_both"></div>
+</div>
