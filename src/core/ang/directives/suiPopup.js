@@ -5,14 +5,15 @@ app.directive( 'suiPopup', function()
 		link: function( scope, next_item, attributes )
 		{
 			var the_options = {
-				hoverable: attributes.hoverable || false,
+				hoverable: attributes.edit ? true : (attributes.hoverable || false),
 				position : attributes.position || 'top center',
+				html: attributes.edit ? '<button class="ui tiny red button" ng-click="smModal.Show(\'' + attributes.state + '\');">edit</button>' : '',
 				target : attributes.target || '',
 				exclusive: true,
 				preserve: true,
 				delay: {
 					show: 100,
-					hide: 20
+					hide: attributes.edit ? 500 : 20
 				}
 			};
 
