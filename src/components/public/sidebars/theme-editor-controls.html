@@ -1,12 +1,13 @@
-<div class="ui menu">
+
+<div class="ui menu" ng-init="toggleSidebar()" ng-controller="themeEngineController">
 	<div class="header item">
 		Theme Editor
 	</div>
 	<div class="item">
-		<button class="ui primary button">Layout</button>
+		<button class="ui primary button" ng-click="toggleSidebar()">Layout</button>
 	</div>
 	<div class="item">
-		<button class="ui default button">Colors</button>
+		<button class="ui default button" ng-click="toggleSidebar()">Colors</button>
 	</div>
 	<div class="pointing icon menu">
 		<a class="item active" title="View as desktop" sui-popup>
@@ -22,7 +23,7 @@
 	<div class="menu">
 		<div class="item">
 			<div class="ui buttons">
-				<div class="ui red button" ng-click="smSidebar.Close();">Save</div>
+				<div class="ui red button" ng-click="save();">Save</div>
 				<div class="ui secondary button" ng-click="smSidebar.Close();">cancel</div>
 			</div>
 		</div>
