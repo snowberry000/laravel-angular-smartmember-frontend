@@ -1,4 +1,4 @@
-app.directive('smUploader', function ($localStorage,  $parse, notify, Restangular) {
+app.directive('smUploader', function ($localStorage,  $parse, notify, Restangular , smModal) {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -16,48 +16,50 @@ app.directive('smUploader', function ($localStorage,  $parse, notify, Restangula
                     var rest = Restangular.all(post);
                 }
 
-                var modalInstance = $modal.open({
-                    templateUrl: 'templates/modals/newMediaItem.html',
-                    controller: "modalMediaController",
-                    scope: scope,
-                    resolve: {
-                        hideLink: function () {
-                            return hideLink
+                smModal.Show(null , {modal_options : {allowMultiple: true}} , 
+                    {templateUrl : 'templates/modals/newMediaItem.html' , controller : 'modalMediaController'} ,
+                    function(item){
+                        if (key) {
+                            var li = {};
+                            console.log(item)
+                            li[key] = item.file;
+                            if (model) {
+
+                                var parsed_model = $parse(model);
+                                parsed_model.assign(scope, item.file);
+                                ctrl.$setViewValue(item.file);
+                            }
+                            if ( awskey && item.aws_key !== undefined ) {
+
+                                var parsed_awskey = $parse(awskey);
+                                parsed_awskey.assign(scope, item.aws_key);
+                                ctrl.$setViewValue(item.aws_key);
+                            }
+                        }
+
+                        if (rest) {
+                            rest.customPOST(li, "save").then(function () {
+                                //("Image is uploaded");
+                            });
                         }
                     }
-                });
+                    )
 
-                modalInstance.result.then(function (item) {
-                    if (key) {
-                        var li = {};
-                        console.log(item)
-                        li[key] = item.file;
-                        if (model) {
-
-                            var parsed_model = $parse(model);
-                            parsed_model.assign(scope, item.file);
-                            ctrl.$setViewValue(item.file);
+                /*$(".upload.modal")
+                    .modal('setting',{
+                        onApprove: function(){
+                            alert(attributes.smDelete);
+                            scope.deleteResource(attributes.smDelete)
                         }
-                        if ( awskey && item.aws_key !== undefined ) {
+                    })
+                    .modal('show');*/
 
-                            var parsed_awskey = $parse(awskey);
-                            parsed_awskey.assign(scope, item.aws_key);
-                            ctrl.$setViewValue(item.aws_key);
-                        }
-                    }
-
-                    if (rest) {
-                        rest.customPOST(li, "save").then(function () {
-                            notify("Image is uploaded");
-                        });
-                    }
-                })
             })
             
         }
     };
 });
-app.controller('modalMediaController', function ($scope, $modalInstance, Upload) {
+app.controller('modalMediaController', function ($scope, Upload , close) {
     console.log('we started up');
     $scope.loading = false;
     $scope.cancel = function () {
@@ -94,7 +96,7 @@ app.controller('modalMediaController', function ($scope, $modalInstance, Upload)
                       if( data.aws_key !== undefined )
                           returnObject.aws_key = data.aws_key;
 
-                $modalInstance.close( returnObject );
+                close( returnObject );
             }).error(function (data, status, headers, config) {
                 console.log('error status: ' + data);
             });
