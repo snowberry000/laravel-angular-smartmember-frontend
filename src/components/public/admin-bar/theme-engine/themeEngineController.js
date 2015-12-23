@@ -1,9 +1,16 @@
 
-app.controller('themeEngineController', function ($rootScope, $scope, $state , $localStorage, $location, $stateParams,  Restangular, toastr) {
+app.controller('themeEngineController', function ($rootScope, $scope, smSidebar, $state , $localStorage, $location, $stateParams,  Restangular, toastr) {
 
     $scope.original_data = [];
 
     console.log( ' theme options: ', $scope.current_theme_options );
+
+    $scope.toggleSidebar = function(){
+        if($rootScope.sidebar == 'layout')
+            $rootScope.sidebar = 'colors';
+        else
+            $rootScope.sidebar = 'layout';
+    }
 
     $scope.save = function(){
         angular.forEach($rootScope.meta_data, function(value , key){
@@ -18,7 +25,7 @@ app.controller('themeEngineController', function ($rootScope, $scope, $state , $
         });
         Restangular.all('siteMetaData').customPOST($rootScope.meta_data, "save").then(function () {
             toastr.success("Options are saved!");
-
+            smSidebar.Close();
             $rootScope.app.show_engine = false;
         });
     }
