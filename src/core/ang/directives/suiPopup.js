@@ -7,7 +7,7 @@ app.directive( 'suiPopup', function()
 			var the_options = {
 				hoverable: attributes.edit ? true : (attributes.hoverable || false),
 				position : attributes.position || 'top center',
-				html: attributes.edit ? '<button class="ui tiny red button" ng-click="smModal.Show(\'' + attributes.state + '\');">edit</button>' : '',
+				html: attributes.edit ? '<button class="ui tiny red button" ng-click="smModal.Show(\'' + attributes.state + '\'' + (attributes.stateattributes ? ',' + attributes.stateattributes : '') + ');">edit</button>' : '',
 				target : attributes.target || '',
 				exclusive: true,
 				preserve: true,
@@ -17,7 +17,7 @@ app.directive( 'suiPopup', function()
 				}
 			};
 
-			console.log( the_options );
+			console.log( the_options, attributes );
 
 			$(next_item).popup(the_options);
 		}
