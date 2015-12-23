@@ -79,13 +79,10 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 
 	$scope.deleteResource = function( id )
 	{
-		console.log("Delete: " + id);
-		console.log('Data', $scope.data);
 		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
 		{
-			return next_item.id === id;
-		} );
-
+			return next_item.id == id;
+		});
 
 		itemWithId.remove().then( function()
 		{
