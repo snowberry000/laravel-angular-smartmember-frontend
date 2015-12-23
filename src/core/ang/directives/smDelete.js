@@ -4,18 +4,15 @@ app.directive( 'smDelete', function()
 		restrict: 'A',
 		link: function( scope, element, attributes ){
 			element.bind('click',function(){
-				console.log(attributes);
-
-				$(".delete.modal")
+				$(".small.delete.modal")
 					.modal('setting',{
+						allowMultiple: true,
 						onApprove: function(){
-							alert(attributes.smDelete);
-							scope.deleteResource(attributes.smDelete)
+							scope.deleteResource(attributes.smDelete);
+							return true;
 						}
 					})
 					.modal('show');
-
-				console.log("Delete modal");
 			});
 		}
 	};
