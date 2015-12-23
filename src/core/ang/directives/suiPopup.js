@@ -5,14 +5,14 @@ app.directive( 'suiPopup', function()
 		link: function( scope, next_item, attributes )
 		{
 			var the_options = {
-				hoverable: true,
+				hoverable: attributes.hoverable || false,
 				position : attributes.position || 'top center',
 				target : attributes.target || '',
 				exclusive: true,
 				preserve: true,
 				delay: {
 					show: 100,
-					hide: 100
+					hide: 20
 				}
 			};
 
