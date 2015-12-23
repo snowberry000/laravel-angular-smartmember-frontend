@@ -1,12 +1,12 @@
-<div class="ui large menu" ng-init="toggleSidebar()" ng-controller="themeEngineController">
+<div class="ui large menu" ng-init="toggleSidebar('layout')" ng-controller="themeEngineController">
 	<div class="header item">
 		Theme Editor
 	</div>
-	<div class="item">
-		<button class="ui primary button" ng-click="toggleSidebar()">Layout</button>
+	<div class="item {{sidebar=='layout' ? 'active' :''}}">
+		<button class="ui primary button" ng-click="toggleSidebar('layout')">Layout</button>
 	</div>
-	<div class="item">
-		<button class="ui primary button" ng-click="toggleSidebar()">Colors</button>
+	<div class="item {{sidebar=='colors' ? 'active' :''}}">
+		<button class="ui primary button" ng-click="toggleSidebar('colors')">Colors</button>
 	</div>
 	<div class="item">
 		Things

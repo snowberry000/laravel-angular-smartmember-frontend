@@ -5,7 +5,9 @@ app.controller('themeEngineController', function ($rootScope, $scope, smSidebar,
 
     console.log( ' theme options: ', $scope.current_theme_options );
 
-    $scope.toggleSidebar = function(){
+    $scope.toggleSidebar = function(option){
+        if($rootScope.sidebar == option)
+            return;
         if($rootScope.sidebar == 'layout')
             $rootScope.sidebar = 'colors';
         else
