@@ -1,75 +1,88 @@
 <div class="ui modal">
-<div class="content">
-    <section>
-        <div id="wrapper" ng-init="initDownloads()">
-            <div>
-                <div class="content">
-                    <div class="row">
-                        <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;" infinite-scroll="loadMore()" infinite-scroll-distance='1' infinite-scroll-disabled="disable">
-                            <div class="hpanel">
-                                <div class="panel-body">
-                                    <div>
-                                        <div class="panel panel-success">
-                                            <div class="panel-heading">
-                                                <div class="row">
-                                                    <div class="col-md-2">Title</div>
-                                                    <div class="col-md-3">View</div>
-                                                    <div class="col-md-2">Unique Downloads</div>
-                                                    <div class="col-md-2">Total Downloads</div>
-                                                    <div class="col-md-2">Created</div>
-                                                    <!-- <div class="col-md-1"><input class="form-control btn-success" style="margin:0px;padding:0px;" type="button" value="save" ng-click="save()"/></div> -->
-                                                </div>
-                                            </div>
-                                            <div class="panel-body">
-                                                <ul class="list-group " style="margin-left:0px;" data-as-sortable="dragControlListeners" data-ng-model="downloads" >
-                                                    <li style="margin-top:5px;border:none;padding-left:2px;padding-right:2px;" class="list-group-item download_item" data-as-sortable-item data-component="{{download}}" data-id="{{download.id}}" ng-repeat="download in downloads">
-                                                        <div class="row" data-as-sortable-item-handle>
-                                                            <div class="col-md-2">
-                                                                <a ng-click="smModal.Show('public.admin.site.content.download',{'id': download.id})" href="#">
-                                                                    <span class="text-success font-bold">{{download.title}}</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <a class="text-success" href="/{{download.permalink}}" target="_blank">/{{download.permalink}}</a>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                {{download.unique_count.length ? download.unique_count[0].unique_count : '0' }}
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                {{download.history_count.length ? download.history_count[0].count : '0' }}
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                {{moment.utc(download.created_at).fromNow() }}
-                                                                <span class="pull-right glyphicon glyphicon-trash delete_item" style="cursor:pointer;margin-right:5px;" sm-delete={{download}}></span>
-                                                                <a href="/admin/site/content/download/?clone={{download.id}}"><i class="fa fa-copy pull-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+	<i class="close icon"></i>
 
-                            </div>
-                        </div>
-                    </div>
+	<div class="header">
+		<i class="paragraph icon"></i>
+		{{ template_data.title | translate }}
+	</div>
+	<div class="content">
+		<div class="description">
+			<p>{{template_data.description}}</p>
 
-                </div>
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<div class="field" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
+						<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+					</div>
+					<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+						<div class="sk-bounce1"></div>
+						<div class="sk-bounce2"></div>
+						<div class="sk-bounce3"></div>
+					</div>
+					<table class="ui fixed single line celled stackable table" data-page-size="15" ng-if="data.length > 0 && !loading" foonice>
+						<thead>
+							<tr>
+								<th data-toggle="true">Title</th>
+								<th data-hide="phone">Access</th>
+								<th data-hide="phone">Created</th>
+								<th class="text-right" data-hide="phone,tablet" data-sort-ignore="true">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="next_item in data[ pagination.current_page ]">
+								<td class="responsive_table_item">
+									{{next_item.title}}
+								</td>
+								<td style="width:125px;">
+									{{next_item.access_level.name}}
+								</td>
+								<td style="width: 160px;">
+									{{moment.utc(next_item.created_at).fromNow()}}
+								</td>
+								<td class="text-right" style="width: 235px;">
+									<div class="btn-group">
+										<a ng-click="smModal.Show(template_data.edit_route,{id: next_item.id })" class="btn btn-brand btn-outline btn-xs">
+											Edit
+											<i class="fa fa-pencil"></i>
+										</a>
+										<a href="/{{next_item.permalink}}" target="_blank" class="btn btn-brand btn-outline btn-xs">
+											View
+											<i class="fa fa-eye"></i>
+										</a>
+										<a ng-href="{{$state.href( template_data.edit_route )}}?clone={{next_item.id}}" class="btn btn-link btn-outline btn-xs">
+											Copy
+											<i class="fa fa-copy"></i>
+										</a>
+										<button class="btn btn-danger btn-outline btn-xs" sm-delete={{next_item.id}}>
+											Delete
+											<i class="fa fa-trash"></i>
+										</button>
+									</div>
 
+								</td>
+							</tr>
 
-            </div>
-        </div>
-    </section>
-</div>
-    <div class="actions">
-        <input class="ui right labeled icon button" type="button" value="save" ng-click="save()"/>
-        <a ng-click="smModal.Show('public.admin.site.content.download')" class="ui right labeled icon button">
-            Create new {{template_data.singular}}
-            <i class="checkmark icon"></i>
-        </a>
-        <div class="ui black deny button close">
-            Close
-        </div>
-    </div>
+						</tbody>
+						<tfoot>
+							<tr>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="text-right" ng-if="!loading">
+						<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.current_page" class="pagination-sm" boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ng-click="smModal.Show(template_data.edit_route)" class="ui right labeled icon button">
+			Create new {{template_data.singular}}
+			<i class="checkmark icon"></i>
+		</a>
+		<div class="ui black deny button close">
+			Close
+		</div>
+	</div>
 </div>

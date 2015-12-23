@@ -7,7 +7,7 @@
 
                     <div class="panel-body">
 
-                        <form class="ui form save_form" ng-submit="save()">
+                        <div class="ui form">
                             <div class="field">
                                 <label class="col-sm-2 control-label">Download Title</label>
 
@@ -272,7 +272,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                        </form>
+                        </div>
 
                     </div>
 
@@ -282,7 +282,7 @@
         </div>
     </div>
     <div class="actions">
-        <button id="download_submit" class="ui right labeled icon button" type="submit">Save changes</button>
+        <button class="ui right labeled icon button" ng-click="save()">Save changes</button>
         <a ng-click="smModal.Show('public.admin.site.content.downloads')" class="ui black deny button close">Cancel</a>
     </div>
 </div>
