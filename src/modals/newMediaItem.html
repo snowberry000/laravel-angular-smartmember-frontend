@@ -1,61 +1,40 @@
-<div class="ui medium modal">
-    <div class="header">
-        <i class="upload icon"></i>
-        Upload
-    </div>
-    <div class="content">
-      <div class="modal-body">
-          <style>
-              #dropzone-upload {
-                  box-sizing: border-box;
-                  min-height: 150px;
-                  border: 2px solid rgba(0, 0, 0, 0.3);
-                  background: white;
-                  border: 2px dashed #0087F7;
-                  border-radius: 5px;
-                  background: white;
-                  cursor: pointer;
-                  margin: 5px 5px 15px;
-                  text-align: center;
-                  font-weight: 400;
-                  font-size: 1.5em;
-              }
+<div class="ui small modal">
+	<div class="header">
+		<i class="upload icon"></i>
+		Upload
+	</div>
+	<div class="content">
+		<div class="modal-body">
 
-              #dropzone-upload .hovering {
-                  border-width: 4px;
-                  font-weight: 700;
-                  background: #cfcfcf;
-              }
-              .drop-box {
-                  background: #F8F8F8;
-                  border: 5px dashed #DDD;
-                  text-align: center;
-                  padding: 150px 10px 150px 10px;
-                  margin-left: 10px;
-              }
-              .drop-box.dragover {
-                  border: 5px dashed blue;
-              }
+			<style>
+				.drop-box.dragover {
+					border: 2px solid #21ba45 !important;
+				}
 
-              .drop-box.dragover-err {
-                  border: 5px dashed red;
-              }
-          </style>
+				.drop-box.dragover-err {
+					border: 2px solid #db2828 !important;
+				}
+			</style>
 
-          <div class="loader-holder-50" ng-show="loading">
-              <div class="loader">Uploading...</div>
-          </div>
-          <div class="col-md-12 height40" ng-hide="loading">
-              <form  method="post">
-                  <div ngf-select="" ngf-drop="" ng-model="files" ngf-multiple="multiple" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="dropzone drop-box upload-image-container" ngf-drop-available="dropAvailable">Select or Drop File
-                  </div>
-               </form>
-          </div>
-      </div>
-    </div>
-    <div class="actions">
-      <div class="ui negative button" ng-hide="loading">
-        Cancel
-      </div>
-    </div>
+			<div class="ui center aligned segment dropzone drop-box" ngf-select="" ngf-drop="" ng-model="files" ngf-multiple="multiple" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" ngf-drop-available="dropAvailable">
+				<div class="ui active dimmer" ng-if="loading">
+					<div class="ui text loader">Uploading...</div>
+				</div>
+				<i class="massive circular download grey icon"></i>
+
+				<h3 class="ui center aligned icon header">
+					<button class="ui primary large button">
+						Select
+					</button>
+					or drag a file here...
+				</h3>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui black deny button close" ng-hide="loading">
+			Cancel
+		</div>
+	</div>
 </div>
