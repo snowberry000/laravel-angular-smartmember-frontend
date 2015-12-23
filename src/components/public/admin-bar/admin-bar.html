@@ -15,16 +15,15 @@
 		</div>
 		<div class="divider"></div>
 		<div class="header">
-			<i class="globe icon"></i>
 			Navigate To Your Sites
 		</div>
 		<div class="scrolling menu">
 			<div class="item" ng-repeat="next_item in admin_sites">
-				<div class="ui red empty circular label"></div>
+				<i class="globe icon"></i>
 				<a href='http://{{next_item.subdomain}}.smartmember.{{app.env}}'>{{next_item.subdomain}}.smartmember.{{app.env}}</a>
 			</div>
 			<div class="item" ng-repeat="next_item in member_sites">
-				<div class="ui red empty circular label"></div>
+				<i class="globe icon"></i>
 				<a href='http://{{next_item.subdomain}}.smartmember.{{app.env}}'>{{next_item.subdomain}}.smartmember.{{app.env}}</a>
 			</div>
 		</div>
