@@ -23,3 +23,7 @@ app.controller("WidgetChosenTextController", function ($scope) {
 
     console.log('how many times does this get called?', $scope.chosen_widget );
 });
+
+app.controller("WidgetDisplayTextController", function ($scope) {
+
+});

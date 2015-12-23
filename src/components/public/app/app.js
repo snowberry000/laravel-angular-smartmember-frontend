@@ -23,6 +23,10 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 	$scope.facebook_group = _.findWhere( $scope.site.integration, { type: 'facebook_group' } );
 	$scope.facebook_access_group = $scope.site.fb_group_access_levels;
 
+    $scope.bannerView = function( $id )
+    {
+        Restangular.one( 'trackViews', $id ).customPOST( {} );
+    }
 
 	$scope.init = function()
 	{
@@ -44,6 +48,19 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 			$scope.site = details;
 		}
 		$scope.ads = details.ad;
+        $scope.widgets = details.widgets;
+
+        angular.forEach( $scope.widgets, function(value, key) {
+            value.meta = {};
+
+            angular.forEach( value.meta_data, function(value2, key2 ) {
+                value.meta[ value2.key ] = value2.value;
+            });
+
+            if( value.type == 'banner' )
+                $scope.bannerView( value.banner.id );
+        });
+
 		$scope.options.theme_selection = false;
 		$scope.options.themes = global_themes;
 		$scope.options.theme_options = global_theme_options;
@@ -69,11 +86,6 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 		//{
 		//$('head').append('<link rel="stylesheet" href="' + $theme_url + '"/>');
 		//}
-
-		$timeout( function()
-		{ // You might need this timeout to be sure its run after DOM render.
-			$scope.bannerView( 0 );
-		}, 1, false );
 	};
 
 
@@ -95,15 +107,6 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 
 		} );
 
-	}
-
-	$scope.bannerView = function( $id )
-	{
-		if( $scope.ads.length > 0 )
-		{
-			var ad_id = $scope.ads[ 0 ];
-			Restangular.one( 'trackViews', ad_id.id ).customPOST( {} );
-		}
 	}
 
 	$scope.isAdmin = function( role )

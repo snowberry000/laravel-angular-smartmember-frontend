@@ -1,3 +1,5 @@
-<div ng-controller="WidgetBannerController">
-    banner widget here
+<div ng-controller="WidgetDisplayBannerController">
+    <a data-id="{{display_widget.banner.id}}" target="{{display_widget.banner.open_in_new_tab ? '_blank' : '_self'}}" ng-if="display_widget.banner.banner_image_url" class="ui fluid image" data-bypass="true" href="{{display_widget.banner.banner_url}}" ng-click="bannerClick(display_widget.banner)">
+        <img ng-if="display_widget.banner.banner_image_url" ng-src="{{display_widget.banner.banner_image_url}}">
+    </a>
 </div>
