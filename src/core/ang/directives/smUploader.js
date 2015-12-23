@@ -1,4 +1,4 @@
-app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangular, smModal )
+app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangular, smModal,$timeout )
 {
 	return {
 		restrict: 'A',
@@ -31,7 +31,6 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 							li[ key ] = item.file;
 							if( model )
 							{
-
 								var parsed_model = $parse( model );
 								parsed_model.assign( scope, item.file );
 								ctrl.$setViewValue( item.file );
@@ -45,11 +44,17 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 							}
 						}
 
+						$timeout( function()
+						{
+							smModal.Refresh();
+						}, 1000 );
+
+
 						if( rest )
 						{
 							rest.customPOST( li, "save" ).then( function()
 							{
-								//("Image is uploaded");
+								console.log("Image is uploaded");
 							} );
 						}
 					}
@@ -117,6 +122,7 @@ app.controller( 'modalMediaController', function( $scope, Upload, close )
                     }
 
                     close( returnObject );
+
                 } ).error( function( data, status, headers, config )
 			{
 				console.log( 'error status: ' + data );

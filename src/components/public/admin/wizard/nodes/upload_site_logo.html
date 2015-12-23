@@ -19,9 +19,7 @@
 				</div>
 				<div class="field">
 					<img class="ui fluid image" ng-src="{{site_options.site_logo}}" ng-show="site_options.site_logo">
-					<button class="mini ui red button" ng-if="site_options.site_logo" ng-click="site_options.site_logo=''">
-						<i class="remove icon"></i> remove
-					</button>
+
 				</div>
 			</div>
 			
@@ -32,6 +30,10 @@
 			Save & continue
 			<i class="checkmark icon"></i>
 		</a>
+		<button class="ui red right labeled icon button" ng-if="site_options.site_logo" ng-click="site_options.site_logo=''">
+			Clear
+			<i class="remove icon"></i>
+		</button>
 		<div class="ui black deny button close" ng-click="cancel()">
 			Close
 		</div>
