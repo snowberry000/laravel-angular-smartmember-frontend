@@ -10,7 +10,7 @@ app.directive( 'suiPopup', function(smModal)
 				//popup: '.special.popup',
 				html: attributes.edit ? '<button class="ui tiny red button edit-admin" data-state="' + attributes.state + 
 											'"  data-attributes="' + attributes.stateattributes + 
-											'">edit button</button>' : '',
+											'">edit</button>' : '',
 				target : attributes.target || '',
 				exclusive: true,
 				preserve: true,
