@@ -17,6 +17,11 @@ app.controller('themeEngineController', function ($rootScope, $scope, smSidebar,
         $rootScope.viewport = option;
     }
 
+    $scope.close = function(){
+        smSidebar.Close();
+        $rootScope.viewport = '';
+    }
+
     $scope.save = function(){
         angular.forEach($rootScope.meta_data, function(value , key){
             console.log(key)
@@ -30,6 +35,7 @@ app.controller('themeEngineController', function ($rootScope, $scope, smSidebar,
         });
         Restangular.all('siteMetaData').customPOST($rootScope.meta_data, "save").then(function () {
             toastr.success("Options are saved!");
+            $rootScope.viewport = '';
             smSidebar.Close();
             $rootScope.app.show_engine = false;
         });
