@@ -125,11 +125,21 @@ app.controller("MenusController", function ($rootScope,$scope, $filter, $documen
 	    });
 	}
 
-	$scope.deleteMenuItem = function (menu) {
-	    Restangular.one("siteMenuItem", menu.id).remove().then(function () {
-	        toastr.success("Success!  Menu Item deleted!");
-	        $scope.menu_items = _.without($scope.menu_items, menu);
-	    });
+	$scope.deleteResource = function (menu) {
+		menu = JSON.parse(menu);
+		console.log(menu);
+		if(menu && (typeof menu.icon) != 'undefined'){
+			Restangular.one("siteMenuItem", menu.id).remove().then(function () {
+			    toastr.success("Success!  Menu Item deleted!");
+			    $scope.menu_items = _.without($scope.menu_items, menu);
+			});
+		}else if(menu){
+			Restangular.one("siteFooterMenuItem", menu.id).remove().then(function () {
+			    toastr.success("Success! Footer Menu Item deleted!");
+			    $scope.footer_menu_items = _.without($scope.footer_menu_items, menu);
+			});
+		}
+	    
 	};
 
 	$scope.deleteFooterMenuItem = function (footer_menu) {
