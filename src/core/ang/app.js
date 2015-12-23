@@ -42,8 +42,6 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, 
 
 	var domainParts = $location.host().split( '.' );
 
-	console.log( domainParts );
-
 	//this is here to account for country second level domains such as .co.uk, otherwise those would break
 	if( domainParts.length > 2 )
 	{
@@ -64,8 +62,14 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, $http, $modal, 
 		var domain = domainParts.pop() + "." + env;
 	}
 	var sub = domainParts.pop();
-
 	$arr = location.pathname.split( '/' );
+
+	if (sub == 'my' ){
+		if (!$localStorage.user && $arr[1] != 'sign'){
+			window.location.href = "http://" + location.hostname + "/sign/in/";
+			return;
+		}
+	}
 	if( ($arr[ 1 ] != "sign") )
 	{
 		$localStorage.accessed_url = window.location.href;
