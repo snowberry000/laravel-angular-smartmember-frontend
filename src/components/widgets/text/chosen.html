@@ -1,8 +1,21 @@
 <div ng-controller="WidgetChosenTextController">
     <strong>Text</strong>
-    <i class="angle down icon" style="float:right;" ng-if="!show_settings" ng-click="show_settings=true"></i>
-    <i class="angle up icon" style="float:right;" ng-if="show_settings" ng-click="show_settings=false"></i>
-    <div ng-if="show_settings">
-        settings
+    <i class="angle down icon" style="float:right;cursor:pointer;" ng-if="!show_settings" ng-click="$parent.show_settings=true"></i>
+    <i class="angle up icon" style="float:right;cursor:pointer;" ng-if="show_settings" ng-click="$parent.show_settings=false"></i>
+    <div ng-if="show_settings" style="cursor:auto;" data-drag="false">
+        <fieldset class="ui form">
+            <div class="field">
+                <div class="col-sm-12">
+                    <textarea froala ng-model="chosen_widget.meta.content"></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <br>
+        <div class="ui one buttons">
+            <div class="ui basic green button" ng-click="save()">Save</div>
+        </div>
+        <div class="ui one buttons">
+            <div class="ui basic red button" ng-click="delete()">Remove</div>
+        </div>
     </div>
 </div>

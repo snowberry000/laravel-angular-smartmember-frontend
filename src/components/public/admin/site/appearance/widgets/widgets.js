@@ -21,21 +21,57 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
 	{
 		Restangular.all( 'widget' ).getList( { site_id: $site.id, sidebar_id: $scope.sidebar_id } ).then( function( response )
 		{
+            angular.forEach( response, function(value, key) {
+                value.meta = {};
+
+                angular.forEach( value.meta_data, function(value2, key2 ) {
+                    value.meta[ value2.key ] = value2.value;
+                });
+            });
+
 			$scope.widgets = response;
 		} );
 	}
 
+    $scope.save = function(widget){
+        if( widget.id ) {
+            widget.put().then(function(response){
 
-	$scope.divide = function( $allAds )
-	{
-		$.each( $allAds, function( key, value )
-		{
-			if( value.display )
-			{
-				$scope.displayAds.push( value );
-			}
-		} );
-	}
+            });
+        } else {
+            Restangular.all('widget').customPOST(widget).then(function(response){
+                widget.id = response.id;
+            })
+        }
+    };
+
+    $scope.delete = function(widget){
+        if( widget.id ) {
+            widget.remove().then(function(){
+                $scope.widgets = _.without( $scope.widgets, widget );
+            })
+        } else {
+            $scope.widgets = _.without( $scope.widgets, widget );
+        }
+    };
+
+	$scope.dropCallback = function(widget, index){
+        console.log('we do have some things...', $scope.widgets );
+
+        var new_order = {};
+        var count = 1;
+
+        angular.forEach( $scope.widgets, function(value){
+            if( value.id ) {
+                new_order[value.id] = count;
+                count++;
+            }
+        });
+
+        Restangular.all('widget').customPOST({order: new_order}, 'updateOrder').then(function(){
+            console.log( 'new order saved');
+        });
+    }
 
 	$scope.init();
 } );

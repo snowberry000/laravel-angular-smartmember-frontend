@@ -9,13 +9,11 @@
         <div class="description">
             <div class="ui two column stackable grid container">
                 <div class="column">
-                    <p>Set up the widgets that show in your sidebar</p>
-
-                    <h2 class="ui header">Hidden</h2>
+                    <h2 class="ui header">Available</h2>
                     <p>Drag to "In Display" to add widget to sidebar</p>
 
-                    <div class="ui middle aligned divided animated relaxed list connectList">
-                        <div class="ui segment" ng-repeat="widget in available_widgets" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="available_widgets" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: 'keep'}">
+                    <div class="ui middle aligned divided animated relaxed list">
+                        <div style="cursor:move;" class="ui segment" ng-repeat="widget in available_widgets" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="available_widgets" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: 'keep'}">
                             <div ng-include="'/templates/components/widgets/' + widget.type + '/available.html'" class="admin"></div>
                         </div>
                     </div>
@@ -24,9 +22,9 @@
                     <h2 class="ui header">In Display</h2>
                     <p>These are the widgets that will be displayed</p>
 
-                    <div class="ui middle aligned divided animated relaxed list connectList">
-                        <div class="ui segment" ng-repeat="widget in widgets" data-drop="true" ng-model="widgets" jqyoui-droppable="{multiple:true}">
-                            <div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" jqyoui-draggable="{index: {{$index}},animate:true}" class="admin"></div>
+                    <div class="ui middle aligned divided animated relaxed list">
+                        <div style="cursor:move;" class="ui segment" ng-repeat="widget in widgets track by $index" data-drop="true" ng-model="widgets" data-drag="!widget.show_settings ? true : false" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback(widget, $index)' }" jqyoui-draggable="{index: {{$index}},animate:true}" data-direction="{{widget.jqyouiDirection}}">
+                            <div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget" class="admin"></div>
                         </div>
                     </div>
                 </div>
