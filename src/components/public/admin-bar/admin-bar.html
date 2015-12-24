@@ -47,59 +47,76 @@
 <div class="ui dropdown item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" title="Create new content to display on your site" sui-dropdown sui-popup>
 	<div class="ui right labeled icon green button">
 		<i class="write icon"></i>
-		Create
+		Content
 	</div>
 	<div class="menu">
 		<div class="item">
 			<i class="dropdown icon"></i>
-			<span class="text">{{ 'SYLLABUS' | translate }}</span>
+			<span class="text">{{ 'LESSONS' | translate }}</span>
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.lessons')">{{ 'LESSONS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.modules')">{{ 'MODULES' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.lesson')">Add new</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.lessons')">List</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.organizer')">{{ 'ORGANIZER' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.notes')">{{ 'NOTES' | translate }}</a>
 			</div>
 		</div>
 		<div class="item">
 			<i class="dropdown icon"></i>
-			<span class="text">{{ 'BLOG' | translate }}</span>
+			<span class="text">{{ 'MODULES' | translate }}</span>
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.blog.posts')">{{ 'POSTS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.module')">Add new</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.modules')">List</a>
 			</div>
 		</div>
 		<div class="item">
 			<i class="dropdown icon"></i>
-			<span class="text">{{ 'HELPDESK' | translate }}</span>
+			<span class="text">{{ 'POSTS' | translate }}</span>
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.helpdesk.articles')">{{ 'ARTICLES' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.helpdesk.categories')">{{ 'CATEGORIES' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.blog.post')">Add new</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.blog.posts')">List</a>
+			</div>
+		</div>
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">Support articles</span>
+			<div class="menu">
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.helpdesk.article')">Add new</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.helpdesk.articles')">List</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.content.helpdesk.organizer')">{{ 'ORGANIZER' | translate }}</a>
 			</div>
 		</div>
 		<div class="item">
 			<i class="dropdown icon"></i>
-			<span class="text">{{ 'DOWNLOAD_CENTER' | translate }}</span>
+			<span class="text">Support categories</span>
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.downloads')">{{ 'DOWNLOADS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.helpdesk.category')">Add new</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.helpdesk.categories')">List</a>
 			</div>
 		</div>
 		<div class="item">
 			<i class="dropdown icon"></i>
-			<span class="text">{{ 'LIVE_STREAMING' | translate }}</span>
+			<span class="text">{{ 'DOWNLOADS' | translate }}</span>
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.livecasts')">{{ 'LIVECASTS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.download')">Add new</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.downloads')">List</a>
+			</div>
+		</div>
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">{{ 'LIVECASTS' | translate }}</span>
+			<div class="menu">
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.livecast')">Add new</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.livecasts')">List</a>
 			</div>
 		</div>
 		<div class="item">
 			<i class="dropdown icon"></i>
 			<span class="text">{{ 'SITE_PAGES' | translate }}</span>
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.site.pages.core.list')">{{ 'CORE_PAGES' | translate }}</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.pages.custom-pages')">{{ 'CUSTOM_PAGES' | translate }}</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.pages.bridge-pages')">{{ 'BRIDGE_PAGES' | translate }}</a>
 			</div>
 		</div>
-		<a class="item" ng-click="smModal.Show('public.admin.site.membership.notices')">Site notices</a>
+		<a class="item" ng-click="smModal.Show('public.admin.site.membership.notices')">Public notices</a>
 		<a class="item" ng-click="smModal.Show('public.admin.site.content.import')">{{ 'IMPORT' | translate }}</a>
 		<a class="item" ng-click="smModal.Show('public.admin.site.content.stats')">{{ 'STATS' | translate }}</a>
 	</div>
@@ -122,6 +139,7 @@
 						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.stats')">{{ 'STATS' | translate }}</a>
 					</div>
 				</div>
+				<a class="item" ng-click="smModal.Show('public.admin.site.pages.core.list')">Core page settings</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
 				<a class="item" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
 				<a class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" ng-click="smModal.Show('public.admin.site.appearance.directory')">Directory Listing</a>
@@ -147,6 +165,7 @@
 				<a class="item" ng-click="smModal.Show('public.admin.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
 				<a class="item" ng-click="smModal.Show('public.admin.wallboard')" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
+				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.notes')">User notes</a>
 
 			</div>
 		</div>
