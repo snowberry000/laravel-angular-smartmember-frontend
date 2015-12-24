@@ -1,50 +1,44 @@
 <div class="ui modal">
-	<i class="close icon"></i>
-	
 	<div class="header">
-		<i class="paragraph icon"></i>
+		<i class="lock icon"></i>
+		Lock down your site's content
 	</div>
 	<div class="content">
 		<div class="description">
-		
-			<fieldset class="form-horizontal">
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Access Preference:</label>
-					<div class="col-sm-8">
-						<select class="form-control" ng-model="access_type">
-							<option value="{{access_level.id}}" ng-repeat="access_level in access_levels">{{access_level.title}}</option>
-						</select>
-						<span class="help-block m-b-none">
-							Choose who you'd like to see your site's content. Only the selected types of visitors / members / customers
-						can see it - everyone else will be told it's unavailable.
-						</span>
-					</div>
+
+			<p>Choose how you'd like to restrict your site's existing content below - if at all</p>
+
+			<div class="ui form">
+
+				<div class="field">
+					<label>Who should see your content?</label>
+					<select class="ui dropdown" ng-model="access_type">
+						<option value="{{access_level.id}}" ng-repeat="access_level in access_levels">{{access_level.title}}</option>
+					</select>
+					<p>
+						Everybody else will see a "restricted access" graphic (which you can customize later!)
+					</p>
 				</div>
-				<div class="hr-line-dashed" ng-if="access_type==3"></div>
-				<div class="form-group" ng-if="access_type==3">
-					<label class="col-sm-2 control-label">Restriction Name:</label>
-					<div class="col-sm-8">
-						<input type="text" class="form-control" ng-model="access.access_level_name" placeholder="Enter a product or level name">
-						<span class="help-block m-b-none">
-							This is usually the name of a product or type of level (ex. Gold, Silver, Package B, etc.) that a member must own.
-						</span>
-					</div>
+				<div class="field" ng-if="access_type==3">
+					<label>What would you like to call this "Access Level"?</label>
+					<input type="text" ng-model="access.access_level_name">
+					<p>
+						This can be a "level" name like Bronze, Silver, gold, etc. or even a product name like "Widget 2000"
+					</p>
 				</div>
-				<div class="hr-line-dashed"></div>
-			</fieldset>
-			
+
+			</div>
+
 		</div>
 	</div>
 	<div class="actions">
-		<!-- SAMPLE ACTION BUTTON -->
-		<a ng-click="lock()" class="ui right labeled icon button">
-			Save & Continue
+		<a busy ng-click="lock()" class="ui right labeled icon green button">
+			Save & continue
 			<i class="checkmark icon"></i>
 		</a>
-		<!-- /SAMPLE ACTION BUTTON -->
-		
+
 		<div class="ui black deny button close" ng-click="cancel()">
-			Close
+			Back
 		</div>
 	</div>
 </div>

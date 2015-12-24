@@ -45,7 +45,7 @@
 				</div>
 				<div class="field">
 					<label>Module</label>
-					<select class="form-control" ng-model="selectedModule" ng-change="changeModule(selectedModule)" ng-if="modules">
+					<select class="ui dropdown" ng-model="selectedModule" ng-change="changeModule(selectedModule)" ng-if="modules">
 						<option ng-repeat="module in $rootScope.modules" ng-selected="next_item.module_id==module.id">{{module.title}}</option>
 					</select>
 
@@ -65,7 +65,7 @@
 			<i class="checkmark icon"></i>
 		</a>
 		<!-- SAMPLE ACTION BUTTON -->
-		<a busy ng-click="save()" class="ui right labeled icon red button">
+		<a busy ng-click="save()" class="ui right labeled icon green button">
 			Save & continue
 			<i class="checkmark icon"></i>
 		</a>
