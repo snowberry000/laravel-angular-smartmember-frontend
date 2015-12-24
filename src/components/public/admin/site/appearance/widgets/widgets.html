@@ -13,8 +13,13 @@
                     <p>Drag to "In Display" to add widget to sidebar</p>
 
                     <div class="ui middle aligned divided animated relaxed list">
-                        <div style="cursor:move;" class="ui segment" ng-repeat="widget in available_widgets" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="available_widgets" jqyoui-draggable="{index: {{$index}}, animate: true, placeholder: 'keep'}">
-                            <div ng-include="'/templates/components/widgets/' + widget.type + '/available.html'" class="admin"></div>
+                        <div class="ui segment" ng-repeat="widget in available_widgets">
+                            <div>
+                                <strong>{{widget.display_name}}</strong> - {{widget.description}}
+                                <button ng-click="addWidget( widget )" class="mini ui icon button" style="float:right;">
+                                    <i class="arrow right icon"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -23,8 +28,26 @@
                     <p>These are the widgets that will be displayed</p>
 
                     <div class="ui middle aligned divided animated relaxed list">
-                        <div style="cursor:move;" class="ui segment" ng-repeat="widget in widgets track by $index" data-drop="true" ng-model="widgets" data-drag="!widget.show_settings ? true : false" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" jqyoui-droppable="{multiple:true, onDrop:'dropCallback(widget, $index)' }" jqyoui-draggable="{index: {{$index}},animate:true}" data-direction="{{widget.jqyouiDirection}}">
-                            <div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget" class="admin"></div>
+                        <div class="ui segment" ng-repeat="widget in widgets track by $index">
+                            <strong>{{widget.widget_info.display_name}}</strong>
+                            <i class="angle down icon" style="float:right;cursor:pointer;" ng-if="!show_settings" ng-click="$parent.show_settings=true"></i>
+                            <i class="angle up icon" style="float:right;cursor:pointer;" ng-if="show_settings" ng-click="$parent.show_settings=false"></i>
+                            <button ng-if="$index != 0" ng-click="moveUp( widget )" class="mini ui icon button" style="float:right;">
+                                <i class="arrow up icon"></i>
+                            </button>
+                            <button ng-if="$index != widgets.length - 1" ng-click="moveDown( widget )" class="mini ui icon button" style="float:right;">
+                                <i class="arrow down icon"></i>
+                            </button>
+                            <div ng-if="show_settings" style="cursor:auto;" data-drag="false">
+                                <div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget" class="admin"></div>
+                                <br>
+                                <div class="ui one buttons">
+                                    <div class="ui basic green button" ng-click="save(widget)">Save</div>
+                                </div>
+                                <div class="ui one buttons">
+                                    <div class="ui basic red button" ng-click="delete(widget)">Remove</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
