@@ -1,21 +1,12 @@
 <div ng-controller="WidgetChosenBannerController">
-    <strong>Banner</strong>
-    <i class="angle down icon" style="float:right;cursor:pointer;" ng-if="!show_settings" ng-click="$parent.show_settings=true"></i>
-    <i class="angle up icon" style="float:right;cursor:pointer;" ng-if="show_settings" ng-click="$parent.show_settings=false"></i>
-    <div ng-if="show_settings" style="cursor:auto;" data-drag="false">
-        <fieldset class="ui form">
-            <div class="field">
-                <div class="col-sm-12">
-                    banner selection will go here
-                </div>
+    <fieldset class="ui form">
+        <div class="field">
+            <div class="col-sm-12">
+                <select ng-model="chosen_widget.target_id" ng-change="updateBanner()">
+                    <option ng-selected="banner.id == chosen_widget.target_id" ng-repeat="banner in $parent.banners" value="{{banner.id}}">{{banner.banner_url}}</option>
+                </select>
+                <img src="{{chosen_widget.banner.banner_image_url}}" style="max-width:80%;" />
             </div>
-        </fieldset>
-        <br>
-        <div class="ui one buttons">
-            <div class="ui basic green button" ng-click="save()">Save</div>
         </div>
-        <div class="ui one buttons">
-            <div class="ui basic red button" ng-click="delete()">Remove</div>
-        </div>
-    </div>
+    </fieldset>
 </div>

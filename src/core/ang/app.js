@@ -268,8 +268,16 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 		} );
 
     $rootScope.available_widgets = [
-        {type: 'text'},
-        {type: 'banner'}
+        {
+            type: 'text',
+            display_name: 'Text',
+            description: 'Set custom HTML/Text to display in the sidebar.'
+        },
+        {
+            type: 'banner',
+            display_name: 'Banner',
+            description: 'Choose one of your banners to display.'
+        }
     ];
 } );
 
