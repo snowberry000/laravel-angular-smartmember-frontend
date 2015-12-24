@@ -26,16 +26,16 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a busy ng-click="save()" class="ui right labeled icon button">
-			Save & continue
-			<i class="checkmark icon"></i>
-		</a>
 		<button class="ui red right labeled icon button" ng-if="site_options.site_logo" ng-click="site_options.site_logo=''">
 			Clear
 			<i class="remove icon"></i>
 		</button>
+		<a busy ng-click="save()" class="ui right labeled icon button">
+			Save & continue
+			<i class="checkmark icon"></i>
+		</a>
 		<div class="ui black deny button close" ng-click="cancel()">
-			Close
+			Back
 		</div>
 	</div>
 </div>
