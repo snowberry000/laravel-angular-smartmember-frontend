@@ -10,8 +10,10 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http, Restangular, toastr, $ocLazyLoad, $timeout )
+app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http, Restangular, toastr, $ocLazyLoad, $timeout, toastr )
 {
+    $scope.loading = true;
+
     $scope.ucwords = function (str) {
         return (str + '')
             .replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
@@ -27,6 +29,7 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
 	{
 		Restangular.all( 'widget' ).getList( { site_id: $site.id, sidebar_id: $scope.sidebar_id } ).then( function( response )
 		{
+            $scope.loading = false;
             angular.forEach( response, function(value, key) {
                 value.meta = {};
 
@@ -129,11 +132,12 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
     $scope.save = function(widget){
         if( widget.id ) {
             widget.put().then(function(response){
-
+                toastr.success( "Widget saved!" );
             });
         } else {
             Restangular.all('widget').customPOST(widget).then(function(response){
                 widget.id = response.id;
+                toastr.success( "Widget Added!" );
             })
         }
     };
