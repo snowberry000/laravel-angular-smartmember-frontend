@@ -1,72 +1,60 @@
 <div class="ui modal">
-	<i class="close icon"></i>
-		
-		<div class="header">
-			<i class="paragraph icon"></i>
-		</div>
-		<div class="content">
-			<div class="description">
-			
-				<table class="footable table table-stripped toggle-arrow-tiny" ng-if="modules.length > 0" foonice>
-					<thead>
-						<tr>
-							<th data-toggle="true">Module Name</th>
-							<th data-hide="phone">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="next_item in modules">
-							<td class="responsive_table_item">
-								{{next_item.title}}
-							</td>
-							<td class="text-right" style="width: 135px;">
-								<div class="btn-group">
-									<button class="btn btn-danger btn-outline btn-xs" ng-click="delete(next_item.id)">
-										Delete
-										<i class="fa fa-trash"></i>
-									</button>
-								</div>
 
-							</td>
-						</tr>
+	<div class="header">
+		<i class="write icon"></i>
+		Add a new Module
+	</div>
+	<div class="content">
+		<div class="description">
+			<p>Create your first module. Modules help organize and categorize your lessons, like chapters in a book.</p>
 
-					</tbody>
-					<tfoot>
-						<tr>
-						</tr>
-					</tfoot>
-				</table>
+			<table class="ui celled striped table" ng-if="modules.length > 0">
+				<thead>
+					<tr>
+						<th colspan="2">
+							Existing Modules
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="next_item in modules">
+						<td>
+							{{next_item.title}}
+						</td>
+						<td class="right aligned">
+							<button busy ng-click="delete(next_item.id)" class="ui right labeled icon button">
+								Delete
+								<i class="trash icon"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-				<form class="form-horizontal" ng-submit="save()">
+			<div class="ui form">
 
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Name</label>
+				<div class="field">
+					<label>Module name</label>
 
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="name" ng-model="module.title" placeholder="Enter module name" required>
-							<span class="help-block m-b-none">
+					<input type="text" ng-model="module.title">
+				</div>
 
-							</span>
-						</div>
-					</div>
-					<div class="hr-line-dashed"></div>
-				</form>
-				
 			</div>
+
 		</div>
-		<div class="actions">
-			<!-- SAMPLE ACTION BUTTON -->
-			<a ng-click="add()" class="ui right labeled icon button" ng-disabled="adding">
-				{{adding ? 'Saving module' : 'Save & Add Another'}}</button>
-				<i class="checkmark icon"></i>
-			</a>
-			<a ng-click="save()" class="ui right labeled icon button" ng-disabled="saving">
-				{{saving ? 'Saving all modules' : 'Save & Continue'}}</button>
-				<i class="checkmark icon"></i>
-			</a>
-			<div class="ui black deny button close" ng-click="cancel()">
-				Close
-			</div>
+	</div>
+	<div class="actions">
+		<!-- SAMPLE ACTION BUTTON -->
+		<a busy ng-click="add()" class="ui right labeled icon button">
+			Save & Add More
+			<i class="checkmark icon"></i>
+		</a>
+		<a busy ng-click="save()" class="ui right labeled icon button">
+			Save & Continue
+			<i class="checkmark icon"></i>
+		</a>
+		<div class="ui black deny button close" ng-click="cancel()">
+			Back
 		</div>
+	</div>
 </div>
-
