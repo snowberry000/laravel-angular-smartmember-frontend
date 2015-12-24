@@ -8,7 +8,7 @@ app.controller("WidgetChosenBannerController", function ($scope) {
 
     $scope.updateBanner = function(){
         var banner = _.findWhere( $scope.$parent.banners, {id: parseInt( $scope.chosen_widget.target_id ) }) || _.findWhere( $scope.$parent.banners, {id: $scope.chosen_widget.target_id + '' });
-        
+
         if( banner )
             $scope.chosen_widget.banner = banner;
     };
