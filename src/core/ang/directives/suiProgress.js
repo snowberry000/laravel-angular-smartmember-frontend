@@ -9,7 +9,9 @@ app.directive( 'suiProgress', function()
 			});
 
 			scope.$watch(attributes.value, function(value){
-				$(next_item).progress('increment', value);//( value );
+
+				if( attributes.value > 0 )
+					$(next_item).progress('increment', value);//( value );
 			});
 		}
 	};
