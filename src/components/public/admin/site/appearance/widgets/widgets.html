@@ -42,7 +42,7 @@
                                 <div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget" class="admin"></div>
                                 <br>
                                 <div class="ui one buttons">
-                                    <div class="ui basic green button" ng-click="save(widget)">Save</div>
+                                    <div busy class="ui basic green button" ng-click="save(widget)">Save</div>
                                 </div>
                                 <div class="ui one buttons">
                                     <div class="ui basic red button" ng-click="delete(widget)">Remove</div>
