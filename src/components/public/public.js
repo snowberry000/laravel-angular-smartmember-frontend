@@ -79,13 +79,13 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 
 	$scope.GetAdminBarInclude = function()
 	{
-		if( $scope.isLoggedIn() && !$scope.isSitelessPage() )
+		if( $scope.isLoggedIn() && !$rootScope.isSitelessPage() )
 			return 'templates/components/public/admin-bar/admin-bar.html';
 
 		return;
 	}
 
-	$scope.isSitelessPage = function()
+	$rootScope.isSitelessPage = function()
 	{
 		var parts = location.hostname.split( '.' );
 		var subdomain = parts.shift();

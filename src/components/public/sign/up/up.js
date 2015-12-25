@@ -140,7 +140,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		}
 		else
 		{
-			if( $scope.isSitelessPage() )
+			if( $rootScope.isSitelessPage() )
 			{
 				smModal.Show('public.admin.wizard', {id: 'account_wizard'});
 			}
