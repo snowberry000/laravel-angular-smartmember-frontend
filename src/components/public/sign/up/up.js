@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
+app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
 {
 
 	var auth = Restangular.all( 'auth' );
