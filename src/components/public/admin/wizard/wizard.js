@@ -15,6 +15,8 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	$user = $rootScope.user;
 	$site = $rootScope.site;
 
+	$scope.wizard_loaded = false;
+
 	console.log( "Wizards.GetCurrent( $stateParams.id )", $stateParams );
 	$wizard = Wizards.GetCurrent( $stateParams.id );
 	$nodes = Nodes.GetAll();
@@ -23,6 +25,8 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		site_id: $site.id
 	} ).then( function( response )
 	{
+		$scope.wizard_loaded = true;
+
 		console.log( "THE WIZARD: ", $wizard );
 		$scope.static_wizard = $wizard;
 		$rootScope.wizard = [];

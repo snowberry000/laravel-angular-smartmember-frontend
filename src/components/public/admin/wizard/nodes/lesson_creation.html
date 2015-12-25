@@ -7,7 +7,11 @@
 	<div class="content">
 		<div class="description">
 
-			<p>Lessons are the most common type of content found on membership sites. Create one below!</p>
+			<div class="ui message">
+				<p>Lessons are the most common type of content found on membership sites. Create one below!</p>
+			</div>
+
+			<div class="ui section divider"></div>
 
 			<table class="ui celled striped table" ng-if="lessons.length > 0">
 				<thead>
@@ -43,15 +47,11 @@
 					<label>Lesson text / content</label>
 					<textarea froala ng-model="next_item.content"></textarea>
 				</div>
-				<div class="field">
+				<div class="eight wide field">
 					<label>Module</label>
-					<select class="ui dropdown" ng-model="selectedModule" ng-change="changeModule(selectedModule)" ng-if="modules">
+					<select class="ui dropdown" ng-model="selectedModule" ng-change="changeModule(selectedModule)" ng-if="modules" sui-dropdown>
 						<option ng-repeat="module in $rootScope.modules" ng-selected="next_item.module_id==module.id">{{module.title}}</option>
 					</select>
-
-					<a class="btn btn_outline float_left" class="btn btn-success" ng-click="func()" data-html="true">
-						<i class="ts_icon ts_icon_cloud_download small_right_margin"></i> Create New Module
-					</a>
 				</div>
 
 			</div>
@@ -59,20 +59,16 @@
 		</div>
 	</div>
 	<div class="actions">
-		<!-- SAMPLE ACTION BUTTON -->
-		<a busy ng-click="add()" class="ui right labeled icon button">
+		<a busy ng-click="add()" class="ui left floated left labeled icon button">
 			Save & add more
-			<i class="checkmark icon"></i>
+			<i class="plus icon"></i>
 		</a>
-		<!-- SAMPLE ACTION BUTTON -->
+		<div class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
 		<a busy ng-click="save()" class="ui right labeled icon green button">
 			Save & continue
 			<i class="checkmark icon"></i>
 		</a>
-		<!-- /SAMPLE ACTION BUTTON -->
-		
-		<div class="ui black deny button close" ng-click="cancel()">
-			Back
-		</div>
 	</div>
 </div>

@@ -27,7 +27,7 @@
         <div class="col-md-5" ng-if="next_item.access_level_type==2">
             <select class="form-control" ng-model="next_item.access_level_id">
                 <optgroup label="Default">
-                    <option value="0" ng-selected="!next_item.access_level_id">Any member</option>
+                    <option value="0" ng-selected="!next_item.access_level_id">Logged-in Users</option>
                 </optgroup>
                 <optgroup label="Members who own">
                     <option ng-repeat="access_level in access_levels" ng-selected="next_item.access_level_id == access_level.id" value="{{access_level.id}}">{{access_level.name}}</option>

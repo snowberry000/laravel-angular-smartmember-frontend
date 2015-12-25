@@ -6,25 +6,36 @@
 	<div class="content">
 		<div class="description">
 
-			<p>Choose how you'd like to restrict your site's existing content below - if at all</p>
+			<div class="ui message">
+				<p>Choose how you'd like to restrict your site's existing content below - if at all</p>
+			</div>
+
+			<div class="ui section divider"></div>
 
 			<div class="ui form">
+				<div class="fields">
+					<div class="field">
+						<label>Who should see your content?</label>
+						<select class="ui dropdown" ng-model="access_type" sui-dropdown>
+							<option ng-repeat="next_item in access_levels" value="{{next_item.id}}">{{next_item.title}}</option>
+						</select>
+						<div class="ui ignored info message" ng-if="access_type != 1">
+							<p>
+								Everybody else will see a "restricted access" graphic (which you can customize later!)
+							</p>
+						</div>
+					</div>
 
-				<div class="field">
-					<label>Who should see your content?</label>
-					<select class="ui dropdown" ng-model="access_type">
-						<option value="{{access_level.id}}" ng-repeat="access_level in access_levels">{{access_level.title}}</option>
-					</select>
-					<p>
-						Everybody else will see a "restricted access" graphic (which you can customize later!)
-					</p>
-				</div>
-				<div class="field" ng-if="access_type==3">
-					<label>What would you like to call this "Access Level"?</label>
-					<input type="text" ng-model="access.access_level_name">
-					<p>
-						This can be a "level" name like Bronze, Silver, gold, etc. or even a product name like "Widget 2000"
-					</p>
+					<div class="field" ng-if="access_type==3">
+						<label>What would you like to call this "restriction"?</label>
+						<input type="text" ng-model="access.access_level_name">
+
+						<div class="ui ignored info message">
+							<p>
+								This can be a "level" name like Bronze, Silver, gold, etc. or even a product name like "Widget 2000"
+							</p>
+						</div>
+					</div>
 				</div>
 
 			</div>
@@ -32,13 +43,12 @@
 		</div>
 	</div>
 	<div class="actions">
+		<div class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
 		<a busy ng-click="lock()" class="ui right labeled icon green button">
 			Save & continue
 			<i class="checkmark icon"></i>
 		</a>
-
-		<div class="ui black deny button close" ng-click="cancel()">
-			Back
-		</div>
 	</div>
 </div>

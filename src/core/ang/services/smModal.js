@@ -45,6 +45,12 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					closable: subdomain == 'my' ? false : true,
 					dimmerSettings: {
 						opacity: 0.3
+					},
+					onVisible: function() {
+						modal.element.addClass( 'smooth_changes' );
+					},
+					onHidden: function() {
+						modal.element.removeClass( 'smooth_changes' );
 					}
 				};
 
@@ -56,7 +62,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					} )
 				}
 
-				console.log('the_options:', the_options );
+				console.log( 'the_options:', the_options );
 				// The modal object has the element built, if this is a bootstrap modal
 				// you can call 'modal' to show it, if it's a custom modal just show or hide
 				// it as you need to.
@@ -79,7 +85,6 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 		},
 		Refresh: function()
 		{
-			//alert('refresh')
 			$( '.ui.modal' ).modal( 'refresh' );
 		},
 		show_old: function( modal_id, options )

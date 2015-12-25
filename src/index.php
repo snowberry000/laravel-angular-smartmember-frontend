@@ -9,10 +9,14 @@ DetectAndPerformBridgePageThings();
 
 <html ng-app='app' style="height:auto;" class="no-js {{$state.current.name.split('.').join(' ')}}"  ng-controller="IndexAppController" ng-init="home_init()">
 <head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
 	<base href="/"></base>
+
 	<title>Smart Member</title>
 	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
 
 	<!-- <link rel="stylesheet" href="bower/ui-iconpicker/dist/styles/ui-iconpicker.min.css"> -->
 	<!-- <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css"> -->

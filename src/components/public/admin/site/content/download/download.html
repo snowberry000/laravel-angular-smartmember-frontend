@@ -104,7 +104,7 @@
                                 <div class="col-sm-10">
                                     <select style="margin-bottom:15px;" class='form-control input-lg' ng-model="download.access_level_id">
                                         <optgroup label="Default">
-                                            <option value="0">Any member</option>
+                                            <option value="0">Logged-in Users</option>
                                         </optgroup>
                                         <optgroup label="Members who own">
                                             <option ng-repeat="access_level in access_levels" ng-selected="download.access_level_id == access_level.id" value="{{access_level.id}}">{{access_level.name}}</option>

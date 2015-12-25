@@ -6,7 +6,12 @@
 	</div>
 	<div class="content">
 		<div class="description">
-			<p>Create your first module. Modules help organize and categorize your lessons, like chapters in a book.</p>
+
+			<div class="ui message">
+				<p>Create your first module. Modules help organize and categorize your lessons, like chapters in a book.</p>
+			</div>
+
+			<div class="ui section divider"></div>
 
 			<table class="ui celled striped table" ng-if="modules.length > 0">
 				<thead>
@@ -33,7 +38,7 @@
 
 			<div class="ui form">
 
-				<div class="field">
+				<div class="eight wide inline field">
 					<label>Module name</label>
 
 					<input type="text" ng-model="module.title">
@@ -45,16 +50,16 @@
 	</div>
 	<div class="actions">
 		<!-- SAMPLE ACTION BUTTON -->
-		<a busy ng-click="add()" class="ui right labeled icon button">
+		<a busy ng-click="add()" class="ui left floated left labeled icon button">
 			Save & Add More
-			<i class="checkmark icon"></i>
-		</a>
-		<a busy ng-click="save()" class="ui right labeled icon green button">
-			Save & Continue
-			<i class="checkmark icon"></i>
+			<i class="plus icon"></i>
 		</a>
 		<div class="ui black deny button close" ng-click="cancel()">
 			Back
 		</div>
+		<a busy ng-click="save()" class="ui right labeled icon green button">
+			Save & Continue
+			<i class="checkmark icon"></i>
+		</a>
 	</div>
 </div>
