@@ -11,7 +11,7 @@ ErrorDocument 404 /pricing
 
 <ifModule mod_rewrite.c>
         RewriteEngine On
-        RewriteRule ^login/?$ "/sign/in" [R=301,L]
+        RewriteRule ^login/?$ "/#signin" [R=301,L]
 </ifModule>
 
 <ifModule mod_rewrite.c>
@@ -76,6 +76,7 @@ ErrorDocument 404 /pricing
     RewriteRule ^livecast/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^post/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-article/(.*)$ http://%{HTTP_HOST}/$1 [L]
+    RewriteRule ^site/(.*)$ http://%{HTTP_HOST}/$1 [L]
 </ifModule>
 
 <ifModule mod_rewrite.c>

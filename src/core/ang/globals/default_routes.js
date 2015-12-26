@@ -20,7 +20,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 		}
 		else if( subdomain == "www" )
 		{
-			$state.go( "public.www" );
+			$state.go( "public.www.home" );
 		}
 		else
 		{
@@ -42,7 +42,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 		else if( subdomain == "www" )
 		{
 			console.log( "Going to 'public.www' state from non-/" );
-			$state.go( "public.www" );
+			$state.go( "public.www.home" );
 		}
 		else
 		{
