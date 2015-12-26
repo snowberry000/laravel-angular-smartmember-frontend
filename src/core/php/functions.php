@@ -1,9 +1,6 @@
 <?php
 function DetectAndPerformBridgePageThings()
 {
-	if( defined( 'DISABLE_BP' ) && DISABLE_BP )
-		return;
-
 	$domain = $_SERVER[ 'HTTP_HOST' ];
 	$parts = explode( ".", $domain );
 	$tld = array_pop( $parts );
@@ -104,7 +101,7 @@ function DetectAndPerformBridgePageThings()
 					$bpage_data = '';
 				}
 
-				if( !empty($html) || !empty($bpage_data) )
+				if( (!empty($html) || !empty($bpage_data)) && $bpage_data != '{"message":"Route not found, please try again.","code":404}' )
 				{
 					include 'bpage/bpage.php';
 

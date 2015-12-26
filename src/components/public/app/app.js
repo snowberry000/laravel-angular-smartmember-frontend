@@ -5,28 +5,34 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.app", {
 			templateUrl: 'templates/components/public/app/app.html',
-			controller: "AppController"
+			controller: "AppController",
+			resolve: {
+				$site: function( Restangular )
+				{
+					return Restangular.one( 'site', 'details' ).get();
+				}
+			}
 		} )
 } );
 
 app.controller( "AppController", function( $scope, $site, $user, $rootScope, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
-
+	$rootScope.site = $site;
 	$rootScope.page_title = $site.name;
 
 	$rootScope.is_admin = false;
 	$scope.site = $site;
 	var options = {};
-	$scope.options={};
+	$scope.options = {};
 
 	$scope.is_member = $site.is_member;
 	$scope.facebook_group = _.findWhere( $scope.site.integration, { type: 'facebook_group' } );
 	$scope.facebook_access_group = $scope.site.fb_group_access_levels;
 
-    $scope.bannerView = function( $id )
-    {
-        Restangular.one( 'trackViews', $id ).customPOST( {} );
-    }
+	$scope.bannerView = function( $id )
+	{
+		Restangular.one( 'trackViews', $id ).customPOST( {} );
+	}
 
 	$scope.init = function()
 	{
@@ -48,18 +54,22 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 			$scope.site = details;
 		}
 		$scope.ads = details.ad;
-        $scope.widgets = details.widgets;
+		$scope.widgets = details.widgets;
 
-        angular.forEach( $scope.widgets, function(value, key) {
-            value.meta = {};
+		angular.forEach( $scope.widgets, function( value, key )
+		{
+			value.meta = {};
 
-            angular.forEach( value.meta_data, function(value2, key2 ) {
-                value.meta[ value2.key ] = value2.value;
-            });
+			angular.forEach( value.meta_data, function( value2, key2 )
+			{
+				value.meta[ value2.key ] = value2.value;
+			} );
 
-            if( value.type == 'banner' )
-                $scope.bannerView( value.banner.id );
-        });
+			if( value.type == 'banner' )
+			{
+				$scope.bannerView( value.banner.id );
+			}
+		} );
 
 		$scope.options.theme_selection = false;
 		$scope.options.themes = global_themes;
@@ -172,6 +182,66 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 		}
 		return false;
 	}
+
+	$scope.initPublicSite = function()
+	{
+		$scope.setMetaData();
+	}
+
+	$scope.setMetaData = function()
+	{
+		$rootScope.current_theme = 'default';
+
+		if( $site && $site.meta_data )
+		{
+			$.each( $site.meta_data, function( key, data )
+			{
+				$rootScope.meta_data[ data.key ] = data.value;
+				if( data.key == 'theme' )
+				{
+					$rootScope.current_theme = data.value;
+				}
+			} );
+		}
+
+		$scope.current_theme_options = [];
+
+		angular.forEach( $rootScope.current_theme.theme_options, function( value )
+		{
+			var theme_option = false;
+			if( typeof value == 'string' )
+			{
+				theme_option = _.findWhere( global_theme_options, { slug: value } );
+				if( theme_option )
+				{
+					$scope.current_theme_options.push( theme_option );
+				}
+			}
+			else if( typeof value == 'object' )
+			{
+				if( typeof value.slug != 'undefined' )
+				{
+					theme_option = _.findWhere( global_theme_options, { slug: value } );
+				}
+
+				theme_option = theme_option || {};
+
+				angular.forEach( value, function( val, key )
+				{
+					theme_option[ key ] = val;
+				} );
+
+				if( theme_option )
+				{
+					$scope.current_theme_options.push( theme_option );
+				}
+			}
+		} );
+	}
+
+
+
+	$scope.initPublicSite();
 
 	$rootScope.is_site_admin = $scope.isAdmin( $user.role );
 	$rootScope.is_team_member = $scope.hasAccess( $user.role );

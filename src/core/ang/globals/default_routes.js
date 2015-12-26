@@ -18,6 +18,10 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 		{
 			$state.go( "public.my" );
 		}
+		else if( subdomain == "www" )
+		{
+			$state.go( "public.www" );
+		}
 		else
 		{
 			$state.go( "public.app.home" );
@@ -35,8 +39,14 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 			console.log( "Going to 'public.my' state from non-/" );
 			$state.go( "public.my" );
 		}
+		else if( subdomain == "www" )
+		{
+			console.log( "Going to 'public.www' state from non-/" );
+			$state.go( "public.www" );
+		}
 		else
 		{
+			alert( 'here' );
 			var parts = location.pathname.split( '/' );
 			if( parts.length == 2 || ( parts.length == 3 && parts[ 2 ] == '') )
 			{

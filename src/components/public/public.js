@@ -7,10 +7,6 @@ app.config( function( $stateProvider )
 			templateUrl: "/templates/components/public/public.html",
 			controller: "PublicController",
 			resolve: {
-				$site: function( Restangular )
-				{
-					return Restangular.one( 'site', 'details' ).get();
-				},
 				$user: function( Restangular, $localStorage )
 				{
 					if( $localStorage.user )
@@ -30,7 +26,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootScope, smModal, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
+app.controller( 'PublicController', function( $scope, $q, $user, $rootScope, smModal, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
 {
 	// $site=null;
 	// $user=null;
@@ -51,31 +47,9 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 	// }
 
 	$rootScope.user = $user;
-	$rootScope.site = $site;
+
 	$scope.current_site_domain = window.location.host;
 	$rootScope.active_theme_option_section = 'layout';
-
-	$scope.initPublicSite = function()
-	{
-		$rootScope.$_GET = getUrlVars();
-
-		if( $rootScope.$_GET[ 'cbreceipt' ] )
-		{
-			if( !$localStorage.user )
-			{
-				$rootScope.modal_popup_template = 'templates/public/themes/default/sign/transactionAccountSetup.html';
-			}
-			else
-			{
-				$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
-				Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
-				{
-					location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
-				} );
-			}
-		}
-		$scope.setMetaData();
-	}
 
 	$scope.GetAdminBarInclude = function()
 	{
@@ -106,7 +80,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 		}
 		return false;
 	}
-
 
 	if( location.href.indexOf( '?theme_options' ) > -1 )
 	{
@@ -158,71 +131,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 		return vars;
 	}
 
-
-	$scope.setMetaData = function()
-	{
-		$rootScope.current_theme = 'default';
-
-		if( $site && $site.meta_data )
-		{
-			$.each( $site.meta_data, function( key, data )
-			{
-				$rootScope.meta_data[ data.key ] = data.value;
-				if( data.key == 'theme' )
-				{
-					$rootScope.current_theme = data.value;
-				}
-			} );
-		}
-
-		$scope.current_theme_options = [];
-
-		angular.forEach( $rootScope.current_theme.theme_options, function( value )
-		{
-			var theme_option = false;
-			if( typeof value == 'string' )
-			{
-				theme_option = _.findWhere( global_theme_options, { slug: value } );
-				if( theme_option )
-				{
-					$scope.current_theme_options.push( theme_option );
-				}
-			}
-			else if( typeof value == 'object' )
-			{
-				if( typeof value.slug != 'undefined' )
-				{
-					theme_option = _.findWhere( global_theme_options, { slug: value } );
-				}
-
-				theme_option = theme_option || {};
-
-				angular.forEach( value, function( val, key )
-				{
-					theme_option[ key ] = val;
-				} );
-
-				if( theme_option )
-				{
-					$scope.current_theme_options.push( theme_option );
-				}
-			}
-		} );
-		//Set Current Theme Settings
-		//if($rootScope.current_theme == "semanc"){
-
-		if( $state.includes( 'public.bridge-page' ) )
-		{
-			$scope.sidebar_template = "templates/components/public/bridge-page/options.html";
-		}
-		else
-		{
-			$scope.sidebar_template = "templates/components/public/common/theme-engine.html";
-		}
-		//}else{
-		//    $scope.sidbar_template = "templates/public/common/right_sidebar.html";
-		//}
-	}
 
 	$scope.cancelThemeSelection = function()
 	{
@@ -292,8 +200,6 @@ app.controller( 'PublicController', function( $scope, $q, $site, $user, $rootSco
 	{
 		$scope.upload( $scope.files );
 	} );
-
-	$scope.initPublicSite();
 
 
 } );
