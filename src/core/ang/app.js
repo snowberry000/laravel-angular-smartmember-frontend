@@ -65,8 +65,8 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 
 	if (sub == 'my' ){
 		if (!$localStorage.user && $arr[1] != 'sign'){
-			window.location.href = "http://" + location.hostname + "/sign/in/";
-			return;
+			//window.location.href = "http://" + location.hostname + "/sign/in/";
+			//return;
 		}
 	}
 	if( ($arr[ 1 ] != "sign") )

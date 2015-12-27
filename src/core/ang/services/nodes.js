@@ -178,7 +178,7 @@ app.factory('Nodes', function () {
 					"template" : "templates/components/public/admin/wizard/nodes/create_new_site.html",
 					"controller" : "siteWizardController",
 					"image": "/images/image.png",
-					"icon": "user",
+					"icon": "globe",
 					"enabled" : true ,
 					"completed" : false ,
 				}

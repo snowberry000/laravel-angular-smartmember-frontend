@@ -1,6 +1,77 @@
 <div class="ui modal">
 
 	<div class="header">
+		<i class="globe icon"></i>
+		Create a site
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui message">
+				<p>Create your first site! They're the main component of Smart Member and will be where your content is created, members joined, and
+					product(s) purchased.</p>
+			</div>
+
+			<div class="ui section divider"></div>
+
+
+			<div class="ui form">
+
+				<div class="inline field">
+					<label>Site name</label>
+
+					<input type="text" ng-model="site.name" placeholder="My Awesome Site" required>
+
+					<div class="ui ignored info message">
+						<p>
+							This is the primary name for your site; it will show up for your public site visitors,
+							members, customers, and be the default title of your site in search engines.
+						</p>
+					</div>
+				</div>
+
+				<div class="inline field m-t-lg">
+					<label>Site URL / Subdomain</label>
+
+					<div class="ui right labeled input">
+						<div class="ui label">
+							http://
+						</div>
+						<input type="text" ng-model="site.subdomain" placeholder="mysite" required>
+						<div class="ui label">
+							.com
+						</div>
+					</div>
+
+					<div class="ui ignored info message">
+						<p>
+							This is the url where visitors can find your site.
+						</p>
+						<p>You can always get to it from <strong>{{site.subdomain ? site.subdomain : 'mysite'}}.smartmember.com</strong> but can also
+							map it to a brand new domain like www.widgets.com later.
+						</p>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
+		<a busy ng-click="save()" class="ui right labeled icon green button">
+			Save & Continue
+			<i class="checkmark icon"></i>
+		</a>
+	</div>
+</div>
+
+
+<div class="ui modal">
+
+	<div class="header">
 		<i class="paragraph icon"></i>
 		{{ site.id ? 'UPDATE_SITE' : 'CREATE_SITE' | translate }}
 	</div>

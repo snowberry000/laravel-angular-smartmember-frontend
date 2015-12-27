@@ -22,7 +22,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	$nodes = Nodes.GetAll();
 	$wizard_server = Restangular.all( 'wizard' ).customGET( '', {
 		slug: $stateParams.id,
-		site_id: $site.id
+		site_id: $site ? $site.id : ''
 	} ).then( function( response )
 	{
 		$scope.wizard_loaded = true;
@@ -56,9 +56,9 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 
 		if( $rootScope.wizard_server )
 		{
-			$http.defaults.headers.common[ 'subdomain' ] = $rootScope.site.subdomain;
+			$http.defaults.headers.common[ 'subdomain' ] = $rootScope.site ? $rootScope.site.subdomain : '';
 
-			$rootScope.site = $site;
+			//$rootScope.site = $site;
 
 			if( $rootScope.wizard_server.is_completed )
 			{
