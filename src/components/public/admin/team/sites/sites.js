@@ -180,11 +180,11 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 		//  || $sites.public.admin.length > 0
 		if( ($scope.is_customer) && $state.current.name != 'public.admin.account.memberships' )
 		{
-			$state.go( "public.admin.team.sites" );
+			//$state.go( "public.admin.team.sites" );
 		}
 		else if( $state.current.name != 'public.admin.team.sites' )
 		{
-			$state.go( "public.admin.account.memberships" )
+			//$state.go( "public.admin.account.memberships" )
 		}
 		$rootScope.can_add_sites = $scope.can_add_sites;
 
