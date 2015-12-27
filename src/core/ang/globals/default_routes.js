@@ -46,7 +46,6 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 		}
 		else
 		{
-			alert( 'here' );
 			var parts = location.pathname.split( '/' );
 			if( parts.length == 2 || ( parts.length == 3 && parts[ 2 ] == '') )
 			{
