@@ -5,7 +5,9 @@ app.directive( 'suiProgress', function()
 		link: function( scope, next_item, attributes )
 		{
 			$(next_item).progress({
-				success : 'Wizard completed!'
+				text: {
+					success : 'setup completed!'
+				}
 			});
 
 			scope.$watch(attributes.value, function(value){

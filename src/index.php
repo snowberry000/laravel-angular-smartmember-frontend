@@ -7,7 +7,7 @@ DetectAndPerformBridgePageThings();
 ?>
 <!DOCTYPE html>
 
-<html ng-app='app' style="height:auto;" class="no-js {{$state.current.name.split('.').join(' ')}}"  ng-controller="IndexAppController" ng-init="home_init()">
+<html ng-app='app' class="no-js {{$state.current.name.split('.').join(' ')}}"  ng-controller="IndexAppController" ng-init="home_init()">
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -25,11 +25,11 @@ DetectAndPerformBridgePageThings();
 	<link rel="stylesheet" href="css/main.min.css">
 	<link rel="shortcut icon" href="{{options.favicon}}" type="image/x-icon">
 </head>
-<body resize style="height: auto;" class="md-skin fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{viewport}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
+<body resize class="fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{viewport}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
 
 <div class="ui top sidebar top_sidebar_contents" ><ng-include src="top_sidebar_contents"></ng-include></div>
 <div class="ui sidebar vertical menu left left_sidebar_contents" ><ng-include src="left_sidebar_contents"></ng-include></div>
-<div id="wrapper" class="pusher sticky-full-height" ui-view></div>
+<div id="wrapper" class="pusher" ui-view></div>
 
 <script src="js/vendor.min.js"></script>
 <script src="js/main.min.js"></script>

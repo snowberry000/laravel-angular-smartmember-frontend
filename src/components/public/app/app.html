@@ -1,14 +1,10 @@
-<link rel="stylesheet" href="styles/froala_editor.min.css">
-<link rel="stylesheet" href="styles/froala_style.min.css">
-<link rel="stylesheet" href="styles/char_counter.min.css">
-<link rel="stylesheet" href="styles/code_view.min.css">
-<link rel="stylesheet" href="styles/sweetalert.css">
+
 
 <div ng-include="'templates/components/public/app/common/dynamic-css.html'"></div>
 
 
 <wave-spinner ng-if="loading"></wave-spinner>
-<div class="row site_top_background_color sticky-header" ng-init="init();initialize();showNotifications()">
+<div class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
 
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid container stackable'">
 
@@ -37,13 +33,13 @@
 		</div>
 	</div>
 </div>
-<div class="row m-t-lg m-b-lg site_middle_background_color sticky-content">
+<div class="ui vertical segment site_middle_background_color main-content">
 
 	<div sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable'">
 		<ui-view class="row"></ui-view>
 	</div>
 </div>
-<div class="row site_bottom_background_color sticky-footer">
+<div class="ui vertical segment site_bottom_background_color">
 
 	<div class="ui grid container">
 		<div class="row">
