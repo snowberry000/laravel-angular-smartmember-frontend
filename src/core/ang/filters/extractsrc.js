@@ -3,7 +3,9 @@ app.filter('extractsrc', function () {
 	return function (value) {
 		if (!value) return '';
 
-		var regex = /<iframe.*?src=[\'\"](.*?)[\'\"]/g;
+		console.log( "THE VALUE", value );
+
+		var regex = /<.*?src=[\'\"](.*?)[\'\"]/g;
 		var src = regex.exec(value)[1];
 
 		return src;

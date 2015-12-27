@@ -1,0 +1,64 @@
+<div class="ui piled segment section_background_color">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
+
+	<div class="ui embed" ng-if="next_item.embed_content" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+
+	<img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && (!next_item.embed_content || next_item.always_show_featured_image == 1)">
+
+	<div ng-if="!next_item.access">
+		<a class="ui fluid image" ng-href="{{next_item.access_level.information_url || '/sign/in/'}}">
+			<img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+		</a>
+	</div>
+
+	<div class="ui padded basic segment">
+		<a ng-if="is_site_admin || is_team_member" ui-sref="public.admin.site.content.syllabus.lesson({id: next_item.id})" class="">Edit</a>
+
+		<h3 class="text-center" style="font-weight: bold;" ng-if="next_item.timeLeft > 0">
+			You can access to this content in:
+		</h3>
+		<h3 class="text-center" ng-if="next_item.timeLeft > 0">
+			<timer countdown="next_item.timeLeft" interval="1000">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
+		</h3>
+
+		<div class="lesson_meta" style="min-height: 40px;">
+			<span class="pull-right" style="padding-left: 20px; padding-top: 5px;">
+				<a ng-if="next_item.audio_file" ng-href="{{app.apiUrl}}/utility/download?file={{next_item.audio_file}}" data-bypass="true" target="_blank" class="ui button fluid main_button_background_color main_button_text_color" title="Download Audio File"
+				   alt="Download Audio File">
+					<span class="glyphicon glyphicon-download-alt" style="margin-right: 5px;"></span>
+					Audio
+				</a>
+			</span>
+			<span class="pull-right" ng-if="(next_item.transcript_content_public || next_item.access) && next_item.transcript_content" style="padding-right: 20px; padding-top:5px;">
+				<button type="button" class="btn btn-sm btn-primary toggle-transcript" title="View Transcript" ng-click="next_item.showTranscript = !next_item.showTranscript" alt="View Transcript">
+					<span class="glyphicon glyphicon-download" style="margin-right: 5px;" ng-click="next_item.showTranscript = !next_item.showTranscript"></span>
+					{{next_item.transcript_button_text}}
+				</button>
+			</span>
+		</div>
+		<div ng-show="next_item.showTranscript" class="transcript_stuff" style="padding: 15px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px; border-radius: 4px; display: block;">
+			<h4 class="text-left">Transcript:</h4>
+			<p style="line-height: 24px;">
+			<div style='white-space: pre-wrap' dynamic='next_item.transcript_content'></div>
+			</p>
+		</div>
+
+		<div class="row" dynamic="next_item.content" ng-if="next_item.content && (next_item.show_content_publicly || next_item.access)"></div>
+
+		<div>
+			<p style="line-height: 24px;">
+				{{next_item.description}}
+			</p>
+		</div>
+
+
+		<div class="panel-footer comments_go_here" ng-show="next_item.discussion_settings.show_comments" style="margin-bottom:20px;">
+			<div ng-include="'templates/components/public/app/common/comments.html'"></div>
+		</div>
+
+	</div>
+
+</div>

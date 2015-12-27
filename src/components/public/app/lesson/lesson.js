@@ -16,10 +16,6 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 	$scope.comment = '';
 	$scope.child_comment = '';
 
-	$scope.TriggerEmbeds = function()
-	{
-		//$('.ui.embed').embed();
-	}
 
 	$lesson = {};
 	$scope.user = $localStorage.user;
@@ -40,13 +36,13 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		{
 			Restangular.one( 'userNote' ).customGET( 'single/' + $lesson.id ).then( function( note )
 			{
-                if( note )
-                {
-                    $scope.userNote = note;
-                }
-            } );
-        }
-        Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.lesson.id + '&type=' + 2 ).then( function( comments )
+				if( note )
+				{
+					$scope.userNote = note;
+				}
+			} );
+		}
+		Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.lesson.id + '&type=' + 2 ).then( function( comments )
 		{
 			$scope.lesson.comments = _.toArray( comments.comments )
 		} );
@@ -98,8 +94,6 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 				$scope.assignNextPrev();
 			} );
 		}
-
-		$scope.TriggerEmbeds();
 	} );
 
 
@@ -209,11 +203,11 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 
 	$scope.replyPermission = function()
 	{
-        if( $scope.commentPermission() )
-        {
-            ;
-        }
-        return ($scope.lesson.discussion_settings.show_comments && !$scope.lesson.discussion_settings.close_to_new_comments && $scope.lesson.discussion_settings.allow_replies );
+		if( $scope.commentPermission() )
+		{
+			;
+		}
+		return ($scope.lesson.discussion_settings.show_comments && !$scope.lesson.discussion_settings.close_to_new_comments && $scope.lesson.discussion_settings.allow_replies );
 	}
 
 
