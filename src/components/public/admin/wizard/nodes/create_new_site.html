@@ -15,41 +15,43 @@
 			<div class="ui section divider"></div>
 
 
-			<div class="ui form">
+			<div class="ui large form">
 
-				<div class="inline field">
-					<label>Site name</label>
+				<div class="two fields">
+					<div class="eight wide field">
+						<label>1. Site name</label>
 
-					<input type="text" ng-model="site.name" placeholder="My Awesome Site" required>
+						<input type="text" ng-model="site.name" placeholder="My Awesome Site" required>
 
-					<div class="ui ignored info message">
-						<p>
-							This is the primary name for your site; it will show up for your public site visitors,
-							members, customers, and be the default title of your site in search engines.
-						</p>
-					</div>
-				</div>
-
-				<div class="inline field m-t-lg">
-					<label>Site URL / Subdomain</label>
-
-					<div class="ui right labeled input">
-						<div class="ui label">
-							http://
-						</div>
-						<input type="text" ng-model="site.subdomain" placeholder="mysite" required>
-						<div class="ui label">
-							.com
+						<div class="ui ignored info message">
+							<p>
+								This is the primary name for your site; it will show up for your public site visitors,
+								members, customers, and be the default title of your site in search engines.
+							</p>
 						</div>
 					</div>
 
-					<div class="ui ignored info message">
-						<p>
-							This is the url where visitors can find your site.
-						</p>
-						<p>You can always get to it from <strong>{{site.subdomain ? site.subdomain : 'mysite'}}.smartmember.com</strong> but can also
-							map it to a brand new domain like www.widgets.com later.
-						</p>
+					<div class="eight wide field">
+						<label>2. Site URL / Subdomain</label>
+
+						<div class="ui right labeled input">
+							<div class="ui label">
+								http://
+							</div>
+							<input type="text" ng-model="site.subdomain" placeholder="mysite" required>
+							<div class="ui label">
+								.com
+							</div>
+						</div>
+
+						<div class="ui ignored info message">
+							<p>
+								This is the url where visitors can find your site.
+							</p>
+							<p>You can always get to it from <strong>{{site.subdomain ? site.subdomain : 'mysite'}}.smartmember.com</strong> but can also
+								map it to a brand new domain like www.widgets.com later.
+							</p>
+						</div>
 					</div>
 				</div>
 
