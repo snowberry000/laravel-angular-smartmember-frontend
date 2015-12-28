@@ -162,9 +162,12 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
                 $scope.$broadcast('dataloaded');
             }
         });
-        for (var i =  $scope.access_levels.length - 1; i >= 0; i--) {
-            $scope.access.push({text : $scope.access_levels[i].name , value:$scope.access_levels[i].id});
-        }
+        Restangular.all('accessLevel').getList({site_id : $site.id}).then(function(response){
+            $scope.access_levels = response;
+            for (var i =  $scope.access_levels.length - 1; i >= 0; i--) {
+                $scope.access.push({text : $scope.access_levels[i].name , value:$scope.access_levels[i].id});
+            }
+        })
     };
 
     $scope.saveDripFeedModule = function(item, type)
@@ -250,36 +253,22 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
         return lesson;
     }
 
-    $scope.deleteLesson = function (lesson_item , module) {
+    $scope.deleteResource = function (lesson_item , module) {
+        lesson_item = JSON.parse(lesson_item);
+        if(!lesson_item.id){
+            if(module)
+                module.lessons = _.without(module.lessons , lesson_item);
+            else
+                $scope.unassigned_lessons = _.without($scope.unassigned_lessons, lesson_item);
+            return;
+        }
 
-        var modalInstance = $modal.open({
-            templateUrl: '/templates/modals/deleteConfirm.html',
-            controller: "modalController",
-            scope: $scope,
-            resolve: {
-                id: function () {
-                    return lesson_item.id
-                }
-            }
-
+        Restangular.one("lesson", lesson_item.id).remove().then(function () {
+            if(module)
+                module.lessons = _.without(module.lessons , lesson_item);
+            else
+                $scope.unassigned_lessons = _.without($scope.unassigned_lessons, lesson_item);
         });
-
-        modalInstance.result.then(function () {
-            if(!lesson_item.id){
-                if(module)
-                    module.lessons = _.without(module.lessons , lesson_item);
-                else
-                    $scope.unassigned_lessons = _.without($scope.unassigned_lessons, lesson_item);
-                return;
-            }
-
-            Restangular.one("lesson", lesson_item.id).remove().then(function () {
-                if(module)
-                    module.lessons = _.without(module.lessons , lesson_item);
-                else
-                    $scope.unassigned_lessons = _.without($scope.unassigned_lessons, lesson_item);
-            });
-        })
 
     };
 
