@@ -6,7 +6,7 @@
 <wave-spinner ng-if="loading"></wave-spinner>
 <div class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
 
-	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid container stackable'">
+	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">
 
 		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
 			<div class="column" style="text-align: right;">
@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="middle aligned column m-b-lg" ng-if="meta_data.logo_position == 'below'" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
+			<div class="middle aligned column m-b-lg" ng-if="meta_data.logo_position == 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
 			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column'">
 
 				<a sm-class="'ui ' + meta_data.logo_size + (meta_data.logo_border ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="/{{options.logo_url}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''}}">
@@ -29,7 +29,7 @@
 					<img ng-show="options.site_logo" sui-popup data-edit="true" data-state="public.admin.site.appearance.settings" ng-src="{{options.site_logo}}" class="m-t-sm m-b-sm" style="{{options.logo_max_height ? (options.logo_max_height.indexOf('px') > -1 ? 'max-height: ' + options.logo_max_height : 'max-height: ' + options.logo_max_height + 'px') : ''}}">
 				</a>
 			</div>
-			<div class="middle aligned column" ng-if="meta_data.logo_position != 'below'" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
+			<div class="middle aligned column" ng-if="meta_data.logo_position != 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
 		</div>
 	</div>
 </div>
