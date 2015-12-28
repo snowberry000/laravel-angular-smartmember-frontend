@@ -290,5 +290,5 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 	    console.log("Attached");
 	}
 
-	//$scope.initialize();
+	$scope.resolve();
 });

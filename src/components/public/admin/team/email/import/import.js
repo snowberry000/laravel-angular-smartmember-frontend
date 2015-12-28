@@ -21,20 +21,33 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("EmailISubscribermportController", function ($scope, $localStorage, Restangular, toastr, $state, emailListId, emailLists,$site) {
+app.controller("EmailISubscribermportController", function ($scope,$q, $localStorage, $rootScope , smModal ,$stateParams , Restangular, toastr, $state) {
 	
-    $scope.emailsubscriber = {email_lists:[]};
-    $scope.emailsubscriber.email_lists.push(emailListId);
-    $scope.emailLists = emailLists;
-    $scope.totalAdded+=1;
-    if ($scope.emailsubscriber.email_lists) {
-        $scope.emailsubscriber.lists = {};
-        $.each($scope.emailsubscriber.email_lists, function(key, data) {
-            $scope.emailsubscriber.lists[data.id] = true;
-        });
-    }
+    $site = $rootScope.site;
+    emailListId = Restangular.one('emailList',$stateParams.id).get({list_type: 'user'}).then(function(response){
+        $scope.emailsubscriber = {email_lists:[]};
+        $scope.emailsubscriber.email_lists.push(response);
+    });
+    emailLists = Restangular.all('emailList').getList({list_type: 'user'}).then(function(response){
+        $scope.emailLists = response;
+    })
+    emailSubscribers = Restangular.all('emailSubscribers').getList().then(function(response){
+        $scope.emailSubscribers = response;
+    })
+    $q.all([emailLists , emailListId]).then(function(response){
+        $scope.init();
+    })
+    
     $scope.emailSubscribers = [];
-
+    $scope.init = function(){
+        $scope.totalAdded+=1;
+        if ($scope.emailsubscriber.email_lists) {
+            $scope.emailsubscriber.lists = {};
+            $.each($scope.emailsubscriber.email_lists, function(key, data) {
+                $scope.emailsubscriber.lists[data.id] = true;
+            });
+        }
+    }
     $scope.addInSubscribersList = function(){
         var $name_emailArr=[];
         var $name="";
@@ -104,7 +117,7 @@ app.controller("EmailISubscribermportController", function ($scope, $localStorag
             toastr.success("Changes Saved!");
             if($scope.sendIter==$scope.emailSubscribers.length-1)
             {
-                $state.go("public.admin.team.email.subscribers");
+                smModal.Show("public.admin.team.email.subscribers");
             }
         })
     }
@@ -122,7 +135,7 @@ app.controller("EmailISubscribermportController", function ($scope, $localStorag
             {
                 console.log("i am printing subscribers count "+$scope.sendIter);
                 toastr.success($scope.totalAdded+" Subscribers Added!");
-                $state.go("public.admin.team.email.subscribers");
+                smModal.Show("public.admin.team.email.subscribers");
             }
         });
     }
