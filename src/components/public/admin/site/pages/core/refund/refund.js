@@ -76,16 +76,16 @@ app.controller("RefundController", function ($scope, $localStorage, smModal , $r
       }
       else
       {
-        Restangular.all(selected_url).getList({site_id: item.site_id}).then(function(response){
+        Restangular.all(selected_url).customGET('',{site_id: item.site_id}).then(function(response){
             if(response.route == 'customPage')
                 response.route = 'page';
             if(response.route == 'supportArticle')
                 response.route = 'support-article';
-            response.forEach(function(entity){
+            response.items.forEach(function(entity){
                 entity.url =  entity.permalink;
             })
             $scope.show_next = true;
-            $scope.loaded_items = response.items;
+            $scope.loaded_items = response;
               
         })
       }

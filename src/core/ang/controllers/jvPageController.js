@@ -90,12 +90,12 @@ app.controller('JVPageController', function ($scope,smModal, Restangular, $local
         }
         else
         {
-            Restangular.all(selected_url).getList({site_id: item.site_id}).then(function(response){
+            Restangular.all(selected_url).customGET('',{site_id: item.site_id}).then(function(response){
                 if(response.route == 'customPage')
                     response.route = 'page';
                 if(response.route == 'supportArticle')
                     response.route = 'support-article';
-                response.forEach(function(entity){
+                response.items.forEach(function(entity){
                     entity.url =  entity.permalink;
                 })
                 $scope.show_next = true;
