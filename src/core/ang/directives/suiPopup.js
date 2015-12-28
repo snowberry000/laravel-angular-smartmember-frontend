@@ -4,11 +4,13 @@ app.directive( 'suiPopup', function( smModal )
 		restrict: 'A',
 		link: function( scope, next_item, attributes )
 		{
+			console.log("editable: ");
+			console.log(attributes.edit);
 			var the_options = {
-				hoverable: attributes.edit ? true : (attributes.hoverable || false),
+				hoverable: (attributes.edit==true || attributes.edit=='true') ? true : (attributes.hoverable || false),
 				position: attributes.position || 'right center',
 				//popup: '.special.popup',
-				html: attributes.edit ? '<button class="ui tiny red button edit-admin" data-state="' + attributes.state +
+				html: (attributes.edit==true || attributes.edit=='true') ? '<button class="ui tiny red button edit-admin" data-state="' + attributes.state +
 				'"  data-attributes="' + attributes.stateattributes +
 				'">edit</button>' : '',
 				target: attributes.target || '',
