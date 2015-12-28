@@ -16,12 +16,9 @@
                                 <label class="col-sm-2 control-label">Create Account URL</label>
 
                                 <div class="col-sm-10">
-                                    <a class="select_Homepage" popover-template="1" popover-is-open="site_options.isOpen"
-                                       popover-title="Enter item url" ng-click="site_options.isOpen=true"
-                                       data-html="true">{{ site_options.create_account_url || 'Select url' }}
+                                    <a ng-model="site_options" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{ site_options.create_account_url || 'Select url' }}
                                     </a>
 
-                                    <div url-selector ng-model="site_options"></div>
                                         <span class="help-block m-b-none">
                                             By default this will use the sales page for your site
                                         </span>

@@ -87,8 +87,7 @@
 				<label class="col-sm-12 control-label">Free Item Url</label>
 
 				<div class="col-sm-12">
-				<a ng-class="{'notActive':isChecked==true}" popover-template="1" popover-is-open='refund.isOpen' popover-title="Enter item url" ng-click="refund.isOpen=true" data-html="true">{{ refund.free_item_url || 'Select url' }}</a>
-					<div url-selector ng-model="refund"></div>
+				<a ng-class="{'notActive':isChecked==true}" ng-model="refund" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{ refund.free_item_url || 'Select url' }}</a>
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" ng-model="isChecked" name="use_freebie_page" ng-click="setUrl()" > Use "Free Bonus" page (you can set that up <a href="admin/specialPages/bonus">here</a>).
