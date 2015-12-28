@@ -3,7 +3,7 @@
 	<div class="ui top attached header huge breadcrumb">
 		<a class="section" ui-sref="public.app.forum">Forum</a>
 		<i class="right chevron icon divider"></i>
-		<a class="section" ui-sref="public.app.forum-category({permalink: 'some-category'})">Facebook Advertising</a>
+		<a class="section" ui-sref="public.app.forum-category({permalink: topic.category.permalink})">{{topic.category.title}}</a>
 		<i class="right arrow icon divider"></i>
 		<div class="active section">Topic</div>
 	</div>
@@ -17,24 +17,13 @@
 				</div>
 				<div class="content">
 					<div class="header">
-						How do I purchase ads for $0.0003 per view?
+						{{topic.title}}
 					</div>
 					<div class="meta">
-						<span class="stay">1 month ago</span>
+						<span class="stay">{{moment.utc(topic.created_at).fromNow()}}</span>
 					</div>
 					<div class="description">
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam
-							malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-						</p>
-
-						<p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim
-							pellentesque felis.
-						</p>
-
-						<p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam.
-							Sed arcu. Cras consequat.
-						</p>
-
+						{{topic.description}}
 					</div>
 					<div class="extra">
 						<div class="ui right floated animated button" tabindex="0">
@@ -52,23 +41,17 @@
 	<div class="ui segment">
 
 		<div class="ui divided items">
-			<div class="item reply">
+			<div class="item reply" ng-repeat='reply in topic.replies'>
 				<div class="ui tiny image">
 					<img src="http://semantic-ui.com/images/avatar/large/stevie.jpg">
 				</div>
 				<div class="content">
 					<div class="description">
-						<p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim
-							pellentesque felis.
-						</p>
-
-						<p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam.
-							Sed arcu. Cras consequat.
-						</p>
+						<div dynamic=reply.content></div>
 					</div>
 					<div class="extra text-right">
 						<div class="ui small basic label">
-							1 hour ago
+							{{moment.utc(reply.created_at).fromNow()}}
 						</div>
 						<div class="ui mini animated button" tabindex="0">
 							<div class="visible content">Reply</div>
@@ -86,7 +69,8 @@
 				<div class="content">
 					<div class="description">
 
-						<blockquote>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim
+						<blockquote>
+							Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim
 							pellentesque felis.
 						</blockquote>
 
@@ -111,41 +95,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="item reply">
-				<div class="ui tiny image">
-					<img src="http://semantic-ui.com/images/avatar/large/jenny.jpg">
-				</div>
-				<div class="content">
-					<div class="description">
-						<p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim
-							pellentesque felis.
-						</p>
-
-						<p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam.
-							Sed arcu. Cras consequat.
-						</p>
-					</div>
-					<div class="extra text-right">
-						<div class="ui small basic label">
-							1 hour ago
-						</div>
-						<div class="ui mini animated button" tabindex="0">
-							<div class="visible content">Reply</div>
-							<div class="hidden content">
-								<i class="right arrow icon"></i>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
+			<pre>{{topic | json }}</pre>
 		</div>
 	</div>
 	<div class="ui segment">
 		<h3 class="ui header">Leave a reply</h3>
-		<textarea froala ng-model="candy" placeholder="Leave a reply"></textarea>
+		<textarea froala ng-model="content" placeholder="Leave a reply"></textarea>
 
-		<button class="ui button m-t-md">Add Reply</button>
+		<button class="ui button m-t-md" ng-click='addReply(content)'>Add Reply</button>
 	</div>
 
 </div>
