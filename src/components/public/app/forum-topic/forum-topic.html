@@ -36,12 +36,11 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 	<div class="ui segment">
 
 		<div class="ui divided items">
-			<div class="item reply" ng-repeat='reply in topic.replies'>
+			<div class="item reply" ng-repeat='reply in topic.replies | orderBy:"created_at"'>
 				<div class="ui tiny image">
 					<img src="http://semantic-ui.com/images/avatar/large/stevie.jpg">
 				</div>
@@ -53,7 +52,7 @@
 						<div class="ui small basic label">
 							{{moment.utc(reply.created_at).fromNow()}}
 						</div>
-						<div class="ui mini animated button" tabindex="0">
+						<div class="ui mini animated button" tabindex="0" ng-click='replyComment(reply.content)'>
 							<div class="visible content">Reply</div>
 							<div class="hidden content">
 								<i class="right arrow icon"></i>
@@ -62,40 +61,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="item reply">
-				<div class="ui tiny image">
-					<img src="http://semantic-ui.com/images/avatar/large/veronika.jpg">
-				</div>
-				<div class="content">
-					<div class="description">
-
-						<blockquote>
-							Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim
-							pellentesque felis.
-						</blockquote>
-
-						<p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim
-							pellentesque felis.
-						</p>
-
-						<p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam.
-							Sed arcu. Cras consequat.
-						</p>
-					</div>
-					<div class="extra text-right">
-						<div class="ui small basic label">
-							1 hour ago
-						</div>
-						<div class="ui mini animated button" tabindex="0">
-							<div class="visible content">Reply</div>
-							<div class="hidden content">
-								<i class="right arrow icon"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<pre>{{topic | json }}</pre>
 		</div>
 	</div>
 	<div class="ui segment">

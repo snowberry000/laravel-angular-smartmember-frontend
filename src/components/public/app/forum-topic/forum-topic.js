@@ -21,6 +21,11 @@ app.controller("Forum-topicController", function ($scope,$stateParams, Restangul
 			.post({content: content, topic_id: $scope.topic.id})
 			.then(function(response){
 				$scope.topic.replies.push(response);
+				$scope.content = "";
 			});
+	}
+
+	$scope.replyComment = function(content){
+		$scope.content = "<blockquote>" + content + "</blockquote> <br/>";
 	}
 });
