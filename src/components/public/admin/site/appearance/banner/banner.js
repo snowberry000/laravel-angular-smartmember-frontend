@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("BannerController", function ($scope, $rootScope, $state, $http,$stateParams, Restangular, toastr,Upload) {
+app.controller("BannerController", function ($scope, $rootScope, $state, $http,$stateParams, Restangular, toastr,Upload, smModal) {
 	
 	$site=$rootScope.site;
 
@@ -54,7 +54,7 @@ app.controller("BannerController", function ($scope, $rootScope, $state, $http,$
 	    if($scope.ad.id) {
 	        $scope.ad.put().then(function(res){
 	            toastr.success("Banner saved!");
-	            $state.go('public.admin.site.appearance.banners');
+                smModal.Show('public.admin.site.appearance.banners');
 	        });
 	    }
 	    else {
@@ -63,7 +63,7 @@ app.controller("BannerController", function ($scope, $rootScope, $state, $http,$
 	            console.log(response);
 	            $scope.ad = response;
 	            toastr.success("Banner saved!");
-	            $state.go('public.admin.site.appearance.banners');
+                smModal.Show('public.admin.site.appearance.banners');
 	        });
 	    }
 	}

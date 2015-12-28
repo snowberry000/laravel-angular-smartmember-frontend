@@ -12,8 +12,6 @@ app.config( function( $stateProvider )
 
 app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular, $localStorage, smModal )
 {
-	console.log( "DOING THINGS");
-
 	$scope.Init = function()
 	{
 		$scope.StoreVerificationHash();
