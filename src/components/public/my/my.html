@@ -1,4 +1,9 @@
 
-<div ui-view class="sticky-full-height"></div>
 
+<wave-spinner ng-if="loading"></wave-spinner>
+<div class="logged_in">
 
+</div>
+<div class="ui vertical segment main-content">
+	<ui-view></ui-view>
+</div>

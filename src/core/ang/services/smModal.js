@@ -11,8 +11,8 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 			{
 				var state_data = $state.get( state );
 			}
-			console.log( 'state_data', state, state_data );
-			console.log( stateParams )
+			//console.log( 'state_data', state, state_data );
+			//console.log( stateParams )
 			var stateParams = {};
 			if( params )
 			{
@@ -43,6 +43,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					observeChanges: true,
 					duration: 100,
 					closable: subdomain == 'my' ? false : true,
+					context: subdomain == 'my' ? '.main-content' : 'body',
 					dimmerSettings: {
 						opacity: 0.3
 					},
@@ -62,7 +63,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					} )
 				}
 
-				console.log( 'the_options:', the_options );
+				//console.log( 'the_options:', the_options );
 				// The modal object has the element built, if this is a bootstrap modal
 				// you can call 'modal' to show it, if it's a custom modal just show or hide
 				// it as you need to.

@@ -53,7 +53,7 @@ app.controller( 'PublicController', function( $scope, $q, $user, $rootScope, smM
 
 	$scope.GetAdminBarInclude = function()
 	{
-		if( $scope.isLoggedIn() && !$rootScope.isSitelessPage() )
+		if( $scope.isLoggedIn() /*&& !$rootScope.isSitelessPage()*/ )
 			return 'templates/components/public/admin-bar/admin-bar.html';
 
 		return;
