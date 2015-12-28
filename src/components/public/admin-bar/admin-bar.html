@@ -35,7 +35,7 @@
 	</div>
 </div>
 
-<a class="ui item" style="width: 200px;" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" sui-popup>
+<a class="ui item" style="width: 200px;" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my' && (is_site_admin || is_team_member)" sui-popup>
 	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step <=5 ? site.wizard_step : 5}}" data-total="5" sui-progress>
 		<div class="bar">
 			<div class="progress">{{site.wizard_step}} of 5 steps</div>
@@ -44,7 +44,7 @@
 	</div>
 </a>
 
-<div class="ui dropdown item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" title="Create new content to display on your site" sui-dropdown sui-popup>
+<div class="ui dropdown item" ng-if="app.subdomain != 'my' && (is_site_admin || is_team_member)" title="Create new content to display on your site" sui-dropdown sui-popup>
 	<div class="ui right labeled icon green button">
 		<i class="write icon"></i>
 		Content
@@ -121,7 +121,7 @@
 		<a class="item" ng-click="smModal.Show('public.admin.site.content.stats')">{{ 'STATS' | translate }}</a>
 	</div>
 </div>
-<div class="ui item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)">
+<div class="ui item" ng-if="app.subdomain != 'my' && (is_site_admin || is_team_member)">
 	<div class="ui small basic icon buttons">
 
 		<div ng-if="is_team_member" class="ui top left pointing dropdown icon button" title="Update general site settings" sui-popup sui-dropdown>
@@ -142,7 +142,7 @@
 				<a class="item" ng-click="smModal.Show('public.admin.site.pages.core.list')">Core page settings</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
 				<a class="item" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
-				<a class="item" ng-if="app.subdomain != 'my' && (is_admin || is_team_member)" ng-click="smModal.Show('public.admin.site.appearance.directory')">Directory Listing</a>
+				<a class="item" ng-if="app.subdomain != 'my' && (is_site_admin || is_team_member)" ng-click="smModal.Show('public.admin.site.appearance.directory')">Directory Listing</a>
 				<div class="item">
 					<i class="dropdown icon"></i>
 					<span class="text">Plugins</span>
@@ -221,7 +221,7 @@
 </div>
 
 
-<div class="item" ng-if="is_admin || is_team_member" title="Customize the look n' feel of your site" sui-popup>
+<div class="item" ng-if="is_site_admin || is_team_member" title="Customize the look n' feel of your site" sui-popup>
 	<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		<i class="options icon"></i>
 		Theme
