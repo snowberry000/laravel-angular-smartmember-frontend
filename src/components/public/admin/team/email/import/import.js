@@ -31,9 +31,7 @@ app.controller("EmailISubscribermportController", function ($scope,$q, $localSto
     emailLists = Restangular.all('emailList').getList({list_type: 'user'}).then(function(response){
         $scope.emailLists = response;
     })
-    emailSubscribers = Restangular.all('emailSubscribers').getList().then(function(response){
-        $scope.emailSubscribers = response;
-    })
+   
     $q.all([emailLists , emailListId]).then(function(response){
         $scope.init();
     })
