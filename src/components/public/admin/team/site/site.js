@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'SiteController', function( $scope, toastr, $stateParams , $rootScope, $state, smModal,$localStorage, $location, Restangular, notify )
+app.controller( 'SiteController', function( $scope, toastr, $stateParams , $rootScope, $state, smModal,$localStorage, $location, Restangular, $filter )
 {
 	if($stateParams.id){
 		Restangular.one('site' , $stateParams.id).then(function(response){
@@ -27,6 +27,14 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams , $root
 		}
 		$scope.create();
 	}
+
+    $scope.setSubdomain = function( $event )
+    {
+        if( !$scope.site.subdomain )
+        {
+            $scope.site.subdomain = $filter( 'urlify' )( $scope.site.name );
+        }
+    }
 
 	$scope.clone_sites = Restangular.all( 'site' ).getList( { cloneable: 1 } );
 	//$scope.site = $rootScope.site;
