@@ -14,11 +14,12 @@ app.controller("FetcherController", function ($scope, $localStorage, toastr, $st
 	$company_hash = Restangular.one('company/getCurrentCompanyHash').get().then(function(response){$scope.url = $scope.app.apiUrl + '/jvzoo/' + response;})
 
 	$scope.init = function(){
-	    var clipboard = new Clipboard('#copy-button');
+	    var clipboard = new Clipboard('.copy-button');
 	}
 
 	$scope.copied = function()
 	{
 	    toastr.success("Link copied!");
 	}
+	$scope.init();
 });
