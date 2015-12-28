@@ -17,17 +17,12 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 	$scope.adminSites = [];
 	$scope.memberSites = [];
 	$scope.loading = true;
-	if( !$scope.$storage.user )
-	{
-		$state.go( 'public.sign.in' );
-		return;
-	}
 
 	$scope.currentPage = 1;
 	$scope.adminPagination = { current_page: 1 };
 	$scope.adminPagination.total_count = 1;
 
-	$scope.can_create_sites = ($scope.site != 'undefined' && typeof $scope.site.can_create_sites != 'undefined' ? $scope.site.can_create_sites : false);
+	$scope.can_create_sites = true; //TODO: fix this to use proper SM customer detection
 
 	$scope.isAgent = function( member, site )
 	{
@@ -126,7 +121,6 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 			return "Admin";
 		}
 	}
-
 
 	$rootScope.is_team_member = $scope.isTeamMember( $user.role );
 	$rootScope.is_team_primaryOwner = $scope.isTeamPrimaryOwner( $user.role );
