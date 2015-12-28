@@ -50,7 +50,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 			if( parts.length == 2 || ( parts.length == 3 && parts[ 2 ] == '') )
 			{
 				Restangular.one( 'permalink', parts[ 1 ] ).get().then( function( response )
-				{
+				{	
 					switch( response.type )
 					{
 						case "lessons":
@@ -73,9 +73,11 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 							break;
 						case "bridge_bpages":
 							$state.go( 'bridgepage', { permalink: parts[ 1 ] }, { location: false } );
+							break;
 					}
 				} );
 			}
+
 		}
 	} );
 } );

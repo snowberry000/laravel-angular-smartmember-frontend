@@ -77,6 +77,7 @@ ErrorDocument 404 /pricing
     RewriteRule ^post/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-article/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^site/(.*)$ http://%{HTTP_HOST}/$1 [L]
+#    RewriteRule ^forum-category/(.*)$ http://%{HTTP_HOST}/$1 [L]
 </ifModule>
 
 <ifModule mod_rewrite.c>

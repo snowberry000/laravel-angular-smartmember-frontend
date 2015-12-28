@@ -39,7 +39,7 @@ function DetectAndPerformBridgePageThings()
 		}
 
 		//we know these are reserved routes, so no need to check if they are bridge pages
-		$reserved_permalinks = array( 'lessons', 'info', 'home', 'thank-you', 'thankyou', 'wallboard', 'sign', 'download-center', 'admin', 'domain-not-found', 'blog', 'jvpage', 'refund-page', 'support-ticket', 'support', 'support-tickets' );
+		$reserved_permalinks = array( 'lessons', 'info', 'home', 'thank-you', 'thankyou', 'wallboard', 'sign', 'download-center', 'admin', 'domain-not-found', 'blog', 'jvpage', 'refund-page', 'support-ticket', 'support', 'support-tickets','forum-category','forum-topic' );
 
 		if( !in_array( $permalink, $reserved_permalinks ) )
 		{
