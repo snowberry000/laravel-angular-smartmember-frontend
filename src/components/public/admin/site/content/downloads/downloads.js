@@ -92,7 +92,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 	{
 		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
 		{
-			return next_item.id == id;
+			return next_item.id == parseInt(id);
 		} );
 
 		itemWithId.remove().then( function()
