@@ -93,30 +93,8 @@ app.controller( "BannersController", function( $scope, $rootScope, $state, $http
 			toastr.success( "Banner saved!" );
 		} );
 	}
+
 	$scope.resolve();
-
-	$scope.dragControlListeners = {
-		accept: function( sourceItemHandleScope, destSortableScope )
-		{
-			return true;
-		},
-		itemMoved: function( $event )
-		{
-			console.log( "moved" );
-		},//Do what you want},
-		orderChanged: function( $event )
-		{
-			console.log( "orderchange1" );
-			setTimeout( $scope.save, 200 );
-		},//Do what you want},
-
-		dragEnd: function( $event )
-		{
-			$( window ).off();
-		},
-		containment: '#board'//optional param.
-	};
-
 } );
 
 app.controller( 'adminSiteWidgetsController', function( $scope, $state, $http, $ads, $site, Restangular, toastr, $modal )
