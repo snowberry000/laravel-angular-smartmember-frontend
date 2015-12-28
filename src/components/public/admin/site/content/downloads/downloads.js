@@ -49,7 +49,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 				else
 				{
 					$scope.pagination.total_count = data.length;
-					$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+					$scope.data[ $scope.pagination.current_page ] = data;
 				}
 			} );
 		}
