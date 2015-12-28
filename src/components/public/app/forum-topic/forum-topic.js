@@ -18,7 +18,7 @@ app.controller("Forum-topicController", function ($scope,$stateParams, Restangul
 
 	$scope.addReply = function(content){
 		Restangular.service('forumReply')
-			.post({content: content, topic_id: $scope.topic.id})
+			.post({content: content, topic_id: $scope.topic.id, category_id: $scope.topic.category.id})
 			.then(function(response){
 				$scope.topic.replies.push(response);
 				$scope.content = "";
