@@ -13,7 +13,7 @@
 		<div class="ui items">
 			<div class="item">
 				<div class="ui small image">
-					<img src="http://semantic-ui.com/images/avatar/large/stevie.jpg">
+					<img src="{{topic.user.profile_image}}">
 				</div>
 				<div class="content">
 					<div class="header">
@@ -42,7 +42,7 @@
 		<div class="ui divided items">
 			<div class="item reply" ng-repeat='reply in topic.replies | orderBy:"created_at"'>
 				<div class="ui tiny image">
-					<img src="http://semantic-ui.com/images/avatar/large/stevie.jpg">
+					<img src="{{reply.user.profile_image}}">
 				</div>
 				<div class="content">
 					<div class="description">

@@ -24,6 +24,7 @@ app.controller("Forum-categoryController", function ($scope,$stateParams,Restang
 			.post({title: title, category_id: $scope.category.id, site_id: $scope.site.id})
 			.then(function(response){
 				$scope.category.topics.push(response);
+				$scope.title = "";
 			});
 	}
 
