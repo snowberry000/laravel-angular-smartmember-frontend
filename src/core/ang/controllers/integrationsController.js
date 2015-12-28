@@ -187,6 +187,24 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             long_description: '<p><a href="http://www.clickbank.com" target="_blank">ClickBank</a> allows you to accept payments from the ClickBank affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
+            id: 'wso',
+            name: 'WarriorPlus: Payment Gateway',
+            short_name: 'Warrior+ Payment',
+            sites_only: true,
+            description: 'Allow your customers to buy your Products with WarriorPlus',
+            logo: '/images/integrations/wso.png',
+            long_description: '<p><a href="http://www.warriorplus.com" target="_blank">WarriorPlus</a> allows you to accept payments from the WarriorPlus affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
+        },
+        {
+            id: 'Zaxaa',
+            name: 'Zaxaa: Payment Gateway',
+            short_name: 'Zaxaa Payment',
+            sites_only: true,
+            description: 'Allow your customers to buy your Products with Zaxaa',
+            logo: '/images/integrations/zaxaa.png',
+            long_description: '<p><a href="http://www.zaxaa.com" target="_blank">Zaxaa</a> allows you to accept payments from the Zaxaa affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
+        },
+        {
             id: 'paypal',
             name: 'Paypal',
             description: 'Allow your customers to buy your Products with Paypal.',
