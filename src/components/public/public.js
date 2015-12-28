@@ -45,7 +45,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 	$rootScope.$watch( 'user_loaded', function( new_value, old_value )
 	{
 		console.log( 'user changed to ', new_value, ' from ', old_value );
-		if( new_value && $localStorage.user && $localStorage.user.id )
+		if( new_value && $rootScope.user && $rootScope.user.id )
 		{
 			$rootScope.sites_loading = true;
 
@@ -79,10 +79,12 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 					{
 						site.data[ data.key ] = data.value;
 					} );
-					site.is_site_admin = $scope.isAdmin( new_value.role, site );
-					site.is_team_member = $scope.isTeamMember( new_value.role, site );
-					site.is_agent = $scope.isAgent( new_value.role, site );
-					site.role_name = $scope.setRoleName( site );
+
+					
+					site.is_site_admin = $scope.isAdmin( $rootScope.user.role, site );
+					site.is_team_member = $scope.isTeamMember( $rootScope.user.role, site );
+					site.is_agent = $scope.isAgent( $rootScope.user.role, site );
+					site.role_name = $scope.setRoleName( $rootScope.user.role, site );
 				} );
 
 				$rootScope.sites = $sites;
@@ -264,9 +266,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 	}
 
 
-	$scope.setRoleName = function( site )
+	$scope.setRoleName = function( member, site )
 	{
-		var member = $user.role;
 		if( site.is_team_member )
 		{
 			for( var i = 0; i < member.length; i++ )
