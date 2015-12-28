@@ -21,10 +21,12 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
     $scope.resolve =function (){
         if($stateParams.id)
             Restangular.one('download' , $stateParams.id).get().then(function(response){
+                $download=response;
                 $scope.init();
             });
         else if($location.search().clone){
             Restangular.one('download', $location.search().clone).get().then(function(response){
+                $download=response;
                 $scope.init();
             });
         }
