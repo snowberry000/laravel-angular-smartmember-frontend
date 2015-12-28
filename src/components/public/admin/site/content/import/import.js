@@ -101,7 +101,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
         if( !selected_integration || !selected_integration.access_token )
             selected_integration = $scope.vimeo_integrations[0];
 
-        if( selected_integration && selected_integration.account.access_token ) {
+        if( selected_integration && selected_integration.account && selected_integration.account.access_token ) {
             console.log('yes');
             $scope.selected_account = selected_integration.id;
             $scope.vimeo.access_token = selected_integration.account.access_token;
