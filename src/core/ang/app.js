@@ -24,7 +24,9 @@ var app = angular.module( 'app', [
 	'localytics.directives',
 	'ngBusy',
 	'angularModalService',
-    'ngDragDrop'
+    'ngDragDrop',
+    'angular-flot',
+    'chart.js'
 ] );
 
 
