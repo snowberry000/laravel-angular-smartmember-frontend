@@ -2,15 +2,15 @@
 
 	<div class="ui segment basic">
 
-		<h2 class="ui center aligned header headline_text_color" ng-if="isLoggedIn() && (salesPage!='preview')">
+		<h2 class="ui center aligned header headline_text_color">
 			<i class="comment icon"></i>
 			Forum
 		</h2>
 	</div>
 
 	<div class="ui segment">
-		<div class="ui divided items">
-			<a class="item" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false">
+		<div class="ui divided link items">
+			<a ui-sref="public.app.forum-category({permalink: 'some-category'})" class="item" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false">
 				<div class="image text-center">
 					<i class="huge {{hoverIn ? 'circular' : 'bordered'}} facebook icon"></i>
 				</div>
@@ -27,7 +27,7 @@
 					</div>
 				</div>
 			</a>
-			<a class="item" ng-mouseover="hoverIn2=true" ng-mouseleave="hoverIn2=false">
+			<a ui-sref="public.app.forum-category({permalink: 'some-category'})" class="item" ng-mouseover="hoverIn2=true" ng-mouseleave="hoverIn2=false">
 				<div class="image text-center">
 					<i class="huge {{hoverIn2 ? 'circular' : 'bordered'}} youtube icon"></i>
 				</div>
@@ -44,7 +44,7 @@
 					</div>
 				</div>
 			</a>
-			<a class="item" ng-mouseover="hoverIn3=true" ng-mouseleave="hoverIn3=false">
+			<a ui-sref="public.app.forum-category({permalink: 'some-category'})" class="item" ng-mouseover="hoverIn3=true" ng-mouseleave="hoverIn3=false">
 				<div class="image text-center">
 					<i class="huge {{hoverIn3 ? 'circular' : 'bordered'}} cart icon"></i>
 				</div>
@@ -57,7 +57,7 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat possimus fuga provident tenetur quidem. Ab officia alias optio facilis nihil modi dolorum sequi, maxime expedita, consequatur, omnis ad nulla, veniam.</p>
 					</div>
 					<div class="extra">
-						<div class="ui label"><i class="locked icon"></i> Shopify Mastermind</div>
+						<div class="ui label"><i class="lock icon"></i> Shopify Mastermind</div>
 					</div>
 				</div>
 			</a>
