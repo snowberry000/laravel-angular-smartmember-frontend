@@ -23,7 +23,7 @@
 						<p>{{cat.description}}</p>
 					</div>
 					<div class="extra">
-						<div class="ui label"><i class="users icon"></i> Members</div>
+						<div class="ui label"><i class="{{cat.access_level_type > 1 ? 'lock' : ''}} icon"></i> {{cat.access_level_type | accessType}} </div>
 					</div>
 				</div>
 			</a>
