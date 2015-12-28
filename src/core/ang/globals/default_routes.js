@@ -74,6 +74,12 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 						case "bridge_bpages":
 							$state.go( 'bridgepage', { permalink: parts[ 1 ] }, { location: false } );
 							break;
+						case "forum_topics":
+							$state.go("public.app.forum-topic",{permalink: parts[1]}, {location: false});
+							break;
+						case "forum_categories":
+							$state.go("public.app.forum-category",{permalink: parts[1]}, {location: false});
+							break;
 					}
 				} );
 			}
