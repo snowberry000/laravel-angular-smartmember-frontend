@@ -7,16 +7,16 @@ app.config( function( $stateProvider )
 			url: "/stats",
 			templateUrl: "/templates/components/public/admin/team/jv/stats/stats.html",
 			controller: "AffiliateStatsController",
-			resolve: {
-				loadPlugin: function( $ocLazyLoad )
-				{
-					return $ocLazyLoad.load( [
-						{
-							name: 'chart.js'
-						}
-					] );
-				}
-			}
+			// resolve: {
+			// 	loadPlugin: function( $ocLazyLoad )
+			// 	{
+			// 		return $ocLazyLoad.load( [
+			// 			{
+			// 				name: 'chart.js'
+			// 			}
+			// 		] );
+			// 	}
+			// }
 		} )
 } );
 

@@ -9,6 +9,13 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ForumController", function ($scope) {
+app.controller("ForumController", function ($scope,Restangular) {
+	$scope.categories = false;
+	
+	Restangular.service('forumCategory')
+		.getList()
+		.then(function(response){
+			$scope.categories = response;
+		});
 
 });

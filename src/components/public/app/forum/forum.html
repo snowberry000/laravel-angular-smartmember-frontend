@@ -10,58 +10,24 @@
 
 	<div class="ui segment">
 		<div class="ui divided link items">
-			<a ui-sref="public.app.forum-category({permalink: 'some-category'})" class="item" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false">
+			<a ui-sref="public.app.forum-category({permalink: cat.permalink})" class="item" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false" ng-repeat='cat in categories'>
 				<div class="image text-center">
-					<i class="huge {{hoverIn ? 'circular' : 'bordered'}} facebook icon"></i>
+					<i class="huge {{hoverIn ? 'circular' : 'bordered'}} {{cat.icon}} icon"></i>
 				</div>
 				<div class="content">
-					<div class="header">Facebook Advertising</div>
+					<div class="header">{{cat.title}}</div>
 					<div class="meta">
-						<span class="cinema">20 topics, 2400 replies</span>
+						<span class="cinema">{{cat.total_topics}} topics, {{cat.total_replies}} replies</span>
 					</div>
 					<div class="description">
-						<p>Lorem ipsum Deserunt ad elit laborum cupidatat exercitation in dolor consectetur aliqua quis cupidatat veniam fugiat.</p>
+						<p>{{cat.description}}</p>
 					</div>
 					<div class="extra">
-						<div class="ui label"><i class="users icon"></i> Members</div>
-					</div>
-				</div>
-			</a>
-			<a ui-sref="public.app.forum-category({permalink: 'some-category'})" class="item" ng-mouseover="hoverIn2=true" ng-mouseleave="hoverIn2=false">
-				<div class="image text-center">
-					<i class="huge {{hoverIn2 ? 'circular' : 'bordered'}} youtube icon"></i>
-				</div>
-				<div class="content">
-					<div class="header">Youtube Advertising</div>
-					<div class="meta">
-						<span class="cinema">20 topics, 2400 replies</span>
-					</div>
-					<div class="description">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat possimus fuga provident tenetur quidem. Ab officia alias optio facilis nihil modi dolorum sequi, maxime expedita, consequatur, omnis ad nulla, veniam.</p>
-					</div>
-					<div class="extra">
-						<div class="ui label">Public</div>
-					</div>
-				</div>
-			</a>
-			<a ui-sref="public.app.forum-category({permalink: 'some-category'})" class="item" ng-mouseover="hoverIn3=true" ng-mouseleave="hoverIn3=false">
-				<div class="image text-center">
-					<i class="huge {{hoverIn3 ? 'circular' : 'bordered'}} cart icon"></i>
-				</div>
-				<div class="content">
-					<div class="header">Shopify Selling</div>
-					<div class="meta">
-						<span class="cinema">20 topics, 2400 replies</span>
-					</div>
-					<div class="description">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat possimus fuga provident tenetur quidem. Ab officia alias optio facilis nihil modi dolorum sequi, maxime expedita, consequatur, omnis ad nulla, veniam.</p>
-					</div>
-					<div class="extra">
-						<div class="ui label"><i class="lock icon"></i> Shopify Mastermind</div>
+						<div class="ui label"><i class="{{cat.access_level_type > 1 ? 'lock' : ''}} icon"></i> {{cat.access_level_type | accessType}} </div>
 					</div>
 				</div>
 			</a>
 		</div>
 	</div>
-
+	
 </div>
