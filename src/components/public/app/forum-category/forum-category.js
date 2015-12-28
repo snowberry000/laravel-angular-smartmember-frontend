@@ -16,11 +16,10 @@ app.controller("Forum-categoryController", function ($scope,$stateParams,Restang
 			$scope.category = response;
 		});
 
-
 	$scope.addTopic = function(title){
 		Restangular.service('forumTopic')
 			.post({title: title, category_id: $scope.category.id})
-			.then(function(resopnse){
+			.then(function(response){
 				$scope.category.topics.push(response);
 			});
 	}
