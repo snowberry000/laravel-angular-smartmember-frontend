@@ -27,5 +27,11 @@ app.controller("Forum-topicController", function ($scope,$stateParams, Restangul
 
 	$scope.replyComment = function(content){
 		$scope.content = "<blockquote>" + content + "</blockquote> <br/>";
+		$scope.scrollBottom();
 	}
+
+	$scope.scrollBottom = function(){
+		$("html, body").animate({ scrollTop: $(document).height() }, 1000);
+	}
+
 });

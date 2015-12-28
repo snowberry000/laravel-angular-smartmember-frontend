@@ -26,7 +26,7 @@
 						{{topic.description}}
 					</div>
 					<div class="extra">
-						<div class="ui right floated animated button" tabindex="0">
+						<div class="ui right floated animated button" tabindex="0" ng-click='scrollBottom()'>
 							<div class="visible content">Reply</div>
 							<div class="hidden content">
 								<i class="right arrow icon"></i>
@@ -63,7 +63,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="ui segment">
+	<div class="ui segment" id='comment_box'>
 		<h3 class="ui header">Leave a reply</h3>
 		<textarea froala ng-model="content" placeholder="Leave a reply"></textarea>
 
