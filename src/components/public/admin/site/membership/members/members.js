@@ -271,25 +271,15 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		return false;
 	}
 
-	$scope.delete = function( member )
+	$scope.deleteResource = function( id )
 	{
-		var modalInstance = $modal.open( {
-			templateUrl: '/templates/modals/deleteConfirm.html',
-			controller: "modalController",
-			scope: $scope,
-			resolve: {
-				id: function()
-				{
-					return member.id
-				}
-			}
-		} );
-		modalInstance.result.then( function()
+		var itemWithId = _.find($scope.data[ $scope.pagination.current_page ], function (next_item) {
+			return next_item.id == id;
+		});
+		itemWithId.remove().then( function()
 		{
-			member.remove().then( function()
-			{
-				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], member );
-			} );
-		} )
+			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+		} );
+
 	};
 } );
