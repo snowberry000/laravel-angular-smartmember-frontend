@@ -15,7 +15,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AppController", function( $scope, $site, $user, $rootScope, $localStorage, $location, Restangular, toastr, $window, $timeout )
+app.controller( "AppController", function( $scope, $site, $rootScope, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
 	$rootScope.site = $site;
 	$rootScope.page_title = $site.name;
@@ -239,10 +239,15 @@ app.controller( "AppController", function( $scope, $site, $user, $rootScope, $lo
 		} );
 	}
 
+	$rootScope.$watch( 'user', function( new_value, old_value ) {
 
+		if( new_value && new_value.id )
+		{
+			$rootScope.is_site_admin = $scope.isAdmin( new_value.role );
+			$rootScope.is_team_member = $scope.hasAccess( new_value.role );
+		}
+
+	},true );
 
 	$scope.initPublicSite();
-
-	$rootScope.is_site_admin = $scope.isAdmin( $user.role );
-	$rootScope.is_team_member = $scope.hasAccess( $user.role );
 } );

@@ -21,11 +21,11 @@ app.config( function( $stateProvider )
 
 app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
 {
-	$rootScope.loading_user = false;
+	$rootScope.user_loading = false;
 	$rootScope.user_loaded = false;
 	$rootScope.user = null;
 
-	$rootScope.loading_sites = false;
+	$rootScope.sites_loading = false;
 	$rootScope.sites_loaded = false;
 	$rootScope.sites = {};
 
@@ -47,7 +47,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 		console.log( 'user changed to ', new_value, ' from ', old_value );
 		if( new_value && $localStorage.user && $localStorage.user.id )
 		{
-			$rootScope.loading_sites = true;
+			$rootScope.sites_loading = true;
 
 			Restangular.one( 'company/getUsersSitesAndTeams' ).get().then( function( response )
 			{
@@ -79,14 +79,14 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 					{
 						site.data[ data.key ] = data.value;
 					} );
-					site.is_site_admin = $scope.isAdmin( $user.role, site );
-					site.is_team_member = $scope.isTeamMember( $user.role, site );
-					site.is_agent = $scope.isAgent( $user.role, site );
+					site.is_site_admin = $scope.isAdmin( new_value.role, site );
+					site.is_team_member = $scope.isTeamMember( new_value.role, site );
+					site.is_agent = $scope.isAgent( new_value.role, site );
 					site.role_name = $scope.setRoleName( site );
 				} );
 
 				$rootScope.sites = $sites;
-				$rootScope.loading_sites = false;
+				$rootScope.sites_loading = false;
 				$rootScope.sites_loaded = true;
 			} );
 		}
@@ -98,12 +98,12 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 
 		if( $localStorage.user && $localStorage.user.id )
 		{
-			$rootScope.loading_user = true;
+			$rootScope.user_loading = true;
 
 			$rootScope.user = Restangular.one( 'user', $localStorage.user.id ).get().then( function( response )
 			{
 				$rootScope.user = response;
-				$rootScope.loading_user = false;
+				$rootScope.user_loading = false;
 				$rootScope.user_loaded = true;
 
 				if( $localStorage.verification_hash )
