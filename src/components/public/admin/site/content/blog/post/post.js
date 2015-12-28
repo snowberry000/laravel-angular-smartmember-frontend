@@ -41,9 +41,9 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 $scope.init();
             } );
         }
-        else if( $location.search().clone )
+        else if( $stateParams.clone )
         {
-            Restangular.one( 'post', $location.search().clone ).get().then( function( response )
+            Restangular.one( 'post', $stateParams.clone ).get().then( function( response )
             {
                 $next_item = response;
                 $scope.next_item = $next_item;
@@ -67,7 +67,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		}
 		$scope.next_item.id ? $scope.page_title = 'Edit post' : $scope.page_title = 'Create post';
 
-		if( $location.search().clone )
+		if( $stateParams.clone )
 		{
 			delete $next_item.id;
 			delete $next_item.access;
@@ -119,7 +119,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
             {
                 changed = true;
             }
-            if( post != oldPost && changed && !$scope.next_item.id && !$location.search().clone )
+            if( post != oldPost && changed && !$scope.next_item.id && !$stateParams.clone )
 			{
 				if( timeout )
 				{

@@ -20,7 +20,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             $scope.next_item.site_id = $scope.site.id;
         }
 
-        if($location.search().clone){
+        if($stateParams.clone){
             delete $scope.next_item.id;
             delete $scope.next_item.access;
             delete $scope.next_item.author_id;
@@ -143,8 +143,8 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
     if ( $stateParams.id ) {
         $next_item = Restangular.one('livecast', $stateParams.id).get().then(function(response){$scope.next_item = response , $scope.initialize()});
     }
-    else if($location.search().clone){
-        $next_item = Restangular.one('livecast', $location.search().clone).get().then(function(response){$scope.next_item = response , $scope.initialize()});
+    else if($stateParams.clone){
+        $next_item = Restangular.one('livecast', $stateParams.clone).get().then(function(response){$scope.next_item = response , $scope.initialize()});
     }
     else{
         $scope.next_item = {access_level_type : 4, access_level_id: 0};
@@ -254,7 +254,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
         }
     }
     //disabling for now because this isn't the draft feature we wanted
-    if( false && !$stateParams.id && !$location.search().clone)
+    if( false && !$stateParams.id && !$stateParams.clone)
     Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'livecasts.content'}).then(function(response){
         if(response.length){
             draft = response[0];
@@ -285,7 +285,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             changed = false;
         else
             changed = true;
-        if (livecast != oldLivecast && changed && !$scope.next_item.id && !$location.search().clone) {
+        if (livecast != oldLivecast && changed && !$scope.next_item.id && !$stateParams.clone) {
               if (timeout) {
                 $timeout.cancel(timeout)
               }

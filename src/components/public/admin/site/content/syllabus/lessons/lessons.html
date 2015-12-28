@@ -49,7 +49,7 @@
 											View
 											<i class="fa fa-eye"></i>
 										</a>
-										<a ng-href="{{$state.href( template_data.edit_route )}}?clone={{next_item.id}}" class="btn btn-link btn-outline btn-xs">
+										<a ng-click="smModal.Show( template_data.edit_route , {clone : next_item.id})" class="btn btn-link btn-outline btn-xs">
 											Copy
 											<i class="fa fa-copy"></i>
 										</a>
