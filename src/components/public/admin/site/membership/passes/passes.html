@@ -41,11 +41,11 @@
                                     {{moment.utc(next_item.created_at).fromNow()}}
                                 </td>
                                 <td class="text-right">
-                                    <a href="{{$state.href( template_data.edit_route, {id: next_item.id } )}}" class="btn btn-brand btn-outline btn-sm">
+                                    <a ng-click="smModal.Show( template_data.edit_route, {id: next_item.id } )" class="btn btn-brand btn-outline btn-sm">
                                         Edit
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <button class="btn btn-danger btn-outline btn-sm ng-scope" ng-click="delete(next_item.id)">
+                                    <button class="btn btn-danger btn-outline btn-sm ng-scope" sm-delete={{next_item.id}}>
                                         Delete
                                         <i class="fa fa-trash"></i>
                                     </button>

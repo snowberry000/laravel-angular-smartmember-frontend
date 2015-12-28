@@ -47,7 +47,7 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
             return;
         if(api_resources.indexOf(selected_url)<0)
         {
-            item.url = selected_url;
+            // item.url = selected_url;
             $scope.site_options['homepage_url'] = selected_url;
             $scope.show_next = show_next;
             $scope.site_options.isOpen = false;

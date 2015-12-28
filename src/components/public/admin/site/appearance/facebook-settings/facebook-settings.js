@@ -13,7 +13,7 @@ app.controller("FacebookSettingsController", function ($scope, $localStorage, $l
 	var pageMetaData = Restangular.all("siteMetaData");
 	$scope.settings = {};
 	$scope.facebookInit = function () {
-	    pageMetaData.getList().then(function (settings) {
+	    pageMetaData.customGETLIST('getOptions' , ['fb_share_title' , 'fb_share_description' , 'fb_share_image']).then(function (settings) {
 	        if (settings) {
 	            $.each(settings, function (key, data) {
 	                $scope.settings[data.key] = data.value;

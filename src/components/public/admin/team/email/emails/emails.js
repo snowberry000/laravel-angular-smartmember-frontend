@@ -125,26 +125,14 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 	    return $uri;
 	}
 
-	$scope.delete = function (email_id) {
-	    var modalInstance = $modal.open({
-	        templateUrl: '/templates/modals/deleteConfirm.html',
-	        controller: "modalController",
-	        scope: $scope,
-	        resolve: {
-	            id: function () {
-	                return email_id;
-	            }
-	        }
-	    });
-	    modalInstance.result.then(function () {
-	        var emailWithId = _.find($scope.emails, function (email) {
-	            return email.id === email_id;
-	        });
+	$scope.deleteResource = function (email_id) {
+        var emailWithId = _.find($scope.emails, function (email) {
+            return email.id === parseInt(email_id);
+        });
 
-	        emailWithId.remove().then(function () {
-	            $scope.emails = _.without($scope.emails, emailWithId);
-	        });
-	    })
+        emailWithId.remove().then(function () {
+            $scope.emails = _.without($scope.emails, emailWithId);
+        });
 	};
 
 	$scope.initialize();

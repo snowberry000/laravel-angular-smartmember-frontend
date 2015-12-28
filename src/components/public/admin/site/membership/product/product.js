@@ -27,7 +27,7 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 		{
 			$accessLevelRequest = Restangular.one( 'accessLevel', $stateParams.id ).get().then(function(response){
 				$access_level=response;
-			});
+			}); 
 		}
 		else
 		{
@@ -178,8 +178,7 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 	      return;
 	  if(api_resources.indexOf(selected_url)<0)
 	  {
-	  	  if(item.type=='information_url')
-	      	$scope.access_level.information_url = selected_url;
+	      $scope.access_level.information_url = selected_url;
 
 	      $scope.access_level.isOpen = false;
 

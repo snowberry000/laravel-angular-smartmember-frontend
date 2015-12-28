@@ -99,8 +99,7 @@
 					<label class="col-sm-12 control-label">Free Item Url</label>
 					<div class="col-sm-12">
 	
-						<a popover-template="1" popover-is-open='bonus.isOpen' popover-title="Enter item url" type="button" ng-click="bonus.isOpen=true" data-html="true" >{{ bonus.free_item_url || 'Select url' }}</a>
-						<div url-selector ng-model="bonus"></div>
+						<a ng-model="bonus" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html" >{{ bonus.free_item_url || 'Select url' }}</a>
 						<div class="checkbox">
 							<label>
 								<input  type="checkbox" name="use_custom_url" ng-model="bonus.use_free_item_url" > Check here to use this custom url instead of the file download.
