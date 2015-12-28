@@ -15,7 +15,7 @@ app.controller("EmailSubscriberController", function ($scope,$q, smModal,$localS
 	if ($stateParams.id){
 		$emailSubscriber = Restangular.one('emailSubscriber', $stateParams.id).get().then(function(response){$scope.emailsubscriber = response})
 	}else{
-		$scope.emailSubscriber = {company_id: $site.company_id};
+		$scope.emailsubscriber = {company_id: $site.company_id};
 	}
 	$emailLists = Restangular.all('emailList').getList({list_type: 'user'}).then(function(response){$scope.emailLists = response;})
 	$scope.emailSubscribers = [];
@@ -67,7 +67,7 @@ app.controller("EmailSubscriberController", function ($scope,$q, smModal,$localS
 	                $scope.emailSubscribers[$scope.emailSubscribers.length] = $obj;
 	            }
 	        }
-	        $scope.emailsubscriber = {company_id : emailSubscriber.company_id};
+	        $scope.emailsubscriber = {company_id : $scope.emailsubscriber.company_id};
 	        
 	    }
 	}
