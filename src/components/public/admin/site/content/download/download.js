@@ -14,6 +14,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
     var changed;
     var seo = {};
     $download=null;
+    
     var timeout = null;
     $scope.user = $user = $rootScope.user;
     $scope.site = $site = $rootScope.site;
