@@ -78,11 +78,11 @@
                                     </td>
                                     <td class="text-right" style="width: 125px;">
                                         <div class="btn-group">
-                                            <a href="{{$state.href( template_data.edit_route, {id: next_item.id } )}}" ng-if="next_item.status == 'Subscriber'" class="btn btn-brand btn-outline btn-xs">
+                                            <a ng-click="smModal.Show( template_data.edit_route, {id: next_item.id } )" ng-if="next_item.status == 'Subscriber'" class="btn btn-brand btn-outline btn-xs">
                                                 <i class="fa fa-pencil"></i>
                                                 Edit
                                             </a>
-                                            <button class="btn btn-danger btn-outline btn-xs" ng-if="next_item.status == 'Subscriber'" ng-click="delete(next_item.id)">
+                                            <button class="btn btn-danger btn-outline btn-xs" ng-if="next_item.status == 'Subscriber'" sm-delete={{next_item.id}}>
                                                 Delete
                                                 <i class="fa fa-trash"></i>
                                             </button>

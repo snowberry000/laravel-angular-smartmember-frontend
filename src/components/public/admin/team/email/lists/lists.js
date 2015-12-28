@@ -73,26 +73,13 @@ app.controller("EmailListsController", function ($scope, $localStorage,$rootScop
 	        return;
 	}
 
-	$scope.delete = function (emailListId) {
-	    var modalInstance = $modal.open({
-	        templateUrl: '/templates/modals/deleteConfirm.html',
-	        controller: "modalController",
-	        scope: $scope,
-	        resolve: {
-	            id: function () {
-	                return emailListId
-	            }
-	        }
+	$scope.deleteResource = function (emailListId) {
+        var emailListWithId = _.find($scope.emailLists, function (emailList) {
+            return emailList.id === parseInt(emailListId);
+        });
 
-	    });
-	    modalInstance.result.then(function () {
-	        var emailListWithId = _.find($scope.emailLists, function (emailList) {
-	            return emailList.id === emailListId;
-	        });
-
-	        emailListWithId.remove().then(function () {
-	            $scope.emailLists = _.without($scope.emailLists, emailListWithId);
-	        });
-	    })
+        emailListWithId.remove().then(function () {
+            $scope.emailLists = _.without($scope.emailLists, emailListWithId);
+        });
 	};
 });

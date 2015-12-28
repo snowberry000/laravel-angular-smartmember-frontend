@@ -9,9 +9,15 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("MembersImportController", function ($scope , Restangular, $state , smModal, toastr) {
+app.controller("MembersImportController", function ($scope ,$rootScope, Restangular, $state , smModal, toastr) {
 	$scope.page_title = "Import Members";
 	$scope.members = {};
+	$site = $rootScope.site;
+	$scope.resolve = function(){
+		Restangular.all('accessLevel').getList({site_id : $site.id}).then(function(response){
+			$scope.access_levels = response;
+		})
+	}
 
 	$scope.save = function() {
 	    Restangular.one("role").customPOST($scope.members, 'import').then(function(response) {
@@ -19,4 +25,6 @@ app.controller("MembersImportController", function ($scope , Restangular, $state
 	        smModal.Show('public.admin.site.membership.members');
 	    });
 	}
+
+	$scope.resolve();
 });

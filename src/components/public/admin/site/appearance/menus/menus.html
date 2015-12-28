@@ -22,7 +22,7 @@
 			<div class="ui middle aligned divided animated relaxed list" ui-sortable="sortableOptions" class="sortable-list agile-list" ng-model="menu_items">
 				<div class="item" ng-repeat="next_item in menu_items" data-component="{{next_item}}">
 				<div class="right floated content">
-					<div class="ui small button" ng-click="open1(next_item, 'main')">edit</div>
+					<div class="ui small button" ng-click="open(next_item, 'main')">edit</div>
 					<div class="ui small button" sm-delete={{next_item}}>delete</div>
 				</div>
 
@@ -52,7 +52,7 @@
 			<div class="ui middle aligned divided animated relaxed list" ui-sortable="sortableOptions" class="sortable-list agile-list" ng-model="footer_menu_items">
 				<div class="item" ng-repeat="next_item in footer_menu_items" data-component="{{next_item}}" >
 					<div class="right floated content">
-						<div class="ui small button" ng-click="open1(next_item, 'main')">edit</div>
+						<div class="ui small button" ng-click="open(next_item, 'footer')">edit</div>
 						<div class="ui small button" sm-delete={{next_item}}>delete</div>
 					</div>
 
