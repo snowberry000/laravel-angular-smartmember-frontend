@@ -22,7 +22,7 @@
 	<div class="ui attached segment">
 
 		<div class="ui link items">
-			<a class="item" ui-sref="public.app.forum-topic({permalink: 'some-topic'})" ng-repeat="topic in category.topics">
+			<a class="item" ui-sref="public.app.forum-topic({permalink: topic.permalink})" ng-repeat="topic in category.topics">
 				<div class="ui tiny image">
 					<img src="http://semantic-ui.com/images/avatar/large/stevie.jpg">
 				</div>
