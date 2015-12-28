@@ -177,5 +177,5 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
             draft=response;
         })
     }
-
+    $scope.resolve()
 });
