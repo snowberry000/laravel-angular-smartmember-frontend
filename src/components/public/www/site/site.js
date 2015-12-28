@@ -5,10 +5,10 @@ app.config(function($stateProvider){
 		.state("public.www.site",{
 			url: "/site/:permalink",
 			templateUrl: "/templates/components/public/www/site/site.html",
-			controller: "SiteController"
+			controller: "WWWSiteController"
 		})
 }); 
 
-app.controller("SiteController", function ($scope) {
+app.controller("WWWSiteController", function ($scope) {
 
 });

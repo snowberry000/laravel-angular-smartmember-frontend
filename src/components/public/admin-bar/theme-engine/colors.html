@@ -1,99 +1,150 @@
-<div class="item ">
-	<h4 class="ui header">
-		Site Background Image
-	</h4>
-	<div class="color-picker">
-		<div>
-			<div class="" ng-controller="inlineMediaController">
-				<style>
-					#dropzone-upload {
-						box-sizing: border-box;
-						min-height: 150px;
-						border: 2px solid rgba(0, 0, 0, 0.3);
-						background: white;
-						border: 2px dashed #0087f7;
-						border-radius: 5px;
-						background: white;
-						cursor: pointer;
-						margin: 5px 5px 15px;
-						text-align: center;
-						font-weight: 400;
-						font-size: 1.5em;
-					}
-
-					#dropzone-upload .hovering {
-						border-width: 4px;
-						font-weight: 700;
-						background: #cfcfcf;
-					}
-
-					.drop-box {
-						background: #f8f8f8;
-						border: 5px dashed #dddddd;
-						text-align: center;
-						padding: 20px;
-						margin-left: 10px;
-						margin-bottom: 20px;
-						cursor: pointer;
-					}
-
-					.drop-box.dragover {
-						border: 5px dashed blue;
-					}
-
-					.drop-box.dragover-err {
-						border: 5px dashed red;
-					}
-				</style>
-
-				<div class="ui segment basic" ng-show="loading" style="min-height:70px;">
-					<div class="ui active inverted dimmer">
-						<div class="ui text loader">Loading</div>
-					</div>
-				</div>
-				<div class="col-md-12 height40" ng-hide="loading" ng-init="data_to_update = 'site_background_image'">
-					<form method="post">
-						<div ngf-select="" ngf-drop="" ng-model="files" ngf-multiple="multiple" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="dropzone drop-box upload-image-container" ngf-drop-available="dropAvailable">
-							Select or Drop File
-						</div>
-					</form>
-				</div>
+	<div class="item ">
+		<h4 class="ui header">
+			Site Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_background_color']"></spectrum-colorpicker>
 			</div>
-			<br>
-			<img ng-if="meta_data['site_background_image']" src="{{meta_data['site_background_image']}}" style="max-width:100%"/>
-			<br>
-			<span ng-click="meta_data['site_background_image'] = ''" style="cursor:pointer;">&times; Remove</span>
-		</div>
-		<div class="media-body" style="color : black">
-
 		</div>
 	</div>
-</div>
-<div class="item">
-	<h4 class="ui header">
-		Show icons?
-	</h4>
-	<div class="switch">
-		<div class="onoffswitch">
-			<input type="checkbox" ng-checked="meta_data['show_nav_icons'] == '1'" ng-model="meta_data['show_nav_icons']" class="onoffswitch-checkbox" id="show_nav_icons">
-			<label class="onoffswitch-label" for="show_nav_icons">
-				<span class="onoffswitch-inner"></span>
-				<span class="onoffswitch-switch"></span>
-			</label>
-
+	<div class="item ">
+		<h4 class="ui header">
+			Site Top Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_top_background_color']"></spectrum-colorpicker>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="item">
-	<label class="ui header">
-		Icon positions
-	</label>
-	<div class="switch">
-		<select class="form-control" ng-model="meta_data['icon_position']">
-			<option value="left">Left</option>
-			<option value="top">Top</option>
-			<option value="right">Right</option>
-			<option value="bottom">Bottom</option>
-		</select>
+	<div class="item ">
+		<h4>
+			Site Top Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_top_background_color']"></spectrum-colorpicker>
+			</div>
+		</div>
 	</div>
-</div>
+	<div class="item ">
+		<h4>
+			Site Middle Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_middle_background_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Site Bottom Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['site_bottom_background_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Navigation Text Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['navigation_text_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Navigation Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['navigation_background_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Navigation Icon Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['navigation_icon_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Section Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['section_background_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Headline Text Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['headline_text_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Module Label Text Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['module_label_text_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Module Label Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['module_label_background_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Main Button Text Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['main_button_text_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Main Button Background Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['main_button_background_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>
+	<div class="item ">
+		<h4>
+			Footer Text Color
+		</h4>
+		<div class="color-picker">
+			<div class="">
+				<spectrum-colorpicker options="app.colorpicker_options" ng-model="meta_data['footer_text_color']"></spectrum-colorpicker>
+			</div>
+		</div>
+	</div>

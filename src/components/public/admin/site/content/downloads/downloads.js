@@ -49,7 +49,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 				else
 				{
 					$scope.pagination.total_count = data.length;
-					$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+					$scope.data[ $scope.pagination.current_page ] = data;
 				}
 			} );
 		}
@@ -92,7 +92,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 	{
 		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
 		{
-			return next_item.id == id;
+			return next_item.id == parseInt(id);
 		} );
 
 		itemWithId.remove().then( function()
