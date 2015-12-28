@@ -11,6 +11,7 @@ app.config(function($stateProvider){
 
 app.controller("PassController", function ($scope,smModal, $q, $stateParams, $rootScope , $localStorage, Restangular, toastr, $state) {
 	$access_pass=null;
+	$site = $rootScope.site;
 	role=null;
 		$scope.resolve = function(){
 			$accessPassRequest=null;
@@ -27,13 +28,17 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 				roles = response;
 			});
 
+			accessLevelRequest = Restangular.all( 'accessLevel' ).customGET('', { site_id: $site.id } ).then(function(response){
+				access_levels = response;
+			});
+
 			if($accessPassRequest)
-				$q.all([$accessPassRequest,roleRequest]).then(function(response){
+				$q.all([$accessPassRequest,roleRequest , accessLevelRequest]).then(function(response){
 					$scope.init();
 				});
 			else
 			{
-				$q.all([$accessPassRequest]).then(function(response){
+				$q.all([roleRequest , accessLevelRequest]).then(function(response){
 					$scope.init();
 				});
 			}
@@ -48,6 +53,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 			if($scope.access_pass.id)
 				$scope.access_pass.expired_at = moment($scope.access_pass.expired_at).toDate();
 			$scope.roles = roles.items;
+			$scope.access_levels = access_levels;
 		}
 
 		
