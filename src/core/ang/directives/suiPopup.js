@@ -4,8 +4,6 @@ app.directive( 'suiPopup', function( smModal )
 		restrict: 'A',
 		link: function( scope, next_item, attributes )
 		{
-			console.log("editable: ");
-			console.log(attributes.edit);
 			var the_options = {
 				hoverable: (attributes.edit==true || attributes.edit=='true') ? true : (attributes.hoverable || false),
 				position: attributes.position || 'right center',

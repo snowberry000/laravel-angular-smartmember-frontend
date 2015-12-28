@@ -37,11 +37,11 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 			if( goto )
 			{
 				// list of sites option
-				//smModal.Show('public.admin.team.sites');
+				smModal.Show('public.admin.team.sites');
 
 				// redirect option
-				window.location.href = 'http://' + goto;
-				return;
+				//window.location.href = 'http://' + goto;
+				//return;
 			}
 			else
 			{
