@@ -29,7 +29,6 @@ var app = angular.module( 'app', [
     'chart.js'
 ] );
 
-
 app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $http,  $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
@@ -71,6 +70,7 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 			//return;
 		}
 	}
+	
 	if( ($arr[ 1 ] != "sign") )
 	{
 		$localStorage.accessed_url = window.location.href;
