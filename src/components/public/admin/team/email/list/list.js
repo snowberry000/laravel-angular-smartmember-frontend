@@ -24,13 +24,14 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 		else
 		{
 			emailList={company_id: $site.company_id};
-			$rootScope.emailList=emailList;
+			$scope.emailList=emailList;
 			$scope.initialize();
 		}
 	}
 
 	$scope.initialize = function () {
 		$scope.dirty = {};
+		alert("initialized");
 		
 		if ($scope.emailList.segment_query)
 		    $scope.dirty.value = $scope.emailList.segment_query;

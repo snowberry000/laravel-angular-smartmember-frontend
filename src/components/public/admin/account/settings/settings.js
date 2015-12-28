@@ -4,6 +4,7 @@ app.config(function($stateProvider){
 	$stateProvider
 		.state("public.admin.account.settings",{
 			url: "/settings",
-			templateUrl: "/templates/components/public/admin/account/settings/settings.html"
+			templateUrl: "/templates/components/public/admin/account/settings/settings.html",
+			controller: "AccountController"
 		})
 }); 
