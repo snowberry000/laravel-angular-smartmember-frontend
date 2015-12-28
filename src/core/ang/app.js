@@ -150,36 +150,6 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 
 	var $_GET = getUrlVars();
 
-	if( $_GET[ 'cbreceipt' ] )
-	{
-		if( !$localStorage.user )
-		{
-			var modalInstance = $modal.open( {
-				templateUrl: 'templates/modals/transactionRegistration.html',
-				controller: 'signModalController',
-				resolve: {
-					account: function( Restangular )
-					{
-						return Restangular.all( '' ).customGET( 'user/transactionAccount/' + $_GET[ 'cbreceipt' ] );
-					}
-				}
-			} );
-
-			modalInstance.result.then( function()
-			{
-				$state.go( $state.current, $stateParams, { reload: true } );
-			} );
-		}
-		else
-		{
-			$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
-			Restangular.all( '' ).customGET( 'user/transactionAccess/' + $_GET[ 'cbreceipt' ] ).then( function( response )
-			{
-				location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
-			} );
-		}
-	}
-
 	// if (! $localStorage.user && ipCookie('user')) {
 	//     $localStorage.user = ipCookie('user');
 	// }
