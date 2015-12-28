@@ -95,10 +95,8 @@
 
 
 				<div class="col-sm-12">
-				<a ng-class="{'notActive':isChecked==true}" popover-template="1" popover-is-open="urlPopover.isOpen" 
-					popover-title="Enter item url" type="button" ng-click="urlPopover.isOpen=true" data-html="true">{{ jv.redirect_url || 'Select URL' }}</a>
+				<a ng-class="{'notActive':isChecked==true}" ng-model="jv" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{ jv.redirect_url || 'Select URL' }}</a>
 					<a href ng-if="jv.redirect_url" ng-click="jv.redirect_url = ''"><i class="glyphicon glyphicon-remove"></i></a>
-					<div url-selector ng-model="urlPopover"></div>
 					<span class="help-block m-b-none">
 						This URL is where users are redirected to if they press the button to subscribe.
 					</span>

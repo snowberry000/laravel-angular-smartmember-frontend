@@ -37,9 +37,8 @@
 
                                 <div class="col-sm-12">
                         
-                                    <a uib-popover-template="1" popover-is-open="access_level.isOpen" popover-title="Enter item url" type="button" ng-click="access_level.isOpen=true" data-html="true" popover-placement="right">{{
+                                    <a ng-model="access_level" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{
                                         access_level.information_url|| 'Select url' }}</a>
-                                    <div url-selector ng-model="access_level" type="information_url"></div>
                                     <span class="help-block m-b-none">
                                         This is the url to the sales page, or wherever you want users to go when they try to access something they don't have access too.
                                         They will be told they don't have accessed and asked to click a link to this Url to get access.
