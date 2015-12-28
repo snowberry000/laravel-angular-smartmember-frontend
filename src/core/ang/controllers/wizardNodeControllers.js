@@ -1343,8 +1343,8 @@ app.controller( 'lockContentWizardController', function( $scope, $rootScope, $fi
 	$scope.current_node = $scope.$parent;
 	$scope.access_levels = [
 		{ "id": 1, "title": "Anyone" },
-		{ "id": 2, "title": "Logged-in Users" },
-		{ "id": 3, "title": "Restricted Members" }
+		{ "id": 3, "title": "Logged-in Users" },
+		{ "id": 2, "title": "Restricted Members" }
 	]
 
 	$scope.access_type = 1;
@@ -1367,6 +1367,7 @@ app.controller( 'lockContentWizardController', function( $scope, $rootScope, $fi
 	$scope.lock = function()
 	{
 		Restangular.all( 'accessLevel' ).customPOST( {
+            access_level_type: $scope.access_type,
 			name: $scope.access.access_level_name,// TODO: needs type added?
 			site_id: $rootScope.site.id
 		}, "lock" ).then( function( response )
@@ -1383,6 +1384,11 @@ app.controller( 'lockContentWizardController', function( $scope, $rootScope, $fi
 	{
 		$rootScope.parent_wizard.cancel( $scope.current_node );
 	}
+
+    $scope.skip = function()
+    {
+        $rootScope.parent_wizard.next( 3, $scope.current_node );
+    }
 
 } );
 

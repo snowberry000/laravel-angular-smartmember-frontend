@@ -62,7 +62,7 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams , $root
 				domain = 'smartmember.com';
 			}
 
-			window.location.href = "http://" + response.subdomain + '.' + domain + "/admin/site/dashboard";
+			window.location.href = "http://" + response.subdomain + '.' + domain;
 		}, function( response )
 		{
 			$scope.saving = false;
