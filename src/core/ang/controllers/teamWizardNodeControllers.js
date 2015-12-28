@@ -131,7 +131,7 @@ app.controller( 'inviteTeamMembersWizardController', function( $scope, $state, $
 
 } );
 
-app.controller( 'siteWizardController', function( $scope, $rootScope, $localStorage, $http,  Restangular, toastr )
+app.controller( 'siteWizardController', function( $scope, $rootScope, $localStorage, $http,  Restangular, toastr, $filter )
 {
 	$scope.site = {};
 	$scope.clone_sites = [];
@@ -163,6 +163,14 @@ app.controller( 'siteWizardController', function( $scope, $rootScope, $localStor
 		$scope.clone_sites.unshift( { id: 0, name: "Don't clone" } )
 	} )
 
+    $scope.setSubdomain = function( $event )
+    {
+        if( !$scope.site.subdomain )
+        {
+            $scope.site.subdomain = $filter( 'urlify' )( $scope.site.name );
+        }
+    }
+
 	$scope.save = function()
 	{
 		$scope.saving = true;
@@ -171,7 +179,7 @@ app.controller( 'siteWizardController', function( $scope, $rootScope, $localStor
 			toastr.success("Site Created!");
 			$scope.saving = true;
 			$rootScope.site = response;
-			$rootScope.parent_wizard.next( 1, $scope.current_node, 'http://' + $scope.site.subdomain + '.smartmember.' + ($rootScope.app.rootDomain.indexOf('smartmember') != -1 ? 'com' : $rootScope.app.env) + '/admin/site/wizard/site_launch_wizard');
+			$rootScope.parent_wizard.next( 0, $scope.current_node );
 		}, function( response )
 		{
 			$scope.saving = false;

@@ -235,7 +235,5 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				}
 			} );
 		}
-
-
 	}
 } );
