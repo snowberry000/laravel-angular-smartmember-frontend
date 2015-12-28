@@ -17,6 +17,9 @@ app.controller("Forum-topicController", function ($scope,$stateParams, Restangul
 		});
 
 	$scope.addReply = function(content){
+		if (!content){
+			return;
+		}
 		Restangular.service('forumReply')
 			.post({content: content, topic_id: $scope.topic.id, category_id: $scope.topic.category.id})
 			.then(function(response){

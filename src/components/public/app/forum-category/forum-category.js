@@ -17,6 +17,9 @@ app.controller("Forum-categoryController", function ($scope,$stateParams,Restang
 		});
 
 	$scope.addTopic = function(title){
+		if(!title){
+			return;
+		}
 		Restangular.service('forumTopic')
 			.post({title: title, category_id: $scope.category.id, site_id: $scope.site.id})
 			.then(function(response){

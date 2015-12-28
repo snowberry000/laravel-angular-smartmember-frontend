@@ -34,17 +34,15 @@
 								{{moment.utc(topic.created_at).fromNow()}}
 							</div>
 							<div class="ui label" title="replies">
-								<i class="comment icon"></i> 11
+								<i class="comment icon"></i> {{topic.total_replies}}
 							</div>
 							<div class="ui label" title="views">
-								<i class="eye icon"></i> 337
+								<i class="eye icon"></i> {{topic.total_views}}
 							</div>
 						</div>
 					</div>
 				</div>
 			</a>
 		</div>
-		<pre>{{category | json}}</pre>
 	</div>
-	
 </div>
