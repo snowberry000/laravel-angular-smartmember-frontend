@@ -36,9 +36,12 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 
 			if( goto )
 			{
-				console.log( "GOING TO ", goto );
-				window.location.href = 'http://' + goto;
-				return;
+				// list of sites option
+				smModal.Show('public.admin.team.sites');
+
+				// redirect option
+				//window.location.href = 'http://' + goto;
+				//return;
 			}
 			else
 			{

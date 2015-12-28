@@ -17,17 +17,12 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 	$scope.adminSites = [];
 	$scope.memberSites = [];
 	$scope.loading = true;
-	if( !$scope.$storage.user )
-	{
-		$state.go( 'public.sign.in' );
-		return;
-	}
 
 	$scope.currentPage = 1;
 	$scope.adminPagination = { current_page: 1 };
 	$scope.adminPagination.total_count = 1;
 
-	$scope.can_create_sites = ($scope.site != 'undefined' && typeof $scope.site.can_create_sites != 'undefined' ? $scope.site.can_create_sites : false);
+	$scope.can_create_sites = true; //TODO: fix this to use proper SM customer detection
 
 	$scope.isAgent = function( member, site )
 	{
@@ -127,20 +122,26 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 		}
 	}
 
-
 	$rootScope.is_team_member = $scope.isTeamMember( $user.role );
 	$rootScope.is_team_primaryOwner = $scope.isTeamPrimaryOwner( $user.role );
 
 	Restangular.all( 'site' ).customGET( 'members' ).then( function( response )
 	{
-		$sites = response;
+		$grouped_sites = response;
+
 		$scope.loading = false;
-		$scope.adminPagination.total_count = $sites.admin.count;
-		$sites.admin = $sites.admin.sites;
-		$sites.member = $sites.member.sites;
 
+		$sites = [];
 
-		angular.forEach( $sites.admin, function( site, key )
+		if( $grouped_sites.admin.sites )
+			$sites = $grouped_sites.admin.sites;
+
+		if( $grouped_sites.member.sites )
+			$sites.concat( $grouped_sites.member.sites );
+
+		//console.log( $sites );
+
+		angular.forEach( $sites, function( site, key )
 		{
 			site.data = {};
 			angular.forEach( site.meta_data, function( data, key )
@@ -153,39 +154,13 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 			site.role_name = $scope.setRoleName( site );
 		} );
 
-		angular.forEach( $sites.member, function( site, key )
-		{
-			site.data = {};
-
-			angular.forEach( site.meta_data, function( data, key )
-			{
-				site.data[ data.key ] = data.value;
-			} );
-
-			site.is_agent = $scope.isAgent( $user.role, site );
-			site.is_site_admin = $scope.isAdmin( $user.role, site );
-
-		} );
-
 		$scope.sites = $sites;
 		$scope.sites_loaded = true;
-		$scope.adminSites[ $scope.adminPagination.current_page ] = $sites.admin;
-		$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
-		var isMemberTraining = _.find( $sites.member, { 'subdomain': 'training' } );
-		var isAdminTraining = _.find( $sites.admin, { 'subdomain': 'training' } );
-		$scope.can_see_sites = isMemberTraining || isAdminTraining || (($sites.admin) && ($sites.admin.length > 0));
-		$scope.can_add_sites = isMemberTraining || isAdminTraining;
-		$scope.is_customer = isMemberTraining || isAdminTraining;
 
-		//  || $sites.public.admin.length > 0
-		if( ($scope.is_customer) && $state.current.name != 'public.admin.account.memberships' )
-		{
-			//$state.go( "public.admin.team.sites" );
-		}
-		else if( $state.current.name != 'public.admin.team.sites' )
-		{
-			//$state.go( "public.admin.account.memberships" )
-		}
+		//console.log( $scope.sites );
+
+		$scope.can_add_sites = true; // TODO: fix this to account for proper access level requirement;
+
 		$rootScope.can_add_sites = $scope.can_add_sites;
 
 		$scope.sites = $sites;
@@ -212,12 +187,9 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 		} );
 		modalInstance.result.then( function()
 		{
-
 			Restangular.one( 'site', site.id ).remove().then( function()
 			{
-
-				$scope.sites.admin = _.without( $scope.sites.admin, site );
-				$scope.adminSites[ $scope.adminPagination.current_page ] = _.without( $scope.adminSites[ $scope.adminPagination.current_page ], site );
+				$scope.sites = _.without( $scope.sites, site );
 				toastr.success( "Site deleted successfully!" );
 			} );
 		} )

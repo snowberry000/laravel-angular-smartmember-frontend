@@ -89,7 +89,7 @@
 									<button class="btn btn-brand btn-outline btn-sm" ng-if="isAgent(next_item)" ng-click="toggleAgent(next_item)">
 										Revoke Agent Status
 									</button>
-									<button class="btn btn-danger btn-outline btn-sm ng-scope" ng-click="delete(next_item)">
+									<button class="btn btn-danger btn-outline btn-sm ng-scope" sm-delete={{next_item.id}}>
 										Delete
 										<i class="fa fa-trash"></i>
 									</button>
