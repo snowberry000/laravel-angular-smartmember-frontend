@@ -48,9 +48,9 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, $rootS
 				$next_item=response;
 			});
 		}
-		else if( $location.search().clone )
+		else if( $stateParams.clone )
         {
-            $nextItemRequest = Restangular.one( 'lesson', $location.search().clone ).get().then(function(response){
+            $nextItemRequest = Restangular.one( 'lesson', $stateParams.clone ).get().then(function(response){
             	$next_item=response;
             });
         }
@@ -81,7 +81,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, $rootS
 			success_route: 'public.admin.site.content.syllabus.lessons'
 		}
 
-			if( $location.search().clone )
+			if( $stateParams.clone )
 			{
 				delete $next_item.id;
 				delete $next_item.author_id;
@@ -239,7 +239,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, $rootS
 			}
 			$scope.next_item.seo_settings = seo;
 
-			if( false && !$stateParams.id && !$location.search().clone )
+			if( false && !$stateParams.id && !$stateParams.clone )
 			{
 			    Restangular.all( 'draft' ).customGET( '', {
 			        site_id: $site.id,
@@ -265,7 +265,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, $rootS
 		        {
 		            changed = true;
 		        }
-		        if( lesson != oldLesson && changed && !$scope.next_item.id && !$location.search().clone )
+		        if( lesson != oldLesson && changed && !$scope.next_item.id && !$stateParams.clone )
 				{
 					if( timeout )
 					{

@@ -36,7 +36,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
             $scope.next_item = $rootScope.site.id;
         }
 
-        if($location.search().clone){
+        if($stateParams.clone){
             delete $scope.next_item.id;
             delete $scope.next_item.access;
             delete $scope.next_item.site;
@@ -62,9 +62,9 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
 
     if( $stateParams.id )
         Restangular.one( 'customPage', $stateParams.id ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
-    else if( $location.search().clone )
+    else if( $stateParams.clone )
     {
-        Restangular.one( 'customPage', $location.search().clone ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
+        Restangular.one( 'customPage', $stateParams.clone ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
     }
     else
     {
@@ -142,7 +142,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
     }
 
     //disabling for now because this wasn't the draft feature we wanted
-    if(false && !$stateParams.id && !$location.search().clone)
+    if(false && !$stateParams.id && !$stateParams.clone)
     Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'pages.content'}).then(function(response){
         if(response.length){
             draft = response[0]
@@ -174,7 +174,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
             changed = false;
         else
             changed = true;
-        if (page != oldPage && changed && !$scope.page.id && !$location.search().clone) {
+        if (page != oldPage && changed && !$scope.page.id && !$stateParams.clone) {
               if (timeout) {
                 $timeout.cancel(timeout)
               }
