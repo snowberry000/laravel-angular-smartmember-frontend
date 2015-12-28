@@ -11,7 +11,11 @@ app.config(function($stateProvider){
 					return $ocLazyLoad.load([
 						{
 							name: 'ui.sortable'
-						}
+						},
+						{
+                            name: 'ui-iconpicker',
+                            files: ['bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js']
+                        }
 					]);
 				}
 
@@ -19,7 +23,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("MenusController", function ($rootScope,$scope, $filter, $document , $localStorage, $location,$stateParams,  Restangular, toastr) {
+app.controller("MenusController", function ($rootScope,$scope, $filter,smModal, $document , $localStorage, $location,$stateParams,  Restangular, toastr) {
 	$scope.sales_option = {};
 	$site=$rootScope.site;
 	$menus=null;
@@ -51,35 +55,28 @@ app.controller("MenusController", function ($rootScope,$scope, $filter, $documen
 
 
 
-	$scope.open1 = function (next_item, menu) {
-	    var modalInstance = $modal.open({
-	        templateUrl: 'templates/modals/menu-item-modal.html',
-	        controller: 'MenuItemModalInstanceCtrl',
-	        resolve: {
-	            next_item: function(){
-	                return next_item;
-	            },
-	            menu: function(){
-	                return menu;
-	            }
-	        }
-	    });
+	$scope.open = function (next_item, menu) {
+		$rootScope.menuType=menu;
+		if(menu=='footer')
+			smModal.Show("public.admin.site.appearance.footerMenuItem",{id: next_item.id});
+		else
+			smModal.Show("public.admin.site.appearance.menu",{id: next_item.id});
 	};
 
-	$scope.open2 = function (next_item, menu) {
-	    var modalInstance = $modal.open({
-	        templateUrl: 'templates/modals/footer-menu-item-modal.html',
-	        controller: 'MenuItemModalInstanceCtrl',
-	        resolve: {
-	            next_item: function(){
-	                return next_item;
-	            },
-	            menu: function(){
-	                return menu;
-	            }
-	        }
-	    });
-	};
+	// $scope.open2 = function (next_item, menu) {
+	//     var modalInstance = $modal.open({
+	//         templateUrl: 'templates/modals/footer-menu-item-modal.html',
+	//         controller: 'MenuItemModalInstanceCtrl',
+	//         resolve: {
+	//             next_item: function(){
+	//                 return next_item;
+	//             },
+	//             menu: function(){
+	//                 return menu;
+	//             }
+	//         }
+	//     });
+	// };
 
 	$scope.sortableOptions = {
 	    stop: function(e, ui) {
@@ -249,83 +246,4 @@ app.controller("MenusController", function ($rootScope,$scope, $filter, $documen
 	};
 
 	$scope.resolve();
-});
-app.controller('MenuItemModalInstanceCtrl', function ($scope, $rootScope, $modalInstance, next_item, menu, Restangular, toastr, $modal) {
-    $scope.next_item = next_item;
-    
-    $scope.editing_item = angular.copy( next_item );
-    $scope.modelOpen=false;
-    console.log('menu icon: ');
-    console.log($scope.editing_item);
-    $scope.menuItemLabel=function(){
-        $('.ui-iconpicker').toggleClass('open');
-    }
-
-    $scope.selectUrl = function(item , selected_url , show_next){
-
-        var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle'];
-        if(!selected_url)
-            return;
-        if(api_resources.indexOf(selected_url)<0)
-        {
-            item.url = selected_url;
-
-            $scope.show_next = show_next;
-            item.isOpen = false;
-        }
-        else if(selected_url == 'download'){
-            Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-                var downloads = response;
-                downloads.forEach(function(entity){
-                    entity.url = entity.permalink;
-                })
-                console.log(downloads)
-                $scope.show_next = true;
-                $scope.loaded_items = downloads;
-
-            })
-        }
-        else{
-            Restangular.all(selected_url).customGET('',{site_id: item.site_id}).then(function(response){
-                if(response.route == 'customPage')
-                    response.route = 'page';
-                if(response.route == 'supportArticle')
-                    response.route = 'support-article';
-                response.items.forEach(function(entity){
-                    entity.url = entity.permalink;
-                })
-                $scope.show_next = true;
-                $scope.loaded_items = response.items;
-
-            })
-        }
-    }
-
-    $scope.ok = function () {
-        delete $scope.editing_item.isOpen;
-        delete $scope.editing_item.open;
-
-        var menuType = "siteMenuItem";
-
-        if( menu == 'footer' )
-            menuType = "siteFooterMenuItem";
-
-        Restangular.all(menuType).customPUT($scope.editing_item, $scope.editing_item.id).then(function () {
-            toastr.success("Success! Menu Item saved!");
-
-            angular.forEach( $scope.next_item, function(value,key){
-                $scope.next_item[key] = $scope.editing_item[key];
-            });
-            if(typeof $scope.next_item['url'] == undefined || !$scope.next_item['url']){
-                $scope.next_item['url'] = $scope.editing_item.url;
-            }
-            $modalInstance.close();
-        });
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-
-
 });
