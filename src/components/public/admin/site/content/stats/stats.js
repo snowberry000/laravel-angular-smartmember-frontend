@@ -10,13 +10,14 @@ app.config(function($stateProvider){
 			    summary : function (Restangular) {
 				    return 
 			    },
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            name: 'angular-flot'
-                        }
-                    ]);
-                }
+                // loadPlugin: function ($ocLazyLoad) {
+                //     return $ocLazyLoad.load([
+                //         {
+                //             name: 'angular-flot',
+                //             files: ['bower/angular-flot/angular-flot.js']
+                //         }
+                //     ]);
+                // }
 		    }
 		})
 }); 

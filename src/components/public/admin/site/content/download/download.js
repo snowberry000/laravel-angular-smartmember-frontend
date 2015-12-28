@@ -25,8 +25,8 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                 $download=response;
                 $scope.init();
             });
-        else if($location.search().clone){
-            Restangular.one('download', $location.search().clone).get().then(function(response){
+        else if($stateParams.clone){
+            Restangular.one('download', $stateParams.clone).get().then(function(response){
                 $download=response;
                 $scope.init();
             });
@@ -41,7 +41,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
         if(!$download.id){
             $download.site_id = $scope.site.id;
         }
-        if($location.search().clone){
+        if($stateParams.clone){
             delete $download.id;
             delete $download.access;
             delete $download.author_id;
@@ -83,7 +83,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                 changed = false;
             else
                 changed = true;
-            if (download != oldDownload && changed && !$scope.download.id && !$location.search().clone) {
+            if (download != oldDownload && changed && !$scope.download.id && !$stateParams.clone) {
                   if (timeout) {
                     $timeout.cancel(timeout)
                   }
