@@ -106,25 +106,13 @@ app.controller("BridgePagesController", function ($scope, $localStorage, $state,
         });
     }
 
-    $scope.delete = function (page) {
+    $scope.deleteResource = function (id) {
 
-        var modalInstance = $modal.open({
-            templateUrl: 'templates/modals/deleteConfirm.html',
-            controller: "modalController",
-            scope: $scope,
-            resolve: {
-                id: function () {
-                    return page.id
-                }
-            }
-
+        var page = _.find($scope.data[ $scope.pagination.current_page ], function (next_item) {
+            return next_item.id === parseInt(id);
         });
-
-        modalInstance.result.then(function () {
-        
-            page.remove().then(function () {
-                $scope.data[ $scope.pagination.current_page ] = _.without($scope.data[ $scope.pagination.current_page ], page);
-            });
-        })
+        page.remove().then(function () {
+            $scope.data[ $scope.pagination.current_page ] = _.without($scope.data[ $scope.pagination.current_page ], page);
+        });
     };
 });
