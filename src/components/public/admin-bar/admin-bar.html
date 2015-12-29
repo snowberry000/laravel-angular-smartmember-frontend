@@ -3,7 +3,7 @@
 </div>
 
 <div class="ui pointing dropdown link item" title="View, create, and navigate your sites" sui-dropdown sui-popup>
-	<i class="globe icon"></i>
+	<i class="globe {{sites_loading ? 'loading' : ''}} icon"></i>
 	<span class="text">{{current_site_domain}}</span>
 	<div class="menu" ng-controller="AdminBarController">
 		<div class="ui right action left icon search input">
@@ -234,7 +234,7 @@
 <div class="right menu">
 
 	<div class="ui dropdown item" title="Update general account settings" sui-dropdown sui-popup>
-		<i class="settings icon"></i>
+		<i class="settings {{user_loading ? 'loading' : ''}} icon"></i>
 		Account
 		<i class="dropdown icon"></i>
 
