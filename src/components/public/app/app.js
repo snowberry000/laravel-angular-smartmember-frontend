@@ -21,13 +21,14 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 	$rootScope.page_title = $site.name;
 
 	$rootScope.is_admin = false;
-	$scope.site = $site;
+	$rootScope.site = $site;
+	//$rootScope.site.wizard_step = 10;
 	var options = {};
 	$rootScope.options = {};
 
 	$scope.is_member = $site.is_member;
-	$scope.facebook_group = _.findWhere( $scope.site.integration, { type: 'facebook_group' } );
-	$scope.facebook_access_group = $scope.site.fb_group_access_levels;
+	$scope.facebook_group = _.findWhere( $rootScope.site.integration, { type: 'facebook_group' } );
+	$scope.facebook_access_group = $rootScope.site.fb_group_access_levels;
 
 	$scope.bannerView = function( $id )
 	{
@@ -51,7 +52,7 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 			{
 				$rootScope.options.footer_menu_items = details.footer_menu_items;
 			}
-			$scope.site = details;
+			$rootScope.site = details;
 		}
 		$scope.ads = details.ad;
 		$scope.widgets = details.widgets;
@@ -186,6 +187,7 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 	$scope.initPublicSite = function()
 	{
 		$scope.setMetaData();
+		$scope.site = $rootScope.site;
 	}
 
 	$scope.setMetaData = function()
