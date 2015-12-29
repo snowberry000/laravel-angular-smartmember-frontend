@@ -21,7 +21,7 @@
 					<div class="eight wide field">
 						<label>1. Site name</label>
 
-						<input type="text" ng-model="site.name" placeholder="My Awesome Site" required>
+						<input type="text" ng-model="site.name" placeholder="My Awesome Site" ng-blur="setSubdomain($event)" required>
 
 						<div class="ui ignored info message">
 							<p>

@@ -7,7 +7,8 @@
 		<div class="description">
 
 			<div class="ui message">
-				<p>Choose how you'd like to restrict your site's existing content below - if at all</p>
+				<p>Choose how you'd like to restrict your site's existing content below - if at all.</p>
+                <p>This will effect all content on your site. If you've already setup access restrictions on your site and don't want them overridden, click "skip" to skip this step.</p>
 			</div>
 
 			<div class="ui section divider"></div>
@@ -26,7 +27,7 @@
 						</div>
 					</div>
 
-					<div class="field" ng-if="access_type==3">
+					<div class="field" ng-if="access_type==2">
 						<label>What would you like to call this "restriction"?</label>
 						<input type="text" ng-model="access.access_level_name">
 
@@ -43,6 +44,9 @@
 		</div>
 	</div>
 	<div class="actions">
+        <div class="ui red deny button close" ng-click="skip()">
+            Skip
+        </div>
 		<div class="ui black deny button close" ng-click="cancel()">
 			Back
 		</div>

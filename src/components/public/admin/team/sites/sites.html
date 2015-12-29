@@ -1,70 +1,65 @@
-<div class="ui modal">
-	<i class="close icon"></i>
-
+<div class="ui large modal">
 	<div class="header">
-		<i class="paragraph icon"></i>
+		<i class="globe icon"></i>
 		My Sites
 	</div>
-	<div class="content {{loading ? 'loading' : ''}}">
-		<div class="description">
-			<p>These are all the sites you've created, joined, and managing.</p>
+	<div class="content">
+		<div class="description relative">
+
+			<div class="ui active inverted dimmer" ng-if="sites_loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<div class="ui ignored info message">
+				<p>These are all the sites you've created, joined, and managing.</p>
+			</div>
 
 			<div class="field" ng-if="adminPagination.total_count > 10 || query || adminPagination.current_page > 1">
 				<label class="control-label" for="">Search:</label>
 				<input type="text" id="" name="" value="" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 			</div>
 
-			<div class="ui three cards">
-				<div class="card" ng-repeat="site in adminSites[adminPagination.current_page] | orderBy:['-total_revenue','-total_members','-total_lessons']">
-					<div class="image">
-						<img src="{{site.data.site_logo}}">
+			<div class="ui four doubling stackable link cards">
+				<a busy ng-href="//{{next_item.domain ? next_item.domain :  next_item.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="next_item in sites | orderBy:['-total_revenue','-total_members','-total_lessons']" data-position="top left" data-edit="true" data-state="public.admin.team.site" data-stateAttributes="{id:{{next_item.id}}}" sui-popup>
+					<div class="image flex_center" style="height: 150px; background: {{(next_item.data.site_logo ? next_item.data.site_top_background_color : '#FFF') || ''}}">
+						<img class="ui centered middle aligned image" src="{{next_item.data.site_logo || '/images/white-image.png'}}" style="max-height: 100%;width: auto;max-width: 100%;">
 					</div>
 					<div class="content">
 						<div class="header">
-							{{site.name}}
+							{{next_item.name}}
 						</div>
-						<div class="meta">
-							{{site.domain ? site.domain : site.subdomain + '.' + 'smartmember.com' }}
+						<div class="meta ellipsis">
+							{{next_item.domain ? next_item.domain : next_item.subdomain + '.' + 'smartmember.com' }}
 						</div>
 						<div class="description">
 
-							<div class="ui blue labels list">
-								<div class="ui label">
-									<i class="graduation icon"></i>
-									Lessons
-									<div class="detail">{{site.total_lessons}}</div>
-								</div>
-								<div class="ui label">
-									<i class="users icon"></i>
-									Members
-									<div class="detail">{{site.total_members}}</div>
-								</div>
-								<div class="ui label">
-									<i class="dollar icon"></i>
-									Revenue
-									<div class="detail">{{site.total_revenue | currency:"$":0}}</div>
-								</div>
-							</div>
+						</div>
+					</div>
+					<div class="extra content">
 
-						</div>
-					</div>
-					<div class="ui red bottom attached buttons">
-						<a class="ui button" ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}">
-							Visit
-						</a>
-						<div class="ui floating dropdown icon button" sui-dropdown>
-							<i class="dropdown icon"></i>
-							<div class="menu">
-								<div class="item" ng-click="smModal.Show('public.admin.team.site',{id: site.id})" ng-if="is_team_member">
-									<i class="edit icon"></i> Edit site
+						<div class="ui three normal statistics">
+							<div class="statistic" title="Site members" sui-popup>
+								<div class="value">
+									<i class="users grey icon"></i> {{next_item.total_members}}
 								</div>
-								<a class="item" ng-click="deleteSite(site)" ng-if="is_team_member">
-									<i class="delete icon"></i> Remove site
-								</a>
+							</div>
+							<div class="statistic" title="Site revenue" sui-popup>
+								<div class="value">
+									{{next_item.total_revenue | currency:"$":0}}
+								</div>
+							</div>
+							<div class="statistic" title="Site lessons" sui-popup>
+								<div class="value">
+									{{next_item.total_lessons}} <i class="graduation grey icon"></i>
+								</div>
 							</div>
 						</div>
+
 					</div>
-				</div>
+					<div class="ui bottom attached indicating progress" data-value="{{next_item.progress}}" data-total="5" sui-progress title="Setup wizard progress" sui-popup>
+						<div class="bar"></div>
+					</div>
+				</a>
 			</div>
 
 			<div class="text-right" ng-if='!loading'>

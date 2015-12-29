@@ -18,11 +18,7 @@
 			Navigate To Your Sites
 		</div>
 		<div class="scrolling menu">
-			<div class="item" ng-repeat="next_item in admin_sites">
-				<i class="globe icon"></i>
-				<a href='http://{{next_item.subdomain}}.smartmember.{{app.env}}'>{{next_item.subdomain}}.smartmember.{{app.env}}</a>
-			</div>
-			<div class="item" ng-repeat="next_item in member_sites">
+			<div class="item" ng-repeat="next_item in sites">
 				<i class="globe icon"></i>
 				<a href='http://{{next_item.subdomain}}.smartmember.{{app.env}}'>{{next_item.subdomain}}.smartmember.{{app.env}}</a>
 			</div>

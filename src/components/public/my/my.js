@@ -12,96 +12,44 @@ app.config( function( $stateProvider )
 
 app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular, $localStorage, smModal )
 {
-	$scope.Init = function()
+	$rootScope.$watch( 'user_loaded', function( new_value, old_value )
 	{
-		$scope.StoreVerificationHash();
-		$scope.CheckForUserStatus();
-	}
+		console.log( 'user_loaded changed to ', new_value, ' from ', old_value );
 
-	$scope.RedirectToMySite = function()
-	{
-		Restangular.one( 'company/getUsersSitesAndTeams' ).get().then( function( response )
+		if( new_value )
 		{
-			//$scope.loading_sites = false;
-
-			$scope.admin_sites = [];//response.admin;
-			$scope.member_sites = [];//response.member;
-
-			var goto = '';
-
-			if( response.admin.length > 0 && response.admin[0].sites.length > 0 )
+			if( $rootScope.user && $rootScope.user.id )
 			{
-				goto = response.admin[0].sites[0].domain ? response.admin[0].sites[0].domain : response.admin[0].sites[0].subdomain + '.smartmember.' + $rootScope.app.env;
-			}
-
-			if( goto )
-			{
-				// list of sites option
-				//smModal.Show('public.admin.team.sites');
-
-				// redirect option
-				window.location.href = 'http://' + goto;
-				return;
+				// user has loaded, so lets show a modal even if it's not ready yet and will be redirected away, just so
+				// it feels better.
+				// Here is where we should be able to tell on the user variable if it should show the wizard or not
+				smModal.Show( 'public.admin.wizard', { id: 'account_wizard', modal_options: {duration:0} } );
+				console.log( "Lets do the setup wizard!" );
+				//smModal.Show( 'public.admin.team.sites' );
 			}
 			else
 			{
-				// if we don't have a site, we should go through the setup wizard
-				smModal.Show('public.admin.wizard', {id: 'account_wizard'});
-				console.log( "Lets do the setup wizard!" );
+				smModal.Show( 'public.sign.in' );
 			}
-		} );
-	}
+		}
+	}, true );
 
-	$scope.StoreVerificationHash = function()
+	$rootScope.$watch( 'sites_loaded', function( new_value, old_value )
 	{
-		if( $location.search().verification_hash )
-		{
-			$localStorage.verification_hash = $location.search().verification_hash;
-		}
-	}
+		console.log( 'sites_loaded changed to ', new_value, ' from ', old_value );
 
-	$scope.CheckForUserStatus = function()
+		if( $rootScope.sites.length > 0 )
+		{
+			// list of sites option
+			smModal.Show( 'public.admin.team.sites' );
+		}
+
+	}, true );
+
+	$scope.Init = function()
 	{
-		if( !$localStorage.user )
-		{
-			smModal.Show('public.sign.in');
-			//window.location.href = 'http://' + $rootScope.subdomain + '.' + $rootScope.app.domain + "/sign/in/";
-			//return;
-		}
-		else
-		{
-			Restangular.one( 'user', $localStorage.user.id ).get().then( function( response )
-			{
-				$rootScope.user = response;
-				$user = $rootScope.user;
-
-				console.log( "The user: ", $user );
-
-				if( $localStorage.verification_hash )
-				{
-					Restangular.one( 'user/linkAccount' ).customPOST( { 'verification_hash': $localStorage.verification_hash } ).then( function( response )
-					{
-						if( response.status && response.status == 'OK' )
-						{
-							toastr.success( 'Accounts linked' );
-						}
-
-						$scope.RedirectToMySite();
-					} )
-
-					$localStorage.verification_hash = undefined;
-				}
-				else
-				{
-					$scope.RedirectToMySite();
-				}
-			} );
-		}
-
-		if( !$scope.$storage.user )
-		{
-			//$state.go( 'public.app.login' );
-		}
+		// Show something at least on pageload
+		smModal.Show( 'public.sign.in', {modal_options: {duration:0}} );
 	}
 
 	$scope.Init();

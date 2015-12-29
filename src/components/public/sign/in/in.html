@@ -3,7 +3,11 @@
 		Login to {{site.name || 'Smart Member'}}
 	</div>
 	<div class="content">
-		<div class="description">
+		<div class="description relative">
+
+			<div class="ui active inverted dimmer" ng-if="user_loading">
+				<div class="ui loader"></div>
+			</div>
 
 			<div class="ui two column middle aligned very relaxed stackable grid relative_container" style="position: relative;">
 				<div class="nine wide column">
