@@ -111,4 +111,9 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 			$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
 		} );
 	}
+
+	$scope.$on('$destroy', function() {
+        alert("In destroy");
+        $( "body *" ).unbind( 'scroll' );
+    });
 } );
