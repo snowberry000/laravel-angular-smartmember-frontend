@@ -32,7 +32,8 @@ var paths = {
 	dist: 'dist',
 	fonts: 'src/core/fonts/**/*',
 	images: 'src/core/images/**/*',
-	php: 'src/core/php/**/*'
+	php: 'src/core/php/**/*',
+	json: 'src/core/json/*'
 };
 
 
@@ -205,6 +206,12 @@ gulp.task( 'fonts', function()
 {
 	return gulp.src( paths.fonts )
 		.pipe( gulp.dest( 'dist/fonts/' ) );
+} );
+
+gulp.task( 'json', function()
+{
+	return gulp.src( paths.json )
+		.pipe( gulp.dest( 'dist/json/' ) );
 } );
 
 gulp.task( 'images', function()

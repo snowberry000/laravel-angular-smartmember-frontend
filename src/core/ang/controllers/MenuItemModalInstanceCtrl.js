@@ -2,6 +2,10 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     $site=$rootScope.site;
     var menu=$rootScope.menuType;
     var next_item=null;
+    $scope.updateIcon = function($icon){
+        $scope.editing_item.icon=$icon;
+        console.log($scope.next_item.icon);
+    }
 
     $scope.resolve = function () {
         if( $stateParams.id )

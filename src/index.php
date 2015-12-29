@@ -20,7 +20,7 @@ DetectAndPerformBridgePageThings();
 
 	<link rel="stylesheet" href="bower/ui-iconpicker/dist/styles/ui-iconpicker.min.css">
 	<!-- <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css"> -->
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="css/vendor.min.css">
 	<link rel="stylesheet" href="bower/footable/css/footable.core.css">
 	<link rel="stylesheet" href="css/main.min.css">
@@ -42,7 +42,7 @@ DetectAndPerformBridgePageThings();
 <!-- <script type="text/javascript" src="bower/Flot/jquery.flot.resize.js"></script> -->
 <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script> -->
 <!--<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script>-->
-<!--script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script-->
+<script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
 
 </body>
 </html>

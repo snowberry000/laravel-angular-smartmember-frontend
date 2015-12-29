@@ -8,6 +8,11 @@
         <small class="font-bold" ng-if="editing_item.url.indexOf('http://') != -1 || editing_item.url.indexOf('https://') != -1">{{editing_item.url}}</small>
     </div>
     <div class="content">
+        <style>
+        .form-group{
+            margin:10px;
+        }
+        </style>
         <div class="form-group">
             <label>Label</label>
             <input type="text" placeholder="Label" ng-model="editing_item.label" class="form-control">
@@ -15,7 +20,10 @@
         <div class="form-group">
             <label>Icon</label>
             <!-- <input type="text" placeholder="Icon" ng-model="editing_item.icon" class="form-control"> -->
-            <ui-iconpicker  groups="font-awesome"  style="margin-left:20px;" value="{{editing_item.icon}}" ng-model="editing_item.icon" ng-click="menuItemLabel();editing_item.custom_icon=''" ></ui-iconpicker>
+            <!-- <ui-iconpicker  groups="font-awesome"  style="margin-left:20px;" value="{{editing_item.icon}}" ng-model="editing_item.icon" ng-click="menuItemLabel();editing_item.custom_icon=''" ></ui-iconpicker> -->
+            <!--updateIcon(iconClass)-->
+            <sm-iconpicker icon='{{editing_item.icon}}' ng-click="editing_item.custom_icon=''">
+            </sm-iconpicker>
         </div>
         <div class="form-group">
             <label>Custom Icon <span ng-if="editing_item.custom_icon" style="cursor: pointer; color:red;">&times;</span></label>
