@@ -38,6 +38,7 @@ app.directive( 'urlPopup', function( smModal , $compile)
         target: attributes.target || '',
         exclusive: true,
         preserve: true,
+        on : 'click',
         duration: attributes.edit ? 100 : attributes.duration || 0,
         delay: {
           show: 100,
@@ -67,7 +68,7 @@ app.directive( 'urlPopup', function( smModal , $compile)
       $( next_item ).popup( the_options );
     },
     controller : function($scope){
-      console.log($scope);
+      
     }
   };
 } );
