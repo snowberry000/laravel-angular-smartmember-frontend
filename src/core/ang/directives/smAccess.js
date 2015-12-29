@@ -13,13 +13,12 @@ app.directive( 'smAccess', function()
 			}
 
 			if (take_action){
-				alert("Take Action");
-			}else{
-				alert("DO not take action");
+				switch(attributes.ifNot){
+					case 'hide': 
+						$(element).hide();
+						break;
+				}
 			}
-
-
-			console.log(scope.site.capabilities);
 		}
 	};
 });
