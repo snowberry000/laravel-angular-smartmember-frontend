@@ -16,7 +16,8 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             {type: 'stripe',integrations: []},
             {type: 'sendgrid',integrations: []},
             {type: 'vimeo',integrations: []},
-            {type: 'paypal',integrations: []}
+            {type: 'paypal',integrations: []},
+            {type: 'clickbank',integrations: []},
         ];
 
         angular.forEach( $scope.configured_integrations, function( value, key){
