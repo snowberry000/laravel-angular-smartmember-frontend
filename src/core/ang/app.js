@@ -27,7 +27,8 @@ var app = angular.module( 'app', [
     'ngDragDrop',
     'angular-flot',
     'chart.js',
-    'ui-iconpicker'
+    'ui-iconpicker',
+	'infinite-scroll'
 ] );
 
 app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $http,  $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )

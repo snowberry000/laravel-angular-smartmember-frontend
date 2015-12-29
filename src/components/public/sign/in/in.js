@@ -55,7 +55,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 
 	}
 
-	if( $location.search().reset && $location.search().reset == 1 )
+	if( $stateParams.reset && $stateParams.reset == 1 )
 	{
 		$scope.reset_sent = 1;
 	}

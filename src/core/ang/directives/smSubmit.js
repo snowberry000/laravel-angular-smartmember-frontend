@@ -18,13 +18,18 @@ app.directive( 'smForm', function()
 				inline: true
 			} );
 
-			formElement.on("submit", function(event) {
+			formElement.one("submit", function(event) {
 				if( !$( formElement ).form('is valid') ) {
 					event.stopImmediatePropagation();
 					event.preventDefault();
 
 					// do whatever you need to scroll here
 				}
+				if(attributes.smForm){
+					scope.$apply(attributes.smForm);
+				}
+				event.preventDefault();
+				return false;
 			});
 		}
 	};

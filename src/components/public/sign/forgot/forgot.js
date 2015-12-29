@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 });
 
-app.controller('ResetController', function ($rootScope, $scope, $localStorage,$stateParams, $location, Restangular, $state, $http,toastr) {
+app.controller('ResetController', function ($rootScope, smModal, $scope, $localStorage,$stateParams, $location, Restangular, $state, $http,toastr) {
 	var auth = Restangular.all('auth');
 	$rootScope.is_admin = true;
 	$rootScope.page_title = "Smartmember - Password Reset";
@@ -27,7 +27,7 @@ app.controller('ResetController', function ($rootScope, $scope, $localStorage,$s
 				toastr.error("The email you specified does not exist");
 			} else {
 				$scope.message = data.message;
-				$state.go('public.sign.in');
+				smModal.Show('public.sign.in');
 			}
 
 		});
@@ -38,7 +38,7 @@ app.controller('ResetController', function ($rootScope, $scope, $localStorage,$s
 			if (data.message  && data.message == "no such email found") {
 				toastr.error("The email you specified does not exist");
 			} else {
-				window.location.href= "/sign/in/?reset=1";
+				smModal.Show('public.sign.in' , {reset : 1});
 				$scope.message = data.message;
 			}
 		});

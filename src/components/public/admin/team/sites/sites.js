@@ -10,13 +10,17 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, toastr, $location, Restangular, $state, notify )
+app.controller( "SitesController", function( $scope, $rootScope, $localStorage, toastr, $location, Restangular, $state, notify )
 {
 	$scope.can_create_sites = true; //TODO: fix this to use proper SM customer detection
 
 	$scope.domain = $location.host().split( "." ).splice( -2, 1 ).pop();
 	$scope.isCollapsed = false;
 	$scope.env = $scope.app.env;
+
+	$scope.iter = 0;
+
+	$scope.sites = [];
 
 	$scope.deleteSite = function( site )
 	{
@@ -40,6 +44,23 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 				toastr.success( "Site deleted successfully!" );
 			} );
 		} )
+	};
+
+	$scope.loadMore = function()
+	{
+		console.log( "doing loadMore" );
+
+		for( var i = 1; i <= 20; i++ )
+		{
+			console.log( '$rootScope.sites.length', $rootScope.sites.length );
+			console.log( '$scope.iter', $scope.iter, $scope.sites );
+
+			if( $rootScope.sites.length > $scope.iter )
+			{
+				$scope.sites.push( $rootScope.sites[ $scope.iter ] );
+				$scope.iter++;
+			}
+		}
 	};
 
 	$scope.search = function()
@@ -90,4 +111,9 @@ app.controller( "SitesController", function( $scope ,$rootScope, $localStorage, 
 			$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
 		} );
 	}
+
+	$scope.$on('$destroy', function() {
+        alert("In destroy");
+        $( "body *" ).unbind( 'scroll' );
+    });
 } );

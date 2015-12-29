@@ -21,13 +21,14 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 	$rootScope.page_title = $site.name;
 
 	$rootScope.is_admin = false;
-	$scope.site = $site;
+	$rootScope.site = $site;
+	//$rootScope.site.wizard_step = 10;
 	var options = {};
-	$scope.options = {};
+	$rootScope.options = {};
 
 	$scope.is_member = $site.is_member;
-	$scope.facebook_group = _.findWhere( $scope.site.integration, { type: 'facebook_group' } );
-	$scope.facebook_access_group = $scope.site.fb_group_access_levels;
+	$scope.facebook_group = _.findWhere( $rootScope.site.integration, { type: 'facebook_group' } );
+	$scope.facebook_access_group = $rootScope.site.fb_group_access_levels;
 
 	$scope.bannerView = function( $id )
 	{
@@ -41,17 +42,17 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 		{
 			$.each( details.meta_data, function( key, data )
 			{
-				$scope.options[ data.key ] = data.value;
+				$rootScope.options[ data.key ] = data.value;
 			} );
 			if( details.menu_items )
 			{
-				$scope.options.menu_items = details.menu_items;
+				$rootScope.options.menu_items = details.menu_items;
 			}
 			if( details.footer_menu_items )
 			{
-				$scope.options.footer_menu_items = details.footer_menu_items;
+				$rootScope.options.footer_menu_items = details.footer_menu_items;
 			}
-			$scope.site = details;
+			$rootScope.site = details;
 		}
 		$scope.ads = details.ad;
 		$scope.widgets = details.widgets;
@@ -71,25 +72,25 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 			}
 		} );
 
-		$scope.options.theme_selection = false;
-		$scope.options.themes = global_themes;
-		$scope.options.theme_options = global_theme_options;
+		$rootScope.options.theme_selection = false;
+		$rootScope.options.themes = global_themes;
+		$rootScope.options.theme_options = global_theme_options;
 
 		$rootScope.loaded = true;
 		$scope.loaded = true;
-		$scope.options.original_theme = $scope.options.theme;
+		$rootScope.options.original_theme = $rootScope.options.theme;
 
-		if( $scope.options.original_theme == 'united' )
+		if( $rootScope.options.original_theme == 'united' )
 		{
-			$scope.fix_menu_style = '.' + $scope.options.original_theme + ' .navbar-nav.main-menu a {color: #fff !important;text-decoration: none;}';
+			$scope.fix_menu_style = '.' + $rootScope.options.original_theme + ' .navbar-nav.main-menu a {color: #fff !important;text-decoration: none;}';
 		}
 
 		if( false && $localStorage.theme )
 		{
-			$scope.options.theme = $localStorage.theme;
-			$scope.options.theme_selection = true;
+			$rootScope.options.theme = $localStorage.theme;
+			$rootScope.options.theme_selection = true;
 		}
-
+		$scope.options = $rootScope.options;
 		//var $theme_url = '//my.' + ($rootScope.app.domain.indexOf('smartmember') < 0 ? 'smartmember.com' : $rootScope.app.domain)  + '/themes/' + $scope.options.theme + '/index.css';
 
 		//if ($('link[href="' + $theme_url + '"]' ).length == 0)
@@ -186,6 +187,7 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 	$scope.initPublicSite = function()
 	{
 		$scope.setMetaData();
+		$scope.site = $rootScope.site;
 	}
 
 	$scope.setMetaData = function()

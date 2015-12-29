@@ -19,10 +19,10 @@
 				<input type="text" id="" name="" value="" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 			</div>
 
-			<div class="ui four doubling stackable link cards">
-				<a busy ng-href="//{{next_item.domain ? next_item.domain :  next_item.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="next_item in sites | orderBy:['-total_revenue','-total_members','-total_lessons']" data-position="top left" data-edit="true" data-state="public.admin.team.site" data-stateAttributes="{id:{{next_item.id}}}" sui-popup>
-					<div class="image flex_center" style="height: 150px; background: {{(next_item.data.site_logo ? next_item.data.site_top_background_color : '#FFF') || ''}}">
-						<img class="ui centered middle aligned image" src="{{next_item.data.site_logo || '/images/white-image.png'}}" style="max-height: 100%;width: auto;max-width: 100%;">
+			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="loadMore()" sui-visibility>
+				<a ng-href="//{{next_item.domain ? next_item.domain :  next_item.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="next_item in sites | orderBy:['-total_revenue','-total_members','-total_lessons']">
+					<div class="image flex_center" style="background: {{(next_item.data.site_logo ? next_item.data.site_top_background_color : '#FFF') || ''}}">
+						<img class="ui centered middle aligned image" src="{{next_item.data.site_logo || '/images/white-image.png'}}">
 					</div>
 					<div class="content">
 						<div class="header">
