@@ -1230,6 +1230,7 @@ app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filte
 		Restangular.all( 'siteMetaData' ).customPOST( $scope.site_options, "save" ).then( function()
 		{
 			toastr.success( "Options are saved!" );
+			$rootScope.options.site_logo = $scope.site_options.site_logo;
 			$rootScope.parent_wizard.next( 0, $scope.current_node );
 			$scope.saving = false;
 		} );
