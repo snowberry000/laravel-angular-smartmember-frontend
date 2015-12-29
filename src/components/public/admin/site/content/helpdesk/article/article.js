@@ -24,8 +24,8 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
                 $article = response;
                 $scope.init();
             });
-        else if($location.search().clone){
-            Restangular.one('supportArticle', $location.search().clone).get().then(function(response){
+        else if($stateParams.clone){
+            Restangular.one('supportArticle', $stateParams.clone).get().then(function(response){
                 $article = response;
                 $scope.init();
             });
@@ -42,7 +42,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
         {
             $article.company_id=$rootScope.site.company_id;
         }
-        if($location.search().clone){
+        if($stateParams.clone){
             delete $article.id;
             delete $article.access;
             delete $article.author_id;
@@ -54,7 +54,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
             $scope.categories = response;
         });
 
-        if(false && !$stateParams.id && !$location.search().clone)
+        if(false && !$stateParams.id && !$stateParams.clone)
         Restangular.all('draft').customGET('', {site_id : $rootScope.site.id , user_id : $user.id , key : 'articles.content'}).then(function(response){
             if(response.length){
                 draft = response[0]
@@ -66,7 +66,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
                 changed = false;
             else
                 changed = true;
-            if (article != oldArticle && changed && !$scope.article.id && !$location.search().clone) {
+            if (article != oldArticle && changed && !$scope.article.id && !$stateParams.clone) {
                   if (timeout) {
                     $timeout.cancel(timeout)
                   }
