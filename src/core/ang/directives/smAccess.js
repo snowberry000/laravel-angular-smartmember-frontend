@@ -17,6 +17,9 @@ app.directive( 'smAccess', function()
 					case 'hide': 
 						$(element).hide();
 						break;
+					case 'disable':
+						$(element).prop('disable',true);
+						break;
 				}
 			}
 		}
