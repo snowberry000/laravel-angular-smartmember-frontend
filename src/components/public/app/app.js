@@ -23,7 +23,7 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 	$rootScope.is_admin = false;
 	$scope.site = $site;
 	var options = {};
-	$scope.options = {};
+	$rootScope.options = {};
 
 	$scope.is_member = $site.is_member;
 	$scope.facebook_group = _.findWhere( $scope.site.integration, { type: 'facebook_group' } );
@@ -41,15 +41,15 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 		{
 			$.each( details.meta_data, function( key, data )
 			{
-				$scope.options[ data.key ] = data.value;
+				$rootScope.options[ data.key ] = data.value;
 			} );
 			if( details.menu_items )
 			{
-				$scope.options.menu_items = details.menu_items;
+				$rootScope.options.menu_items = details.menu_items;
 			}
 			if( details.footer_menu_items )
 			{
-				$scope.options.footer_menu_items = details.footer_menu_items;
+				$rootScope.options.footer_menu_items = details.footer_menu_items;
 			}
 			$scope.site = details;
 		}
@@ -71,25 +71,25 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 			}
 		} );
 
-		$scope.options.theme_selection = false;
-		$scope.options.themes = global_themes;
-		$scope.options.theme_options = global_theme_options;
+		$rootScope.options.theme_selection = false;
+		$rootScope.options.themes = global_themes;
+		$rootScope.options.theme_options = global_theme_options;
 
 		$rootScope.loaded = true;
 		$scope.loaded = true;
-		$scope.options.original_theme = $scope.options.theme;
+		$rootScope.options.original_theme = $rootScope.options.theme;
 
-		if( $scope.options.original_theme == 'united' )
+		if( $rootScope.options.original_theme == 'united' )
 		{
-			$scope.fix_menu_style = '.' + $scope.options.original_theme + ' .navbar-nav.main-menu a {color: #fff !important;text-decoration: none;}';
+			$scope.fix_menu_style = '.' + $rootScope.options.original_theme + ' .navbar-nav.main-menu a {color: #fff !important;text-decoration: none;}';
 		}
 
 		if( false && $localStorage.theme )
 		{
-			$scope.options.theme = $localStorage.theme;
-			$scope.options.theme_selection = true;
+			$rootScope.options.theme = $localStorage.theme;
+			$rootScope.options.theme_selection = true;
 		}
-
+		$scope.options = $rootScope.options;
 		//var $theme_url = '//my.' + ($rootScope.app.domain.indexOf('smartmember') < 0 ? 'smartmember.com' : $rootScope.app.domain)  + '/themes/' + $scope.options.theme + '/index.css';
 
 		//if ($('link[href="' + $theme_url + '"]' ).length == 0)

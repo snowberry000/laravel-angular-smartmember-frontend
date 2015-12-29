@@ -14,7 +14,8 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 {
 	$user = $rootScope.user;
 	$site = $rootScope.site;
-
+	$rootScope.wizard = [];
+	$rootScope.wizard_server = [];
 	$scope.wizard_loaded = false;
 
 	console.log( "Wizards.GetCurrent( $stateParams.id )", $stateParams );
