@@ -26,7 +26,8 @@ var app = angular.module( 'app', [
 	'angularModalService',
     'ngDragDrop',
     'angular-flot',
-    'chart.js'
+    'chart.js',
+    'ui-iconpicker'
 ] );
 
 app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $http,  $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )

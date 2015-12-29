@@ -6,20 +6,20 @@ app.config(function($stateProvider){
 			url: "/menus",
 			templateUrl: "/templates/components/public/admin/site/appearance/menus/menus.html",
 			controller: "MenusController",
-			resolve: {
-				loadPlugin: function ($ocLazyLoad) {
-					return $ocLazyLoad.load([
-						{
-							name: 'ui.sortable'
-						},
-						{
-                            name: 'ui-iconpicker',
-                            files: ['bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js']
-                        }
-					]);
-				}
+			// resolve: {
+			// 	loadPlugin: function ($ocLazyLoad) {
+			// 		return $ocLazyLoad.load([
+			// 			{
+			// 				name: 'ui.sortable'
+			// 			},
+			// 			{
+   //                          name: 'ui-iconpicker',
+   //                          files: ['bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js']
+   //                      }
+			// 		]);
+			// 	}
 
-			}
+			// }
 		})
 }); 
 

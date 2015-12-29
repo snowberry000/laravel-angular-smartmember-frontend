@@ -6,15 +6,15 @@ app.config(function($stateProvider){
             url: "/menu/:id?",
             templateUrl: "/templates/components/public/admin/site/appearance/menu/menu.html",
             controller: "MenuItemModalInstanceCtrl",
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            files: ['bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js']
-                        }
-                    ]);
-                }
-            }
+            // resolve: {
+            //     loadPlugin: function ($ocLazyLoad) {
+            //         return $ocLazyLoad.load([
+            //             {
+            //                 files: ['bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js']
+            //             }
+            //         ]);
+            //     }
+            // }
         })
 });
 
