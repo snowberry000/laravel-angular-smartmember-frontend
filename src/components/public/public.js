@@ -310,7 +310,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 
     if( $rootScope.$_GET['cbreceipt'] ) {
         if (!$localStorage.user) {
-            $rootScope.modal_popup_template = '/templates/components/public/sign/transaction/transaction.html';
+            smModal.Show('public.sign.transaction');
         } else {
             $http.defaults.headers.common['Authorization'] = "Basic " + $localStorage.user.access_token;
             Restangular.all('').customGET('user/transactionAccess/' + $rootScope.$_GET['cbreceipt'] ).then(function(response){
@@ -318,6 +318,10 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
             });
         }
     }
+    else if( location.href.indexOf('?signup') != -1 ){
+        smModal.Show('public.sign.up');
+    }
+
 
 	$scope.cancelThemeSelection = function()
 	{
