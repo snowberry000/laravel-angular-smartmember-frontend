@@ -1,16 +1,16 @@
 <div class="ui floating labeled icon dropdown button search" sui-dropdown>
-  <i class="{{modalIcon}}"></i>
-  <span class="button">Icons</span>
-  <div class="menu">
-    <div class="header">
-      Search Icons
-    </div>
-    <div class="ui left icon input" ng-init="init()">
-      <i class="search icon"></i>
-      <input type="text" name="search" placeholder="Search..." ng-model="query" ng-change="search(query)">
-    </div>
-    <div class="divider"></div>
-	<div class=" item" ng-repeat="icon in icons | limitTo:10" ng-click="updateIcon(icon.iconClass);selected(icon);modalIcon=icon.iconClass;" ><i class="{{icon.iconClass}}"></i>{{icon.iconName}}</div>
-  </div>
+	<i class="{{modalIcon}}"></i>
+	<span class="button">Icons</span>
+	<div class="menu">
+		<div class="header">
+			Search Icons
+		</div>
+		<div class="ui left icon input" ng-init="init()">
+			<i class="search icon"></i>
+			<input type="text" name="search" placeholder="Search..." ng-model="query" ng-change="search(query)">
+		</div>
+		<div class="divider"></div>
+		<div class=" item" ng-repeat="icon in icons | limitTo:10" ng-click="updateIcon(icon.iconClass);selected(icon);modalIcon=icon.iconClass;"><i class="{{icon.iconClass}}"></i>{{icon.iconName}}</div>
+	</div>
 </div>
 

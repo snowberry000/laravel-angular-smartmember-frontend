@@ -1,5 +1,4 @@
 <div class="ui modal">
-	<i class="close icon"></i>
 
 	<div class="header">
 		<i class="paragraph icon"></i>
@@ -7,65 +6,70 @@
 	</div>
 	<div class="content">
 		<div class="description">
-			<p>Edit your site's menu / navigation buttons.</p>
-
-			<h2 class="ui header">Header Navigation Menu</h2>
-			<p>Add navigation items to the top of your site</p>
-
-			<div class="ui right labeled left icon input">
-				<i class="list layout icon"></i>
-				<input type="text" placeholder="Enter label text" ng-model="newItem.label">
-				<a class="ui tag label" ng-click="addMenuItem()">
-					Add Menu Item
-				</a>
+			<div class="ui ignored info message">
+				<p>
+					Edit your site's menu / navigation buttons.
+				</p>
 			</div>
-			<div class="ui middle aligned divided animated relaxed list" ui-sortable="sortableOptions" class="sortable-list agile-list" ng-model="menu_items">
-				<div class="item" ng-repeat="next_item in menu_items" data-component="{{next_item}}">
-				<div class="right floated content">
-					<div class="ui small button" ng-click="open(next_item, 'main')">edit</div>
-					<div class="ui small button" sm-delete={{next_item}}>delete</div>
+
+			<div class="ui styled fluid accordion" sui-accordion>
+				<div class="active title">
+					<i class="dropdown icon"></i>
+					Header Navigation Menu
 				</div>
+				<div class="active content">
 
-				<i ng-if="!next_item.custom_icon && next_item.icon" class="{{next_item.icon}} icon"></i>
-				<i ng-if="next_item.custom_icon && next_item.custom_icon.indexOf('fa fa-') != -1" class="{{next_item.custom_icon}} icon"></i>
-				<img ng-show="next_item.featured_image" ng-if="next_item.custom_icon && next_item.custom_icon.indexOf('fa fa-') == -1" class="ui avatar image" src="{{next_item.custom_icon}}">
+					<p>Add navigation items to the top of your site</p>
 
+					<div class="ui right labeled left icon input">
+						<i class="list layout icon"></i>
+						<input type="text" placeholder="Enter label text" ng-model="newItem.label">
+						<a class="ui tag label" ng-click="addMenuItem()">
+							Add Menu Item
+						</a>
+					</div>
+
+					<div class="ui divider"></div>
+
+					<div class="ui labeled icon menu" ui-sortable="sortableOptions" ng-model="menu_items">
+						<a ng-click="open(next_item, 'main')" class="item" ng-repeat="next_item in menu_items" data-component="{{next_item}}">
+							<i ng-if="next_item.icon" class="{{next_item.icon}} icon"></i>
+							<img ng-if="next_item.featured_image" class="ui mini image m-b-xs" src="{{next_item.featured_image}}">
+							<img ng-if="!next_item.icon && !next_item.featured_image" class="ui mini image m-b-xs" src="/images/image.png">
+							{{next_item.label}}
+						</a>
+					</div>
+
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Footer Navigation Menu
+				</div>
 				<div class="content">
-					<div class="header">{{next_item.label}}</div>
-					<span class="font-bold" ng-if="next_item.url.indexOf('http://') == -1 && next_item.url.indexOf('https://') == -1">http://{{(app.domain ? app.domain : app.subdomain + '.' + app.rootDomain) + '/' + next_item.url}}</span>
-					<span class="font-bold" ng-if="next_item.url.indexOf('http://') != -1 || next_item.url.indexOf('https://') != -1">{{next_item.url}}</span>
-				</div>
-				</div>
-			</div>
 
+					<p>Add navigation items to the bottom of your site</p>
 
-			<h2 class="ui header">Footer Navigation Menu</h2>
-			<p>Add navigation items to the bottom of your site</p>
-
-			<div class="ui right labeled left icon input">
-				<i class="list layout icon"></i>
-				<input type="text" placeholder="Enter label text" ng-model="newFooterItem.label">
-				<a class="ui tag label" ng-click="addFooterMenuItem()">
-					Add Menu Item
-				</a>
-			</div>
-			<div class="ui middle aligned divided animated relaxed list" ui-sortable="sortableOptions" class="sortable-list agile-list" ng-model="footer_menu_items">
-				<div class="item" ng-repeat="next_item in footer_menu_items" data-component="{{next_item}}" >
-					<div class="right floated content">
-						<div class="ui small button" ng-click="open(next_item, 'footer')">edit</div>
-						<div class="ui small button" sm-delete={{next_item}}>delete</div>
+					<div class="ui right labeled left icon input">
+						<i class="list layout icon"></i>
+						<input type="text" placeholder="Enter label text" ng-model="newFooterItem.label">
+						<a class="ui tag label" ng-click="addFooterMenuItem()">
+							Add Menu Item
+						</a>
 					</div>
 
-					<i ng-if="!next_item.custom_icon && next_item.icon" class="{{next_item.icon}} icon"></i>
-					<i ng-if="next_item.custom_icon && next_item.custom_icon.indexOf('fa fa-') != -1" class="{{next_item.custom_icon}} icon"></i>
-					<img ng-show="next_item.featured_image" ng-if="next_item.custom_icon && next_item.custom_icon.indexOf('fa fa-') == -1" class="ui avatar image" src="{{next_item.custom_icon}}">
+					<div class="ui divider"></div>
 
-					<div class="content">
-						<div class="header">{{next_item.label}}</div>
-						<span class="font-bold" ng-if="next_item.url.indexOf('http://') == -1 && next_item.url.indexOf('https://') == -1">http://{{(app.domain ? app.domain : app.subdomain + '.' + app.rootDomain) + '/' + next_item.url}}</span>
-						<span class="font-bold" ng-if="next_item.url.indexOf('http://') != -1 || next_item.url.indexOf('https://') != -1">{{next_item.url}}</span>
+					<div class="ui labeled icon menu" ui-sortable="sortableOptions" ng-model="footer_menu_items">
+						<a ng-click="open(next_item, 'main')" class="item" ng-repeat="next_item in footer_menu_items" data-component="{{next_item}}">
+							<i ng-if="next_item.icon" class="{{next_item.icon}} icon"></i>
+							<img ng-if="next_item.featured_image" class="ui mini image m-b-xs" src="{{next_item.featured_image}}">
+							<img ng-if="!next_item.icon && !next_item.featured_image" class="ui mini image m-b-xs" src="/images/image.png">
+							{{next_item.label}}
+						</a>
 					</div>
+
 				</div>
+
 			</div>
 
 		</div>

@@ -24,14 +24,14 @@ var app = angular.module( 'app', [
 	'localytics.directives',
 	'ngBusy',
 	'angularModalService',
-    'ngDragDrop',
-    'angular-flot',
-    'chart.js',
-    'ui-iconpicker',
-	'infinite-scroll'
+	'ngDragDrop',
+	'angular-flot',
+	'chart.js',
+	'infinite-scroll',
+	'ui.sortable'
 ] );
 
-app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $http,  $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
+app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
 	$calledurl = window.location.host;
@@ -66,13 +66,15 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 	var sub = domainParts.pop();
 	$arr = location.pathname.split( '/' );
 
-	if (sub == 'my' ){
-		if (!$localStorage.user && $arr[1] != 'sign'){
+	if( sub == 'my' )
+	{
+		if( !$localStorage.user && $arr[ 1 ] != 'sign' )
+		{
 			//window.location.href = "http://" + location.hostname + "/sign/in/";
 			//return;
 		}
 	}
-	
+
 	if( ($arr[ 1 ] != "sign") )
 	{
 		$localStorage.accessed_url = window.location.href;
@@ -241,18 +243,18 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 			cfpLoadingBar.complete();
 		} );
 
-    $rootScope.available_widgets = [
-        {
-            type: 'text',
-            display_name: 'Text',
-            description: 'Set custom HTML/Text to display in the sidebar.'
-        },
-        {
-            type: 'banner',
-            display_name: 'Banner',
-            description: 'Choose one of your banners to display.'
-        }
-    ];
+	$rootScope.available_widgets = [
+		{
+			type: 'text',
+			display_name: 'Text',
+			description: 'Set custom HTML/Text to display in the sidebar.'
+		},
+		{
+			type: 'banner',
+			display_name: 'Banner',
+			description: 'Choose one of your banners to display.'
+		}
+	];
 } );
 
 
