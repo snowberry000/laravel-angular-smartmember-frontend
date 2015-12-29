@@ -226,9 +226,8 @@ gulp.task( 'php', function()
 		.pipe( gulp.dest( 'dist/php/' ) );
 } );
 
-
-gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ] );
-gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' , 'watch'] );
+gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ,'json'] );
+gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' ,'json', 'watch'] );
 gulp.task( 'test', [ 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
