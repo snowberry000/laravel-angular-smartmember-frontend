@@ -184,7 +184,7 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 
 	  }
 	  else if(selected_url == 'download'){
-	    Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
+	    Restangular.all('').customGET('download',{}).then(function(response){
 	        var downloads = response;
 	        downloads.forEach(function(entity){
 	            entity.url = entity.permalink;
@@ -196,7 +196,7 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 	  }
 	  else
 	  {
-	    Restangular.all(selected_url).customGET('',{site_id: item.site_id}).then(function(response){
+	    Restangular.all(selected_url).customGET('',{}).then(function(response){
 	        if(response.route == 'customPage')
 	            response.route = 'page';
 	        if(response.route == 'supportArticle')
