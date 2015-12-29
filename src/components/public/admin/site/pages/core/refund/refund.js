@@ -53,7 +53,7 @@ app.controller("RefundController", function ($scope, $localStorage, smModal , $r
 
     $scope.selectUrl = function(item , selected_url , show_next){
     
-      var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle'];
+      var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
       if(!selected_url)
           return;
       if(api_resources.indexOf(selected_url)<0)
@@ -70,7 +70,7 @@ app.controller("RefundController", function ($scope, $localStorage, smModal , $r
                 entity.url = entity.permalink;
             })
             $scope.show_next = true;
-            $scope.loaded_items = downloads;
+            $scope.loaded_items = {items : downloads };
               
         })
       }

@@ -196,7 +196,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             long_description: '<p><a href="http://www.warriorplus.com" target="_blank">WarriorPlus</a> allows you to accept payments from the WarriorPlus affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
-            id: 'Zaxaa',
+            id: 'zaxaa',
             name: 'Zaxaa: Payment Gateway',
             short_name: 'Zaxaa Payment',
             sites_only: true,

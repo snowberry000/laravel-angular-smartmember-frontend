@@ -11,14 +11,20 @@ app.config(function($stateProvider){
 
 app.controller("ContestController", function ($scope, $filter,Upload, $localStorage, $rootScope, Restangular, toastr, $state, $stateParams , smModal) {
 	$site = $rootScope.site;
+	var contest = null;
 	if ( $stateParams.id ) {
 		$content = Restangular.one('affiliateContest', $stateParams.id).get().then(function(response){
 			$scope.contest = response;
-
+			contest=response;
+			$scope.initialize();
 		})
 	}
 	else
+	{
 		$scope.contest =  {company_id: $site.company_id};
+		$scope.initialize();
+	}
+		
 	
 	$scope.initialize = function(){
 		if(!$scope.contest.type)
@@ -63,7 +69,7 @@ app.controller("ContestController", function ($scope, $filter,Upload, $localStor
 	{
 
 	    if ($scope.isChecked) {
-	        contest.sites = $sites.public.admin.sites;
+	        contest.sites = $sites.admin.sites;
 	    }
 	    else
 	        contest.sites = [];
