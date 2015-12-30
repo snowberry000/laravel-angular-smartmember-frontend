@@ -114,6 +114,7 @@ gulp.task( 'test-e2e', shell.task([
 gulp.task( 'watch', function()
 {
 	gulp.watch( paths.js, [ 'js' ] );
+	gulp.watch( paths.json, [ 'json' ] );
 	gulp.watch( paths.less, [ 'less' ] );
 	gulp.watch( paths.templates, [ 'templates' ] );
 	gulp.watch( paths.fonts, [ 'fonts' ] );
