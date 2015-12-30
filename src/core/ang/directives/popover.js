@@ -64,11 +64,13 @@ app.directive( 'urlPopup', function( smModal , $compile)
              scope.model.type = attributes.type;
            
         });
-      
+      scope.next_item = next_item;
       $( next_item ).popup( the_options );
     },
     controller : function($scope){
-      
+      $scope.close = function(){
+        $($scope.next_item).popup('remove popup');
+      }
     }
   };
 } );

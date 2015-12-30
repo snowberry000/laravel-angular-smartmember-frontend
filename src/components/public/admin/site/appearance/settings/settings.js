@@ -50,7 +50,7 @@ app.controller("SettingsController", function ($scope, $rootScope, $localStorage
 	       item.url = selected_url;
 	       $scope.site_options['homepage_url'] = selected_url;
 	       $scope.show_next = show_next;
-	       $scope.site_options.isOpen = false;
+	       $scope.close();
 	   }
 	   else if(selected_url == 'download'){
 	     console.log(item.site_id)

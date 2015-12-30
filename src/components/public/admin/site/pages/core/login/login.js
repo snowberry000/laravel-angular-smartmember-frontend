@@ -49,7 +49,7 @@ app.controller("LoginController", function ($scope, smModal, $rootScope, $localS
             item.url = selected_url;
             $scope.site_options['create_account_url'] = selected_url;
             $scope.show_next = show_next;
-            $scope.site_options.isOpen = false;
+            $scope.close();
         }
         else if(selected_url == 'download'){
             console.log(item.site_id)
