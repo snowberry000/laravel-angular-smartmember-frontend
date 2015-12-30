@@ -4,7 +4,7 @@ app.controller('themeEngineController', function ($rootScope, $scope, smSidebar,
     $scope.original_data = [];
     $rootScope.viewport = ''
     console.log( ' theme options: ', $scope.current_theme_options );
-
+    $scope.vairableTemp="this is temporary data";
     $scope.toggleSidebar = function(option){
         if($rootScope.sidebar == option)
             return;
@@ -22,6 +22,10 @@ app.controller('themeEngineController', function ($rootScope, $scope, smSidebar,
         $rootScope.viewport = '';
     }
 
+    $scope.updateIcon = function ($iconClass){
+        alert('updatng' + $iconClass);
+        console.log($rootScope.meta_data);
+    }
     $scope.save = function(){
         angular.forEach($rootScope.meta_data, function(value , key){
             console.log(key)

@@ -288,10 +288,12 @@
 </div>
 <div class="item">
 	<h4 class="ui header">
-		Cap Icon
+		Cap Icon {{vairableTemp}}
 	</h4>
 	<div class="switch">
-		<ui-iconpicker groups="font-awesome" value="{{meta_data['cap_icon'] ? meta_data['cap_icon'] : 'fa fa-graduation-cap' }}" ng-model="meta_data['cap_icon']" ng-click="menuItemLabel();">
-		</ui-iconpicker>
+		<!-- <ui-iconpicker groups="font-awesome" value="{{meta_data['cap_icon'] ? meta_data['cap_icon'] : 'fa fa-graduation-cap' }}" ng-model="meta_data['cap_icon']" ng-click="menuItemLabel();">
+		</ui-iconpicker> -->
+		<sm-iconpicker icon='{{meta_data["cap_icon"]}}'>
+		</sm-iconpicker>
 	</div>
 </div>
