@@ -39,6 +39,7 @@
 		<div class="label" style="font-size: 0.8em;">Account Wizard</div>
 	</div>
 </a>
+
 <a class="ui item" style="width: 200px;" sm-access="view_restricted_content" if-not="hide" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my'" sui-popup>
 	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step}}" data-total="5" sui-progress>
 		<div class="bar">
@@ -125,6 +126,7 @@
 		<a class="item" ng-click="smModal.Show('public.admin.site.content.stats')">{{ 'STATS' | translate }}</a>
 	</div>
 </div>
+
 <div class="ui item" ng-if="app.subdomain != 'my'" sm-access="view_restricted_content" if-not="hide">
 	<div class="ui small basic icon buttons">
 
@@ -158,7 +160,7 @@
 			</div>
 		</div>
 
-		<div class="ui top left pointing dropdown icon button" title="Manage your site's members" sui-dropdown sui-popup>
+		<div class="ui top left pointing dropdown icon button" title="Manage your site's members" sm-access="manage_members" if-not="hide" sui-dropdown sui-popup>
 			<i class="users icon"></i>
 
 			<div class="menu">
@@ -201,7 +203,8 @@
 				<a class="item" ng-click="smModal.Show('public.admin.team.email.queue')">{{ 'QUEUE' | translate }}</a>
 			</div>
 		</div>
-		<div class="ui top left pointing dropdown icon button" sm-access="manage_support_tickets" if-not="hide"  title="Assist your members through the Helpdesk" sui-dropdown sui-popup>
+
+		<div class="ui top left pointing dropdown icon button" sm-access="manage_support_tickets" if-not="hide" title="Assist your members through the Helpdesk" sui-dropdown sui-popup>
 			<i class="life ring icon"></i>
 
 			<div class="menu">
@@ -222,7 +225,6 @@
 		</div>
 	</div>
 </div>
-
 
 <div class="item" sm-access="edit_theme_options" if-not="hide" title="Customize the look n' feel of your site" sui-popup>
 	<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
