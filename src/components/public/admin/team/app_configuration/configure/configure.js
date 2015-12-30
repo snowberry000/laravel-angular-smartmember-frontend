@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 				team: null
 			},
 			templateUrl: function($stateParams) {
-				return '/templates/components/public/admin/team/app_configuration/configure/' + $stateParams.integration + '.html'
+				return 'templates/components/public/admin/team/app_configuration/configure/' + $stateParams.integration + '.html'
 			},
 			//templateUrl: "/templates/components/public/admin/team/integration/configure/"+ $stateParams.integration +".html",
 			controller: "app_configurationsController"
