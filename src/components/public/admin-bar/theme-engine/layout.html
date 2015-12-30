@@ -112,8 +112,6 @@
 		</select>
 	</div>
 </div>
-
-
 <div class="item">
 	<h4 class="ui header">
 		Navigation style
@@ -286,9 +284,9 @@
 			   ng-model="meta_data['begin_course_text']" placeholder="Begin/Continue this course">
 	</div>
 </div>
-<div class="item">
+<div class="item" ng-controller="capIconThemeController">
 	<h4 class="ui header">
-		Cap Icon {{vairableTemp}}
+		Cap Icon cap {{vairableTemp}}
 	</h4>
 	<div class="switch">
 		<!-- <ui-iconpicker groups="font-awesome" value="{{meta_data['cap_icon'] ? meta_data['cap_icon'] : 'fa fa-graduation-cap' }}" ng-model="meta_data['cap_icon']" ng-click="menuItemLabel();">

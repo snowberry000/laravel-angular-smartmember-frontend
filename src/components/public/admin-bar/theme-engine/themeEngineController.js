@@ -4,7 +4,7 @@ app.controller('themeEngineController', function ($rootScope, $scope, smSidebar,
     $scope.original_data = [];
     $rootScope.viewport = ''
     console.log( ' theme options: ', $scope.current_theme_options );
-    $scope.vairableTemp="this is temporary data";
+    
     $scope.toggleSidebar = function(option){
         if($rootScope.sidebar == option)
             return;
@@ -53,4 +53,12 @@ app.controller('themeEngineController', function ($rootScope, $scope, smSidebar,
           reload: true, inherit: false, location: false
         });        
     });
+});
+
+
+app.controller('capIconThemeController', function ($rootScope, $scope, smSidebar, $state , $localStorage, $location, $stateParams,  Restangular, toastr) {
+    $scope.updateIcon = function ($iconClass){
+        $rootScope.meta_data.cap_icon=$iconClass;
+        console.log($rootScope.meta_data);
+    }
 });
