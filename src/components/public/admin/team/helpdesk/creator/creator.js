@@ -28,7 +28,7 @@ app.controller("TicketCreatorController", function ($scope, $localStorage,$rootS
 	$scope.sites=null;
 	$scope.searched_users=[];
 
-	Restangular.all('role').customGET('agents').then(function(response){
+	Restangular.all('siteRole').getList({type: 'support'}).then(function(response){
 	    $scope.agents=response;
 	});
 
@@ -51,7 +51,7 @@ app.controller("TicketCreatorController", function ($scope, $localStorage,$rootS
 	$scope.search_users = function(search){
 	    if(!search)
 	        return;
-	    Restangular.all("").customGET("role",{site_id : $scope.ticket.site_id , q : search , count :10 }).then(function(response){
+	    Restangular.all("").customGET("siteRole",{site_id : $scope.ticket.site_id , q : search , count :10 }).then(function(response){
 	        if(response.items.length==0){
 	            //$scope.searched_users = [{email : search , fisrt_name : 'New User'}]
 	            $scope.searched_users = _.pluck(response.items , 'user');
