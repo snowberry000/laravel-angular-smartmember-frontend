@@ -17,7 +17,7 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 		description: 'Grant members access to your site\'s protected content.',
 		singular: 'pass',
 		edit_route: 'public.admin.site.membership.pass',
-		api_object: 'pass'
+		api_object: 'siteRole/passes'
 	}
 	$scope.site = $site = $rootScope.site;
 	$scope.data = [];
@@ -39,11 +39,11 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 				$params.q = encodeURIComponent( $scope.query );
 			}
 
-			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 			{
 				$scope.loading = false;
-				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				//$scope.pagination.total_count = data.total_count;
+				$scope.data[ $scope.pagination.current_page ] = data;//Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
 		}
 	}
@@ -77,14 +77,12 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 
 	$scope.deleteResource = function( id )
 	{
-			var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
-			{
-				return next_item.id === parseInt(id);
-			} );
-
-			itemWithId.remove().then( function()
-			{
-				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
-			} );
+		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+		{
+			return next_item.id === parseInt(id);
+		} );
+		Restangular.all('siteRole').customPUT({access_level_id : null} , id).then(function(response){
+			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+		})
 	};
 } );
