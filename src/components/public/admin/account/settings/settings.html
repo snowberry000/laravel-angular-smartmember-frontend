@@ -1,5 +1,4 @@
-<div class="ui scrolling modal">
-
+<div class="ui modal">
 	<div class="header">
 		<i class="configure icon"></i>
 		Profile settings
@@ -9,12 +8,12 @@
 			<p>Here you can update your password, change your email, and merge accounts</p>
 
 			<div class="ui styled fluid accordion" sui-accordion>
-				<div class="title">
+				<div class="title active">
 					<i class="dropdown icon"></i>
 					Update username
 				</div>
-				<div class="content">
-					<div class="ui form transition hidden">
+				<div class="content active">
+					<div class="ui form">
 						<div class="field">
 							<label class="col-sm-3 control-label">Username</label>
 
@@ -41,7 +40,7 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form transition hidden">
+					<div class="ui form">
 
 						<div class="field">
 							<label class="col-sm-3 control-label">Current Password</label>
@@ -80,7 +79,7 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form transition hidden">
+					<div class="ui form">
 
 						<div class="field">
 							<label class="col-sm-3 control-label">Profile Photo</label>
@@ -113,7 +112,7 @@
 				</div>
 				<div class="content">
 
-					<table class="ui fixed single line celled stackable table transition hidden" data-page-size="15" foonice>
+					<table class="ui fixed single line celled stackable table" data-page-size="15" foonice>
 						<thead>
 							<tr>
 								<th data-toggle="true">My Emails</th>
@@ -153,7 +152,7 @@
 
 						</tbody>
 					</table>
-					<div class="ui form transition hidden">
+					<div class="ui form">
 
 						<p class="">
 							These are the emails associated with your account. Add more below if you'd like (can also
