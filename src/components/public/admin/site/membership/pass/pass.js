@@ -47,6 +47,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 		$scope.init = function (){
 			if(!$access_pass.id){
 				$access_pass.site_id = $rootScope.site.id;
+				$access_pass.type = 'member';
 			}
 			$scope.access_pass = $access_pass;
 			$scope.page_title = $scope.access_pass.id ? 'Edit Pass' : 'Grant New Pass';

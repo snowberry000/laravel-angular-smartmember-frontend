@@ -27,6 +27,12 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.pagination = { current_page: 1 };
 	$scope.pagination.total_count = 1;
 
+	$scope.resolve = function(){
+		Restangular.all('accessLevel').getList({site_id : $scope.site.id}).then(function(response){
+			$scope.access_levels = response;
+		})
+	}
+
 	$scope.paginate = function()
 	{
 
@@ -61,6 +67,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	}
 
 	$scope.paginate();
+	$scope.resolve();
 
 	$scope.search = function()
 	{
@@ -85,7 +92,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		}
 
 		Restangular.all('siteRole')
-				.getList()
+				.getList($params)
 				.then(function(response){
 					$scope.data = response;
 				});
@@ -116,7 +123,26 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAccess = function( member )
 	{
-		if( typeof member.type != 'undefined' )
+		if(member.type == 'owner')
+			return;
+		var new_role = member.type;
+
+		if(member.type != 'admin')
+			new_role = 'admin';
+		else
+			new_role = 'member';
+		Restangular.all('siteRole').customPUT({type : new_role} , member.id).then(function(response){
+			//member = response;
+			for( var i = 0; i < $scope.data.length; i++ )
+			{
+				if( $scope.data[ i ].id == response.id )
+				{
+					$scope.data[ i ].type = response.type;
+				}
+			}
+		})
+
+		/*if( typeof member.type != 'undefined' )
 		{
 			var p_owner = _.findWhere( member.type, { role_type: 1 } );
 			var owner = _.findWhere( member.type, { role_type: 2 } );
@@ -168,7 +194,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 					;
 				} );
 			} );
-		}
+		}*/
 	}
 
 	$scope.addToTeam = function( member )
@@ -181,7 +207,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAgent = function( member )
 	{
-		var agent = _.findWhere( member.type, { role_type: 5 } );
+		/*var agent = _.findWhere( member.type, { role_type: 5 } );
 		if( agent )
 		{
 			Restangular.one( 'userRole', agent.id ).remove().then( function( response )
@@ -199,7 +225,25 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 					$scope.addToTeam( member );
 				}
 			} )
+		}*/
+		var new_role = member.type;
+		if(member.type == 'member')
+		{
+			new_role = 'support';
 		}
+		else if(member.type == 'support'){
+			new_role = 'member'
+		}
+		Restangular.all( 'siteRole' ).customPUT( { type: new_role}, member.id ).then(function(response){
+			for( var i = 0; i < $scope.data.length; i++ )
+			{
+				if( $scope.data[ i ].id == response.id )
+				{
+					$scope.data[ i ].type = response.type;
+				}
+			}
+		})
+
 	}
 
 	$scope.stopPropagation = function( $event )
@@ -215,9 +259,10 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			member.new_access_pass = {
 				access_level_id: member.new_access_level,
 				user_id: member.user_id,
-				site_id: $site.id
+				site_id: $site.id,
+				type : 'member'
 			}
-			Restangular.service( "pass" ).post( member.new_access_pass ).then( function( response )
+			Restangular.service( "siteRole" ).post( member.new_access_pass ).then( function( response )
 			{
 				toastr.success( "Access pass created!" );
 				member.new_access_pass_saving = false;
@@ -234,34 +279,37 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.isOwner = function( member )
 	{
-		var p_owner = _.findWhere( member.type, { role_type: 1 } ) || _.findWhere( member.type, { role_type: "1" } );
+		return member.type == 'owner';
+		/*var p_owner = _.findWhere( member.type, { role_type: 1 } ) || _.findWhere( member.type, { role_type: "1" } );
 		var owner = _.findWhere( member.type, { role_type: 2 } ) || _.findWhere( member.type, { role_type: "2" } );
 		var manager = _.findWhere( member.type, { role_type: 3 } ) || _.findWhere( member.type, { role_type: "3" } );
 		if( p_owner || owner || manager )
 		{
 			return true;
 		}
-		return false;
+		return false;*/
 	}
 
 	$scope.isAgent = function( member )
 	{
-		var agent = _.findWhere( member.type, { role_type: 5 } ) || _.findWhere( member.type, { role_type: "5" } );
+		return member.type == 'support' || member.type == 'admin' || member.type == 'owner';
+		/*var agent = _.findWhere( member.type, { role_type: 5 } ) || _.findWhere( member.type, { role_type: "5" } );
 		if( agent )
 		{
 			return true;
 		}
-		return false;
+		return false;*/
 	}
 
 	$scope.isAdmin = function( member )
 	{
-		var admin = _.findWhere( member.type, { role_type: 4 } ) || _.findWhere( member.type, { role_type: "4" } );
+		return member.type == 'admin' || member.type == 'owner';
+		/*var admin = _.findWhere( member.type, { role_type: 4 } ) || _.findWhere( member.type, { role_type: "4" } );
 		if( admin )
 		{
 			return true;
 		}
-		return false;
+		return false;*/
 	}
 
 	$scope.deleteResource = function( id )

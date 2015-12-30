@@ -61,36 +61,42 @@
 									{{moment.utc(next_item.created_at).fromNow()}}
 								</td>
 								<td class="text-right">
-									<button class="btn btn-brand btn-outline btn-sm" ng-if="!isAdmin(next_item) && !isAgent(next_item) && !member.access_level_selection" ng-init="next_item.access_level_selection=false" ng-click="stopPropagation($event); next_item.access_level_selection=true">
+									<button class="mini ui button" ng-if="!isAdmin(next_item) && !isAgent(next_item) && !member.access_level_selection" ng-init="next_item.access_level_selection=false" ng-click="stopPropagation($event); next_item.access_level_selection=true">
 										Grant Access Pass
 									</button>
 									<select ng-if="next_item.access_level_selection" ng-init="next_item.new_access_level=0" ng-model="next_item.new_access_level" class="btn btn_outline btn_small" ng-click="stopPropagation($event);">
 										<option value="0">Choose Access Level</option>
 										<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
 									</select>
-									<button class="btn btn-brand btn-outline btn-sm" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); addAccessPass(next_item)">
+									<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); addAccessPass(next_item)">
 										{{next_item.new_access_pass_saving ? 'Saving...': 'Save'}}
 									</button>
-									<button class="btn btn-danger btn-outline btn-sm ng-scope" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); next_item.access_level_selection=false">
+									<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); next_item.access_level_selection=false">
 										Cancel
 									</button>
-									<br ng-if="next_item.access_level_selection" />
+									<br/>
+									<br/>
+									<!-- <br ng-if="next_item.access_level_selection" />
 									<button class="btn btn-brand btn-outline btn-sm" ng-if="!next_item.isTeamMember && isOwner(user)" ng-click="addToTeam(next_item)">
 										Add To Team
-									</button>
-									<button class="btn btn-brand btn-outline btn-sm" ng-if="!isAdmin(next_item) && isOwner(user)" ng-click="toggleAccess(next_item)">
+									</button> -->
+									<button class="mini ui button" ng-if="!isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item)">
 										Make Admin
 									</button>
-									<button class="btn btn-brand btn-outline btn-sm" ng-if="isAdmin(next_item) && isOwner(user)" ng-click="toggleAccess(next_item)">
+									<button class="mini ui button" ng-if="isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item)">
 										Revoke Admin Status
 									</button>
-									<button class="btn btn-brand btn-outline btn-sm" ng-if="!isAgent(next_item)" ng-click="toggleAgent(next_item)">
+									<br/>
+									<br/>
+									<button class="mini ui button" ng-if="!isAgent(next_item)" ng-click="toggleAgent(next_item)">
 										Make Agent
 									</button>
-									<button class="btn btn-brand btn-outline btn-sm" ng-if="isAgent(next_item)" ng-click="toggleAgent(next_item)">
+									<button class="mini ui button" ng-if="isAgent(next_item) && !isAdmin(next_item) && !isOwner(next_item)" ng-click="toggleAgent(next_item)">
 										Revoke Agent Status
 									</button>
-									<button class="btn btn-danger btn-outline btn-sm ng-scope" sm-delete={{next_item.id}}>
+									<br/>
+									<br/>
+									<button class="mini ui button" sm-delete={{next_item.id}}>
 										Delete
 										<i class="fa fa-trash"></i>
 									</button>
