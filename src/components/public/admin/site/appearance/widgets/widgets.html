@@ -1,60 +1,75 @@
-<div class="ui fullscreen modal">
-    <i class="close icon"></i>
+<div class="ui large modal">
+	<div class="header">
+		<i class="cubes icon"></i>
+		Manage your widgets
+	</div>
+	<div class="content">
+		<div class="description">
 
-    <div class="header">
-        <i class="sidebar icon"></i>
-        Widgets
-    </div>
-    <div class="content">
-        <div class="description">
-            <div class="ui two column stackable grid container">
-                <div class="column">
-                    <h2 class="ui header">Available</h2>
-                    <p>Drag to "In Display" to add widget to sidebar</p>
+			<div class="ui message">
+				<p>Widgets show up in the sidebar of your site. They let you add text, custom html, banner images, and more.</p>
+			</div>
+			<div class="ui two column stackable grid container">
+				<div class="column">
+					<h2 class="ui header">Available</h2>
+					<p>Pick a widget below and click "add" to use it</p>
 
-                    <div class="ui middle aligned divided animated relaxed list">
-                        <div class="ui segment" ng-repeat="widget in available_widgets">
-                            <div>
-                                <strong>{{widget.display_name}}</strong> - {{widget.description}}
-                                <button ng-click="addWidget( widget )" class="mini ui icon button" style="float:right;">
-                                    <i class="arrow right icon"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <h2 class="ui header">In Display</h2>
-                    <p>These are the widgets that will be displayed</p>
+					<div class="ui clearing segment" ng-repeat="next_item in available_widgets">
+						<h3 class="ui header">{{next_item.display_name}}</h3>
+						<button ng-click="addWidget( next_item )" class="ui small right floated right labeled icon button">
+							Add
+							<i class="plus icon"></i>
+						</button>
+						<p>{{next_item.description}}</p>
+					</div>
+				</div>
+				<div class="column">
+					<h2 class="ui header">Site Sidebar</h2>
+					<p>These widgets will show up in your site's sidebar</p>
 
-                    <div class="ui middle aligned divided animated relaxed list">
-                        <div ng-if="loading" class="ui active inverted dimmer">
-                            <div class="ui text loader">Loading</div>
-                        </div>
-                        <div class="ui segment" ng-repeat="widget in widgets track by $index">
-                            <strong>{{widget.widget_info.display_name}}</strong>
-                            <i class="angle down icon" style="float:right;cursor:pointer;" ng-if="!show_settings" ng-click="$parent.show_settings=true"></i>
-                            <i class="angle up icon" style="float:right;cursor:pointer;" ng-if="show_settings" ng-click="$parent.show_settings=false"></i>
-                            <button ng-if="$index != 0" ng-click="moveUp( widget )" class="mini ui icon button" style="float:right;">
-                                <i class="arrow up icon"></i>
-                            </button>
-                            <button ng-if="$index != widgets.length - 1" ng-click="moveDown( widget )" class="mini ui icon button" style="float:right;">
-                                <i class="arrow down icon"></i>
-                            </button>
-                            <div ng-if="show_settings" style="cursor:auto;" data-drag="false">
-                                <div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget" class="admin"></div>
-                                <br>
-                                <div class="ui one buttons">
-                                    <div busy class="ui basic green button" ng-click="save(widget)">Save</div>
-                                </div>
-                                <div class="ui one buttons">
-                                    <div class="ui basic red button" ng-click="delete(widget)">Remove</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+					<div ng-if="loading" class="ui active inverted dimmer">
+						<div class="ui text loader">Loading</div>
+					</div>
+
+					<div class="ui segment">
+						<div class="ui segments" ng-repeat="widget in widgets track by $index">
+							<div class="ui segment">
+
+								<a class="ui red ribbon label" ng-click="show_settings = !show_settings">
+									<i class="{{show_settings ? 'minus' : 'plus'}} icon"></i>
+									{{show_settings ? 'hide' : 'show'}}
+								</a>
+								<span>{{widget.widget_info.display_name}} Widget</span>
+
+								<div class="ui mini right floated icon buttons">
+									<button class="ui button" ng-if="$index != 0" ng-click="moveUp( widget )">
+										<i class="arrow up icon"></i>
+									</button>
+									<button class="ui button" ng-if="$index != widgets.length - 1" ng-click="moveDown( widget )">
+										<i class="arrow down icon"></i>
+									</button>
+									<button class="ui button" ng-click="delete(widget)">
+										<i class="delete icon"></i>
+									</button>
+								</div>
+							</div>
+							<div class="ui clearing segment" ng-if="show_settings">
+
+								<div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget"></div>
+
+
+								<button busy ng-click="save(widget)" class="ui green right labeled icon button" style="margin-top:1em;">
+									Save changes
+									<i class="checkmark icon"></i>
+								</button>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

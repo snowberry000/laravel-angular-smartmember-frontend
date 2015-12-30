@@ -1,12 +1,12 @@
-<div ng-controller="WidgetChosenBannerController">
-    <fieldset class="ui form">
-        <div class="field">
-            <div class="col-sm-12">
-                <select ng-model="chosen_widget.target_id" ng-change="updateBanner()">
-                    <option ng-selected="banner.id == chosen_widget.target_id" ng-repeat="banner in $parent.banners" value="{{banner.id}}">{{banner.banner_url}}</option>
-                </select>
-                <img src="{{chosen_widget.banner.banner_image_url}}" style="max-width:80%;" />
-            </div>
-        </div>
-    </fieldset>
+<div ng-controller="WidgetChosenBannerController" class="ui form">
+	<div class="field">
+
+		<img class="ui medium image" src="{{chosen_widget.banner.banner_image_url}}" style="max-width:100%;">
+	</div>
+	<div class="inline field">
+		<label>Banner</label>
+		<select class="ui dropdown" ng-model="chosen_widget.target_id" ng-change="updateBanner()" sui-dropdown>
+			<option ng-selected="banner.id == chosen_widget.target_id" ng-repeat="banner in $parent.banners" value="{{banner.id}}">{{banner.banner_url}}</option>
+		</select>
+	</div>
 </div>
