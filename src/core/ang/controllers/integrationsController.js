@@ -85,11 +85,6 @@ app.controller('app_configurationsController', function ($scope,$q,smModal, $loc
             if( typeof $scope.current_integration.default != 'undefined' && parseInt( $scope.current_integration.default ) )
                 $scope.is_default = true;
 
-            if( !$scope.current_integration.id && $scope.integration && $scope.integration.instructions_only )
-            {
-                smModal.Show("public.admin.team.integration.choose",{integration: $stateParams.integration } );
-            }
-
 
             $scope.account_choices = [];
 
@@ -303,22 +298,6 @@ app.controller('app_configurationsController', function ($scope,$q,smModal, $loc
     $scope.copyToClipBoard = function()
     {
         return "copied";
-    }
-
-    $scope.addIntegration = function(entity_id) {
-        var params = {};
-        console.log("entityID");
-        console.log(entity_id);
-
-        switch( entity_id ) {
-            case 'team':
-                params.team = true;
-                break;
-            default:
-                params.site_id = entity_id;
-                break;
-        }
-        smModal.Show("", params , {controller : 'app_configurationsController' , templateUrl : 'templates/components/public/admin/team/integration/configure/' + $stateParams.integration + '.html'});
     }
 
     
