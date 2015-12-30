@@ -85,7 +85,7 @@ app.controller('JVPageController', function ($scope,smModal, Restangular, $local
         {
           $scope.jv.redirect_url = selected_url;
           item.url = selected_url;
-
+          $scope.close();
           $scope.urlPopover.isOpen = false;
         }
         else

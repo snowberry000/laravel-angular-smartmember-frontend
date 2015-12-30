@@ -5,12 +5,10 @@ app.directive( 'suiPopup', function( smModal )
 		link: function( scope, next_item, attributes )
 		{
 			var the_options = {
-				hoverable: (attributes.edit==true || attributes.edit=='true') ? true : (attributes.hoverable || false),
+				hoverable: (attributes.edit == true || attributes.edit == 'true') ? true : (attributes.hoverable || false),
 				position: attributes.position || 'right center',
 				//popup: '.special.popup',
-				html: (attributes.edit==true || attributes.edit=='true') ? '<button class="ui tiny red button edit-admin" data-state="' + attributes.state +
-				'"  data-attributes="' + attributes.stateattributes +
-				'">edit</button>' : '',
+				html: (attributes.edit == true || attributes.edit == 'true') ? '<button class="ui tiny red button edit-admin">edit</button>' : '',
 				target: attributes.target || '',
 				exclusive: true,
 				preserve: true,
@@ -25,17 +23,15 @@ app.directive( 'suiPopup', function( smModal )
 					{
 						event.preventDefault();
 
-						console.log( $( this ).data( 'attributes' ) );
-
-						if( $( this ).data( 'attributes' ) )
+						if( attributes.stateattributes )
 						{
-							smModal.Show( $( this ).data( 'state' ), $( this ).data( 'attributes' ) );
+							//console.log( "attributes.stateattributes", attributes.stateattributes );
+							smModal.Show( attributes.state, JSON.parse(attributes.stateattributes) );
 						}
 						else
 						{
-							smModal.Show( $( this ).data( 'state' ) );
+							smModal.Show( attributes.state );
 						}
-
 
 						$( this ).off( event );
 					} );
@@ -46,6 +42,8 @@ app.directive( 'suiPopup', function( smModal )
 					return true;
 				}
 			};
+
+			//console.log( 'the_options', the_options );
 			$( next_item ).popup( the_options );
 		}
 	};

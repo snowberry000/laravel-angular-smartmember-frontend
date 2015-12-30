@@ -86,7 +86,7 @@ app.controller('FreeBonusController', function ($scope,$site,$rootScope, $localS
       {
           $scope.bonus.free_item_url = selected_url;
           item.url = selected_url;
-          $scope.bonus.isOpen = false;
+          $scope.close();
       }
       else if(selected_url == 'download'){
         Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){

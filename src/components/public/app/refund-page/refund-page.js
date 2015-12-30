@@ -53,7 +53,7 @@ app.controller('RefundPageController', function ($scope, $site,$rootScope, $loca
       {
           $scope.refund.free_item_url = selected_url;
           item.url = selected_url;
-
+          $scope.close();
           $scope.refund.isOpen = false;
       }
       else if(selected_url == 'download'){

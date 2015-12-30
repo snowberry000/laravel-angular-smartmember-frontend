@@ -93,7 +93,7 @@ app.controller('JvthankyouController', function ($scope, $site,$rootScope, Resta
         {
           $scope.jv.redirect_url = selected_url;
           item.url = selected_url;
-
+          $scope.close();
           $scope.urlPopover.isOpen = false;
         }
         else

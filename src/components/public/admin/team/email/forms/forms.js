@@ -93,7 +93,7 @@ app.controller("EmailFormsController", function ($scope, $rootScope, $localStora
         {
             $scope.site_options.redirect_url = selected_url;
             $scope.show_next = show_next;
-            $scope.site_options.isOpen = false;
+            $scope.close();
         }
         else if(selected_url == 'download'){
             Restangular.all('').customGET('download',{site_id: $site.id}).then(function(response){
