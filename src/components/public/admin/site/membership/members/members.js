@@ -92,7 +92,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		}
 
 		Restangular.all('siteRole')
-				.getList()
+				.getList($params)
 				.then(function(response){
 					$scope.data = response;
 				});
