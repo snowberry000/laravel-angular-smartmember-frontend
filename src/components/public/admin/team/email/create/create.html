@@ -1,309 +1,234 @@
-
 <div class="ui modal">
-    <div class="content">
-    <i class="close icon"></i>
+	<div class="header">
+		<i class="mail icon"></i>
+		{{ email.id ? 'Edit existing ' : 'Write an' }} email
+	</div>
+	<div class="content">
+		<div class="description">
+			<p ng-if="email.id">Update an existing email to tweak it's recipients or content and re-send it</p>
+			<p ng-if="!email.id">Write a new email to send to your members / subscribers!</p>
 
-    <div class="row">
-        <div class="col-lg-12">
+			<div class="ui form">
 
-            <div class="ibox-content clear_box page-heading">
-                <div class="p-xs">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="pull-left m-r-md">
-                                <i class="fa fa-edit text-branded mid-icon"></i>
-                            </div>
-                            <h2 class="ui header">{{ email.id ? 'Edit' : 'Write an' }} Email</h2>
-                            <span>Update / create using the form below.</span>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-                                <i class="fa fa-question"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<div class="ui segment">
+					<div class="inline field">
+						<label>Recipient Type</label>
 
-        </div>
-    </div>
+						<div class="ui buttons">
+							<div class="ui button" ng-class="{single:'active'}[recipient_type]" ng-click="SetRecipientType('single')">
+								<i class="user icon"></i> Single Recipient
+							</div>
+							<div class="ui button" ng-class="{members:'active'}[recipient_type]" ng-click="SetRecipientType('members')">
+								<i class="users icon"></i> Specific Members
+							</div>
+							<div class="ui button" ng-class="{segment:'active'}[recipient_type]" ng-click="SetRecipientType('segment')">
+								<i class="sitemap icon"></i> Segments
+							</div>
+						</div>
 
-    <form method="get" ng-submit="save()">
-        <div class="row">
-            <div class="col-lg-12">
+					</div>
+				</div>
 
-                <div class="ibox">
-                    <div class="ibox-content">
+				<div class="ui segment" ng-if="recipient_type == 'single'">
+					<div class="field">
+						<label>Recipient Email</label>
+						<input type="text" class="form-control" ng-model="$parent.recipient" placeholder="alex.smith@corporate.com">
 
-                        <div class="field">
-                            <h3 class="ui header">Recipient Type</h3>
-                            <div class="btn-group">
-                                <label class="btn btn-primary" ng-class="{single:'active'}[recipient_type]" ng-click="SetRecipientType('single')">
-                                    <i class="fa fa-user m-r-xs"></i> Single Recipient
-                                </label>
-                                <label class="btn btn-primary" ng-class="{members:'active'}[recipient_type]" ng-click="SetRecipientType('members')">
-                                    <i class="fa fa-group m-r-xs"></i> Specific Members
-                                </label>
-                                <label class="btn btn-primary" ng-class="{segment:'active'}[recipient_type]" ng-click="SetRecipientType('segment')">
-                                    <i class="fa fa-sitemap m-r-xs"></i> Segments
-                                </label>
-                            </div>
+					</div>
+				</div>
+				<div class="ui segment" ng-if="recipient_type == 'members'">
+					<div class="field">
+						<label>Members</label>
 
-                            <div ng-if="loadingLocations || loading_segments" class=" pull-right sk-spinner sk-spinner-three-bounce">
-                                <div class="sk-bounce1"></div>
-                                <div class="sk-bounce2"></div>
-                                <div class="sk-bounce3"></div>
-                            </div>
-                        </div>
+						<input type="text"
+							   ng-model="$parent.asyncSelected"
+							   placeholder="Search members"
+							   typeahead-wait-ms="10"
+							   typeahead-on-select="selectMember($item,$model,$label)"
+							   uib-typeahead="(member.name && member.name.trim() != '' ? member.name : member.email) for member in searchMembers($viewValue)"
+							   typeahead-loading="$parent.loadingLocations"
+							   typeahead-no-results="$parent.noResults"
+							   class="form-control">
+						<span class="label label-info" ng-repeat="recipient in recipients" style="margin-right:5px;display:inline-block;">
+							{{recipient}}
+							<a href="#" ng-click="removeRecipient(recipient)">&times;</a>
+						</span>
+					</div>
+				</div>
+				<div class="ui grid" ng-if="recipient_type == 'segment' && !loading_segments">
 
-                        <div ng-show="noResults">
-                            <i class="glyphicon glyphicon-remove"></i> No Results Found
-                        </div>
-                    </div>
-                </div>
-                <div class="ibox" ng-if="recipient_type == 'single'">
-                    <div class="ibox-content">
-                        <div class="field">
-                            <h3 class="ui header">Recipient Email</h3>
-                            <input type="text" class="form-control" ng-model="$parent.recipient" placeholder="alex.smith@corporate.com">
+					<div class="eight wide column">
+						<div class="ui top attached header">
+							<h5>Available Segments
+								<small class="m-l-sm">drag these over</small>
+								<button type="button" class="btn btn-xs btn-primary pull-right" ng-click="selectAllSegments()">Select All</button>
+							</h5>
+						</div>
+						<div class="ui attached segment">
+							<div class="ui fluid icon input">
+								<input type="text" placeholder="Search..." ng-model="$parent.available_lists_search">
+								<i class="search icon"></i>
+							</div>
+						</div>
+						<div class="ui attached segment">
 
-                        </div>
-                    </div>
-                </div>
-                <div class="ibox" ng-if="recipient_type == 'members'">
-                    <div class="ibox-content">
-                        <div class="field">
-                            <h3 class="ui header">Members</h3>
+							<div class="ui divided selection list segment_container" ui-sortable="currentSortableOptions" class="sortable-list connectList" ng-model="segments">
+								<a ng-click="selectSegment(segment)" class="item {{segment_classes[ segment.type ]}}-element segment_item" ng-repeat="segment in segments" style="{{showAvailableSegment(segment) ? '':'display:none;'}}">
+									<div class="ui horizontal label">{{formatNumber( segment.count )}}</div>
+									{{segment.name}}
+								</a>
+							</div>
 
-                            <input type="text"
-                                   ng-model="$parent.asyncSelected"
-                                   placeholder="Search members"
-                                   typeahead-wait-ms="10"
-                                   typeahead-on-select="selectMember($item,$model,$label)"
-                                   uib-typeahead="(member.name && member.name.trim() != '' ? member.name : member.email) for member in searchMembers($viewValue)"
-                                   typeahead-loading="$parent.loadingLocations"
-                                   typeahead-no-results="$parent.noResults"
-                                   class="form-control">
-								<span class="label label-info" ng-repeat="recipient in recipients" style="margin-right:5px;display:inline-block;">
-									{{recipient}} <a href="#" ng-click="removeRecipient(recipient)">&times;</a>
-								</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" ng-if="recipient_type == 'segment' && !loading_segments">
-                    <div class="col-md-6">
-                        <div class="ibox">
-                            <div class="ibox-title">
-                                <h5 style="width:100%;">Available Segments
-                                    <small class="m-l-sm">drag these over</small>
-                                    <button type="button" class="btn btn-xs btn-primary pull-right" ng-click="selectAllSegments()">Select All</button>
-                                </h5>
-                            </div>
-                            <div class="ibox-content segment_parent">
+						</div>
+						<div class="ui attached segment">
+							<span class="pull-right">
+								{{::formatNumber( counts.total_available_recipients )}} possible recipients
+							</span>
+							{{::counts.total_available_segments}} available segments
+						</div>
+					</div>
+					<div class="eight wide column">
+						<div class="ui top attached header">
+							<h5>
+								Selected Segments
+								<small class="m-l-sm">email recipients</small>
+								<button type="button" class="btn btn-xs btn-danger pull-right" ng-click="removeAllSegments()">Remove All</button>
+								<div ng-if="calculatingSegments" class="pull-right sk-spinner sk-spinner-three-bounce">
+									<div class="sk-bounce1"></div>
+									<div class="sk-bounce2"></div>
+									<div class="sk-bounce3"></div>
+								</div>
+							</h5>
+						</div>
+						<div class="ui attached segment">
+							<div class="ui fluid icon input">
+								<input type="text" placeholder="Search..." ng-model="$parent.selected_lists_search">
+								<i class="search icon"></i>
+							</div>
+						</div>
+						<div class="ui attached segment">
 
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." ng-model="$parent.available_lists_search">
+							<div class="ui divided selection list segment_container" ui-sortable="currentSortableOptions" class="sortable-list connectList" ng-model="chosen_segments">
+								<div class="link item {{segment_classes[ segment.type ]}}-element segment_item" ng-repeat="segment in chosen_segments" style="{{showChosenSegment(segment) ? '':'display:none;'}}">
+									<div class="ui horizontal label">{{formatNumber( ( counts.segments[ segment.type + '_' + segment.target_id ].count ? counts.segments[ segment.type + '_' + segment.target_id ].count : segment.count ) - counts.segments[ segment.type + '_' + segment.target_id ].duplicates )}}</div>
+									{{segment.name}}
 
-                                    <div class="input-group-btn">
-                                        <button tabindex="-1" class="btn btn-white" type="button" ng-model="available_segment_filters.list" btn-checkbox><i class="fa fa-list-ul m-r-xs"></i></button>
-                                        <button tabindex="-1" class="btn btn-white" type="button" ng-model="available_segment_filters.site" btn-checkbox><i class="fa fa-group m-r-xs"></i></button>
-                                        <button tabindex="-1" class="btn btn-white" type="button" ng-model="available_segment_filters.level" btn-checkbox><i class="fa fa-shopping-cart m-r-xs"></i></button>
-                                    </div>
-                                </div>
+									<div class="ui circular right floated icons">
+										<i class="delete icon" ng-click="removeSegment(segment)"></i>
+										<i class="edit icon" ng-click="editSegment(segment)"></i>
+									</div>
+									<div class="ui small right floated labels" ng-show="counts.segments[ segment.type + '_' + segment.target_id ].duplicates > 0">
+										<a class="ui label" title="Duplicate Recipients Found">
+											{{formatNumber( counts.segments[ segment.type + '_' + segment.target_id ].duplicates ? '-' + counts.segments[ segment.type + '_' + segment.target_id ].duplicates : 0 )}}
+											<i class="copy icon"></i>
+										</a>
+									</div>
 
-                                <ul ui-sortable="currentSortableOptions" class="sortable-list connectList agile-list" ng-model="segments">
-                                    <li class="text-left {{segment_classes[ segment.type ]}}-element segment_item" ng-repeat="segment in segments" style="{{showAvailableSegment(segment) ? '':'display:none;'}}">
-                                        <span class="label">{{formatNumber( segment.count )}}</span>
-                                        <strong>{{segment.name}}</strong>
-                                        <button type="button" class="btn btn-xs btn-white pull-right" ng-click="selectSegment(segment)">select</button>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                </ul>
+								</div>
+							</div>
 
-                            </div>
-                            <div class="ibox-footer">
-								<span class="pull-right">
-									  {{::formatNumber( counts.total_available_recipients )}} possible recipients
-								</span>
-                                {{::counts.total_available_segments}} available segments
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="ibox">
-                            <div class="ibox-title">
-                                <h5 class="block" style="width: 100%;">
-                                    Selected Segments
-                                    <small class="m-l-sm">email recipients</small>
-                                    <button type="button" class="btn btn-xs btn-danger pull-right" ng-click="removeAllSegments()">Remove All</button>
-                                    <div ng-if="calculatingSegments" class="pull-right sk-spinner sk-spinner-three-bounce">
-                                        <div class="sk-bounce1"></div>
-                                        <div class="sk-bounce2"></div>
-                                        <div class="sk-bounce3"></div>
-                                    </div>
-                                </h5>
-                            </div>
-                            <div class="ibox-content segment_parent">
+						</div>
+						<div class="ui attached segment">
+							<span class="pull-right">
+								{{formatNumber( counts.total )}} unique recipients selected
+							</span>
+							{{chosen_segments.length}} segments selected
+						</div>
+					</div>
+				</div>
 
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." ng-model="$parent.selected_lists_search">
+				<div class="ui segment">
 
-                                    <div class="input-group-btn">
-                                        <button tabindex="-1" class="btn btn-white" type="button" ng-model="chosen_segment_filters.list" btn-checkbox><i class="fa fa-list-ul m-r-xs"></i></button>
-                                        <button tabindex="-1" class="btn btn-white" type="button" ng-model="chosen_segment_filters.site" btn-checkbox><i class="fa fa-group m-r-xs"></i></button>
-                                        <button tabindex="-1" class="btn btn-white" type="button" ng-model="chosen_segment_filters.level" btn-checkbox><i class="fa fa-shopping-cart m-r-xs"></i></button>
-                                    </div>
-                                </div>
+					<div class="field">
+						<label>Email Subject</label>
+						<input type="text" value="" ng-model="email.subject">
+					</div>
 
-                                <ul ui-sortable="currentSortableOptions" class="sortable-list connectList agile-list" ng-model="chosen_segments" style="min-height:200px;">
-                                    <li class="text-left {{segment_classes[ segment.type ]}}-element segment_item" ng-repeat="segment in chosen_segments" style="position:relative;{{showChosenSegment(segment) ? '':'display:none;'}}">
-                                        <a class="btn btn-primary btn-xs">
-                                            {{formatNumber( ( counts.segments[ segment.type + '_' + segment.target_id ].count ? counts.segments[ segment.type + '_' + segment.target_id ].count : segment.count ) - counts.segments[ segment.type + '_' + segment.target_id ].duplicates )}}
-                                        </a>
-                                        <strong>{{segment.name}}</strong>
-                                        <button type="button" class="btn btn-xs btn-white pull-right" ng-click="removeSegment(segment)">
-                                            remove
-                                        </button>
-                                        <button type="button" class="btn btn-xs btn-white pull-right m-l-sm" ng-click="editSegment(segment)">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
+					<div class="field">
+						<label>Email Content</label>
 
-                                        <button type="button" class="btn btn-xs btn-danger btn-outline size_count pull-right" title="Duplicate Recipients Found">
-                                            {{formatNumber( counts.segments[ segment.type + '_' + segment.target_id ].duplicates ? '-' + counts.segments[ segment.type + '_' + segment.target_id ].duplicates : 0 )}}
-                                        </button>
-                                        <button type="button" class="btn btn-xs btn-default btn-outline duplicate_count pull-right" title="Total Segment Size">
-                                            {{formatNumber( ( counts.segments[ segment.type + '_' + segment.target_id ].count ? counts.segments[ segment.type + '_' + segment.target_id ].count : segment.count ) )}}
-                                        </button>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                </ul>
+						<textarea froala ng-model="email.content"></textarea>
+					</div>
 
-                            </div>
-                            <div class="ibox-footer">
-								<span class="pull-right">
-									  {{formatNumber( counts.total )}} unique recipients selected
-								</span>
-                                {{chosen_segments.length}} segments selected
-                            </div>
-                        </div>
-                    </div>
-                </div>
+					<div class="ui info message">
+						<p>Add <strong>%subscriber_name%</strong> anywhere you want the recipient's name to appear.</p>
+					</div>
 
-                <div class="ibox">
-                    <div class="ibox-content">
+					<div ng-if="showSignature.status == 'false'" class="text-center">
+						<a class="btn btn-white" ng-click="showSettings()">Customize Signature & "From" Settings</a>
+					</div>
+					<div ng-show="showSignature.status=='true'">
 
-                        <div class="field">
-                            <h3 class="ui header">Email Subject</h3>
-                            <input type="text" class="form-control" value="" ng-model="email.subject">
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="field">
-                            <h3 class="ui header">Email Content</h3>
+						<div class="field">
+							<label>From Name</label>
+							<input class="form-control input-lg" ng-model="email.mail_name" type="text" id="mail_name" name="mail_name"/>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="field">
+							<label>
+								From Email Address
+							</label>
+							<input class="form-control input-lg" ng-model="email.mail_sending_address" type="text" id="mail_sending_address" name="mail_sending_address"/>
 
-                            <textarea froala ng-model="email.content"></textarea>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="field">
+							<label>
+								Reply-to Email Address
+							</label>
+							<input class="form-control input-lg" ng-model="email.mail_reply_address" type="text" id="mail_reply_address" name="mail_reply_address"/>
 
-                            <p class="help-block" style="margin-left: 10px;font-size: small;">Add <strong>%subscriber_name%</strong> anywhere you want the recipient's name to appear.</p>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="field">
+							<label>
+								Email Signature
+							</label>
+							<textarea froala ng-model="email.mail_signature"></textarea>
 
-                            <div ng-if="showSignature.status == 'false'" class="text-center">
-                                <a class="btn btn-white" ng-click="showSettings()">Customize Signature & "From" Settings</a>
-                            </div>
-                        </div>
-                        <div ng-show="showSignature.status=='true'">
+						</div>
 
-                            <div class="field">
-                                <label>From Name</label>
-                                <input class="form-control input-lg" ng-model="email.mail_name" type="text" id="mail_name" name="mail_name"/>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="field">
-                                <label>
-                                    From Email Address
-                                </label>
-                                <input class="form-control input-lg" ng-model="email.mail_sending_address" type="text" id="mail_sending_address" name="mail_sending_address"/>
+						<div class="text-center">
+							<a class="btn btn-white" ng-click="hideSettings()">Hide Settings</a>
+						</div>
 
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="field">
-                                <label>
-                                    Reply-to Email Address
-                                </label>
-                                <input class="form-control input-lg" ng-model="email.mail_reply_address" type="text" id="mail_reply_address" name="mail_reply_address"/>
+					</div>
 
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="field">
-                                <label>
-                                    Email Signature
-                                </label>
-                                <textarea froala ng-model="email.mail_signature"></textarea>
+				</div>
+				<div class="ui segment">
+					<div class="ui info message">
+						<p>Schedule date and time to send (leave blank to send now)</p>
+					</div>
+					<div class="inline field">
+						<label>Date</label>
+						<input type="date" ng-model="queueEmailData.send_date">
+					</div>
+					<div class="inline field">
 
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="text-center">
-                                <a class="btn btn-white" ng-click="hideSettings()">Hide Settings</a>
-                            </div>
+						<label>Time</label>
+						<input type="time" ng-model="queueEmailData.send_time">
+					</div>
+				</div>
+			</div>
 
-                        </div>
+		</div>
 
-                    </div>
-                </div>
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <div class="field">
-                            <div class="row">
-                                <label class="col-sm-offset-2 col-sm-10">Schedule date and time to send (leave blank to send now)</label>
-                            </div>
-
-                            <div class="row" style="margin-top:20px;">
-                                <div class="col-md-offset-1 col-md-5">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Date</span>
-                                        <input class="form-control" type="date" ng-model="queueEmailData.send_date"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Time</span>
-                                        <input class="form-control" type="time" ng-model="queueEmailData.send_time"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="ibox">
-                    <div class="ibox-content">
-                        <div class="text-right">
-                            <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" ng-click="save()" title="Save"><i class="fa fa-pencil"></i> Save Changes</a>
-                            <a class="btn btn-default" data-toggle="tooltip" data-placement="top" ng-click="preview()" title="Preview"><i class="fa fa-reply"></i> Preview</a>
-                            <a class="btn btn-info" data-toggle="tooltip" data-placement="top" ng-click="send()" title="Save & Send"><i class="fa fa-send"></i> Save & Send</a>
-                            <a class="btn btn-danger" data-toggle="tooltip" data-placement="top" ng-click="smModal.Show('public.admin.team.email.emails')" title="Preview"><i class="fa fa-times"></i> Cancel</a>
-                        </div>
-                        <div class="clearfix"></div>
-
-
-                    </div>
-                </div> -->
-            </div>
-
-        </div>
-    </form>
-    </div>
-    <div class="actions">
-        <button ng-click="save()" class="ui right labeled icon button">
-            Save changes
-            <i class="checkmark icon"></i>
-        </button>
-        <button ng-click="preview()" class="ui right labeled icon button">
-            Preview
-            <i class="fa fa-reply"></i>
-        </button>
-        <button ng-click="send()" class="ui right labeled icon button">
-            Save & Send
-            <i class="fa fa-send"></i>
-        </button>
-        <div class="ui black deny button close" ng-click="smModal.Show('public.admin.team.email.emails')">
-            Cancel
-        </div>
-    </div>
+	</div>
+	<div class="actions">
+		<div class="ui black deny button close" ng-click="smModal.Show('public.admin.team.email.emails')">
+			Back
+		</div>
+		<button ng-click="save()" class="ui green right labeled icon button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</button>
+		<button ng-click="preview()" class="ui right labeled icon button">
+			Preview
+			<i class="eye icon"></i>
+		</button>
+		<button ng-click="send()" class="ui right labeled icon button">
+			Save & Send
+			<i class="send icon"></i>
+		</button>
+	</div>
 </div>
