@@ -111,7 +111,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.getCSV = function()
 	{
-		Restangular.all( '' ).customGET( 'role/getCSV', { site_id: $site.id } ).then();
+		Restangular.all( '' ).customGET( 'siteRole/getCSV', { site_id: $site.id } ).then();
 	}
 
 	$scope.toggleAccess = function( member )
