@@ -48,6 +48,10 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 
 	$scope.loadMore = function()
 	{
+		// TODO: this is until scroll-based loading works
+		$scope.sites = $rootScope.sites;
+		return;
+
 		console.log( "doing loadMore" );
 
 		for( var i = 1; i <= 20; i++ )

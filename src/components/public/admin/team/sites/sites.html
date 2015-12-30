@@ -2,6 +2,41 @@
 	<div class="header">
 		<i class="globe icon"></i>
 		My Sites
+
+		<div class="ui right floated floating labeled icon dropdown small button" sui-dropdown>
+			<i class="filter icon"></i>
+			<span class="text">Filter</span>
+			<div class="menu">
+				<div class="header">
+					Search sites
+				</div>
+				<div class="ui left icon input">
+					<i class="search icon"></i>
+					<input type="text" placeholder="Search..." ng-model="$parent.query" ng-change="search()">
+				</div>
+				<div class="header">
+					<i class="tags icon"></i>
+					Filter by role
+				</div>
+				<div class="divider"></div>
+				<div class="item">
+					<span class="description">2 sites</span>
+					<span class="text">Admin</span>
+				</div>
+				<div class="item">
+					<span class="description">2 sites</span>
+					<span class="text">Editor</span>
+				</div>
+				<div class="item">
+					<span class="description">2 sites</span>
+					<span class="text">Support</span>
+				</div>
+				<div class="item">
+					<span class="description">2 sites</span>
+					<span class="text">Member</span>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="content">
 		<div class="description relative">
@@ -14,10 +49,6 @@
 				<p>These are all the sites you've created, joined, and managing.</p>
 			</div>
 
-			<div class="field" ng-if="adminPagination.total_count > 10 || query || adminPagination.current_page > 1">
-				<label class="control-label" for="">Search:</label>
-				<input type="text" id="" name="" value="" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-			</div>
 			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="loadMore()" sui-visibility>
 				<a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons']">
 					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
