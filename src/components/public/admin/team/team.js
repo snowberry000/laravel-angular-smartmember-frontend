@@ -15,7 +15,7 @@ app.controller( "TeamController", function( $scope, $rootScope, $localStorage, $
 {
 	if( $rootScope.is_not_allowed )
 	{
-		$state.go( 'public.admin.team.dashboard' );
+		//$state.go( 'public.admin.team.dashboard' );
 		return false;
 	}
 } );

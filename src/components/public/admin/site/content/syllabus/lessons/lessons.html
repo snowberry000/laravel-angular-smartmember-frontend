@@ -1,6 +1,4 @@
 <div class="ui modal">
-	<i class="close icon"></i>
-
 	<div class="header">
 		<i class="paragraph icon"></i>
 		{{ template_data.title | translate }}
@@ -77,12 +75,12 @@
 		</div>
 	</div>
 	<div class="actions">
+		<div class="ui black deny button close">
+			Close
+		</div>
 		<a ng-click="smModal.Show(template_data.edit_route)" class="ui right labeled icon button">
 			Create new {{template_data.singular}}
 			<i class="checkmark icon"></i>
 		</a>
-		<div class="ui black deny button close">
-			Close
-		</div>
 	</div>
 </div>
