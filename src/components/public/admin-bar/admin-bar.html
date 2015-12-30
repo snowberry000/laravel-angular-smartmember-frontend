@@ -133,27 +133,26 @@
 		<div class="ui top left pointing dropdown icon button" title="Update general site settings" sui-popup sui-dropdown>
 			<i class="setting icon"></i>
 			<div class="menu">
-				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.settings')">{{ 'APPEARANCE_GENERAL_SETTINGS' | translate }}</a>
+				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.settings')">Site settings</a>
 				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.menus')">{{ 'NAVIGATION_MENUS' | translate }}</a>
 				<div class="item" sm-access="edit_theme_options" if-not="hide">
 					<i class="dropdown icon"></i>
-					<span class="text">{{ 'SIDEBAR_MANAGEMENT' | translate }}</span>
+					<span class="text">Sidebars</span>
 					<div class="menu">
 						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.widgets')">{{ 'WIDGETS' | translate }}</a>
 						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.banners')">{{ 'BANNERS' | translate }}</a>
-						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.stats')">{{ 'STATS' | translate }}</a>
 					</div>
 				</div>
-				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.pages.core.list')">Core page settings</a>
+				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.pages.core.list')">Core pages</a>
 				<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
 				<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
 				<a class="item" sm-access="edit_site_options" if-not="hide" ng-if="app.subdomain != 'my'" ng-click="smModal.Show('public.admin.site.appearance.directory')">Directory Listing</a>
 				<div class="item" sm-access="manage_apps" if-not="hide">
 					<i class="dropdown icon"></i>
-					<span class="text">Plugins</span>
+					<span class="text">Apps</span>
 					<div class="menu">
-						<a class="item" ng-click="smModal.Show('public.admin.team.app_configurations.available')">Add new plugin</a>
-						<a class="item" ng-click="smModal.Show('public.admin.team.app_configurations.list')">Installed plugins</a>
+						<a class="item" ng-click="smModal.Show('public.admin.team.app_configurations.available')">Add new app</a>
+						<a class="item" ng-click="smModal.Show('public.admin.team.app_configurations.list')">Installed apps</a>
 						<a class="item" ng-click="smModal.Show('public.admin.team.app_configurations.connections')">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
 					</div>
 				</div>

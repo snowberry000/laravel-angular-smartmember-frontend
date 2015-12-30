@@ -1,7 +1,7 @@
 <div class="ui modal">
 	<div class="header">
-		<i class="paragraph icon"></i>
-		{{ template_data.title | translate }}
+		<i class="picture icon"></i>
+		My Advertising Banners
 	</div>
 	<div class="content">
 		<div class="description">
@@ -12,7 +12,7 @@
 			<div class="ui divided items">
 				<div class="item" ng-repeat="ad in ads">
 					<div class="image">
-						<img ng-src="{{ad.banner_image_url || '/images/image.png'}}" />
+						<img ng-src="{{ad.banner_image_url || '/images/image.png'}}"/>
 					</div>
 					<div class="content">
 						<a class="header" dynamic="ad.banner_url">Watchmen</a>
@@ -20,6 +20,17 @@
 							<span class="cinema">added {{ moment.utc(ad.created_at).fromNow() }}</span>
 						</div>
 						<div class="extra">
+
+							<div class="ui label">
+								<i class="eye icon"></i>
+								views
+								<div class="detail">{{ad.views}}</div>
+							</div>
+							<div class="ui label">
+								<i class="crosshairs icon"></i>
+								clicks
+								<div class="detail">{{ad.clicks}}</div>
+							</div>
 							<button class="ui right floated small button" ng-click="delete(ad)">
 								Delete
 							</button>
