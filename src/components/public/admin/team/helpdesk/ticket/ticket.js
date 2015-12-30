@@ -35,7 +35,7 @@ app.controller("TicketController", function ($scope, $localStorage, $state, $roo
 		$scope.send_email = false;
 
 
-		Restangular.service('role/agents').getList().then(function(data){
+		Restangular.service('siteRole').getList({type: 'support'}).then(function(data){
 
 		    angular.forEach(data, function(value){
 		        if( typeof value.user != 'undefined' ) {
