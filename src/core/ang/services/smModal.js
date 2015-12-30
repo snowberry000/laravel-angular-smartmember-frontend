@@ -28,7 +28,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 
 			// Just provide a template url, a controller and call 'showModal'.
 			ModalService.showModal( {
-				templateUrl: state_data.templateUrl,
+				templateUrl: typeof state_data.templateUrl == 'function' ? state_data.templateUrl(stateParams) : state_data.templateUrl,
 				controller: state_data.controller ? state_data.controller : function()
 				{
 				},
