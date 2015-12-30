@@ -20,7 +20,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		description: 'Members are users who have registered on your site, purchased a product, or been imported.',
 		singular: 'member',
 		edit_route: '',
-		api_object: 'role'
+		api_object: 'siteRole'
 	}
 
 	$scope.data = [];
