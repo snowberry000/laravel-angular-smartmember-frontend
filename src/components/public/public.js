@@ -52,7 +52,12 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 			Restangular.one( 'site/members' ).get().then( function( response )
 			{
 				$grouped_sites = response;
-				$sites = [];
+				$sites = response;
+				$sites = _.uniq($sites, function(item, key, a) { 
+				    if(item)
+				    	return item.id;
+				});
+				/*
 				$grouped_sites.admin = _.uniq($grouped_sites.admin, function(item, key, a) { 
 				    if(item)
 				    	return item.id;
@@ -60,9 +65,9 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 				$grouped_sites.member = _.uniq($grouped_sites.member, function(item, key, a) {
 					if(item)
 				    	return item.id;
-				});
-				if( $grouped_sites.admin )
-				{
+				});*/
+				//if( $grouped_sites.admin )
+				//{
 					/*angular.forEach( $grouped_sites.admin, function( next_item, key )
 					{
 						if( next_item.sites )
@@ -70,13 +75,13 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 							$sites = $sites.concat( next_item.sites );
 						}
 					} );*/
-					$sites = $sites.concat( $grouped_sites.admin );
-				}
+					//$sites = $sites.concat( $grouped_sites.admin );
+				//}
 
-				if( $grouped_sites.member )
+				/*if( $grouped_sites.member )
 				{
 					$sites = $sites.concat( $grouped_sites.member );
-				}
+				}*/
 
 				console.log( '$sites', $sites );
 
