@@ -3,14 +3,14 @@
 
 	<div class="header">
 		<i class="paragraph icon"></i>
-		Available {{ 'INTEGRATIONS' | translate }}
+		Available {{ 'app_configurations' | translate }}
 	</div>
 	<div class="content">
 		<div class="description">
 			<p>Extend the power of your sites by connecting 3rd-party apps and tools.</p>
 
 			<div class="ui three cards">
-				<div class="card" ng-repeat="integration in availableIntegrations | filter: search" ng-click="SetIntegrationViewbox(integration.id)">
+				<div class="card" ng-repeat="integration in availableapp_configurations | filter: search" ng-click="SetIntegrationViewbox(integration.id)">
 					<div class="content">
 						<img class="right floated mini ui image" src="{{integration.logo}}">
 						<div class="header">

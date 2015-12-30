@@ -474,25 +474,25 @@
 					</li>
 				</ul>
 			</li>
-			<li ng-if="is_team_member"  ng-class="$state.includes('public.admin.team.integrations') ? 'active' : '' ">
+			<li ng-if="is_team_member"  ng-class="$state.includes('public.admin.team.app_configurations') ? 'active' : '' ">
 				<a href="#">
 					<i class="fa fa-fw fa-exchange"></i>
-					<span class="nav-label">{{ 'INTEGRATIONS' | translate }}</span>
+					<span class="nav-label">{{ 'app_configurations' | translate }}</span>
 					<span class="fa fa-fw arrow"></span>
 				</a>
-				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('public.admin.team.integrations.available') || $state.includes('public.admin.team.integrations.list') || $state.includes('public.admin.team.integrations.connections')}">
+				<ul class="nav nav-second-level collapse" ng-class="{'in': $state.includes('public.admin.team.app_configurations.available') || $state.includes('public.admin.team.app_configurations.list') || $state.includes('public.admin.team.app_configurations.connections')}">
 					<li ui-sref-active="active">
-						<a ui-sref="public.admin.team.integrations.available">
+						<a ui-sref="public.admin.team.app_configurations.available">
 							{{ 'ADD_NEW' | translate }}
 						</a>
 					</li>
 					<li ui-sref-active="active">
-						<a ui-sref="public.admin.team.integrations.list">
-							{{ 'MY_INTEGRATIONS' | translate }}
+						<a ui-sref="public.admin.team.app_configurations.list">
+							{{ 'MY_app_configurations' | translate }}
 						</a>
 					</li>
 					<li ui-sref-active="active">
-						<a ui-sref="public.admin.team.integrations.connections">
+						<a ui-sref="public.admin.team.app_configurations.connections">
 							{{ 'CONNECTED_ACCOUNTS' | translate }}
 						</a>
 					</li>

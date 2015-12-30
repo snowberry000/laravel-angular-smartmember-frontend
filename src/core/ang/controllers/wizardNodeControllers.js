@@ -45,7 +45,7 @@ app.controller( 'sendgridWizardController', function( $rootScope, $scope, $http,
 		id: 'sendgrid',
 		name: 'Sendgrid',
 		description: 'E-mail your customers using Sendgrid.',
-		logo: '/images/integrations/sendgrid.png',
+		logo: '/images/app_configurations/sendgrid.png',
 		long_description: ''
 	};
 
@@ -92,17 +92,17 @@ app.controller( 'sendgridWizardController', function( $rootScope, $scope, $http,
 
 		if( $scope.current_integration.id )
 		{
-			Restangular.all( 'integration' ).customPUT( data, $scope.current_integration.id ).then( function( response )
+			Restangular.all( 'appConfiguration' ).customPUT( data, $scope.current_integration.id ).then( function( response )
 			{
-				toastr.success( "Integration updated!" );
+				toastr.success( "App configuration updated!" );
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
 			} );
 		}
 		else
 		{
-			Restangular.service( 'integration' ).post( data ).then( function( response )
+			Restangular.service( 'appConfiguration' ).post( data ).then( function( response )
 			{
-				toastr.success( "Integration added!" );
+				toastr.success( "App configuration added!" );
 				$scope.current_integration.id = response.id;
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
 			} );
@@ -118,7 +118,7 @@ app.controller( 'paypalWizardController', function( $rootScope, $scope, $http, $
 		id: 'paypal',
 		name: 'Paypal',
 		description: 'Allow your customers to pay you with Paypal.',
-		logo: '/images/integrations/paypal.png',
+		logo: '/images/app_configurations/paypal.png',
 		long_description: ''
 	};
 	$scope.site = $rootScope.site;
@@ -166,17 +166,17 @@ app.controller( 'paypalWizardController', function( $rootScope, $scope, $http, $
 
 		if( $scope.current_integration.id )
 		{
-			Restangular.all( 'integration' ).customPUT( data, $scope.current_integration.id ).then( function( response )
+			Restangular.all( 'appConfiguration' ).customPUT( data, $scope.current_integration.id ).then( function( response )
 			{
-				toastr.success( "Integration updated!" );
+				toastr.success( "App configuration updated!" );
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
 			} );
 		}
 		else
 		{
-			Restangular.service( 'integration' ).post( data ).then( function( response )
+			Restangular.service( 'appConfiguration' ).post( data ).then( function( response )
 			{
-				toastr.success( "Integration added!" );
+				toastr.success( "App configuration added!" );
 				$scope.current_integration.id = response.id;
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
 			} );
@@ -532,21 +532,21 @@ app.controller( 'accessWizardController', function( $rootScope, $scope, $http, $
 			} );
 		}
 	}
-	$scope.payment_integrations = { stripe: [], paypal: [] };
+	$scope.payment_app_configurations = { stripe: [], paypal: [] };
 
-	angular.forEach( $scope.site.integration, function( value, key )
+	angular.forEach( $scope.site.configured_app, function( value, key )
 	{
 		if( value.type == 'stripe' )
 		{
-			$scope.payment_integrations.stripe.push( value );
+			$scope.payment_app_configurations.stripe.push( value );
 		}
 		if( value.type == 'paypal' )
 		{
-			$scope.payment_integrations.paypal.push( value );
+			$scope.payment_app_configurations.paypal.push( value );
 		}
 	} );
 
-	if( _.findWhere( $scope.site.integration, { type: 'facebook' } ) )
+	if( _.findWhere( $scope.site.configured_app, { type: 'facebook' } ) )
 	{
 		$scope.facebook_integrated = true;
 	}
@@ -555,8 +555,8 @@ app.controller( 'accessWizardController', function( $rootScope, $scope, $http, $
 		$scope.access_level.facebook_group_id = $scope.access_level.facebook_group_id.toString();
 	}
 	console.log( $scope.access_level.facebook_group_id )
-	var paypal = _.findWhere( $scope.site.integration, { type: 'paypal' } )
-	var stripe = _.findWhere( $scope.site.integration, { type: 'stripe' } )
+	var paypal = _.findWhere( $scope.site.configured_app, { type: 'paypal' } )
+	var stripe = _.findWhere( $scope.site.configured_app, { type: 'stripe' } )
 
 	if( stripe === undefined )
 	{

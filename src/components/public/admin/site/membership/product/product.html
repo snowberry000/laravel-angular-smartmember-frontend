@@ -320,21 +320,21 @@
                                     <span class="help-block m-b-none">
                                         Select the payment methods you want users to be able to use on the checkout page.
                                         <br>
-                                        Note that you can only select methods you have already set up, go to <a href="/admin/integrations/all">integrations</a> to set up these methods.
+                                        Note that you can only select methods you have already set up, go to <a href="/admin/app_configurations/all">app_configurations</a> to set up these methods.
                                         <br>
                                         The JVZoo checkout button will only show up if you have a JVZoo buy button set above.
                                     </span>
                                 </div>
                             </div>
-                            <span ng-if="payment_integrations.stripe.length > 1">
+                            <span ng-if="payment_app_configurations.stripe.length > 1">
                                 <div class="hr-line-dashed"></div>
                                 <h4 class="ui header">Which Stripe Integration should be used?</h4>
                                 <div class="field">
                                     <div class="col-sm-12">
                                         <select class="form-control" ng-model="access_level.stripe_integration" ng-change="changeAccount()">
                                             <option value="0" ng-selected="!access_level.stripe_integration">Use default integration</option>
-                                            <optgroup label="Stripe Integrations">
-                                                <option ng-repeat="stripe_integration in payment_integrations.stripe" ng-selected="stripe_integration.id == access_level.stripe_integration" value="{{stripe_integration.id}}">{{stripe_integration.account.name ? stripe_integration.account.name : stripe_integration.account.username}}</option>
+                                            <optgroup label="Stripe app_configurations">
+                                                <option ng-repeat="stripe_integration in payment_app_configurations.stripe" ng-selected="stripe_integration.id == access_level.stripe_integration" value="{{stripe_integration.id}}">{{stripe_integration.account.name ? stripe_integration.account.name : stripe_integration.account.username}}</option>
                                             </optgroup>
                                         </select>
                                         <span class="help-block m-b-none" ng-hide="access_level.payment_interval == 'one_time'">
@@ -343,15 +343,15 @@
                                     </div>
                                 </div>
                             </span>
-                            <span ng-if="payment_integrations.paypal.length > 1">
+                            <span ng-if="payment_app_configurations.paypal.length > 1">
                                 <div class="hr-line-dashed"></div>
                                 <h4 class="ui header">Which Paypal Integration should be used?</h4>
                                 <div class="field">
                                     <div class="col-sm-12">
                                         <select class="form-control" ng-model="access_level.paypal_integration">
                                             <option value="0" ng-selected="!access_level.paypal_integration">Use default integration</option>
-                                            <optgroup label="Paypal Integrations">
-                                                <option ng-repeat="paypal_integration in payment_integrations.paypal" ng-selected="paypal_integration.id == access_level.paypal_integration" value="{{paypal_integration.id}}">{{paypal_integration.remote_id}}</option>
+                                            <optgroup label="Paypal app_configurations">
+                                                <option ng-repeat="paypal_integration in payment_app_configurations.paypal" ng-selected="paypal_integration.id == access_level.paypal_integration" value="{{paypal_integration.id}}">{{paypal_integration.remote_id}}</option>
                                             </optgroup>
                                         </select>
                                     </div>

@@ -27,7 +27,7 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 	$rootScope.options = {};
 
 	$scope.is_member = $site.is_member;
-	$scope.facebook_group = _.findWhere( $rootScope.site.integration, { type: 'facebook_group' } );
+	$scope.facebook_group = _.findWhere( $rootScope.site.configured_app, { type: 'facebook_group' } );
 	$scope.facebook_access_group = $rootScope.site.fb_group_access_levels;
 
 	$scope.bannerView = function( $id )

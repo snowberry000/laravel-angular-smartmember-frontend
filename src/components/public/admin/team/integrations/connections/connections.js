@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.admin.team.integrations.connections",{
+		.state("public.admin.team.app_configurations.connections",{
 			url: "/connections",
-			templateUrl: "/templates/components/public/admin/team/integrations/connections/connections.html",
-			controller: "IntegrationsController"
+			templateUrl: "/templates/components/public/admin/team/app_configurations/connections/connections.html",
+			controller: "app_configurationsController"
 		})
 });

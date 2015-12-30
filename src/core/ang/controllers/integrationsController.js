@@ -1,4 +1,4 @@
-app.controller('IntegrationsController', function ($scope,$q,smModal, $localStorage, $location,$rootScope , $stateParams, $state, Restangular, $http, toastr ) {
+app.controller('app_configurationsController', function ($scope,$q,smModal, $localStorage, $location,$rootScope , $stateParams, $state, Restangular, $http, toastr ) {
     if($rootScope.is_not_allowed){
         smModal.Show("public.admin.team.dashboard");
         return false;
@@ -8,28 +8,28 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
 
     console.log('stateParams');
     console.log($stateParams);
-    var $sites, $company, $connected_accounts, $configured_integrations, $current_integration;
+    var $sites, $company, $connected_accounts, $configured_app_configurations, $current_integration;
     $scope.loading=true;
-    $scope.groupIntegrations = function() {
-        $scope.grouped_integrations = [
-            {type: 'facebook_group',integrations: []},
-            {type: 'stripe',integrations: []},
-            {type: 'sendgrid',integrations: []},
-            {type: 'vimeo',integrations: []},
-            {type: 'paypal',integrations: []},
-            {type: 'clickbank',integrations: []},
+    $scope.groupapp_configurations = function() {
+        $scope.grouped_app_configurations = [
+            {type: 'facebook_group',app_configurations: []},
+            {type: 'stripe',app_configurations: []},
+            {type: 'sendgrid',app_configurations: []},
+            {type: 'vimeo',app_configurations: []},
+            {type: 'paypal',app_configurations: []},
+            {type: 'clickbank',app_configurations: []},
         ];
 
-        angular.forEach( $scope.configured_integrations, function( value, key){
-            _.findWhere( $scope.grouped_integrations, { type: value.type }).integrations.push( value );
+        angular.forEach( $scope.configured_app_configurations, function( value, key){
+            _.findWhere( $scope.grouped_app_configurations, { type: value.type }).app_configurations.push( value );
         });
     }
 
-    $scope.initIntegrations=function(){
+    $scope.initapp_configurations=function(){
         $scope.sites = $sites.sites;
         $scope.company = $company;
         $scope.connected_accounts = $connected_accounts;
-        $scope.configured_integrations = $configured_integrations;
+        $scope.configured_app_configurations = $configured_app_configurations;
         $scope.current_integration = $current_integration;
         //prepare copy url
         if( $scope.company && $scope.company.hash )
@@ -48,14 +48,14 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                 $scope.chosen_entity=0;
         }
 
-        $scope.groupIntegrations();
+        $scope.groupapp_configurations();
         //////////////////////////////
-        $scope.SetIntegrationViewbox( $scope.availableIntegrations[0 ].id );
+        $scope.SetIntegrationViewbox( $scope.availableapp_configurations[0 ].id );
         $scope.integration = null;
         console.log("integration: ");
         console.log($stateParams.integration);
         if( typeof $stateParams.integration != 'undefined' && $stateParams.integration != null )
-            $scope.integration = _.findWhere( $scope.availableIntegrations, {id: $stateParams.integration } );
+            $scope.integration = _.findWhere( $scope.availableapp_configurations, {id: $stateParams.integration } );
         if( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id != null )
             $scope.site_id = $stateParams.site_id;
         //////////////////////////////
@@ -85,7 +85,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             if( typeof $scope.current_integration.default != 'undefined' && parseInt( $scope.current_integration.default ) )
                 $scope.is_default = true;
 
-            if( !$scope.current_integration.id && $scope.integration.instructions_only )
+            if( !$scope.current_integration.id && $scope.integration && $scope.integration.instructions_only )
             {
                 smModal.Show("public.admin.team.integration.choose",{integration: $stateParams.integration } );
             }
@@ -125,9 +125,9 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
         $sitesCall = Restangular.one('supportTicket').customGET('sites').then(function(response){ $sites=response; $scope.sites=$sites; });
         $companyCall = Restangular.one('company/getCurrentCompany').get().then(function(response){ $company=response; });
         $connected_accountsCall = Restangular.all('connectedAccount').getList().then(function(response) { $connected_accounts=response; $scope.connected_accounts=$connected_accounts;});
-        $configured_integrationsCall = Restangular.all('integration').getList().then(function(response) { $configured_integrations=response; $scope.configured_integrations=$configured_integrations;});
+        $configured_app_configurationsCall = Restangular.all('appConfiguration').getList().then(function(response) { $configured_app_configurations=response; $scope.configured_app_configurations=$configured_app_configurations;});
         if ( $stateParams.id ) {
-            $current_integrationCall = Restangular.one('integration', $stateParams.id).get().then(function(response){ $current_integration=response; $scope.current_integration=$current_integration;});
+            $current_integrationCall = Restangular.one('appConfiguration', $stateParams.id).get().then(function(response){ $current_integration=response; $scope.current_integration=$current_integration;});
         }
         else
         {
@@ -137,9 +137,9 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             
 
         if($current_integrationCall)
-            $q.all([$sitesCall,$companyCall,$connected_accountsCall,$configured_integrationsCall,$current_integrationCall]).then(function(res){console.log("All returned: "); console.log(res); $scope.loading=false; $scope.initIntegrations();});
+            $q.all([$sitesCall,$companyCall,$connected_accountsCall,$configured_app_configurationsCall,$current_integrationCall]).then(function(res){console.log("All returned: "); console.log(res); $scope.loading=false; $scope.initapp_configurations();});
         else
-            $q.all([$sitesCall,$companyCall,$connected_accountsCall,$configured_integrationsCall]).then(function(res){console.log("All returned: "); console.log(res);$scope.loading=false;  $scope.initIntegrations();});
+            $q.all([$sitesCall,$companyCall,$connected_accountsCall,$configured_app_configurationsCall]).then(function(res){console.log("All returned: "); console.log(res);$scope.loading=false;  $scope.initapp_configurations();});
     }
     
 
@@ -152,21 +152,21 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
         $scope.active_integration = integration_id;
     }
 
-    $scope.availableIntegrations = [
+    $scope.availableapp_configurations = [
         {
             id: 'facebook_group',
             name: 'Facebook: Groups',
             short_name: 'FB Groups',
             description: 'Automate adding and removing your members from a Facebook group.',
-            logo: '/images/integrations/fb.png',
-            long_description: '<p><a href="https://www.facebook.com/help/162866443847527/" target="_blank">Facebook Group</a> Integrations let you automatically create groups and grant access to those groups based on products your users purchase.</p><p>For help in creating a Facebook App, please <a href="http://help.smartmember.com/lesson/Facebook-Group-Integration" target="_blank">click here</a> to view our tutorial</p>'
+            logo: '/images/app_configurations/fb.png',
+            long_description: '<p><a href="https://www.facebook.com/help/162866443847527/" target="_blank">Facebook Group</a> app_configurations let you automatically create groups and grant access to those groups based on products your users purchase.</p><p>For help in creating a Facebook App, please <a href="http://help.smartmember.com/lesson/Facebook-Group-Integration" target="_blank">click here</a> to view our tutorial</p>'
         },
         {
             id: 'jvtool',
             name: 'JVZoo: Affiliate Grabber',
             short_name: 'JVZoo',
             description: 'Add Affiliates through our JVZoo Chrome Extension',
-            logo: '/images/integrations/jvzoo.jpeg',
+            logo: '/images/app_configurations/jvzoo.jpeg',
             long_description: '<p class="font-bold text-success">Automatically add your JVZoo affiliates in this section</p> <p class=""> Install the JVzoo Extension following the instructions provided, and every time you visit JVzoo the extension will automatically add your affiliates in this management area. You can add affiliates from these JVzoo locations.</p> <p style="text-align:center;"> <a target="_blank" href="https://www.jvzoo.com/sellers/youraffiliates?f_aff=&f_prod=&f_stat=&r=25000" data-bypass="true">Your Affiliates</a> | <a target="_blank" href="https://www.jvzoo.com/sellers/affiliaterequests?f_aff=&r=250000" data-bypass="true">Affiliate Requests</a> </p>'
         },
         {
@@ -175,7 +175,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             short_name: 'JVZoo Payment',
             sites_only: true,
             description: 'Allow your customers to buy your Products with JVZoo',
-            logo: '/images/integrations/jvzoo.jpeg',
+            logo: '/images/app_configurations/jvzoo.jpeg',
             long_description: '<p><a href="http://www.jvzoo.com/register/446025" target="_blank">JVZoo</a> allows you to accept payments from the JVZoo affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
@@ -193,7 +193,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             short_name: 'Warrior+ Payment',
             sites_only: true,
             description: 'Allow your customers to buy your Products with WarriorPlus',
-            logo: '/images/integrations/wso.png',
+            logo: '/images/app_configurations/wso.png',
             long_description: '<p><a href="http://www.warriorplus.com" target="_blank">WarriorPlus</a> allows you to accept payments from the WarriorPlus affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
@@ -202,35 +202,35 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             short_name: 'Zaxaa Payment',
             sites_only: true,
             description: 'Allow your customers to buy your Products with Zaxaa',
-            logo: '/images/integrations/zaxaa.png',
+            logo: '/images/app_configurations/zaxaa.png',
             long_description: '<p><a href="http://www.zaxaa.com" target="_blank">Zaxaa</a> allows you to accept payments from the Zaxaa affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'paypal',
             name: 'Paypal',
             description: 'Allow your customers to buy your Products with Paypal.',
-            logo: '/images/integrations/paypal.png',
+            logo: '/images/app_configurations/paypal.png',
             long_description: '<p><a href="http://paypal.com" target="_blank">Paypal</a> allows you to accept most forms of payment from customers.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'sendgrid',
             name: 'Sendgrid',
             description: 'E-mail your customers using Sendgrid.',
-            logo: '/images/integrations/sendgrid.png',
+            logo: '/images/app_configurations/sendgrid.png',
             long_description: ''
         },
         {
             id: 'stripe',
             name: 'Stripe',
             description: 'Allow customers to buy your Products with Stripe.',
-            logo: '/images/integrations/stripe.png',
+            logo: '/images/app_configurations/stripe.png',
             long_description: '<p><a href="http://stripe.com" target="_blank">Stripe</a> allows you to accept credit card payments directly on your site.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
         },
         {
             id: 'vimeo',
             name: 'Vimeo',
             description: 'Rapidly create content by importing directly from Vimeo.',
-            logo: '/images/integrations/vimeo.png',
+            logo: '/images/app_configurations/vimeo.png',
             long_description: '<p><a href="http://vimeo.com" target="_blank">Vimeo</a> is a premier video hosting platform. Once connected, you\'ll be able to quickly import videos and turn them into content on your site(s).</p>'
         },
     ];
@@ -267,11 +267,11 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
     }
 
     $scope.promptRemoveAccount = function(account){
-        if( account.integrations && account.integrations.length > 0 )
+        if( account.app_configurations && account.app_configurations.length > 0 )
         {
             swal({
                 title: "Are you sure?",
-                text: "Removing this account will disable " + account.integrations.length + " integration" + ( account.integrations.length > 1 ? 's' : '' ) + '!',
+                text: "Removing this account will disable " + account.app_configurations.length + " integration" + ( account.app_configurations.length > 1 ? 's' : '' ) + '!',
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -292,7 +292,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             $scope.connected_accounts = _.without($scope.connected_accounts, account);
 
             if( typeof integration_count != 'undefined' && integration_count == true ){
-                toastr.success('Account has been removed and ' + account.integrations.length + " integration" + ( account.integrations.length > 1 ? 's have' : ' has' ) + ' been disabled.');
+                toastr.success('Account has been removed and ' + account.app_configurations.length + " integration" + ( account.app_configurations.length > 1 ? 's have' : ' has' ) + ' been disabled.');
             }
             else{
                 toastr.success('Account has been removed');
@@ -318,7 +318,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                 params.site_id = entity_id;
                 break;
         }
-        smModal.Show("", params , {controller : 'IntegrationsController' , templateUrl : 'templates/components/public/admin/team/integration/configure/' + $stateParams.integration + '.html'});
+        smModal.Show("", params , {controller : 'app_configurationsController' , templateUrl : 'templates/components/public/admin/team/integration/configure/' + $stateParams.integration + '.html'});
     }
 
     
@@ -383,7 +383,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                 disabled: typeof $scope.current_integration.disabled != 'undefined' ? $scope.current_integration.disabled : 0,
             };
 
-            Restangular.service('integration').post(data).then(function (response) {
+            Restangular.service('appConfiguration').post(data).then(function (response) {
                 location.href = $scope.app.apiUrl + '/stripe/auth/' + response.id + '?state=' + $localStorage.user.access_token;
             });
         }
@@ -402,7 +402,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                 disabled: typeof $scope.current_integration.disabled != 'undefined' ? $scope.current_integration.disabled : 0,
             };
 
-            Restangular.service('integration').post(data).then(function (response) {
+            Restangular.service('appConfiguration').post(data).then(function (response) {
                 location.href = $scope.app.apiUrl + '/vimeo/auth/' + response.id + '?state=' + $localStorage.user.access_token;
             });
         }
@@ -426,14 +426,14 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
         };
 
         if( $scope.current_integration.id ) {
-            Restangular.all('integration').customPUT(data, $scope.current_integration.id).then(function (response) {
-                toastr.success("Integration updated!");
+            Restangular.all('appConfiguration').customPUT(data, $scope.current_integration.id).then(function (response) {
+                toastr.success("App configuration updated!");
                 $scope.handleSaved(response);
             });
         }
         else {
-            Restangular.service('integration').post(data).then(function (response) {
-                toastr.success("Integration added!");
+            Restangular.service('appConfiguration').post(data).then(function (response) {
+                toastr.success("App configuration added!");
                 $scope.current_integration.id = response.id;
                 $scope.handleSaved(response);
             });
@@ -451,7 +451,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                     }
                     break;
                 default:
-                    smModal.Show("public.admin.team.integrations.list");
+                    smModal.Show("public.admin.team.app_configurations.list");
             }
         }else if($stateParams.integration == 'vimeo' && $rootScope.vimeo_redirect_url){
             delete $rootScope.vimeo_redirect_url;
@@ -459,13 +459,13 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
         }
         else
         {
-            smModal.Show("public.admin.team.integrations.list");
+            smModal.Show("public.admin.team.app_configurations.list");
         }
     }
 
     $scope.enableIntegration = function(integration_id){
-        Restangular.all('integration').customPUT({disabled: 0}, integration_id).then(function (response) {
-            toastr.success("Integration was enabled!");
+        Restangular.all('appConfiguration').customPUT({disabled: 0}, integration_id).then(function (response) {
+            toastr.success("App configuration was enabled!");
             $scope.show_disabled = false;
         });
     }
@@ -487,7 +487,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                 description = 'Disabling this integration will disable your users\' ability to connect to this Facebook Group from your site.  New users will not be able to join the group.';
                 break;
             case 'sendgrid':
-                description = 'Disabling this integration will disable sending e-mail using the Sendgrid settings configured in this integration.  If no other Sendgrid integrations are available you will be disabling your ability to use the E-mail center to e-mail your members and subscribers.';
+                description = 'Disabling this integration will disable sending e-mail using the Sendgrid settings configured in this integration.  If no other Sendgrid app_configurations are available you will be disabling your ability to use the E-mail center to e-mail your members and subscribers.';
                 break;
         }
 
@@ -500,8 +500,8 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             confirmButtonText: "Yes, disable integration!",
             closeOnConfirm: true
         }, function () {
-            Restangular.all('integration').customPUT({disabled: 1, default: 0}, integration_id).then(function (response) {
-                toastr.success("Integration was disabled!");
+            Restangular.all('appConfiguration').customPUT({disabled: 1, default: 0}, integration_id).then(function (response) {
+                toastr.success("App configuration was disabled!");
                 $scope.show_disabled = true;
             });
         });
@@ -524,7 +524,7 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
                 description = 'Removing this integration will remove your users\' ability to connect to this Facebook Group from your site.  New users will not be able to join the group.';
                 break;
             case 'sendgrid':
-                description = 'Removing this integration will disable sending e-mail using the Sendgrid settings configured in this integration.  If no other Sendgrid integrations are available you will be removing your ability to use the E-mail center to e-mail your members and subscribers.';
+                description = 'Removing this integration will disable sending e-mail using the Sendgrid settings configured in this integration.  If no other Sendgrid app_configurations are available you will be removing your ability to use the E-mail center to e-mail your members and subscribers.';
                 break;
         }
 
@@ -537,25 +537,25 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
             confirmButtonText: "Yes, remove integration!",
             closeOnConfirm: true
         }, function () {
-            Restangular.one('integration' , integration_id).remove().then(function () {
+            Restangular.one('appConfiguration' , integration_id).remove().then(function () {
                 toastr.success("Integration was removed");
-                smModal.Show("public.admin.team.integrations.list");
+                smModal.Show("public.admin.team.app_configurations.list");
             });
         });
     }
 
     $scope.promptDefault = function( integration_id ) {
-        var current_integration = _.findWhere( $scope.configured_integrations, {id: integration_id} );
+        var current_integration = _.findWhere( $scope.configured_app_configurations, {id: integration_id} );
 
         var other_default = false;
-        var like_integrations = _.findWhere( $scope.grouped_integrations, {type: current_integration.type} );
+        var like_app_configurations = _.findWhere( $scope.grouped_app_configurations, {type: current_integration.type} );
 
-        if( like_integrations && like_integrations.integrations )
+        if( like_app_configurations && like_app_configurations.app_configurations )
         {
             if( current_integration.site_id )
-                other_default = _.findWhere( like_integrations.integrations, { site_id: parseInt( current_integration.site_id ), default: 1 } ) || _.findWhere( like_integrations.integrations, { site_id: current_integration.site_id + "", default: "1" } )
+                other_default = _.findWhere( like_app_configurations.app_configurations, { site_id: parseInt( current_integration.site_id ), default: 1 } ) || _.findWhere( like_app_configurations.app_configurations, { site_id: current_integration.site_id + "", default: "1" } )
             else
-                other_default = _.findWhere( like_integrations.integrations, { company_id: parseInt( current_integration.company_id ), default: 1 } ) || _.findWhere( like_integrations.integrations, { company_id: current_integration.company_id + "", default: "1" } )
+                other_default = _.findWhere( like_app_configurations.app_configurations, { company_id: parseInt( current_integration.company_id ), default: 1 } ) || _.findWhere( like_app_configurations.app_configurations, { company_id: current_integration.company_id + "", default: "1" } )
         }
 
         if( other_default ) {
@@ -579,17 +579,17 @@ app.controller('IntegrationsController', function ($scope,$q,smModal, $localStor
     }
 
     $scope.setDefault = function(current_integration) {
-        Restangular.all('integration').customPUT({default: 1}, current_integration.id).then(function (response) {
-            toastr.success("Integration set as default!");
+        Restangular.all('appConfiguration').customPUT({default: 1}, current_integration.id).then(function (response) {
+            toastr.success("App configuration set as default!");
             current_integration.default = 1;
             $scope.is_default = true;
         });
     }
 
     $scope.removeDefault = function(integration_id) {
-        Restangular.all('integration').customPUT({default: 0}, integration_id).then(function (response) {
-            toastr.success("Integration no longer default!");
-            var current_integration = _.findWhere( $scope.configured_integrations, {id: integration_id} );
+        Restangular.all('appConfiguration').customPUT({default: 0}, integration_id).then(function (response) {
+            toastr.success("App configuration no longer default!");
+            var current_integration = _.findWhere( $scope.configured_app_configurations, {id: integration_id} );
             current_integration.default = 0;
             $scope.is_default = false;
         });

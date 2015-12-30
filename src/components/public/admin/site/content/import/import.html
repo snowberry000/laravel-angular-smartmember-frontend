@@ -31,13 +31,13 @@
                                             <i class="fa fa-video text-branded mid-icon"></i>
                                         </div>
                                         <h2 class="ui header">Import Vimeo Videos</h2>
-                                        <div class="row" ng-if="vimeo_integrations.length >= 1">
+                                        <div class="row" ng-if="vimeo_app_configurations.length >= 1">
                                             <div class="col-md-6">
                                                 <span>Choose a different account</span>
                                             </div>
                                             <div class="col-md-6">
                                                 <select class="form-control" ng-model="selected_account" ng-change="changeAccount()">
-                                                    <option ng-repeat="vimeo_integration in vimeo_integrations"
+                                                    <option ng-repeat="vimeo_integration in vimeo_app_configurations"
                                                             ng-selected="vimeo_integration.id == selected_account"
                                                             value="{{vimeo_integration.id}}">{{vimeo_integration.account.name ?
                                                         vimeo_integration.account.name : vimeo_integration.account.remote_id}}
@@ -45,7 +45,7 @@
                                                 </select>
                                                 <span class="help-block m-b-none">
                                                         You can add nicknames to your accounts <a
-                                                        href="/admin/team/integrations/connections">here</a> for easier identification.
+                                                        href="/admin/team/app_configurations/connections">here</a> for easier identification.
                                                 </span>
                                             </div>
                                         </div>

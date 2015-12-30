@@ -24,21 +24,21 @@ app.config(function($stateProvider){
 app.controller('CheckoutController', function ($scope, $site, $rootScope , $location , notify ,$localStorage ,$stateParams,Restangular) {
     $scope.access_level = {};
 
-    var paypal = _.findWhere($scope.site.integration,{type: 'paypal', site_id: $scope.site.id, default: "1"});
+    var paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', site_id: $scope.site.id, default: "1"});
 
     if( !paypal )
-        paypal = _.findWhere($scope.site.integration,{type: 'paypal', company_id: $scope.site.company_id, default: "1"});
+        paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', company_id: $scope.site.company_id, default: "1"});
 
     if( !paypal )
-        paypal = _.findWhere($scope.site.integration,{type: 'paypal', site_id: $scope.site.id}) || _.findWhere($scope.site.integration,{type: 'paypal'});
+        paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', site_id: $scope.site.id}) || _.findWhere($scope.site.configured_app,{type: 'paypal'});
 
-    var stripe = _.findWhere($scope.site.integration,{type: 'stripe', site_id: $scope.site.id, default: "1"});
-
-    if( !stripe )
-        stripe = _.findWhere($scope.site.integration,{type: 'stripe', company_id: $scope.site.company_id, default: "1"});
+    var stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', site_id: $scope.site.id, default: "1"});
 
     if( !stripe )
-        stripe = _.findWhere($scope.site.integration,{type: 'stripe', site_id: $scope.site.id}) || _.findWhere($scope.site.integration,{type: 'stripe'});
+        stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', company_id: $scope.site.company_id, default: "1"});
+
+    if( !stripe )
+        stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', site_id: $scope.site.id}) || _.findWhere($scope.site.configured_app,{type: 'stripe'});
 
     if( stripe === undefined )
         $scope.stripe_checkout = false;
@@ -123,14 +123,14 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
                     $scope.access_level.currency = $scope.currency;
 
                 if( $scope.access_level.stripe_integration && $scope.access_level.stripe_integration != 0 ){
-                    var new_stripe = _.findWhere($scope.site.integration,{type: 'stripe', id: $scope.access_level.stripe_integration }) || _.findWhere($scope.site.integration,{type: 'stripe', id: $scope.access_level.stripe_integration + '' })
+                    var new_stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', id: $scope.access_level.stripe_integration }) || _.findWhere($scope.site.configured_app,{type: 'stripe', id: $scope.access_level.stripe_integration + '' })
 
                     if( new_stripe )
                         stripe = new_stripe;
                 }
 
                 if( $scope.access_level.paypal_integration && $scope.access_level.paypal_integration != 0 ){
-                    var new_paypal = _.findWhere($scope.site.integration,{type: 'paypal', id: $scope.access_level.paypal_integration }) || _.findWhere($scope.site.integration,{type: 'paypal', id: $scope.access_level.paypal_integration + '' })
+                    var new_paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', id: $scope.access_level.paypal_integration }) || _.findWhere($scope.site.configured_app,{type: 'paypal', id: $scope.access_level.paypal_integration + '' })
 
                     if( new_paypal )
                         paypal = new_paypal;

@@ -12,6 +12,6 @@ app.config(function($stateProvider){
 				return 'templates/components/public/admin/team/integration/configure/' + $stateParams.integration + '.html'
 			},
 			//templateUrl: "/templates/components/public/admin/team/integration/configure/"+ $stateParams.integration +".html",
-			controller: "IntegrationsController"
+			controller: "app_configurationsController"
 		})
 }); 

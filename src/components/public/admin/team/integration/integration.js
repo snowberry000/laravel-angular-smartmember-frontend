@@ -5,6 +5,6 @@ app.config(function($stateProvider){
 		.state("public.admin.team.integration",{
 			url: "/integration/:integration",
 			templateUrl: "/templates/components/public/admin/team/integration/integration.html",
-			controller: "IntegrationsController"
+			controller: "app_configurationsController"
 		})
 }); 

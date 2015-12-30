@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.admin.team.integrations.facebook_group",{
+		.state("public.admin.team.app_configurations.facebook_group",{
 			url: "/facebook_group/:add_group?",
-			templateUrl: "/templates/components/public/admin/team/integrations/facebook_group/facebook_group.html",
+			templateUrl: "/templates/components/public/admin/team/app_configurations/facebook_group/facebook_group.html",
 			controller: "FacebookGroupController"
 		})
 }); 
@@ -34,7 +34,7 @@ app.controller("FacebookGroupController", function ($scope, toastr,$localStorage
 		$scope.joinGroup = function(group_id){
 			console.log(group_id)
 
-	        group = _.findWhere( $scope.site.integration, {type:'facebook_group',remote_id: group_id}) || _.findWhere( $scope.site.integration, {type:'facebook_group',remote_id: group_id + ''});
+	        group = _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id}) || _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id + ''});
 
 	        FB.init({
 	            appId      : group.username,

@@ -47,7 +47,7 @@
                                         <input ng-if="!site.domain" class="col-md-12 form-control" value="http://{{site.subdomain}}.{{app.domain}}/checkout/{{next_item.id}}" />
                                     </div>
                                     <div class="input-group" style="margin-bottom : 20px" ng-if="!stripe_integrated && !paypal_integrated">
-                                        <a ui-sref="public.admin.team.integrations.available">Please set up at least one payment integration.</a>
+                                        <a ui-sref="public.admin.team.app_configurations.available">Please set up at least one payment integration.</a>
                                     </div>
                                 </td>
                                 <td>

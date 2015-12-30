@@ -13,12 +13,12 @@ app.config( function( $stateProvider )
 app.controller( "ProductsController", function( $scope, $localStorage, smModal, $rootScope, Restangular, toastr )
 {
 	$scope.site = $site = $rootScope.site;
-	if( _.findWhere( $scope.site.integration, { type: 'stripe' } ) )
+	if( _.findWhere( $scope.site.configured_app, { type: 'stripe' } ) )
 	{
 		$scope.stripe_integrated = true;
 	}
 
-	if( _.findWhere( $scope.site.integration, { type: 'paypal' } ) )
+	if( _.findWhere( $scope.site.configured_app, { type: 'paypal' } ) )
 	{
 		$scope.paypal_integrated = true;
 	}

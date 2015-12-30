@@ -1,6 +1,6 @@
 <div class="ui modal">
 	<div class="content">
-		<div ng-include="'templates/components/public/admin/team/integrations/common/single-heading.html'"></div>
+		<div ng-include="'templates/components/public/admin/team/app_configurations/common/single-heading.html'"></div>
 		<div ng-include="'templates/components/public/admin/team/integration/configure/paypal-setup.html'"></div>
 
 		<div class="ibox">
@@ -28,7 +28,7 @@
 	        Save changes
 	        <i class="checkmark icon"></i>
 	    </button>
-	    <div class="ui black deny button close" ng-click="smModal.Show(\"public.admin.team.integrations.{{integration_id ? 'list' : 'available'}}\")">
+	    <div class="ui black deny button close" ng-click="smModal.Show(\"public.admin.team.app_configurations.{{integration_id ? 'list' : 'available'}}\")">
 	        Cancel
 	    </div>
 	</div>

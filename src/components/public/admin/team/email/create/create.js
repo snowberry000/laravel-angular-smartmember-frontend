@@ -20,7 +20,7 @@ app.config(function($stateProvider){
 
 app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, $stateParams ) {
     console.log($stateParams);
-    $sendgridIntegrations = Restangular.all('integration/getSendgridIntegrations').getList().then(function(response){$scope.sendgridIntegrations = response});
+    $sendgridapp_configurations = Restangular.all('appConfiguration/getSendgridapp_configurations').getList().then(function(response){$scope.sendgridapp_configurations = response});
     $scope.canceler = false;
     if ( $stateParams.id ) {
         $email = Restangular.one('email', $stateParams.id).get().then(function(response){$scope.email = response});
@@ -30,7 +30,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     $emailSettings = Restangular.all('emailSetting').customGET('settings').then(function(response){
         $scope.emailSettings = response;
     })
-    $dependencies = [$sendgridIntegrations , $emailSettings];
+    $dependencies = [$sendgridapp_configurations , $emailSettings];
     if($stateParams.id)
         $dependencies.push($email);
     $q.all($dependencies).then(function(res){

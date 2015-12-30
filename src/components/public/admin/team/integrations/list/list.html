@@ -3,24 +3,24 @@
 
 	<div class="header">
 		<i class="paragraph icon"></i>
-		Your connected integrations
+		Your connected app_configurations
 	</div>
 	<div class="content">
 		<div class="description">
-			<p>These are the integrations current configured on your team & it's sites.</p>
+			<p>These are the app_configurations current configured on your team & it's sites.</p>
 
 			<div class="ui three cards">
-				<div class="card" ng-repeat="integration in grouped_integrations | filter: search" ng-if="integration.integrations.length > 0 && !loading">
+				<div class="card" ng-repeat="integration in grouped_app_configurations | filter: search" ng-if="integration.app_configurations.length > 0 && !loading">
 					<div class="content">
-						<img class="right floated mini ui image" src="{{_.findWhere( availableIntegrations, { id: integration.type }).logo }}">
+						<img class="right floated mini ui image" src="{{_.findWhere( availableapp_configurations, { id: integration.type }).logo }}">
 						<div class="header">
-							{{_.findWhere( availableIntegrations, { id: integration.type }).name}}
+							{{_.findWhere( availableapp_configurations, { id: integration.type }).name}}
 						</div>
 						<div class="meta">
-							{{integration.integrations.length}} Configured
+							{{integration.app_configurations.length}} Configured
 						</div>
 						<div class="description">
-							{{_.findWhere( availableIntegrations, { id: integration.type }).description}}
+							{{_.findWhere( availableapp_configurations, { id: integration.type }).description}}
 						</div>
 					</div>
 					<div class="extra content">
@@ -28,7 +28,7 @@
 							<div class="ui basic green button" ng-click="integration.expanded=!integration.expanded">view</div>
 						</div>
 					</div>
-					<div class="content" ng-if="integration.expanded" ng-repeat="integration_instance in integration.integrations">
+					<div class="content" ng-if="integration.expanded" ng-repeat="integration_instance in integration.app_configurations">
 						<div class="description">
 
 							<div class="row">

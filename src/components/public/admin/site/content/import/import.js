@@ -20,7 +20,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
         $videosAdded = response;
     })
     $scope.videos = false;
-    $scope.vimeo_integrations = [];
+    $scope.vimeo_app_configurations = [];
     $scope.vimeo = {};
     $scope.selected_account = false;
     $scope.page = 1;
@@ -87,19 +87,19 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     }
 
 
-    angular.forEach( $scope.site.integration, function(value,key){
+    angular.forEach( $scope.site.configured_app, function(value,key){
         if( value.type == 'vimeo' )
         {
-            $scope.vimeo_integrations.push( value );
+            $scope.vimeo_app_configurations.push( value );
         }
 
     });
 
-    if( $scope.vimeo_integrations.length > 0 ) {
-        var selected_integration = _.findWhere($scope.vimeo_integrations, {default: 1}) || _.findWhere( $scope.vimeo_integrations, {default: "1"});
+    if( $scope.vimeo_app_configurations.length > 0 ) {
+        var selected_integration = _.findWhere($scope.vimeo_app_configurations, {default: 1}) || _.findWhere( $scope.vimeo_app_configurations, {default: "1"});
 
         if( !selected_integration || !selected_integration.access_token )
-            selected_integration = $scope.vimeo_integrations[0];
+            selected_integration = $scope.vimeo_app_configurations[0];
 
         if( selected_integration && selected_integration.account && selected_integration.account.access_token ) {
             console.log('yes');
@@ -136,7 +136,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 $videosAdded.items.push({remote_id: value.uri })
         });
         console.log($scope.selected_account);
-        var selected_integration = _.findWhere($scope.vimeo_integrations, {id: $scope.selected_account}) || _.findWhere( $scope.vimeo_integrations, {id: $scope.selected_account + ''});
+        var selected_integration = _.findWhere($scope.vimeo_app_configurations, {id: $scope.selected_account}) || _.findWhere( $scope.vimeo_app_configurations, {id: $scope.selected_account + ''});
 
         if( selected_integration ) {
             $scope.page = 1;

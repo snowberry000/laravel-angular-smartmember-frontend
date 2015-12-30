@@ -64,13 +64,13 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 	    $scope.default_currency = $currency.length > 0 ? $currency[0].value : 'USD';
 		$scope.access_level = $access_level;
 
-	    $scope.payment_integrations = {stripe:[],paypal:[]};
+	    $scope.payment_app_configurations = {stripe:[],paypal:[]};
 
-	    angular.forEach( $scope.site.integration, function(value,key){
+	    angular.forEach( $scope.site.configured_app, function(value,key){
 	        if( value.type == 'stripe' )
-	            $scope.payment_integrations.stripe.push( value );
+	            $scope.payment_app_configurations.stripe.push( value );
 	        if( value.type == 'paypal' )
-	            $scope.payment_integrations.paypal.push( value );
+	            $scope.payment_app_configurations.paypal.push( value );
 	    });
 
 	    if( $scope.access_level.expiration_period )
@@ -80,14 +80,14 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 	        $scope.access_level.currency = $scope.default_currency;
 
 		$scope.facebook_groups = $facebook_groups;
-		if (_.findWhere($scope.site.integration,{type: 'facebook'})){
+		if (_.findWhere($scope.site.configured_app,{type: 'facebook'})){
 			$scope.facebook_integrated = true;
 		}
 		if($scope.access_level.facebook_group_id)
 			$scope.access_level.facebook_group_id = $scope.access_level.facebook_group_id.toString();
 		console.log($scope.access_level.facebook_group_id) 
-	    paypal = _.findWhere($scope.site.integration,{type: 'paypal'})
-	    stripe = _.findWhere($scope.site.integration,{type: 'stripe'})
+	    paypal = _.findWhere($scope.site.configured_app,{type: 'paypal'})
+	    stripe = _.findWhere($scope.site.configured_app,{type: 'stripe'})
 
 	    if( stripe === undefined )
 	        $scope.stripe_checkout = false;
