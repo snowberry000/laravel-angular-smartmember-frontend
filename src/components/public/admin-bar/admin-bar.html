@@ -9,7 +9,7 @@
 		<div class="ui right action left icon search input">
 			<i class="search icon"></i>
 			<input type="text" placeholder="Search sites...">
-			<button busy type="button" class="ui red labeled icon button" ng-click="smModal.Show('public.admin.team.site')">
+			<button sm-access="edit_site_options" if-not="disable" busy type="button" class="ui red labeled icon button" ng-click="smModal.Show('public.admin.team.site')">
 				<i class="plus icon"></i> New Site
 			</button>
 		</div>
@@ -24,14 +24,14 @@
 			</div>
 		</div>
 		<div class="header text-center">
-			<button busy type="button" class="ui red labeled icon button" ng-click="smModal.Show('public.admin.team.sites')">
+			<button sm-access="edit_site_options" if-not="disable" busy type="button" class="ui red labeled icon button" ng-click="smModal.Show('public.admin.team.sites')">
 				<i class="setting icon"></i> Manage Sites
 			</button>
 		</div>
 	</div>
 </div>
 
-<a class="ui item" style="width: 200px;" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'account_wizard'})" ng-if="app.subdomain == 'my'" sui-popup>
+<a class="ui item" style="width: 200px;" sm-access="edit_site_options" if-not="hide" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'account_wizard'})" ng-if="app.subdomain == 'my'" sui-popup>
 	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="0" data-total="1" sui-progress>
 		<div class="bar">
 			<div class="progress">{{site.wizard_step}}</div>
@@ -39,7 +39,8 @@
 		<div class="label" style="font-size: 0.8em;">Account Wizard</div>
 	</div>
 </a>
-<a class="ui item" style="width: 200px;" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my'" sm-access="manage_content" if-not="hide" sui-popup>
+
+<a class="ui item" style="width: 200px;" sm-access="view_restricted_content" if-not="hide" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="app.subdomain != 'my'" sui-popup>
 	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step}}" data-total="5" sui-progress>
 		<div class="bar">
 			<div class="progress">{{site.wizard_step}} of 5 steps</div>
@@ -125,15 +126,16 @@
 		<a class="item" ng-click="smModal.Show('public.admin.site.content.stats')">{{ 'STATS' | translate }}</a>
 	</div>
 </div>
-<div class="ui item" ng-if="app.subdomain != 'my'" sm-access="edit_site_options" if-not="hide">
+
+<div class="ui item" ng-if="app.subdomain != 'my'" sm-access="view_restricted_content" if-not="hide">
 	<div class="ui small basic icon buttons">
 
-		<div sm-access="edit_site_options" if-not="hide" class="ui top left pointing dropdown icon button" title="Update general site settings" sui-popup sui-dropdown>
+		<div class="ui top left pointing dropdown icon button" title="Update general site settings" sui-popup sui-dropdown>
 			<i class="setting icon"></i>
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.site.appearance.settings')">{{ 'APPEARANCE_GENERAL_SETTINGS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.admin.site.appearance.menus')">{{ 'NAVIGATION_MENUS' | translate }}</a>
-				<div class="item">
+				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.settings')">{{ 'APPEARANCE_GENERAL_SETTINGS' | translate }}</a>
+				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.menus')">{{ 'NAVIGATION_MENUS' | translate }}</a>
+				<div class="item" sm-access="edit_theme_options" if-not="hide">
 					<i class="dropdown icon"></i>
 					<span class="text">{{ 'SIDEBAR_MANAGEMENT' | translate }}</span>
 					<div class="menu">
@@ -142,11 +144,11 @@
 						<a class="item" ng-click="smModal.Show('public.admin.site.appearance.stats')">{{ 'STATS' | translate }}</a>
 					</div>
 				</div>
-				<a class="item" ng-click="smModal.Show('public.admin.site.pages.core.list')">Core page settings</a>
-				<a class="item" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
-				<a class="item" ng-if="app.subdomain != 'my' && (is_site_admin || is_team_member)" ng-click="smModal.Show('public.admin.site.appearance.directory')">Directory Listing</a>
-				<div class="item">
+				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.pages.core.list')">Core page settings</a>
+				<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
+				<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
+				<a class="item" sm-access="edit_site_options" if-not="hide" ng-if="app.subdomain != 'my'" ng-click="smModal.Show('public.admin.site.appearance.directory')">Directory Listing</a>
+				<div class="item" sm-access="manage_apps" if-not="hide">
 					<i class="dropdown icon"></i>
 					<span class="text">Plugins</span>
 					<div class="menu">
@@ -162,9 +164,9 @@
 			<i class="users icon"></i>
 
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
+				<a class="item" sm-access="manage_members" if-not="hide" ng-click="smModal.Show('public.admin.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
 
-				<div class="item">
+				<div class="item" sm-access="manage_access_levels" if-not="hide">
 					<i class="dropdown icon"></i>
 					<span class="text">{{ 'PRODUCTS' | translate }}</span>
 					<div class="menu">
@@ -172,7 +174,7 @@
 						<a class="item" ng-click="smModal.Show('public.admin.site.membership.products')">List</a>
 					</div>
 				</div>
-				<div class="item">
+				<div class="item" sm-access="manage_access_levels" if-not="hide">
 					<i class="dropdown icon"></i>
 					<span class="text">{{ 'PASSES' | translate }}</span>
 					<div class="menu">
@@ -180,8 +182,8 @@
 						<a class="item" ng-click="smModal.Show('public.admin.site.membership.passes')">List</a>
 					</div>
 				</div>
-				<a class="item" ng-click="smModal.Show('public.admin.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
-				<a class="item" ui-sref="public.admin.wallboard" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
+				<a class="item" sm-access="manage_transactions" if-not="hide" ng-click="smModal.Show('public.admin.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
+				<a class="item" sm-access="view_financial_stats" if-not="hide" ui-sref="public.admin.wallboard" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.notes')">User notes</a>
 
@@ -201,6 +203,7 @@
 				<a class="item" ng-click="smModal.Show('public.admin.team.email.queue')">{{ 'QUEUE' | translate }}</a>
 			</div>
 		</div>
+
 		<div class="ui top left pointing dropdown icon button" sm-access="manage_support_tickets" if-not="hide" title="Assist your members through the Helpdesk" sui-dropdown sui-popup>
 			<i class="life ring icon"></i>
 
@@ -223,8 +226,7 @@
 	</div>
 </div>
 
-
-<div class="item" sm-access="edit_site_options" if-not="hide" title="Customize the look n' feel of your site" sui-popup>
+<div class="item" sm-access="edit_theme_options" if-not="hide" title="Customize the look n' feel of your site" sui-popup>
 	<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		<i class="options icon"></i>
 		Theme

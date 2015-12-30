@@ -179,7 +179,7 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 	  if(api_resources.indexOf(selected_url)<0)
 	  {
 	      $scope.access_level.information_url = selected_url;
-
+	      $scope.close();
 	      $scope.access_level.isOpen = false;
 
 	  }

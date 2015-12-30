@@ -11,7 +11,8 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 			{
 				var state_data = $state.get( state );
 			}
-			//console.log( 'state_data', state, state_data );
+
+			//console.log( 'params', params );
 			//console.log( stateParams )
 			var stateParams = {};
 			if( params )
@@ -46,10 +47,12 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					dimmerSettings: {
 						opacity: 0.3
 					},
-					onVisible: function() {
+					onVisible: function()
+					{
 						modal.element.addClass( 'smooth_changes' );
 					},
-					onHidden: function() {
+					onHidden: function()
+					{
 						modal.element.removeClass( 'smooth_changes' );
 					}
 				};

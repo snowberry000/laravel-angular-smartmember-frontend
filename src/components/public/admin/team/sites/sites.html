@@ -18,18 +18,17 @@
 				<label class="control-label" for="">Search:</label>
 				<input type="text" id="" name="" value="" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 			</div>
-
 			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="loadMore()" sui-visibility>
-				<a ng-href="//{{next_item.domain ? next_item.domain :  next_item.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="next_item in sites | orderBy:['-total_revenue','-total_members','-total_lessons']">
-					<div class="image flex_center" style="background: {{(next_item.data.site_logo ? next_item.data.site_top_background_color : '#FFF') || ''}}">
-						<img class="ui centered middle aligned image" src="{{next_item.data.site_logo || '/images/white-image.png'}}">
+				<a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons']">
+					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
+						<img class="ui centered middle aligned image" src="{{site.data.site_logo || '/images/white-image.png'}}">
 					</div>
 					<div class="content">
 						<div class="header">
-							{{next_item.name}}
+							{{site.name}}
 						</div>
 						<div class="meta ellipsis">
-							{{next_item.domain ? next_item.domain : next_item.subdomain + '.' + 'smartmember.com' }}
+							{{site.domain ? site.domain : site.subdomain + '.' + 'smartmember.com' }}
 						</div>
 						<div class="description">
 
@@ -40,23 +39,23 @@
 						<div class="ui three normal statistics">
 							<div class="statistic" title="Site members" sui-popup>
 								<div class="value">
-									<i class="users grey icon"></i> {{next_item.total_members}}
+									<i class="users grey icon"></i> {{site.total_members}}
 								</div>
 							</div>
 							<div class="statistic" title="Site revenue" sui-popup>
 								<div class="value">
-									{{next_item.total_revenue | currency:"$":0}}
+									{{site.total_revenue | currency:"$":0}}
 								</div>
 							</div>
 							<div class="statistic" title="Site lessons" sui-popup>
 								<div class="value">
-									{{next_item.total_lessons}} <i class="graduation grey icon"></i>
+									{{site.total_lessons}} <i class="graduation grey icon"></i>
 								</div>
 							</div>
 						</div>
 
 					</div>
-					<div class="ui bottom attached indicating progress" data-value="{{next_item.progress}}" data-total="5" sui-progress title="Setup wizard progress" sui-popup>
+					<div class="ui bottom attached indicating progress" data-value="{{site.progress}}" data-total="5" sui-progress title="Setup wizard progress" sui-popup>
 						<div class="bar"></div>
 					</div>
 				</a>

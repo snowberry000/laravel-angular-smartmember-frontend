@@ -18,7 +18,6 @@ DetectAndPerformBridgePageThings();
 	<title>Smart Member</title>
 	<meta name="description" content="">
 
-	<link rel="stylesheet" href="bower/ui-iconpicker/dist/styles/ui-iconpicker.min.css">
 	<!-- <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css"> -->
 	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="css/vendor.min.css">
@@ -35,7 +34,6 @@ DetectAndPerformBridgePageThings();
 <script src="js/vendor.min.js"></script>
 <script src="js/main.min.js"></script>
 
-<script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>
 <!-- <script src="bower/slimScroll/jquery.slimscroll.min.js"></script> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.js"></script>
 <!--script src="js/library.min.js"></script-->
