@@ -52,12 +52,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				}
 			}
 
-			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) + ( $scope.access_level ? '&access_level=' + $scope.access_level : '' ) + ( $scope.access_level_status ? '&access_level_status=' + $scope.access_level_status : '' ) ).then( function( data )
-			{
-				$scope.loading = false;
-				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
-			} );
+			Restangular.all('siteRole')
+				.getList()
+				.then(function(response){
+					$scope.data = response;
+				});
 		}
 	}
 
@@ -85,17 +84,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			}
 		}
 
-		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) + ( $scope.access_level ? '&access_level=' + $scope.access_level : '' ) + ( $scope.access_level_status ? '&access_level_status=' + $scope.access_level_status : '' ) ).then( function( data )
-		{
-			$scope.pagination.total_count = data.total_count;
-
-			$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
-
-			$scope.loading = false;
-		}, function( error )
-		{
-			$scope.data = [];
-		} )
+		Restangular.all('siteRole')
+				.getList()
+				.then(function(response){
+					$scope.data = response;
+				});
 	}
 
 

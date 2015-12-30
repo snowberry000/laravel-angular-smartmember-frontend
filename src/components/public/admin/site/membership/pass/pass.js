@@ -18,13 +18,13 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 			roleRequest=null;
 			if( $stateParams.id )
 			{
-				$accessPassRequest = Restangular.one( 'pass', $stateParams.id ).get().then(function(response){
+				$accessPassRequest = Restangular.one( 'siteRole', $stateParams.id ).get().then(function(response){
 					$access_pass = response;
 				});
 			}
 			$access_pass = { site_id: $site.id };
 
-			roleRequest = Restangular.all( 'role' ).customGET('', { site_id: $site.id } ).then(function(response){
+			roleRequest = Restangular.all( 'siteRole' ).customGET('', { site_id: $site.id } ).then(function(response){
 				roles = response;
 			});
 
@@ -52,7 +52,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 			$scope.page_title = $scope.access_pass.id ? 'Edit Pass' : 'Grant New Pass';
 			if($scope.access_pass.id)
 				$scope.access_pass.expired_at = moment($scope.access_pass.expired_at).toDate();
-			$scope.roles = roles.items;
+			$scope.roles = roles;
 			$scope.access_levels = access_levels;
 		}
 
@@ -96,7 +96,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 		}
 
 		$scope.create = function(){
-			Restangular.service("pass").post($scope.access_pass).then(function(response){
+			Restangular.service("siteRole").post($scope.access_pass).then(function(response){
 	            toastr.success("Access pass created!");
 	            smModal.Show("public.admin.site.membership.passes");
 			});
