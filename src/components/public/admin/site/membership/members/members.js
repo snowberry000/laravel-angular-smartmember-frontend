@@ -27,6 +27,12 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.pagination = { current_page: 1 };
 	$scope.pagination.total_count = 1;
 
+	$scope.resolve = function(){
+		Restangular.all('accessLevel').getList({site_id : $scope.site.id}).then(function(response){
+			$scope.access_levels = response;
+		})
+	}
+
 	$scope.paginate = function()
 	{
 
@@ -61,6 +67,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	}
 
 	$scope.paginate();
+	$scope.resolve();
 
 	$scope.search = function()
 	{
@@ -252,9 +259,10 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			member.new_access_pass = {
 				access_level_id: member.new_access_level,
 				user_id: member.user_id,
-				site_id: $site.id
+				site_id: $site.id,
+				type : 'member'
 			}
-			Restangular.service( "pass" ).post( member.new_access_pass ).then( function( response )
+			Restangular.service( "siteRole" ).post( member.new_access_pass ).then( function( response )
 			{
 				toastr.success( "Access pass created!" );
 				member.new_access_pass_saving = false;
