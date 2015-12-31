@@ -43,11 +43,10 @@
 
 						<div class="field">
 							<label>Granted Product Levels</label>
-							<select multiple ng-model="access_level.grants" class="form-control granted_access_levels">
 
+							<select multiple="" class="ui fluid dropdown" ng-model="access_level.grants" class="form-control granted_access_levels" sui-dropdown>
+								<option value="">Access Levels</option>
 								<option ng-selected="exists(al.id)" ng-repeat="al in access_levels" value={{al.id}}>{{al.name}}</option>
-									
-
 							</select>
 							<span class="help-block m-b-none">
 								Select any other Product Levels you want owners of this Product Level to get access to.
