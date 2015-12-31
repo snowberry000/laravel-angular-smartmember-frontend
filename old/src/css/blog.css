@@ -1,0 +1,39 @@
+.authorbox {
+	display: block;
+	border-bottom: 1px solid #EEE;
+	color: #9e9ea6;
+	line-height: 1.25rem;
+	position: relative;
+	float:right;
+}
+
+.authorbox a {
+	background-color: rgb(246, 246, 246);
+}
+.authorbox a.member_image {
+	float: left;
+	margin: .2rem .5rem 0 -2.75rem;
+	width: 36px;
+	height: 36px;
+}
+
+.authorbox .real_name,
+.authorbox .other_info {
+	display: inline-block;
+	max-width: 540px;
+}
+.authorbox .real_name {
+	font-weight: 900;
+	color: #555459;
+}
+.blog_container img {
+	margin-bottom: 1rem !important;
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+.blog_container {
+	max-width: 50rem !important;
+	width: inherit !important;
+}
+

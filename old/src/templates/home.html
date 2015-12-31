@@ -1,0 +1,84 @@
+<nav class="top {{is_landing?'':'persistent'}}">
+    <a ng-href="/" class="logo"></a>
+    <ul>
+        <li><a ng-href="software">Products</a></li>
+        <li><a ng-href="pricing">Pricing</a></li>
+        <li><a href="http://help.smartmember.com" target="_blank">Support</a></li>
+        <li><a ng-href="blog">Blog</a></li>
+        <li class="sign_in"><a href="http://my.smartmember.com" target="_blank">Sign in</a></li>
+        <li>
+            <a ng-href="pricing" class="btn_sticky ga_track_signup mxpnl_signup_nav ">
+                Sign up for free
+            </a>
+        </li>
+        <li class="mobile_menu_btn">
+            <a href="#" class="btn_sticky">Menu</a>
+        </li>
+    </ul>
+</nav>
+<nav class="top fixed" aria-hidden="true" style="{{is_landing?'':'display:none;'}}">
+    <a ng-href="/" class="logo"></a>
+    <ul>
+        <li><a ng-href="software">Products</a></li>
+        <li><a ng-href="pricing">Pricing</a></li>
+        <li><a href="http://help.smartmember.com" target="_blank">Support</a></li>
+        <li><a ng-href="blog">Blog</a></li>
+        <li class="sign_in"><a href="http://my.smartmember.com" target="_blank">Sign in</a></li>
+        <li>
+            <a ng-href="pricing" class="btn_sticky ga_track_signup mxpnl_signup_nav ">
+                Sign up for free
+            </a>
+        </li>
+        <li class="mobile_menu_btn">
+            <a href="#" class="btn_sticky">Menu</a>
+        </li>
+    </ul>
+</nav>
+<nav class="mobile_menu loading" aria-hidden="true">
+    <a ng-href="/" class="logo"></a>
+    <a href="#" class="close" aria-label="close"><i class="ts_icon ts_icon_times"></i></a>
+    <ul>
+        <li><a ng-href="software">Products</a></li>
+        <li><a ng-href="pricing">Pricing</a></li>
+        <li><a href="http://help.smartmember.com" target="_blank">Support</a></li>
+        <li><a ng-href="blog">Blog</a></li>
+        <li><a href="http://my.smartmember.com" target="_blank">Sign in</a></li>
+    </ul>
+    <a ng-href="pricing" class="sign_up ga_track_signup mxpnl_signup_nav ">Sign up for free</a>
+</nav>
+
+<ui-view></ui-view>
+
+<footer class="footer_dark">
+    <section>
+        <div class="grid">
+            <div class="col span_1_of_4 nav_col">
+                <ul>
+                    <li><a href="http://help.smartmember.site">Support</a></li>
+                    <li><a ng-href="policies">Policies</a></li>
+                </ul>
+            </div>
+            <div class="col span_1_of_4 nav_col">
+                <ul>
+                    <li><a ng-href="privacy-policy">Privacy</a></li>
+                    <li><a ng-href="terms-of-service">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="col span_1_of_4 nav_col">
+                <ul>
+                    <li><a href="https://status.smartmember.com">Status</a></li>
+                    <li><a href="http://help.smartmember.site">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col span_1_of_4 nav_col">
+                <ul>
+                    <li><a ng-href="blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</footer>
+
+<script>
+    var _SCROLL_FIXED_CUTOFF = 75;
+</script>

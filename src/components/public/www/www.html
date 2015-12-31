@@ -23,4 +23,4 @@
 	<a class="item">Signup</a>
 </div>
 
-<ui-view></ui-view>
+<div class="{{isLoggedIn() ? 'logged_in' : ''}}" ui-view></div>
