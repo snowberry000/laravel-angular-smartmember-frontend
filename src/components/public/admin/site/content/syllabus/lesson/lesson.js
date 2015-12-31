@@ -20,7 +20,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "SyllabusLessonController", function( $scope,smModal, $q, $rootScope, $localStorage, $timeout, $state, $location, $stateParams,  $filter, Restangular, toastr, Upload )
+app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close, $rootScope, $localStorage, $timeout, $state, $location, $stateParams,  $filter, Restangular, toastr, Upload )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
@@ -474,8 +474,13 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, $rootS
             {
                 Restangular.one( 'draft', draft.id ).remove();
             }
+            
             $scope.next_item = lesson;
 			toastr.success( "Lesson has been saved" );
+			if($stateParams.close){
+				close(lesson);
+				return;
+			}
 			if( $rootScope.syllabus_redirect_url )
 			{
 				smModal.Show($rootScope.syllabus_redirect_url);

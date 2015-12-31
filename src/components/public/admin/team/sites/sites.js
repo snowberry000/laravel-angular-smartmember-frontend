@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "SitesController", function( $scope, $rootScope, $localStorage, toastr, $location, Restangular, $state, notify )
+app.controller( "SitesController", function( $scope, $rootScope, $filter , $localStorage, toastr, $location, Restangular, $state, notify )
 {
 	$scope.can_create_sites = true; //TODO: fix this to use proper SM customer detection
 
@@ -21,6 +21,16 @@ app.controller( "SitesController", function( $scope, $rootScope, $localStorage, 
 	$scope.iter = 0;
 
 	$scope.sites = [];
+
+	$scope.filterBy = function(role){
+		if(role == 'admin'){
+			$scope.sites = $filter('filter')($rootScope.sites,{role : 'admin'});
+			var sites_2 = $filter('filter')($rootScope.sites,{role : 'owner'});
+			$scope.sites = $scope.sites.concat(sites_2);
+		}else{
+			$scope.sites = $filter('filter')($rootScope.sites,{role : role});
+		}
+	}
 
 	$scope.deleteSite = function( site )
 	{
