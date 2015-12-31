@@ -1,42 +1,49 @@
 <div class="ui modal">
-    <div class="content">
-        <div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
-            <div class="sk-bounce1"></div>
-            <div class="sk-bounce2"></div>
-            <div class="sk-bounce3"></div>
-        </div>
-        <div ng-if="!loading" class="card clearfix large_top_margin">
-            <h4 style="margin-bottom:20px;">Configure JVZoo Grabber for <strong>{{company.name}}</strong></h4>
-            <div class="col span_2_of_6 small">
-                Install the extension
-            </div>
-            <div class="col span_4_of_6 ">
-                <label class="small">
-                    <a target="_blank" href="https://chrome.google.com/webstore/detail/affiliate-approval-pro/fgdfpdiamefbcdghabjipjbpabggfbfb" data-bypass="true">
-                        <button class="btn btn-success ">JV Affiliate Chrome Extension</button>
-                    </a>
-                </label>
-            </div>
-            <div class="clear_both"></div>
-            <div class="col span_2_of_6 small">
-                Copy this URL to the Affiliate Approval Pro extension settings.
-            </div>
-            <div class="col span_4_of_6 ">
-                <label class="small">
-                    <div class="input-group" ng-init="init()">
-                        <input class="form-control input-lg endpoint-api" id="copy_me" disabled ng-model="url" />
-                            <span class="input-group-btn">
-                                <a class="btn copy-button" style="height:45px;" data-clipboard-target="#copy_me" data-clipboard-action="copy" clip-copy="url" ng-click="copied()" >Copy</a>
-                            </span>
-                    </div>
-                </label>
-            </div>
-            <div class="clear_both"></div>
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button close" ng-click="smModal.Show(\"public.admin.team.app_configurations.{{integration_id ? 'list' : 'available'}}\")">
-            Cancel
-        </div>
-    </div>
+	<div class="header">
+		<i class="configure icon"></i>
+		{{current_integration ? 'Configure' : 'Install'}} JVZoo Grabber App
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<h3 class="ui horizontal divider header">
+				<i class="setting icon"></i>
+				Settings
+			</h3>
+
+			<div class="ui segment form" ng-submit="saveIntegration()">
+
+				<div class="inline field">
+					<label>Install the extension</label>
+					<a href="https://chrome.google.com/webstore/detail/affiliate-approval-pro/fgdfpdiamefbcdghabjipjbpabggfbfb" target="_blank" class="ui right labeled icon button">
+						Go to Play Store
+						<i class="external icon"></i>
+					</a>
+				</div>
+
+				<div class="field">
+					<label>Your webhook url</label>
+
+					<div class="ui action input" ng-init="init()">
+						<input type="text" class="endpoint-api" id="copy_me" ng-model="url">
+						<button class="ui teal right labeled icon button copy-button" data-clipboard-target="#copy_me" data-clipboard-action="copy" clip-copy="url" ng-click="copied()">
+							<i class="copy icon"></i>
+							Copy
+						</button>
+					</div>
+
+					<div class="ui ignored info message">
+						<p>Copy this URL to the Affiliate Approval Pro extension settings.</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="actions">
+		<div class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
+	</div>
 </div>

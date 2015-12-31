@@ -1,4 +1,53 @@
 <div class="ui modal">
+	<div class="header">
+		<i class="configure icon"></i>
+		{{current_integration ? 'Configure' : 'Install'}} JVZoo Payments App
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<h3 class="ui horizontal divider header">
+				<i class="setting icon"></i>
+				Settings
+			</h3>
+
+			<div class="ui segment form">
+
+				<div class="field">
+					<label>Use this as your JVZIPN url</label>
+
+					<div class="ui action input" ng-init="init()">
+						<input type="text" class="endpoint-api" id="copy_me" value="{{app.apiUrl + '/transaction?type=jvzoo&subdomain=' + current_site.subdomain}}">
+						<button class="ui teal right labeled icon button copy-button" data-clipboard-target="#copy_me" data-clipboard-action="copy" clip-copy="app.apiUrl + '/transaction?type=jvzoo&subdomain=' + current_site.subdomain" ng-click="copied()">
+							<i class="copy icon"></i>
+							Copy
+						</button>
+					</div>
+				</div>
+				<div class="field">
+					<label>Use this as your Thank You Page url (optional)</label>
+
+					<div class="ui action input">
+						<input type="text" class="endpoint-api" id="copy_me2" value="{{'http://' + ( current_site.domain ? current_site.domain : current_site.subdomain + '.' + app.rootDomain ) + '/thank-you'}}">
+						<button class="ui teal right labeled icon button copy-button" data-clipboard-target="#copy_me2" data-clipboard-action="copy" clip-copy="'http://' + ( current_site.domain ? current_site.domain : current_site.subdomain + '.' + app.rootDomain ) + '/thank-you'" ng-click="copied()">
+							<i class="copy icon"></i>
+							Copy
+						</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="actions">
+		<div class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
+	</div>
+</div>
+
+<div class="ui modal">
     <div class="content">
         <div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
             <div class="sk-bounce1"></div>
