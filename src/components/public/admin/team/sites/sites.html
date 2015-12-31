@@ -12,26 +12,26 @@
 				</div>
 				<div class="ui left icon input">
 					<i class="search icon"></i>
-					<input type="text" placeholder="Search..." ng-model="$parent.query" ng-change="search()">
+					<input type="text" placeholder="Search..." ng-model="$parent.query">
 				</div>
 				<div class="header">
 					<i class="tags icon"></i>
 					Filter by role
 				</div>
 				<div class="divider"></div>
-				<div class="item">
+				<div class="item" ng-click="filterBy('admin')">
 					<span class="description">2 sites</span>
 					<span class="text">Admin</span>
 				</div>
-				<div class="item">
+				<div class="item" ng-click="filterBy('editor')">
 					<span class="description">2 sites</span>
 					<span class="text">Editor</span>
 				</div>
-				<div class="item">
+				<div class="item" ng-click="filterBy('support')">
 					<span class="description">2 sites</span>
 					<span class="text">Support</span>
 				</div>
-				<div class="item">
+				<div class="item" ng-click="filterBy('member')">
 					<span class="description">2 sites</span>
 					<span class="text">Member</span>
 				</div>
@@ -50,7 +50,7 @@
 			</div>
 
 			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="loadMore()" sui-visibility>
-				<a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons']">
+				<a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query">
 					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
 						<img class="ui centered middle aligned image" src="{{site.data.site_logo || '/images/white-image.png'}}">
 					</div>
