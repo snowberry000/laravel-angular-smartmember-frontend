@@ -16,15 +16,15 @@ app.controller("Forum-categoryController", function ($scope,$stateParams,Restang
 			$scope.category = response;
 		});
 
-	$scope.addTopic = function(title){
-		if(!title){
-			return;
-		}
+	$scope.addTopic = function(){
+		$scope.topic.category_id = $scope.category.id;
+		$scope.topic.site_id = $scope.site.id;
+
 		Restangular.service('forumTopic')
-			.post({title: title, category_id: $scope.category.id, site_id: $scope.site.id})
+			.post($scope.topic)
 			.then(function(response){
 				$scope.category.topics.push(response);
-				$scope.title = "";
+				$scope.topic = {};
 			});
 	}
 

@@ -23,8 +23,8 @@ app.controller("ForumController", function ($scope,Restangular) {
 		Restangular.service('forumCategory')
 			.post($scope.category)
 			.then(function(response){
-				console.log(response);
 				$scope.categories.push(response);
+				$scope.category = {};
 			});
 	}
 
