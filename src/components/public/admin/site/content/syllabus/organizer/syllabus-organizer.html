@@ -56,7 +56,7 @@
 								</button>
 							</span>
 						</div>
-						<ul ui-sortable="LessonSortableOptions" class="sortable-list agile-list connectLessons">
+						<ul ui-sortable="false" class=" agile-list connectLessons">
 							<li data-ng-repeat="next_item in module.lessons" ng-class="{1:'info-element',2:'success-element', 3:'warning-element', 4:'danger-element', '':'success-element'}[next_item.access_level_type]" class="lesson_item" data-id="{{next_item.id}}">
 
 								<div class="row">

@@ -29,7 +29,9 @@
 			</div>
 			<div class="field">
 				<label>Add Icon Field here</label>
-				<input ng-model='category.icon' placeholder="Icon">
+				<sm-iconpicker icon='{{category.icon}}'>
+				</sm-iconpicker>
+				<!-- <input ng-model='category.icon' placeholder="Icon"> -->
 			</div>
 			<button class="ui button" type="submit">Create</button>
 		</form>
