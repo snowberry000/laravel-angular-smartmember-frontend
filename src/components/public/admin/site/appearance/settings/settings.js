@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SettingsController", function ($scope, $rootScope, $localStorage, $location, $stateParams,  Restangular, toastr) {
+app.controller("SettingsController", function ($scope,smModal, $rootScope, $localStorage, $location, $stateParams,  Restangular, toastr) {
 	 $rootScope.not_homepage_setting = false;
 	 $site_options=null;
 	 $site=$rootScope.site;
@@ -35,6 +35,7 @@ app.controller("SettingsController", function ($scope, $rootScope, $localStorage
 	     delete $scope.site_options.open;
 	     Restangular.all('siteMetaData').customPOST($scope.site_options, "save").then(function () {
 	         toastr.success("Options are saved!");
+	         smModal.Close('public.admin.site.appearance.settings');
 	         $scope.site_options.isOpen = false;
 	         $localStorage.homepage_url = $scope.site_options.homepage_url;
 	     });
