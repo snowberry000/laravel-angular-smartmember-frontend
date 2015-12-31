@@ -9,6 +9,17 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("WWWSiteController", function ($scope) {
+app.controller("WWWSiteController", function ($scope, Restangular, $stateParams) {
+
+	Restangular.one('directoryByPermalink',$stateParams.permalink).get().then( function( response ) {
+
+		$scope.site_listing = response;
+
+	});
+
+	$scope.JoinSite = function( site_id )
+	{
+
+	}
 
 });

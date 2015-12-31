@@ -7,7 +7,7 @@
 		<a class="item">Site Directory</a>
 		<a class="item">Company</a>
 		<a class="item" ng-href="https://chrisrecord.clickfunnels.com/smjv" target="_blank">JVs</a>
-		<div class="right menu">
+		<div class="right menu" ng-if="!isLoggedIn()">
 			<div class="item">
 				<a sm-class="'ui ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' button'" ng-click="smModal.Show('public.sign.in');">Log in</a>
 				<a sm-class="'ui ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' button'" ng-click="smModal.Show('public.sign.up');">Sign-up</a>
