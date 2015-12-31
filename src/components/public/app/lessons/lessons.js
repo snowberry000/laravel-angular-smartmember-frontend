@@ -178,11 +178,13 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
 
     $scope.addModuleDone = function(added_module){
         if(added_module && added_module.id){
+            added_module.show_me = true;
             $scope.modules.push(added_module);
         }
     }
 
     $scope.editModuleDone = function(edited_module){
+        edited_module.show_me = true;
         if(edited_module && edited_module.id){
 
             for (var i = 0; i < $scope.modules.length; i++) {
@@ -195,11 +197,12 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     }
 
     $scope.done = function(response){
-        alert('done')
+        //alert('done')
         // $state.transitionTo($state.current, $stateParams, { 
         //   reload: true, inherit: false, location: false
         // });
         // return;
+        smModal.Close();
         switch($scope.syllabus.current_action){
             case 'edit_lesson':
                 $scope.editLessonDone(response);

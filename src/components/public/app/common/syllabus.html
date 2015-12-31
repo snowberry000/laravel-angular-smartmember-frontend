@@ -33,7 +33,6 @@
 			</div>
 		</div>
 	</div>
-	<pre>{{syllabus}}</pre>
 	<div class="ui attached segment" ng-show="query">
 		<h3 class="ui header">Search results for "{{query}}"</h3>
 	</div>
@@ -41,7 +40,7 @@
 		<a class="ui button" ng-click="addLesson()">Add Lesson</a>
 		<a class="ui button" ng-click="addModule()">Add Module</a>
 	</div>
-	<div class="ui attached segment section_background_color" ng-repeat="(key, module) in modules" ng-if="module.lessons.length > 0 && (!query || ( module.lessons | filter: query).length > 0)">
+	<div class="ui attached segment section_background_color" ng-repeat="(key, module) in modules" ng-if="(module.lessons.length > 0 || module.show_me) && (!query || ( module.lessons | filter: query).length > 0)">
 		<a sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
 			({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
 			<i class="{{hide_module ? 'plus' : 'minus'}} icon"></i>
