@@ -69,7 +69,28 @@ app.controller('LessonsController', function ($scope, $rootScope, $localStorage,
             $rootScope.Modulelessons.push.apply( $rootScope.Modulelessons, $filter('orderBy')($scope.modules[i].lessons, 'sort_order') );
         }
     });
-    
+
+    $scope.toggleComplete = function(lesson){
+        if (!lesson.user_note){
+            Restangular.service('userNote')
+                .post({complete: 1})
+                .then(function(response){
+                    lesson.user_note = response;
+                });
+                return;
+        }
+
+        Restangular.one('userNote',lesson.user_note.id)
+            .put({complete: lesson.user_note.complete ? 0 : 1})
+            .then(function(response){
+                console.log(response);
+                lesson.user_note.complete = !lesson.user_note.complete;
+            });
+        
+
+    }
+
+
     $scope.cutString = function(s, n){
         var cut= s.indexOf(' ', n);
         if(cut== -1) return s;
