@@ -32,17 +32,14 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="publish()" class="ui right labeled icon button">
-			Publish
+		<a ng-click="cancel(); smModal.Show(template_data.cancel_route)" class="ui right labeled icon button">
+			Cancel
 		</a>
 		<a ng-click="saveAsDraft()" class="ui right labeled icon button" ng-if="next_item.access_level_type!=1">
 			Save as Draft
 		</a>
-		<a ng-click="cancel(); smModal.Show(template_data.cancel_route)" class="ui right labeled icon button">
-			Cancel
+		<a ng-click="publish()" class="ui right labeled icon button">
+			Publish
 		</a>
-		<div class="ui black deny button close">
-			Close
-		</div>
 	</div>
 </div>
