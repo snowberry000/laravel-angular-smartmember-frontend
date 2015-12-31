@@ -47,6 +47,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					dimmerSettings: {
 						opacity: 0.3
 					},
+					context: 'body',
 					onVisible: function()
 					{
 						modal.element.addClass( 'smooth_changes' );

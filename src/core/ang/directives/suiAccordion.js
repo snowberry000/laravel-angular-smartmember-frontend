@@ -1,4 +1,4 @@
-app.directive( 'suiAccordion', ['smModal', function( smModal )
+app.directive( 'suiAccordion', ['smModal', '$timeout', function( smModal, $timeout )
 {
 	return {
 		restrict: 'A',
@@ -8,7 +8,10 @@ app.directive( 'suiAccordion', ['smModal', function( smModal )
 				duration: 100,
 				onChange: function()
 				{
-					smModal.Refresh();
+					$timeout( function()
+					{
+						smModal.Refresh();
+					}, 100 );
 				}
 			} );
 		}
