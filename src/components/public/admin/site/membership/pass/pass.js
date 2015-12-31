@@ -84,7 +84,6 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 		$scope.save = function(){
 			if ($scope.access_pass.id){
 				$scope.update();
-				smModal.Show("public.admin.site.membership.passes");
 			}else{
 	            $scope.create();
 	        }
@@ -92,6 +91,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 
 		$scope.update = function(){
 			$scope.access_pass.put().then(function(response){
+				smModal.Show("public.admin.site.membership.passes");
 	            toastr.success("Changes saved!");
 			})
 		}
