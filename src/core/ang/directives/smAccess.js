@@ -8,7 +8,6 @@ app.directive( 'smAccess', function()
 				return;
 			}
 
-
 			for (var i = 0; i < scope.site.capabilities.length; i++) {
 
 				if(scope.site.capabilities[i] == attributes.smAccess){

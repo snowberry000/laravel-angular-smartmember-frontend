@@ -36,12 +36,17 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 
 	$rootScope.$watch( 'sites_loaded', function( new_value, old_value )
 	{
-		console.log( 'sites_loaded changed to ', new_value, ' from ', old_value );
 
-		if( $rootScope.sites.length > 0 )
+		if( $rootScope.sites.length > 1 )
 		{
 			// list of sites option
 			smModal.Show( 'public.admin.team.sites' );
+		}else{
+
+			if ($rootScope.sites.length == 1 && $rootScope.sites[0].subdomain == 'sm'){
+				smModal.Show( 'public.admin.wizard', {id: 'account_wizard', modal_options: {duration:0} } );
+			}
+
 		}
 
 	}, true );
