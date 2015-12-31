@@ -80,7 +80,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, i
 					window.location.href = $localStorage.accessed_url;
 				}
 				toastr.success( "Registered!" );
-				location.reload();
+				//location.reload();
 
 			},
 			function( response )
