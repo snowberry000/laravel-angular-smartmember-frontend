@@ -105,56 +105,43 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 	$scope.delete = function( id )
 	{
 		smModal.Show('public.app.delete' , {route : 'accessLevel' , id : id} , null , $scope.afterDelete);
-		/*
-		var modalInstance = $modal.open( {
-			templateUrl: 'templates/modals/deleteConfirm.html',
-			controller: "modalController",
-			scope: $scope,
-			resolve: {
-				id: function()
-				{
-					return id
-				}
-			}
-
-		} );
-		modalInstance.result.then( function()
-		{
-			var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
-			{
-				return next_item.id === id;
-			} );
-
-			itemWithId.remove().then( function()
-			{
-				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
-			} );
-		} )*/
 	};
 
 	$scope.refreshHash = function( $access )
 	{
-		var modalInstance = $modal.open( {
-			templateUrl: 'templates/modals/hashUpdateConfirm.html',
-			controller: "modalController",
-			scope: $scope
+		// var modalInstance = $modal.open( {
+		// 	templateUrl: 'templates/modals/hashUpdateConfirm.html',
+		// 	controller: "modalController",
+		// 	scope: $scope
+		// } );
+		Restangular.service( "accessLevel/refreshHash" ).post( $access ).then( function( response )
+		{
+
+			for( var i = 0; i < $scope.data[ $scope.pagination.current_page ].length; i++ )
+			{
+				if( $scope.data[ $scope.pagination.current_page ][ i ].id == response.id )
+				{
+					$scope.data[ $scope.pagination.current_page ].splice( i, 1, response );
+				}
+			}
+			toastr.success( "Product level hash updated!" );
 		} );
 
-		modalInstance.result.then( function()
-		{
-			Restangular.service( "accessLevel/refreshHash" ).post( $access ).then( function( response )
-			{
+		// modalInstance.result.then( function()
+		// {
+		// 	Restangular.service( "accessLevel/refreshHash" ).post( $access ).then( function( response )
+		// 	{
 
-				for( var i = 0; i < $scope.data[ $scope.pagination.current_page ].length; i++ )
-				{
-					if( $scope.data[ $scope.pagination.current_page ][ i ].id == response.id )
-					{
-						$scope.data[ $scope.pagination.current_page ].splice( i, 1, response );
-					}
-				}
-				toastr.success( "Product level hash updated!" );
-			} );
-		} )
+		// 		for( var i = 0; i < $scope.data[ $scope.pagination.current_page ].length; i++ )
+		// 		{
+		// 			if( $scope.data[ $scope.pagination.current_page ][ i ].id == response.id )
+		// 			{
+		// 				$scope.data[ $scope.pagination.current_page ].splice( i, 1, response );
+		// 			}
+		// 		}
+		// 		toastr.success( "Product level hash updated!" );
+		// 	} );
+		// } )
 	}
 
 	$scope.copied = function()
