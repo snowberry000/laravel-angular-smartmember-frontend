@@ -31,7 +31,6 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 
 	$scope.initialize = function () {
 		$scope.dirty = {};
-		alert("initialized");
 		
 		if ($scope.emailList.segment_query)
 		    $scope.dirty.value = $scope.emailList.segment_query;

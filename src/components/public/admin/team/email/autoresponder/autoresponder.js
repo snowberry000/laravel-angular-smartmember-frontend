@@ -18,32 +18,34 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	if ($stateParams.id){
 		$autoResponder = Restangular.one('emailAutoResponder', $stateParams.id).get().then(function(response){
 			$scope.autoResponder = response;
-			if (!$scope.autoResponder.id){
-			    $scope.autoResponder.emails = [];
-			}
-			else
-			{
-			    $scope.tempAutoResponder={company_id:$site.company_id,emails:[],lists:{}};
-			    for(var i=0;i<$scope.autoResponder.emails.length;i++)
-			    {
-			        $scope.tempAutoResponder.emails.push({email_id:$scope.autoResponder.emails[i].id, subject:$scope.autoResponder.emails[i].subject, delay:$scope.autoResponder.emails[i].pivot.delay, unit:$scope.autoResponder.emails[i].pivot.unit,sort_order:$scope.autoResponder.emails[i].pivot.sort_order});
-			    }
-			    for(var i=0;i<$scope.autoResponder.email_lists.length;i++)
-			    {
-			        $scope.tempAutoResponder.lists[$scope.autoResponder.email_lists[i].id]=true;
-			    }
-			    delete $scope.autoResponder.emails;
-			    $scope.autoResponder.emails=$scope.tempAutoResponder.emails;
-			    $scope.autoResponder.lists=$scope.tempAutoResponder.lists;
-			    delete $scope.autoResponder.email_lists;
-			    $scope.autoResponder.emails=$filter('orderBy')($scope.autoResponder.emails, 'sort_order');
-			}
 		});
 	}else{
-		$autoResponder = {company_id: $site.company_id};
+		$scope.autoResponder = {company_id: $site.company_id};
 	}
 	$scope.loading = true;
-	$q.all([$emails , $emailLists , $autoResponder]).then(function(res){$scope.loading = false})
+	$q.all([$emails , $emailLists , $autoResponder]).then(function(res){
+		$scope.loading = false;
+		if (!$scope.autoResponder.id){
+		    $scope.autoResponder.emails = [];
+		}
+		else
+		{
+		    $scope.tempAutoResponder={company_id:$site.company_id,emails:[],lists:{}};
+		    for(var i=0;i<$scope.autoResponder.emails.length;i++)
+		    {
+		        $scope.tempAutoResponder.emails.push({email_id:$scope.autoResponder.emails[i].id, subject:$scope.autoResponder.emails[i].subject, delay:$scope.autoResponder.emails[i].pivot.delay, unit:$scope.autoResponder.emails[i].pivot.unit,sort_order:$scope.autoResponder.emails[i].pivot.sort_order});
+		    }
+		    for(var i=0;i<$scope.autoResponder.email_lists.length;i++)
+		    {
+		        $scope.tempAutoResponder.lists[$scope.autoResponder.email_lists[i].id]=true;
+		    }
+		    delete $scope.autoResponder.emails;
+		    $scope.autoResponder.emails=$scope.tempAutoResponder.emails;
+		    $scope.autoResponder.lists=$scope.tempAutoResponder.lists;
+		    delete $scope.autoResponder.email_lists;
+		    $scope.autoResponder.emails=$filter('orderBy')($scope.autoResponder.emails, 'sort_order');
+		}
+	})
 
 	$scope.emailId = false;
 	
@@ -120,6 +122,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	}
 
 	$scope.create = function(){
+		$scope.autoResponder.company_id=$rootScope.site.company_id;
 	    Restangular.service("emailAutoResponder").post($scope.autoResponder).then(function(response){
 	        // notify({
 	        //         message:"Auto Responder created!",
