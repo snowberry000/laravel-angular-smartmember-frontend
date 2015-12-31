@@ -1,0 +1,70 @@
+
+<div class="ui modal">
+	<div class="content">
+		<div class="row">
+			<div class="col-lg-12">
+
+				<div class="ibox-content clear_box page-heading">
+					<div class="p-xs">
+						<div class="row">
+							<div class="col-md-9">
+								<div class="pull-left m-r-md">
+									<i class="fa fa-envelope-o text-branded mid-icon"></i>
+								</div>
+								<h2 class="ui header">{{ 'IMPORT_QUEUE' | translate }}</h2>
+								<span>View the progress of your member import.</span>
+							</div>
+							<div class="col-md-3 text-right">
+								<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+									<i class="fa fa-question"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox">
+					<div class="ibox-content">
+						<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+							<div class="sk-bounce1"></div>
+							<div class="sk-bounce2"></div>
+							<div class="sk-bounce3"></div>
+						</div>
+						<table class="ui fixed single line celled stackable table" data-page-size="3" ng-if="data.length > 0 && !loading" foonice>
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Status</th>
+									<th>Active</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="next_item in data[ pagination.current_page ]">
+									<td class="responsive_table_item">
+										{{moment.utc(next_item.created_at).fromNow()}}
+									</td>
+									<td style="width: 80px;">
+										{{next_item.status}}
+									</td>
+									<td style="width: 80px;">
+										{{next_item.active == 0 ? 'Inactive' : 'Active'}}
+									</td>
+
+								</tr>
+
+							</tbody>
+						</table>
+						<div class="text-right" ng-if="!loading">
+							<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.current_page" class="pagination-sm " boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

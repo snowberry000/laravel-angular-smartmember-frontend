@@ -314,6 +314,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.deleteResource = function( id )
 	{
+		console.log('Delete pressed');
 		var itemWithId = _.find($scope.data[ $scope.pagination.current_page ], function (next_item) {
 			return next_item.id == id;
 		});

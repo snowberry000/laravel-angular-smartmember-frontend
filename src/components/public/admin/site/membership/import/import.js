@@ -16,6 +16,9 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 	$scope.resolve = function(){
 		Restangular.all('accessLevel').getList({site_id : $site.id}).then(function(response){
 			$scope.access_levels = response;
+		});
+		Restangular.all('importJob/active').customGET().then(function(response) {
+			$scope.active_count = response;
 		})
 	}
 
