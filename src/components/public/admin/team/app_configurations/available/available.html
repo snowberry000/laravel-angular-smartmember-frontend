@@ -1,31 +1,27 @@
 <div class="ui modal">
-	<i class="close icon"></i>
-
 	<div class="header">
-		<i class="paragraph icon"></i>
-		Available {{ 'app_configurations' | translate }}
+		<i class="configure icon"></i>
+		Available Apps
 	</div>
 	<div class="content">
 		<div class="description">
-			<p>Extend the power of your sites by connecting 3rd-party apps and tools.</p>
 
-			<div class="ui three cards">
-				<div class="card" ng-repeat="integration in availableapp_configurations | filter: search" ng-click="SetIntegrationViewbox(integration.id)">
+			<div class="ui message">
+				<p>Extend the power of your sites by installing & connecting 3rd-party apps and tools.</p>
+			</div>
+
+			<div class="ui divided link items">
+				<a class="item" ng-repeat="integration in availableapp_configurations | filter: search" ng-click="smModal.Show('public.admin.team.integration.configure',{integration: integration.id});">
+					<div class="ui tiny image">
+						<img src="{{integration.logo}}">
+					</div>
 					<div class="content">
-						<img class="right floated mini ui image" src="{{integration.logo}}">
-						<div class="header">
-							{{integration.name}}
-						</div>
+						<div class="header">{{integration.name}}</div>
 						<div class="description">
-							{{integration.description}}
+							<p>{{integration.description}}</p>
 						</div>
 					</div>
-					<div class="extra content">
-						<div class="ui one buttons">
-							<div class="ui basic green button" ng-click="smModal.Show('public.admin.team.integration.configure',{integration: integration.id});">add new</div>
-						</div>
-					</div>
-				</div>
+				</a>
 			</div>
 
 		</div>
