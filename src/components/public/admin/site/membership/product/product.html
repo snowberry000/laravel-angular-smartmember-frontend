@@ -44,7 +44,10 @@
 						<div class="field">
 							<label>Granted Product Levels</label>
 							<select multiple ng-model="access_level.grants" class="form-control granted_access_levels">
+
 								<option ng-selected="exists(al.id)" ng-repeat="al in access_levels" value={{al.id}}>{{al.name}}</option>
+									
+
 							</select>
 							<span class="help-block m-b-none">
 								Select any other Product Levels you want owners of this Product Level to get access to.
@@ -52,7 +55,7 @@
 								aka. if this is your "Gold" level, select Bronze and Silver.
 							</span>
 						</div>
-						<div class="field">
+						<div class="field" ng-hide="true">
 							<label>Granted Shared Product Levels</label>
 							<select multiple ng-model="access_level.shared_grants" class="form-control granted_access_levels">
 								<option ng-selected="exists_share(al.access_level.id)" ng-repeat="al in shared_access_levels" value={{al.access_level.id}}>{{al.access_level.name}}</option>
