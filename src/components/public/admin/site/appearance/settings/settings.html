@@ -298,7 +298,70 @@
 
 						</div>
 					</div>
-				</div>	
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Access Level Share Keys (advanced)
+				</div>
+				<div class="content">
+
+					<div class="ui form transition hidden">
+						<div id="" class="col span_6_of_6">
+
+							<h4 class="ui header">Add a New Key</h4>
+							<div class="field">
+								<div class="col-sm-8">
+									<input type="text" class="form-control input-lg" ng-model="key">
+								</div>
+								<div class="col-sm-4">
+									<div class="ui black deny button close" ng-click="saveNewKey()">
+										Add Key
+									</div>
+								</div>
+							</div>
+
+							<table class="ui fixed single line celled stackable table" data-page-size="15">
+								<thead>
+								<tr>
+									<th data-hide="title">Key</th>
+									<th data-hide="title">Original Site Name</th>
+									<th data-hide="title">Original Site URL</th>
+									<th data-hide="date">Date</th>
+									<th class="text-right" data-sort-ignore="true">Action</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="next_item in keys">
+									<td>
+										{{next_item.key}}
+									</td>
+									<td>
+										{{next_item.originate_site.name}}
+									</td>
+									<td>
+										{{next_item.originate_site.subdomain}}.smartmember.com
+									</td>
+									<td>
+										{{moment.utc(next_item.created_at).fromNow()}}
+									</td>
+									<td class="text-right">
+										<!--<button class="btn btn-danger btn-outline btn-sm ng-scope" ng-click="delete(next_item.id)">
+                                            Delete
+                                            <i class="fa fa-trash"></i>
+                                        </button> -->
+
+									</td>
+								</tr>
+
+								</tbody>
+								<tfoot>
+								<tr>
+								</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</div>
