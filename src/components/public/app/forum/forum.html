@@ -46,8 +46,8 @@
 					<div class="meta">
 						<span class="cinema">{{cat.total_topics}} topics, {{cat.total_replies}} replies</span>
 					</div>
-					<div class="description">
-						<p>{{cat.description}}</p>
+					<div class="description" >
+						<p dynamic=cat.description></p>
 					</div>
 					<div class="extra">
 						<div class="ui label"><i class="{{cat.access_level_type > 1 ? 'lock' : ''}} icon"></i> {{cat.access_level_type | accessType}} </div>
