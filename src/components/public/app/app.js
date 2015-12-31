@@ -10,7 +10,8 @@ app.config( function( $stateProvider )
 				$site: function( Restangular )
 				{
 					return Restangular.one( 'site', 'details' ).get();
-				}
+				},
+
 			}
 		} )
 } );
@@ -33,6 +34,12 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 	$scope.bannerView = function( $id )
 	{
 		Restangular.one( 'trackViews', $id ).customPOST( {} );
+	}
+
+	$scope.resolve = function(){
+		Restangular.all( 'accessLevel' ).getList( { site_id: $site.id } ).then(function(response){
+			$rootScope.access_levels = response;
+		})
 	}
 
 	$scope.init = function()
@@ -252,4 +259,5 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 	},true );
 
 	$scope.initPublicSite();
+	$scope.resolve();
 } );

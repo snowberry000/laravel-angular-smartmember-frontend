@@ -95,6 +95,7 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 			itemWithId.remove().then( function()
 			{
 				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+				$rootScope.access_levels = _.without($rootScope.access_levels , itemWithId);
 			} );
 			setTimeout(function() {smModal.Show('public.admin.site.membership.products');}, 1000);
 			
