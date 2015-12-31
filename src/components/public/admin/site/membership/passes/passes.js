@@ -82,6 +82,7 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 			return next_item.id === parseInt(id);
 		} );
 		Restangular.all('siteRole').customPUT({access_level_id : null} , id).then(function(response){
+			toastr.success("Access pass deleted!");
 			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
 		})
 	};

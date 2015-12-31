@@ -1,49 +1,72 @@
 <div class="ui modal">
+	<div class="header">
+		<i class="configure icon"></i>
+		{{current_integration ? 'Configure' : 'Install'}} Sendgrid App
+	</div>
 	<div class="content">
-		<div ng-include="'templates/components/public/admin/team/app_configurations/common/single-heading.html'"></div>
-		<div ng-include="'templates/components/public/admin/team/app_configuration/configure/sendgrid-setup.html'"></div>
+		<div class="description">
 
-		<div class="ibox">
-			<div class="ibox-content">
+			<h3 class="ui horizontal divider header">
+				<i class="magic icon"></i>
+				Setup Instructions
+			</h3>
 
-				<form method="get" class="ui form">
+			<div class="ui ignored positive message">
+				<p>Follow these steps to install the {{integration.name}} app.</p>
+			</div>
 
-					<h2 class="ui header">Integration Settings</h2>
 
-					<div class="field m-t-md">
-						<label class="col-sm-3 control-label">Sendgrid Username</label>
+			<div class="ui styled fluid accordion" sui-accordion>
+				<h3 class="ui top attached header title active">
+					Step 1
+				</h3>
+				<div class="ui attached segment content active">
+					<p>If you don't already have a Sendgrid account, visit <a href="https://sendgrid.com/pricing" target="_blank">sendgrid.com/pricing <i class="fa fa-external-linkfa-sm"></i></a> to sign up for one.</p>
+					<img class="ui large bordered image" src="https://s3.amazonaws.com/smpub/media/sendgrid-step-1.png">
+				</div>
+				<h3 class="ui attached header title">
+					Step 2
+				</h3>
+				<div class="ui attached segment content">
+					<p>Scroll to the bottom of the page, and click the <strong>Try for Free</strong> button to sign up for their free account.</p>
+					<img class="ui large bordered image" src="https://s3.amazonaws.com/smpub/media/sendgrid-step-2.png">
+				</div>
+				<h3 class="ui attached header title">
+					Step 3
+				</h3>
+				<div class="ui attached segment content">
+					<p>Enter in the required details to create your new account, then paste them in the settings below.</p>
+					<img class="ui large bordered image" src="https://s3.amazonaws.com/smpub/media/sendgrid-step-3.png">
+				</div>
+			</div>
 
-						<div class="col-sm-9">
-							<input type="text" class="form-control" ng-model="current_integration.username">
-							<span class="help-block m-b-none"></span>
-						</div>
-					</div>
+			<h3 class="ui horizontal divider header">
+				<i class="setting icon"></i>
+				Settings
+			</h3>
 
-					<div class="hr-line-dashed"></div>
+			<div class="ui segment form">
+				<div class="field">
+					<label>Sendgrid Username</label>
+					<input type="text" ng-model="current_integration.username">
+				</div>
 
-					<div class="field m-t-sm">
-						<label class="col-sm-3 control-label">Sendgrid Password</label>
-
-						<div class="col-sm-9">
-							<input type="password" class="form-control" ng-model="current_integration.password">
-							<span class="help-block m-b-none"></span>
-						</div>
-					</div>
-
-					<div class="hr-line-dashed"></div>
-
-				</form>
+				<div class="field">
+					<label>Sendgrid Password</label>
+					<input type="password" ng-model="current_integration.password">
+				</div>
 			</div>
 		</div>
-
 	</div>
+
 	<div class="actions">
-		<button ng-click="saveIntegration()" ng-disabled="(!current_integration.username || !current_integration.password)" class="ui right labeled icon button">
-	        Save changes
-	        <i class="checkmark icon"></i>
-	    </button>
-	    <div class="ui black deny button close" ng-click="smModal.Show(\"public.admin.team.app_configurations.{{integration_id ? 'list' : 'available'}}\")">
-	        Cancel
-	    </div>
+		<div class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
+		<button ng-click="saveIntegration()" ng-disabled="(!current_integration.username || !current_integration.password)" class="ui right labeled icon green button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</button>
 	</div>
 </div>
+
