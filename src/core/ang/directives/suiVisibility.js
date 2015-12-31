@@ -15,6 +15,13 @@ app.directive( 'suiVisibility', function( $timeout )
 				};
 
 				$( next_item ).find( 'img' ).visibility( the_options );
+
+				$timeout( function()
+				{
+					//$( next_item ).find( 'img' ).visibility('refresh');
+
+				}, 1000 );
+
 				console.log( "doing visibility with", $( next_item ).find( 'img' ), the_options );
 			}
 			else
