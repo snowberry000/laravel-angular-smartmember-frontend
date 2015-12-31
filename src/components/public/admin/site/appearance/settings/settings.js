@@ -13,6 +13,8 @@ app.controller("SettingsController", function ($scope,smModal, $rootScope, $loca
 	 $rootScope.not_homepage_setting = false;
 	 $site_options=null;
 	 $site=$rootScope.site;
+	 $scope.keys = [];
+
 	 $scope.resolve =function() {
 	 	Restangular.all("siteMetaData").getList().then(function(response){
  			$site_options = response;
@@ -23,7 +25,24 @@ app.controller("SettingsController", function ($scope,smModal, $rootScope, $loca
  				$scope.site_options[data.key] = data.value;
  		 	});
 	 	})
-		
+		 Restangular.all( 'sharedKey/associatedKey' ).customGET().then( function( data )
+		 {
+			 if (data.total_count > 0)
+			 {
+				 angular.forEach (data.items, function(item){
+					 $scope.keys.push(item);
+				 })
+			 }
+		 });
+
+	 }
+
+	 $scope.saveNewKey = function()
+	 {
+		 Restangular.all('accessLevelShareKey').post({key: $scope.key}).then(function(response){
+			 $scope.keys.push(response);
+			 toastr.success("Your site has been associated with this new key");
+		 });
 	 }
 
 	 $scope.updateMenuItem = function ( model ) {
