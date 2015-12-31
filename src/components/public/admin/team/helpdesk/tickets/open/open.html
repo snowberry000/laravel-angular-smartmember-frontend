@@ -3,12 +3,12 @@
 	<p class="alert alert-info">No tickets found</p>
 </div>
 
-<table class="ui table" ng-if="tickets[pagination.currentPage].length > 0 && !loading">
+<table class="ui selectable table" ng-if="tickets[pagination.currentPage].length > 0 && !loading">
 	<thead>
 		<tr>
 			<th>Reporter</th>
+			<th>Activity</th>
 			<th>Assignee</th>
-			<th>SLA</th>
 			<th>Age</th>
 		</tr>
 	</thead>
@@ -16,7 +16,7 @@
 		<tr class="warning" ng-click="smModal.Show('public.admin.team.helpdesk.ticket' , {id: next_item.id})" ng-repeat="next_item in tickets[pagination.currentPage] | orderBy : customSort : 'true'">
 			<td>
 				<h4 class="ui image header">
-					<img src="/images/avatar2/small/lena.png" class="ui mini rounded image">
+					<img src="{{next_item.profile_image || '/images/image.png'}}" class="ui mini rounded image">
 					<div class="content">
 						{{next_item.user_name || next_item.user_email}}
 						<div class="sub header">
@@ -24,10 +24,6 @@
 						</div>
 					</div>
 				</h4>
-			</td>
-			<td class="single line">
-				<span ng-if="next_item.sm_tech" style="color:rgb(181, 82, 82);">SM Tech</span>
-				<span ng-hide="next_item.sm_tech">{{next_item.agent.first_name}} {{next_item.agent.last_name}}</span>
 			</td>
 			<td class="single line">
 				<span ng-show="next_item.last_replied_at==null">
@@ -38,71 +34,16 @@
 				</span>
 			</td>
 			<td class="single line">
+				<span ng-if="next_item.sm_tech" style="color:rgb(181, 82, 82);">SM Tech</span>
+				<span ng-hide="next_item.sm_tech">{{next_item.agent.first_name}} {{next_item.agent.last_name}}</span>
+			</td>
+			<td class="single line">
 				{{moment.utc(next_item.created_at).fromNow(true)}}
 			</td>
 		</tr>
 	</tbody>
 </table>
 
-<table class="ui fixed single line celled stackable table" data-page-size="6" foonice>
-	<thead>
-		<tr>
-			<th data-hide="phone,tablet">Status</th>
-			<th data-toggle="true">Ticket</th>
-			<th data-hide="phone,tablet">Customer</th>
-			<th data-hide="phone">Assignee</th>
-			<th data-hide="all">Customer Email</th>
-			<th data-hide="all">Site</th>
-			<th data-hide="phone">Activity</th>
-			<th data-hide="all">Date Created</th>
-			<th class="text-right" data-hide="phone,tablet" data-sort-ignore="true">Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td style="width: 80px;">
-				<span class="label m-r-sm" ng-class="{open:'label-danger',pending:'label-warning', solved:'label-success', spam:'label-plain'}[next_item.status]">
-					{{next_item.status}}
-				</span>
-			</td>
-			<td class="responsive_table_item">
-				{{next_item.subject}}
-				<small class="block">{{excerpt(next_item.message)}}</small>
-			</td>
-			<td style="width: 180px;">
-				<strong></strong>
-			</td>
-			<td style="width: 160px;">
-				<span ng-if="next_item.sm_tech" style="color:rgb(181, 82, 82);">SM Tech</span>
-				<span ng-hide="next_item.sm_tech">{{next_item.agent.first_name}} {{next_item.agent.last_name}}</span>
-			</td>
-			<td>
-				{{next_item.user_email}}
-			</td>
-			<td>
-				{{siteUrl(next_item)}}
-			</td>
-			<td style="width: 110px;">
-
-
-
-			</td>
-			<td style="width: 140px;">
-
-			</td>
-			<td class="text-right" style="width: 100px;">
-				<div class="btn-group">
-					<a class="btn btn-brand m-t-xs btn-outline btn-md">
-						<i class="fa fa-pencil"></i>
-						Reply
-					</a>
-				</div>
-			</td>
-
-		</tr>
-
-	</tbody>
-</table>
 <span ng-if="pagination.total_count > 0">{{pagination.total_count}} tickets found</span>
 <span ng-if="pagination.total_count == 0">No tickets found</span>
 <div class="text-right" ng-if="!loading && tickets[pagination.currentPage].length > 0">
