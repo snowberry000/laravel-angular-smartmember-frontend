@@ -60,7 +60,7 @@
 					<div class="ui divider"></div>
 
 					<div class="ui labeled icon menu" ui-sortable="sortableOptions" ng-model="footer_menu_items">
-						<a ng-click="open(next_item, 'main')" class="item" ng-repeat="next_item in footer_menu_items" data-component="{{next_item}}">
+						<a ng-click="open(next_item, 'footer')" class="item" ng-repeat="next_item in footer_menu_items" data-component="{{next_item}}">
 							<i ng-if="next_item.icon" class="{{next_item.icon}} icon"></i>
 							<img ng-if="next_item.featured_image" class="ui mini image m-b-xs" src="{{next_item.featured_image}}">
 							<img ng-if="!next_item.icon && !next_item.featured_image" class="ui mini image m-b-xs" src="/images/image.png">
