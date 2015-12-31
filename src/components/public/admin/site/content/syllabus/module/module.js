@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
         } )
 } );
 
-app.controller( "ModuleController", function( $scope, smModal, $rootScope, $localStorage, $state, $stateParams,  Restangular, toastr )
+app.controller( "ModuleController", function( $scope, smModal, close , $rootScope, $localStorage, $state, $stateParams,  Restangular, toastr )
 {
 
 	$scope.init=function(){
@@ -55,6 +55,10 @@ app.controller( "ModuleController", function( $scope, smModal, $rootScope, $loca
 		if( $scope.module.id )
 		{
 			$scope.module.put();
+			if($stateParams.close){
+				close($scope.module);
+				return;
+			}
 			smModal.Show('public.admin.site.content.syllabus.modules');
 			toastr.success( "Module has been updated!" );
 		}
@@ -63,6 +67,10 @@ app.controller( "ModuleController", function( $scope, smModal, $rootScope, $loca
 			Restangular.all( 'module' ).post( $scope.module ).then( function( module )
 			{
 				$scope.module = module;
+				if($stateParams.close){
+					close(module);
+					return;
+				}
 				toastr.success( "Module has been saved" );
 				smModal.Show('public.admin.site.content.syllabus.modules');
 			} );
