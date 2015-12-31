@@ -38,7 +38,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 
 	$scope.current_site_domain = window.location.host;
 	$rootScope.active_theme_option_section = 'layout';
-	
+
 	$scope.GetAdminBarInclude = function()
 	{
 		if( $scope.isLoggedIn() /*&& !$rootScope.isSitelessPage()*/ )
@@ -60,41 +60,44 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 			{
 				$grouped_sites = response;
 				$sites = response;
-				$sites = _.uniq($sites, function(item, key, a) { 
-				    if(item)
-				    	return item.id;
-				});
+				$sites = _.uniq( $sites, function( item, key, a )
+				{
+					if( item )
+					{
+						return item.id;
+					}
+				} );
 				/*
-				$grouped_sites.admin = _.uniq($grouped_sites.admin, function(item, key, a) { 
-				    if(item)
-				    	return item.id;
-				});
-				$grouped_sites.member = _.uniq($grouped_sites.member, function(item, key, a) {
-					if(item)
-				    	return item.id;
-				});*/
+				 $grouped_sites.admin = _.uniq($grouped_sites.admin, function(item, key, a) {
+				 if(item)
+				 return item.id;
+				 });
+				 $grouped_sites.member = _.uniq($grouped_sites.member, function(item, key, a) {
+				 if(item)
+				 return item.id;
+				 });*/
 				//if( $grouped_sites.admin )
 				//{
-					/*angular.forEach( $grouped_sites.admin, function( next_item, key )
-					{
-						if( next_item.sites )
-						{
-							$sites = $sites.concat( next_item.sites );
-						}
-					} );*/
-					//$sites = $sites.concat( $grouped_sites.admin );
+				/*angular.forEach( $grouped_sites.admin, function( next_item, key )
+				 {
+				 if( next_item.sites )
+				 {
+				 $sites = $sites.concat( next_item.sites );
+				 }
+				 } );*/
+				//$sites = $sites.concat( $grouped_sites.admin );
 				//}
 
 				/*if( $grouped_sites.member )
-				{
-					$sites = $sites.concat( $grouped_sites.member );
-				}*/
+				 {
+				 $sites = $sites.concat( $grouped_sites.member );
+				 }*/
 
 				console.log( '$sites', $sites );
 
 				angular.forEach( $sites, function( site, key )
 				{
-					if(!site)
+					if( !site )
 						return;
 					site.data = {};
 					angular.forEach( site.meta_data, function( data, key )
@@ -102,7 +105,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 						site.data[ data.key ] = data.value;
 					} );
 
-					
+
 					site.is_site_admin = $scope.isAdmin( $rootScope.user.role, site );
 					site.is_team_member = $scope.isTeamMember( $rootScope.user.role, site );
 					site.is_agent = $scope.isAgent( $rootScope.user.role, site );
@@ -158,12 +161,20 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 		}
 	}
 
-	$rootScope.isSitelessPage = function()
+	$rootScope.isSitelessPage = function( specific_site )
 	{
 		var parts = location.hostname.split( '.' );
 		var subdomain = parts.shift();
+		var domain = parts.shift();
 
-		if( subdomain == 'my' )
+		if( domain != 'smartmember' )
+			return false;
+
+		if( specific_site )
+		{
+			return (subdomain == specific_site);
+		}
+		else if( subdomain == 'my' || subdomain == 'www' )
 		{
 			return true;
 		}
@@ -328,21 +339,27 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 		return vars;
 	}
 
-    $rootScope.$_GET = getUrlVars();
+	$rootScope.$_GET = getUrlVars();
 
-    if( $rootScope.$_GET['cbreceipt'] ) {
-        if (!$localStorage.user) {
-            smModal.Show('public.sign.transaction');
-        } else {
-            $http.defaults.headers.common['Authorization'] = "Basic " + $localStorage.user.access_token;
-            Restangular.all('').customGET('user/transactionAccess/' + $rootScope.$_GET['cbreceipt'] ).then(function(response){
-                location.href = location.href.substr(0, location.href.indexOf('?') );
-            });
-        }
-    }
-    else if( location.href.indexOf('?signup') != -1 ){
-        smModal.Show('public.sign.up');
-    }
+	if( $rootScope.$_GET[ 'cbreceipt' ] )
+	{
+		if( !$localStorage.user )
+		{
+			smModal.Show( 'public.sign.transaction' );
+		}
+		else
+		{
+			$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
+			Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
+			{
+				location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
+			} );
+		}
+	}
+	else if( location.href.indexOf( '?signup' ) != -1 )
+	{
+		smModal.Show( 'public.sign.up' );
+	}
 
 
 	$scope.cancelThemeSelection = function()

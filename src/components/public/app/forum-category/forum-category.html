@@ -5,19 +5,21 @@
 		<i class="right arrow icon divider"></i>
 		<div class="active section">{{category.title}}</div>
 	</div>
-	
 	<div class="ui attached segment">
 		<p>{{category.description}}</p>
 	</div>
 	<div class="ui attached segment">
-		<div class="ui right labeled left icon fluid input">
-			<i class="comment icon"></i>
-			<input type="text" ng-model='title' placeholder="Start a new topic">
-			<a class="ui tag label" ng-click='addTopic(title)'>
-				<i class="plus icon"></i>
-				Add New Topic
-			</a>
-		</div>
+		<form class="ui form" ng-submit='addTopic()'>
+			<div class="field">
+				<label>Title</label>
+				<input ng-model='topic.title' placeholder="Title">
+			</div>
+			<div class="field">
+				<label>Description</label>
+				<textarea froala rows="2" ng-model='topic.description'></textarea>
+			</div>
+			<button class="ui button" type="submit">Add New Topic</button>
+		</form>
 	</div>
 	<div class="ui attached segment">
 

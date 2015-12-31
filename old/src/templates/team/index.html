@@ -1,0 +1,76 @@
+<div class='team-title'>
+	<h1>{{team.display_name}}</h1>
+	<h3>{{team.subtitle}}</h3>
+</div>
+
+<div class='row block' >
+	<div class='col-sm-4'>
+		<div class='featured_image'>
+			<img src='{{team.display_image}}'>
+		</div>
+	</div>
+	<div class='col-sm-8'>
+		<h2>Team Biography</h2>
+		<div dynamic="team.bio">
+			
+		</div>
+		
+		<div class='stats'>
+			<div class='stat' ng-if="!team.hide_total_lessons">
+				<h6>Lessons</h6>
+				<span class='count'>{{team.stats.total_lessons}}</span>
+			</div>
+			<div class='stat' ng-if="!team.hide_sites">
+				<h6>Sites</h6>
+				<span class='count'>{{team.sites.length}}</span>
+			</div>
+			<div class='stat' ng-if="!team.hide_members">
+				<h6>Members</h6>
+				<span class='count'>{{team.stats.total_members}}</span>
+			</div>
+			<div class='stat' ng-if="!team.hide_revenue">
+				<h6>Revenue</h6>
+				<span class='count'>{{team.stats.total_revenue}}</span>
+			</div>
+			<div class='stat' ng-if="!team.hide_total_downloads">
+				<h6>Downloads</h6>
+				<span class='count'>{{team.stats.total_downloads}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='box block'>
+	<h2 class='text-center'>Other sites by {{team.display_name}}</h2>
+	<div class='clearfix'></div>
+	<div class="row">
+		<div class='col-offset-md-3'></div>
+		<div class="col-md-3" ng-repeat="site in team.sites">
+			<div class="card compact clearfix no_bottom_padding">
+				<div>
+					<img class="img-responsive" src="{{course.image}}">
+					<a ng-href='/course/{{site.permalink}}'>
+						<h5 class="no_bottom_margin small_top_margin">{{site.title}}</h5>
+					</a>
+					<br/>
+					<p class="">
+						<a href="http://{{site.site.subdomain}}.{{app.domain}}/sign/up" target="new" class="btn btn_outline btn_small"><i class="ts_icon ts_icon_comment_o"></i> Join</a>
+						<a href="http://{{site.site.subdomain}}.{{app.domain}}/" target="new" class="btn btn_outline btn_small small_left_margin"><i class="ts_icon ts_icon_align_left"></i> Visit</a>
+					</p>
+				</div>
+
+				<div class="clear_both"></div>
+				<hr class="small_bottom_margin small_top_margin">
+				<div class="col span_6_of_6 no_right_padding no_bottom_margin">
+					<div class="col span_2_of_6 bold ">{{site.site.total_members}} members</div>
+					<div class="col span_4_of_6 align_right_desktop">
+						<a href="#">${{site.site.total_revenue}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+

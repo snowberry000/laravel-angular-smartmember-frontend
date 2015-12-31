@@ -1,0 +1,49 @@
+<div id="page">
+    <div id="page_contents">
+        <section class="intro" id="top" style="margin-bottom:0rem">
+            <div class="col margin_auto float_none align_center bottom_padding no_right_padding">
+                <h1 class="large align_center">{{blogPost.title}}</h1>
+                <h2 class="align_center">Published on <em>{{formatDate(blogPost.created_at)}}</em></h2>
+
+            </div>
+        </section>
+        <div class="" infinite-scroll="loadMore()" infinite-scroll-distance='1' infinite-scroll-disabled="disable">
+            <section class=" blog_container clearfix top" style="padding: 3rem 0;">
+                <div class="section_content" style="padding: 1rem 0;">
+
+                    <div id="file_page" class="card">
+                        <div class="span_6_of_6">
+                            <img src="{{blogPost.featured_image}}" alt="" />
+                            <div class="post_body" dynamic="blogPost.content">
+                            </div>
+                        </div>
+
+                        <div class="clear_both"></div>
+
+                        <div class="authorbox">
+
+                            <a href="http://facebook.com/JohnRazmus" target="_blank" ng-if="blogPost.author.profile_image" class="lazy member_preview_link member_image thumb_36" style="background-image: url('{{blogPost.author.profile_image}}')"></a>
+                            <a href="http://facebook.com/JohnRazmus" target="_blank" ng-if="!blogPost.author.profile_image" class="lazy member_preview_link member_image thumb_36" style="background-image: url('https://secure.gravatar.com/avatar/{{blogPost.author.email_hash}}.jpg?s=48')"></a>
+
+                            <span class="real_name">{{blogPost.author.first_name}} {{blogPost.author.last_name}}</span>
+                            <br>
+                            <span class="other_info">
+                                <a href="http://twitter.com/JohnRazmus" target="_blank" class="indifferent_grey">@twitter</a>
+                                <span class="bullet">&bullet;</span>
+                                <a href="http://fb.com/JohnRazmus" target="_blank" class="indifferent_grey">fb</a>
+                            </span>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <a ng-href="blog" class="btn float_left small_top_margin"><i class="ts_icon ts_icon_create_post"></i> back to The Blog</a>
+
+            </section>
+        </div>
+
+    </div>
+</div>
