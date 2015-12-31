@@ -41,13 +41,16 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 		{
 			// list of sites option
 			smModal.Show( 'public.admin.team.sites' );
-		}else{
+		}
+		/*
+		else{
 
 			if ($rootScope.sites.length == 1 && $rootScope.sites[0].subdomain == 'sm'){
 				smModal.Show( 'public.admin.wizard', {id: 'account_wizard', modal_options: {duration:0} } );
 			}
 
 		}
+		*/
 
 	}, true );
 
