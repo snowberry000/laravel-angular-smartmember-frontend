@@ -85,7 +85,6 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 	}
 
 	$scope.afterDelete = function(id){
-
 		if(id){
 			var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
 			{
@@ -97,9 +96,9 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
 				$rootScope.access_levels = _.without($rootScope.access_levels , itemWithId);
 			} );
-			setTimeout(function() {smModal.Show('public.admin.site.membership.products');}, 1000);
-			
+			toastr.success("Access level deleted!");
 		}
+		setTimeout(function() {smModal.Show('public.admin.site.membership.products');}, 1000);
 		
 	}
 
