@@ -18,4 +18,14 @@ app.controller("ForumController", function ($scope,Restangular) {
 			$scope.categories = response;
 		});
 
+	$scope.add = function(){
+		$scope.category.site_id = $scope.site.id;
+		Restangular.service('forumCategory')
+			.post($scope.category)
+			.then(function(response){
+				console.log(response);
+				$scope.categories.push(response);
+			});
+	}
+
 });
