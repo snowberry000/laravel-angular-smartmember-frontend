@@ -14,7 +14,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	$site = $rootScope.site;
 	$emails = Restangular.all('email').getList().then(function(response){$scope.emails = response});
 	$emailLists = Restangular.all('emailList').getList().then(function(response){$scope.emailLists = response});
-
+	$autoResponder=null;
 	if ($stateParams.id){
 		$autoResponder = Restangular.one('emailAutoResponder', $stateParams.id).get().then(function(response){
 			$scope.autoResponder = response;
