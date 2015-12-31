@@ -144,7 +144,7 @@
 					</div>
 				</div>
 				<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.admin.site.pages.core.list')">Core pages</a>
-				<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
+				<a class="item" ng-if="false" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.admin.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
 				<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.admin.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
 				<a class="item" sm-access="edit_site_options" if-not="hide" ng-if="app.subdomain != 'my'" ng-click="smModal.Show('public.admin.site.appearance.directory')">Directory Listing</a>
 				<div class="item" sm-access="manage_apps" if-not="hide">

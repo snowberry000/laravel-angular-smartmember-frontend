@@ -50,8 +50,8 @@
 				</div>
 
 				<i class="large lock middle aligned icon" style='display: none' sm-access="view_restricted_content" if-not="show" level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}"></i>
-				<i class="large circle thin middle aligned icon" sm-access="view_restricted_content" if-not="hide" level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}" ng-show="!lesson.user_note.complete"></i>
-				<i class="large green checkmark box middle aligned icon" ng-show="lesson.user_note.complete"></i>
+				<i class="large circle thin middle aligned icon" sm-access="view_restricted_content" if-not="hide" level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}" ng-show="!lesson.user_note.complete" ng-click='toggleComplete(lesson)'></i>
+				<i ng-click='toggleComplete(lesson)' class="large green checkmark box middle aligned icon" ng-show="lesson.user_note.complete"></i>
 				
 				<div class="content">
 					<a class="header" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>

@@ -18,4 +18,3 @@ app.config(function($stateProvider){
             }
         })
 });
-
