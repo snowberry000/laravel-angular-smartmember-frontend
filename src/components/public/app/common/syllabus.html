@@ -49,7 +49,7 @@
 				<i class="large checkmark box middle aligned icon" ng-show="lesson.user_note.complete"></i>
 
 				<!-- waiting for a way to tell if current user can access this lesson to show this or not -->
-				<i class="large lock middle aligned icon" ng-show="false"></i>
+				<i class="large lock middle aligned icon" style='display: none' sm-access='view_restricted_content' if-not='show' level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}"></i>
 
 				<div class="content">
 					<a class="header" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
