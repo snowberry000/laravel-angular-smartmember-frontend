@@ -226,7 +226,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 
 		if( !$scope.userNote.note )
 		{
-			toastr.error( "Note is empty can note be saved!" );
+			toastr.error( "Note is empty can not be saved!" );
 			return;
 		}
 
@@ -254,12 +254,6 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		if( !$localStorage.user )
 		{
 			toastr.error( "You must be logged in to save notes" );
-			return;
-		}
-
-		if( !$scope.userNote.note )
-		{
-			toastr.error( "Note is empty can note be saved!" );
 			return;
 		}
 
