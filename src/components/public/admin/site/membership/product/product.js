@@ -133,6 +133,10 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 			// 		$scope.access_levels[i] = response;
 			// 	}
 			// };
+			for (var i = $rootScope.access_levels.length - 1; i >= 0; i--) {
+				if($rootScope.access_levels[i].id == response.id)
+					$rootScope.access_levels[i] = response;
+			};
             toastr.success("Product level updated!");
 			smModal.Show("public.admin.site.membership.products");
 		})
@@ -141,6 +145,7 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 	$scope.create = function(){
 		Restangular.service("accessLevel").post($scope.access_level).then(function(response){
 			//$scope.access_levels.push(response);
+			$rootScope.access_levels.push(response);
             toastr.success("Product level created!");
             smModal.Show("public.admin.site.membership.products");
 		});

@@ -29,9 +29,16 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 	$rootScope.sites_loaded = false;
 	$rootScope.sites = {};
 
+	$rootScope.access_level_types = [
+		{ id: 4, name: 'Draft (admin-only)' },
+		{ id: 3, name: 'Members' },
+		{ id: 2, name: 'Locked' },
+		{ id: 1, name: 'Visitors' },
+	];
+
 	$scope.current_site_domain = window.location.host;
 	$rootScope.active_theme_option_section = 'layout';
-
+	
 	$scope.GetAdminBarInclude = function()
 	{
 		if( $scope.isLoggedIn() /*&& !$rootScope.isSitelessPage()*/ )
