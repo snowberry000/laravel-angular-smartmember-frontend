@@ -96,6 +96,8 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 			{
 				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
 			} );
+			setTimeout(function() {smModal.Show('public.admin.site.membership.products');}, 1000);
+			
 		}
 		
 	}
