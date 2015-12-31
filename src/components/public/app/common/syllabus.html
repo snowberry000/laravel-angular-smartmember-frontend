@@ -1,116 +1,96 @@
-<div class="row">
-	<div class="ui segment basic">
+<div class="ui segment basic">
 
-		<h2 class="ui center aligned header headline_text_color" ng-if="isLoggedIn() && (salesPage!='preview')">
-			<i class="icon fa {{meta_data.cap_icon ? meta_data.cap_icon : 'fa-graduation-cap'}}"></i>
-			{{meta_data.syllabus_text ? meta_data.syllabus_text : 'SYLLABUS'}}
-		</h2>
+	<h2 class="ui center aligned header headline_text_color" ng-if="isLoggedIn() && (salesPage!='preview')">
+		<i class="icon fa {{meta_data.cap_icon ? meta_data.cap_icon : 'fa-graduation-cap'}}"></i>
+		{{meta_data.syllabus_text ? meta_data.syllabus_text : 'SYLLABUS'}}
+	</h2>
 
-		<div ng-if="site.welcome_content && isLoggedIn()" class="fr-view" dynamic="site.welcome_content"></div>
+	<div ng-if="site.welcome_content && isLoggedIn()" class="fr-view" dynamic="site.welcome_content"></div>
+</div>
+
+<div class="syllabus_container">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
 	</div>
 
-</div>
-<div class="row" ng-show="query">
-	<div class="ui segment">
-		<h3 class="ui header">Search results for "{{query}}"</h3>
-	</div>
-</div>
-<div class="row">
-	<div class="ui grid">
-		<div class="sixteen wide column">
-			<div class="ui fluid action input">
-				<input type="text" ng-model="query" placeholder="{{meta_data.search_lesson_text ? meta_data.search_lesson_text : 'Search lessons ..'}}">
+	<div class="ui attached segment">
+		<div class="ui fluid action input">
+			<input type="text" ng-model="query" placeholder="{{meta_data.search_lesson_text ? meta_data.search_lesson_text : 'Search lessons ..'}}">
 
-				<div ng-if="site.show_syllabus_toggle && site.show_syllabus_toggle != '0'">
-					<div class="ui icon buttons">
-						<button class="ui icon button" ng-click="showFormat('list')" ng-class="{list:'active'}[site.syllabus_format]">
-							<i class="fa fa-list icon"></i>
-						</button>
-						<button class="ui icon button" ng-click="showFormat('thumbnail')" ng-class="{thumbnail:'active'}[site.syllabus_format]">
-							<i class="fa fa-th icon"></i>
-						</button>
-					</div>
+			<div ng-if="site.show_syllabus_toggle && site.show_syllabus_toggle != '0'">
+				<div class="ui icon buttons">
+					<button class="ui icon button" ng-click="showFormat('list')" ng-class="{list:'active'}[site.syllabus_format]">
+						<i class="list layout icon"></i>
+					</button>
+					<button class="ui icon button" ng-click="showFormat('thumbnail')" ng-class="{thumbnail:'active'}[site.syllabus_format]">
+						<i class="block layout icon"></i>
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="ui one column grid">
-	<div class="column">
+	<div class="ui attached segment" ng-show="query">
+		<h3 class="ui header">Search results for "{{query}}"</h3>
+	</div>
+	<div class="ui attached segment section_background_color" ng-repeat="(key, module) in modules" ng-if="module.lessons.length > 0 && (!query || ( module.lessons | filter: query).length > 0)">
+		<a sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+			({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
+			<i class="{{hide_module ? 'plus' : 'minus'}} icon"></i>
+		</a>
 
-		<div class="ui segment basic" ng-if="loading" style="min-height:200px;">
-			<div class="ui active inverted dimmer">
-				<div class="ui text loader">Loading</div>
+		<div class="ui very relaxed divided ordered list" ng-show="!hide_module" ng-if="site.syllabus_format == 'list'">
+			<div class="item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-lesson-id="{{module.id}}">
+				<div class="right floated content">
+					<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
+					<div class="ui label" ng-show="lesson.note">{{lesson.note}}</div>
+				</div>
+				<i class="large circle thin middle aligned icon" ng-show="!lesson.user_note.complete"></i>
+				<i class="large checkmark box middle aligned icon" ng-show="lesson.user_note.complete"></i>
+
+				<!-- waiting for a way to tell if current user can access this lesson to show this or not -->
+				<i class="large lock middle aligned icon" ng-show="false"></i>
+
+				<div class="content">
+					<a class="header" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
+					<div class="description"><i class="icon fa fa-lock"></i> {{lesson.access}}</div>
+				</div>
 			</div>
 		</div>
-
-		<div class="ui raised segment section_background_color" ng-repeat="module in modules" ng-if="module.lessons.length > 0 && (!query || ( module.lessons | filter: query).length > 0)">
-			<a sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'">
-				{{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
-				<div ng-hide="1" sm-tools></div>
-			</a>
-
-			<table class="ui very basic table" ng-if="site.syllabus_format == 'list'">
-				<tbody>
-					<tr ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-lesson-id="{{module.id}}">
-						<td style="width:40px;">
-							{{ lesson.showCounter }}
-						</td>
-						<td>
-							<h4 class="ui image header">
-								<div class="content">
-									<a href="/{{lesson.permalink}}">{{lesson.title}}</a>
-									<div class="sub header">
-										<i class="icon fa fa-lock"></i> {{lesson.access}}
-									</div>
-								</div>
-							</h4>
-						</td>
-						<td>
-							{{lesson.dripfeed_note}}
-						</td>
-						<td class="text-right">
-							<strong ng-show="lesson.note">{{lesson.note}}</strong>
-						</td>
-						<td style="width:20px;">
-							<i class="icon fa {{lesson.user_note.complete ? 'fa-check-circle-o' : 'fa-circle-thin'}}" style="{{lesson.user_note.complete ? 'color: rgb(0, 119, 0);' : ''}}"></i>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="ui three cards syllabus_cards stackable m-t-xs" ng-if="site.syllabus_format == 'thumbnail'">
-				<a ng-href="/{{ lesson.permalink }}" class="card" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'">
-					<div class="blurring dimmable image">
-						<div class="ui dimmer">
-							<div class="content">
-								<div class="center">
-									<div class="ui inverted button">View</div>
-								</div>
+		<div class="ui three cards syllabus_cards stackable m-t-xs" ng-show="!hide_module" ng-if="site.syllabus_format == 'thumbnail'">
+			<a ng-href="/{{ lesson.permalink }}" class="card" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'">
+				<div class="blurring dimmable image">
+					<div class="ui dimmer">
+						<div class="content">
+							<div class="center">
+								<div class="ui inverted button">View</div>
 							</div>
 						</div>
-						<img src="{{lesson.featured_image ? lesson.featured_image : '/images/image.png'}}">
 					</div>
-					<div class="content">
-						<div class="header">{{lesson.title}}</div>
-						<div class="meta">
-							{{lesson.note}}
-						</div>
-						<div class="description">
-							{{lesson.description | cut:true:70:' ...'}}
-						</div>
+					<img src="{{lesson.featured_image ? lesson.featured_image : '/images/image.png'}}">
+				</div>
+				<div class="content">
+					<div class="header">{{lesson.title}}</div>
+					<div class="meta">
+						{{lesson.note}}
 					</div>
-					<div class="extra content">
-								  <span class="right floated">
-									<i class="fa {{lesson.user_note.complete ? 'fa-check-circle-o' : 'fa-circle-thin'}} pull-right" style="{{lesson.user_note.complete ? 'color: rgb(0, 119, 0);' : ''}}"></i>
-								  </span>
-								  <span>
-									<i class="icon fa fa-lock"></i>
-									{{lesson.access}}
-								  </span>
+					<div class="description">
+						{{lesson.description | cut:true:70:' ...'}}
 					</div>
-				</a>
-			</div>
-
+				</div>
+				<div class="extra content">
+					<span class="right floated">
+						<i class="fa {{lesson.user_note.complete ? 'fa-check-circle-o' : 'fa-circle-thin'}} pull-right" style="{{lesson.user_note.complete ? 'color: rgb(0, 119, 0);' : ''}}"></i>
+					</span>
+					<span>
+						<i class="icon fa fa-lock"></i>
+						{{lesson.access}}
+					</span>
+				</div>
+			</a>
 		</div>
+
 	</div>
 </div>
+
+
