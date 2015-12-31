@@ -17,7 +17,7 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 	$access_level=null;
 	$facebook_groups=null;
 	$currency=null;
-
+	$scope.keys = [];
 
 	$scope.resolve = function(){
 		$accessLevelRequest=null;
@@ -33,6 +33,25 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 		{
 			$access_level = { site_id: $site.id };
 		}
+
+		Restangular.all( '' ).customGET( 'accessLevel' + '?view=admin&bypass_paging=1&site_id=' + $site.id ).then( function( data )
+		{
+			$scope.access_levels = data.items;
+		});
+
+		Restangular.all('accessLevel/getGrantedShareAccessLevel').customGET().then(function(response) {
+			$scope.shared_access_levels = response;
+		})
+
+		Restangular.all('accessLevelShareKey').customGET().then(function(response) {
+			if (response.total_count > 0)
+			{
+				console.log('items for keys', response.items);
+				angular.forEach (response.items, function(item){
+					$scope.keys.push(item);
+				})
+			}
+		});
 
 		$facebookGroupsRequest = Restangular.one( 'facebook' ).customGET( 'groups' ).then(function(response){
 			$facebook_groups=response;
@@ -157,6 +176,12 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 		}
 	}
 
+	$scope.exists_share = function(id) {
+		if (_.findWhere($scope.access_level.shared_grants,{grant_id: id})){
+			return true;
+		}
+	}
+
     $scope.paymentMethodExists = function(id){
         var $return = false;
         angular.forEach( $scope.access_level.payment_methods, function( value, key ) {
@@ -223,6 +248,17 @@ app.controller("ProductController", function ($scope, $q, $stateParams,smModal, 
 	          
 	    })
 	  }
+	}
+
+	$scope.generateACShareKey = function()
+	{
+		Restangular.all('').customGET('generateShareKey?access_level_id=' + $access_level.id).then( function( response )
+		{
+			$scope.keys.push(response);
+			$scope.key = response.key;
+			toastr.success( "Product level hash updated!" );
+		} );
+
 	}
 
 	$scope.resolve();
