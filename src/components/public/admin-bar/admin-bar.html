@@ -225,7 +225,7 @@
 	</div>
 </div>
 
-<div class="item" sm-access="edit_theme_options" if-not="hide" title="Customize the look n' feel of your site" sui-popup>
+<div class="item" ng-if="app.subdomain != 'my'" sm-access="edit_theme_options" if-not="hide" title="Customize the look n' feel of your site" sui-popup>
 	<a class="ui grey button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		<i class="options icon"></i>
 		Theme
@@ -233,7 +233,7 @@
 </div>
 <div class="right menu">
 
-	<div class="ui category search item" sui-search>
+	<div ng-if="app.subdomain != 'my'" class="ui category search item" sui-search>
 		<div class="ui icon input">
 			<input class="prompt" type="text" placeholder="Search lessons">
 			<i class="search icon"></i>
