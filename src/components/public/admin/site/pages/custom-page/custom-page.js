@@ -33,7 +33,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
     $scope.initialize = function(){
         if(!$scope.next_item.id)
         {
-            $scope.next_item = $rootScope.site.id;
+            $scope.next_item.site_id = $rootScope.site.id;
         }
 
         if($stateParams.clone){
@@ -43,7 +43,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         }
 
         $scope.next_item.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
-        $scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
+        $scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type);
         $scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
 
         if( $scope.next_item.access_level_type == 3 )
