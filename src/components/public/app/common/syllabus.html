@@ -1,5 +1,5 @@
 <div class="ui segment basic">
-
+	{{LessonSortableOptions|json}}
 	<h2 class="ui center aligned header headline_text_color" ng-if="isLoggedIn() && (salesPage!='preview')">
 		<i class="icon fa {{meta_data.cap_icon ? meta_data.cap_icon : 'fa-graduation-cap'}}"></i>
 		{{meta_data.syllabus_text ? meta_data.syllabus_text : 'SYLLABUS'}}
@@ -26,7 +26,7 @@
 					<button class="ui icon button" ng-click="showFormat('thumbnail')" ng-class="{thumbnail:'active'}[site.syllabus_format]">
 						<i class="block layout icon"></i>
 					</button>
-					<button class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="syllabus.edit_mode = true" ng-class="{thumbnail:'active'}[site.syllabus_format]">
+					<button class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="syllabus.edit_mode = !syllabus.edit_mode;" ng-class="{thumbnail:'active'}[site.syllabus_format]">
 						<i class="edit icon"></i>
 					</button>
 				</div>
@@ -40,18 +40,15 @@
 		<a class="ui button" ng-click="addLesson()">Add Lesson</a>
 		<a class="ui button" ng-click="addModule()">Add Module</a>
 	</div>
-	<div class="ui attached segment section_background_color" ng-repeat="(key, module) in modules" ng-if="(module.lessons.length > 0 || module.show_me) && (!query || ( module.lessons | filter: query).length > 0)">
-		<a sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
-			({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
-			<i class="{{hide_module ? 'plus' : 'minus'}} icon"></i>
-			<span class="ui button right floated" ng-if="syllabus.edit_mode && module.id" ng-click="editModule(module)">Edit</span>
-		</a>
+	<div class="ui attached segment section_background_color module_item" data-id="{{module.id}}" ng-repeat="(key, module) in modules" ng-if="(module.lessons.length > 0 || module.show_me) && (!query || ( module.lessons | filter: query).length > 0)" data-id="{{module.id}}">
+		
 
-		<div class="ui very relaxed divided ordered list" ng-show="!hide_module" ng-if="site.syllabus_format == 'list'">
-			<div class="item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-lesson-id="{{module.id}}">
+		<div class="connectLessons ui very relaxed divided ordered list" ng-show="!hide_module" ng-if="site.syllabus_format == 'list'">
+			<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}" >
 				<div class="right floated content">
 					<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
 					<div class="ui label" ng-show="lesson.note">{{lesson.note}}</div>
+					<span class="ui label right floated" style="cursor:pointer;" ng-if="syllabus.edit_mode" ng-click="editLesson(lesson)">Edit</span>
 				</div>
 
 				<i class="large lock middle aligned icon" style='display: none' sm-access="view_restricted_content" if-not="show" level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}"></i>
@@ -62,7 +59,7 @@
 					<a class="header" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
 					
 					<div class="description">{{lesson.access}}
-					<span class="ui button right floated" ng-if="syllabus.edit_mode" ng-click="editLesson(lesson)">Edit</span>
+					
 					</div>
 				</div>
 			</div>

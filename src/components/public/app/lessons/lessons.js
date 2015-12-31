@@ -5,7 +5,20 @@ app.config(function($stateProvider){
 		.state("public.app.lessons",{
 			url: "/lessons",
 			templateUrl: "/templates/components/public/app/lessons/lessons.html",
-			controller: "LessonsController"
+			controller: "LessonsController",
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'ui.sortable'
+                        }
+                    ]);
+                }/*,
+                $site: function(Restangular){
+                    return Restangular.one('site','details').get();
+                }*/
+
+            }
 		})
 }); 
 
@@ -85,6 +98,54 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
                 break;
         }
     }
+    // $scope.saveSyllabus = function(){
+    //     alert("changed");
+    // };
+
+    $scope.saveSyllabus = function () {
+        $scope.toggle_lessons = true;
+        var lessons = [];
+        //alert("called");
+        $.each($(".module_item"), function (key, module) {
+            $upLessons = $(module).find(".lesson_item");
+            if($upLessons.length==0)
+            {
+                lessons.push({
+                    "module": $(module).data("id"), "lesson": null
+                });
+            }
+            $.each($upLessons, function (key, lesson) {
+                if($(lesson).data("id"))
+                    lessons.push({
+                        "module": $(module).data("id"), "lesson": $(lesson).data("id")
+                    });
+            });
+        });
+        Restangular.all('module').customPOST(lessons, "syllabusSave").then(function (data) {
+            toastr.success("Course Content saved");
+        });
+
+    }
+
+    $scope.ModuleSortableOptions = {
+        connectWith: ".connectModulePanels",
+        handler: ".ibox-title",
+        disabled: true,
+        stop: function(e, ui) {
+            $scope.saveSyllabus();
+        }
+    };
+
+    $scope.LessonSortableOptions = {
+        connectWith: ".connectLessons",
+        stop: function(e, ui) {
+            $scope.saveSyllabus();
+        },
+        // start: function(e,ui) {
+        //     return false;
+        // }
+    };
+
     $scope.toggleComplete = function(lesson){
         if (!lesson.user_note){
             Restangular.service('userNote')
