@@ -14,15 +14,12 @@ app.controller("SettingsController", function ($scope,smModal, $rootScope, $loca
 	 $site_options=null;
 	 $site=$rootScope.site;
 	 $scope.resolve =function() {
-	 	Restangular.all( 'siteMetaData' ).getList().then(function(response){
-	 		$site_options=$site.meta_data;
-	 		 $scope.site_options = {};
-	 		 console.log('site_options:');
-	 		 console.log($site_options);
-	 		 $.each($site_options, function (key, data) {
-	 		    $scope.site_options[data.key] = data.value;
-	 		});
-	 		 $scope.site_options.isOpen = false;
+		$site_options=$site.meta_data;
+		$scope.site_options = {};
+		console.log('site_options:');
+		console.log($site_options);
+		$.each($site_options, function (key, data) {
+			$scope.site_options[data.key] = data.value;
 	 	});
 	 }
 
