@@ -21,7 +21,7 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 	$scope.iter = 0;
 
 	$scope.sites = [];
-
+	$scope.siteCounters={};
 	$scope.filterBy = function(role){
 		if(role == 'admin'){
 			$scope.sites = $filter('filter')($rootScope.sites,{role : 'admin'});
@@ -30,6 +30,18 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 		}else{
 			$scope.sites = $filter('filter')($rootScope.sites,{role : role});
 		}
+		$scope.siteCounters[role] = $scope.sites.length;
+	}
+
+	$scope.countSites = function(role){
+		if(role == 'admin'){
+			$scope.tempSites = $filter('filter')($rootScope.sites,{role : 'admin'});
+			var sites_2 = $filter('filter')($rootScope.sites,{role : 'owner'});
+			$scope.tempSites = $scope.tempSites.concat(sites_2);
+		}else{
+			$scope.tempSites = $filter('filter')($rootScope.sites,{role : role});
+		}
+		$scope.siteCounters[role] = $scope.tempSites.length;
 	}
 
 	$scope.deleteSite = function( site )
@@ -60,6 +72,11 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 	{
 		// TODO: this is until scroll-based loading works
 		$scope.sites = $rootScope.sites;
+		$scope.countSites('admin');
+		$scope.countSites('editor');
+		$scope.countSites('support');
+		$scope.countSites('member');
+
 		return;
 
 		console.log( "doing loadMore" );
@@ -77,54 +94,54 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 		}
 	};
 
-	$scope.search = function()
-	{
+	// $scope.search = function()
+	// {
 
-		$scope.loading = true;
-		$scope.adminSites = [];
-		$scope.memberSites = [];
-		$scope.currentPage = 1;
-		$scope.adminPagination = { current_page: 1 };
-		$scope.adminPagination.total_count = 1;
+	// 	$scope.loading = true;
+	// 	$scope.adminSites = [];
+	// 	$scope.memberSites = [];
+	// 	$scope.currentPage = 1;
+	// 	$scope.adminPagination = { current_page: 1 };
+	// 	$scope.adminPagination.total_count = 1;
 
-		Restangular.all( 'site' ).customGET( 'members?p=' + ($scope.adminPagination.current_page) + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( response )
-		{
-			$scope.loading = false;
-			$sites = response;
-			$scope.adminPagination.total_count = $sites.admin.count;
-			$sites.admin = $sites.admin.sites;
-			$sites.member = $sites.member.sites;
-			// if(response.admin.length>0 || response.member.length>0)
-			//     $scope.disable = false;
+	// 	Restangular.all( 'site' ).customGET( 'members?p=' + ($scope.adminPagination.current_page) + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( response )
+	// 	{
+	// 		$scope.loading = false;
+	// 		$sites = response;
+	// 		$scope.adminPagination.total_count = $sites.admin.count;
+	// 		$sites.admin = $sites.admin.sites;
+	// 		$sites.member = $sites.member.sites;
+	// 		// if(response.admin.length>0 || response.member.length>0)
+	// 		//     $scope.disable = false;
 
-			angular.forEach( $sites.admin, function( site, key )
-			{
-				site.data = {};
-				angular.forEach( site.meta_data, function( data, key )
-				{
-					site.data[ data.key ] = data.value;
-				} );
-			} );
+	// 		angular.forEach( $sites.admin, function( site, key )
+	// 		{
+	// 			site.data = {};
+	// 			angular.forEach( site.meta_data, function( data, key )
+	// 			{
+	// 				site.data[ data.key ] = data.value;
+	// 			} );
+	// 		} );
 
-			angular.forEach( $sites.member, function( site, key )
-			{
-				site.data = {};
+	// 		angular.forEach( $sites.member, function( site, key )
+	// 		{
+	// 			site.data = {};
 
-				angular.forEach( site.meta_data, function( data, key )
-				{
-					site.data[ data.key ] = data.value;
-				} );
+	// 			angular.forEach( site.meta_data, function( data, key )
+	// 			{
+	// 				site.data[ data.key ] = data.value;
+	// 			} );
 
-				site.is_agent = $scope.isAgent( $user.role );
+	// 			site.is_agent = $scope.isAgent( $user.role );
 
-			} );
-			$scope.sites.admin = $scope.sites.admin.concat( $sites.admin );
-			console.log( $scope.sites.admin.length )
-			$scope.sites.member = $scope.sites.member.concat( $sites.member );
-			$scope.adminSites[ $scope.adminPagination.current_page ] = $sites.admin;
-			$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
-		} );
-	}
+	// 		} );
+	// 		$scope.sites.admin = $scope.sites.admin.concat( $sites.admin );
+	// 		console.log( $scope.sites.admin.length )
+	// 		$scope.sites.member = $scope.sites.member.concat( $sites.member );
+	// 		$scope.adminSites[ $scope.adminPagination.current_page ] = $sites.admin;
+	// 		$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
+	// 	} );
+	// }
 
 	$scope.$on('$destroy', function() {
         alert("In destroy");
