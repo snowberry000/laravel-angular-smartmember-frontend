@@ -23,7 +23,7 @@
 						<span class="stay">{{moment.utc(topic.created_at).fromNow()}}</span>
 					</div>
 					<div class="description">
-						{{topic.description}}
+						<p dynamic=topic.description></p>
 					</div>
 					<div class="extra">
 						<div class="ui right floated animated button" tabindex="0" ng-click='scrollBottom()' ng-if='topic.category.allow_content && topic.allow_content'>
