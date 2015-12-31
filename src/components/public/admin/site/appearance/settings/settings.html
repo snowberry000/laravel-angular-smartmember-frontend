@@ -252,6 +252,53 @@
 						        </div>
 					</div>
 				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Ad Tracking Settings
+				</div>
+				<div class="content">
+
+					<div class="ui form transition hidden">
+						<div id="post_col" class="col span_6_of_6" ng-init="init()">
+
+						    <form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
+
+						        <h2 class="ui header">Google Analytics Tracking ID (UA Code)</h2>
+						        <p class="small_bottom_margin">
+						            <input type="text" name="google_analytics_id" class="no_bottom_margin" ng-model="site_options.google_analytics_id" />
+						        </p>
+						        <hr>
+						        <h2 class="ui header">Facebook Retargeting Pixel ID</h2>
+						        <p class="small_bottom_margin">
+						            <input type="text" name="facebook_retargetting_pixel" class="no_bottom_margin" ng-model="site_options.facebook_retargetting_pixel" />
+						        </p>
+						        <hr>
+						        <h2 class="ui header">Facebook Conversion Tracking Pixel ID</h2>
+						        <p class="small_bottom_margin">
+						            <input type="text" name="facebook_conversion_pixel" class="no_bottom_margin" ng-model="site_options.facebook_conversion_pixel" />
+						        </p>
+						        <hr>
+						        <h2 class="ui header">Bing ID</h2>
+						        <p class="small_bottom_margin">
+						            <input type="text" name="bing_id" class="no_bottom_margin" ng-model="site_options.bing_id" />
+						        </p>
+						        <hr>
+						        <h2 class="ui header">Google Webmaster Verification ID</h2>
+						        <p class="small_bottom_margin">
+						            <input type="text" name="google_webmaster_tag" class="no_bottom_margin" ng-model="site_options.google_webmaster_tag" />
+						            <small>For example: O7Iba-qgK7C6MEywEoku4RkTXRbFKxvXHQpGdnuu***</small>
+						        </p>
+						        <hr>
+						        <h2 class="ui header">Bing Webmaster Verification ID</h2>
+						        <p class="small_bottom_margin">
+						            <input type="text" name="bing_webmaster_tag" class="no_bottom_margin" ng-model="site_options.bing_webmaster_tag" />
+						            <small>For example: 0FC3FD705126161B0252E755A56</small>
+						        </p>
+						    </form>
+
+						</div>
+					</div>
+				</div>	
 			</div>
 
 		</div>
