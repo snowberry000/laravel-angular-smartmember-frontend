@@ -63,6 +63,10 @@
         </form>
     </div>
     <div class="actions">
+        <a ng-click="smModal.show('public.admin.site.membership.queue')" class="ui right labeled icon button">
+            Import History ({{active_count}} active)
+            <i class="checkmark icon"></i>
+        </a>
         <a ng-click="save()" class="ui right labeled icon button">
             Save changes
             <i class="checkmark icon"></i>

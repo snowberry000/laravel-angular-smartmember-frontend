@@ -79,6 +79,18 @@
                                     </span>
                                 </div>
                             </div>
+                            <h4 class="ui header">Granted Shared Product Levels</h4>
+                            <div class="field">
+                                <div class="col-sm-12">
+                                    <select multiple ng-model="access_level.shared_grants" class="form-control granted_access_levels">
+                                        <option ng-selected="exists_share(al.access_level.id)" ng-repeat="al in shared_access_levels" value={{al.access_level.id}}>{{al.access_level.name}}</option>
+                                    </select>
+                                    <span class="help-block m-b-none">
+                                        Select any other Product Levels you want owners of this Product Level to get access to.<br>
+                                        aka. if this is your "Gold" level, select Bronze and Silver.
+                                    </span>
+                                </div>
+                            </div>
                             <h4 class="ui header">Facebook Group</h4>
                             <div class="field">
                                 <div class="col-sm-12">
@@ -368,8 +380,73 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="hpanel animated-panel zoomIn"
+                         style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+                        <div class="panel-heading hbuilt section-heading">
+                            Access Level Share Key
+                        </div>
+                        <div class="panel-body">
+                            <div class="hr-line-dashed"></div>
+                            <h4>Create a New Key</h4>
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-lg" ng-model="key">
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="ui black deny button close" ng-click="generateACShareKey()">
+                                        Generate New Key
+                                    </div>
+                                </div>
+                                <span class="help-block m-b-none">
+                                    Press the button to create a new shared access level key
+                                </span>
+                            </div>
+
+                            <h4>Generated Key</h4>
+                            <div class="form-group">
+                                <table class="ui fixed single line celled stackable table" data-page-size="15">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 294px;">Key</th>
+                                        <th>Claimed site name</th>
+                                        <th>Claimed site URL</th>
+                                        <th>Date</th>
+                                        <th class="text-right" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="next_item in keys">
+                                        <td>
+                                            {{next_item.key}}
+                                        </td>
+                                        <td>
+                                            {{next_item.destination_site.name}}
+                                        </td>
+                                        <td>
+                                            {{next_item.destination_site.subdomain ? next_item.destination_site.subdomain + '.smartmember.com' : ''}}
+                                        </td>
+                                        <td>
+                                            {{moment.utc(next_item.created_at).fromNow()}}
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-danger btn-outline btn-sm ng-scope" ng-click="delete(next_item.id)">
+                                                Delete
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
-               
                 <!-- <div class="field">
                     <div class="col-sm-8 col-sm-offset-2">
                         <button class="btn btn-brand" type="submit">Save changes</button>

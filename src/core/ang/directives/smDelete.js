@@ -5,7 +5,7 @@ app.directive( 'smDelete', function()
 		link: function( scope, element, attributes ){
 			element.bind('click',function(){
 				$(".small.delete.modal")
-					.modal('setting',{
+					.modal({
 						allowMultiple: true,
 						onApprove: function(){
 							scope.deleteResource(attributes.smDelete);

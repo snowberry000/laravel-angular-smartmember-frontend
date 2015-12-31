@@ -95,10 +95,11 @@ function translation_config($translateProvider) {
 			TEAM_SITES: 'Team sites',
 			QUEUE: 'Queue',
 			EMAIL_QUEUE: 'Email queue',
+			IMPORT_QUEUE: 'Import History',
 			AFFILIATE_TEAMS: 'Affiliate teams',
 			CONTESTS: 'Contests',
 			LESSON_NOTES: 'Lesson notes',
-
+			ACCESSLEVELSHAREKEY: 'Access Level Share Key',
 			// Page content
 			MANAGE_MY_SITES: 'Manage my sites',
 			VIEW_MY_MEMBERSHIPS: 'View my memberships',
