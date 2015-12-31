@@ -36,153 +36,16 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="cancel(); smModal.Show(template_data.cancel_route)" class="ui right labeled icon button">
+		<a ng-click="cancel(); smModal.Show(template_data.cancel_route)" class="ui black button">
 			Cancel
 		</a>
 		<a ng-click="saveAsDraft()" class="ui right labeled icon button" ng-if="next_item.access_level_type!=1">
 			Save as Draft
+			<i class="save icon"></i>
 		</a>
 		<a ng-click="publish()" class="ui right labeled icon button">
 			Publish
+			<i class="check icon"></i>
 		</a>
-	</div>
-</div>
-
-
-
-
-<div class="ui modal">
-	<div class="content">
-		<div class="col-sm-8">
-			<h2 class="ui header">{{ page_title | translate }}</h2>
-			<ol class="breadcrumb">
-				<li>
-					<a ng-href="/">{{ 'HOME' | translate }}</a>
-				</li>
-				<li>
-					<a ng-click="smModal.Show('public.admin.content.syllabus.lessons');">{{ template_data.title | translate }}</a>
-				</li>
-				<li class="active">
-					<strong>{{ page_title | translate }}</strong>
-				</li>
-			</ol>
-		</div>
-		<div class="wrapper wrapper-content animated fadeInRight ecommerce">
-
-				<div class="row">
-					<div class="col-lg-12">
-
-						<div class="tabs-container">
-
-							<tabset>
-								<tab>
-									<tab-heading>
-										Main Content
-									</tab-heading>
-									<div class="panel-body">
-										<div ng-include="'templates/components/public/admin/site/content/common/content-options.html'"></div>
-									</div>
-								</tab>
-								<tab>
-									<tab-heading>
-										Extras
-									</tab-heading>
-									<div class="panel-body">
-
-										<fieldset class="ui form">
-											<div class="field">
-												<label class="col-sm-2 control-label">Module:</label>
-												<div class="col-sm-6" ng-if="modules">
-													<select class="form-control" ng-model="selectedModule" ng-change="changeModule(selectedModule)">
-														<option ng-repeat="module in modules" ng-selected="next_item.module_id==module.id">{{module.title}}</option>
-													</select>
-												</div>
-												<div class="col-md-4">
-													<a class="btn btn_outline float_left" class="btn btn-success" ng-click="func()" data-html="true">
-														<i class="ts_icon ts_icon_cloud_download small_right_margin"></i> Create New Module
-													</a>
-												</div>
-											</div>
-											<div class="field">
-												<label class="col-sm-2 control-label">Presenter:</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" name="presenter" ng-model="next_item.presenter">
-													<span class="help-block m-b-none">If filled in, this shows under the embedded video to show the name of the person presenting the next_item.</span>
-												</div>
-											</div>
-											<div class="field">
-												<label class="col-sm-2 control-label">Lesson Note:</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" name="note" ng-model="next_item.note">
-													<span class="help-block m-b-none">This is the small text that shows up on the syllabus, such as a video length or "new" text, etc.</span>
-												</div>
-											</div>
-										</fieldset>
-
-									</div>
-								</tab>
-								<tab>
-									<tab-heading>
-										Media
-									</tab-heading>
-									<div class="panel-body">
-										<div ng-include="'templates/components/public/admin/site/content/common/media-options.html'"></div>
-									</div>
-								</tab>
-								<tab>
-									<tab-heading>
-										Scheduling
-									</tab-heading>
-									<div class="panel-body">
-										<div ng-include="'templates/components/public/admin/site/content/common/scheduling-options.html'"></div>
-									</div>
-								</tab>
-								<tab>
-									<tab-heading>
-										Commenting
-									</tab-heading>
-									<div class="panel-body">
-										<div ng-include="'templates/components/public/admin/site/content/common/commenting-options.html'"></div>
-									</div>
-								</tab>
-								<tab>
-									<tab-heading>
-										Social Sharing
-									</tab-heading>
-									<div class="panel-body">
-										<div ng-include="'templates/components/public/admin/site/content/common/social-sharing-options.html'"></div>
-									</div>
-								</tab>
-							</tabset>
-
-						</div>
-
-					</div>
-				</div>
-				<!-- <div class="row">
-					<div class="col-lg-12">
-
-						<div class="ibox float-e-margins">
-							<div class="ibox-content">
-
-								<div class="row">
-									<div class="col-sm-4 col-sm-offset-2">
-										<button class="btn btn-brand" type="button" ng-click="save()">Save changes</button>
-										<a ng-if="!template_data.use_cancel_method" href="{{$state.href( template_data.cancel_route)}}" class="btn btn-white" onclick="return confirm('Are you sure you want to discard your unsaved changes? This cannot be undone.');">Cancel</a>
-			                            <a ng-if="template_data.use_cancel_method" ng-click="cancel()" class="btn btn-white">Cancel</a>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-					</div>
-				</div> -->
-		</div>
-	</div>
-	<div class="actions">
-		<button class="ui right labeled icon button" type="button" ng-click="save()">Save changes</button>
-		<a ng-if="!template_data.use_cancel_method" href="{{$state.href( template_data.cancel_route)}}" class="ui black deny button close"  onclick="return confirm('Are you sure you want to discard your unsaved changes? This cannot be undone.');">Cancel</a>
-        <a ng-if="template_data.use_cancel_method" ng-click="cancel()" class="ui black deny button close" >Cancel</a>
 	</div>
 </div>

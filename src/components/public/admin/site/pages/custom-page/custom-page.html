@@ -63,7 +63,12 @@
         </div>
     </div>
     <div class="actions">
-        <button class="ui right labeled icon button" type="button" ng-click="save()">Save changes</button>
-        <a ng-click="smModal.Show('public.admin.site.pages.custom-pages')" class="ui black deny button close" onclick="return confirm('Are you sure you want to discard your unsaved changes? This cannot be undone.');">Cancel</a>
+        <a ng-click="smModal.Show('public.admin.site.pages.custom-pages')" class="ui black button">
+            Cancel
+        </a>
+        <a ng-click="save()" class="ui right labeled icon button">
+            Save changes
+            <i class="check icon"></i>
+        </a>
     </div>
 </div>

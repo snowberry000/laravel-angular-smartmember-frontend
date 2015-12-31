@@ -50,7 +50,12 @@
         </div>
     </div>
     <div class="actions">
-        <button class="ui right labeled icon button"  type="button" ng-click="save()">Save changes</button> <!-- ngIf: !template_data.use_cancel_method -->
-        <a ng-click="smModal.Show('public.admin.site.content.syllabus.modules')" class="ui black deny button close">Cancel</a>
+        <a ng-click="smModal.Show('public.admin.site.content.syllabus.modules')" class="ui black button">
+            Cancel
+        </a>
+        <a ng-click="save()" class="ui right labeled icon button">
+            Save changes
+            <i class="check icon"></i>
+        </a>
     </div>
 </div>
