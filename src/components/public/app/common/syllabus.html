@@ -26,6 +26,9 @@
 					<button class="ui icon button" ng-click="showFormat('thumbnail')" ng-class="{thumbnail:'active'}[site.syllabus_format]">
 						<i class="block layout icon"></i>
 					</button>
+					<button class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="edit_mode = true" ng-class="{thumbnail:'active'}[site.syllabus_format]">
+						<i class="edit icon"></i>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -45,15 +48,14 @@
 					<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
 					<div class="ui label" ng-show="lesson.note">{{lesson.note}}</div>
 				</div>
-				<i class="large circle thin middle aligned icon" ng-show="!lesson.user_note.complete"></i>
-				<i class="large checkmark box middle aligned icon" ng-show="lesson.user_note.complete"></i>
 
-				<!-- waiting for a way to tell if current user can access this lesson to show this or not -->
-				<i class="large lock middle aligned icon" style='display: none' sm-access='view_restricted_content' if-not='show' level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}"></i>
+				<i class="large lock middle aligned icon" sm-access="view_restricted_content" if-not="show" level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}"></i>
+				<i class="large circle thin middle aligned icon" sm-access="view_restricted_content" if-not="hide" level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}" ng-show="!lesson.user_note.complete"></i>
+				<i class="large green checkmark box middle aligned icon" ng-show="lesson.user_note.complete"></i>
 
 				<div class="content">
 					<a class="header" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
-					<div class="description"><i class="icon fa fa-lock"></i> {{lesson.access}}</div>
+					<div class="description">{{lesson.access}}</div>
 				</div>
 			</div>
 		</div>
