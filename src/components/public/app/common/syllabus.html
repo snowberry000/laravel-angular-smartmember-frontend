@@ -36,15 +36,19 @@
 	<div class="ui attached segment" ng-show="query">
 		<h3 class="ui header">Search results for "{{query}}"</h3>
 	</div>
-	<div class="middle floated" ng-if="syllabus.edit_mode">
+	<div class="ui attached segment" ng-if="syllabus.edit_mode">
 		<a class="ui button" ng-click="addLesson()">Add Lesson</a>
 		<a class="ui button" ng-click="addModule()">Add Module</a>
 	</div>
 	<div class="ui attached segment section_background_color module_item" data-id="{{module.id}}" ng-repeat="(key, module) in modules" ng-if="(module.lessons.length > 0 || module.show_me) && (!query || ( module.lessons | filter: query).length > 0)" data-id="{{module.id}}">
-		
+
+		<a sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+			({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
+			<i class="{{hide_module ? 'plus' : 'minus'}} icon"></i>
+		</a>
 
 		<div class="connectLessons ui very relaxed divided ordered list" ng-show="!hide_module" ng-if="site.syllabus_format == 'list'">
-			<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}" >
+			<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}">
 				<div class="right floated content">
 					<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
 					<div class="ui label" ng-show="lesson.note">{{lesson.note}}</div>

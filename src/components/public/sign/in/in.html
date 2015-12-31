@@ -56,11 +56,11 @@
 				</div>
 				<div class="center aligned seven wide column">
 					<a ng-if="site_options.create_account_url" ng-href="{{site_options.create_account_url}}" class="close ui big blue labeled icon button">
-						<i class="fa fa-edit icon"></i>
+						<i class="edit icon"></i>
 						Sign Up
 					</a>
 					<a ng-if="!site_options.create_account_url" ng-click="smModal.Show('public.sign.up', $state.includes('public.my') ? {modal_options:{closable:false}} : null)" class="ui big blue labeled icon button">
-						<i class="fa fa-edit icon"></i>
+						<i class="edit icon"></i>
 						Sign Up
 					</a>
 				</div>
@@ -71,11 +71,11 @@
 	<div class="actions">
 		<a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.forgot')">
 			Forgot password?
-			<i class="fa fa-wrench icon"></i>
+			<i class="lock icon"></i>
 		</a>
 		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button" ng-click="CloseModal();">
 			Need help?
-			<i class="fa fa-life-ring icon"></i>
+			<i class="life ring icon"></i>
 		</a>
 		<div ng-if="!$state.includes('public.my')" class="close ui black button">
 			Close
