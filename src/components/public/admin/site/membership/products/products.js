@@ -25,7 +25,7 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 
 	$scope.template_data = {
 		title: 'PRODUCTS',
-		description: 'Products are how you protect your course content & downloads - as well as offer customers a specific item to purchase such as a bronze, silver, or gold membership level.',
+		description: 'Access Levels are how you protect your course content & downloads - as well as offer customers a specific item to purchase such as a bronze, silver, or gold membership level.',
 		singular: 'product',
 		edit_route: 'public.admin.site.membership.product',
 		api_object: 'accessLevel'
