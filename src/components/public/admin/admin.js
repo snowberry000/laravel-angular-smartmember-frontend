@@ -5,7 +5,7 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.admin", {
 			url: "/admin",
-			templateUrl: "/templates/components/public/admin/public.admin.html",
+			templateUrl: "/templates/components/public/admin/admin.html",
 			controller: "AdminController",
 			resolve: {
 				$site: function( Restangular )
