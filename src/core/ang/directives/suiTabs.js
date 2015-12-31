@@ -1,4 +1,4 @@
-app.directive( 'suiTabs', function()
+app.directive( 'suiTabs', function($timeout)
 {
 	return {
 		restrict: 'A',
@@ -12,7 +12,9 @@ app.directive( 'suiTabs', function()
 
 			console.log( options );
 
-			$(next_item).find('.item' ).tab( options );
+			$timeout(function(){
+				$(next_item).find('.item' ).tab( options );
+			} , 3000)
 		}
 	};
 } );
