@@ -4,8 +4,7 @@ app.directive( 'smAccess', function()
 		restrict: 'A',
 		link: function( scope, element, attributes ){
 			var take_action = true;
-
-			if (attributes.type && attributes.type == 1){
+			if (attributes.type && (attributes.type == 1 || (attributes.type==3 && scope.site.is_member))){
 				return;
 			}
 
