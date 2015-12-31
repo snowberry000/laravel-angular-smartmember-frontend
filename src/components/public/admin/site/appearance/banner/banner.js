@@ -49,7 +49,9 @@ app.controller("BannerController", function ($scope, $rootScope, $state, $http,$
 	      });
 	    }
 	}
-
+	$scope.toggleNewTab = function(){
+		$scope.ad.open_in_new_tab = !$scope.ad.open_in_new_tab;
+	}
 	$scope.save = function(){
 	    if($scope.ad.id) {
 	        $scope.ad.put().then(function(res){
@@ -59,6 +61,7 @@ app.controller("BannerController", function ($scope, $rootScope, $state, $http,$
 	    }
 	    else {
 	        $scope.ad.site_id = $site.id;
+
 	        Restangular.all('siteAds').post($scope.ad).then(function(response){
 	            console.log(response);
 	            $scope.ad = response;
