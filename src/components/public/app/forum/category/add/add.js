@@ -12,11 +12,12 @@ app.config( function( $stateProvider )
 
 app.controller( "AddController", function( $scope, Restangular, $stateParams )
 {
+
 	if( $stateParams.id )
 	{
 		Restangular.one( 'forumCategory', $stateParams.id ).get().then( function( response )
 		{
-			$scope.next_item = response;
+			$scope.category = response;
 		} )
 	}
 

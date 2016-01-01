@@ -16,7 +16,7 @@
 					<div class="ui label"><i class="{{cat.access_level_type > 1 ? 'lock' : ''}} icon"></i> {{cat.access_level_type | accessType}} </div>
 				</div>
 			</a>
-			<div class="ui top right attached label" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.app.forum.category.add', {id: next_item.id})">
+			<div class="ui top right attached label" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.app.forum.category.add', {id: cat.id})">
 				<i class="edit icon"></i> edit
 			</div>
 		</div>
