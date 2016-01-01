@@ -18,40 +18,12 @@
 	<div class="ui middle aligned stackable grid container">
 		<div class="row">
 			<div class="sixteen wide column">
-				<h3 class="ui header">Sites</h3>
+				<h3 class="ui header">Example Sites</h3>
 
-				<div class="ui link four stackable doubling cards">
-					<a class="card" ui-sref="public.www.site({permalink: next_item.permalink || next_item.site_id})" ng-repeat="next_item in site_listings">
-						<div class="image">
-							<img src="http://semantic-ui.com/images/avatar2/large/matthew.png">
-						</div>
-						<div class="content">
-							<div class="header">{{next_item.title}}</div>
-							<div class="meta">
-								<span>Friends</span>
-							</div>
-							<div class="description">
-								Matthew is an interior designer living in New York.
-							</div>
-						</div>
-						<div class="extra content">
-							<span class="right floated">
-								Joined in 2013
-							</span>
-							<span>
-								<i class="user icon"></i>
-								75 Friends
-							</span>
-						</div>
-					</a>
+				<div class="ui four doubling stackable link site cards">
+					<a site-card class="card" ng-repeat="next_item in site_listings" ui-sref="public.www.site({permalink: next_item.permalink || next_item.site_id})"></a>
 				</div>
 
-
-			</div>
-		</div>
-		<div class="row">
-			<div class="center aligned column">
-				<a class="ui huge button">Check Them Out</a>
 			</div>
 		</div>
 	</div>

@@ -19,7 +19,12 @@ app.controller("WWWSiteController", function ($scope, Restangular, $stateParams)
 
 	$scope.JoinSite = function( site_id )
 	{
-
+		// TODO: this needs to work by passing the site_id
+		//Restangular.all( 'site/addMember' ).customPOST().then( function()
+		//{
+			//toastr.success( "You have become a member of this site" );
+			//$scope.is_member = true;
+		//} );
 	}
 
 });
