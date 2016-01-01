@@ -1,0 +1,26 @@
+<div class="image flex_center" style="background: {{(next_item.data.site_logo ? next_item.data.site_top_background_color : '#FFF') || ''}}">
+	<img class="ui centered middle aligned image" src="{{next_item.image || '/images/white-image.png'}}">
+</div>
+<div class="content">
+	<div class="header">
+		{{next_item.title}}
+	</div>
+	<div class="meta ellipsis">
+		{{next_item.subtitle}}
+	</div>
+	<div class="description" ng-if="next_item.site.total_lessons > 0">
+		<i class="graduation grey icon"></i>
+		{{next_item.site.total_lessons}} lessons
+	</div>
+</div>
+<div class="extra content">
+
+	<div class="left floated {{next_item.site.user.profile_image ? 'm-t-xs' : ''}}">
+		{{next_item.pricing}}
+	</div>
+	<div class="right floated author">
+		<img class="ui avatar image" src="{{next_item.site.user.profile_image}}" ng-if="next_item.site.user.profile_image">
+		{{next_item.site.user.first_name}}
+	</div>
+
+</div>

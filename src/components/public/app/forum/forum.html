@@ -1,4 +1,4 @@
-<div class="twelve wide column">
+<div class="sixteen wide column">
 
 	<div class="ui segment basic">
 		<h2 class="ui center aligned header headline_text_color">
@@ -6,57 +6,7 @@
 			Forum
 		</h2>
 	</div>
-	
-	<div class='ui segment' sm-access='manage_content' if-not='hide'>
-		<h3>Create a new category</h3>
-		<form class="ui form" ng-submit='add()'>
-			<div class="field">
-				<label>Title</label>
-				<input ng-model='category.title' placeholder="Title">
-			</div>
-			<div class="field">
-				<label>Description</label>
-				<textarea froala rows="2" ng-model='category.description'></textarea>
-			</div>
-			<div class="field">
-			    <label>Access Type</label>
-			    <select class="ui dropdown" ng-model='category.access_level_type'>
-			      <option value="1" selected>Public</option>
-			      <option value="2">Admin</option>
-			      <option value="3">Members</option>
-				  <option value="4">Private</option>
-			    </select>
-			</div>
-			<div class="field">
-				<label>Add Icon Field here</label>
-				<sm-iconpicker icon='{{category.icon}}'>
-				</sm-iconpicker>
-				<!-- <input ng-model='category.icon' placeholder="Icon"> -->
-			</div>
-			<button class="ui button" type="submit">Create</button>
-		</form>
-	</div>
 
-	<div class="ui segment">
-		<div class="ui divided link items">
-			<a ui-sref="public.app.forum-category({permalink: cat.permalink})" class="item" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false" ng-repeat='cat in categories | orderBy:"-updated_at"'>
-				<div class="image text-center">
-					<i class="huge {{hoverIn ? 'circular' : 'bordered'}} {{cat.icon}} icon"></i>
-				</div>
-				<div class="content">
-					<div class="header">{{cat.title}}</div>
-					<div class="meta">
-						<span class="cinema">{{cat.total_topics}} topics, {{cat.total_replies}} replies</span>
-					</div>
-					<div class="description" >
-						<p dynamic=cat.description></p>
-					</div>
-					<div class="extra">
-						<div class="ui label"><i class="{{cat.access_level_type > 1 ? 'lock' : ''}} icon"></i> {{cat.access_level_type | accessType}} </div>
-					</div>
-				</div>
-			</a>
-		</div>
-	</div>
-	
+	<ui-view></ui-view>
+
 </div>

@@ -1,25 +1,13 @@
-<div class="twelve wide column">
+<div class="sixteen wide column">
 	
-	<div class="ui top attached header huge breadcrumb">
-		<a class="section" ui-sref="public.app.forum">Forum</a>
-		<i class="right arrow icon divider"></i>
-		<div class="active section">{{category.title}}</div>
-	</div>
-	<div class="ui attached segment">
-		<p dynamic=category.description></p>
-	</div>
-	<div class="ui attached segment">
-		<form class="ui form" ng-submit='addTopic()'>
-			<div class="field">
-				<label>Title</label>
-				<input ng-model='topic.title' placeholder="Title">
-			</div>
-			<div class="field">
-				<label>Description</label>
-				<textarea froala rows="2" ng-model='topic.description'></textarea>
-			</div>
-			<button class="ui button" type="submit">Add New Topic</button>
-		</form>
+	<div class="ui top attached clearing segment">
+		<h3 class="ui header huge breadcrumb m-t-sm">
+			<a class="section" ui-sref="public.app.forum">Forum</a>
+			<div class="divider"> / </div>
+			<div class="active section">{{category.title}}</div>
+		</h3>
+
+		<a class="ui right floated button" ng-click="smModal.Show('public.app.forum.topic.add')">Add New Topic</a>
 	</div>
 	<div class="ui attached segment">
 
@@ -31,7 +19,6 @@
 				<div class="middle aligned content">
 					<div class="header">{{topic.title}}</div>
 					<div class="description">
-						<p dynamic=topic.description></p>
 						<div class="ui small labels">
 							<div class="ui left pointing basic label">
 								{{moment.utc(topic.updated_at).fromNow()}}
