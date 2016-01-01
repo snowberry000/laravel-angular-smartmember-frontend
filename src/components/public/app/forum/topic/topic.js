@@ -4,7 +4,7 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app.forum.topic", {
-			url: "/topic/:permalink",
+			url: "/forum/topic/:permalink",
 			templateUrl: "/templates/components/public/app/forum/topic/topic.html",
 			controller: "Forum-topicController"
 		} )
