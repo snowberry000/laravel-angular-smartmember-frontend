@@ -7,7 +7,17 @@
 		<div class="description">
 
 			<div class="ui grid">
+				<div class="twelve wide stretched column">
+					<div class="ui segment" dynamic="ticket.message">
+
+					</div>
+				</div>
 				<div class="four wide column">
+
+
+					<h3 class="ui horizontal divider header">
+						Reporter
+					</h3>
 
 					<div class="ui card">
 						<div class="image">
@@ -18,6 +28,37 @@
 							<div class="meta ellipsis">
 								<a>{{ticket.user.email}}</a>
 							</div>
+						</div>
+					</div>
+
+					<h3 class="ui horizontal divider header">
+						Assignee
+					</h3>
+
+					<h5 ng-if="ticket.sm_tech" style="color:rgb(181, 82, 82);">*Submitted to SM Tech Team*</h5>
+					<div class="ui card">
+						<div class="image" ng-if="ticket.agent">
+							<img src="{{ticket.agent.profile_image}}">
+						</div>
+						<div class="content" ng-if="ticket.agent">
+							<a class="header">{{ticket.agent.first_name}} {{ticket.agent.last_name}}</a>
+							<div class="meta">
+								<span class="date">assignee</span>
+							</div>
+							<div class="description">
+								{{ticket.agent.email}}
+							</div>
+						</div>
+						<div class="content" ng-if="!ticket.agent">
+							<a class="header">Unassigned</a>
+						</div>
+						<div class="extra content">
+							<a ng-init="$parent.change_agent=false" ng-hide="$parent.change_agent" ng-click="$parent.change_agent=true" style="text-decoration:underline;">
+								Change assignee
+							</a>
+							<a ng-if="$parent.change_agent" ng-click="$parent.$parent.change_agent=false" style="text-decoration:underline;">
+								cancel
+							</a>
 						</div>
 					</div>
 
@@ -49,18 +90,120 @@
 					</div>
 
 				</div>
-				<div class="twelve wide stretched column">
-					<div class="ui segment" dynamic="ticket.message">
-
-					</div>
-				</div>
 			</div>
-
 
 			<h3 class="ui horizontal divider header">
 				<i class="comments outline icon"></i>
-				Replies
+				Conversation
 			</h3>
+
+			<div class="ui centered grid">
+				<div class="twelve wide stretched column">
+
+					<textarea froala ng-model="reply.message" placeholder="{{admin_mode ? 'Type an internal comment...':'Type a message...'}}"></textarea>
+
+					<div class="row">
+						<div class="col-md-4">
+							<a sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment" class="attachment_container float_left">
+								<i class="fa fa-paperclip"></i>
+								Add attachment
+							</a>
+							<a ng-show="reply.attachment" href="reply.attachment" target="_blank" style="cursor:pointer;" class="attachment_container float_left">
+								<i class="fa fa-paperclip"></i> {{reply.attachment.split('/').pop()}}
+							</a>
+							<a ng-show="reply.attachment" ng-click="reply.attachment=''" class="attachment_container float_left" style="cursor:pointer;color:#f00;font-size:18px;font-weight:bold; margin-left: 5px;">&times;</a>
+
+							<div class="clearfix"></div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							Mark as
+							<select ng-init="ticket.status == 'open' ? $parent.change_ticket_status = 'pending' : $parent.change_ticket_status=ticket.status"
+									ng-model="$parent.change_ticket_status">
+								<option ng-selected="(ticket.status == 'open' && status.id == 'pending') || (ticket.status != 'open' && status.id==ticket.status)"
+										ng-repeat="status in statuses" value="{{status.id}}">
+									{{status.value}}
+								</option>
+							</select>
+							<label>
+								<input type="checkbox" ng-model="admin_mode"/>Mark this reply as internal (comment)
+							</label>
+						</div>
+						<div class="col-md-6">
+							<button class="ui {{admin_mode ? 'blue':'yellow'}} button" ng-click="sendReply()">
+								Submit
+							</button>
+						</div>
+					</div>
+
+				</div>
+				<div class="four wide column">
+
+					<div id="channel_actions_div">
+
+						<h5 class="large_top_margin">Assignee</h5>
+
+						<div class="col-md-12 row" ng-if="change_agent">
+
+							<ul class="header_team_style open" style="z-index:1;">
+								<li ng-repeat="agent in agents"
+									ng-class="( ticket.agent_id != 0 && agent.id == ticket.agent_id ) ? 'active' : ''">
+									<a ng-click="$parent.ticket.agent_id = agent.id; agentChange()" data-email="{{agent.email}}">
+										<i ng-if="( ticket.agent_id != 0 && agent.id == ticket.agent_id )"
+										   class="ts_icon ts_icon_check_circle_o active_icon"></i>
+										<i class="team_icon default"
+										   style="font-size:16px; background-color:transparent; background-size:cover;"
+										   ng-style="{'background-image': 'url( ' + agent.profile_image + ')'}"
+										   ng-if="agent.profile_image"></i>
+										<i class="team_icon default" style="background: #303E4D; font-size:16px"
+										   ng-hide="agent.profile_image">{{agent.initials}}</i>
+										<span class="switcher_label team_name" >{{agent.name}}</span>
+									</a>
+								</li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+						<hr>
+						<a class="btn btn-default" ng-click="assignToSMTech()"
+						   style="margin-top: 15px;margin-left: auto;margin-right: auto;display: block;">Assign this ticket to
+							the <br>SM Corporate Tech Team</a>
+						<hr>
+						<h5 class="large_top_margin">Creator's Sites</h5>
+						<ul class="no_margin action_list" style="max-height:150px; overflow:auto;">
+							<li ng-repeat="admin in advanced_info.admin">
+								<a target="_blank" ng-href="http://{{public.admin.subdomain}}.{{app.domain}}">
+									<i class="ts_icon ts_icon_calendar"></i>
+									{{public.admin.name}}
+								</a>
+								<small>(member)</small>
+							</li>
+						</ul>
+
+						<h5 class="large_top_margin">Access Levels</h5>
+						<ul class="no_margin action_list ">
+							<li ng-repeat="access_level in advanced_info.access_levels">
+								<a class="cursor_pointer" target="_blank"
+								   ng-href="http://{{advanced_info.sites[$index].subdomain}}.{{app.domain}}">
+									{{access_level.name}} {{advanced_info.sites[$index].name}}
+								</a>
+							</li>
+						</ul>
+
+						<h5 class="large_top_margin">RECENT TICKETS</h5>
+						<ul id="archive_btn" class="no_margin action_list ">
+							<li ng-repeat="recent_ticket in recent_tickets">
+								<a class="cursor_pointer" ng-href="/admin/team/helpdesk/ticket/{{recent_ticket.id}}">
+									[{{recent_ticket.status}}] {{recent_ticket.subject}}
+								</a>
+							</li>
+						</ul>
+
+					</div>
+
+				</div>
+			</div>
 
 		</div>
 	</div>
@@ -69,8 +212,12 @@
 		<a class="ui black back deny button" ng-click="cancel()">
 			Back
 		</a>
-		<a ng-click="smModal.Show('public.admin.team.helpdesk.creator')" class="ui right labeled icon button">
-			Add a new ticket
+		<a sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment" class="ui right labeled icon button">
+			Add attachment
+			<i class="plus icon"></i>
+		</a>
+		<a ng-click="sendReply()" class="ui right labeled icon button">
+			Submit reply
 			<i class="plus icon"></i>
 		</a>
 	</div>

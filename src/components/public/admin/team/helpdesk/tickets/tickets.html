@@ -8,24 +8,20 @@
 
 			<div class="ui grid">
 				<div class="three wide column">
-					<div class="ui secondary vertical fluid pointing menu" sui-tabs>
-						<a class="teal item" data-tab="one">
-							Dashboard
-							<div class="ui teal label">1</div>
-						</a>
-						<a class="item" data-tab="two">
+					<div class="ui vertical fluid pointing menu">
+						<a class="item active" ng-click="type_to_fetch = 'open'">
 							Open
 							<div class="ui label">51</div>
 						</a>
-						<a class="item" data-tab="three">
+						<a class="item" ng-click="type_to_fetch = 'pending'">
 							Pending
 							<div class="ui label">1</div>
 						</a>
-						<a class="item active" data-tab="four">
+						<a class="item" ng-click="type_to_fetch = 'solved'">
 							Solved
 							<div class="ui label">1</div>
 						</a>
-						<a class="item" data-tab="five">
+						<a class="item" ng-click="type_to_fetch = 'spam'">
 							Spam
 							<div class="ui label">1</div>
 						</a>
@@ -39,23 +35,59 @@
 				</div>
 				<div class="thirteen wide stretched column">
 
-					<div class="ui tab segment" data-tab="one">
-						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
+					<div ng-if="requesting_data" class="ui active inverted dimmer">
+						<div class="ui text loader">Loading</div>
 					</div>
-					<div class="ui tab segment" data-tab="two">
-						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
+
+					<div ng-if="!requesting_data && tickets.length==0">
+						<p class="alert alert-info">No tickets found</p>
 					</div>
-					<div class="ui tab segment" data-tab="three">
-						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
-					</div>
-					<div class="ui tab segment" data-tab="four">
-						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
-					</div>
-					<div class="ui tab segment" data-tab="five">
-						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
-					</div>
-					<div class="ui tab segment" data-tab="search">
-						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
+
+					<table class="ui selectable table" ng-if="tickets[pagination.currentPage].length > 0 && !loading">
+						<thead>
+							<tr>
+								<th>Reporter</th>
+								<th>Activity</th>
+								<th>Assignee</th>
+								<th>Age</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-class="{open:'warning',pending:'positive', solved:'positive', spam:'disabled'}[next_item.status]" ng-click="smModal.Show('public.admin.team.helpdesk.ticket' , {id: next_item.id})" ng-repeat="next_item in tickets[pagination.currentPage] | orderBy : customSort : 'true'">
+								<td>
+									<h4 class="ui image header">
+										<img src="{{next_item.profile_image || '/images/image.png'}}" class="ui mini rounded image">
+										<div class="content">
+											{{next_item.user_name || next_item.user_email}}
+											<div class="sub header">
+												{{next_item.subject}}
+											</div>
+										</div>
+									</h4>
+								</td>
+								<td class="single line">
+									<span ng-show="next_item.last_replied_at==null">
+										{{moment.utc(next_item.created_at).fromNow(true)}}
+									</span>
+									<span ng-hide="next_item.last_replied_at==null">
+										{{moment.utc(next_item.last_replied_at).fromNow(true)}}
+									</span>
+								</td>
+								<td class="single line">
+									<span ng-if="next_item.sm_tech" style="color:rgb(181, 82, 82);">SM Tech</span>
+									<span ng-hide="next_item.sm_tech">{{next_item.agent.first_name}} {{next_item.agent.last_name}}</span>
+								</td>
+								<td class="single line">
+									{{moment.utc(next_item.created_at).fromNow(true)}}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<span ng-if="pagination.total_count > 0">{{pagination.total_count}} tickets found</span>
+					<span ng-if="pagination.total_count == 0">No tickets found</span>
+					<div class="text-right" ng-if="!loading && tickets[pagination.currentPage].length > 0">
+						<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.currentPage" class="pagination-sm pull-right" boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
 					</div>
 
 				</div>
@@ -73,9 +105,3 @@
 		</a>
 	</div>
 </div>
-
-<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">My Tickets</a>
-<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets.open" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Open</a>
-<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets.pending" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Pending</a>
-<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets.solved" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Solved</a>
-<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets.spam" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Spam</a>
