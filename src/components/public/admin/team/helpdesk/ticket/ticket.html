@@ -1,5 +1,83 @@
+<div class="ui large modal">
+	<div class="header">
+		<i class="life ring icon"></i>
+		Ticket #{{ticket.id}}: {{ticket.subject}}
+	</div>
+	<div class="content">
+		<div class="description">
 
-<div class="ui modal">
+			<div class="ui grid">
+				<div class="four wide column">
+
+					<div class="ui card">
+						<div class="image">
+							<img src="{{ticket.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm'}}">
+						</div>
+						<div class="content">
+							<div class="header">{{ticket.user.first_name}} {{ticket.user.last_name}}</div>
+							<div class="meta ellipsis">
+								<a>{{ticket.user.email}}</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="ui middle aligned very relaxed large divided list">
+						<div class="item">
+							<div class="left floated content">
+								Created
+							</div>
+							<div class="right floated content">
+								{{moment.utc(ticket.created_at).format('ll')}}
+							</div>
+						</div>
+						<div class="item">
+							<div class="left floated content">
+								Last Message
+							</div>
+							<div class="right floated content">
+								{{moment.utc(ticket.created_at).fromNow()}}
+							</div>
+						</div>
+						<div class="item">
+							<div class="left floated content">
+								Status
+							</div>
+							<div class="right floated content">
+								<div class="ui red horizontal label">{{ticket.status}}</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="twelve wide stretched column">
+					<div class="ui segment" dynamic="ticket.message">
+
+					</div>
+				</div>
+			</div>
+
+
+			<h3 class="ui horizontal divider header">
+				<i class="comments outline icon"></i>
+				Replies
+			</h3>
+
+		</div>
+	</div>
+
+	<div class="actions">
+		<a class="ui black back deny button" ng-click="cancel()">
+			Back
+		</a>
+		<a ng-click="smModal.Show('public.admin.team.helpdesk.creator')" class="ui right labeled icon button">
+			Add a new ticket
+			<i class="plus icon"></i>
+		</a>
+	</div>
+</div>
+
+
+<div class="ui modal" ng-if="false">
 	<div class="content">
 		<div class="row">
 			<div class="col-lg-12">
@@ -363,3 +441,6 @@
 		</div>
 	</div>
 </div>
+
+
+
