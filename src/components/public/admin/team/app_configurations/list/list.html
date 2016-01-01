@@ -1,13 +1,14 @@
 <div class="ui modal">
-	<i class="close icon"></i>
-
 	<div class="header">
-		<i class="paragraph icon"></i>
-		Your App Configurations
+		<i class="configure icon"></i>
+		Your Installed Apps
 	</div>
 	<div class="content">
 		<div class="description">
-			<p>These are the app_configurations current configured on your team & it's sites.</p>
+
+			<div class="ui message">
+				<p>These are the Apps currently installed on your site.</p>
+			</div>
 
 			<div class="ui three cards">
 				<div class="card" ng-repeat="integration in grouped_app_configurations | filter: search" ng-if="integration.app_configurations.length > 0 && !loading">

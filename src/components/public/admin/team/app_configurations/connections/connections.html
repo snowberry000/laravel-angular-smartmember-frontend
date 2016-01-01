@@ -1,14 +1,14 @@
 <div class="ui modal">
-	<i class="close icon"></i>
-
 	<div class="header">
-		<i class="paragraph icon"></i>
+		<i class="configure icon"></i>
 		Connected accounts
 	</div>
 	<div class="content">
 		<div class="description">
-			<p>Here you can view / remove any 3rd-party accounts you've connected.</p>
-			<p>If you remove an account below, any app_configurations using the connection will be disabled.</p>
+			<div class="ui message">
+				<p>Here you can view / remove any 3rd-party accounts you've connected.</p>
+				<p>If you remove an account below, any Apps installed using that connection will be disabled.</p>
+			</div>
 
 			<div class="ui three cards">
 				<div class="card" ng-repeat="account in connected_accounts">
