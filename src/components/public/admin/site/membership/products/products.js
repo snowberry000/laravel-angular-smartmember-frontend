@@ -116,11 +116,13 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 		// } );
 		Restangular.service( "accessLevel/refreshHash" ).post( $access ).then( function( response )
 		{
-
 			for( var i = 0; i < $scope.data[ $scope.pagination.current_page ].length; i++ )
 			{
 				if( $scope.data[ $scope.pagination.current_page ][ i ].id == response.id )
 				{
+					// why doesn't this update it instead?
+					// $scope.data[ $scope.pagination.current_page ].hash = response.hash;
+
 					$scope.data[ $scope.pagination.current_page ].splice( i, 1, response );
 				}
 			}

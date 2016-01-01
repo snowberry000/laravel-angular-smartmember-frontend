@@ -1,58 +1,81 @@
-<div class="ui modal">
-<div class="content">
-	<div class="row">
-		<div class="col-lg-12">
+<div class="ui large modal">
+	<div class="header">
+		<i class="life ring icon"></i>
+		Support Tickets
+	</div>
+	<div class="content">
+		<div class="description">
 
-			<div class="ibox-content clear_box page-heading">
-				<div class="p-xs">
-					<div class="row">
-						<div class="col-md-9">
-							<div class="pull-left m-r-md">
-								<i class="fa fa-support text-branded mid-icon"></i>
+			<div class="ui grid">
+				<div class="three wide column">
+					<div class="ui secondary vertical fluid pointing menu" sui-tabs>
+						<a class="teal item" data-tab="one">
+							Dashboard
+							<div class="ui teal label">1</div>
+						</a>
+						<a class="item" data-tab="two">
+							Open
+							<div class="ui label">51</div>
+						</a>
+						<a class="item" data-tab="three">
+							Pending
+							<div class="ui label">1</div>
+						</a>
+						<a class="item active" data-tab="four">
+							Solved
+							<div class="ui label">1</div>
+						</a>
+						<a class="item" data-tab="five">
+							Spam
+							<div class="ui label">1</div>
+						</a>
+						<div class="item" data-tab="search">
+							<div class="ui transparent icon input">
+								<input type="text" placeholder="Search tickets...">
+								<i class="search icon"></i>
 							</div>
-							<h2 class="ui header">{{ 'HELPDESK_TICKETS' | translate }}</h2>
-							<span>See all help requests by your visitors, members, and customers.</span>
 						</div>
-						<!-- <div class="col-md-3 text-right">
-							<a ui-sref="public.admin.team.helpdesk.creator" class="btn btn-brand m-t-md btn-large ng-scope">
-								<i class="fa fa-plus"></i>
-								Create new ticket
-							</a>
-							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-								<i class="fa fa-question"></i>
-							</button>
-						</div> -->
 					</div>
 				</div>
-			</div>
+				<div class="thirteen wide stretched column">
 
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-12">
-
-			<div class="ibox">
-				<div class="ibox-content">
-					<div class="btn-group text-center">
-						<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">My Tickets</a>
-						<a ui-sref="public.admin.team.helpdesk.tickets.open" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Open</a>
-						<a ui-sref="public.admin.team.helpdesk.tickets.pending" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Pending</a>
-						<a ui-sref="public.admin.team.helpdesk.tickets.solved" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Solved</a>
-						<a ui-sref="public.admin.team.helpdesk.tickets.spam" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Spam</a>
-
+					<div class="ui tab segment" data-tab="one">
+						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
 					</div>
+					<div class="ui tab segment" data-tab="two">
+						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
+					</div>
+					<div class="ui tab segment" data-tab="three">
+						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
+					</div>
+					<div class="ui tab segment" data-tab="four">
+						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
+					</div>
+					<div class="ui tab segment" data-tab="five">
+						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
+					</div>
+					<div class="ui tab segment" data-tab="search">
+						<div ng-controller="OpenController" ng-include="'templates/components/public/admin/team/helpdesk/tickets/open/open.html'"></div>
+					</div>
+
 				</div>
 			</div>
-
-			<ui-view></ui-view>
-
 		</div>
 	</div>
+
+	<div class="actions">
+		<a class="ui black back deny button">
+			Back
+		</a>
+		<a ng-click="smModal.Show('public.admin.team.helpdesk.creator')" class="ui right labeled icon button">
+			Add a new ticket
+			<i class="plus icon"></i>
+		</a>
+	</div>
 </div>
-<div class="actions">
-    <a ng-click="smModal.Show('public.admin.team.helpdesk.creator')" class="ui right labeled icon button">
-        Create new Ticket
-        <i class="fa fa-plus"></i>
-    </a>
-</div>
-</div>
+
+<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">My Tickets</a>
+<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets.open" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Open</a>
+<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets.pending" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Pending</a>
+<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets.solved" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Solved</a>
+<a ng-hide="1" ui-sref="public.admin.team.helpdesk.tickets.spam" ui-sref-active="btn-brand" class="btn btn-outline btn-lg btn-white">Spam</a>
