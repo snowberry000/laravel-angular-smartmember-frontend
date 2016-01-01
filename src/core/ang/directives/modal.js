@@ -19,14 +19,14 @@ app.directive( 'modal', function()
 			});
 
 			/*
-			scope.$watch( function()
-			{
-				return ngModel.$modelValue;
-			}, function( modelValue )
-			{
-				element.modal( modelValue ? 'show' : 'hide' );
-			} );
-			*/
+			 scope.$watch( function()
+			 {
+			 return ngModel.$modelValue;
+			 }, function( modelValue )
+			 {
+			 element.modal( modelValue ? 'show' : 'hide' );
+			 } );
+			 */
 
 			scope.$on( '$destroy', function()
 			{

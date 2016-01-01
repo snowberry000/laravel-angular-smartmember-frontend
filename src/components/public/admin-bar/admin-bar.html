@@ -61,7 +61,6 @@
 			<div class="menu">
 				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.lesson')">Add new</a>
 				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.lessons')">List</a>
-				<a class="item" ng-click="smModal.Show('public.admin.site.content.syllabus.organizer')">{{ 'ORGANIZER' | translate }}</a>
 			</div>
 		</div>
 		<div class="item">
@@ -203,13 +202,8 @@
 			</div>
 		</div>
 
-		<div class="ui top left pointing dropdown icon button" sm-access="manage_support_tickets" if-not="hide" title="Assist your members through the Helpdesk" sui-dropdown sui-popup>
+		<div class="ui icon button" sm-access="manage_support_tickets" if-not="hide" ng-click="smModal.Show('public.admin.team.helpdesk.tickets')" title="Assist your members through the Helpdesk" sui-popup>
 			<i class="life ring icon"></i>
-
-			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.admin.team.helpdesk.tickets.open')">{{ 'TICKETS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.admin.team.helpdesk.settings')" style="display:none;">{{ 'SETTINGS' | translate }}</a>
-			</div>
 		</div>
 		<div class="ui top left pointing dropdown icon button" sm-access="manage_affiliates" if-not="hide" title="Manage the affiliates promoting your site" sui-dropdown sui-popup>
 			<i class="sitemap icon"></i>

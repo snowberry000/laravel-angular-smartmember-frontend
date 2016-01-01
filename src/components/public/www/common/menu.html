@@ -1,11 +1,9 @@
 <div class="ui container">
 	<div sm-class="'ui large secondary ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' pointing menu'">
-		<a class="toc item">
+		<a class="toc item" ng-click="smSidebar.Show('.left_sidebar_contents', 'www-mobile.html', {closable:true,dimPage:true});">
 			<i class="sidebar icon"></i>
 		</a>
 		<a class="active item" ui-sref="public.www.home">Home</a>
-		<a class="item">Site Directory</a>
-		<a class="item">Company</a>
 		<a class="item" ng-href="https://chrisrecord.clickfunnels.com/smjv" target="_blank">JVs</a>
 		<div class="right menu" ng-if="!isLoggedIn()">
 			<div class="item">

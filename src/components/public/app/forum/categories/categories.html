@@ -1,0 +1,27 @@
+<div class="ui attached segment">
+	<div class="ui divided link items">
+		<div class="item" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false" ng-repeat='cat in categories | orderBy:"-updated_at"'>
+			<a ui-sref="public.app.forum.category({permalink: cat.permalink})" class="image text-center">
+				<i class="huge {{hoverIn ? 'circular' : 'bordered'}} {{cat.icon}} icon"></i>
+			</a>
+			<a ui-sref="public.app.forum.category({permalink: cat.permalink})" class="content">
+				<div class="header">{{cat.title}}</div>
+				<div class="meta">
+					<span class="cinema">{{cat.total_topics}} topics, {{cat.total_replies}} replies</span>
+				</div>
+				<div class="description" >
+					<p dynamic=cat.description></p>
+				</div>
+				<div class="extra">
+					<div class="ui label"><i class="{{cat.access_level_type > 1 ? 'lock' : ''}} icon"></i> {{cat.access_level_type | accessType}} </div>
+				</div>
+			</a>
+			<div class="ui top right attached label" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.app.forum.category.add', {id: next_item.id})">
+				<i class="edit icon"></i> edit
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui right aligned attached segment" sm-access='manage_content' if-not='hide'>
+	<button class="ui button" ng-click="smModal.Show('public.app.forum.category.add')">Add new category</button>
+</div>

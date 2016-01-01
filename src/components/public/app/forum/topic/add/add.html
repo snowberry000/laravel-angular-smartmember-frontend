@@ -1,0 +1,31 @@
+<div class="ui modal">
+	<div class="header">
+		<i class="paragraph icon"></i>
+		Create a new topic
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui form">
+				<div class="field">
+					<label>Title</label>
+					<input ng-model="topic.title" placeholder="Title">
+				</div>
+				<div class="field">
+					<label>Description</label>
+					<textarea froala rows="2" ng-model="topic.description"></textarea>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui black deny button close">
+			Close
+		</div>
+		<a ng-click="save()" class="ui right labeled icon button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</a>
+	</div>
+</div>
