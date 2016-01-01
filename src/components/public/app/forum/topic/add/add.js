@@ -5,23 +5,24 @@ app.config(function($stateProvider){
 		.state("public.app.forum.topic.add",{
 			url: "/add",
 			templateUrl: "/templates/components/public/app/forum/topic/add/add.html",
-			controller: "AddController"
+			controller: "AddTopicController"
 		})
 }); 
 
-app.controller("AddController", function ($scope) {
+app.controller("AddTopicController", function ($scope,$rootScope, Restangular) {
 
 	$scope.save = function()
 	{
-		$scope.topic.category_id = $scope.category.id;
-		$scope.topic.site_id = $scope.site.id;
+		console.log($rootScope.category);
 
-		Restangular.service( 'forumTopic' )
+		$scope.topic.category_id = $rootScope.category.id;
+		$scope.topic.site_id = $rootScope.category.id;
+
+		Restangular.service( 'forumTopic' )	
 			.post( $scope.topic )
 			.then( function( response )
 			{
-				$scope.category.topics.push( response );
-				$scope.topic = {};
+				location.reload();
 			} );
 	}
 
