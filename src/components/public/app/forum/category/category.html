@@ -12,7 +12,7 @@
 	<div class="ui attached segment">
 
 		<div class="ui link items">
-			<a class="item" ui-sref="public.app.forum-topic({permalink: topic.permalink})" ng-repeat="topic in category.topics | orderBy:'-updated_at'">
+			<a class="item" ui-sref="public.app.forum.topic({permalink: topic.permalink})" ng-repeat="topic in category.topics | orderBy:'-updated_at'">
 				<div class="ui tiny image">
 					<img src="{{topic.user.profile_image}}">
 				</div>
