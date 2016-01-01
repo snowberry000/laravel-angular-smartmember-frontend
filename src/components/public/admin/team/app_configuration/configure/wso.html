@@ -1,47 +1,76 @@
 <div class="ui modal">
+    <div class="header">
+        <i class="configure icon"></i>
+        {{current_integration ? 'Configure' : 'Install'}} WSO Payments App
+    </div>
     <div class="content">
-        <div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
-            <div class="sk-bounce1"></div>
-            <div class="sk-bounce2"></div>
-            <div class="sk-bounce3"></div>
-        </div>
-        <div ng-if="!loading" class="card clearfix large_top_margin">
-            <h4 style="margin-bottom:20px;">Configure WSO Payments for <strong>{{current_site.name}}</strong></h4>
-            <div class="clear_both"></div>
-            <div class="col span_2_of_6 small">
-                Set this Url as your IPN Url.
+        <div class="description">
+            <h3 class="ui horizontal divider header">
+                <i class="magic icon"></i>
+                Setup Instructions
+            </h3>
+
+            <div class="ui ignored positive message">
+                <p>Follow these steps to install the {{integration.name}} app.</p>
             </div>
-            <div class="col span_4_of_6 ">
-                <label class="small">
-                    <div class="input-group" ng-init="init()">
-                        <input class="form-control input-lg endpoint-api" id="copy_me" disabled value="{{app.apiUrl + '/transaction?type=wso&subdomain=' + current_site.subdomain}}" />
-                            <span class="input-group-btn">
-                                <a class="btn btn-brand copy-button" style="height:45px;"  data-clipboard-target="#copy_me" data-clipboard-action="copy" clip-copy="app.apiUrl + '/transaction?type=wso&subdomain=' + current_site.subdomain" ng-click="copied()" >Copy</a>
-                            </span>
+
+            <div class="ui styled fluid accordion" sui-accordion>
+                <h3 class="ui top attached header title active">
+                    <i class="dropdown icon"></i>
+                    Step 1
+                </h3>
+                <div class="ui attached segment content active">
+                    <p>Copy and Paste the IPN into the Product edit Page for WSO.</p>
+                    <img class="ui bordered image" src="http://content.screencast.com/users/mike4905/folders/Snagit/media/014bf4de-5dd0-4dc1-88f6-a5d3b2f5cc1e/12.31.2015-22.34.png">
+                </div>
+
+                <h3 class="ui top attached header title">
+                    <i class="dropdown icon"></i>
+                    Step 2
+                </h3>
+                <div class="ui attached segment content">
+                    <p>Go to Access Levels > Add New / or an existing level > WSO Integration. Then Add Product ID which should also be seen in the edit WSO page (or on your main products page in the WSO Product ID column).</p>
+                    <img class="ui bordered image" src="http://content.screencast.com/users/mike4905/folders/Snagit/media/f4a7b7cb-47fd-4244-ac30-85a4e6c26098/12.31.2015-22.30.png">
+                </div>
+
+            </div>
+            <h3 class="ui horizontal divider header">
+                <i class="setting icon"></i>
+                Settings
+            </h3>
+
+            <div class="ui segment form">
+
+                <div class="field">
+                    <label>Use this as your IPN url</label>
+
+                    <div class="ui action input" ng-init="init()">
+                        <input type="text" class="endpoint-api" id="copy_me" value="{{app.apiUrl + '/transaction?type=wso&subdomain=' + current_site.subdomain}}">
+                        <button class="ui teal right labeled icon button copy-button" data-clipboard-target="#copy_me" data-clipboard-action="copy" clip-copy="app.apiUrl + '/transaction?type=wso&subdomain=' + current_site.subdomain" ng-click="copied()">
+                            <i class="copy icon"></i>
+                            Copy
+                        </button>
                     </div>
-                </label>
-            </div>
-            <div class="clear_both"></div>
-            <div class="col span_2_of_6 small">
-                Set this Url as the thank you page in your WSO product if you wish to use the built in thank you page.
-            </div>
-            <div class="col span_4_of_6 ">
-                <label class="small">
-                    <div class="input-group">
-                        <input class="form-control input-lg endpoint-api" id="copy_me2" disabled value="{{'http://' + ( current_site.domain ? current_site.domain : current_site.subdomain + '.' + app.rootDomain ) + '/thank-you'}}" />
-                            <span class="input-group-btn">
-                                <a class="btn btn-brand copy-button" style="height:45px;" data-clipboard-target="#copy_me2" data-clipboard-action="copy" clip-copy="'http://' + ( current_site.domain ? current_site.domain : current_site.subdomain + '.' + app.rootDomain ) + '/thank-you'" ng-click="copied()" >Copy</a>
-                            </span>
+                </div>
+                <div class="field">
+                    <label>Use this as your Thank You Page url (optional)</label>
+
+                    <div class="ui action input">
+                        <input type="text" class="endpoint-api" id="copy_me2" value="{{'http://' + ( current_site.domain ? current_site.domain : current_site.subdomain + '.' + app.rootDomain ) + '/thank-you'}}">
+                        <button class="ui teal right labeled icon button copy-button" data-clipboard-target="#copy_me2" data-clipboard-action="copy" clip-copy="'http://' + ( current_site.domain ? current_site.domain : current_site.subdomain + '.' + app.rootDomain ) + '/thank-you'" ng-click="copied()">
+                            <i class="copy icon"></i>
+                            Copy
+                        </button>
                     </div>
-                </label>
+                </div>
+
             </div>
-            <div class="clear_both"></div>
-            <h4 style="margin-bottom:20px;">To enable automatic login for your customers, set up the JVZIPN Secret Key on your </h4>
         </div>
     </div>
+
     <div class="actions">
-        <div class="ui black deny button close" ng-click="smModal.Show(\"public.admin.team.app_configurations.{{integration_id ? 'list' : 'available'}}\")">
-            Cancel
+        <div class="ui black deny button close" ng-click="cancel()">
+            Back
         </div>
     </div>
 </div>
