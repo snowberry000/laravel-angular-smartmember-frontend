@@ -35,8 +35,9 @@ app.controller( "AddController", function( $scope, Restangular, $stateParams )
 			.post( $scope.category )
 			.then( function( response )
 			{
-				$scope.categories.push( response );
-				$scope.category = {};
+				location.reload();
+				//$scope.categories.push( response );
+				//$scope.category = {};
 			} );
 	}
 

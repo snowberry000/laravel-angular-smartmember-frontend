@@ -4,7 +4,7 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app.forum.categories", {
-			url: "/categories",
+			url: "/forum",
 			templateUrl: "/templates/components/public/app/forum/categories/categories.html",
 			controller: "CategoriesController"
 		} )
@@ -12,8 +12,6 @@ app.config( function( $stateProvider )
 
 app.controller( "CategoriesController", function( $scope, Restangular )
 {
-
-
 	$scope.categories = false;
 	$scope.category = {};
 
