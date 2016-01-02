@@ -260,4 +260,5 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 
 	$scope.initPublicSite();
 	$scope.resolve();
+
 } );

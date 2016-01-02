@@ -55,7 +55,12 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 		if( new_value && $rootScope.user && $rootScope.user.id )
 		{
 			$rootScope.sites_loading = true;
-
+			if($localStorage.open_sites_wizard_modal && $rootScope.site.is_admin){
+				$localStorage.open_sites_wizard_modal = null;
+				$timeout(function(){
+					smModal.Show( 'public.admin.wizard', {id: 'site_launch_wizard'} );
+				} , 3000)
+			}
 			Restangular.one( 'site/members' ).get().then( function( response )
 			{
 				$grouped_sites = response;

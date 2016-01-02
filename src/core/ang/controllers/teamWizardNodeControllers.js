@@ -131,7 +131,7 @@ app.controller( 'inviteTeamMembersWizardController', function( $scope, $state, $
 
 } );
 
-app.controller( 'siteWizardController', function( $scope, $rootScope, $localStorage, $http,  Restangular, toastr, $filter )
+app.controller( 'siteWizardController', function( $scope, $rootScope, $localStorage, $location , $http,  Restangular, toastr, $filter )
 {
 	$scope.site = {};
 	$scope.clone_sites = [];
@@ -180,6 +180,16 @@ app.controller( 'siteWizardController', function( $scope, $rootScope, $localStor
 			$scope.saving = true;
 			$rootScope.site = response;
 			$rootScope.parent_wizard.next( 0, $scope.current_node );
+
+			var domainParts = $location.host().split( '.' );
+			var env = domainParts.pop();//dev
+			var domain = domainParts.pop() + "." + env;
+			if( domain.indexOf( 'smartmember' ) == -1 )
+			{
+				domain = 'smartmember.com';
+			}
+			window.location.href = "http://" + response.subdomain + '.' + domain + '?new';
+
 		}, function( response )
 		{
 			$scope.saving = false;

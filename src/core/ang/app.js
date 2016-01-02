@@ -134,6 +134,11 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 		$rootScope.app.show_engine = true;
 	}
 
+	if( location.href.indexOf( '?new' ) > -1 )
+	{
+		$localStorage.open_sites_wizard_modal = true;
+	}
+
 	Restangular.setBaseUrl( $rootScope.app.apiUrl );
 	Restangular.setDefaultHeaders( { 'Content-Type': 'application/json' } );
 
