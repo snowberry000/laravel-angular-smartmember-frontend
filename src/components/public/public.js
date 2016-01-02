@@ -19,7 +19,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
+app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, User, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
 {
 	$rootScope.user_loading = false;
 	$rootScope.user_loaded = false;
@@ -38,6 +38,11 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, s
 
 	$scope.current_site_domain = window.location.host;
 	$rootScope.active_theme_option_section = 'layout';
+
+	$scope.LogOut = function()
+	{
+		User.signOut();
+	}
 
 	$scope.GetAdminBarInclude = function()
 	{

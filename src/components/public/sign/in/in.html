@@ -9,8 +9,8 @@
 				<div class="ui loader"></div>
 			</div>
 
-			<div class="ui two column middle aligned very relaxed stackable grid relative_container" style="position: relative;">
-				<div class="nine wide column">
+			<div class="ui two column middle aligned very relaxed stackable grid container relative_container" style="position: relative;">
+				<div class="column">
 
 					<p ng-if="site_options.login_page_text" dynamic="site_options.login_page_text"></p>
 
@@ -54,7 +54,7 @@
 				<div class="ui vertical divider">
 					Or
 				</div>
-				<div class="center aligned seven wide column">
+				<div class="center aligned column">
 					<a ng-if="site_options.create_account_url" ng-href="{{site_options.create_account_url}}" class="close ui big blue labeled icon button">
 						<i class="edit icon"></i>
 						Sign Up
