@@ -5,7 +5,7 @@
 	<div class="content">
 		<div class="description">
 
-			<div class="ui two column middle aligned very relaxed stackable centered grid">
+			<div class="ui two column middle aligned very relaxed stackable centered grid container">
 				<div class="column">
 
 					<div ng-if="inprocess_register">
@@ -59,15 +59,15 @@
 	<div class="actions">
 		<a class="ui labeled icon button" ng-click="smModal.Show('public.sign.in')">
 			Login
-			<i class="fa fa-user icon"></i>
+			<i class="user icon"></i>
 		</a>
 		<a class="ui labeled icon button" ng-click="smModal.Show('public.sign.up')">
 			Sign Up
-			<i class="fa fa-edit icon"></i>
+			<i class="edit icon"></i>
 		</a>
 		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button">
 			Need help?
-			<i class="fa fa-life-ring icon"></i>
+			<i class="life ring icon"></i>
 		</a>
 		<div ng-if="!$state.includes('public.my')" class="close ui black button">
 			Close
