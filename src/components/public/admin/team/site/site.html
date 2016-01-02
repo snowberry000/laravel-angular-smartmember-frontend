@@ -1,72 +1,87 @@
 <div class="ui modal">
-	<i class="close icon"></i>
 
 	<div class="header">
-		<i class="paragraph icon"></i>
-		{{ site.id ? 'UPDATE_SITE' : 'CREATE_SITE' | translate }}
+		<i class="globe icon"></i>
+		{{ site.id ? 'Update' : 'Create' | translate }} a site
 	</div>
 	<div class="content">
 		<div class="description">
-			<p>Sites are where your members can sign up & access content.</p>
 
-			<form ng-submit="save()" class="ui form">
+			<div class="ui message">
+				<p>Sites are the main component of Smart Member and will be where your content is created, members joined, and
+					product(s) purchased.</p>
+			</div>
 
-				<div class="field m-t-md">
-					<label class="col-sm-4 control-label">Name</label>
+			<div class="ui section divider"></div>
 
-					<div class="col-sm-8">
-						<input type="text" class="form-control" name="name" ng-model="site.name" placeholder="My Awesome Site" ng-blur="setSubdomain($event)" required>
-								<span class="help-block m-b-none">
-									This is the primary name for your site; it will show up for your public site visitors,
-									members, customers, and be the default title of your site in search engines.
-								</span>
-					</div>
-				</div>
-				<div class="hr-line-dashed"></div>
+			<div class="ui large form">
 
-				<div class="field">
-					<label class="col-sm-4 control-label">Site URL / Subdomain</label>
+				<div class="two fields">
+					<div class="eight wide field">
+						<label>1. Site name</label>
 
-					<div class="col-sm-8">
-						<div class="input-group m-b">
-							<span class="input-group-addon">http://</span>
-							<input type="text" class="form-control" name="url_slug" ng-model="site.subdomain" placeholder="" required>
-							<span class="input-group-addon">.smartmember.com</span>
+						<input type="text" ng-model="site.name" placeholder="My Awesome Site" ng-blur="setSubdomain($event)" required>
+
+						<div class="ui ignored info message">
+							<p>
+								This is the primary name for your site; it will show up for your public site visitors,
+								members, customers, and be the default title of your site in search engines.
+							</p>
 						</div>
-								<span class="help-block m-b-none">
-									This is the url where visitors can find your site. You can always access it from
-									<strong>{{site.subdomain ? site.subdomain : 'yoursite'}}.smartmember.com</strong> but can also
-									map it to a brand new domain like www.widgets.com using the domain mapping options below.
-								</span>
+					</div>
+
+					<div class="eight wide field">
+						<label>2. Site URL / Subdomain</label>
+
+						<div class="ui right labeled input">
+							<div class="ui label">
+								http://
+							</div>
+							<input type="text" ng-model="site.subdomain" placeholder="mysite" required>
+							<div class="ui label">
+								smartmember.com
+							</div>
+						</div>
+
+						<div class="ui ignored info message">
+							<p>
+								This is the url where visitors can find your site.
+							</p>
+							<p>You can always get to it from <strong>{{site.subdomain ? site.subdomain : 'mysite'}}.smartmember.com</strong> but can also
+								map it to a brand new domain like www.{{site.subdomain ? site.subdomain : 'mysite'}}.com later.
+							</p>
+						</div>
 					</div>
 				</div>
+
 				<div class="field">
 					<label class="col-sm-4 control-label"></label>
 					<div class="col-sm-8">
 						<a class="" ng-click="show_advance_options = !show_advance_options">toggle advanced options</a>
 					</div>
 				</div>
-				<div ng-if="show_advance_options">
-					<div class="hr-line-dashed"></div>
-					<div class="field">
-						<label class="col-sm-4 control-label">Domain Mapping
-							<small>(optional)</small>
-						</label>
 
-						<div class="col-sm-8">
-							<div class="input-group m-b">
-								<span class="input-group-addon">http://</span>
-								<input type="text" class="form-control" name="" ng-model="site.domain" placeholder="www.widgets.com">
+				<div ng-if="show_advance_options">
+
+					<div class="field">
+						<label>Domain Mapping</label>
+
+						<div class="ui right labeled input">
+							<div class="ui label">
+								http://
 							</div>
-								<span class="help-block m-b-none">
-									For advanced users, if you'd like to map this site to it's own unique domain name instead of the
-									subdomain version provided above, enter it's domain here and read
-									<a href="http://help.smartmember.com/lesson/domain-mapping" target="_blank">these instructions</a>
-									to finish configuring it.
-								</span>
+							<input type="text" ng-model="site.domain" placeholder="www.mysite.com" required>
+						</div>
+
+						<div class="ui ignored info message">
+							<p>
+								For advanced users, if you'd like to map this site to it's own unique domain name instead of the
+								subdomain version provided above, enter it's domain here and read
+								<a href="http://help.smartmember.com/lesson/domain-mapping" target="_blank">these instructions</a>
+								to finish configuring it.
+							</p>
 						</div>
 					</div>
-					<div class="hr-line-dashed"></div>
 
 					<div class="field" ng-if="!site.id && clone_sites.length > 1" ng-hide="1">
 						<label class="col-sm-4 control-label">Clone an existing site
@@ -75,9 +90,9 @@
 
 						<div class="col-sm-6">
 							<select class="form-control m-b" ng-model="site.clone_id" data-ng-options="clone_site.id as clone_site.name for clone_site in clone_sites" ng-change="changeSite(site.clone_id)"></select>
-								<span class="help-block m-b-none">
-									If you'd like to make a copy of an existing site on this Team, select it from the dropdown above. All settings and content will be copied over into your new site.
-								</span>
+							<span class="help-block m-b-none">
+								If you'd like to make a copy of an existing site on this Team, select it from the dropdown above. All settings and content will be copied over into your new site.
+							</span>
 						</div>
 						<div class="col-sm-2">
 							<a ng-if="!current_clone_site.domain && site.clone_id!=0" href="http://{{current_clone_site.subdomain}}.{{app.domain}}" target="_blank" class="btn">Preview</a>
@@ -87,27 +102,17 @@
 				</div>
 				<div class="hr-line-dashed" ng-if="!site.id && clone_sites.length > 1"></div>
 
-				<div class="field">
-					<div class="col-sm-4 col-sm-offset-4">
-						<button class="btn btn-brand" type="submit" ng-disabled="saving">
-							{{saving ? ( !site.id ? 'Creating site...please wait' : 'Saving site...' ) : 'Save changes'}}
-						</button>
-						<a ng-if="!template_data.use_cancel_method" ui-sref="public.admin.team.sites" class="btn btn-white">Cancel</a>
-						<a ng-if="template_data.use_cancel_method" ng-click="cancel()" class="btn btn-white">Cancel</a>
-					</div>
-				</div>
-
-			</form>
+			</div>
 
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="smModal.Show(public.admin.team.site({'id':''}))" class="ui right labeled icon button" ng-if="(can_create_sites || is_team_primaryOwner) && (site.locked != 1 && site.locked != '1' && current_company.locked != 1 && current_company.locked != '1' ) && !site.max_count_reached ">
-			Create new Site
+		<div class="ui black deny button close" ng-click="smModal.Show('public.admin.team.sites')">
+			Back
+		</div>
+		<a busy ng-click="save()" class="ui right labeled icon green button">
+			Save & Continue
 			<i class="checkmark icon"></i>
 		</a>
-		<div class="ui black deny button close">
-			Close
-		</div>
 	</div>
 </div>
