@@ -1276,9 +1276,8 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 			{
 				toastr.success( "Module added" );
 				//$scope.modules.push(response);
-				$rootScope.modules.unshift( response );
+				//$rootScope.modules.unshift( response );
 				$scope.saving = false;
-
 			} );
 		}
 		$rootScope.parent_wizard.next( 1, $scope.current_node );
