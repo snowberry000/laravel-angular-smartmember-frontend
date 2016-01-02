@@ -1,6 +1,6 @@
 <div class="ui modal">
 	<div class="header">
-		<i class="paragraph icon"></i>
+		<i class="student icon"></i>
 		{{ template_data.title | translate }}
 	</div>
 	<div class="content">
@@ -9,69 +9,93 @@
 				<p>{{template_data.description}}</p>
 			</div>
 
-			<div class="ibox float-e-margins">
-				<div class="ibox-content">
-					<div class="field" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
-						<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-					</div>
-					<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
-						<div class="sk-bounce1"></div>
-						<div class="sk-bounce2"></div>
-						<div class="sk-bounce3"></div>
-					</div>
-					<table class="ui fixed single line celled stackable table" data-page-size="15" ng-if="data.length > 0 && !loading" foonice>
-						<thead>
-							<tr>
-								<th data-toggle="true">Title</th>
-								<th data-hide="phone">Access</th>
-								<th data-hide="phone">Created</th>
-								<th class="text-right" data-hide="phone,tablet" data-sort-ignore="true">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="next_item in data[ pagination.current_page ]">
-								<td class="responsive_table_item">
-									{{next_item.title}}
-								</td>
-								<td style="width:125px;">
-									{{next_item.access_level.name}}
-								</td>
-								<td style="width: 160px;">
-									{{moment.utc(next_item.created_at).fromNow()}}
-								</td>
-								<td class="text-right" style="width: 235px;">
-									<div class="btn-group">
-										<a ng-click="smModal.Show(template_data.edit_route,{id: next_item.id })" class="btn btn-brand btn-outline btn-xs">
-											Edit
-											<i class="fa fa-pencil"></i>
-										</a>
-										<a href="/{{next_item.permalink}}" target="_blank" class="btn btn-brand btn-outline btn-xs">
+			<div class="ui section divider"></div>
+
+			<div class="ui icon input">
+				<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate()">
+				<i class="search icon"></i>
+			</div>
+
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
+				<thead>
+					<tr>
+						<th data-toggle="true">Title</th>
+						<th data-hide="all">Access</th>
+						<th data-hide="all">Created</th>
+						<th class="text-right">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+						<td class="responsive_table_item">
+							{{next_item.title}}
+						</td>
+						<td style="width:125px;">
+							{{next_item.access_level.name}}
+						</td>
+						<td style="width: 160px;">
+							{{moment.utc(next_item.created_at).fromNow()}}
+						</td>
+						<td class="text-right">
+							<div class="ui buttons">
+								<div class="ui button" ng-click="smModal.Show(template_data.edit_route,{id: next_item.id })">
+									Edit
+								</div>
+								<div class="ui floating dropdown icon button" sui-dropdown>
+									<i class="dropdown icon"></i>
+									<div class="menu">
+										<a class="item" href="/{{next_item.permalink}}" target="_blank">
+											<i class="eye icon"></i>
 											View
-											<i class="fa fa-eye"></i>
 										</a>
-										<a ng-click="smModal.Show( template_data.edit_route , {clone : next_item.id})" class="btn btn-link btn-outline btn-xs">
+										<a class="item" ng-click="smModal.Show( template_data.edit_route , {clone : next_item.id})">
+											<i class="copy icon"></i>
 											Copy
-											<i class="fa fa-copy"></i>
 										</a>
-										<button class="btn btn-danger btn-outline btn-xs" sm-delete={{next_item.id}}>
+										<a class="item" sm-delete="{{next_item.id}}">
+											<i class="delete icon"></i>
 											Delete
-											<i class="fa fa-trash"></i>
-										</button>
+										</a>
 									</div>
+								</div>
+							</div>
 
-								</td>
-							</tr>
+						</td>
+					</tr>
 
-						</tbody>
-						<tfoot>
-							<tr>
-							</tr>
-						</tfoot>
-					</table>
-					<div class="text-right" ng-if="!loading">
-						<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.current_page" class="pagination-sm" boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
-					</div>
-				</div>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="4">
+							<div class="ui small button">
+								{{pagination.total_count}} total items
+							</div>
+							<div class="ui right floated pagination menu">
+								<a class="icon item">
+									<i class="left chevron icon"></i>
+								</a>
+								<a class="item">1</a>
+								<a class="item">2</a>
+								<a class="item">3</a>
+								<a class="item">4</a>
+								<a class="icon item">
+									<i class="right chevron icon"></i>
+								</a>
+							</div>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+
+			<dir-pagination-controls></dir-pagination-controls>
+
+			<pre>{{pagination}}</pre>
+			<div class="text-right">
+				<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.current_page" class="pagination-sm" boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
 			</div>
 
 		</div>
