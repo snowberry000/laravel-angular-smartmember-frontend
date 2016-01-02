@@ -1,64 +1,63 @@
 <section ng-init="loadComments()">
-    <div class="comments_area">
-        <div class="ui comments">
-            <h3 class="ui dividing header">Comments</h3>
-            <div class="comment comment_parent" ng-repeat="comment in next_item.comments | orderBy:'created_at':next_item.discussion_settings.newest_comments_first">
-                <a class="avatar">
-                    <img title="{{comment.user.first_name}} {{comment.user.last_name}}" src="{{comment.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm&s=48'}}">
-                </a>
-                <div class="content">
-                    <a class="author">{{comment.user.first_name}} {{comment.user.last_name}}</a>
-                    <div class="metadata">
-                        <span class="date">{{moment.utc( comment.created_at ).fromNow()}}</span>
-                    </div>
-                    <div class="text">
-                        {{comment.body}}
-                    </div>
-                    <div class="actions">
-                        <a class="reply" ng-show="next_item.discussion_settings.allow_replies" data-bypass="true" ng-init="show_reply_div = false" ng-click="show_reply_div = !show_reply_div">Reply</a>
-                    </div>
-                </div>
-                <div class="comments" ng-if="comment.reply">
-                    <div class="comment comment_item" ng-repeat="reply in comment.reply | orderBy:'created_at'">
-                        <a class="avatar">
-                            <img title="{{reply.user.first_name}} {{reply.user.last_name}}" src="{{reply.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm&s=48'}}">
-                        </a>
-                        <div class="content">
-                            <a class="author">{{reply.user.first_name}} {{reply.user.last_name}}</a>
-                            <div class="metadata">
-                                <span class="date">{{moment.utc( reply.created_at ).fromNow()}}</span>
-                            </div>
-                            <div class="text">
-                                {{reply.body}}
-                            </div>
-                            <div class="actions" ng-hide="1">
-                                <a class="reply" ng-click="$parent.show_reply_div = !$parent.show_reply_div">Reply</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="reply_comment_area" ng-if="show_reply_div">
-                    <form class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
-                        <div class="field">
-                            <textarea ng-model="new_reply"></textarea>
-                        </div>
-                        <div class="ui blue labeled submit icon button" ng-click="saveReply(comment , new_reply)">
-                            <i class="icon edit"></i> Add Reply
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <form class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
-                <div class="field">
-                    <textarea ng-model="new_comment"></textarea>
-                </div>
-                <div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment)">
-                    <i class="icon fa fa-edit"></i> Add Comment
-                </div>
-            </form>
-        </div>
-    </div>
+	<div class="comments_area">
+		<div class="ui comments">
+			<div class="comment comment_parent" ng-repeat="comment in next_item.comments | orderBy:'created_at':next_item.discussion_settings.newest_comments_first">
+				<a class="avatar">
+					<img title="{{comment.user.first_name}} {{comment.user.last_name}}" src="{{comment.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm&s=48'}}">
+				</a>
+				<div class="content">
+					<a class="author">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+					<div class="metadata">
+						<span class="date">{{moment.utc( comment.created_at ).fromNow()}}</span>
+					</div>
+					<div class="text">
+						{{comment.body}}
+					</div>
+					<div class="actions">
+						<a class="reply" ng-show="next_item.discussion_settings.allow_replies" data-bypass="true" ng-init="show_reply_div = false" ng-click="show_reply_div = !show_reply_div">Reply</a>
+					</div>
+				</div>
+				<div class="comments" ng-if="comment.reply">
+					<div class="comment comment_item" ng-repeat="reply in comment.reply | orderBy:'created_at'">
+						<a class="avatar">
+							<img title="{{reply.user.first_name}} {{reply.user.last_name}}" src="{{reply.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm&s=48'}}">
+						</a>
+						<div class="content">
+							<a class="author">{{reply.user.first_name}} {{reply.user.last_name}}</a>
+							<div class="metadata">
+								<span class="date">{{moment.utc( reply.created_at ).fromNow()}}</span>
+							</div>
+							<div class="text">
+								{{reply.body}}
+							</div>
+							<div class="actions" ng-hide="1">
+								<a class="reply" ng-click="$parent.show_reply_div = !$parent.show_reply_div">Reply</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="reply_comment_area" ng-if="show_reply_div">
+					<form class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
+						<div class="field">
+							<textarea ng-model="new_reply"></textarea>
+						</div>
+						<div class="ui blue labeled submit icon button" ng-click="saveReply(comment , new_reply)">
+							<i class="icon edit"></i> Add Reply
+						</div>
+					</form>
+				</div>
+			</div>
+			<form class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
+				<div class="field">
+					<textarea ng-model="new_comment"></textarea>
+				</div>
+				<div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment)">
+					<i class="icon fa fa-edit"></i> Add Comment
+				</div>
+			</form>
+		</div>
+	</div>
 </section>
 <div ng-if="next_item.comments.length==0">
-    <h3 class="ui header">No comments</h3>
+	<h3 class="ui header">No comments</h3>
 </div>
