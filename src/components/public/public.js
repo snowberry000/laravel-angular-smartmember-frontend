@@ -1,6 +1,6 @@
 var app = angular.module( "app" );
 
-app.config( function( $stateProvider )
+app.config( function( $stateProvider, paginationTemplateProvider )
 {
 	$stateProvider
 		.state( "public", {
@@ -16,7 +16,9 @@ app.config( function( $stateProvider )
 					] );
 				}
 			}
-		} )
+		} );
+
+	paginationTemplateProvider.setPath('/templates/core/html/pagination.html');
 } );
 
 app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, User, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
