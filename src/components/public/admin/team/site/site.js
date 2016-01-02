@@ -10,12 +10,14 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'SiteController', function( $scope, toastr, $stateParams , $rootScope, $state, smModal,$localStorage, $location, Restangular, $filter )
+app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootScope, $state, smModal, $localStorage, $location, Restangular, $filter )
 {
-	if($stateParams.id){
-		Restangular.one('site' , $stateParams.id).then(function(response){
+	if( $stateParams.id )
+	{
+		Restangular.one( 'site', $stateParams.id ).then( function( response )
+		{
 			$scope.site = response;
-		})
+		} )
 	}
 	$scope.save = function()
 	{
@@ -28,13 +30,13 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams , $root
 		$scope.create();
 	}
 
-    $scope.setSubdomain = function( $event )
-    {
-        if( !$scope.site.subdomain )
-        {
-            $scope.site.subdomain = $filter( 'urlify' )( $scope.site.name );
-        }
-    }
+	$scope.setSubdomain = function( $event )
+	{
+		if( !$scope.site.subdomain )
+		{
+			$scope.site.subdomain = $filter( 'urlify' )( $scope.site.name );
+		}
+	}
 
 	$scope.clone_sites = Restangular.all( 'site' ).getList( { cloneable: 1 } );
 	//$scope.site = $rootScope.site;
@@ -48,7 +50,7 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams , $root
 		$scope.site.put().then( function( response )
 		{
 			toastr.success( "Site Edited!" );
-			smModal.Show("admin.team.sites");
+			smModal.Show( "admin.team.sites" );
 		}, function( response )
 		{
 			$scope.saving = false;
@@ -70,7 +72,7 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams , $root
 				domain = 'smartmember.com';
 			}
 
-			window.location.href = "http://" + response.subdomain + '.' + domain;
+			window.location.href = "http://" + response.subdomain + '.' + domain + '?new';
 		}, function( response )
 		{
 			$scope.saving = false;
