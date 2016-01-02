@@ -1,4 +1,4 @@
-<div class="ui attached clearing segment section_background_color">
+<div class="ui attached clearing segment section_background_color" ng-if="loading || next_item.embed_content || !next_item.access">
 
 	<div class="ui active inverted dimmer" ng-if="loading">
 		<div class="ui text loader">Loading</div>
@@ -14,12 +14,6 @@
 		</a>
 	</div>
 </div>
-<div class="ui attached clearing padded segment section_background_color" sm-access="manage_content" if-not="hide">
-	<a ng-click="smModal.Show('public.admin.site.content.syllabus.lesson', {id: next_item.id})" class="ui button">
-		Edit
-	</a>
-</div>
-
 <div class="ui attached clearing padded segment section_background_color" ng-if="next_item.timeLeft > 0">
 	<h3 class="text-center">
 		You can access this content in:
@@ -29,7 +23,7 @@
 	</h3>
 </div>
 
-<div class="ui attached clearing padded segment section_background_color">
+<div class="ui attached clearing padded segment section_background_color" ng-if="next_item.audio_file || ((next_item.transcript_content_public || next_item.access) && next_item.transcript_content)">
 
 	<div class="lesson_meta" style="min-height: 40px;">
 		<span class="pull-right" style="padding-left: 20px; padding-top: 5px;">
@@ -47,6 +41,11 @@
 	</div>
 </div>
 <div class="ui attached clearing padded segment section_background_color">
+
+	<a class="ui top right attached label" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.admin.site.content.syllabus.lesson', {id: next_item.id})">
+		edit
+	</a>
+
 	<div ng-show="next_item.showTranscript" class="transcript_stuff" style="padding: 15px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px; border-radius: 4px; display: block;">
 		<h4 class="text-left">Transcript:</h4>
 		<p style="line-height: 24px;">
@@ -119,7 +118,7 @@
 			</div>
 		</div>
 
-		<h4 class="ui horizontal divider header" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
+		<h4 class="ui horizontal divider header" ng-if="false && (!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
 			<i class="plus icon"></i>
 			Add Comment
 		</h4>
