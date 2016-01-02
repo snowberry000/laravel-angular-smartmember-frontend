@@ -1,10 +1,10 @@
-<div class="ui small modal">
+<div class="ui long small modal">
 	<div class="header">
 		<i class="edit icon"></i>
 		Edit navigation menu item
 	</div>
 	<div class="content">
-		<div class="description">
+		<div class="description" style="min-height: 40vh;">
 
 			<div class="ui form">
 
@@ -12,19 +12,20 @@
 					<label>Label</label>
 					<input type="text" placeholder="Label" ng-model="editing_item.label" class="form-control">
 				</div>
-				<div class="field">
+				<div class="inline field">
 					<label>Icon</label>
-					<!-- <input type="text" placeholder="Icon" ng-model="editing_item.icon" class="form-control"> -->
-					<!-- <ui-iconpicker  groups="font-awesome"  style="margin-left:20px;" value="{{editing_item.icon}}" ng-model="editing_item.icon" ng-click="menuItemLabel();editing_item.custom_icon=''" ></ui-iconpicker> -->
-					<!--updateIcon(iconClass)-->
-					<sm-iconpicker icon='{{editing_item.icon}}' ng-click="editing_item.custom_icon=''">
-					</sm-iconpicker>
+					<sm-iconpicker icon='{{editing_item.icon}}' ng-click="editing_item.custom_icon=''"></sm-iconpicker>
+				</div>
+
+				<div class="inline field">
+					<label>Upload image icon</label>
+					<button type="button" class="ui button" sm-uploader="custom_icon" ng-model="editing_item.custom_icon">
+						<i class="upload icon"></i>
+						Choose File
+					</button>
 				</div>
 				<div class="field">
-					<label>Custom Icon
-						<span ng-if="editing_item.custom_icon" style="cursor: pointer; color:red;">&times;</span>
-					</label>
-					<input type="button" class="form-control btn btn-success" value="Custom Icon" ng-model="editing_item.custom_icon" sm-uploader="custom_icon" ng-click="editing_item.icon=''"/>
+					<img class="ui mini image" ng-src="{{editing_item.custom_icon}}" ng-show="editing_item.custom_icon">
 				</div>
 				<div class="field">
 					<label>Url</label>
@@ -71,6 +72,10 @@
 		<div class="ui black deny button close">
 			Back
 		</div>
+		<button class="ui left floated left labeled icon button" ng-if="editing_item.custom_icon" ng-click="editing_item.custom_icon=''">
+			Clear image icon
+			<i class="remove icon"></i>
+		</button>
 		<div ng-click="ok()" class="ui right labeled icon green button">
 			Save changes
 			<i class="checkmark icon"></i>
