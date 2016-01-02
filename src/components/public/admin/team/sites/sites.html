@@ -68,12 +68,12 @@
 					<div class="extra content">
 
 						<div class="ui {{site.total_revenue >= 10 ? 'three' : 'two'}} normal statistics">
-							<div class="statistic" title="Site members" sui-popup>
+							<div class="statistic" ng-if="(site.role=='admin' || site.role=='owner' || site.role=='editor')" title="Site members" sui-popup>
 								<div class="value">
 									<i class="users grey icon"></i> {{site.total_members}}
 								</div>
 							</div>
-							<div ng-if="site.total_revenue >= 10" class="statistic" title="Site revenue" sui-popup>
+							<div ng-if="site.total_revenue >= 10 && (site.role=='admin' || site.role=='owner')" class="statistic" title="Site revenue" sui-popup>
 								<div class="value">
 									{{site.total_revenue | currency:"$":0}}
 								</div>
