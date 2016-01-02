@@ -18,9 +18,13 @@ app.directive( 'suiProgress', function()
 		},
 		controller : function($scope , $rootScope){
 			$rootScope.$watch('site.wizard_step', function(value){
-
-				if( $rootScope.site.wizard_step > 0 )
-					$($scope.next_item).progress({value : value});//( value );
+                console.log('we got some wizard values: ', value );
+                if( value && $rootScope.site && $rootScope.site.wizard_step ) {
+                    if ($rootScope.site.wizard_step > 0)
+                        $($scope.next_item).progress({value: value});//( value );
+                } else {
+                    $($scope.next_item).progress({value: 0});//( value );
+                }
 			});
 		}
 	};

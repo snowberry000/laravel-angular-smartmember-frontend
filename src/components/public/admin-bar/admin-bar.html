@@ -31,7 +31,7 @@
 	</div>
 </div>
 
-<a class="ui item" style="width: 200px;" sm-access="edit_site_options" if-not="hide" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'account_wizard'})" ng-if="isSitelessPage('my')" sui-popup>
+<a class="ui item" style="width: 200px;" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'account_wizard'})" ng-if="isSitelessPage('my') && user.sm_access" sui-popup>
 	<div class="ui indicating progress m-b-none" style="width: 100%;" data-value="0" data-total="1" sui-progress>
 		<div class="bar">
 			<div class="progress">{{site.wizard_step}}</div>
