@@ -55,6 +55,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					onHidden: function()
 					{
 						modal.element.removeClass( 'smooth_changes' );
+						modal.element.remove();
 					}
 				};
 
