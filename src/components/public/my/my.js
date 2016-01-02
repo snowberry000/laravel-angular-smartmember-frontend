@@ -23,8 +23,17 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 				// user has loaded, so lets show a modal even if it's not ready yet and will be redirected away, just so
 				// it feels better.
 				// Here is where we should be able to tell on the user variable if it should show the wizard or not
-				smModal.Show( 'public.admin.wizard', { id: 'account_wizard', modal_options: {duration:0} } );
-				console.log( "Lets do the setup wizard!" );
+
+				if( $rootScope.user.sm_access && !$rootScope.user.setup_wizard_complete )
+				{
+					smModal.Show( 'public.admin.wizard', { id: 'account_wizard', modal_options: {duration:0} } );
+					console.log( "Lets do the setup wizard!" );
+				}
+				else
+				{
+					smModal.Show( 'public.admin.team.sites' );
+				}
+
 				//smModal.Show( 'public.admin.team.sites' );
 			}
 			else
@@ -41,7 +50,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 			if( $rootScope.sites.length > 1 )
 			{
 				// list of sites option
-				smModal.Show( 'public.admin.team.sites' );
+				//smModal.Show( 'public.admin.team.sites' );
 			}
 			/*
 			 else{
