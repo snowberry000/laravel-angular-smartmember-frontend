@@ -106,6 +106,7 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 			response.isOpen = false;
 			$scope.newItem = {};
 			$scope.menu_items.unshift( response );
+			$rootScope.site.menu_items.unshift(response);
 			toastr.success( "Success! Menu Item added" );
 		} );
 	}
@@ -118,6 +119,7 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 			response.isOpen = false;
 			$scope.newFooterItem = {};
 			$scope.footer_menu_items.unshift( response );
+			$rootScope.site.footer_menu_items.unshift(response);
 			toastr.success( "success! Footer Menu Item added" );
 		} );
 	}
