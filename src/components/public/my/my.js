@@ -16,7 +16,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 	{
 		console.log( 'user_loaded changed to ', new_value, ' from ', old_value );
 
-		if( new_value )
+		if( new_value && new_value != old_value )
 		{
 			if( $rootScope.user && $rootScope.user.id )
 			{
