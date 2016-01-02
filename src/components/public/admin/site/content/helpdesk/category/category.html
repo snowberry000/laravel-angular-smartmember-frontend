@@ -1,47 +1,35 @@
 <div class="ui modal">
-	<div class="row content">
-		<div class="ibox-content m-b-sm border-bottom">
-			<div class="p-xs">
-				<div class="row">
-					<div class="col-md-9">
-						<div class="col-md-3">
-							<div class="pull-left m-r-md">
-								<i class="fa fa-globe text-branded mid-icon"></i>
-							</div>
-							<h2 class="ui header">{{page_title}}</h2>
-						</div>
-						<div class="col-md-8">
-							<p class="font-bold text-success">It's what you and customers will see to distinguish one section of articles from another.</p>
-						</div>
-					</div>
-					<div class="col-md-3 text-right">
-						<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-							<i class="fa fa-question"></i>
-						</button>
-					</div>
-				</div>
+
+	<div class="header">
+		<i class="write icon"></i>
+		{{ category.id ? 'Update' : 'Add' | translate }} a category
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui message">
+				<p>Categories help organize and categorize your help desk / support articles.</p>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="ibox float-e-margins">
-					<div class="ibox-content">
-						<div class="field row">
-							<label class="col-md-2">Category name</label>
-							<div class="col-md-8">
-								<input type="text" name="title" class="form-control" ng-model="category.title">
-							</div>
-						</div>
-					</div>
+
+			<div class="ui section divider"></div>
+
+			<div class="ui form">
+
+				<div class="field">
+					<label>Category name</label>
+
+					<input type="text" ng-model="category.title">
 				</div>
+
 			</div>
+
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="smModal.Show('public.admin.site.content.helpdesk.categories')" class="ui black button">
-			Cancel
-		</a>
-		<a ng-click="save()" class="ui right labeled icon button">
+		<div ng-click="smModal.Show('public.admin.site.content.helpdesk.categories')" class="ui black deny button close">
+			Back
+		</div>
+		<a busy ng-click="save()" class="ui right labeled icon green button">
 			Save changes
 			<i class="check icon"></i>
 		</a>

@@ -1,61 +1,37 @@
 <div class="ui modal">
-    <div class="row content" style="padding-top:30px;" >
-        <div class="ibox-content m-b-sm border-bottom">
-            <div class="p-xs">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-3">
-                            <div class="pull-left m-r-md">
-                                <i class="fa fa-globe text-branded mid-icon"></i>
-                            </div>
-                            <h2 class="ui header">Module Creation</h2>
-                        </div>
-                        <div class="col-md-8">
-                            <p class="font-bold text-success">It's what you and customers will see to distinguish one section of lessons from another.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content" >
-                        <div class="field row">
-                            <label class="col-md-2">Module name</label>
-                            <div class="col-md-8">
-                                <input type="text" name="title" class="form-control" ng-model="module.title">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field" style="display: none;">
-                <label class="col-sm-2 control-label">Drip Feed Start After</label>
 
-                <div class="col-sm-10">
-                    <select ng-model="module.dripfeed_settings.duration"
-                            class="form-control pull-left" style="width:75px;">
-                        <option ng-repeat="n in range(1,30)" ng-selected="n==module.dripfeed_settings.duration" value="{{n}}">{{n}}</option>
-                    </select>
+	<div class="header">
+		<i class="write icon"></i>
+		{{ module.id ? 'Update' : 'Add' | translate }} a module
+	</div>
+	<div class="content">
+		<div class="description">
 
-                    <select ng-model="module.dripfeed_settings.interval"
-                            class="form-control pull-left" style="margin-left:5px;width: 120px;">
-                        <option value="hours" selected>Hours</option>
-                        <option value="days">Days</option>
-                        <option value="months">Months</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="actions">
-        <a ng-click="smModal.Show('public.admin.site.content.syllabus.modules')" class="ui black button">
-            Cancel
-        </a>
-        <a ng-click="save()" class="ui right labeled icon button">
-            Save changes
-            <i class="check icon"></i>
-        </a>
-    </div>
+			<div class="ui message">
+				<p>Modules help organize and categorize your lessons, like chapters in a book.</p>
+			</div>
+
+			<div class="ui section divider"></div>
+
+			<div class="ui form">
+
+				<div class="field">
+					<label>Module name</label>
+
+					<input type="text" ng-model="module.title">
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div ng-click="smModal.Show('public.admin.site.content.syllabus.modules')" class="ui black deny button close">
+			Back
+		</div>
+		<a busy ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="check icon"></i>
+		</a>
+	</div>
 </div>
