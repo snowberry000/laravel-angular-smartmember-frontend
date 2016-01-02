@@ -1,11 +1,13 @@
-var app = angular.module("app");
+var app = angular.module( "app" );
 
-app.config(function($stateProvider){
+app.config( function( $stateProvider )
+{
 	$stateProvider
-		.state("public.sign.out",{
+		.state( "public.sign.out", {
 			url: "/out",
-			controller: function ($state, User) {
-                User.signOut();
-            }
-		})
-}); 
+			controller: function( $state, User )
+			{
+				User.signOut();
+			}
+		} )
+} );
