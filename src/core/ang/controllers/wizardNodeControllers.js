@@ -1420,9 +1420,8 @@ app.controller( 'inviteMembersWizardController', function( $scope, $rootScope, $
 
 	$scope.invite = function()
 	{
-		Restangular.one( "role" ).customPOST( $scope.members, 'import' ).then( function()
-		{
-			toastr.success( "Import was successful" );
+		Restangular.one("siteRole").customPOST($scope.members, 'import').then(function(response) {
+		    toastr.success("Import was successful");
 			$rootScope.parent_wizard.next( 4, $scope.current_node );
 		} );
 	}
