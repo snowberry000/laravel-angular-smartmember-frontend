@@ -9,23 +9,23 @@
 			<div class="ui grid">
 				<div class="three wide column">
 					<div class="ui vertical fluid pointing menu">
-						<a class="item active" ng-click="type_to_fetch = 'open'">
+						<a class="item active" ng-class="{active: type_to_fetch == 'open'}" ng-click="type_to_fetch = 'open'">
 							Open
 							<div class="ui label">51</div>
 						</a>
-						<a class="item" ng-click="type_to_fetch = 'pending'">
+						<a class="item" ng-class="{active: type_to_fetch == 'pending'}" ng-click="type_to_fetch = 'pending'">
 							Pending
 							<div class="ui label">1</div>
 						</a>
-						<a class="item" ng-click="type_to_fetch = 'solved'">
+						<a class="item" ng-class="{active: type_to_fetch == 'solved'}" ng-click="type_to_fetch = 'solved'">
 							Solved
 							<div class="ui label">1</div>
 						</a>
-						<a class="item" ng-click="type_to_fetch = 'spam'">
+						<a class="item" ng-class="{active: type_to_fetch == 'spam'}" ng-click="type_to_fetch = 'spam'">
 							Spam
 							<div class="ui label">1</div>
 						</a>
-						<div class="item" data-tab="search">
+						<div class="item" ng-if="false">
 							<div class="ui transparent icon input">
 								<input type="text" placeholder="Search tickets...">
 								<i class="search icon"></i>
@@ -43,7 +43,7 @@
 						<p class="alert alert-info">No tickets found</p>
 					</div>
 
-					<table class="ui selectable table" ng-if="tickets[pagination.currentPage].length > 0 && !loading">
+					<table class="ui selectable table" ng-if="tickets[pagination.currentPage].length > 0 && !requesting_data">
 						<thead>
 							<tr>
 								<th>Reporter</th>
