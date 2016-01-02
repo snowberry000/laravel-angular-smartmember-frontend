@@ -40,7 +40,7 @@ app.directive( 'suiSearch', [ '$http', '$localStorage', function( $http, $localS
 							// add result to category
 							response.results['lessons'].results.push( {
 								title: item.title,
-								description: 'just a description',//item.content,
+								description: '',//item.content,
 								url: '/' + item.permalink
 							} );
 						} );

@@ -14,41 +14,33 @@
 					Change logo
 				</div>
 				<div class="content">
-					<div class="ui form transition hidden">
+					<div class="ui form">
 
-						<div class="field">
-							<label class="col-sm-3 control-label">Site logo</label>
-
-							<div class="col-sm-9">
-								<button type="button" class="btn btn-danger set_site_logo"
-										sm-uploader="site_logo" ng-model="site_options.site_logo">Choose Image
-								</button>
-								<span class="help-block m-b-none">
-									This is your site logo, the one that appears next to the menu.
-								</span>
-
-								<div class="width-100 text-center">
-									<img class="site_logo_preview img-responsive img-thumbnail"
-										 ng-src="{{site_options.site_logo}}" ng-show="site_options.site_logo"
-										 style="width:auto;"/>
-								</div>
-								<br/>
-
-								<div class="pull-right" ng-if="site_options.site_logo">
-									<a class="btn btn-danger" ng-click="site_options.site_logo=''"><i
-											class="ace-icon fa fa-remove">Remove</i></a>
-								</div>
-							</div>
+						<div class="inline field">
+							<label>Upload image / logo</label>
+							<button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.site_logo">
+								<i class="upload icon"></i>
+								Choose File
+							</button>
 						</div>
 						<div class="field">
+							<img class="ui fluid image" ng-src="{{site_options.site_logo}}" ng-show="site_options.site_logo">
+						</div>
+
+						<button class="ui left labeled icon button" ng-if="site_options.site_logo" ng-click="site_options.site_logo=''">
+							Clear
+							<i class="remove icon"></i>
+						</button>
+
+						<div class="field" ng-show="false">
 							<label class="col-sm-3 control-label">Logo Max Height</label>
 
 							<div class="col-sm-9">
 								<input type="text" name="logo_max_height" class="form-control input-lg"
 									   ng-model="site_options.logo_max_height" placeholder="100px">
-				<span class="help-block m-b-none">
-					Set the custom height for your logo. Default is 100px
-				</span>
+								<span class="help-block m-b-none">
+									Set the custom height for your logo. Default is 100px
+								</span>
 							</div>
 						</div>
 
@@ -60,16 +52,16 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form transition hidden">
+					<div class="ui form">
 
 						<div class="field">
 							<button type="button" class="btn btn-danger set_site_logo"
 									sm-uploader="site_logo" ng-model="site_options.favicon">Choose Image
 							</button>
-			<span class="help-block m-b-none">
-				This is your site favicon which appears on the left corner of the browser tab. It must be 16 x 16
-                .ico or .png file
-			</span>
+							<span class="help-block m-b-none">
+								This is your site favicon which appears on the left corner of the browser tab. It must be 16 x 16
+								.ico or .png file
+							</span>
 
 							<div class="width-100 text-center">
 								<img class="site_logo_preview img-responsive img-thumbnail"
@@ -80,7 +72,7 @@
 
 							<div class="pull-right" ng-if="site_options.favicon">
 								<a class="btn btn-danger" ng-click="site_options.favicon=''"><i
-										class="ace-icon fa fa-remove">Remove</i></a>
+								 class="ace-icon fa fa-remove">Remove</i></a>
 							</div>
 						</div>
 
@@ -93,7 +85,7 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form transition hidden">
+					<div class="ui form">
 
 						<div class="field">
 							<button type="button" class="btn btn-danger" sm-uploader="access_deny_image"
@@ -116,7 +108,7 @@
 
 							<div class="pull-right" ng-if="site_options.access_deny_image">
 								<a class="btn btn-danger" ng-click="site_options.access_deny_image=''"><i
-										class="ace-icon fa fa-remove">Remove</i></a>
+								 class="ace-icon fa fa-remove">Remove</i></a>
 							</div>
 						</div>
 
@@ -129,7 +121,7 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form transition hidden">
+					<div class="ui form">
 
 						<p class="bold no_bottom_margin">Display content availability publicly?</p>
 
@@ -153,103 +145,103 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form transition hidden">
-						        <div>
-						            <div class="row">
-						                <div class="col-md-12 animated-panel fadeInDown"
-						                     style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
-						                    <div class="hpanel hbgblue">
-						                        <div class="panel-body">
+					<div class="ui form">
+						<div>
+							<div class="row">
+								<div class="col-md-12 animated-panel fadeInDown"
+									 style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+									<div class="hpanel hbgblue">
+										<div class="panel-body">
 
-						                            <div class="row">
-						                                <div class="col-md-2 border-right animated-panel zoomIn"
-						                                     style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
-						                                    <i class="pe-7s-display1 fa-5x" style="font-size:11em;"></i>
-						                                </div>
-						                                <div class="col-md-8 col-md-offset-1 animated-panel zoomIn"
-						                                     style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
-						                                    <div class=" m-b-md">
-						                                        <h3 class="ui header">Facebook Sharing Settings</h3>
+											<div class="row">
+												<div class="col-md-2 border-right animated-panel zoomIn"
+													 style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+													<i class="pe-7s-display1 fa-5x" style="font-size:11em;"></i>
+												</div>
+												<div class="col-md-8 col-md-offset-1 animated-panel zoomIn"
+													 style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+													<div class=" m-b-md">
+														<h3 class="ui header">Facebook Sharing Settings</h3>
 
-						                                        <p>Choose how your site looks when you share it on Facebook.</p>
-						                                    </div>
-						                                </div>
-						                            </div>
+														<p>Choose how your site looks when you share it on Facebook.</p>
+													</div>
+												</div>
+											</div>
 
-						                        </div>
+										</div>
 
-						                    </div>
-						                </div>
-						            </div>
-						            <div class="row">
-						                <div class="col-md-12 animated-panel zoomIn"
-						                     style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
-						                    <div class="hpanel">
-						                        <div class="list-group" style="margin:0px;">
-						                        </div>
-						                        <div class="panel-body">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 animated-panel zoomIn"
+									 style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+									<div class="hpanel">
+										<div class="list-group" style="margin:0px;">
+										</div>
+										<div class="panel-body">
 
-						                            <form method="get" class="ui form save_form" ng-submit="saveFacebook()">
-						                                <div class="field">
-						                                    <label class="col-sm-2 control-label">Site Title</label>
+											<form method="get" class="ui form save_form" ng-submit="saveFacebook()">
+												<div class="field">
+													<label class="col-sm-2 control-label">Site Title</label>
 
-						                                    <div class="col-sm-10">
-						                                        <input type="text" name="fb_share_title" class="form-control input-lg"
-						                                               ng-model="site_options.fb_share_title">
-															<span class="help-block m-b-none">
-																This is the title that will show up for your site when it is shared on Facebook.
-															</span>
-						                                    </div>
-						                                </div>
-						                                <div class="hr-line-dashed"></div>
-						                                <div class="field">
-						                                    <label class="col-sm-2 control-label">Site Description</label>
-						                                    <div class="col-sm-10">
-						                                        <textarea type="text" name="fb_share_description" class="form-control"
-						                                                  ng-model="site_options.fb_share_description"></textarea>
-															<span class="help-block m-b-none">
-																This is the description that will be used for your site when it is shared on Facebook.
-															</span>
-						                                    </div>
-						                                </div>
-						                                <div class="hr-line-dashed"></div>
-						                                <div class="field">
-						                                    <label class="col-sm-2 control-label">Share Image</label>
+													<div class="col-sm-10">
+														<input type="text" name="fb_share_title" class="form-control input-lg"
+															   ng-model="site_options.fb_share_title">
+														<span class="help-block m-b-none">
+															This is the title that will show up for your site when it is shared on Facebook.
+														</span>
+													</div>
+												</div>
+												<div class="hr-line-dashed"></div>
+												<div class="field">
+													<label class="col-sm-2 control-label">Site Description</label>
+													<div class="col-sm-10">
+														<textarea type="text" name="fb_share_description" class="form-control"
+																  ng-model="site_options.fb_share_description"></textarea>
+														<span class="help-block m-b-none">
+															This is the description that will be used for your site when it is shared on Facebook.
+														</span>
+													</div>
+												</div>
+												<div class="hr-line-dashed"></div>
+												<div class="field">
+													<label class="col-sm-2 control-label">Share Image</label>
 
-						                                    <div class="col-sm-10">
-						                                        <button type="button" class="btn btn-danger"
-						                                                sm-uploader="fb_share_image" ng-model="site_options.fb_share_image">Choose
-						                                            Image
-						                                        </button>
-																<span class="help-block m-b-none">
-																	This is the image that will be used by default when you share Urls to your site on Facebook.  If set, individual lesson and page sharing settings will be used for those lessons and pages that have them.
-																</span>
+													<div class="col-sm-10">
+														<button type="button" class="btn btn-danger"
+																sm-uploader="fb_share_image" ng-model="site_options.fb_share_image">Choose
+															Image
+														</button>
+														<span class="help-block m-b-none">
+															This is the image that will be used by default when you share Urls to your site on Facebook. If set, individual lesson and page sharing settings will be used for those lessons and pages that have them.
+														</span>
 
-						                                        <div class="width-100 text-center">
-						                                            <img ng-show="site_options.fb_share_image" sm-uploader="fb_share_image" ng-model="site_options.fb_share_image"
-						                                                 class="fb_share_image_preview img-responsive img-thumbnail"
-						                                                 ng-src="{{site_options.fb_share_image}}"
-						                                                 style="width:auto; cursor: pointer;"/>
-						                                        </div>
-						                                        <input type="hidden" name="fb_share_image" class="form-control input-lg"
-						                                               ng-model="site_options.fb_share_image">
-						                                    </div>
-						                                </div>
-						                                <div class="hr-line-dashed"></div>
-						                                <!-- <div class="field">
-						                                    <div class="col-sm-8 col-sm-offset-2">
-						                                        <button class="btn btn-brand save_changes" type="submit">Save changes</button>
-						                                    </div>
-						                                </div> -->
-						                            </form>
+														<div class="width-100 text-center">
+															<img ng-show="site_options.fb_share_image" sm-uploader="fb_share_image" ng-model="site_options.fb_share_image"
+																 class="fb_share_image_preview img-responsive img-thumbnail"
+																 ng-src="{{site_options.fb_share_image}}"
+																 style="width:auto; cursor: pointer;"/>
+														</div>
+														<input type="hidden" name="fb_share_image" class="form-control input-lg"
+															   ng-model="site_options.fb_share_image">
+													</div>
+												</div>
+												<div class="hr-line-dashed"></div>
+												<!-- <div class="field">
+													<div class="col-sm-8 col-sm-offset-2">
+														<button class="btn btn-brand save_changes" type="submit">Save changes</button>
+													</div>
+												</div> -->
+											</form>
 
-						                        </div>
+										</div>
 
-						                    </div>
-						                </div>
-						            </div>
+									</div>
+								</div>
+							</div>
 
-						        </div>
+						</div>
 					</div>
 				</div>
 				<div class="title">
@@ -258,43 +250,43 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form transition hidden">
+					<div class="ui form">
 						<div id="post_col" class="col span_6_of_6" ng-init="init()">
 
-						    <form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
+							<form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
 
-						        <h2 class="ui header">Google Analytics Tracking ID (UA Code)</h2>
-						        <p class="small_bottom_margin">
-						            <input type="text" name="google_analytics_id" class="no_bottom_margin" ng-model="site_options.google_analytics_id" />
-						        </p>
-						        <hr>
-						        <h2 class="ui header">Facebook Retargeting Pixel ID</h2>
-						        <p class="small_bottom_margin">
-						            <input type="text" name="facebook_retargetting_pixel" class="no_bottom_margin" ng-model="site_options.facebook_retargetting_pixel" />
-						        </p>
-						        <hr>
-						        <h2 class="ui header">Facebook Conversion Tracking Pixel ID</h2>
-						        <p class="small_bottom_margin">
-						            <input type="text" name="facebook_conversion_pixel" class="no_bottom_margin" ng-model="site_options.facebook_conversion_pixel" />
-						        </p>
-						        <hr>
-						        <h2 class="ui header">Bing ID</h2>
-						        <p class="small_bottom_margin">
-						            <input type="text" name="bing_id" class="no_bottom_margin" ng-model="site_options.bing_id" />
-						        </p>
-						        <hr>
-						        <h2 class="ui header">Google Webmaster Verification ID</h2>
-						        <p class="small_bottom_margin">
-						            <input type="text" name="google_webmaster_tag" class="no_bottom_margin" ng-model="site_options.google_webmaster_tag" />
-						            <small>For example: O7Iba-qgK7C6MEywEoku4RkTXRbFKxvXHQpGdnuu***</small>
-						        </p>
-						        <hr>
-						        <h2 class="ui header">Bing Webmaster Verification ID</h2>
-						        <p class="small_bottom_margin">
-						            <input type="text" name="bing_webmaster_tag" class="no_bottom_margin" ng-model="site_options.bing_webmaster_tag" />
-						            <small>For example: 0FC3FD705126161B0252E755A56</small>
-						        </p>
-						    </form>
+								<h2 class="ui header">Google Analytics Tracking ID (UA Code)</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="google_analytics_id" class="no_bottom_margin" ng-model="site_options.google_analytics_id"/>
+								</p>
+								<hr>
+								<h2 class="ui header">Facebook Retargeting Pixel ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="facebook_retargetting_pixel" class="no_bottom_margin" ng-model="site_options.facebook_retargetting_pixel"/>
+								</p>
+								<hr>
+								<h2 class="ui header">Facebook Conversion Tracking Pixel ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="facebook_conversion_pixel" class="no_bottom_margin" ng-model="site_options.facebook_conversion_pixel"/>
+								</p>
+								<hr>
+								<h2 class="ui header">Bing ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="bing_id" class="no_bottom_margin" ng-model="site_options.bing_id"/>
+								</p>
+								<hr>
+								<h2 class="ui header">Google Webmaster Verification ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="google_webmaster_tag" class="no_bottom_margin" ng-model="site_options.google_webmaster_tag"/>
+									<small>For example: O7Iba-qgK7C6MEywEoku4RkTXRbFKxvXHQpGdnuu***</small>
+								</p>
+								<hr>
+								<h2 class="ui header">Bing Webmaster Verification ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="bing_webmaster_tag" class="no_bottom_margin" ng-model="site_options.bing_webmaster_tag"/>
+									<small>For example: 0FC3FD705126161B0252E755A56</small>
+								</p>
+							</form>
 
 						</div>
 					</div>
@@ -305,7 +297,7 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form transition hidden">
+					<div class="ui form">
 						<div id="" class="col span_6_of_6">
 
 							<h4 class="ui header">Add a New Key</h4>
@@ -322,41 +314,41 @@
 
 							<table class="ui fixed single line celled stackable table" data-page-size="15">
 								<thead>
-								<tr>
-									<th data-hide="title">Key</th>
-									<th data-hide="title">Original Site Name</th>
-									<th data-hide="title">Original Site URL</th>
-									<th data-hide="date">Date</th>
-									<th class="text-right" data-sort-ignore="true">Action</th>
-								</tr>
+									<tr>
+										<th data-hide="title">Key</th>
+										<th data-hide="title">Original Site Name</th>
+										<th data-hide="title">Original Site URL</th>
+										<th data-hide="date">Date</th>
+										<th class="text-right" data-sort-ignore="true">Action</th>
+									</tr>
 								</thead>
 								<tbody>
-								<tr ng-repeat="next_item in keys">
-									<td>
-										{{next_item.key}}
-									</td>
-									<td>
-										{{next_item.originate_site.name}}
-									</td>
-									<td>
-										{{next_item.originate_site.subdomain}}.smartmember.com
-									</td>
-									<td>
-										{{moment.utc(next_item.created_at).fromNow()}}
-									</td>
-									<td class="text-right">
-										<!--<button class="btn btn-danger btn-outline btn-sm ng-scope" ng-click="delete(next_item.id)">
-                                            Delete
-                                            <i class="fa fa-trash"></i>
-                                        </button> -->
+									<tr ng-repeat="next_item in keys">
+										<td>
+											{{next_item.key}}
+										</td>
+										<td>
+											{{next_item.originate_site.name}}
+										</td>
+										<td>
+											{{next_item.originate_site.subdomain}}.smartmember.com
+										</td>
+										<td>
+											{{moment.utc(next_item.created_at).fromNow()}}
+										</td>
+										<td class="text-right">
+											<!--<button class="btn btn-danger btn-outline btn-sm ng-scope" ng-click="delete(next_item.id)">
+												Delete
+												<i class="fa fa-trash"></i>
+											</button> -->
 
-									</td>
-								</tr>
+										</td>
+									</tr>
 
 								</tbody>
 								<tfoot>
-								<tr>
-								</tr>
+									<tr>
+									</tr>
 								</tfoot>
 							</table>
 						</div>
@@ -367,13 +359,13 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="save()" class="ui right labeled icon button">
-			Save changes
-			<i class="checkmark icon"></i>
-		</a>
 		<div class="ui black deny button close">
 			Close
 		</div>
+		<a ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</a>
 	</div>
 </div>
 
