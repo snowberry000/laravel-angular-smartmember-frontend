@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ProductController", function ($scope, $q, $stateParams,smModal, $localStorage, $rootScope,  Restangular,toastr,$state) {
+app.controller("ProductController", function ($scope, $q, $timeout, $stateParams,smModal, $localStorage, $rootScope,  Restangular,toastr,$state) {
 	
 	$site=$rootScope.site;
 	var paypal =null;
