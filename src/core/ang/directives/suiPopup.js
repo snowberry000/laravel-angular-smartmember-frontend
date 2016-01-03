@@ -12,10 +12,10 @@ app.directive( 'suiPopup', function( smModal )
 				target: attributes.target || '',
 				exclusive: true,
 				preserve: true,
-				duration: attributes.edit ? 100 : 0,
+				duration: attributes.edit ? 100 : (attributes.duration || 0),
 				delay: {
 					show: 100,
-					hide: attributes.edit ? 500 : 0
+					hide: attributes.edit ? 500 : (attributes.delayHide || 0)
 				},
 				onVisible: function()
 				{
