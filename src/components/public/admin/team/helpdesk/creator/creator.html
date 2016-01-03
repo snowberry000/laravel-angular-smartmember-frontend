@@ -1,97 +1,58 @@
 <div class="ui modal">
-    <div class="row content">
-        <div class="col-md-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h2 class="ui header">Ticket Creator</h2>
-                </div>
-                <div class="hr-line-dashed" style="background-color:white; margin:0px;"></div>
-                <div class="ibox-content">
-                    <div class="hpanel">
-                        <div class="panel-body">
-                            <form name="ticketForm" novalidate>
-                                <div class="field row">
-                                    <label class="col-md-3">Subject</label>
-                                    <div class="col-md-9">
-                                        <input class="form-control" type="text" ng-model="ticket.subject" required>
-                                    </div>
-                                </div>
-                                <div class="field row">
-                                    <label class="col-md-3">Requester's Name</label>
-                                    <div class="col-md-9">
-                                        <input class="form-control"  type="text" ng-model="ticket.user_name" required>
-                                    </div>
-                                </div>
-                                <div class="row field">
-                                    <label class="col-md-3">Requester's Email</label>
-                                    <div class="col-md-9">
-                                    <ui-select ng-model="ticket.user_email" theme="select2" ng-disabled="disabled" style="width: 300px;" >
-                                        <ui-select-match  placeholder="Select or search a user...">{{$select.selected.email}}</ui-select-match>
-                                        <ui-select-choices refresh="search_users($select.search)" repeat="user in searched_users">
-                                          <span ng-bind-html="user.first_name + ' ' + user.last_name | highlight: $select.search"></span>
-                                          <small ng-bind-html="user.email | highlight: $select.search"></small>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="field row" ng-init="ticket.site_id = ticket.sites[0].id">
-                                    <label class="col-md-3">Site</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control" data-ng-options = "site.id as site.subdomain for site in sites" ng-model="ticket.site_id"></select>
-                                    </div>
-                                </div>
-                                <div class="field row">
-                                    <label class="col-md-3">Assignee</label>
-                                    <div class="col-md-9">
-                                        <select ng-model="ticket.agent_id" class="form-control">
-                                            <option ng-repeat="agent in agents" value="{{agent.user.id}}">{{agent.user.first_name}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="field row">
-                                    <label class="col-md-3">Message</label>
-                                    <div class="col-md-9">
-                                        <textarea class="form-control"  ng-model="ticket.message" required></textarea>
-                                    </div>
-                                </div>
-                                <a sm-uploader="reply" ng-model="ticket.attachment"><i class="fa fa-paperclip"></i> <label style="cursor:pointer" ng-if="!ticket.attachment">Add attachment</label><label style="cursor:pointer" ng-if="ticket.attachment">{{getFileName(ticket.attachment)}}</label></a><br>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- <div class="modal-footer">
-                    <a tabindex="2" class="cancel" style="display: inline-block;" ng-click="cancel()">No, cancel!</a>
-                    <button ng-disabled="ticketForm.$invalid" tabindex="1" class="confirm btn btn-success" ng-click="ok(id)"
-                            style="display: inline-block; ">
-                        Create
-                    </button>
-                </div> -->
-            </div>
-            <!-- <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-brand" type="button" ng-click="save()">Save changes</button> <!-- ngIf: !template_data.use_cancel_method -->
-                                    <a href="/admin/team/helpdesk/tickets" class="btn btn-white ng-scope">Cancel</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-    </div>
-    <div class="actions">
-        <button ng-click="save()" class="ui right labeled icon button">
-            Save changes
-            <i class="checkmark icon"></i>
-        </button>
-        <div class="ui black deny button close">
-            Cancel
-        </div>
-    </div>
+	<div class="header">
+		<i class="life ring icon"></i>
+		Create New Helpdesk Ticket
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui form">
+
+				<div class="field">
+					<label>Subject</label>
+					<input type="text" ng-model="ticket.subject">
+				</div>
+				<div class="field">
+					<label>Reporter's Name</label>
+					<input type="text" ng-model="ticket.user_name">
+				</div>
+				<div class="field">
+					<label>Reporter's Email</label>
+					<input type="text" ng-model="ticket.user_email">
+				</div>
+				<div class="eight wide field">
+					<label>Assignee</label>
+					<select class="ui dropdown" ng-model="ticket.agent_id" sui-dropdown>
+						<option value="">Agent</option>
+						<option ng-repeat="agent in agents" value="{{agent.user.id}}">{{agent.user.first_name}}</option>
+					</select>
+				</div>
+				<div class="field">
+					<label>Message</label>
+					<textarea froala ng-model="ticket.message"></textarea>
+				</div>
+
+				<div class="inline field">
+					<label>Add attachment</label>
+					<button type="button" class="ui button" sm-uploader="reply" ng-model="ticket.attachment">
+						<i class="upload icon"></i>
+						Choose File
+					</button>
+				</div>
+				<div class="field">
+					{{getFileName(ticket.attachment)}}
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ng-click="smModal.Show('public.admin.team.helpdesk.tickets')" class="ui black button">
+			Cancel
+		</a>
+		<a busy ng-click="save()" class="ui right labeled green icon button">
+			Save changes
+			<i class="check icon"></i>
+		</a>
+	</div>
 </div>
