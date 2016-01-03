@@ -1,4 +1,4 @@
-app.controller('specialPagesController', function ($scope, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr, $state) {
+app.controller('specialPagesController', function ($scope, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr, $state, smModal) {
     $site = $rootScope.site;
     $site_options = Restangular.all( 'siteMetaData' ).getList().then(function(response){$scope.site_options = response ; $scope.initialize()});
     
@@ -36,7 +36,7 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
             toastr.success("Options are saved!");
             $scope.site_options.isOpen = false;
             $localStorage.homepage_url = $scope.site_options.homepage_url;
-            $state.go('public.admin.site.pages.core.list');
+            smModal.Show('public.admin.site.pages.core.list');
         });
     }
 

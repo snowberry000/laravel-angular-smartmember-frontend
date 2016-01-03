@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SyllabusSettingsController", function ($scope,$rootScope,$state,Restangular,toastr) {
+app.controller("SyllabusSettingsController", function ($scope,$rootScope,$state,Restangular,toastr, smModal) {
 	$scope.site = $site = $rootScope.site;
 
     $scope.save = function(){
@@ -18,10 +18,11 @@ app.controller("SyllabusSettingsController", function ($scope,$rootScope,$state,
             show_syllabus_toggle: $scope.site.show_syllabus_toggle,
             welcome_content: $scope.site.welcome_content
         };
+
         Restangular.all('site').customPUT( data, $scope.site.id)
             .then(function(response){
-                $state.go("public.admin.site.pages.core.list");
                 toastr.success("Your syllabus changes has been saved!");
+                smModal.Show('public.admin.site.pages.core.list');
             });
     }
 });

@@ -1,4 +1,4 @@
-app.controller('JVPageController', function ($scope,smModal, Restangular, $localStorage, $location, toastr, $state, $rootScope, Upload) {
+app.controller('adminJVPageController', function ($scope,smModal, Restangular, $localStorage, $location, toastr, $state, $rootScope, Upload) {
     $scope.jv = {}
     $scope.isChecked = false; 
     $scope.urlPopover = {isOpen : false};
