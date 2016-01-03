@@ -1176,33 +1176,18 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		}
 	}
 
-	$scope.delete = function( id )
-	{
+    $scope.delete = function( id )
+    {
+        var itemWithId = _.find( $scope.lessons, function( next_item )
+        {
+            return next_item.id == id;
+        } );
 
-		var modalInstance = $modal.open( {
-			templateUrl: 'templates/modals/deleteConfirm.html',
-			controller: "modalController",
-			scope: $scope,
-			resolve: {
-				id: function()
-				{
-					return id
-				}
-			}
-
-		} );
-		modalInstance.result.then( function()
-		{
-			var itemWithId = _.find( $scope.lessons, function( next_item )
-			{
-				return next_item.id === id;
-			} );
-			Restangular.one( 'lesson', id ).remove().then( function()
-			{
-				$scope.lessons = _.without( $scope.lessons, itemWithId );
-			} );
-		} )
-	};
+        itemWithId.remove().then( function()
+        {
+            $scope.lessons = _.without( $scope.lessons, itemWithId );
+        } );
+    };
 } );
 
 app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filter, $http, $localStorage, Restangular, toastr )
@@ -1307,34 +1292,18 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 		} );
 	}
 
-	$scope.delete = function( id )
-	{
+    $scope.delete = function( id )
+    {
+        var itemWithId = _.find( $rootScope.modules, function( next_item )
+        {
+            return next_item.id == id;
+        } );
 
-		var modalInstance = $modal.open( {
-			templateUrl: 'templates/modals/deleteConfirm.html',
-			controller: "modalController",
-			scope: $scope,
-			resolve: {
-				id: function()
-				{
-					return id
-				}
-			}
-
-		} );
-		modalInstance.result.then( function()
-		{
-			var itemWithId = _.find( $scope.modules, function( next_item )
-			{
-				return next_item.id === id;
-			} );
-			Restangular.one( 'module', id ).remove().then( function()
-			{
-				$scope.modules = _.without( $scope.modules, itemWithId );
-				$rootScope.modules = $scope.modules;
-			} );
-		} )
-	};
+        itemWithId.remove().then( function()
+        {
+            $rootScope.modules = _.without( $rootScope.modules, itemWithId );
+        } );
+    };
 
 	$scope.cancel = function()
 	{
