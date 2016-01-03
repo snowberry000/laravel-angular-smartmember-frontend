@@ -1292,6 +1292,12 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 		} );
 	}
 
+    $scope.enterAdd = function( $event )
+    {
+        if( $event.charCode == 13 )
+            $scope.add();
+    }
+
     $scope.delete = function( id )
     {
         var itemWithId = _.find( $rootScope.modules, function( next_item )
