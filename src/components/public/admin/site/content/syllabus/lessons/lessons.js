@@ -24,7 +24,11 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 	$scope.loading = false;
 	$scope.query = '';
 	$scope.data = [];
-	$scope.pagination = { current_page: 1, per_page: 10, total_count: 0 };
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0
+	};
 
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
