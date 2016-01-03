@@ -11,19 +11,19 @@
 					<div class="ui vertical fluid pointing menu">
 						<a class="item active" ng-class="{active: type_to_fetch == 'open'}" ng-click="type_to_fetch = 'open'">
 							Open
-							<div class="ui label">51</div>
+							<div class="ui label" ng-if="false">51</div>
 						</a>
 						<a class="item" ng-class="{active: type_to_fetch == 'pending'}" ng-click="type_to_fetch = 'pending'">
 							Pending
-							<div class="ui label">1</div>
+							<div class="ui label" ng-if="false">1</div>
 						</a>
 						<a class="item" ng-class="{active: type_to_fetch == 'solved'}" ng-click="type_to_fetch = 'solved'">
 							Solved
-							<div class="ui label">1</div>
+							<div class="ui label" ng-if="false">1</div>
 						</a>
 						<a class="item" ng-class="{active: type_to_fetch == 'spam'}" ng-click="type_to_fetch = 'spam'">
 							Spam
-							<div class="ui label">1</div>
+							<div class="ui label" ng-if="false">1</div>
 						</a>
 						<div class="item" ng-if="false">
 							<div class="ui transparent icon input">
@@ -97,10 +97,10 @@
 
 	<div class="actions">
 		<a class="ui black back deny button">
-			Back
+			Close
 		</a>
-		<a ng-click="smModal.Show('public.admin.team.helpdesk.creator')" class="ui right labeled icon button">
-			Add a new ticket
+		<a ng-click="smModal.Show('public.admin.team.helpdesk.creator')" class="ui right labeled icon green button">
+			Create a new ticket
 			<i class="plus icon"></i>
 		</a>
 	</div>
