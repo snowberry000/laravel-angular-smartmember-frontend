@@ -25,7 +25,7 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 	$scope.save = function() {
 	    Restangular.one("siteRole").customPOST($scope.members, 'import').then(function(response) {
 	        toastr.success("Import was successful");
-	        smModal.Show('public.admin.site.membership.members');
+	        smModal.Show('public.admin.site.membership.queue');
 	    });
 	}
 
