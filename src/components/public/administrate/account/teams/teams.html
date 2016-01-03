@@ -1,0 +1,84 @@
+<div class="ui modal">
+	<div class="row animated content">
+		<div class="col-lg-12">
+
+			<div class="ibox-content page-heading clear_box">
+				<div class="p-xs">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="pull-left m-r-md">
+								<i class="fa fa-building-o text-branded mid-icon"></i>
+							</div>
+							<h2 class="ui header">These are your teams!</h2>
+							<span>They manage all your sites.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6" ng-repeat="next_item in teams.companies">
+					<div class="ibox">
+
+						<div class="ibox-title">
+							<a href="" ng-click="ChangeTeam(next_item)" class="btn btn-brand btn-outline pull-right">
+								Dashboard
+								<i class="fa fa-star"></i>
+							</a>
+							<h2 class="ui header">
+								{{next_item.name}}
+							</h2>
+						</div>
+						<div class="ibox-content">
+							<div class="team-members">
+								<a href="#" ng-repeat="member in next_item.team_members | limitTo:7">
+									<img ng-if="member.user.profile_image" title="{{member.user.first_name}}" class="img-circle" src="{{member.user.profile_image}}">
+									<img ng-if="!member.user.profile_image" title="{{member.user.first_name}}" class="img-circle" src="http://www.gravatar.com/avatar/{{member.user.email_hash}}?d=mm">
+								</a>
+								<span ng-if="next_item.team_members.length > 7" class="m-l-sm">
+									<small>and {{next_item.team_members.length - 7}} others</small>
+								</span>
+							</div>
+
+							<h3 class="ui horizontal divider m-t-md">stats</h3>
+
+							<div class="row  m-t-sm">
+
+								<div class="col-sm-2 text-center">
+									<div class="font-bold">Sites</div>
+									{{next_item.total_sites_count ? next_item.total_sites_count : 'n/a'}}
+								</div>
+								<div class="col-sm-3 text-center">
+									<div class="font-bold">Members</div>
+									{{next_item.total_members ? next_item.total_members : 'n/a'}}
+								</div>
+								<div class="col-sm-2 text-center">
+									<div class="font-bold">Lessons</div>
+									{{next_item.total_lessons ? next_item.total_lessons : 'n/a'}}
+								</div>
+								<div class="col-sm-5 text-right">
+									<div class="font-bold">Revenue</div>
+									<span ng-if="next_item.total_revenue ">{{next_item.total_revenue | currency:"$":0}}</span>
+									<span ng-if="!next_item.total_revenue ">n/a</span>
+									<i class="fa fa-level-up text-navy" ng-show="next_item.total_revenue"></i>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a class="ui right labeled icon button" ng-click="smModal.Show('public.administrate.account.team')" ng-hide="1">
+			<i class="fa fa-plus"></i>
+			Create new team
+		</a>
+		<div class="ui black deny button close">
+			Close
+		</div>
+	</div>
+</div>

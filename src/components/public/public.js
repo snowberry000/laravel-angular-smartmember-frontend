@@ -1,6 +1,6 @@
 var app = angular.module( "app" );
 
-app.config( function( $stateProvider )
+app.config( function( $stateProvider, paginationTemplateProvider )
 {
 	$stateProvider
 		.state( "public", {
@@ -16,7 +16,11 @@ app.config( function( $stateProvider )
 					] );
 				}
 			}
-		} )
+		} );
+
+	paginationTemplateProvider.setPath('/templates/core/html/pagination.html');
+	paginationTemplateProvider.setPath('/templates/core/html/pagination.html');
+
 } );
 
 app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, User, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
@@ -63,7 +67,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			if($localStorage.open_sites_wizard_modal && $rootScope.site.is_admin){
 				$localStorage.open_sites_wizard_modal = null;
 				$timeout(function(){
-					smModal.Show( 'public.admin.wizard', {id: 'site_launch_wizard'} );
+					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
 				} , 3000)
 			}
 			Restangular.one( 'site/members' ).get().then( function( response )

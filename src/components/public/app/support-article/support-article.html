@@ -36,7 +36,7 @@
                 <img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && next_item.always_show_featured_image">
 
                 <div class="ui padded basic segment">
-                    <a ng-if="is_site_admin || is_team_member" ui-sref="public.admin.site.content.helpdesk.article({id: next_item.id})" class="">Edit</a>
+                    <a ng-if="is_site_admin || is_team_member" ui-sref="public.administrate.site.content.helpdesk.article({id: next_item.id})" class="">Edit</a>
 
                     <div class="row" dynamic="next_item.content"></div>
 

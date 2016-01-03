@@ -11,13 +11,13 @@ app.config(function($stateProvider){
 
 app.controller('JvpageController', function ($scope,$site, Restangular,$rootScope, $localStorage, $location, toastr, $state, Upload) {
     $scope.emailLists = {};
-    $scope.jv = {}
+    $scope.jv = {};
     $scope.isChecked = false; 
     $scope.urlPopover = {isOpen : false};
     $scope.loading = true;
 
     $scope.init = function() {
-        Restangular.all('affiliateJVPage').getList({company_id : $site.company_id}).then(function (jv) {
+        Restangular.all('affiliateJVPage').getList().then(function (jv) {
             $scope.loading = false;
             if(jv.length>0){
                 $scope.jv = jv[0];
@@ -30,6 +30,10 @@ app.controller('JvpageController', function ($scope,$site, Restangular,$rootScop
             $scope.jv.subscribe_button_text = $scope.jv.subscribe_button_text ? 
                                                     $scope.jv.subscribe_button_text : '';
         });
+
+        Restangular.all('emailList').getList().then(function(response){
+            console.log('here we goes');
+        });
     }
 
     $scope.save = function () {
@@ -38,13 +42,13 @@ app.controller('JvpageController', function ($scope,$site, Restangular,$rootScop
         if ($scope.jv.id) {
             $scope.jv.put();
             toastr.success("JV Page has been saved!");
-            $state.go('public.admin.site.pages.core.list');
+            $state.go('public.administrate.site.pages.core.list');
         }
         else {
             Restangular.all('affiliateJVPage').post($scope.jv).then(function (jv) {
                 $scope.jv = jv;
                 toastr.success("JV Page has been saved!");
-                $state.go('public.admin.site.pages.core.list');
+                $state.go('public.administrate.site.pages.core.list');
             });
         }
     }

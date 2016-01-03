@@ -1,0 +1,83 @@
+<div class="ui modal">
+	<div class="header">
+		<i class="configure icon"></i>
+		Your Installed Apps
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui message">
+				<p>These are the Apps currently installed on your site.</p>
+			</div>
+
+			<div class="ui three cards">
+				<div class="card" ng-repeat="integration in grouped_app_configurations | filter: search" ng-if="integration.app_configurations.length > 0 && !loading">
+					<div class="content">
+						<img class="right floated mini ui image" src="{{_.findWhere( availableapp_configurations, { id: integration.type }).logo }}">
+						<div class="header">
+							{{_.findWhere( availableapp_configurations, { id: integration.type }).name}}
+						</div>
+						<div class="meta">
+							{{integration.app_configurations.length}} Configured
+						</div>
+						<div class="description">
+							{{_.findWhere( availableapp_configurations, { id: integration.type }).description}}
+						</div>
+					</div>
+					<div class="extra content">
+						<div class="ui one buttons">
+							<div class="ui basic green button" ng-click="integration.expanded=!integration.expanded">view</div>
+						</div>
+					</div>
+					<div class="content" ng-if="integration.expanded" ng-repeat="integration_instance in integration.app_configurations">
+						<div class="description">
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="well m-t-sm">
+
+										<a ng-click="smModal.Show('public.administrate.team.integration.configure',{integration: integration.type,id: integration_instance.id })">
+											Integration added for
+											<span ng-if="integration_instance.site">
+												site <strong>{{integration_instance.site.name}}</strong>
+											</span>
+											<span ng-hide="integration_instance.site">
+												<strong>{{company.name}}</strong>
+											</span>
+											<span ng-if="integration_instance.default == 1" class="moscow_red_dark">(default)</span>
+											<span ng-if="integration_instance.account">
+												using account <strong>{{integration_instance.account.name ? integration_instance.account.name : (integration_instance.account.username ? integration_instance.account.username : integration_instance.account.remote_id)}}</strong>
+											</span>
+											<span ng-if="integration_instance.disabled == 1" class="mustard_yellow">(disabled)</span>
+											<br />
+											<span ng-if="integration.type == 'facebook_group'">
+												Group: <strong>{{integration_instance.name}}</strong>
+											</span>
+											<span ng-if="integration.type == 'paypal'">
+												Paypal Account: <strong>{{integration_instance.remote_id}}</strong>
+											</span>
+											<span ng-if="integration.type == 'sendgrid'">
+												Sendgrid Username: <strong>{{integration_instance.username}}</strong>
+											</span>
+											<span class="description">
+												Added {{moment.utc(integration_instance.created_at).fromNow()}}
+											</span>
+										</a>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui black deny button close">
+			Close
+		</div>
+	</div>
+</div>

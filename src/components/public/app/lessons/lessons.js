@@ -190,23 +190,23 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     }
 
     $scope.editLesson = function(lesson){
-        smModal.Show('public.admin.site.content.syllabus.lesson' , {id : lesson.id , close:true} ,null , $scope.done);
+        smModal.Show('public.administrate.site.content.syllabus.lesson' , {id : lesson.id , close:true} ,null , $scope.done);
         $scope.syllabus.current_action = 'edit_lesson';
         $scope.syllabus.current_item = lesson.id;
     }
 
     $scope.addLesson = function(){
-        smModal.Show('public.admin.site.content.syllabus.lesson' , {close:true} ,null , $scope.done);
+        smModal.Show('public.administrate.site.content.syllabus.lesson' , {close:true} ,null , $scope.done);
         $scope.syllabus.current_action = 'add_lesson';
     }
 
     $scope.addModule = function(){
-        smModal.Show('public.admin.site.content.syllabus.module' , {close:true} ,null , $scope.done);
+        smModal.Show('public.administrate.site.content.syllabus.module' , {close:true} ,null , $scope.done);
         $scope.syllabus.current_action = 'add_module';
     }
 
     $scope.editModule = function(module){
-        smModal.Show('public.admin.site.content.syllabus.module' , {id : module.id , close:true} ,null , $scope.done);
+        smModal.Show('public.administrate.site.content.syllabus.module' , {id : module.id , close:true} ,null , $scope.done);
         $scope.syllabus.current_action = 'edit_module';
     }
 

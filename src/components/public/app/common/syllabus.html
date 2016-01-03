@@ -44,7 +44,6 @@
 
 		<a sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
 			({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
-			<i class="{{hide_module ? 'plus' : 'minus'}} icon"></i>
 		</a>
 
 		<div class="connectLessons ui very relaxed divided ordered list" ng-show="!hide_module" ng-if="site.syllabus_format == 'list'">

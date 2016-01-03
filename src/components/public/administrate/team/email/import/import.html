@@ -1,0 +1,104 @@
+<div class="ui modal">
+	<div class="content">
+
+		<div class="row animated fadeInRight">
+			<div class="col-lg-12">
+
+				<div class="ibox-content page-heading clear_box">
+					<div class="p-xs">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="pull-left m-r-md">
+									<i class="fa fa-globe text-branded mid-icon"></i>
+								</div>
+								<h2 class="ui header">Add subscribers</h2>
+								<span>Bulk import subscribers or add them one at a time.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ibox">
+					<div class="ibox-content">
+
+						<form method="get" class="save_form" >
+							<p class="">
+								<label for="" ng-if="!emailsubscriber.id">Bulk email list</label>
+	                <textarea ng-if="!emailsubscriber.id" class="form-control" rows="4" name="email"  ng-model="emailsubscriber.email">
+	                </textarea>
+	                <span class="help-block m-b-none" ng-if="!emailsubscriber.id">
+	                    You can enter one email per line or using this syntax: name;email
+	                </span>
+	                <label for="" ng-if="emailsubscriber.id">Subscriber</label>
+	                <input ng-if="emailsubscriber.id" type="text" value="{{emailsubscriber.email}}" class="form-control" disabled="true"/>
+
+							</p>
+							<p class="large_bottom_margin">
+								<label for="">Email lists</label>
+							<ul class="list-group" style="  max-height: 450px;overflow-y: auto;">
+								<li class="list-group-item" ng-repeat="list in emailLists">
+									<label>
+										<input type="checkbox" class="m-r-sm" ng-model="emailsubscriber.lists[list.id]">{{list.name}}
+										<small style="font-weight:bold;">{{list.total_subscribers}} subscribers</small>
+									</label>
+								</li>
+							</ul>
+							</p>
+							<hr>
+							<p>
+								<button ng-if="!emailsubscriber.id" id="" type="button" ng-click="addInSubscribersList()" class="btn btn_default" data-style="expand-right">
+									<span class="ladda-label">Add Subscriber</span>
+								</button>
+								<button ng-if="emailsubscriber.id" id="" type="button" ng-click="emailSubscribers.push(emailsubscriber);saveList();" class="btn btn_default" data-style="expand-right">
+									<span class="ladda-label">Update Subscriber</span>
+								</button>
+							</p>
+
+							<p>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Email</th>
+										<th>Email List</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-if="emailSubscribers.length==0"><td>no entries</td><td></td><td></td></tr>
+									<tr ng-repeat="subscriber in emailSubscribers">
+										<td>
+											<a>
+												<span class="text-success font-bold">{{subscriber.email}}</span>
+											</a>
+										</td>
+										<td>
+											<ul>
+												<li ng-repeat="list in emailLists" ng-if="subscriber.lists[list.id]==true">{{list.name}}</li>
+											</ul>
+										</td>
+										<td>
+											<span ng-click="removeFromList(subscriber)" class="pull-right glyphicon glyphicon-trash delete_item" style="cursor:pointer;"></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</p>
+	
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="actions">
+		<button ng-if="!emailsubscriber.id" type="button" ng-disabled="emailSubscribers.length==0" ng-click="saveList()" class="ui right labeled icon button">
+		    Save changes
+		    <i class="checkmark icon"></i>
+		</button>
+		<div class="ui black deny button close" ng-click="smModal('public.administrate.team.email.subscribers')">
+		    Cancel
+		</div>
+	</div>
+</div>
