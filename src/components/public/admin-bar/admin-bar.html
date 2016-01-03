@@ -1,17 +1,7 @@
 
-<div class="ui dropdown item" sui-dropdown>
-	<img src="{{user.profile_image}}">
-	<i class="dropdown icon"></i>
-
-	<div class="menu">
-		<a class="item" ng-click="smModal.Show('public.admin.account.settings')">Account settings</a>
-		<a class="item" ui-sref="public.www.home">Site Directory</a>
-		<a class="item">Report Bugs</a>
-		<a class="item" ui-sref="public.app.support-ticket">Support Tickets</a>
-		<a class="item" ng-click="LogOut()">Log out</a>
-
-	</div>
-</div>
+<a class="ui item" ui-sref="public.www.home">
+	<img class="ui rounded mini image" src="/images/sm-64.png">
+</a>
 
 <a class="ui pointing dropdown link item" ng-click="smModal.Show('public.admin.team.sites')" sui-dropdown>
 	<i class="globe {{sites_loading ? 'loading' : ''}} icon"></i>
@@ -212,6 +202,7 @@
 
 
 <div class="right menu">
+
 	<a class="ui item" style="width: 200px;" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'account_wizard'})" ng-if="isSitelessPage('my') && user.sm_access">
 		<div class="ui indicating inverted progress m-b-none" style="width: 100%;" data-value="0" data-total="1" sui-account-progress>
 			<div class="bar">
@@ -236,5 +227,18 @@
 		</div>
 		<div class="results"></div>
 	</div>
+	<div class="ui dropdown item" sui-dropdown>
+		<i class="dropdown icon"></i>
+		<img class="ui rounded mini image" src="{{user.profile_image}}">
+		<div class="menu">
+			<a class="item" ng-click="smModal.Show('public.admin.account.settings')">Account settings</a>
+			<a class="item" ui-sref="public.www.home">Site Directory</a>
+			<a class="item">Report Bugs</a>
+			<a class="item" ui-sref="public.app.support-ticket">Support Tickets</a>
+			<a class="item" ng-click="LogOut()">Log out</a>
+
+		</div>
+	</div>
+	
 </div>
 
