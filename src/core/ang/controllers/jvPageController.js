@@ -5,9 +5,10 @@ app.controller('adminJVPageController', function ($scope,smModal, Restangular, $
     $scope.loading = true;
     $site = $rootScope.site;
     $scope.init = function() {
+        console.log('are we running?');
         Restangular.all( 'emailList/sendMailLists' ).getList().then(function(response){
             $scope.emailLists = response;
-            Restangular.all('affiliateJVPage').getList({company_id : $site.company_id}).then(function (jv) {
+            Restangular.all('affiliateJVPage').getList().then(function (jv) {
                 $scope.loading = false;
                 if(jv.length>0){
                     $scope.jv = jv[0];
@@ -23,6 +24,8 @@ app.controller('adminJVPageController', function ($scope,smModal, Restangular, $
         })
         
     }
+
+    $scope.init();
 
     $scope.save = function () {
         delete $scope.jv.email_list;

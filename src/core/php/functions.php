@@ -4,7 +4,7 @@ function DetectAndPerformBridgePageThings()
 	$domain = $_SERVER[ 'HTTP_HOST' ];
 	$parts = explode( ".", $domain );
 	$tld = array_pop( $parts );
-	$rootDomain = array_pop( $parts ).".".$tld;
+	$rootDomain = array_pop( $parts ) . "." . $tld;
 	$subdomain = array_pop( $parts );
 	if( $subdomain == 'bridgepages' )
 	{
@@ -101,7 +101,7 @@ function DetectAndPerformBridgePageThings()
 					$bpage_data = '';
 				}
 
-				if( (!empty($html) || !empty($bpage_data)) && $bpage_data != '{"message":"Route not found, please try again.","code":404}' )
+				if( !empty($html) || ( !empty($bpage_data) && $bpage_data != '{"message":"Route not found, please try again.","code":404}' ) )
 				{
 					include 'bpage/bpage.php';
 
