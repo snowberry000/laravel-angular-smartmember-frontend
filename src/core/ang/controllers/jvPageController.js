@@ -30,13 +30,13 @@ app.controller('JVPageController', function ($scope,smModal, Restangular, $local
         if ($scope.jv.id) {
             $scope.jv.put();
             toastr.success("JV Page has been saved!");
-            smModal.Show('admin.site.pages.core.list');
+            smModal.Show('public.admin.site.pages.core.list');
         }
         else {
             Restangular.all('affiliateJVPage').post($scope.jv).then(function (jv) {
                 $scope.jv = jv;
                 toastr.success("JV Page has been saved!");
-                smModal.Show('admin.site.pages.core.list');
+                smModal.Show('public.admin.site.pages.core.list');
             });
         }
     }
