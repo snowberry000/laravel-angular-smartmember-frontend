@@ -1,8 +1,8 @@
 <div class="ui floating dropdown search button" sui-dropdown>
-	<span class="text">
+	<span class="text" style="cursor:pointer;">
 		<i ng-if="modalIcon" class="{{modalIcon}}"></i> {{modalIcon || 'Select icon'}}</span>
 	<div class="menu" ng-init="init()">
-		<div class="item" ng-repeat="icon in icons" ng-click="updateIcon(icon.iconClass);selected(icon);modalIcon=icon.iconClass;">
+		<div class="item" ng-repeat="icon in icons" ng-click="updateIcon(icon.iconClass);selected(icon);modalIcon=icon.iconClass;" style="cursor:pointer;">
 			<i class="{{icon.iconClass}}"></i>
 			{{icon.iconName}}
 		</div>

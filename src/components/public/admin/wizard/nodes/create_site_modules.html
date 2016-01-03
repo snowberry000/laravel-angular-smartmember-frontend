@@ -1,65 +1,63 @@
 <div class="ui modal">
+    <div class="header">
+        <i class="write icon"></i>
+        Add a new Module
+    </div>
+    <div class="content">
+        <div class="description">
 
-	<div class="header">
-		<i class="write icon"></i>
-		Add a new Module
-	</div>
-	<div class="content">
-		<div class="description">
+            <div class="ui message">
+                <p>Create your first module. Modules help organize and categorize your lessons, like chapters in a book.</p>
+            </div>
 
-			<div class="ui message">
-				<p>Create your first module. Modules help organize and categorize your lessons, like chapters in a book.</p>
-			</div>
+            <div class="ui section divider"></div>
 
-			<div class="ui section divider"></div>
+            <table class="ui celled striped table" ng-if="modules.length > 0">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            Your Modules
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="next_item in modules">
+                        <td>
+                            {{next_item.title}}
+                        </td>
+                        <td class="right aligned">
+                            <button busy ng-click="delete(next_item.id)" class="ui right labeled icon button">
+                                Delete
+                                <i class="trash icon"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-			<table class="ui celled striped table" ng-if="modules.length > 0">
-				<thead>
-					<tr>
-						<th colspan="2">
-							Your Modules
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="next_item in modules">
-						<td>
-							{{next_item.title}}
-						</td>
-						<td class="right aligned">
-							<button busy ng-click="delete(next_item.id)" class="ui right labeled icon button">
-								Delete
-								<i class="trash icon"></i>
-							</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+            <div class="ui form">
 
-			<div class="ui form">
+                <div class="eight wide inline field">
+                    <label>Module name</label>
+                    <input type="text" ng-model="module.title" ng-keypress="enterAdd($event)">
+                </div>
 
-				<div class="eight wide inline field">
-					<label>Module name</label>
+            </div>
 
-					<input type="text" ng-model="module.title">
-				</div>
-
-			</div>
-
-		</div>
-	</div>
-	<div class="actions">
-		<!-- SAMPLE ACTION BUTTON -->
-		<a busy ng-click="add()" class="ui left floated left labeled icon button">
-			Save & Add More
-			<i class="plus icon"></i>
-		</a>
-		<div class="ui black deny button close" ng-click="cancel()">
-			Back
-		</div>
-		<a busy ng-click="add(); save()" class="ui right labeled icon green button">
-			Save & Continue
-			<i class="checkmark icon"></i>
-		</a>
-	</div>
+        </div>
+    </div>
+    <div class="actions">
+        <!-- SAMPLE ACTION BUTTON -->
+        <a busy ng-click="add()" class="ui left floated left labeled icon button">
+            Save & Add More
+            <i class="plus icon"></i>
+        </a>
+        <div class="ui black deny button close" ng-click="cancel()">
+            Back
+        </div>
+        <a busy ng-click="add(); save()" class="ui right labeled icon green button">
+            Save & Continue
+            <i class="check icon"></i>
+        </a>
+    </div>
 </div>
