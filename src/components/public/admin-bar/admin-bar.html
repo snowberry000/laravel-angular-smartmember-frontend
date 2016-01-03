@@ -8,7 +8,7 @@
 </a>
 
 <div class="item" ng-if="!isSitelessPage()" sm-access="edit_theme_options" if-not="hide">
-	<a class="ui grey inverted button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
+	<a class="ui inverted basic red button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		<i class="options icon"></i>
 		Theme
 	</a>
@@ -16,7 +16,7 @@
 
 <div class="item" ng-if="!isSitelessPage()">
 	<div class="ui dropdown" sui-dropdown>
-		<button class="ui inverted grey labeled icon button">
+		<button class="ui inverted basic red labeled icon button">
 			<i class="setting icon"></i>
 			Settings
 		</button>
@@ -125,7 +125,7 @@
 </div>
 <div class="active item thin" ng-if="!isSitelessPage()" sm-access="manage_members" if-not="hide">
 	<div class="ui dropdown" sui-dropdown>
-		<button class="ui inverted grey labeled icon button">
+		<button class="ui inverted basic red labeled icon button">
 			<i class="users icon"></i>
 			Smart <strong>Member</strong>
 		</button>
@@ -158,7 +158,7 @@
 </div>
 <div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_email" if-not="hide">
 	<div class="ui dropdown" sui-dropdown>
-		<button class="ui inverted grey labeled icon button">
+		<button class="ui inverted basic red labeled icon button">
 			<i class="envelope icon"></i>
 			Smart <strong>Mail</strong>
 		</button>
@@ -176,7 +176,7 @@
 </div>
 <div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide">
 	<div class="ui dropdown" ng-click="smModal.Show('public.admin.team.helpdesk.tickets')">
-		<button class="ui inverted grey labeled icon button">
+		<button class="ui inverted basic red labeled icon button">
 			<i class="life ring icon"></i>
 			Smart <strong>Support</strong>
 		</button>
@@ -184,23 +184,23 @@
 </div>
 <div class="item thin" ng-if="!isSitelessPage()">
 	<div class="ui dropdown" ng-click="smModal.Show('public.admin.team.helpdesk.tickets')">
-		<button class="ui inverted grey labeled icon button">
-			<i class="life ring icon"></i>
+		<button class="ui inverted basic red labeled icon button">
+			<i class="browser icon"></i>
 			Bridge <strong>Pages</strong>
 		</button>
 	</div>
 </div>
 <div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide">
 	<div class="ui dropdown" ng-click="smModal.Show('public.admin.team.helpdesk.tickets')">
-		<button class="ui inverted grey labeled icon button">
-			<i class="life ring icon"></i>
+		<button class="ui inverted basic red labeled icon button">
+			<i class="checkered flag icon"></i>
 			Speed <strong>Blogging</strong>
 		</button>
 	</div>
 </div>
 <div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_affiliates" if-not="hide">
 	<div class="ui dropdown" sui-dropdown>
-		<button class="ui inverted grey labeled icon button">
+		<button class="ui inverted basic red labeled icon button">
 			<i class="rocket icon"></i>
 			Smart <strong>Affiliates</strong>
 		</button>
@@ -216,7 +216,7 @@
 
 <div class="right menu">
 
-	<a class="ui item" style="width: 200px;" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'account_wizard'})" ng-if="isSitelessPage('my') && user.sm_access">
+	<a class="ui item" style="width: 150px;" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'account_wizard'})" ng-if="isSitelessPage('my') && user.sm_access">
 		<div class="ui indicating inverted progress m-b-none" style="width: 100%;" data-value="0" data-total="1" sui-account-progress>
 			<div class="bar">
 				<div class="progress">{{site.wizard_step}}</div>
@@ -224,7 +224,7 @@
 			<div class="label" style="font-size: 0.8em;">Account Wizard</div>
 		</div>
 	</a>
-	<a class="ui item" style="width: 200px;" sm-access="view_restricted_content" if-not="hide" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="!isSitelessPage() && site.wizard_step < 5">
+	<a class="ui item" style="width: 150px;" sm-access="view_restricted_content" if-not="hide" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.admin.wizard' , {id : 'site_launch_wizard'})" ng-if="!isSitelessPage() && site.wizard_step < 5">
 		<div class="ui indicating inverted progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step}}" data-total="5" sui-progress>
 			<div class="bar">
 				<div class="progress">{{site.wizard_step}} of 5 steps</div>
