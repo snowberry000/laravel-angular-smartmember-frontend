@@ -87,7 +87,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
             if(typeof $scope.next_item['url'] == undefined || !$scope.next_item['url']){
                 $scope.next_item['url'] = $scope.editing_item.url;
             }
-            smModal.Show('public.admin.site.appearance.menus');
+            smModal.Show('public.administrate.site.appearance.menus');
         });
     };
 });

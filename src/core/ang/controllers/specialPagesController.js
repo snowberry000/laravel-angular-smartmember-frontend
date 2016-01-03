@@ -36,7 +36,7 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
             toastr.success("Options are saved!");
             $scope.site_options.isOpen = false;
             $localStorage.homepage_url = $scope.site_options.homepage_url;
-            smModal.Show('public.admin.site.pages.core.list');
+            smModal.Show('public.administrate.site.pages.core.list');
         });
     }
 

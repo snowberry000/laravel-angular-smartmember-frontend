@@ -1,0 +1,112 @@
+<div class="ui modal">
+<div class="row content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h2 class="ui header">{{page_title}}</h2>
+                </div>
+                <div class="hr-line-dashed" style="background-color:white; margin:0px;"></div>
+                <div class="ibox-content">
+                    <div class="hpanel">
+                        <div class="panel-body">
+                            <form  novalidate>
+                                <div class="field row">
+                                    <label class="col-md-2">Contest Title</label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="title" class="form-control " ng-model="contest.title" ng-blur="setPermalink(contest.title)">
+                                    </div>
+                                </div>
+                                <div class="field row">
+                                    <label class="col-md-2">Permalink</label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="title" class="form-control" ng-model="contest.permalink">
+                                    </div>
+                                </div>
+                                <div class="field row">
+                                    <label class="col-md-2">Contest Type</label>
+                                    <div class="col-md-8">
+                                        <div class="col-md-6">
+                                            <label>
+                                                <input  class="col-md-6" style="float:left;" type="radio" name="type" value="sales" ng-model="contest.type" > 
+                                                <span class="col-md-6">Sales</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                <input  class="col-md-6" style="float:left;" type="radio" name="type" value="leads" ng-model="contest.type" > 
+                                                <span class="col-md-6">Leads</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field row">
+                                    <label class="col-md-2">Featured Image</label>
+                                    <div class="col-md-8">
+                                        <button type="button" class="btn btn-danger set_featured_image" sm-uploader="featured_image" ng-model="contest.featured_image" >Choose Image</button>
+                                        <div class="width-100 set_featured_image">
+                                            <img class="featured_image_preview img-responsive img-thumbnail"
+                                                 ng-src="{{contest.featured_image}}"
+                                                 ng-show="contest.featured_image"
+                                                 style="width:250px;"/>
+                                        </div>
+                                        <!-- <span class="help-block m-b-none">
+                                            Contest banner
+                                        </span> -->
+                                        <div class="width-100 text-center">
+                                            <img class="featured_image_preview img-responsive img-thumbnail" src="" style="display:none;width:250px;" />
+                                        </div>
+                                        <input type="hidden" name="featured_image" class="form-control" ng-model="contest.featured_image">
+                                    </div>
+                                </div>
+                                <div class="field row">
+                                    <label class="col-md-2">Applicable Sites</label>
+                                    <div class="col-md-8">
+                                        <span class="col-md-12">
+                                            <input type="checkbox" ng-model="isChecked" ng-change="selectAll()" class="select-all"> Include all sites
+                                        </span>
+                                        <select class="col-md-12" ng-disabled="isChecked" multiple ng-options="site.subdomain for site in sites.sites track by site.id" ng-model="contest.sites"></select>
+                                        <span class="help-block m-b-none">Pick sites that are part of this contest.</span>
+                                    </div>
+                                </div>
+                                <div class="field row">
+                                    <label class="col-md-2">Start Date</label>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control " ng-model="contest.start_date" max-date="'2020-06-22'" ng-required="true" />
+                                    </div>
+                                </div>
+                                <div class="field row">
+                                    <label class="col-md-2">End Date</label>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control " ng-model="contest.end_date" max-date="'2020-06-22'" ng-required="true" close-text="Close"/>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <div class="modal-footer">
+                    <a tabindex="2" class="cancel" style="display: inline-block;" ng-click="cancel()">No, cancel!</a>
+                    <button ng-disabled="ticketForm.$invalid" tabindex="1" class="confirm btn btn-success" ng-click="ok(id)"
+                            style="display: inline-block; ">
+                        Create
+                    </button>
+                </div> -->
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="actions">
+    <button ng-click="save()" class="ui right labeled icon button">
+        Save changes
+        <i class="checkmark icon"></i>
+    </button>
+    <div class="ui black deny button close" ng-click="smModal.Show('public.administrate.team.jv.contests')">
+        Cancel
+    </div>
+</div>
+</div>

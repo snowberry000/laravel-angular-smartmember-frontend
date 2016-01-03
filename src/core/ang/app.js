@@ -29,7 +29,8 @@ var app = angular.module( 'app', [
 	'chart.js',
 	'infinite-scroll',
 	'ui.sortable',
-	'angularUtils.directives.dirPagination'
+	'angularUtils.directives.dirPagination',
+	'ct.ui.router.extras'
 ] );
 
 app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )

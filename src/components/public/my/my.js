@@ -26,15 +26,15 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 
 				if( $rootScope.user.sm_access && !$rootScope.user.setup_wizard_complete )
 				{
-					smModal.Show( 'public.admin.wizard', { id: 'account_wizard', modal_options: {duration:0} } );
+					smModal.Show( 'public.administrate.wizard', { id: 'account_wizard', modal_options: {duration:0} } );
 					console.log( "Lets do the setup wizard!" );
 				}
 				else
 				{
-					smModal.Show( 'public.admin.team.sites' );
+					smModal.Show( 'public.administrate.team.sites' );
 				}
 
-				//smModal.Show( 'public.admin.team.sites' );
+				//smModal.Show( 'public.administrate.team.sites' );
 			}
 			else
 			{
@@ -50,13 +50,13 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 			if( $rootScope.sites.length > 1 )
 			{
 				// list of sites option
-				//smModal.Show( 'public.admin.team.sites' );
+				//smModal.Show( 'public.administrate.team.sites' );
 			}
 			/*
 			 else{
 
 			 if ($rootScope.sites.length == 1 && $rootScope.sites[0].subdomain == 'sm'){
-			 smModal.Show( 'public.admin.wizard', {id: 'account_wizard', modal_options: {duration:0} } );
+			 smModal.Show( 'public.administrate.wizard', {id: 'account_wizard', modal_options: {duration:0} } );
 			 }
 
 			 }

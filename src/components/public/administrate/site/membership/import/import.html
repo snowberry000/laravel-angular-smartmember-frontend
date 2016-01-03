@@ -1,0 +1,78 @@
+<div class="ui modal">
+    <i class="close icon"></i>
+
+    <div class="header">
+        <i class="paragraph icon"></i>
+        Import Members
+    </div>
+    <div class="content row">
+
+        <form method="get" class="ui form">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="panel-body">
+
+                            <h4 class="ui header">Emails</h4>
+                            <div class="field">
+                                <div class="col-sm-12">
+                                    <textarea class="form-control input-lg" ng-model="members.emails" type="text" name="import_email_input">
+                                    </textarea>
+                                    <span class="help-block m-b-none">
+                                        Emails can be pasted into the box above separated by spaces, commas, or even 1 per line.
+                                    </span>
+
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <h4 class="ui header">Access Level</h4>
+                            <div class="field">
+                                <div class="col-sm-12">
+                                    <br>
+                                    <ul class="list-group" style="max-height: 450px; overflow-y: auto;" ng-repeat="access_level in access_levels">
+                                        <li class="list-group-item">
+                                            <label>
+                                                <input type="checkbox" ng-model="members.access_levels[access_level.id]"> {{access_level.name}} 
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <span class="help-block m-b-none">
+                                        Choose which access levels the member will be given
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <h4 class="ui header">Expire Date</h4>
+                            <div class="field">
+                                <div class="col-sm-12">
+                                  <input type="date" class="form-control input-lg" ng-model="members.expired_at" max-date="'2020-06-22'" />
+                                    <span class="help-block m-b-none">
+                                        Set an expiration date on these access passes (or leave empty for permanent)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <a ng-click="smModal.show('public.administrate.site.membership.queue')" class="ui right labeled icon button">
+            Import History ({{active_count}} active)
+            <i class="checkmark icon"></i>
+        </a>
+        <a ng-click="save()" class="ui right labeled icon button">
+            Save changes
+            <i class="checkmark icon"></i>
+        </a>
+        <div class="ui black deny button close">
+            Close
+        </div>
+    </div>
+</div>

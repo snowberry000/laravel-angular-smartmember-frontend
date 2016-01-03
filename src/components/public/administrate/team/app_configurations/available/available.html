@@ -1,0 +1,34 @@
+<div class="ui modal">
+	<div class="header">
+		<i class="configure icon"></i>
+		Available Apps
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui message">
+				<p>Extend the power of your sites by installing & connecting 3rd-party apps and tools.</p>
+			</div>
+
+			<div class="ui divided link items">
+				<a class="item" ng-repeat="integration in availableapp_configurations | filter: search" ng-click="smModal.Show('public.administrate.team.integration.configure',{integration: integration.id});">
+					<div class="ui tiny image">
+						<img src="{{integration.logo}}">
+					</div>
+					<div class="content">
+						<div class="header">{{integration.name}}</div>
+						<div class="description">
+							<p>{{integration.description}}</p>
+						</div>
+					</div>
+				</a>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui black deny button close">
+			Close
+		</div>
+	</div>
+</div>

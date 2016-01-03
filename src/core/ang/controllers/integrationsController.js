@@ -2,7 +2,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 {
 	if( $rootScope.is_not_allowed )
 	{
-		smModal.Show( "public.admin.team.dashboard" );
+		smModal.Show( "public.administrate.team.dashboard" );
 		return false;
 	}
 
@@ -31,7 +31,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 	$scope.cancel = function()
 	{
-		smModal.Show("public.admin.team.app_configurations." + ($scope.integration_id ? 'list' : 'available'));
+		smModal.Show("public.administrate.team.app_configurations." + ($scope.integration_id ? 'list' : 'available'));
 	}
 
 	$scope.initapp_configurations = function()
@@ -561,17 +561,17 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 					}
 					break;
 				default:
-					smModal.Show( "public.admin.team.app_configurations.list" );
+					smModal.Show( "public.administrate.team.app_configurations.list" );
 			}
 		}
 		else if( $stateParams.integration == 'vimeo' && $rootScope.vimeo_redirect_url )
 		{
 			delete $rootScope.vimeo_redirect_url;
-			smModal.Show( "public.admin.site.content.import", {}, { reload: true } );
+			smModal.Show( "public.administrate.site.content.import", {}, { reload: true } );
 		}
 		else
 		{
-			smModal.Show( "public.admin.team.app_configurations.list" );
+			smModal.Show( "public.administrate.team.app_configurations.list" );
 		}
 	}
 
@@ -664,7 +664,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			Restangular.one( 'appConfiguration', integration_id ).remove().then( function()
 			{
 				toastr.success( "Integration was removed" );
-				smModal.Show( "public.admin.team.app_configurations.list" );
+				smModal.Show( "public.administrate.team.app_configurations.list" );
 			} );
 		} );
 	}

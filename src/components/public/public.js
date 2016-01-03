@@ -67,7 +67,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			if($localStorage.open_sites_wizard_modal && $rootScope.site.is_admin){
 				$localStorage.open_sites_wizard_modal = null;
 				$timeout(function(){
-					smModal.Show( 'public.admin.wizard', {id: 'site_launch_wizard'} );
+					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
 				} , 3000)
 			}
 			Restangular.one( 'site/members' ).get().then( function( response )
