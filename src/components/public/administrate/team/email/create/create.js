@@ -16,9 +16,14 @@ app.config(function($stateProvider){
                 }
 			}
 		})
+        .state("public.administrate.team.email.segmentIntro",{
+            url: "/create/:id?",
+            templateUrl: "/templates/components/public/administrate/team/email/create/segmentIntro.html",
+            controller: "segmentIntroController"
+        })
 });
 
-app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, $stateParams ) {
+app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, $stateParams, smModal ) {
     console.log($stateParams);
     $sendgridapp_configurations = Restangular.all('appConfiguration/getSendgridIntegrations').getList().then(function(response){$scope.sendgridapp_configurations = response});
     $scope.canceler = false;
@@ -286,18 +291,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     }
 
     $scope.editSegment = function(segment){
-        var modalInstance = $modal.open({
-            size: 'lg',
-            templateUrl: '/templates/components/public/administrate/team/email/create/segmentIntro.html',
-            controller: "segmentIntroController",
-            scope: $scope,
-            resolve: {
-                segment: function () {
-                    return segment
-                }
-            }
-
-        });
+        smModal.Show('public.administrate.team.email.segmentIntro',{segment: segment, modal_options: { allowMultiple: true }});
     }
 
     $scope.save = function() {
@@ -457,6 +451,8 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
 
     };
 
+    $scope.SetRecipientType('segment');
+
     $scope.formatNumber = function(number){
         if( !number )
             number = 0;
@@ -487,6 +483,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     }
 
     $scope.searchMembers = function(q){
+        console.log('are we even kind of running?');
         return Restangular.all('').customGET( 'emailSubscriber?p=1&q=' + encodeURIComponent( q ) ).then(function(data){
             return data.items;
         });
@@ -521,8 +518,8 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     }
 });
 
-app.controller('segmentIntroController', function ($scope, $state,  $uibModalInstance, Restangular, segment) {
-    $scope.segment = segment;
+app.controller('segmentIntroController', function ($scope, $state,  $stateParams, close) {
+    $scope.segment = $stateParams.segment;
 
     $scope.original_segment = angular.copy( $scope.segment );
 
@@ -531,10 +528,10 @@ app.controller('segmentIntroController', function ($scope, $state,  $uibModalIns
             $scope.segment[key] = value;
         });
 
-        $uibModalInstance.close();
+        close( $scope.segment );
     }
 
     $scope.save = function(){
-        $uibModalInstance.close();
+        close( $scope.segment );
     }
 });

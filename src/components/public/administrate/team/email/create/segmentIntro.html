@@ -1,24 +1,26 @@
-<div class="modal-header">
-    <h3 class="modal-title">Segment Customization: {{segment.name}}</h3>
-</div>
-<div class="modal-body">
-    <div class="field">
-        <label class="control-label">Custom Subject</label>
+<div class="ui modal">
+    <div class="header">
+        <h3 class="modal-title">Segment Customization: {{segment.name}}</h3>
+    </div>
+    <div class="content">
+        <div class="field">
+            <label class="control-label">Custom Subject</label>
 
-        <div class="">
-            <input type="text" name="title" class="form-control input-lg" ng-model="segment.subject">
+            <div class="">
+                <input type="text" name="title" class="form-control input-lg" ng-model="segment.subject">
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <label class="control-label">Custom Intro</label>
+
+            <div class="">
+                <textarea froala ng-model="segment.intro"></textarea>
+            </div>
         </div>
     </div>
-    <div class="hr-line-dashed"></div>
-    <div class="field">
-        <label class="control-label">Custom Intro</label>
-
-        <div class="">
-            <textarea froala ng-model="segment.intro"></textarea>
-        </div>
+    <div class="actions">
+        <a class="col-md-4 btn btn-default" ng-click="cancel()" >Cancel</a>
+        <button class="col-md-7 btn btn-primary" style="float:right;" ng-click="save()" type="submit">Save changes</button>
     </div>
-</div>
-<div class="modal-footer">
-    <a class="col-md-4 btn btn-default" ng-click="cancel()" >Cancel</a>
-    <button class="col-md-7 btn btn-primary" style="float:right;" ng-click="save()" type="submit">Save changes</button>
 </div>
