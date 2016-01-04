@@ -28,7 +28,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.lesson_count = 0;
     $rootScope.page_title = 'Lessons';
     $scope.loading=true;
-    $scope.syllabus = {edit_mode : false}
+    $scope.syllabus = {edit_mode : $rootScope.edit_mode}
     $scope.salesPage=window.location.hash.substr(1);
     
 
@@ -150,7 +150,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.ModuleSortableOptions = {
         connectWith: ".connectModulePanels",
         handler: ".ibox-title",
-        disabled: false,
+        disabled: $scope.syllabus.edit_mode ? false : true,
         stop: function(e, ui) {
             $scope.saveSyllabus();
         }
@@ -158,7 +158,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
 
     $scope.LessonSortableOptions = {
         connectWith: ".connectLessons",
-        disabled: false,
+        disabled: $scope.syllabus.edit_mode ? false : true,
         stop: function(e, ui) {
             $scope.saveSyllabus();
         },
@@ -208,6 +208,13 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.assignCounter= function ($ctr)
     {
         $rootScope.showCounter=parseInt($ctr);
+    }
+
+    $scope.toggleEditMode = function(){
+        $rootScope.edit_mode = !$scope.syllabus.edit_mode;
+        $state.go($state.current, {edit_mode : true}, { 
+           reload: true, inherit: false, location: false
+        });
     }
 
     $scope.editLesson = function(lesson){
