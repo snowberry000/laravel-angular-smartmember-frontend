@@ -6,22 +6,11 @@ app.config( function( $stateProvider )
 		.state( "public.administrate.team.jv.team", {
 			url: "/team/:id?",
 			templateUrl: "/templates/components/public/administrate/team/jv/team/team.html",
-			controller: "AffiliateTeamController",
-			resolve: {
-
-				affiliate_team: function( Restangular, $stateParams, $site )
-				{
-					if( $stateParams.id )
-					{
-						return Restangular.one( 'affiliateTeam', $stateParams.id ).get();
-					}
-					return { company_id: $site.company_id };
-				}
-			}
+			controller: "AffiliateTeamController"
 		} )
 } );
 
-app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, Restangular, toastr, $state, $rootScope, $stateParams, smModal )
+app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, Restangular, toastr, $state, $rootScope, $stateParams, smModal, $timeout )
 {
 	$site = $rootScope.site;
 	$scope.loading = true;
@@ -42,6 +31,22 @@ app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, 
 		$affiliate_team = Restangular.one( 'affiliateTeam', $stateParams.id ).get().then( function( response )
 		{
 			$scope.affiliate_team = response;
+
+            if( $scope.affiliate_team.members ) {
+                var members = [];
+
+                angular.forEach($scope.affiliate_team.members, function (value, key) {
+                    members.push(value.affiliate_id);
+                });
+
+                $scope.affiliate_team.members = members;
+
+                $timeout(function(){
+                    angular.forEach($scope.affiliate_team.members,function(value){
+                        $('.team_members_parent').find('[data-value=' + value + ']').click();
+                    });
+                });
+            }
 		} )
 	}
 	else
