@@ -752,4 +752,5 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 	}
 
 	$scope.resolveDependency();
+	$scope.init();
 } );

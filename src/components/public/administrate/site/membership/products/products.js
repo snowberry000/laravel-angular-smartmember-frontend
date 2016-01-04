@@ -122,7 +122,9 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 					// why doesn't this update it instead?
 					// $scope.data[ $scope.pagination.current_page ].hash = response.hash;
 
-					$scope.data[ $scope.pagination.current_page ].splice( i, 1, response );
+					//$scope.data[ $scope.pagination.current_page ].splice( i, 1, response );
+					//because you were missing [i]
+					$scope.data[ $scope.pagination.current_page ][i].hash = response.hash;
 				}
 			}
 			toastr.success( "Product level hash updated!" );
