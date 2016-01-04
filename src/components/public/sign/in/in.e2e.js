@@ -8,7 +8,7 @@ describe( 'Sign people in successfully', function()
             browser.waitForAngular();
             element(by.model('user.email')).sendKeys(browser.params.non_admin_user.email);
             element(by.model('user.password')).sendKeys(browser.params.non_admin_user.password);
-            element( by.css( 'input[type=submit]' ) ).click().then( function()
+            element( by.css( 'button[type=submit]' ) ).click().then( function()
             {
                 browser.waitForAngular();
                 expect(browser.getCurrentUrl()).toContain('/lessons');
