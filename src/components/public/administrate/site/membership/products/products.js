@@ -84,21 +84,20 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 		} )
 	}
 
-	$scope.afterDelete = function(id){
-		if(id){
-			var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
-			{
-				return next_item.id === id;
-			} );
+	$scope.deleteResource = function(id){
+		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+		{
+			return next_item.id === parseInt(id);
+		} );
 
-			itemWithId.remove().then( function()
-			{
-				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
-				$rootScope.access_levels = _.without($rootScope.access_levels , itemWithId);
-			} );
+		itemWithId.remove().then( function()
+		{
+			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+			$rootScope.access_levels = _.reject($rootScope.access_levels , function(item){
+				return item.id == parseInt(id);
+			});
 			toastr.success("Access level deleted!");
-		}
-		setTimeout(function() {smModal.Show('public.administrate.site.membership.products');}, 1000);
+		} );
 		
 	}
 
