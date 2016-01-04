@@ -150,7 +150,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.ModuleSortableOptions = {
         connectWith: ".connectModulePanels",
         handler: ".ibox-title",
-        disabled: $scope.syllabus.edit_mode || true,
+        disabled: $scope.syllabus.edit_mode ? false : true,
         stop: function(e, ui) {
             $scope.saveSyllabus();
         }
@@ -158,7 +158,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
 
     $scope.LessonSortableOptions = {
         connectWith: ".connectLessons",
-        disabled: $scope.syllabus.edit_mode || true,
+        disabled: $scope.syllabus.edit_mode ? false : true,
         stop: function(e, ui) {
             $scope.saveSyllabus();
         },
