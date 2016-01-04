@@ -46,7 +46,7 @@
 					<label>Module</label>
 					<select class="ui dropdown" ng-model="selectedModule" ng-change="changeModule(selectedModule)" ng-if="modules" sui-dropdown>
 						<option value="">Module</option>
-						<option ng-repeat="module in $rootScope.modules" ng-selected="next_item.module_id == module.id || !next_item.module_id">{{module.title}}</option>
+						<option ng-repeat="module in modules" ng-selected="next_item.module_id == module.id || !next_item.module_id">{{module.title}}</option>
 					</select>
 				</div>
 				<div class="field">
