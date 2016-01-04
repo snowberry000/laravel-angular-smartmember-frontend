@@ -127,6 +127,26 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
 
     }
 
+    $scope.saveLesson = function(lesson){
+        var lesson_copy = angular.copy(lesson);
+        delete lesson_copy.user_note;
+        delete lesson_copy.showCounter;
+        delete lesson_copy.show_content_publicly;
+        delete lesson_copy.description;
+        Restangular.all('lesson').customPUT(lesson_copy , lesson.id).then(function(response){
+
+        })
+    }
+
+    $scope.saveModule = function(module){
+        var module_copy = angular.copy(module);
+        delete module_copy.lessons;
+        delete module_copy.show_me;
+        Restangular.all('module').customPUT(module_copy , module.id).then(function(response){
+
+        })
+    }
+
     $scope.ModuleSortableOptions = {
         connectWith: ".connectModulePanels",
         handler: ".ibox-title",

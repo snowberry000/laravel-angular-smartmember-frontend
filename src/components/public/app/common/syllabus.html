@@ -42,10 +42,15 @@
 	</div>
 	<div class="ui attached segment section_background_color module_item" data-id="{{module.id}}" ng-repeat="(key, module) in modules" ng-if="(module.lessons.length > 0 || module.show_me) && (!query || ( module.lessons | filter: query).length > 0)" data-id="{{module.id}}">
 
-		<a sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+		<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" ng-click="hide_module = !hide_module">
 			({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
 		</a>
-
+		<a ng-if="!module.id && syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+			({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
+		</a>
+		<a ng-if="!syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+			({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
+		</a>
 		<div class="connectLessons ui very relaxed divided ordered list" ng-show="!hide_module" ng-if="site.syllabus_format == 'list'">
 			<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}">
 				<div class="right floated content">
@@ -59,8 +64,8 @@
 				<i ng-click='toggleComplete(lesson)' class="large green checkmark box middle aligned icon" ng-show="lesson.user_note.complete"></i>
 				
 				<div class="content">
-					<a class="header" smEditable="lesson.title" is-editable="syllabus.edit_mode" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
-					
+					<a class="header" ng-if="syllabus.edit_mode" onaftersave="saveLesson(lesson)" editable-text="lesson.title" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
+					<a class="header" ng-if="!syllabus.edit_mode" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
 					<div class="description">{{lesson.access}}
 					
 					</div>
