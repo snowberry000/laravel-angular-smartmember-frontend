@@ -24,7 +24,6 @@ app.config(function($stateProvider){
 });
 
 app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, $stateParams, smModal ) {
-    console.log($stateParams);
     $sendgridapp_configurations = Restangular.all('appConfiguration/getSendgridIntegrations').getList().then(function(response){$scope.sendgridapp_configurations = response});
     $scope.canceler = false;
     if ( $stateParams.id ) {
@@ -395,45 +394,9 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     }
 
     $scope.preview = function () {
-
-        var modalInstance = $modal.open({
-            templateUrl: '/templates/modals/previewEmail.html',
-            controller: "modalController",
-            scope: $scope
-        });
+        smModal.Show( null, { modal_options: { allowMultiple: true }, email: $scope.email, recipient_type: $scope.recipient_type, chosen_segments: $scope.chosen_segments },
+            { templateUrl: 'templates/modals/previewEmail.html', controller: 'previewEmailController' });
     };
-
-    $scope.sendPreview = function()
-    {
-        switch( $scope.recipient_type ) {
-            case 'single':
-                $scope.email.recipient = $scope.recipient;
-                break;
-            case 'members':
-                $scope.email.recipients = $scope.recipients;
-                break;
-            case 'segment':
-                $scope.email.intros = $scope.chosen_segments;
-                break;
-        }
-
-        $scope.email.recipient_type = $scope.recipient_type;
-
-        if( $scope.email.admin ) {
-            Restangular.service("email/sendTest").post($scope.email).then(function (response) {
-                if (response.success == 1) {
-                    $scope.success_count = response.count;
-                    toastr.success("Test email sent successfully");
-                }
-                else if (response.success == -1)
-                    toastr.error("Test email is not sent because you have not set up your Reply To and Email From yet. Please set it up in Email Settings tab");
-                return;
-            });
-        } else {
-            toastr.warning("Please fill in the email you want to send preview to");
-            return;
-        }
-    }
 
     $scope.SetRecipientType = function( type ) {
 
@@ -533,5 +496,47 @@ app.controller('segmentIntroController', function ($scope, $state,  $stateParams
 
     $scope.save = function(){
         close( $scope.segment );
+    }
+});
+
+app.controller('previewEmailController', function ($scope, $state, Restangular, $stateParams, close) {
+    $scope.recipient_type = $stateParams.recipient_type;
+    $scope.email = $stateParams.email;
+    $scope.chosen_segments = $stateParams.chosen_segments;
+
+    $scope.sendPreview = function()
+    {
+        switch( $scope.recipient_type ) {
+            case 'single':
+                $scope.email.recipient = $scope.recipient;
+                break;
+            case 'members':
+                $scope.email.recipients = $scope.recipients;
+                break;
+            case 'segment':
+                $scope.email.intros = $scope.chosen_segments;
+                break;
+        }
+
+        $scope.email.recipient_type = $scope.recipient_type;
+
+        if( $scope.email.admin ) {
+            Restangular.service("email/sendTest").post($scope.email).then(function (response) {
+                if (response.success == 1) {
+                    $scope.success_count = response.count;
+                    toastr.success("Test email sent successfully");
+                }
+                else if (response.success == -1)
+                    toastr.error("Test email is not sent because you have not set up your Reply To and Email From yet. Please set it up in Email Settings tab");
+                return;
+            });
+        } else {
+            toastr.warning("Please fill in the email you want to send preview to");
+            return;
+        }
+    }
+
+    $scope.cancel = function(){
+        close();
     }
 });
