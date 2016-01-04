@@ -9,7 +9,8 @@ app.directive( 'suiPopup', function( smModal )
 				position: attributes.position || 'right center',
 				//popup: '.special.popup',
 				html: (attributes.edit == true || attributes.edit == 'true') ? '<button class="ui tiny red button edit-admin">edit</button>' : '',
-				target: attributes.target || '',
+				target: attributes.target || false,
+				popup: attributes.popup || false,
 				exclusive: true,
 				preserve: true,
 				duration: attributes.edit ? 100 : (attributes.duration || 0),
@@ -17,6 +18,9 @@ app.directive( 'suiPopup', function( smModal )
 					show: 100,
 					hide: attributes.edit ? 500 : (attributes.delayHide || 0)
 				},
+				transition: attributes.transition || 'slide down',
+				on: attributes.on || 'hover',
+				inline: attributes.inline || false,
 				onVisible: function()
 				{
 					$( ".edit-admin" ).on( 'click', function( event )
