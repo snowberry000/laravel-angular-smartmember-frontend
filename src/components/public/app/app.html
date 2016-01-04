@@ -10,7 +10,7 @@
 		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
 			<div class="column" style="text-align: right;">
 				<div class="ui buttons" ng-show="!isLoggedIn()">
-					<a class="ui button" href="#" ng-click="smModal.Show('public.sign.in')">Log-in</a>
+					<a class="ui button login_button" href="#" ng-click="smModal.Show('public.sign.in')">Log-in</a>
 					<div class="or"></div>
 					<a class="ui positive button" href="#" ng-click="smModal.Show('public.sign.up')">Sign up</a>
 				</div>
