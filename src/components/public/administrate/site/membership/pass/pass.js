@@ -53,7 +53,12 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 			$scope.page_title = $scope.access_pass.id ? 'Edit Pass' : 'Grant New Pass';
 			if($scope.access_pass.id)
 				$scope.access_pass.expired_at = moment($scope.access_pass.expired_at).toDate();
-			$scope.roles = roles;
+			$scope.roles = _.uniq(roles, function(item, key, a) { 
+				if(item && item.user)
+			    	return item.user.email;
+			});
+
+			//$scope.roles = roles;
 			$scope.access_levels = access_levels;
 		}
 
