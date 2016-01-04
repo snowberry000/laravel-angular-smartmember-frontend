@@ -1,9 +1,9 @@
 
 
-<div ng-include="'templates/components/public/app/common/dynamic-css.html'"></div>
+<div ng-if="!$state.includes('public.app.admin')" ng-include="'templates/components/public/app/common/dynamic-css.html'"></div>
 
 <wave-spinner ng-if="loading"></wave-spinner>
-<div class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
+<div ng-if="!$state.includes('public.app.admin')" class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
 
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">
 
@@ -32,13 +32,12 @@
 		</div>
 	</div>
 </div>
-<div class="ui vertical segment site_middle_background_color main-content">
-
+<div class="ui vertical segment site_middle_background_color main-content {{isLoggedIn() && $state.includes('public.app.admin') ? 'logged_in' : ''}}">
 	<div sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable'">
 		<ui-view class="row"></ui-view>
 	</div>
 </div>
-<div class="ui vertical segment site_bottom_background_color">
+<div ng-if="!$state.includes('public.app.admin')" class="ui vertical segment site_bottom_background_color">
 
 	<div class="ui grid container">
 		<div class="row">

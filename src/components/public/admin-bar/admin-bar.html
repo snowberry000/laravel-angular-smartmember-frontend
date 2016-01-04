@@ -130,6 +130,7 @@
 			Smart<strong>Member</strong>
 		</button>
 		<div class="menu">
+			<a class="item" ui-sref="public.app.home">Site Home</a>
 			<a class="item" sm-access="manage_members" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
 
 			<div class="item" sm-access="manage_access_levels" if-not="hide">
@@ -178,7 +179,7 @@
 	<div class="ui dropdown" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')">
 		<button class="ui inverted basic red labeled icon button">
 			<i class="life ring icon"></i>
-			Smart <strong>Support</strong>
+			Smart<strong>Support</strong>
 		</button>
 	</div>
 </div>

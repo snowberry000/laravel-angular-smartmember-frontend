@@ -1,0 +1,55 @@
+<div class="ui top sidebar top_bp_sidebar_contents">
+	<div class="ui menu" ng-init="toggleSidebar('layout')" ng-controller="bridgepageEngineController">
+		<pre>{{template}}</pre>
+		<div class="header item">
+			BridgePage Editor
+		</div>
+		<div class="field">
+			<label class="col-sm-2 control-label">Template</label>
+
+			<div class="col-sm-10">
+				<select class='form-control input-lg'>
+
+				</select>
+			</div>
+		</div>
+
+		<div class="item {{sidebar=='layout' ? 'active' :''}}">
+			<button class="ui default button" ng-click="toggleSidebar('layout')">Layout</button>
+		</div>
+		<div class="item {{sidebar=='colors' ? 'active' :''}}">
+			<button class="ui default button" ng-click="toggleSidebar('colors')">Colors</button>
+		</div>
+		<div class="pointing icon menu">
+			<a class="item {{viewport == '' ? 'active' :''}}" ng-click="toggleViewPort('')" title="View as desktop" sui-popup>
+				<i class="desktop icon"></i>
+			</a>
+			<a class="item {{viewport == 'viewport-tablet' ? 'active' :''}}" ng-click="toggleViewPort('viewport-tablet')" title="View as tablet" sui-popup>
+				<i class="tablet icon"></i>
+			</a>
+			<a class="item {{viewport == 'viewport-mobile' ? 'active' :''}}" ng-click="toggleViewPort('viewport-mobile')" title="View as mobile" sui-popup>
+				<i class="mobile icon"></i>
+			</a>
+		</div>
+		<div class="menu">
+			<div class="item">
+				<div class="ui buttons">
+					<div busy class="ui red button" ng-click="save();">Save</div>
+					<div class="ui secondary button" ng-click="close();">cancel</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui sidebar vertical menu left left_bp_sidebar_contents">
+
+	<div class="ui form" ng-if="sidebar == 'layout'" ng-include="'templates/components/public/admin-bar/bridgepage-engine/layout.html'"></div>
+	<div class="ui form" ng-if="sidebar == 'colors'" ng-include="'templates/components/public/admin-bar/bridgepage-engine/colors.html'"></div>
+
+</div>
+
+<div class="bp_content" ng-if="template" ng-include src="'bpage/' + template.preview_url"></div>
+
+<div class="ui active inverted dimmer" ng-if="loading">
+	<div class="ui loader"></div>
+</div>
