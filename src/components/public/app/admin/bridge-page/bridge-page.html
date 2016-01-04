@@ -1,15 +1,12 @@
 <div class="ui top sidebar top_bp_sidebar_contents">
-	<div class="ui menu" ng-init="toggleSidebar('layout')" ng-controller="bridgepageEngineController">
+	<div class="ui menu" ng-init="toggleSidebar()" ng-controller="bridgepageEngineController">
 
 		<div class="header item">
 			BridgePage Editor
 		</div>
 
-		<div class="item {{sidebar=='layout' ? 'active' :''}}">
-			<button class="ui default button" ng-click="toggleSidebar('layout')">Layout</button>
-		</div>
-		<div class="item {{sidebar=='colors' ? 'active' :''}}">
-			<button class="ui default button" ng-click="toggleSidebar('colors')">Colors</button>
+		<div class="item {{show_options ? 'active' :''}}">
+			<button class="ui default button" ng-click="toggleSidebar()">Options</button>
 		</div>
 		<div class="pointing icon menu">
 			<a class="item {{viewport == '' ? 'active' :''}}" ng-click="toggleViewPort('')" title="View as desktop" sui-popup>
@@ -34,8 +31,7 @@
 </div>
 <div class="ui wide sidebar vertical menu left left_bp_sidebar_contents">
 
-	<div class="ui form" ng-if="sidebar == 'layout'" ng-include="'templates/components/public/admin-bar/bridgepage-engine/layout.html'"></div>
-	<div class="ui form" ng-if="sidebar == 'colors'" ng-include="'templates/components/public/admin-bar/bridgepage-engine/colors.html'"></div>
+	<div class="ui form" ng-include="'templates/components/public/admin-bar/bridgepage-engine/layout.html'"></div>
 
 </div>
 

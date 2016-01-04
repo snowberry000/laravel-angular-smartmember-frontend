@@ -29,6 +29,11 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( the_options ).sidebar( 'toggle' );
 	};
 
+	self.Toggle = function( the_sidebar )
+	{
+		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( 'toggle' );
+	};
+
 	self.Close = function( the_sidebar )
 	{
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( 'hide' );

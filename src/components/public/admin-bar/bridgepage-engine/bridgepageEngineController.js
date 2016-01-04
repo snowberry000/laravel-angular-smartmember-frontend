@@ -4,14 +4,12 @@ app.controller( 'bridgepageEngineController', function( $scope, $localStorage, s
 	$scope.original_data = [];
 	$rootScope.viewport = '';
 	$scope.template = '';
+	$scope.show_options = false;
 
-	$scope.toggleSidebar = function( option )
+	$scope.toggleSidebar = function()
 	{
-		if( $rootScope.sidebar == option )
-		{
-			return;
-		}
-		$rootScope.sidebar = option;
+		smSidebar.Toggle('.left_bp_sidebar_contents');
+		$scope.show_options = !$scope.show_options;
 	}
 
 	$scope.toggleViewPort = function( option )

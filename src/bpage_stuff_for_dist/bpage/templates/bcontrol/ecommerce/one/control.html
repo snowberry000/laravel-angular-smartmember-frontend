@@ -1,9 +1,9 @@
 <div class="ui styled fluid accordion" sui-accordion>
-	<h3 class="ui top attached header title active">
+	<h3 class="ui top attached header title">
 		<i class="dropdown icon"></i>
 		General Settings
 	</h3>
-	<div class="ui attached segment content active">
+	<div class="ui attached segment content">
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Background Image</label>
@@ -35,7 +35,7 @@
 
 			<div class="col-sm-10">
 				<button type="button"
-						sm-uploader="logo" ng-model="bridgepage.swapspot.logo">Choose Featured Image
+						sm-uploader="logo" data-allowMultiple="false" ng-model="bridgepage.swapspot.logo">Choose Featured Image
 				</button>
 				<div class="width-100 set_featured_image">
 					<img class="set_featured_image img-responsive img-thumbnail" ng-src="{{bridgepage.swapspot.logo}}"
@@ -84,7 +84,7 @@
 
 			<div class="col-sm-10">
 				<button type="button"
-						sm-uploader="ad" ng-model="bridgepage.swapspot.ad">Choose Featured Image
+						sm-uploader="ad" data-allowMultiple="false" ng-model="bridgepage.swapspot.ad">Choose Featured Image
 				</button>
 				<div class="width-100 set_featured_image">
 					<img class="set_featured_image img-responsive img-thumbnail" ng-src="{{bridgepage.swapspot.ad}}"
