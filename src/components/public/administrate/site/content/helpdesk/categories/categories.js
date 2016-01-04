@@ -5,11 +5,11 @@ app.config(function($stateProvider){
 		.state("public.administrate.site.content.helpdesk.categories",{
 			url: "/categories",
 			templateUrl: "/templates/components/public/administrate/site/content/helpdesk/categories/categories.html",
-			controller: "CategoriesController"
+			controller: "ArticleCategoriesController"
 		})
 }); 
 
-app.controller("CategoriesController", function ($scope,smModal,$rootScope, $localStorage, $state, $stateParams,$filter, Restangular, toastr) {
+app.controller("ArticleCategoriesController", function ($scope,smModal,$rootScope, $localStorage, $state, $stateParams,$filter, Restangular, toastr) {
 	$site=$rootScope.site;
     $scope.template_data = {
         title: 'HELPDESK_CATEGORIES',

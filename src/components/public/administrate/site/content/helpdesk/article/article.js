@@ -88,13 +88,19 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
         })
     };
 
-    $scope.saveCategory = function($model)
+    $scope.saveCategory = function($name)
     {
-        $model.company_id=$rootScope.site.company_id;
-        Restangular.all('supportCategory').post($model).then(function(response){
+        $cat = {title: $name, company_id:$rootScope.site.company_id, site_id:$rootScope.site.id }
+        Restangular.all('supportCategory').post($cat).then(function(response){
             $scope.categories.push(response);
             toastr.success("Support category added successfully!");
+            delete $scope.article.createCategory;
         });
+    }
+
+    $scope.canceCategoryCreation = function()
+    {
+        delete $scope.article.createCategory;   
     }
 
     $scope.imageUpload = function(files){
