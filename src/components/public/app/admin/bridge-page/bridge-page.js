@@ -247,6 +247,11 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		}
 	}
 
+	$scope.close = function()
+	{
+		smSidebar.Close();
+	}
+
 	$scope.save = function( cloned )
 	{
 
@@ -448,4 +453,43 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 	}
 
 
+} );
+
+app.controller( 'bridgepageEngineController', function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
+{
+	$scope.original_data = [];
+	$rootScope.viewport = '';
+	$scope.template = '';
+	$scope.show_options = false;
+
+	$scope.toggleSidebar = function()
+	{
+		smSidebar.Toggle('.left_bp_sidebar_contents');
+		$scope.show_options = !$scope.show_options;
+	}
+
+	$scope.toggleViewPort = function( option )
+	{
+		if( $rootScope.viewport == option )
+		{
+			return;
+		}
+		$rootScope.viewport = option;
+	}
+
+	$scope.close = function()
+	{
+		smSidebar.Close();
+		$rootScope.viewport = '';
+	}
+
+	$scope.$on( '$destroy', function()
+	{
+		console.log( $scope.original_data );
+
+		$scope.destroyed = true;
+		$state.transitionTo( $state.current, $stateParams, {
+			reload: true, inherit: false, location: false
+		} );
+	} );
 } );
