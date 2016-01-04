@@ -25,8 +25,7 @@
 				<div class="eight wide field team_members_parent">
 					<label>Choose Team Members</label>
 					<select multiple="multiple" class="ui search dropdown" ng-model="affiliate_team.members" sui-dropdown>
-						<option value="">Affiliates</option>
-						<option ng-repeat="affiliate in affiliates" value="{{affiliate.affiliate_id}}">{{affiliate.user_name}}</option>
+						<option ng-repeat="affiliate in affiliates" value="{{affiliate.id}}">{{affiliate.user_name}}</option>
 					</select>
 				</div>
 			</div>
