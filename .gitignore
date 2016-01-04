@@ -4,3 +4,4 @@
 .idea/*
 npm-debug.log
 local-config.php
+/src/tests/*
