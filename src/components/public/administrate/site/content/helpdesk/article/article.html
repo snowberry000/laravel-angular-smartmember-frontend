@@ -41,16 +41,24 @@
 										<select type="text" name="category" class="form-control input-lg" ng-model="article.category_id" ng-options="category.id as category.title for category in categories" >
 										</select>
 									</div>
-									<a class="btn btn_outline float_right col-md-4" ng-click="openCategoryModel()">
+									<a class="btn btn_outline float_right col-md-4" ng-click="article.createCategory='true'">
 									    <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
 									    Create New Category
 									</a>
 								</div>
 								<div class="col-sm-10" ng-if="categories.length==0">
-									<a class="btn btn_outline float_right" ng-click="openCategoryModel()">
+									<a class="btn btn_outline float_right" ng-click="article.createCategory='true'">
 									    <i class="ts_icon ts_icon_cloud_download small_right_margin"></i>
 									    Create New Category
 									</a>
+								</div>
+								<div ng-if="article.createCategory=='true'" style="margin:15px;">
+									<label>
+										Category Name:
+									</label>
+									<input style="margin:4px;" type="text" ng-model="newCategoryName" placeholder="Category name"></input>
+									<button ng-click="saveCategory(newCategoryName)">Create</button>
+									<button ng-click="canceCategoryCreation()">Cancel</button>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>

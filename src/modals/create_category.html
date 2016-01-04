@@ -1,23 +1,16 @@
-<div class="row" style="padding:30px;">
-    <div class="col-md-12">
-        <form class="form-horizontal save_form" ng-submit="saveCategory(model);ok();">
+<div class="ui modal">
+    <div class="ui content">
+        <form class="form-horizontal save_form">
             <div class="form-group">
-                <label class="col-md-4 control-label">Category title</label>
-                <div class="col-md-8">
-                    <input type="text" name="title" class="form-control input-lg" ng-model="model.title">
+                <label >Category title</label>
+                <div>
+                    <input type="text" name="title" ng-model="title">
                 </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div class="form-group">
-                <div class="col-md-12 ">
-                    <div class="col-md-2 col-md-offset-1">
-                        <a class="btn btn-default" ng-click="cancel()" >Cancel</a>
-                    </div>
-                    <div class="col-md-4 ">
-                        <button class="btn btn-primary" type="submit">Save changes</button>
-                    </div>
-                    
-                </div>
+            <div class="actions">
+                <a class="ui black deny button close" >Cancel</a>
+                <button class="ui right labeled icon button" ng-click="ok();"><i class="fa fa-plus"></i>Save changes</button>
             </div>
         </form>
     </div>
