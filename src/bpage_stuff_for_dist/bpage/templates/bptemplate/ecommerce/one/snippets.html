@@ -29,7 +29,7 @@
 	}
 .bp_content .headline_container {
 		text-align: right;
-		color: {{bridgepage.swapspot.headline_text_color || '#fff'}};
+		color: {{bridgepage.swapspot.headline_text_color}};
 		font-size: 27px;
 	}
 
@@ -68,8 +68,8 @@
 }
 
 .bp_content .cta_button {
-	color: {{bridgepage.swapspot.button_text_color || '#ffffff'}};
-	background-color: {{bridgepage.swapspot.button_background_color || '#47c787'}};
+	color: {{bridgepage.swapspot.button_text_color}};
+	background-color: {{bridgepage.swapspot.button_background_color}};
 margin-top: 19px;
 text-decoration: none !important;
 border-bottom: 3px solid rgba(0, 0, 0, 0.2);
@@ -117,20 +117,20 @@ font-weight: bold;
 	text-align:center;
 }
 .bp_content .terms_link {
-	color: {{bridgepage.swapspot.term_text_color || '#fff'}};
+	color: {{bridgepage.swapspot.term_text_color}};
 }
 .bp_content .privacy_link {
-		color: {{bridgepage.swapspot.privacy_text_color || '#fff'}};
+		color: {{bridgepage.swapspot.privacy_text_color}};
 	}
 </style>
 <div class="page_container">
 	<div class="top_section container">
 		<div class="row">
 			<div class="col-md-6 logo_container">
-				<img ng-src="{{bridgepage.swapspot.logo || 'https://images.clickfunnels.com/d7/816af0e54311e48b0937fb402a6e0a/logo.png'}}" class="img-responsive"/>
+				<img ng-src="{{bridgepage.swapspot.logo}}" class="img-responsive"/>
 			</div>
 			<div class="col-md-6 headline_container">
-				<b>{{bridgepage.swapspot.headline || 'Get This Free Time Turner Today!'}}</b>
+				<b>{{bridgepage.swapspot.headline}}</b>
 			</div>
 		</div>
 	</div>
@@ -138,7 +138,7 @@ font-weight: bold;
 		<div class="row">
 			<div class="col-md-4">
 				<a ng-href="{{bridgepage.swapspot.ad_url}}">
-					<img ng-src="{{bridgepage.swapspot.ad || 'https://images.clickfunnels.com/14/adaa60e54411e4ab13458a69ac3098/__12.jpg'}}" class="img-responsive">
+					<img ng-src="{{bridgepage.swapspot.ad}}" class="img-responsive">
 				</a>
 			</div>
 			<div class="col-md-8">
@@ -149,8 +149,8 @@ font-weight: bold;
 					</div>
 				</div>
 
-				<a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab || '_blank'}}">
-					<span class="maintext">{{bridgepage.swapspot.button || 'Get It Now'}}</span>
+				<a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab}}">
+					<span class="maintext">{{bridgepage.swapspot.button}}</span>
 					<span class="subtext">{{bridgepage.swapspot.button2}}</span>
 				</a>
 			</div>
@@ -159,10 +159,10 @@ font-weight: bold;
 	<div class="bottom_section container">
 
 		<p class="terms_and_conditions_container">
-			<a class="terms_link" ng-href="{{bridgepage.swapspot.term_url}}" target="{{bridgepage.swapspot.open_term_link_in_new_tab || '_blank'}}">
+			<a class="terms_link" ng-href="{{bridgepage.swapspot.term_url}}" target="{{bridgepage.swapspot.open_term_link_in_new_tab}}">
 				{{bridgepage.swapspot.term_text}}
 			</a> |
-			<a class="privacy_link" href="{{bridgepage.swapspot.privacy_url}}" target="{{bridgepage.swapspot.open_privacy_link_in_new_tab || '_blank'}}">
+			<a class="privacy_link" href="{{bridgepage.swapspot.privacy_url}}" target="{{bridgepage.swapspot.open_privacy_link_in_new_tab}}">
 				{{bridgepage.swapspot.privacy_text}}
 			</a>
 		</p>
