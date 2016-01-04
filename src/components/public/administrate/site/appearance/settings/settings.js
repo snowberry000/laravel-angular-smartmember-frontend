@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "SettingsController", function( $scope, smModal, $rootScope, $localStorage, $location, $stateParams, Restangular, toastr )
+app.controller( "SettingsController", function( $scope, smModal,$state, $rootScope, $localStorage, $location, $stateParams, Restangular, toastr )
 {
 	$rootScope.not_homepage_setting = false;
 	$site_options = null;
@@ -69,6 +69,9 @@ app.controller( "SettingsController", function( $scope, smModal, $rootScope, $lo
 			smModal.Close( 'public.administrate.site.appearance.settings' );
 			$scope.site_options.isOpen = false;
 			$localStorage.homepage_url = $scope.site_options.homepage_url;
+			$state.transitionTo('public.app', $stateParams, { 
+			  reload: true, inherit: false, location: false
+			});
 		} );
 	}
 

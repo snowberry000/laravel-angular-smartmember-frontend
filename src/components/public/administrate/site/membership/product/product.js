@@ -162,6 +162,7 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 	}
 
 	$scope.create = function(){
+		$scope.access_level.site_id = $site.id;
 		Restangular.service("accessLevel").post($scope.access_level).then(function(response){
 			//$scope.access_levels.push(response);
 			$rootScope.access_levels.push(response);

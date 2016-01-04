@@ -60,7 +60,7 @@
 									<a ng-click="smModal.Show(template_data.edit_route,{id: next_item.id })" class="ui button">
 										Edit
 									</a>
-									<button class="ui button" ng-click="delete(next_item.id)">
+									<button class="ui button" sm-delete={{next_item.id}}>
 										Delete
 									</button>
 								</td>
