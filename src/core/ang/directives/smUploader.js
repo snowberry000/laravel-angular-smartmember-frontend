@@ -1,4 +1,4 @@
-app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangular, smModal,$timeout )
+app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangular, smModal, $timeout )
 {
 	return {
 		restrict: 'A',
@@ -12,6 +12,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 				var post = attr.restangular;
 				var model = attr.ngModel;
 				var awskey = attr.ngAwskey;
+				var allow_multiple = attr.allowmultiple ? attr.allowmultiple : true;
 				scope.privacy = attr.privacy ? attr.privacy : false;
 				var hideLink = attr.hidelink ? attr.hidelink : false;
 
@@ -20,7 +21,9 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 					var rest = Restangular.all( post );
 				}
 
-				smModal.Show( null, { modal_options: { allowMultiple: true } },
+				console.log( 'allow_multiple', allow_multiple, attr );
+
+				smModal.Show( null, { modal_options: { allowMultiple: allow_multiple } },
 					{ templateUrl: 'templates/modals/newMediaItem.html', controller: 'modalMediaController' },
 					function( item )
 					{
@@ -54,7 +57,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 						{
 							rest.customPOST( li, "save" ).then( function()
 							{
-								console.log("Image is uploaded");
+								console.log( "Image is uploaded" );
 							} );
 						}
 					}
@@ -116,14 +119,14 @@ app.controller( 'modalMediaController', function( $scope, Upload, close )
 
 					returnObject.file = data.file_name;
 
-                    if( data.aws_key !== undefined )
-                    {
-                        returnObject.aws_key = data.aws_key;
-                    }
+					if( data.aws_key !== undefined )
+					{
+						returnObject.aws_key = data.aws_key;
+					}
 
-                    close( returnObject );
+					close( returnObject );
 
-                } ).error( function( data, status, headers, config )
+				} ).error( function( data, status, headers, config )
 			{
 				console.log( 'error status: ' + data );
 			} );
@@ -166,12 +169,12 @@ app.controller( 'inlineMediaController', function( $scope, Upload )
 
 					returnObject.file = data.file_name;
 
-                    if( data.aws_key !== undefined )
-                    {
-                        returnObject.aws_key = data.aws_key;
-                    }
+					if( data.aws_key !== undefined )
+					{
+						returnObject.aws_key = data.aws_key;
+					}
 
-                    $scope.$parent.meta_data[ $scope.data_to_update ] = returnObject.file;
+					$scope.$parent.meta_data[ $scope.data_to_update ] = returnObject.file;
 				} ).error( function( data, status, headers, config )
 			{
 

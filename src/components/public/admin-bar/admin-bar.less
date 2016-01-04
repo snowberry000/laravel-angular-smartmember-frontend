@@ -2,18 +2,28 @@
   .admin_bar {
     z-index: 97 !important;
   }
-  .top_sidebar_contents {
+  .sidebar.top {
     z-index: 99 !important;
   }
-  .left_sidebar_contents {
+  .sidebar.left {
     z-index: 98 !important;
     background: #ffffff;
   }
+  .sidebar.left .fluid.accordion .ui.attached.segment {
+    border-right: none;
+    border-left: none;
+    width: 100%;
+  }
+  .sidebar.left .fluid.accordion .ui.attached.header {
+    border-right: none;
+    border-left: none;
+  }
+
   .admin_bar,
-  .top_sidebar_contents .ui.menu:first-child {
+  .sidebar.top .ui.menu:first-child {
     min-height: 62px !important;
   }
-  .left_sidebar_contents .ui.form:first-child {
+  .sidebar.left .ui.form:first-child {
     margin-top: 72px !important;
   }
 

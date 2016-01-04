@@ -33,6 +33,7 @@ var paths = {
 	fonts: 'src/core/fonts/**/*',
 	images: 'src/core/images/**/*',
 	php: 'src/core/php/**/*',
+	bpage: 'src/bpage_stuff_for_dist/**/*',
 	json: 'src/core/json/*'
 };
 
@@ -120,6 +121,7 @@ gulp.task( 'watch', function()
 	gulp.watch( paths.fonts, [ 'fonts' ] );
 	gulp.watch( paths.images, [ 'images' ] );
 	gulp.watch( paths.php, [ 'php' ] );
+	gulp.watch( paths.bpage, [ 'bpage' ] );
 	gulp.watch( 'src/index.php', [] );
 } );
 
@@ -167,7 +169,6 @@ gulp.task( 'less', function()
 
 gulp.task( 'bpage', function()
 {
-
 	return gulp.src( 'src/bpage_stuff_for_dist/**/*' )
 		.pipe( gulp.dest( 'dist/' ) );
 
