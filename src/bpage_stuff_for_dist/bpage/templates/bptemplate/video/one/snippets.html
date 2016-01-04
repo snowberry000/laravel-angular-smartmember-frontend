@@ -19,13 +19,13 @@
     }
     .bp_content .tagline_container h2 {
         text-align:center;
-    color: {{bridgepage.swapspot.tagline_text_color || '#fff'}};
+    color: {{bridgepage.swapspot.tagline_text_color}};
 	font-size: 24px;
 	margin-top: 0px;
     }
     .bp_content .headline_container h1 {
         text-align: center;
-    color: {{bridgepage.swapspot.headline_text_color || '#fff'}};
+    color: {{bridgepage.swapspot.headline_text_color}};
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 	font-size: 48px;
     margin:20px 0px 0px 0px;
@@ -54,8 +54,8 @@
 	}
 
     .bp_content .cta_button {
-    color: {{bridgepage.swapspot.button_text_color || '#fff'}};
-    background-color: {{bridgepage.swapspot.button_background_color || '#fe861d'}};
+    color: {{bridgepage.swapspot.button_text_color}};
+    background-color: {{bridgepage.swapspot.button_background_color}};
     margin-top: 19px;
     text-decoration: none !important;
     border-bottom: 3px solid rgba(0, 0, 0, 0.2);
@@ -74,7 +74,7 @@
     }
     .bp_content .cta_button:hover {
         /*background-color: #fe861d!important;*/
-        color: {{bridgepage.swapspot.button_text_color || '#fff'}} !important;
+        color: {{bridgepage.swapspot.button_text_color}} !important;
     }
 
 	.bp_content .cta_button .subtext {
@@ -100,10 +100,10 @@
         color: rgba(255, 255, 255, 0.509804);
     }
     .bp_content .terms_link {
-    color: {{bridgepage.swapspot.term_text_color || '#fff'}};
+    color: {{bridgepage.swapspot.term_text_color}};
     }
     .bp_content .privacy_link {
-    color: {{bridgepage.swapspot.privacy_text_color || '#fff'}};
+    color: {{bridgepage.swapspot.privacy_text_color}};
     }
 
     .live_bridge_page .bp_content {
@@ -114,12 +114,12 @@
     <div class="top_section container">
 		<div class="row">
 			<div class="col-md-12 headline_container">
-				<h1>{{bridgepage.swapspot.headline || 'Enter your Hard-hitting Headline here to engage your audience'}}</h1>
+				<h1>{{bridgepage.swapspot.headline}}</h1>
 			</div>
 		</div>
         <div class="row">
             <div class="col-md-12 tagline_container">
-                <h2>{{bridgepage.swapspot.tagline || 'Put any tagline you want up here'}}</h2>
+                <h2>{{bridgepage.swapspot.tagline}}</h2>
             </div>
         </div>
     </div>
@@ -135,8 +135,8 @@
 					</div>
 				</div>
 
-				<a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab || '_blank'}}">
-					<span class="maintext">{{bridgepage.swapspot.button || 'Get It Now'}}</span>
+				<a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab}}">
+					<span class="maintext">{{bridgepage.swapspot.button}}</span>
 					<span class="subtext">{{bridgepage.swapspot.button2}}</span>
 				</a>
 
@@ -146,10 +146,10 @@
     <div class="bottom_section container">
 
         <p class="terms_and_conditions_container">
-            <a class="terms_link" ng-href="{{bridgepage.swapspot.term_url}}" target="{{bridgepage.swapspot.open_term_link_in_new_tab || '_blank'}}">
+            <a class="terms_link" ng-href="{{bridgepage.swapspot.term_url}}" target="{{bridgepage.swapspot.open_term_link_in_new_tab}}">
                 {{bridgepage.swapspot.term_text}}
             </a>
-            <a class="privacy_link" href="{{bridgepage.swapspot.privacy_url}}" target="{{bridgepage.swapspot.open_privacy_link_in_new_tab || '_blank'}}">
+            <a class="privacy_link" href="{{bridgepage.swapspot.privacy_url}}" target="{{bridgepage.swapspot.open_privacy_link_in_new_tab}}">
                 {{bridgepage.swapspot.privacy_text}}
             </a>
         </p>
