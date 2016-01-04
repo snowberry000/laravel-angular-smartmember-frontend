@@ -1,2 +1,2 @@
 <div class="ui top fixed inverted pointing menu admin_bar" ng-include="GetAdminBarInclude()"></div>
-<ui-view ng-class="'ui ' + (meta_data.page_background_style == 'boxed' ? '' : 'fluid') + ' container pusher'"></ui-view>
+<ui-view ng-class="'ui ' + (meta_data.page_background_style == 'boxed' && !$state.includes('public.www') ? '' : 'fluid') + ' container pusher'"></ui-view>
