@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider, $stickyStateProvider )
 {
 	$stateProvider
-		.state( "public.admin.bridge-page", {
+		.state( "public.app.admin.bridge-page", {
 			url: "/bridge-page/:id?",
-			templateUrl: "/templates/components/public/admin/bridge-page/bridge-page.html",
+			templateUrl: "/templates/components/public/app/admin/bridge-page/bridge-page.html",
 			controller: "BridgePageController",
 			resolve: {
 			}
@@ -14,13 +14,17 @@ app.config( function( $stateProvider, $stickyStateProvider )
 	//$stickyStateProvider.enableDebug(true);
 } );
 
-app.controller( "BridgePageController", function( $scope, $localStorage, smModal, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
+app.controller( "BridgePageController", function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
 {
-console.log( 'here?' );
+	smSidebar.Show('.top_bp_sidebar_contents', 'bridgepage-editor-controls.html');
+	smSidebar.Show('.left_bp_sidebar_contents', 'bridgepage-editor.html');
+
 	$site = $rootScope.site;
+	$scope.loading = true;
 
 	$scope.initialize = function()
 	{
+		console.log( "doing initialize" );
 		if( !$scope.bridgepage.id )
 		{
 			$scope.bridgepage.site_id = $rootScope.site.id;
@@ -36,6 +40,8 @@ console.log( 'here?' );
 		{
 			$scope.template = _.findWhere( $scope.templates, { id: $scope.bridgepage.template_id } );
 		}
+
+		console.log( 'the template:', $scope.template );
 		$scope.bridgepage.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
 
 		var seo = {};
@@ -91,6 +97,8 @@ console.log( 'here?' );
 		{
 			$scope.bridgepage.swapspot.timer_column = 'col-sm-12';
 		}
+
+		$scope.loading = false;
 	}
 
 	$templates = Restangular.all( 'bridgeTemplate' ).customGETLIST( 'getlist' ).then( function( response )
@@ -101,6 +109,7 @@ console.log( 'here?' );
 	{
 		$scope.emailLists = response;
 	} )
+
 	if( $stateParams.id )
 	{
 		$page = Restangular.one( 'bridgePage', $stateParams.id ).get().then( function( response )
@@ -238,6 +247,11 @@ console.log( 'here?' );
 		}
 	}
 
+	$scope.close = function()
+	{
+		smSidebar.Close();
+	}
+
 	$scope.save = function( cloned )
 	{
 
@@ -302,7 +316,7 @@ console.log( 'here?' );
 		if( $scope.bridgepage.id )
 		{
 			$scope.bridgepage.put();
-			smModal.Show( "public.modal.site.pages.bridge-pages" );
+			$scope.close();
 			toastr.success( "Bridge page has been updated!" );
 		}
 		else
@@ -313,7 +327,7 @@ console.log( 'here?' );
 
 				if( typeof cloned == 'undefined' || cloned != true )
 				{
-					smModal.Show( "public.modal.site.pages.bridge-pages" );
+					$scope.close();
 					toastr.success( "Bridge page has been saved!" );
 				}
 				else
@@ -437,4 +451,45 @@ console.log( 'here?' );
 			toastr.error( "We could not parse this form. Make sure it has valid form tag" );
 		}
 	}
+
+
+} );
+
+app.controller( 'bridgepageEngineController', function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
+{
+	$scope.original_data = [];
+	$rootScope.viewport = '';
+	$scope.template = '';
+	$scope.show_options = false;
+
+	$scope.toggleSidebar = function()
+	{
+		smSidebar.Toggle('.left_bp_sidebar_contents');
+		$scope.show_options = !$scope.show_options;
+	}
+
+	$scope.toggleViewPort = function( option )
+	{
+		if( $rootScope.viewport == option )
+		{
+			return;
+		}
+		$rootScope.viewport = option;
+	}
+
+	$scope.close = function()
+	{
+		smSidebar.Close();
+		$rootScope.viewport = '';
+	}
+
+	$scope.$on( '$destroy', function()
+	{
+		console.log( $scope.original_data );
+
+		$scope.destroyed = true;
+		$state.transitionTo( $state.current, $stateParams, {
+			reload: true, inherit: false, location: false
+		} );
+	} );
 } );

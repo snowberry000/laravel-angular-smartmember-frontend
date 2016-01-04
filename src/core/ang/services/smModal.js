@@ -28,7 +28,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 
 			// Just provide a template url, a controller and call 'showModal'.
 			ModalService.showModal( {
-				templateUrl: typeof state_data.templateUrl == 'function' ? state_data.templateUrl(stateParams) : state_data.templateUrl,
+				templateUrl: typeof state_data.templateUrl == 'function' ? state_data.templateUrl( stateParams ) : state_data.templateUrl,
 				controller: state_data.controller ? state_data.controller : function()
 				{
 				},
@@ -47,16 +47,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					dimmerSettings: {
 						opacity: 0.3
 					},
-					context: 'body',
-					onVisible: function()
-					{
-						modal.element.addClass( 'smooth_changes' );
-					},
-					onHidden: function()
-					{
-						modal.element.removeClass( 'smooth_changes' );
-						modal.element.remove();
-					}
+					context: 'body'
 				};
 
 				if( params && params.modal_options )
@@ -67,6 +58,17 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					} )
 				}
 
+				the_options.onVisible = function()
+				{
+					modal.element.addClass( 'smooth_changes' );
+				};
+				the_options.onHidden = function()
+				{
+					modal.element.removeClass( 'smooth_changes' );
+
+
+				};
+
 				//console.log( 'the_options:', the_options );
 				// The modal object has the element built, if this is a bootstrap modal
 				// you can call 'modal' to show it, if it's a custom modal just show or hide
@@ -75,6 +77,13 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 
 				modal.close.then( function( result )
 				{
+					if( !the_options.allowMultiple || the_options.allowMultiple == 'false' )
+					{
+						// force-close the dimmer incase it gets stuck
+						$('.ui.dimmer').dimmer('hide');
+					}
+
+					modal.element.remove();
 					console.log( "I guess we closed it?" );
 					//$scope.message = result ? "You said Yes" : "You said No";
 					if( cb )
