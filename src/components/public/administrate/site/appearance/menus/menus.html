@@ -8,16 +8,15 @@
 		<div class="description">
 			<div class="ui ignored info message">
 				<p>
-					Edit your site's menu / navigation buttons.
+					Edit your site's menu / navigation buttons. {{menuType}}
 				</p>
 			</div>
-
 			<div class="ui styled fluid accordion" sui-accordion>
-				<div class="active title">
+				<div class="{{menuType == 'footer' ? '' : 'active' }} title">
 					<i class="dropdown icon"></i>
 					Header Navigation Menu
 				</div>
-				<div class="active content">
+				<div class="{{menuType == 'footer' ? '' : 'active' }} content">
 
 					<p>Add navigation items to the top of your site</p>
 
@@ -41,11 +40,11 @@
 					</div>
 
 				</div>
-				<div class="title">
+				<div class="title {{menuType == 'footer' ? 'active' : '' }}">
 					<i class="dropdown icon"></i>
 					Footer Navigation Menu
 				</div>
-				<div class="content">
+				<div class="content {{menuType == 'footer' ? 'active' : '' }}">
 
 					<p>Add navigation items to the bottom of your site</p>
 

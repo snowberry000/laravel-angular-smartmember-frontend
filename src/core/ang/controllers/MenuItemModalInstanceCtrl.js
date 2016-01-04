@@ -77,7 +77,6 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
 
         if( menu == 'footer' )
             menuType = "siteFooterMenuItem";
-
         Restangular.all(menuType).customPUT($scope.editing_item, $scope.editing_item.id).then(function () {
             toastr.success("Success! Menu Item saved!");
 
@@ -87,6 +86,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
             if(typeof $scope.next_item['url'] == undefined || !$scope.next_item['url']){
                 $scope.next_item['url'] = $scope.editing_item.url;
             }
+
             smModal.Show('public.administrate.site.appearance.menus');
         });
     };
