@@ -60,16 +60,6 @@
                                     </div>
                                 </div>
                                 <div class="field row">
-                                    <label class="col-md-2">Applicable Sites</label>
-                                    <div class="col-md-8">
-                                        <span class="col-md-12">
-                                            <input type="checkbox" ng-model="isChecked" ng-change="selectAll()" class="select-all"> Include all sites
-                                        </span>
-                                        <select class="col-md-12" ng-disabled="isChecked" multiple ng-options="site.subdomain for site in sites.sites track by site.id" ng-model="contest.sites"></select>
-                                        <span class="help-block m-b-none">Pick sites that are part of this contest.</span>
-                                    </div>
-                                </div>
-                                <div class="field row">
                                     <label class="col-md-2">Start Date</label>
                                     <div class="col-md-8">
                                         <input type="date" class="form-control " ng-model="contest.start_date" max-date="'2020-06-22'" ng-required="true" />
