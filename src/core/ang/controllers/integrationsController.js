@@ -5,7 +5,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		smModal.Show( "public.administrate.team.dashboard" );
 		return false;
 	}
-
+	
+	$scope.current_site = $rootScope.site;
 	$site = $rootScope.site;
 	console.log('site?', $site);
 	console.log( 'stateParams' );
