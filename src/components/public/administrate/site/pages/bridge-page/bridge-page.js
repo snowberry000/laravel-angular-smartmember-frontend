@@ -5,11 +5,11 @@ app.config(function($stateProvider){
 		.state("public.administrate.site.pages.bridge-page",{
 			url: "/bridge-page/:id?",
 			templateUrl: "/templates/components/public/administrate/site/pages/bridge-page/bridge-page.html",
-			controller: "BridgePageController"
+			controller: "AdminBridgePageController"
 		})
 }); 
 
-app.controller("BridgePageController", function ($scope, $localStorage , smModal , $q , $state, $stateParams,  $filter, Restangular, toastr, Upload, $rootScope, $window, $sce) {
+app.controller("AdminBridgePageController", function ($scope, $localStorage , smModal , $q , $state, $stateParams,  $filter, Restangular, toastr, Upload, $rootScope, $window, $sce) {
     
     $site = $rootScope.site;
 
