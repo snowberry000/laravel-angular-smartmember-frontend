@@ -67,9 +67,10 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 	    delete $scope.site_notice.edate;
 
 	    if ($scope.site_notice.id) {
-	        $scope.site_notice.put();
-	        toastr.success("Site notice has been saved");
-	        smModal.Show('public.administrate.site.membership.notices');
+	        $scope.site_notice.put().then(function(response){
+	        	toastr.success("Site notice has been saved");
+	        	smModal.Show('public.administrate.site.membership.notices');
+	        })
 	    }
 	    else {
 	        Restangular.all('siteNotice').post($scope.site_notice).then(function (site_notice) {

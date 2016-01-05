@@ -41,9 +41,10 @@ app.controller("CategoryController", function ($scope,$rootScope,smModal, $local
 
     $scope.save = function(){
         if($scope.category.id){
-            $scope.category.put();
-            toastr.success("Support category edited successfully!");
-            smModal.Show("public.administrate.site.content.helpdesk.categories");
+            $scope.category.put().then(function(response){
+            	toastr.success("Support category edited successfully!");
+            	smModal.Show("public.administrate.site.content.helpdesk.categories");
+            })
         }
         else{
             Restangular.all('supportCategory').post($scope.category).then(function(response){

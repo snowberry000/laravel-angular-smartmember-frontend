@@ -133,9 +133,10 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
         }
 
         if($scope.article.id){
-            $scope.article.put();
-            toastr.success("Support article edited successfully!");
-            smModal.Show("public.administrate.site.content.helpdesk.articles");
+            $scope.article.put().then(function(response){
+                toastr.success("Support article edited successfully!");
+                smModal.Show("public.administrate.site.content.helpdesk.articles");
+            })
         }
         else{
             Restangular.all('supportArticle').post($scope.article).then(function(response){
