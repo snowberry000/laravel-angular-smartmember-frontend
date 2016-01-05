@@ -4,24 +4,19 @@
 </h3>
 <div class="ui attached segment content">
 
-    <div ng-show="general">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Background Image</label>
-
-            <div class="col-sm-10">
-                <button type="button"
-                        sm-uploader="background_url" ng-model="bridgepage.swapspot.background_url">Choose Background Image
-                </button>
-                <div class="width-100 set_featured_image">
-                    <img class="set_featured_image img-responsive img-thumbnail" ng-src="{{bridgepage.swapspot.background_url}}"
-                         ng-show="bridgepage.swapspot.background_url" style="width:auto;"/>
-                </div>
-                <div class="col-md-12" ng-if="bridgepage.swapspot.background_url">
-                    <i class="ace-icon fa fa-remove" ng-click="bridgepage.swapspot.background_url=''">Remove</i>
-                </div>
-                <input type="hidden" name="ad" class="form-control input-lg" ng-model="bridgepage.swapspot.background_url">
-            </div>
-        </div>
+    <div class="inline field">
+        <label>Upload image</label>
+        <button type="button" class="ui button" sm-uploader="background_url" ng-model="bridgepage.swapspot.background_url" data-allowMultiple="false">
+            <i class="upload icon"></i>
+            Choose File
+        </button>
+    </div>
+    <div class="field" ng-if="bridgepage.swapspot.background_url">
+        <img class="ui fluid image" ng-src="{{bridgepage.swapspot.background_url}}">
+        <button class="ui left labeled tiny basic red icon button m-t-sm" ng-click="bridgepage.swapspot.background_url=''">
+            Clear
+            <i class="remove icon"></i>
+        </button>
     </div>
 </div>
 
@@ -30,36 +25,20 @@
 	Header
 </h3>
 <div class="ui attached segment content">
-
-    <div ng-show="header">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Tagline</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="tagline" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.tagline">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Headline</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="headline" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.headline">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Headline Text Color</label>
-
-            <div class="col-sm-10">
-                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-                                      ng-model="bridgepage.swapspot.headline_text_color"></spectrum-colorpicker>
-            </div>
-        </div>
+    <h4>Tagline</h4>
+    <div class="field">
+        <input type="text" ng-model="bridgepage.swapspot.tagline">
     </div>
-    <div class="clearfix"></div>
+    <h4>Headline</h4>
+    <div class="field">
+        <input type="text" ng-model="bridgepage.swapspot.headline">
+    </div>
+    <div class="field">
+        <h4>
+            Headline Text Color
+        </h4>
+        <spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.headline_text_color"></spectrum-colorpicker>
+    </div>
 </div>
 
 <h3 class="ui top attached header title">
@@ -68,17 +47,14 @@
 </h3>
 <div class="ui attached segment content">
 
-    <div ng-show="video">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Embed</label>
+    <h4>Embed</h4>
+    <div class="field">
 
-            <div class="col-sm-10">
-                <textarea name="embed" rows="10" class="form-control input-lg"
-                          ng-model="bridgepage.swapspot.embed"></textarea>
-            </div>
+        <div class="col-sm-10">
+            <textarea name="embed" rows="10" class="ui textarea" ng-model="bridgepage.swapspot.embed"></textarea>
         </div>
     </div>
-    <div class="clearfix"></div>
+
 </div>
 
 <h3 class="ui top attached header title">
@@ -86,61 +62,49 @@
 	CTA Buttons
 </h3>
 <div class="ui attached segment content">
+    <div class="field">
+        <h4>CTA URL</h4>
 
-    <div ng-show="cta">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">CTA URL</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="ctaurl" class="form-control input-lg" ng-model="bridgepage.swapspot.ctaurl">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Button Text Color</label>
-
-            <div class="col-sm-10">
-                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-                                      ng-model="bridgepage.swapspot.button_text_color"></spectrum-colorpicker>
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Button Background Color</label>
-
-            <div class="col-sm-10">
-                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-                                      ng-model="bridgepage.swapspot.button_background_color"></spectrum-colorpicker>
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Button 1 Text</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="button" class="form-control input-lg" ng-model="bridgepage.swapspot.button">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Open in New Tab?</label>
-
-            <div class="col-sm-10">
-                <input type="checkbox" name="open_link_in_new_tab" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.open_link_new_tab" ng-true-value="'_blank'"
-                       ng-false-value="'_self'">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Button 2 Text</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="button2" class="form-control input-lg" ng-model="bridgepage.swapspot.button2">
-            </div>
+        <div class="col-sm-10">
+            <input type="text" name="ctaurl" class="form-control input-lg" ng-model="bridgepage.swapspot.ctaurl">
         </div>
     </div>
-    <div class="clearfix"></div>
+
+    <div class="field">
+        <h4>Button Text Color</h4>
+        <spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.button_text_color"></spectrum-colorpicker>
+    </div>
+
+    <div class="field">
+        <h4>Button Background Color</h4>
+        <spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.button_background_color"></spectrum-colorpicker>
+    </div>
+
+    <div class="field">
+        <h4>Button 1 Text</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="button" class="form-control input-lg" ng-model="bridgepage.swapspot.button">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Open in New Tab?</h4>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="open_link_new_tab" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.open_link_new_tab" ng-true-value="'_blank'"
+                   ng-false-value="'_self'">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Button 2 Text</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="button2" class="form-control input-lg" ng-model="bridgepage.swapspot.button2">
+        </div>
+    </div>
 </div>
 
 <h3 class="ui top attached header title">
@@ -148,101 +112,86 @@
 	Footer
 </h3>
 <div class="ui attached segment content">
+    <div class="field">
+        <h4>Custom Footer HTML</h4>
 
-    <div ng-show="footer">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Term URL</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="term_url" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.term_url">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Term Text</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="term_text" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.term_text">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Term Text Color</label>
-
-            <div class="col-sm-10">
-                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-                                      ng-model="bridgepage.swapspot.term_text_color"></spectrum-colorpicker>
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Open in New Tab?</label>
-
-            <div class="col-sm-10">
-                <input type="checkbox" name="open_term_link_in_new_tab" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.open_term_link_in_new_tab" ng-true-value="'_blank'"
-                       ng-false-value="'_self'">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Privacy URL</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="privacy_url" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.privacy_url">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Privacy Text</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="privacy_text" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.privacy_text">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Privacy Text Color</label>
-
-            <div class="col-sm-10">
-                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-                                      ng-model="bridgepage.swapspot.privacy_text_color"></spectrum-colorpicker>
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Open in New Tab?</label>
-
-            <div class="col-sm-10">
-                <input type="checkbox" name="open_privacy_link_in_new_tab" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.open_privacy_link_in_new_tab" ng-true-value="'_blank'"
-                       ng-false-value="'_self'">
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Copyright Text</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="copyright" class="form-control input-lg"
-                       ng-model="bridgepage.swapspot.copyright">
-            </div>
-        </div>
-
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Custom Footer HTML</label>
-
-            <div class="col-sm-10">
-                <textarea id="summernote" name="content" wrap="virtual" ng-model="bridgepage.swapspot.footer_custom_html" summernote editable="editable" editor='editor' on-image-upload="imageUpload(files , 'content')" config='summernote_options'><p></p></textarea>
-            </div>
+        <div class="col-sm-10">
+			<textarea froala ng-model="bridgepage.swapspot.footer_custom_html">
+				<p></p>
+			</textarea>
         </div>
     </div>
-    <div class="clearfix"></div>
+
+
+    <div class="field">
+        <h4>Term URL</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="term_url" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.term_url">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Term Text</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="term_text" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.term_text">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Open in New Tab?</h4>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="open_term_link_in_new_tab" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.open_term_link_in_new_tab" ng-true-value="'_blank'"
+                   ng-false-value="'_self'">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Privacy URL</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="privacy_url" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.privacy_url">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Privacy Text</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="privacy_text" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.privacy_text">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Open in New Tab?</h4>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="open_privacy_link_in_new_tab" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.open_privacy_link_in_new_tab" ng-true-value="'_blank'"
+                   ng-false-value="'_self'">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Term/Privacy Text Color</h4>
+        <spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.term_text_color"></spectrum-colorpicker>
+    </div>
+
+    <div class="field">
+        <h4>Copyright Text</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="copyright" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.copyright">
+        </div>
+    </div>
 </div>
 
 
