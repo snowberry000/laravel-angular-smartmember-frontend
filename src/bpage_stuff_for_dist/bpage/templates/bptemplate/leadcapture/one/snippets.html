@@ -190,6 +190,19 @@
                     var site_id = $('input[name="site_id"]').val();
                     $.post('https://api.smartmember.com/optintomember', {email: email, site_id: site_id});
                 }
+                else
+                {
+                    if( $('input[name=redirect_url]').length == 0 || $('input[name=redirect_url]').val() == '' ) {
+                        e.preventDefault();
+
+                        var post_data = $(this).serializeArray();
+
+                        $.post( 'http://api.smartmember.dev/optin', post_data)
+                                .done(function( data ) {
+
+                                });
+                    }
+                }
                 return;
             }
             e.preventDefault();
