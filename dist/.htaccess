@@ -69,6 +69,12 @@ ErrorDocument 404 /pricing
 </ifModule>
 
 <ifModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{HTTP_HOST} !^my\.smartmember\.com$ [NC]
+        RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST} [L]
+</ifModule>
+
+<ifModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^lesson/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^download/(.*)$ http://%{HTTP_HOST}/$1 [L]
@@ -77,7 +83,6 @@ ErrorDocument 404 /pricing
     RewriteRule ^post/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-article/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-ticket/create(.*)$ http://%{HTTP_HOST}/support-ticket [L]
-    RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST} [L]
 </ifModule>
 
 <ifModule mod_rewrite.c>
