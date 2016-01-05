@@ -78,7 +78,7 @@ app.controller("BridgePageController", function ($scope, $localStorage, $site , 
         $scope.bridgepage.swapspot.emailListId = $emailLists[0];
     } else {
         $scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl($scope.bridgepage.swapspot.optin_action);
-        $scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, {id: $scope.bridgepage.swapspot.sm_list_id });
+        $scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, {id: parseInt( $scope.bridgepage.swapspot.sm_list_id ) }) || _.findWhere( $scope.emailLists, {id: $scope.bridgepage.swapspot.sm_list_id + '' });
 
         if( $scope.bridgepage.swapspot.access_levels ) {
             var old_level_ids = $scope.bridgepage.swapspot.access_levels.split(',');
