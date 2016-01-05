@@ -9,18 +9,26 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 
 	var parts = location.hostname.split( '.' );
 	var subdomain = parts.shift();
+	var possible_domain = parts.shift();
 
 	$urlRouterProvider.when( '/', function( $injector )
 	{
 		var $state = $injector.get( '$state' );
 
-		if( subdomain == "my" )
+		if( possible_domain == 'smartmember' && parts.length == 1 )
 		{
-			$state.go( "public.my" );
-		}
-		else if( subdomain == "www" )
-		{
-			$state.go( "public.www.home" );
+			if( subdomain == "my" )
+			{
+				window.location.href = 'http://www.' + possible_domain + '.' + parts.join('.');
+			}
+			else if( subdomain == "www" )
+			{
+				$state.go( "public.www.home" );
+			}
+			else
+			{
+				$state.go( "public.app.home" );
+			}
 		}
 		else
 		{
