@@ -54,13 +54,14 @@ app.controller( "ModuleController", function( $scope, smModal, close , $rootScop
 	{
 		if( $scope.module.id )
 		{
-			$scope.module.put();
+			$scope.module.put().then(function(response){
+				smModal.Show('public.administrate.site.content.syllabus.modules');
+				toastr.success( "Module has been updated!" );
+			})
 			if($stateParams.close){
 				close($scope.module);
 				return;
 			}
-			smModal.Show('public.administrate.site.content.syllabus.modules');
-			toastr.success( "Module has been updated!" );
 		}
 		else
 		{

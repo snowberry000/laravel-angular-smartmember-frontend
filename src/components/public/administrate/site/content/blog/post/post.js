@@ -170,9 +170,10 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
         if( $scope.next_item.id )
 		{
 
-			$scope.next_item.put();
-			smModal.Show("public.administrate.site.content.blog.posts");
-			toastr.success( "Your post has been updated!" );
+			$scope.next_item.put().then(function(response){
+				smModal.Show("public.administrate.site.content.blog.posts");
+				toastr.success( "Your post has been updated!" );
+			})
 		}
 		else
 		{
@@ -204,10 +205,10 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		if( $scope.next_item.id )
 		{
 
-			$scope.next_item.put();
-			smModal.Show("public.administrate.site.content.blog.posts");
-			toastr.success( "Your post has been updated!" );
-
+			$scope.next_item.put().then(function(response){
+				smModal.Show("public.administrate.site.content.blog.posts");
+				toastr.success( "Your post has been updated!" );
+			})
 		}
 		else
 		{

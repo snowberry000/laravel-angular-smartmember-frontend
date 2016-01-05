@@ -36,9 +36,10 @@ app.controller('JvthankyouController', function ($scope, $site,$rootScope, Resta
         delete $scope.jv.email_list;
 
         if ($scope.jv.id) {
-            $scope.jv.put();
-            toastr.success("JV Page has been saved!");
-            $state.go('public.administrate.site.pages.core.list');
+            $scope.jv.put().then(function(response){
+                toastr.success("JV Page has been saved!");
+                $state.go('public.administrate.site.pages.core.list');
+            })
         }
         else {
             Restangular.all('affiliateJVPage').post($scope.jv).then(function (jv) {
