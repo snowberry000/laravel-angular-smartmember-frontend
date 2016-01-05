@@ -53,7 +53,7 @@
 										{{next_item.email.subject}}
 									</td>
 									<td style="width: 230px;">
-										<small ng-show="next_item.sendgrid_account_check" >Please Click <a target="_self" lick="smModal.Show('public.administrate.team.integration.choose' , {'integration' : 'sendgrid'})" >Here</a> to Configure Sendgrid first</small>
+										<small ng-show="next_item.sendgrid_account_check" >Please Click <a target="_self" ng-click="smModal.Show('public.administrate.team.integration.choose' , {'integration' : 'sendgrid'})" >Here</a> to Configure Sendgrid first</small>
 										<small ng-show="next_item.sendgrid_setting_check">Please click <a ng-click="smModal.Show('public.administrate.team.email.settings')">here</a> to set up your email settings first</small>
 										<span ng-show="!next_item.sendgrid_account_check && !next_item.sendgrid_setting_check">
 											{{next_item.status}}

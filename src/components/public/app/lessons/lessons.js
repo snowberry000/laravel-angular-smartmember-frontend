@@ -268,16 +268,30 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         $scope.module_found = false;
         if(added_lesson && added_lesson.id){
             for (var i = $scope.modules.length - 1; i >= 0; i--) {
-                if(!$scope.modules[i].id){
+                if($scope.modules[i].id == added_lesson.module_id){
                     $scope.modules[i].lessons.push(added_lesson);
                     $scope.modules[i].show_me = true;
+                    $scope.module_found = true;
+                    break;
                 }
             };
         }
 
         if($scope.module_found == false && $scope.copy_modules && $scope.copy_modules.length){
-            $scope.modules.push($scope.copy_modules[0]);
-            $scope.modules[0].lessons.push(added_lesson);
+            var module = null;
+            for (var i = $scope.copy_modules.length - 1; i >= 0; i--) {
+                if($scope.copy_modules[i].id == added_lesson.module_id){
+                    module = $scope.copy_modules[i];
+                    $scope.module_found = true;
+                    break;
+                }
+            };
+            var index = $scope.copy_modules.indexOf(module);
+            if(index >= 0){
+                $scope.copy_modules[index].lessons.push(added_lesson);
+                $scope.modules.push($scope.copy_modules[index]);
+                //$scope.modules[0].lessons.push(added_lesson);
+            }
         }
     }
 
