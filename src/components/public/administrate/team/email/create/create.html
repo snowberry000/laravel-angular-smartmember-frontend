@@ -10,7 +10,7 @@
 
 			<div class="ui form">
 
-				<div class="ui segment">
+				<div class="ui segment" ng-if="false">
 					<div class="inline field">
 						<label>Recipient Type</label>
 
@@ -56,7 +56,6 @@
 					</div>
 				</div>
 				<div class="ui grid" ng-if="recipient_type == 'segment' && !loading_segments">
-
 					<div class="eight wide column">
 						<div class="ui top attached header">
 							<h5>Available Segments

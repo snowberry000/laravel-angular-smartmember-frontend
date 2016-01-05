@@ -5,7 +5,7 @@
     /* template */
 
     .bp_content .page_container {
-        background: url({{bridgepage.swapspot.background_url || "https://lgbttobacco.files.wordpress.com/2010/11/trans-webinar.jpg"}}) no-repeat scroll 0 0;
+        background: url({{bridgepage.swapspot.background_url}}) no-repeat scroll 0 0;
         height: auto;
         background-size: cover;
         min-height: 100%;
@@ -19,7 +19,7 @@
     }
     .bp_content .tagline_container h2 {
         text-align:left;
-    color: {{bridgepage.swapspot.tagline_text_color || '#565656'}};
+    color: {{bridgepage.swapspot.tagline_text_color}};
     font-size: 16px;
     font-weight: normal;
     margin-top: 10px;
@@ -27,7 +27,7 @@
     }
     .bp_content .headline_container h1 {
         text-align: left;
-    color: {{bridgepage.swapspot.headline_text_color || '#39a0e1'}};
+    color: {{bridgepage.swapspot.headline_text_color}};
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     font-size: 36px;
     line-height: 36px;
@@ -58,8 +58,8 @@
     }
 
     .bp_content .cta_button {
-    color: {{bridgepage.swapspot.button_text_color || '#a18800'}};
-    background-color: {{bridgepage.swapspot.button_background_color || '#ffe400'}};
+    color: {{bridgepage.swapspot.button_text_color}};
+    background-color: {{bridgepage.swapspot.button_background_color}};
     margin-top: 19px;
     text-decoration: none !important;
     border-bottom: 3px solid rgba(0, 0, 0, 0.2);
@@ -79,7 +79,7 @@
     }
     .bp_content .cta_button:hover {
     /*background-color: #fe861d!important;*/
-    color: {{bridgepage.swapspot.button_text_color || '#a18800'}} !important;
+    color: {{bridgepage.swapspot.button_text_color}} !important;
     }
 
     .bp_content .cta_button .subtext {
@@ -105,10 +105,10 @@
         color: rgba(255, 255, 255, 0.509804);
     }
     .bp_content .terms_link {
-    color: {{bridgepage.swapspot.term_text_color || '#fff'}};
+    color: {{bridgepage.swapspot.term_text_color}};
     }
     .bp_content .privacy_link {
-    color: {{bridgepage.swapspot.privacy_text_color || '#fff'}};
+    color: {{bridgepage.swapspot.privacy_text_color}};
     }
 
     .live_bridge_page .bp_content {
@@ -386,7 +386,7 @@
 
     #popupbpage {
          border-radius: 7px;
-         width: {{bridgepage.swapspot.popup_width || '700px'}};
+         width: {{bridgepage.swapspot.popup_width}};
          height: auto;
          margin-top: 0px;
     }
@@ -502,15 +502,15 @@
                         </div>
                         <input type="hidden" name="enable_popup" value="{{bridgepage.swapspot.enable_popup}}">
                         <div class="row">
-                            <div class="headline_wrapper {{bridgepage.swapspot.timer_column || 'col-sm-12'}}">
+                            <div class="headline_wrapper {{bridgepage.swapspot.timer_column}}">
                                 <div class="headline_container">
-                                    <h1>{{bridgepage.swapspot.headline || 'Enter your Hard-hitting Headline here to engage your audience'}}</h1>
+                                    <h1>{{bridgepage.swapspot.headline}}</h1>
                                 </div>
                                 <div class="tagline_container">
-                                    <h2>{{bridgepage.swapspot.tagline || 'Put any tagline you want up here'}}</h2>
+                                    <h2>{{bridgepage.swapspot.tagline}}</h2>
                                 </div>
                             </div>
-                            <div class="col-md-4 timer_wrapper" style="display: {{bridgepage.swapspot.enable_timer || 'none'}};">
+                            <div class="col-md-4 timer_wrapper" style="display: {{bridgepage.swapspot.enable_timer}};">
                                 <div id="countdown-timer" class="countdown">
                                     <div id="countdown-container">
                                         <div id="timer">
@@ -548,11 +548,11 @@
 
                                 <div id="fade-box" class="role-element leadstyle-container fadein" data-fadein="10">
 
-                                    <a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab || '_blank'}}">
-                                        <span class="maintext">{{bridgepage.swapspot.button || 'Get It Now'}}</span>
+                                    <a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab}}">
+                                        <span class="maintext">{{bridgepage.swapspot.button}}</span>
                                         <span class="subtext">{{bridgepage.swapspot.button2}}</span>
                                     </a>
-                                    <div id="guarantee" class="role-element leadstyle-container" style="display: {{bridgepage.swapspot.show_guarantee_text || 'none'}};">
+                                    <div id="guarantee" class="role-element leadstyle-container" style="display: {{bridgepage.swapspot.show_guarantee_text}};">
                                         <div id="secure" class="role-element leadstyle-container"> <img src="https://lh4.ggpht.com/Q8szqb46HQZD7y6DGB9adcEYGPGSVcE9Yz0qCx9kbMl0cVxrVedeArUGohnYZR3HZmJl8QCZSn0R6IhDf59J=s0" id="secure-box-image" class="role-element leadstyle-image" style="max-width: 60px; max-height: 60px;">
                                             <div class="cnt">
                                                 <h1 id="secure-box-title" class="role-element leadstyle-text">Secure</h1>
@@ -580,10 +580,10 @@
                 <div class="bottom_section container-fluid">
 
                     <p class="terms_and_conditions_container">
-                        <a class="terms_link" ng-href="{{bridgepage.swapspot.term_url}}" target="{{bridgepage.swapspot.open_term_link_in_new_tab || '_blank'}}">
+                        <a class="terms_link" ng-href="{{bridgepage.swapspot.term_url}}" target="{{bridgepage.swapspot.open_term_link_in_new_tab}}">
                             {{bridgepage.swapspot.term_text}}
                         </a>
-                        <a class="privacy_link" href="{{bridgepage.swapspot.privacy_url}}" target="{{bridgepage.swapspot.open_privacy_link_in_new_tab || '_blank'}}">
+                        <a class="privacy_link" href="{{bridgepage.swapspot.privacy_url}}" target="{{bridgepage.swapspot.open_privacy_link_in_new_tab}}">
                             {{bridgepage.swapspot.privacy_text}}
                         </a>
                     </p>

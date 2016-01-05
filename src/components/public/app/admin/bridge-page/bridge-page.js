@@ -21,86 +21,6 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$site = $rootScope.site;
 	$scope.loading = true;
-
-	$scope.initialize = function()
-	{
-		console.log( "doing initialize" );
-		if( !$scope.bridgepage.id )
-		{
-			$scope.bridgepage.site_id = $rootScope.site.id;
-		}
-		$scope.visible = false;
-
-		$scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.' + $rootScope.app.domain : $rootScope.app.domain;
-		if( $scope.bridgepage.id == undefined )
-		{
-			$scope.template = $scope.templates[ 1 ];
-		}
-		else
-		{
-			$scope.template = _.findWhere( $scope.templates, { id: $scope.bridgepage.template_id } );
-		}
-
-		console.log( 'the template:', $scope.template );
-		$scope.bridgepage.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
-
-		var seo = {};
-		if( $scope.bridgepage.seo_settings )
-		{
-			$.each( $scope.bridgepage.seo_settings, function( key, data )
-			{
-				seo[ data.meta_key ] = data.meta_value;
-
-			} );
-		}
-		$scope.bridgepage.seo_settings = seo;
-
-		var swapspot = {};
-		//initiate default swapspot value
-		if( $scope.bridgepage.swapspots )
-		{
-			$.each( $scope.bridgepage.swapspots, function( key, data )
-			{
-				swapspot[ data.name ] = data.value;
-			} );
-		}
-		$scope.bridgepage.swapspot = swapspot;
-		$scope.emailLists = $emailLists;
-
-		if( $scope.bridgepage.id == undefined )
-		{
-			$scope.bridgepage.swapspot.greentime = 0;
-			$scope.bridgepage.swapspot.enable_timer = 'block';
-			$scope.bridgepage.swapspot.timer_settings = 2;
-			$scope.bridgepage.swapspot.duration = 1;
-			$scope.bridgepage.swapspot.interval = 'hours';
-			$scope.bridgepage.swapspot.show_guarantee_text = 'block';
-			$scope.bridgepage.swapspot.time_end_action = 1;
-			$scope.bridgepage.swapspot.enable_popup = 0;
-			$scope.bridgepage.swapspot.emailListId = $emailLists[ 0 ];
-		}
-		else
-		{
-			$scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl( $scope.bridgepage.swapspot.optin_action );
-			$scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, { id: $scope.bridgepage.swapspot.sm_list_id } );
-		}
-		if( $scope.bridgepage.swapspot.enable_popup )
-		{
-			$scope.bridgepage.swapspot.enable_popup = parseInt( $scope.bridgepage.swapspot.enable_popup );
-		}
-
-		if( $scope.bridgepage.swapspot.enable_timer )
-		{
-			$scope.bridgepage.swapspot.timer_column = 'col-sm-8';
-		}
-		else
-		{
-			$scope.bridgepage.swapspot.timer_column = 'col-sm-12';
-		}
-
-		$scope.loading = false;
-	}
-
 	$templates = Restangular.all( 'bridgeTemplate' ).customGETLIST( 'getlist' ).then( function( response )
 	{
 		$scope.templates = response;
@@ -132,6 +52,157 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 	{
 		$scope.initialize()
 	} )
+
+	$scope.loadDefaultValue = function() {
+		switch($scope.template.id)
+		{
+			case "5":
+				$scope.bridgepage.swapspot.logo = 'https://images.clickfunnels.com/d7/816af0e54311e48b0937fb402a6e0a/logo.png';
+				$scope.bridgepage.swapspot.headline = 'Get This Free Time Turner Today!';
+				$scope.bridgepage.swapspot.ad = 'https://images.clickfunnels.com/14/adaa60e54411e4ab13458a69ac3098/__12.jpg';
+				$scope.bridgepage.swapspot.button = 'Get It Now';
+				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
+				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
+				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
+				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.headline_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.button_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.button_background_color = '#47c787';
+				break;
+			case "4":
+				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
+				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
+				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
+				$scope.bridgepage.swapspot.button = 'Get It Now';
+				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
+				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
+				$scope.bridgepage.swapspot.tagline_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.headline_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.button_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.button_background_color = '#fe861d';
+				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
+				break;
+			case "6":
+				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
+				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
+				$scope.bridgepage.swapspot.optin_heading = 'Enter your best name & email';
+				$scope.bridgepage.swapspot.mark_name_visible = 'block';
+				$scope.bridgepage.swapspot.button = 'Sign Up';
+				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
+				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
+				$scope.bridgepage.swapspot.tagline_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.headline_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.button_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.button_background_color = '#fe861d';
+				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.enable_video = 'none';
+				$scope.bridgepage.swapspot.emailListId = $emailLists[0];
+				break;
+			case "7":
+				$scope.bridgepage.swapspot.background_url = 'https://lgbttobacco.files.wordpress.com/2010/11/trans-webinar.jpg';
+				$scope.bridgepage.swapspot.tagline_text_color = '#565656';
+				$scope.bridgepage.swapspot.headline_text_color = '#39a0e1';
+				$scope.bridgepage.swapspot.button_text_color = '#a18800';
+				$scope.bridgepage.swapspot.button_background_color = '#ffe400';
+				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.popup_width = '700px';
+				$scope.bridgepage.swapspot.timer_column = 'col-sm-12';
+				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
+				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
+				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
+				$scope.bridgepage.swapspot.greentime = 0;
+				$scope.bridgepage.swapspot.enable_timer = 'block';
+				$scope.bridgepage.swapspot.timer_settings = 2;
+				$scope.bridgepage.swapspot.duration = 1;
+				$scope.bridgepage.swapspot.interval = 'hours';
+				$scope.bridgepage.swapspot.show_guarantee_text = 'block';
+				$scope.bridgepage.swapspot.time_end_action = 1;
+				$scope.bridgepage.swapspot.enable_popup = 0;
+				$scope.bridgepage.swapspot.button = 'Get It Now';
+				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
+				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
+				break;
+		}
+	}
+
+	$scope.initialize = function()
+	{
+		console.log( "doing initialize" );
+		if( !$scope.bridgepage.id )
+		{
+			$scope.bridgepage.site_id = $rootScope.site.id;
+		}
+		$scope.visible = false;
+
+		$scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.' + $rootScope.app.domain : $rootScope.app.domain;
+		if( $scope.bridgepage.id == undefined )
+		{
+			$scope.template = $scope.templates[ 1 ];
+		}
+		else
+		{
+			$scope.template = _.findWhere( $scope.templates, { id: $scope.bridgepage.template_id } );
+		}
+
+		$scope.bridgepage.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
+
+		var seo = {};
+		if( $scope.bridgepage.seo_settings )
+		{
+			$.each( $scope.bridgepage.seo_settings, function( key, data )
+			{
+				seo[ data.meta_key ] = data.meta_value;
+
+			} );
+		}
+		$scope.bridgepage.seo_settings = seo;
+
+		var swapspot = {};
+		//initiate default swapspot value
+		if( $scope.bridgepage.swapspots )
+		{
+			$.each( $scope.bridgepage.swapspots, function( key, data )
+			{
+				swapspot[ data.name ] = data.value;
+			} );
+		}
+		$scope.bridgepage.swapspot = swapspot;
+
+		if ($scope.bridgepage.id != undefined)
+		{
+			$scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl($scope.bridgepage.swapspot.optin_action);
+			$scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, {id: $scope.bridgepage.swapspot.sm_list_id });
+		} else {
+			$scope.loadDefaultValue();
+		}
+
+		if( $scope.bridgepage.swapspot.enable_popup )
+		{
+			$scope.bridgepage.swapspot.enable_popup = parseInt( $scope.bridgepage.swapspot.enable_popup );
+		}
+
+		if( $scope.bridgepage.swapspot.enable_timer )
+		{
+			$scope.bridgepage.swapspot.timer_column = 'col-sm-8';
+		}
+		else
+		{
+			$scope.bridgepage.swapspot.timer_column = 'col-sm-12';
+		}
+
+		$scope.loading = false;
+	}
+
+	$scope.$watch('template', function() {
+		if ($scope.bridgepage.id == undefined)
+		{
+			$scope.loadDefaultValue();
+		}
+	});
 
 	$scope.range = function( min, max, step )
 	{

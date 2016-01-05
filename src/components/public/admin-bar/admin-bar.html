@@ -1,4 +1,4 @@
-<a class="ui item" ui-sref="public.www.home">
+<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref="public.www.home" ui-sref-opts="{reload:true}">
 	<img class="ui rounded mini image" src="/images/sm-64.png">
 </a>
 
@@ -7,156 +7,139 @@
 	<span class="text">My Sites</span>
 </a>
 
-<div class="item" ng-if="!isSitelessPage()" sm-access="edit_theme_options" if-not="hide">
+<div class="item" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="edit_theme_options" if-not="hide">
 	<a class="ui inverted basic red button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		<i class="options icon"></i>
 		Theme
 	</a>
 </div>
-
-<div class="item" ng-if="!isSitelessPage()">
-	<div class="ui dropdown" sui-dropdown>
-		<button class="ui inverted basic red labeled icon button">
-			<i class="setting icon"></i>
-			Settings
-		</button>
-		<div class="menu">
-			<div class="ui dropdown item" sm-access="manage_content" if-not="hide" sui-dropdown>
-				<i class="write icon"></i>
-				Content
-				<i class="dropdown icon"></i>
-				<div class="menu">
-					<div class="item">
-						<i class="dropdown icon"></i>
-						<span class="text">{{ 'LESSONS' | translate }}</span>
-						<div class="menu">
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.lesson')">Add new</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.lessons')">List</a>
-						</div>
-					</div>
-					<div class="item">
-						<i class="dropdown icon"></i>
-						<span class="text">{{ 'MODULES' | translate }}</span>
-						<div class="menu">
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.module')">Add new</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.modules')">List</a>
-						</div>
-					</div>
-					<div class="item">
-						<i class="dropdown icon"></i>
-						<span class="text">{{ 'POSTS' | translate }}</span>
-						<div class="menu">
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.blog.post')">Add new</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.blog.posts')">List</a>
-						</div>
-					</div>
-					<div class="item">
-						<i class="dropdown icon"></i>
-						<span class="text">Support articles</span>
-						<div class="menu">
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.article')">Add new</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.articles')">List</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.organizer')">{{ 'ORGANIZER' | translate }}</a>
-						</div>
-					</div>
-					<div class="item">
-						<i class="dropdown icon"></i>
-						<span class="text">Support categories</span>
-						<div class="menu">
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.category')">Add new</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.categories')">List</a>
-						</div>
-					</div>
-					<div class="item">
-						<i class="dropdown icon"></i>
-						<span class="text">{{ 'DOWNLOADS' | translate }}</span>
-						<div class="menu">
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.download')">Add new</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.downloads')">List</a>
-						</div>
-					</div>
-					<div class="item">
-						<i class="dropdown icon"></i>
-						<span class="text">{{ 'LIVECASTS' | translate }}</span>
-						<div class="menu">
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.livecast')">Add new</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.content.livecasts')">List</a>
-						</div>
-					</div>
-					<div class="item">
-						<i class="dropdown icon"></i>
-						<span class="text">{{ 'SITE_PAGES' | translate }}</span>
-						<div class="menu">
-							<a class="item" ng-click="smModal.Show('public.administrate.site.pages.custom-pages')">{{ 'CUSTOM_PAGES' | translate }}</a>
-							<a class="item" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')">{{ 'BRIDGE_PAGES' | translate }}</a>
-						</div>
-					</div>
-					<a class="item" ng-click="smModal.Show('public.administrate.site.membership.notices')">Public notices</a>
-					<a class="item" ng-click="smModal.Show('public.administrate.site.content.import')">{{ 'IMPORT' | translate }}</a>
-					<a class="item" ng-click="smModal.Show('public.administrate.site.content.stats')">{{ 'STATS' | translate }}</a>
-				</div>
-			</div>
-			<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.settings')">Site settings</a>
-			<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.menus')">{{ 'NAVIGATION_MENUS' | translate }}</a>
-			<div class="item" sm-access="edit_theme_options" if-not="hide">
-				<i class="dropdown icon"></i>
-				<span class="text">Sidebars</span>
-				<div class="menu">
-					<a class="item" ng-click="smModal.Show('public.administrate.site.appearance.widgets')">{{ 'WIDGETS' | translate }}</a>
-					<a class="item" ng-click="smModal.Show('public.administrate.site.appearance.banners')">{{ 'BANNERS' | translate }}</a>
-				</div>
-			</div>
-			<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.pages.core.list')">Core pages</a>
-			<a class="item" ng-if="false" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.facebook-settings')">{{ 'SOCIAL_SETTINGS' | translate }}</a>
-			<a class="item" ng-if="false" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.administrate.marketing.tracking')">{{ 'AD_TRACKING_SETTINGS' | translate }}</a>
-			<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.directory')">Directory Listing</a>
-			<div class="item" sm-access="manage_apps" if-not="hide">
-				<i class="dropdown icon"></i>
-				<span class="text">Apps</span>
-				<div class="menu">
-					<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.available')">Add new app</a>
-					<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.list')">Installed apps</a>
-					<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.connections')">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
+<div class="item" ng-if="$state.includes('public.www')" sm-access="edit_theme_options" if-not="hide">
+	<a class="ui inverted basic red button" ui-sref="public.app.home">
+		<i class="left arrow icon"></i>
+		Back to Site
+	</a>
 </div>
-<div class="active item thin" ng-if="!isSitelessPage()" sm-access="manage_members" if-not="hide">
-	<div class="ui dropdown" sui-dropdown>
-		<button class="ui inverted basic red labeled icon button">
-			<i class="users icon"></i>
-			Smart<strong>Member</strong>
-		</button>
-		<div class="menu">
-			<a class="item" ui-sref="public.app.home">Site Home</a>
-			<a class="item" sm-access="manage_members" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
 
-			<div class="item" sm-access="manage_access_levels" if-not="hide">
-				<i class="dropdown icon"></i>
-				<span class="text">Access Levels</span>
-				<div class="menu">
-					<a class="item" ng-click="smModal.Show('public.administrate.site.membership.product')">Add new</a>
-					<a class="item" ng-click="smModal.Show('public.administrate.site.membership.products')">List</a>
+<div class="{{$state.includes('public.app') && !$state.includes('public.app.admin') ? 'active' : ''}} item thin" ng-if="!isSitelessPage()" data-inline="true" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
+	<div class="ui inverted basic red labeled icon button">
+		<i class="users icon"></i>
+		Smart<strong>Member</strong>
+	</div>
+</div>
+<div class="ui inverted flowing pointing popup" ng-if="!isSitelessPage()">
+	<div class="ui equal width padded grid">
+		<div class="column p-none">
+
+			<div class="ui large inverted fluid vertical menu">
+				<div class="item">
+					<div class="header">Content</div>
+					<div class="menu">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.lessons')">
+							<i class="student icon"></i>
+							{{ 'LESSONS' | translate }}
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.modules')">
+							<i class="student icon"></i>
+							{{ 'MODULES' | translate }}
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.blog.posts')">
+							<i class="paragraph icon"></i>
+							{{ 'POSTS' | translate }}
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.articles')">
+							<i class="life ring icon"></i>
+							Articles
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.categories')">
+							<i class="life ring icon"></i>
+							Categories
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.downloads')">
+							<i class="download icon"></i>
+							{{ 'DOWNLOADS' | translate }}
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.livecasts')">
+							<i class="microphone icon"></i>
+							{{ 'LIVECASTS' | translate }}
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.pages.custom-pages')">
+							<i class="file text icon"></i>
+							Pages
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.membership.notices')">
+							<i class="announcement icon"></i>
+							Notices
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.import')">
+							<i class="upload icon"></i>
+							{{ 'IMPORT' | translate }}
+						</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.stats')">
+							<i class="bar chart icon"></i>
+							{{ 'STATS' | translate }}
+						</a>
+					</div>
 				</div>
 			</div>
-			<div class="item" sm-access="manage_access_levels" if-not="hide">
-				<i class="dropdown icon"></i>
-				<span class="text">{{ 'PASSES' | translate }}</span>
-				<div class="menu">
-					<a class="item" ng-click="smModal.Show('public.administrate.site.membership.pass')">Add new</a>
-					<a class="item" ng-click="smModal.Show('public.administrate.site.membership.passes')">List</a>
+
+		</div>
+		<div class="column p-none">
+
+			<div class="ui large inverted fluid vertical menu" sm-access="manage_members" if-not="hide">
+				<div class="item">
+					<div class="header">Members</div>
+					<div class="menu">
+						<a class="item" ui-sref="public.app.home">Site Home</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
+						<a class="item" sm-access="manage_access_levels" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.products')">Access Levels</a>
+						<a class="item" sm-access="manage_access_levels" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.passes')">{{ 'PASSES' | translate }}</a>
+						<a class="item" sm-access="manage_transactions" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
+						<a class="item" sm-access="view_financial_stats" if-not="hide" ui-sref="public.administrate.wallboard" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.notes')">User notes</a>
+					</div>
 				</div>
 			</div>
-			<a class="item" sm-access="manage_transactions" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
-			<a class="item" sm-access="view_financial_stats" if-not="hide" ui-sref="public.administrate.wallboard" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.notes')">User notes</a>
+
+		</div>
+		<div class="column p-none">
+
+			<div class="ui large inverted fluid vertical menu">
+				<div class="item" sm-access="edit_theme_options" if-not="hide">
+					<div class="header">Sidebars</div>
+					<div class="menu">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.appearance.widgets')">{{ 'WIDGETS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.appearance.banners')">{{ 'BANNERS' | translate }}</a>
+					</div>
+				</div>
+				<div class="item" sm-access="manage_apps" if-not="hide">
+					<div class="header">Apps</div>
+					<div class="menu">
+						<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.available')">Add new app</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.list')">Installed apps</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.connections')">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="column p-none">
+
+			<div class="ui large inverted fluid vertical menu" sm-access="edit_theme_options" if-not="hide">
+				<div class="item">
+					<div class="header">Settings</div>
+					<div class="menu">
+						<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.settings')">Site settings</a>
+						<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.pages.core.list')">Core pages</a>
+						<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.directory')">Directory Listing</a>
+					</div>
+				</div>
+			</div>
 
 		</div>
 	</div>
 </div>
+
 <div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_email" if-not="hide">
 	<div class="ui dropdown" sui-dropdown>
 		<button class="ui inverted basic red labeled icon button">

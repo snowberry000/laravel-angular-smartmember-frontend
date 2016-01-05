@@ -48,7 +48,6 @@ app.controller("AdminBridgePageController", function ($scope, $localStorage , sm
             });
         }
         $scope.bridgepage.swapspot = swapspot;
-        $scope.emailLists = $emailLists;
 
         if ($scope.bridgepage.id == undefined)
         {
@@ -79,7 +78,7 @@ app.controller("AdminBridgePageController", function ($scope, $localStorage , sm
     }
 
     $templates = Restangular.all( 'bridgeTemplate' ).customGETLIST( 'getlist' ).then(function(response){$scope.templates = response;})
-    $emailLists = Restangular.all( 'emailList' ).getList().then(function(response){$scope.emailLists = response;})
+    $scope.emailLists = Restangular.all( 'emailList' ).getList().then(function(response){$scope.emailLists = response;})
     if( $stateParams.id )
         $page = Restangular.one( 'bridgePage', $stateParams.id ).get().then(function(response){ $scope.bridgepage = response ; })
     else{

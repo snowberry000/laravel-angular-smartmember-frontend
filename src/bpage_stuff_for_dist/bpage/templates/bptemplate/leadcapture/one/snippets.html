@@ -21,12 +21,12 @@
     }
     .bp_content .tagline_container h2 {
         text-align:center;
-        color: {{bridgepage.swapspot.tagline_text_color || '#fff'}};
+        color: {{bridgepage.swapspot.tagline_text_color}};
         font-size: 18px;
     }
     .bp_content .headline_container h1 {
         text-align: center;
-        color: {{bridgepage.swapspot.headline_text_color || '#fff'}};
+        color: {{bridgepage.swapspot.headline_text_color}};
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         font-size: 62px;
         margin:20px 0px 0px 0px;
@@ -99,8 +99,8 @@
 	}
 
 	.bp_content .cta_button {
-	color: {{bridgepage.swapspot.button_text_color || '#fff'}};
-	background-color: {{bridgepage.swapspot.button_background_color || '#fe861d'}};
+	color: {{bridgepage.swapspot.button_text_color}};
+	background-color: {{bridgepage.swapspot.button_background_color}};
 	margin-top: 19px;
 	text-decoration: none !important;
 	border-bottom: 3px solid rgba(0, 0, 0, 0.2);
@@ -132,10 +132,10 @@
 		color: rgba(255, 255, 255, 0.509804);
     }
     .bp_content .terms_link {
-    color: {{bridgepage.swapspot.term_text_color || '#fff'}};
+    color: {{bridgepage.swapspot.term_text_color}};
     }
     .bp_content .privacy_link {
-    color: {{bridgepage.swapspot.privacy_text_color || '#fff'}};
+    color: {{bridgepage.swapspot.privacy_text_color}};
     }
     .bp_content .embed_container {
         -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
@@ -200,7 +200,7 @@
     <div class="top_section container">
         <div class="row">
             <div class="col-md-12 tagline_container">
-                <h2>{{bridgepage.swapspot.tagline || 'Put any tagline you want up here'}}</h2>
+                <h2>{{bridgepage.swapspot.tagline}}</h2>
             </div>
         </div>
         <div class="row divider_container">
@@ -210,7 +210,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 headline_container">
-                <h1>{{bridgepage.swapspot.headline || 'Enter your Hard-hitting Headline here to engage your audience'}}</h1>
+                <h1>{{bridgepage.swapspot.headline}}</h1>
             </div>
         </div>
     </div>
@@ -218,7 +218,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <div class="embed_container" style="display: {{bridgepage.swapspot.enable_video || 'none'}}; margin-bottom: 20px;">
+                <div class="embed_container" style="display: {{bridgepage.swapspot.enable_video}}; margin-bottom: 20px;">
                     <div class="videoWrapper" dynamic="bridgepage.swapspot.embed"></div>
                     <div ng-if="visible" class="videoWrapper">
                         {{bridgepage.swapspot.embed}}
@@ -234,17 +234,17 @@
                         <div dynamic="bridgepage.swapspot.option_hidden_fields"></div>
                         <div ng-if="visible">{{bridgepage.swapspot.option_hidden_fields}}</div>
 
-                        <h3>{{bridgepage.swapspot.optin_heading || 'Enter your best name & email'}}</h3>
+                        <h3>{{bridgepage.swapspot.optin_heading}}</h3>
 
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1">
 
-                                <input {{bridgepage.swapspot.mark_name_required}} placeholder="Full Name..." name="{{bridgepage.swapspot.optin_name_field}}" class="name_input" type="text" style="display: {{bridgepage.swapspot.mark_name_visible || 'block'}}" >
+                                <input {{bridgepage.swapspot.mark_name_required}} placeholder="Full Name..." name="{{bridgepage.swapspot.optin_name_field}}" class="name_input" type="text" style="display: {{bridgepage.swapspot.mark_name_visible}}" >
                                 <span class="error_name error" style="display: none;">You rname is required!</span>
 								<input required placeholder="Email Address..." name="{{bridgepage.swapspot.optin_email_field}}" class="email_input" type="email">
                                 <span class="error_email error" style="display: none;">You rname is required!</span>
 								<button type="submit" class="cta_button">
-									{{bridgepage.swapspot.button || 'Sign Up'}}
+									{{bridgepage.swapspot.button}}
 								</button>
 
                             </div>
@@ -259,10 +259,10 @@
     <div class="bottom_section container">
 
         <p class="terms_and_conditions_container">
-            <a class="terms_link" ng-href="{{bridgepage.swapspot.term_url}}" target="{{bridgepage.swapspot.open_term_link_in_new_tab || '_blank'}}">
+            <a class="terms_link" ng-href="{{bridgepage.swapspot.term_url}}" target="{{bridgepage.swapspot.open_term_link_in_new_tab}}">
                 {{bridgepage.swapspot.term_text}}
             </a>
-            <a class="privacy_link" href="{{bridgepage.swapspot.privacy_url}}" target="{{bridgepage.swapspot.open_privacy_link_in_new_tab || '_blank'}}">
+            <a class="privacy_link" href="{{bridgepage.swapspot.privacy_url}}" target="{{bridgepage.swapspot.open_privacy_link_in_new_tab}}">
                 {{bridgepage.swapspot.privacy_text}}
             </a>
         </p>
