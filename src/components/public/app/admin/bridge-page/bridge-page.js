@@ -7,8 +7,7 @@ app.config( function( $stateProvider, $stickyStateProvider )
 			url: "/bridge-page/:id?",
 			templateUrl: "/templates/components/public/app/admin/bridge-page/bridge-page.html",
 			controller: "BridgePageController",
-			resolve: {
-			}
+			resolve: {}
 		} )
 
 	//$stickyStateProvider.enableDebug(true);
@@ -16,8 +15,8 @@ app.config( function( $stateProvider, $stickyStateProvider )
 
 app.controller( "BridgePageController", function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
 {
-	smSidebar.Show('.top_bp_sidebar_contents', 'bridgepage-editor-controls.html');
-	smSidebar.Show('.left_bp_sidebar_contents', 'bridgepage-editor.html');
+	smSidebar.Show( '.top_bp_sidebar_contents', 'bridgepage-editor-controls.html' );
+	smSidebar.Show( '.left_bp_sidebar_contents', 'bridgepage-editor.html' );
 
 	$site = $rootScope.site;
 	$scope.loading = true;
@@ -53,22 +52,28 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		$scope.initialize()
 	} )
 
-	$scope.loadDefaultValue = function() {
-		switch($scope.template.id)
+	$scope.loadDefaultValue = function()
+	{
+		switch( $scope.template.id )
 		{
 			case "5":
-				$scope.bridgepage.swapspot.logo = 'https://images.clickfunnels.com/d7/816af0e54311e48b0937fb402a6e0a/logo.png';
-				$scope.bridgepage.swapspot.headline = 'Get This Free Time Turner Today!';
-				$scope.bridgepage.swapspot.ad = 'https://images.clickfunnels.com/14/adaa60e54411e4ab13458a69ac3098/__12.jpg';
+				$scope.bridgepage.swapspot.logo = 'https://s3.amazonaws.com/smpub/bp/beyondbasick.png';
+				$scope.bridgepage.swapspot.headline = 'Get This Free Time Turner Today 2!';
+				$scope.bridgepage.swapspot.ad = 'https://s3.amazonaws.com/smpub/bp/harrypotter.jpg';
+				$scope.bridgepage.swapspot.background_url = 'https://s3.amazonaws.com/smpub/bp/rsz_challenger.jpg';
 				$scope.bridgepage.swapspot.button = 'Get It Now';
 				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
 				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
 				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
-				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
-				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.term_text_color = '#47C787';
+				$scope.bridgepage.swapspot.privacy_text_color = '#47C787';
 				$scope.bridgepage.swapspot.headline_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.button_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.button_background_color = '#47c787';
+				$scope.bridgepage.swapspot.embed = '<iframe src="https://www.youtube.com/embed/qCiOWQgAcuI?autoplay=0&modestbranding=1&controls=0&showinfo=0&rel=0&hd=1" frameborder="0" allowfullscreen=""></iframe>';
+				$scope.bridgepage.swapspot.term_text = 'Terms & Conditions';
+				$scope.bridgepage.swapspot.privacy_text = 'Privacy Policy';
+				$scope.bridgepage.swapspot.copyright = 'Copyright © 2016. All Rights Reserved.';
 				break;
 			case "4":
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
@@ -99,10 +104,10 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.enable_video = 'none';
-				$scope.bridgepage.swapspot.emailListId = $emailLists[0];
+				$scope.bridgepage.swapspot.emailListId = $emailLists[ 0 ];
 				break;
 			case "7":
-				$scope.bridgepage.swapspot.background_url = 'https://lgbttobacco.files.wordpress.com/2010/11/trans-webinar.jpg';
+				$scope.bridgepage.swapspot.background_url = 'https://s3.amazonaws.com/smpub/bp/trans-webinar.jpg';
 				$scope.bridgepage.swapspot.tagline_text_color = '#565656';
 				$scope.bridgepage.swapspot.headline_text_color = '#39a0e1';
 				$scope.bridgepage.swapspot.button_text_color = '#a18800';
@@ -172,11 +177,13 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		}
 		$scope.bridgepage.swapspot = swapspot;
 
-		if ($scope.bridgepage.id != undefined)
+		if( $scope.bridgepage.id != undefined )
 		{
-			$scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl($scope.bridgepage.swapspot.optin_action);
-			$scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, {id: $scope.bridgepage.swapspot.sm_list_id });
-		} else {
+			$scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl( $scope.bridgepage.swapspot.optin_action );
+			$scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, { id: $scope.bridgepage.swapspot.sm_list_id } );
+		}
+		else
+		{
 			$scope.loadDefaultValue();
 		}
 
@@ -197,12 +204,13 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		$scope.loading = false;
 	}
 
-	$scope.$watch('template', function() {
-		if ($scope.bridgepage.id == undefined)
+	$scope.$watch( 'template', function()
+	{
+		if( $scope.bridgepage.id == undefined )
 		{
 			$scope.loadDefaultValue();
 		}
-	});
+	} );
 
 	$scope.range = function( min, max, step )
 	{
@@ -386,10 +394,11 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		$scope.bridgepage.site_id = $site.id;
 		if( $scope.bridgepage.id )
 		{
-			$scope.bridgepage.put().then(function(response){
+			$scope.bridgepage.put().then( function( response )
+			{
 				$scope.close();
 				toastr.success( "Bridge page has been updated!" );
-			})
+			} )
 		}
 		else
 		{
@@ -536,7 +545,7 @@ app.controller( 'bridgepageEngineController', function( $scope, $localStorage, s
 
 	$scope.toggleSidebar = function()
 	{
-		smSidebar.Toggle('.left_bp_sidebar_contents');
+		smSidebar.Toggle( '.left_bp_sidebar_contents' );
 		$scope.show_options = !$scope.show_options;
 	}
 
