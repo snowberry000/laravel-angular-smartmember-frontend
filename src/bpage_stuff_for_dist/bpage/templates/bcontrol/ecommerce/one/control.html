@@ -52,11 +52,7 @@
 		<h4>
 			Headline Text Color
 		</h4>
-		<div class="color-picker">
-			<div class="">
-				<spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.headline_text_color"></spectrum-colorpicker>
-			</div>
-		</div>
+		<spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.headline_text_color"></spectrum-colorpicker>
 	</div>
 
 </div>
@@ -118,20 +114,12 @@
 
 	<div class="field">
 		<h4>Button Text Color</h4>
-
-		<div class="col-sm-10">
-			<spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-								  ng-model="bridgepage.swapspot.button_text_color"></spectrum-colorpicker>
-		</div>
+		<spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.button_text_color"></spectrum-colorpicker>
 	</div>
 
 	<div class="field">
 		<h4>Button Background Color</h4>
-
-		<div class="col-sm-10">
-			<spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-								  ng-model="bridgepage.swapspot.button_background_color"></spectrum-colorpicker>
-		</div>
+		<spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.button_background_color"></spectrum-colorpicker>
 	</div>
 
 	<div class="field">
@@ -196,15 +184,6 @@
 	</div>
 
 	<div class="field">
-		<h4>Term Text Color</h4>
-
-		<div class="col-sm-10">
-			<spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-								  ng-model="bridgepage.swapspot.term_text_color"></spectrum-colorpicker>
-		</div>
-	</div>
-
-	<div class="field">
 		<h4>Open in New Tab?</h4>
 
 		<div class="col-sm-10">
@@ -233,15 +212,6 @@
 	</div>
 
 	<div class="field">
-		<h4>Privacy Text Color</h4>
-
-		<div class="col-sm-10">
-			<spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
-								  ng-model="bridgepage.swapspot.privacy_text_color"></spectrum-colorpicker>
-		</div>
-	</div>
-
-	<div class="field">
 		<h4>Open in New Tab?</h4>
 
 		<div class="col-sm-10">
@@ -249,6 +219,11 @@
 				   ng-model="bridgepage.swapspot.open_privacy_link_in_new_tab" ng-true-value="'_blank'"
 				   ng-false-value="'_self'">
 		</div>
+	</div>
+
+	<div class="field">
+		<h4>Term/Privacy Text Color</h4>
+		<spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.term_text_color"></spectrum-colorpicker>
 	</div>
 
 	<div class="field">
