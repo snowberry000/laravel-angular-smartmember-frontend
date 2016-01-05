@@ -144,9 +144,10 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             delete $scope.download.history_count;
             delete $scope.download.user_count;
             delete $scope.download.site;
-            $scope.download.put();
-            smModal.Show("public.administrate.site.content.downloads");
-            toastr.success("Download has been saved");
+            $scope.download.put().then(function(response){
+                smModal.Show("public.administrate.site.content.downloads");
+                toastr.success("Download has been saved");
+            })   
         }
         else {
             Restangular.all('download').post($scope.download).then(function (download) {

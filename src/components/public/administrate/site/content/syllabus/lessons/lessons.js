@@ -26,7 +26,7 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 	$scope.data = [];
 	$scope.pagination = {
 		current_page: 1,
-		per_page: 25,
+		per_page: 2,
 		total_count: 0
 	};
 
@@ -36,7 +36,7 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 		{
 			$scope.paginate();
 		}
-	});
+	} );
 
 	$scope.paginate = function()
 	{
@@ -49,7 +49,7 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 			$params.q = encodeURIComponent( $scope.query );
 		}
 
-		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' ) ).then( function( data )
+		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 		{
 			$scope.loading = false;
 			$scope.pagination.total_count = data.total_count;

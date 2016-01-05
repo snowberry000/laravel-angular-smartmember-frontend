@@ -47,6 +47,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         $scope.loading=false;
         $modules=response;
         $scope.modules = $modules;
+        $scope.copy_modules = $modules;
         $scope.modules = _.reject($scope.modules,function($mod){
             return $mod.lessons.length==0;
         });
@@ -133,6 +134,14 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         delete lesson_copy.showCounter;
         delete lesson_copy.show_content_publicly;
         delete lesson_copy.description;
+        delete lesson_copy.prev_lesson;
+        delete lesson_copy.next_lesson;
+        delete lesson_copy.total_lessons;
+        delete lesson_copy.access_level;
+        delete lesson_copy.current_index;
+        delete lesson_copy.module;
+        delete lesson_copy.access;
+
         Restangular.all('lesson').customPUT(lesson_copy , lesson.id).then(function(response){
 
         })
@@ -256,12 +265,33 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
 
     $scope.addLessonDone = function(added_lesson){
         $scope.addAccessLevel(added_lesson);
+        $scope.module_found = false;
         if(added_lesson && added_lesson.id){
             for (var i = $scope.modules.length - 1; i >= 0; i--) {
-                if(!$scope.modules[i].id){
+                if($scope.modules[i].id == added_lesson.module_id){
                     $scope.modules[i].lessons.push(added_lesson);
+                    $scope.modules[i].show_me = true;
+                    $scope.module_found = true;
+                    break;
                 }
             };
+        }
+
+        if($scope.module_found == false && $scope.copy_modules && $scope.copy_modules.length){
+            var module = null;
+            for (var i = $scope.copy_modules.length - 1; i >= 0; i--) {
+                if($scope.copy_modules[i].id == added_lesson.module_id){
+                    module = $scope.copy_modules[i];
+                    $scope.module_found = true;
+                    break;
+                }
+            };
+            var index = $scope.copy_modules.indexOf(module);
+            if(index >= 0){
+                $scope.copy_modules[index].lessons.push(added_lesson);
+                $scope.modules.push($scope.copy_modules[index]);
+                //$scope.modules[0].lessons.push(added_lesson);
+            }
         }
     }
 

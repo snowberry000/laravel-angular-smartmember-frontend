@@ -40,9 +40,10 @@ app.controller('JvpageController', function ($scope,$site, Restangular,$rootScop
         delete $scope.jv.email_list;
 
         if ($scope.jv.id) {
-            $scope.jv.put();
-            toastr.success("JV Page has been saved!");
-            $state.go('public.administrate.site.pages.core.list');
+            $scope.jv.put().then(function(response){
+                toastr.success("JV Page has been saved!");
+                $state.go('public.administrate.site.pages.core.list');
+            })
         }
         else {
             Restangular.all('affiliateJVPage').post($scope.jv).then(function (jv) {
@@ -88,7 +89,7 @@ app.controller('JvpageController', function ($scope,$site, Restangular,$rootScop
     }
 
     $scope.selectUrl = function(item , selected_url , show_next) {
-        var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle'];
+        var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
       
         if(!selected_url)
           return;

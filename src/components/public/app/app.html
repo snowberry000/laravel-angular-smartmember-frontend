@@ -1,5 +1,3 @@
-
-
 <div ng-if="!$state.includes('public.app.admin')" ng-include="'templates/components/public/app/common/dynamic-css.html'"></div>
 
 <wave-spinner ng-if="loading"></wave-spinner>
@@ -9,6 +7,12 @@
 
 		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
 			<div class="column" style="text-align: right;">
+				<div class="pull-left small monitor hidden large monitor hidden">
+					<a class="ui icon button" ng-click="smSidebar.Show('.left_app_sidebar_contents', '', {closable:true,dimPage:true});">
+						<i class="sidebar icon"></i>
+						Menu
+					</a>
+				</div>
 				<div class="ui buttons" ng-show="!isLoggedIn()">
 					<a class="ui button login_button" href="#" ng-click="smModal.Show('public.sign.in')">Log-in</a>
 					<div class="or"></div>
@@ -20,7 +24,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="middle aligned column m-b-lg" ng-if="meta_data.logo_position == 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
+			<div class="middle aligned column m-b-lg mobile hidden tablet hidden" ng-if="meta_data.logo_position == 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
 			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column'">
 
 				<a sm-class="'ui ' + meta_data.logo_size + (meta_data.logo_border ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="/{{options.logo_url}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''}}">
@@ -28,7 +32,7 @@
 					<img ng-show="options.site_logo" sui-popup data-edit="{{site.is_admin ? true : false}}" data-state="public.administrate.site.appearance.settings" ng-src="{{options.site_logo}}" class="m-t-sm m-b-sm">
 				</a>
 			</div>
-			<div class="middle aligned column" ng-if="meta_data.logo_position != 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
+			<div class="middle aligned column mobile hidden tablet hidden" ng-if="meta_data.logo_position != 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
 		</div>
 	</div>
 </div>
@@ -47,16 +51,25 @@
 </div>
 
 <div class="ui small delete modal">
-    <div class="content">
-      <p>Are you sure you want to delete this?</p>
-    </div>
-    <div class="actions">
-      <div class="ui negative button">
-        No
-      </div>
-      <div class="ui positive right labeled icon button">
-        Yes
-        <i class="checkmark icon"></i>
-      </div>
-    </div>
+	<div class="content">
+		<p>Are you sure you want to delete this?</p>
+	</div>
+	<div class="actions">
+		<div class="ui negative button">
+			No
+		</div>
+		<div class="ui positive right labeled icon button">
+			Yes
+			<i class="checkmark icon"></i>
+		</div>
+	</div>
+</div>
+
+<div class="ui wide sidebar vertical menu left left_app_sidebar_contents">
+	<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.administrate.site.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | orderBy:'sort_order'" ng-click="selectedElement($index);smSidebar.Close();">
+		<i sm-class="'icon navigation_icon_color fa ' + ( menu_item.icon || 'fa-home' )" ng-if="!menu_item.custom_icon && meta_data.show_nav_icons"></i>
+		<i sm-class="'icon navigation_icon_color fa ' + menu_item.custom_icon" ng-if="menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') != -1 && meta_data.show_nav_icons"></i>
+		<img style="width:auto;" sm-class="'icon navigation_icon_color '" ng-if="menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') == -1 && meta_data.show_nav_icons" src="{{menu_item.custom_icon}}"/>
+		{{ menu_item.label }}
+	</a>
 </div>

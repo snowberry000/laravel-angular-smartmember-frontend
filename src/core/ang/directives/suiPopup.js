@@ -21,6 +21,7 @@ app.directive( 'suiPopup', function( smModal )
 				transition: attributes.transition || 'slide down',
 				on: attributes.on || 'hover',
 				inline: attributes.inline || false,
+				movePopup: (attributes.movePopup == "false") ? false : true,
 				onVisible: function()
 				{
 					$( ".edit-admin" ).on( 'click', function( event )
@@ -47,7 +48,7 @@ app.directive( 'suiPopup', function( smModal )
 				}
 			};
 
-			//console.log( 'the_options', the_options );
+			console.log( 'the_options', the_options );
 			$( next_item ).popup( the_options );
 		}
 	};

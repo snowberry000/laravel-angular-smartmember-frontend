@@ -15,7 +15,6 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 			dimPage: false
 		};
 
-
 		if( attributes )
 		{
 			angular.forEach( attributes, function( value, key )

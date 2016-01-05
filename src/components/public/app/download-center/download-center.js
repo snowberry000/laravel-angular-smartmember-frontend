@@ -16,7 +16,7 @@ app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $l
     
 
     Restangular.all('').customGET('download').then(function(response){
-        $downloads=response;
+        $downloads=response.items;
         $scope.loading=false;
         $scope.downloads = $downloads;
         if ($scope.downloads && $scope.downloads.length > 0)
@@ -60,7 +60,7 @@ app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $l
         $scope.disable = true;
         Restangular.all('').customGET('download',{p:++$scope.currentDownload}).then(function (downloads) {
             if(downloads.length>0){
-                $scope.downloads = $scope.downloads.concat(downloads);
+                $scope.downloads = $scope.downloads.concat(downloads.items);
                 $scope.disable = false;
 
                 angular.forEach($scope.downloads, function(value, key) {

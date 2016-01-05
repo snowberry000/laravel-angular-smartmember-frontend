@@ -222,7 +222,7 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 	$scope.selectUrl = function( item, selected_url, show_next )
 	{
 
-		var api_resources = [ 'lesson', 'customPage', 'post', 'download', 'livecast', 'supportArticle' ];
+		var api_resources = [ 'lesson', 'customPage', 'post', 'download', 'livecast', 'supportArticle' , 'bridgePage'];
 		if( !selected_url )
 		{
 			return;

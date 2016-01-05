@@ -786,10 +786,10 @@ app.controller( 'postWizardController', function( $scope, $rootScope, $filter, $
 		if( $scope.next_item.id )
 		{
 
-			$scope.next_item.put();
-			$state.go( "admin.blogging.posts" );
-			toastr.success( "Your post has been updated!" );
-
+			$scope.next_item.put().then(function(response){
+				$state.go( "admin.blogging.posts" );
+				toastr.success( "Your post has been updated!" );
+			})
 		}
 		else
 		{

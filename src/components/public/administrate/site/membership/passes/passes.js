@@ -21,8 +21,20 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 	}
 	$scope.site = $site = $rootScope.site;
 	$scope.data = [];
-	$scope.pagination = { current_page: 1 };
-	$scope.pagination.total_count = 1;
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 2,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
+
 
 	$scope.paginate = function()
 	{
@@ -42,8 +54,8 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 			{
 				$scope.loading = false;
-				//$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = data;//Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				$scope.pagination.total_count = data.total_count;
+				$scope.data[ $scope.pagination.current_page ] = data.items;//Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
 		}
 	}
@@ -54,7 +66,11 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 	{
 		$scope.loading = true;
 		$scope.data = [];
-		$scope.pagination = { current_page: 1 };
+		$scope.pagination = {
+		current_page: 1,
+		per_page: 2,
+		total_count: 0
+	};
 		var $params = { site_id: $site.id, p: $scope.pagination.current_page };
 
 		if( $scope.query )

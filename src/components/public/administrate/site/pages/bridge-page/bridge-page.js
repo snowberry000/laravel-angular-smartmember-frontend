@@ -244,9 +244,10 @@ app.controller("AdminBridgePageController", function ($scope, $localStorage , sm
         $scope.bridgepage.template_id = $scope.template.id;
         $scope.bridgepage.site_id = $site.id;
         if ($scope.bridgepage.id) {
-            $scope.bridgepage.put();
-            smModal.Show("public.administrate.site.pages.bridge-pages");
-            toastr.success("Bridge page has been updated!");
+            $scope.bridgepage.put().then(function(response){
+                smModal.Show("public.administrate.site.pages.bridge-pages");
+                toastr.success("Bridge page has been updated!");
+            })
         }
         else {
             Restangular.all('bridgePage').post($scope.bridgepage).then(function (page) {

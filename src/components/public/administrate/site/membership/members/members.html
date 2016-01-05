@@ -31,7 +31,7 @@
 						<div class="sk-bounce3"></div>
 					</div>
 
-					<table class="ui fixed single line celled stackable table" data-page-size="15">
+					<table class="ui fixed single line celled stackable table" data-page-size="2">
 						<thead>
 							<tr>
 								<th data-hide="title">User</th>
@@ -42,8 +42,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="next_item in data">
-
+							<tr dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 								<td>
 									{{next_item.user.first_name ? next_item.user.first_name + ' ' + next_item.user.last_name : next_item.user.email}}
 									<br ng-hide="next_item.user.first_name" />
@@ -105,14 +104,9 @@
 							</tr>
 
 						</tbody>
-						<tfoot>
-							<tr>
-							</tr>
-						</tfoot>
 					</table>
-
-					<div class="text-right" ng-if="!loading">
-						<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.current_page" class="pagination-sm" boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+					<div class="text-right"  ng-if="!loading">
+						<dir-pagination-controls max-size="5"></dir-pagination-controls>
 					</div>
 				</div>
 			</div>
