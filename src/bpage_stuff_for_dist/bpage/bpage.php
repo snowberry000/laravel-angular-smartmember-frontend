@@ -20,7 +20,7 @@ function applyParamSpots($swapspots, $params)
     $prefix = 'bridgepage.swapspot.';
 
     $new_swapspots = [];
-
+    
     foreach ($swapspots as $swapspot) {
         preg_match_all('/{{(.*?)}}/', $swapspot->value, $matches);
         if (count($matches > 1) && count($matches[0] > 0)) {
@@ -95,25 +95,25 @@ function applySwapSpots($html, $swapspots)
         if (array_key_exists($key, $swapspots)) {
             $swaps[$matches[0][$i]] = $swapspots[$key];
 
-			if( $key == 'bridgepage.swapspot.option_hidden_fields' )
-			{
-				$data_to_capture = [
-					'aid'
-				];
+            if( $key == 'bridgepage.swapspot.option_hidden_fields' )
+            {
+                $data_to_capture = [
+                    'aid'
+                ];
 
-				foreach( $_GET as $key2 =>$val2 )
-				{
-					if( in_array( $key2, $data_to_capture ) )
-					{
-						$swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
-					}
-					elseif( strpos( $key2, 'meta_' ) === 0 )
-					{
-						$key2 = substr( $key2, 5 );
-						$swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
-					}
-				}
-			}
+                foreach( $_GET as $key2 =>$val2 )
+                {
+                    if( in_array( $key2, $data_to_capture ) )
+                    {
+                        $swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
+                    }
+                    elseif( strpos( $key2, 'meta_' ) === 0 )
+                    {
+                        $key2 = substr( $key2, 5 );
+                        $swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
+                    }
+                }
+            }
 
         } else {
             $swaps[$matches[0][$i]] = $default;
@@ -153,7 +153,7 @@ function fetchBpageHTML($data, $params)
 $title = '';
 if( !$html )
 {
-	$data = json_decode( $bpage_data );
+    $data = json_decode( $bpage_data );
 
     $html = fetchBpageHTML($data, $paramSwaps);
     //remove dynamic video
@@ -183,6 +183,9 @@ if( !$html )
         var current_domain = '<?php echo $domain; ?>';
         $.getJSON(tracking_code_url, function (data) {
 
+            console.log(data);
+
+
             (function (w, d, t, r, u) {
                 var f, n, i;
                 w[u] = w[u] || [], f = function () {
@@ -211,7 +214,7 @@ if( !$html )
                 ga('send', 'pageview');
             }
 
-            if (typeof data.facebook_retargetting_pixel != 'undefined' && data.facebook_retargetting_pixel != '') {
+            if (typeof data.facebook_conversion_pixel != 'undefined' && data.facebook_conversion_pixel != '') {
                 !function (f, b, e, v, n, t, s) {
                     if (f.fbq)return;
                     n = f.fbq = function () {
@@ -231,7 +234,8 @@ if( !$html )
                 }(window,
                     document, 'script', '//connect.facebook.net/en_US/fbevents.js');
                 // Insert Your Custom Audience Pixel ID below.
-                fbq('init', data.facebook_retargetting_pixel);
+                
+                fbq('init', data.facebook_conversion_pixel);
                 fbq('track', 'PageView');
             }
 
