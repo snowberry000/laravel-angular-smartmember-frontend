@@ -85,7 +85,7 @@ app.controller("FreebieController", function ($scope, $localStorage,$rootScope, 
 
     $scope.selectUrl = function(item , selected_url , show_next){
     
-      var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle'];
+      var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
       if(!selected_url)
           return;
       if(api_resources.indexOf(selected_url)<0)

@@ -386,9 +386,10 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		$scope.bridgepage.site_id = $site.id;
 		if( $scope.bridgepage.id )
 		{
-			$scope.bridgepage.put();
-			$scope.close();
-			toastr.success( "Bridge page has been updated!" );
+			$scope.bridgepage.put().then(function(response){
+				$scope.close();
+				toastr.success( "Bridge page has been updated!" );
+			})
 		}
 		else
 		{

@@ -125,9 +125,10 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         if($scope.next_item.access_level_type!=2)
             $scope.next_item.access_level_id = 0;
         if ($scope.next_item.id) {
-            $scope.next_item.put();
-            smModal.Show("public.administrate.site.pages.custom-pages");
-            toastr.success("Page has been updated!");
+            $scope.next_item.put().then(function(response){
+                smModal.Show("public.administrate.site.pages.custom-pages");
+                toastr.success("Page has been updated!");
+            })
         }
         else {
             Restangular.all('customPage').post($scope.next_item).then(function (page) {
