@@ -53,7 +53,7 @@
 
 <div class="right menu">
 
-	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_email" if-not="hide">
+	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_email" if-not="hide" title="Email" sui-popup>
 		<div class="ui dropdown" sui-dropdown>
 			<button class="ui inverted basic red icon button">
 				<i class="envelope icon"></i>
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide">
+	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Support" sui-popup>
 		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')">
 			<button class="ui inverted basic red icon button">
 				<i class="life ring icon"></i>
@@ -79,13 +79,13 @@
 		</div>
 	</div>
 	<div class="item thin" ng-if="!isSitelessPage()">
-		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')">
+		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')" title="Bridge Pages" sui-popup>
 			<button class="ui inverted basic red icon button">
 				<i class="browser icon"></i>
 			</button>
 		</div>
 	</div>
-	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide">
+	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Speed Blogging" sui-popup>
 		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')">
 			<button class="ui inverted basic red icon button">
 				<i class="checkered flag icon"></i>
@@ -101,7 +101,7 @@
 		<div class="results"></div>
 	</div>
 
-	<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref="public.www.home" ui-sref-opts="{reload:true}">
+	<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref="public.www.home" ui-sref-opts="{reload:true}" title="Smart Member Directory" sui-popup>
 		<img class="ui rounded mini image" src="/images/sm-64.png">
 	</a>
 
