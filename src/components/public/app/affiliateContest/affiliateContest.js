@@ -3,7 +3,7 @@ var app = angular.module("app");
 app.config(function($stateProvider){
 	$stateProvider
 		.state("public.app.affiliateContest",{
-			url: "/affiliateContest",
+			url: "/affiliateContest/:permalink",
 			templateUrl: "/templates/components/public/app/affiliateContest/affiliateContest.html",
 			controller: "AffiliateContestController"
 		})
