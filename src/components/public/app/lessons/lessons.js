@@ -133,6 +133,14 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         delete lesson_copy.showCounter;
         delete lesson_copy.show_content_publicly;
         delete lesson_copy.description;
+        delete lesson_copy.prev_lesson;
+        delete lesson_copy.next_lesson;
+        delete lesson_copy.total_lessons;
+        delete lesson_copy.access_level;
+        delete lesson_copy.current_index;
+        delete lesson_copy.module;
+        delete lesson_copy.access;
+
         Restangular.all('lesson').customPUT(lesson_copy , lesson.id).then(function(response){
 
         })
