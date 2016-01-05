@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 			resolve: {
 				$site_options: function( Restangular )
 				{
-					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'google_analytics_id', 'facebook_retargetting_pixel', 'facebook_conversion_pixel', 'bing_id' ] );
+					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'google_analytics_id', 'facebook_retargetting_pixel', 'facebook_conversion_pixel', 'bing_id', 'google_webmaster_tag', 'bing_webmaster_tag' ] );
 				}
 			}
 		})
