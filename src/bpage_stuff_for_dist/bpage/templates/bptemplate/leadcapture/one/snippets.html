@@ -16,8 +16,6 @@
         background-color: #fff;
     }
     .bp_content .top_section {
-        padding-top: 40px;
-        padding-bottom: 40px;
     }
     .bp_content .tagline_container h2 {
         text-align:center;
@@ -29,7 +27,7 @@
         color: {{bridgepage.swapspot.headline_text_color || '#fff'}};
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         font-size: 62px;
-        margin:20px 0px 0px 0px;
+        margin:0px;
     }
 
     .bp_content .divider_container {
@@ -45,7 +43,6 @@
     }
 
     .bp_content .middle_section {
-        padding-top: 40px;
         padding-bottom: 40px;
     }
     .bp_content .optin_container {
@@ -190,6 +187,21 @@
                     var site_id = $('input[name="site_id"]').val();
                     $.post('https://api.smartmember.com/optintomember', {email: email, site_id: site_id});
                 }
+                else
+                {
+                    if( $('input[name=redirect_url]').length == 0 || $('input[name=redirect_url]').val() == '' || $('input[name=redirect_url]').val() == 'undefined' ) {
+                        e.preventDefault();
+
+                        var post_data = $(this).serializeArray();
+
+                        $.post( 'https://api.smartmember.com/optin', post_data)
+                                .done(function( data ) {
+                                    //localStorage.setItem('ngStorage-user', JSON.stringify(data) );
+                                    $('.optin_form_display').hide();
+                                    $('.optin_thankyou').show();
+                                });
+                    }
+                }
                 return;
             }
             e.preventDefault();
@@ -224,7 +236,7 @@
                         {{bridgepage.swapspot.embed}}
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -233,10 +245,10 @@
                     <form action="{{bridgepage.swapspot.optin_action}}" method="post" class="the_form">
                         <div dynamic="bridgepage.swapspot.option_hidden_fields"></div>
                         <div ng-if="visible">{{bridgepage.swapspot.option_hidden_fields}}</div>
+                        <h3 style="font-size: 36px; display:none;" class="optin_thankyou">{{bridgepage.swapspot.optin_thankyou_message || "Thanks!"}}</h3>
+                        <h3 class="optin_form_display">{{bridgepage.swapspot.optin_heading || 'Enter your best name & email'}}</h3>
 
-                        <h3>{{bridgepage.swapspot.optin_heading || 'Enter your best name & email'}}</h3>
-
-                        <div class="row">
+                        <div class="row optin_form_display">
                             <div class="col-md-10 col-md-offset-1">
 
                                 <input {{bridgepage.swapspot.mark_name_required}} placeholder="Full Name..." name="{{bridgepage.swapspot.optin_name_field}}" class="name_input" type="text" style="display: {{bridgepage.swapspot.mark_name_visible || 'block'}}" >
@@ -269,15 +281,19 @@
         <p class="copyright_container">
             {{bridgepage.swapspot.copyright}}
         </p>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div dynamic="bridgepage.swapspot.footer_custom_html"></div>
-                <div ng-if="visible">
-                    {{bridgepage.swapspot.footer_custom_html}}
+        <div class="container" style="
+            background-color: #FFF;
+            color: #000;
+            padding: 30px;
+        ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div dynamic="bridgepage.swapspot.footer_custom_html"></div>
+                    <div ng-if="visible">
+                        {{bridgepage.swapspot.footer_custom_html}}
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
