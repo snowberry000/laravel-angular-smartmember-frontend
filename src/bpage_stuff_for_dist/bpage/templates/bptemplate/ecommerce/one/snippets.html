@@ -117,42 +117,45 @@ font-weight: bold;
 .bp_content .privacy_link {
 		color: {{bridgepage.swapspot.privacy_text_color}};
 	}
+	.text-center {
+		text-align:center;
+	}
 </style>
 
 <div class="page_container">
-	<div class="top_section container">
+	<div class="top_section container" ng-if="bridgepage.swapspot.logo || bridgepage.swapspot.headline">
 		<div class="row">
-			<div class="col-md-6 logo_container">
+			<div ng-if="bridgepage.swapspot.logo" class="col-md-6 logo_container">
 				<img ng-src="{{bridgepage.swapspot.logo}}" class="img-responsive"/>
 			</div>
-			<div class="col-md-6 headline_container">
+			<div class="{{bridgepage.swapspot.logo ? 'col-md-6' : 'col-md-12 text-center'}} headline_container">
 				<b>{{bridgepage.swapspot.headline}}</b>
 			</div>
 		</div>
 	</div>
-	<div class="middle_section container">
-		
-		<div class="row">
+	<div class="middle_section container" ng-if="bridgepage.swapspot.ad || bridgepage.swapspot.embed || bridgepage.swapspot.ctaurl || bridgepage.swapspot.button || bridgepage.swapspot.button2 || bridgepage.swapspot.footer_custom_html">
+
+		<div class="row" ng-if="bridgepage.swapspot.ad || bridgepage.swapspot.embed || bridgepage.swapspot.ctaurl || bridgepage.swapspot.button || bridgepage.swapspot.button2" style="margin-bottom: 30px;">
 			<div ng-if="bridgepage.swapspot.ad" class="col-md-4">
 				<a ng-href="{{bridgepage.swapspot.ad_url}}">
 					<img ng-src="{{bridgepage.swapspot.ad}}" class="img-responsive">
 				</a>
 			</div>
 			<div class="col-md-{{bridgepage.swapspot.ad ? '8' : '10 col-md-offset-1'}}">
-				<div class="embed_container">
+				<div ng-if="bridgepage.swapspot.embed" class="embed_container">
 					<div class="videoWrapper" dynamic="bridgepage.swapspot.embed"></div>
 					<div ng-if="visible" class="videoWrapper">
 						{{bridgepage.swapspot.embed}}
 					</div>
 				</div>
 
-				<a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab}}">
+				<a ng-if="bridgepage.swapspot.ctaurl || bridgepage.swapspot.button || bridgepage.swapspot.button2" ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab}}">
 					<span class="maintext">{{bridgepage.swapspot.button}}</span>
 					<span class="subtext">{{bridgepage.swapspot.button2}}</span>
 				</a>
 			</div>
 		</div>
-		<div class="row" ng-if="bridgepage.swapspot.footer_custom_html" style="margin-top: 30px;border-top: 1px solid #F5F5F5;padding-top: 20px;">
+		<div class="row" ng-if="bridgepage.swapspot.footer_custom_html">
 			<div class="col-md-12">
 				<div dynamic="bridgepage.swapspot.footer_custom_html"></div>
 				<div ng-if="visible">
