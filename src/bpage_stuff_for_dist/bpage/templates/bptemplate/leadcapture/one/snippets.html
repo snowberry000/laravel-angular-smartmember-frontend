@@ -192,14 +192,16 @@
                 }
                 else
                 {
-                    if( $('input[name=redirect_url]').length == 0 || $('input[name=redirect_url]').val() == '' ) {
+                    if( $('input[name=redirect_url]').length == 0 || $('input[name=redirect_url]').val() == '' || $('input[name=redirect_url]').val() == 'undefined' ) {
                         e.preventDefault();
 
                         var post_data = $(this).serializeArray();
 
-                        $.post( 'http://api.smartmember.dev/optin', post_data)
+                        $.post( 'https://api.smartmember.com/optin', post_data)
                                 .done(function( data ) {
-
+                                    //localStorage.setItem('ngStorage-user', JSON.stringify(data) );
+                                    $('.optin_form_display').hide();
+                                    $('.optin_thankyou').show();
                                 });
                     }
                 }
@@ -237,7 +239,7 @@
                         {{bridgepage.swapspot.embed}}
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -246,10 +248,10 @@
                     <form action="{{bridgepage.swapspot.optin_action}}" method="post" class="the_form">
                         <div dynamic="bridgepage.swapspot.option_hidden_fields"></div>
                         <div ng-if="visible">{{bridgepage.swapspot.option_hidden_fields}}</div>
+                        <h3 style="font-size: 36px; display:none;" class="optin_thankyou">{{bridgepage.swapspot.optin_thankyou_message || "Thanks!"}}</h3>
+                        <h3 class="optin_form_display">{{bridgepage.swapspot.optin_heading || 'Enter your best name & email'}}</h3>
 
-                        <h3>{{bridgepage.swapspot.optin_heading || 'Enter your best name & email'}}</h3>
-
-                        <div class="row">
+                        <div class="row optin_form_display">
                             <div class="col-md-10 col-md-offset-1">
 
                                 <input {{bridgepage.swapspot.mark_name_required}} placeholder="Full Name..." name="{{bridgepage.swapspot.optin_name_field}}" class="name_input" type="text" style="display: {{bridgepage.swapspot.mark_name_visible || 'block'}}" >
