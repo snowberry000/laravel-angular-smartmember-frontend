@@ -31,7 +31,7 @@
 						<div class="sk-bounce3"></div>
 					</div>
 
-					<table class="ui fixed single line celled stackable table" data-page-size="15">
+					<table class="ui fixed single line celled stackable table" data-page-size="2">
 						<thead>
 							<tr>
 								<th data-hide="title">User</th>
@@ -107,13 +107,15 @@
 						</tbody>
 						<tfoot>
 							<tr>
+								<th colspan="4">
+									<div class="ui pointing label">
+										{{pagination.total_count}} items
+									</div>
+									<dir-pagination-controls max-size="5"></dir-pagination-controls>
+								</th>
 							</tr>
 						</tfoot>
 					</table>
-
-					<div class="text-right" ng-if="!loading">
-						<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.current_page" class="pagination-sm" boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
-					</div>
 				</div>
 			</div>
 		</div>

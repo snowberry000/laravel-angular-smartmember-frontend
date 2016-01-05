@@ -59,9 +59,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			}
 
 			Restangular.all('siteRole')
-				.getList()
+				.customGET('',$params)
 				.then(function(response){
-					$scope.data = response;
+					$scope.loading = false;
+					$scope.pagination.total_count = response.total_count;
+					$scope.data = Restangular.restangularizeCollection( null, response.items, $scope.template_data.api_object );
 				});
 		}
 	}
@@ -92,9 +94,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		}
 
 		Restangular.all('siteRole')
-				.getList($params)
+				.customGET('',$params)
 				.then(function(response){
-					$scope.data = response;
+					$scope.loading = false;
+					$scope.pagination.total_count = response.total_count;
+					$scope.data = Restangular.restangularizeCollection( null, response.items, $scope.template_data.api_object );
 				});
 	}
 
