@@ -7,9 +7,12 @@
 
 		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
 			<div class="column" style="text-align: right;">
-				<a class="ui icon left floated button small monitor hidden large monitor hidden" ng-click="smSidebar.Show('.left_app_sidebar_contents', '', {closable:true,dimPage:true});">
-					<i class="sidebar icon"></i>
-				</a>
+				<div class="pull-left small monitor hidden large monitor hidden">
+					<a class="ui icon button" ng-click="smSidebar.Show('.left_app_sidebar_contents', '', {closable:true,dimPage:true});">
+						<i class="sidebar icon"></i>
+						Menu
+					</a>
+				</div>
 				<div class="ui buttons" ng-show="!isLoggedIn()">
 					<a class="ui button login_button" href="#" ng-click="smModal.Show('public.sign.in')">Log-in</a>
 					<div class="or"></div>
