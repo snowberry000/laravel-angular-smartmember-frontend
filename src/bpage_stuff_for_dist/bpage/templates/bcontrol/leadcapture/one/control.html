@@ -66,7 +66,44 @@
 
     </div>
 </div>
-
+<h3 class="ui top attached header title">
+    <i class="dropdown icon"></i>
+    Optin Section
+</h3>
+<div class="ui attached segment content">
+    <div ng-show="optin">
+        <div class="field">
+            <h4>Optin Heading</h4>
+                <input type="text" name="headline" ng-model="bridgepage.swapspot.optin_heading">
+        </div>
+        <div class="field">
+            <h4>Optin Form Providers</h4>
+            <select class="small" ng-model="bridgepage.swapspot.optin_type">
+                <option value="0" selected>Choose your optin form provider</option>
+                <optgroup label="Other">
+                    <option value="sm">Smart Member</option>
+                </optgroup>
+                <optgroup label="3rd-party-autoresponder">
+                    <option value="3rdparty">Custom Embed Code</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="field" ng-show="bridgepage.swapspot.optin_type == 'sm'">
+            <h4>Choose Email List</h4>
+            <select class="form-control email_select" id="emailListId" placeholder="Choose Email List"
+                    ng-model="bridgepage.swapspot.emailListId"
+                    ng-options="emailList.name for emailList in emailLists">
+            </select>
+        </div>
+        <div class="field" ng-show="bridgepage.swapspot.optin_type == 'sm'">
+            <h4>Choose Access Levels to Grant</h4>
+            <select class="form-control email_select" multiple
+                    ng-model="bridgepage.swapspot.access_levels"
+                    ng-options="access_level.name for access_level in access_levels">
+            </select>
+        </div>
+    </div>
+</div>
 <h3 class="ui top attached header title">
 	<i class="dropdown icon"></i>
 	Optin Section
