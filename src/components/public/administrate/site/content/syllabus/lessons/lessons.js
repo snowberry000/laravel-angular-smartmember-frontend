@@ -36,7 +36,7 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 		{
 			$scope.paginate();
 		}
-	});
+	} );
 
 	$scope.paginate = function()
 	{
@@ -49,7 +49,7 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 			$params.q = encodeURIComponent( $scope.query );
 		}
 
-		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' ) ).then( function( data )
+		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 		{
 			$scope.loading = false;
 			$scope.pagination.total_count = data.total_count;
