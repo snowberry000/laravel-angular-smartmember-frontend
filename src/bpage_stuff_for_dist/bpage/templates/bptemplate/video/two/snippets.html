@@ -4,7 +4,7 @@
 
     /* template */
 
-    .bp_content .page_container {
+    #wrapper {
         background: url({{bridgepage.swapspot.background_url}}) no-repeat scroll 0 0;
         height: auto;
         background-size: cover;
@@ -502,7 +502,7 @@
                         </div>
                         <input type="hidden" name="enable_popup" value="{{bridgepage.swapspot.enable_popup}}">
                         <div class="row">
-                            <div class="headline_wrapper {{bridgepage.swapspot.timer_column}}">
+                            <div class="col-md-{{bridgepage.swapspot.enable_timer ? '8' : '12'}} headline_wrapper">
                                 <div class="headline_container">
                                     <h1>{{bridgepage.swapspot.headline}}</h1>
                                 </div>
@@ -510,7 +510,7 @@
                                     <h2>{{bridgepage.swapspot.tagline}}</h2>
                                 </div>
                             </div>
-                            <div class="col-md-4 timer_wrapper" style="display: {{bridgepage.swapspot.enable_timer}};">
+                            <div ng-if="bridgepage.swapspot.enable_timer" class="col-md-4 timer_wrapper">
                                 <div id="countdown-timer" class="countdown">
                                     <div id="countdown-container">
                                         <div id="timer">

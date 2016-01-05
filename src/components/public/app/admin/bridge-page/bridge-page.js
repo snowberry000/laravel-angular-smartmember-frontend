@@ -115,12 +115,11 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.popup_width = '700px';
-				$scope.bridgepage.swapspot.timer_column = 'col-sm-12';
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
 				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
 				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
 				$scope.bridgepage.swapspot.greentime = 0;
-				$scope.bridgepage.swapspot.enable_timer = 'block';
+				$scope.bridgepage.swapspot.enable_timer = 1;
 				$scope.bridgepage.swapspot.timer_settings = 2;
 				$scope.bridgepage.swapspot.duration = 1;
 				$scope.bridgepage.swapspot.interval = 'hours';
@@ -312,18 +311,6 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 			$scope.save( true );
 		} );
-	}
-
-	$scope.setColumn = function()
-	{
-		if( $scope.bridgepage.swapspot.enable_timer == 'block' )
-		{
-			$scope.bridgepage.swapspot.timer_column = 'col-sm-8';
-		}
-		else
-		{
-			$scope.bridgepage.swapspot.timer_column = 'col-sm-12';
-		}
 	}
 
 	$scope.close = function()
