@@ -47,6 +47,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         $scope.loading=false;
         $modules=response;
         $scope.modules = $modules;
+        $scope.copy_modules = $modules;
         $scope.modules = _.reject($scope.modules,function($mod){
             return $mod.lessons.length==0;
         });
@@ -264,12 +265,19 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
 
     $scope.addLessonDone = function(added_lesson){
         $scope.addAccessLevel(added_lesson);
+        $scope.module_found = false;
         if(added_lesson && added_lesson.id){
             for (var i = $scope.modules.length - 1; i >= 0; i--) {
                 if(!$scope.modules[i].id){
                     $scope.modules[i].lessons.push(added_lesson);
+                    $scope.modules[i].show_me = true;
                 }
             };
+        }
+
+        if($scope.module_found == false && $scope.copy_modules && $scope.copy_modules.length){
+            $scope.modules.push($scope.copy_modules[0]);
+            $scope.modules[0].lessons.push(added_lesson);
         }
     }
 

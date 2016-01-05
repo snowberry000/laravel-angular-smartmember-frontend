@@ -41,7 +41,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 	$scope.resolve = function () {
 		$nextItemRequest=null;
 		$modulesRequest=null;
-
+		$scope.loading = true;
 		if( $stateParams.id )
 		{
 			$nextItemRequest = Restangular.one( 'lesson', $stateParams.id ).get().then(function(response){
@@ -75,6 +75,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 		{
 			$next_item.site_id = $rootScope.site.id;
 		}
+		$scope.loading = false;
 		$scope.template_data = {
 			title: 'Lesson',
 			cancel_route: 'public.administrate.site.content.syllabus.lessons',
@@ -427,6 +428,14 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
                 return tkns.join( '.' );
             }
         }
+	}
+
+	$scope.cancel = function(){
+		if($stateParams.close){
+			smModal.Close();
+		}else{
+			smModal.Show($scope.template_data.cancel_route);
+		}
 	}
 
 	$scope.save = function()
