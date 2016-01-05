@@ -269,15 +269,19 @@
         <p class="copyright_container">
             {{bridgepage.swapspot.copyright}}
         </p>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div dynamic="bridgepage.swapspot.footer_custom_html"></div>
-                <div ng-if="visible">
-                    {{bridgepage.swapspot.footer_custom_html}}
+        <div class="container" style="
+            background-color: #FFF;
+            color: #000;
+            padding: 30px;
+        ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div dynamic="bridgepage.swapspot.footer_custom_html"></div>
+                    <div ng-if="visible">
+                        {{bridgepage.swapspot.footer_custom_html}}
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
