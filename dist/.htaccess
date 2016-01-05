@@ -77,7 +77,7 @@ ErrorDocument 404 /pricing
     RewriteRule ^post/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-article/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-ticket/create(.*)$ http://%{HTTP_HOST}/support-ticket [L]
-    RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST}
+    RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST} [L]
 </ifModule>
 
 <ifModule mod_rewrite.c>
