@@ -105,7 +105,7 @@ function DetectAndPerformBridgePageThings()
 				{
 					include 'bpage/bpage.php';
 
-					return;
+					exit;
 				}
 			}
 			catch( Exception $e )
