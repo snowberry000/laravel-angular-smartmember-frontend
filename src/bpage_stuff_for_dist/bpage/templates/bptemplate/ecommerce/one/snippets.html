@@ -18,11 +18,6 @@
 .bp_content .top_section {
 		padding-top: 19px;
 		padding-bottom: 19px;
-		border-color: rgba(0, 0, 0, 0.439216);
-		outline: none;
-		background-color: rgb(39, 40, 41);
-		border-width: 3px;
-		border-style: solid;
 	}
 .bp_content .logo_container {
 
@@ -123,6 +118,7 @@ font-weight: bold;
 		color: {{bridgepage.swapspot.privacy_text_color}};
 	}
 </style>
+
 <div class="page_container">
 	<div class="top_section container">
 		<div class="row">
@@ -135,13 +131,14 @@ font-weight: bold;
 		</div>
 	</div>
 	<div class="middle_section container">
+		
 		<div class="row">
-			<div class="col-md-4">
+			<div ng-if="bridgepage.swapspot.ad" class="col-md-4">
 				<a ng-href="{{bridgepage.swapspot.ad_url}}">
 					<img ng-src="{{bridgepage.swapspot.ad}}" class="img-responsive">
 				</a>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-{{bridgepage.swapspot.ad ? '8' : '10 col-md-offset-1'}}">
 				<div class="embed_container">
 					<div class="videoWrapper" dynamic="bridgepage.swapspot.embed"></div>
 					<div ng-if="visible" class="videoWrapper">
@@ -155,6 +152,14 @@ font-weight: bold;
 				</a>
 			</div>
 		</div>
+		<div class="row" ng-if="bridgepage.swapspot.footer_custom_html" style="margin-top: 30px;border-top: 1px solid #F5F5F5;padding-top: 20px;">
+			<div class="col-md-12">
+				<div dynamic="bridgepage.swapspot.footer_custom_html"></div>
+				<div ng-if="visible">
+					{{bridgepage.swapspot.footer_custom_html}}
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="bottom_section container">
 
@@ -166,18 +171,9 @@ font-weight: bold;
 				{{bridgepage.swapspot.privacy_text}}
 			</a>
 		</p>
-		<p class="copyright_container">
+		<p class="terms_link copyright_container">
 			{{bridgepage.swapspot.copyright}}
 		</p>
-
-		<div class="row">
-			<div class="col-md-12">
-				<div dynamic="bridgepage.swapspot.footer_custom_html"></div>
-				<div ng-if="visible">
-					{{bridgepage.swapspot.footer_custom_html}}
-				</div>
-			</div>
-		</div>
 
 	</div>
 </div>

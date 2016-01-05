@@ -65,11 +65,15 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
 				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
 				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
-				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
-				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.term_text_color = '#47C787';
+				$scope.bridgepage.swapspot.privacy_text_color = '#47C787';
 				$scope.bridgepage.swapspot.headline_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.button_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.button_background_color = '#47c787';
+				$scope.bridgepage.swapspot.embed = '<iframe src="https://www.youtube.com/embed/qCiOWQgAcuI?autoplay=0&modestbranding=1&controls=0&showinfo=0&rel=0&hd=1" frameborder="0" allowfullscreen=""></iframe>';
+				$scope.bridgepage.swapspot.term_text = 'Terms & Conditions';
+				$scope.bridgepage.swapspot.privacy_text = 'Privacy Policy';
+				$scope.bridgepage.swapspot.copyright = 'Copyright © 2016. All Rights Reserved.';
 				break;
 			case "4":
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
