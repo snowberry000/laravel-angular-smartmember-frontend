@@ -58,45 +58,61 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, i
 		var user = $scope.user;
 		delete user.password2;
 		$scope.action = 1;
-
 		if( $localStorage.hash )
 		{
 			user.hash = $localStorage.hash;
 		}
-
 		if( $localStorage.cbreceipt )
 		{
 			user.cbreceipt = $localStorage.cbreceipt;
 		}
-
-
-		console.log( user );
-		auth.customPOST( user, "register" ).then( function( response )
-			{
-				$scope.postAuth( response );
-				if( $rootScope.redirectedFromLoginMessage )
+		if ($scope.validate())
+		{
+			auth.customPOST( user, "register" ).then( function( response )
 				{
-					$rootScope.redirectedFromLoginMessage = false;
-					window.location.href = $localStorage.accessed_url;
-				}
-				toastr.success( "Registered!" );
-				//location.reload();
+					$scope.postAuth( response );
+					if( $rootScope.redirectedFromLoginMessage )
+					{
+						$rootScope.redirectedFromLoginMessage = false;
+						window.location.href = $localStorage.accessed_url;
+					}
+					toastr.success( "Registered!" );
+					//location.reload();
 
-			},
-			function( response )
-			{
-				if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
+				},
+				function( response )
 				{
-					$scope.email_taken = true;
-					$scope.verification_failed = false;
-				}
-				else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
-				{
-					$scope.email_taken = true;
-					$scope.verification_failed = true;
-				}
-			} );
+					if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
+					{
+						$scope.email_taken = true;
+						$scope.verification_failed = false;
+					}
+					else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
+					{
+						$scope.email_taken = true;
+						$scope.verification_failed = true;
+					}
+				} );
+		}
+
 	};
+
+	$scope.validate = function()
+	{
+		if ($scope.user.first_name.length === 0 || !$scope.user.first_name)
+		{
+			return false;
+		}
+		if ($scope.user.email.length === 0 || !$scope.user.email)
+		{
+			return false;
+		}
+		if ($scope.user.password.length === 0 || !$scope.user.password)
+		{
+			return false;
+		}
+		return true;
+	}
 
 	$scope.registerContinue = function()
 	{
