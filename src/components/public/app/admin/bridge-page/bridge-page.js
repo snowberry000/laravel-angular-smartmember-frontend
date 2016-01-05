@@ -57,18 +57,23 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		switch( $scope.template.id )
 		{
 			case "5":
-				$scope.bridgepage.swapspot.logo = 'https://images.clickfunnels.com/d7/816af0e54311e48b0937fb402a6e0a/logo.png';
+				$scope.bridgepage.swapspot.logo = 'https://s3.amazonaws.com/smpub/bp/beyondbasick.png';
 				$scope.bridgepage.swapspot.headline = 'Get This Free Time Turner Today 2!';
-				$scope.bridgepage.swapspot.ad = 'https://images.clickfunnels.com/14/adaa60e54411e4ab13458a69ac3098/__12.jpg';
+				$scope.bridgepage.swapspot.ad = 'https://s3.amazonaws.com/smpub/bp/harrypotter.jpg';
+				$scope.bridgepage.swapspot.background_url = 'https://s3.amazonaws.com/smpub/bp/rsz_challenger.jpg';
 				$scope.bridgepage.swapspot.button = 'Get It Now';
 				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
 				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
 				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
-				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
-				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.term_text_color = '#47C787';
+				$scope.bridgepage.swapspot.privacy_text_color = '#47C787';
 				$scope.bridgepage.swapspot.headline_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.button_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.button_background_color = '#47c787';
+				$scope.bridgepage.swapspot.embed = '<iframe src="https://www.youtube.com/embed/qCiOWQgAcuI?autoplay=0&modestbranding=1&controls=0&showinfo=0&rel=0&hd=1" frameborder="0" allowfullscreen=""></iframe>';
+				$scope.bridgepage.swapspot.term_text = 'Terms & Conditions';
+				$scope.bridgepage.swapspot.privacy_text = 'Privacy Policy';
+				$scope.bridgepage.swapspot.copyright = 'Copyright © 2016. All Rights Reserved.';
 				break;
 			case "4":
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
@@ -102,7 +107,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.emailListId = $emailLists[ 0 ];
 				break;
 			case "7":
-				$scope.bridgepage.swapspot.background_url = 'https://lgbttobacco.files.wordpress.com/2010/11/trans-webinar.jpg';
+				$scope.bridgepage.swapspot.background_url = 'https://s3.amazonaws.com/smpub/bp/trans-webinar.jpg';
 				$scope.bridgepage.swapspot.tagline_text_color = '#565656';
 				$scope.bridgepage.swapspot.headline_text_color = '#39a0e1';
 				$scope.bridgepage.swapspot.button_text_color = '#a18800';

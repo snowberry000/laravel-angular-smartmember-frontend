@@ -32,20 +32,28 @@
 <div class="ui wide sidebar vertical menu left left_bp_sidebar_contents">
 
 	<div class="ui form">
-		<div class="item field">
-			<label>Template</label>
-			<select class="ui dropdown" ng-model="template" ng-options="t.name for t in templates" sui-dropdown></select>
-		</div>
-		<div class="item field">
-			<label>Page Title</label>
-			<input type="text" ng-model="bridgepage.title" ng-blur="onBlurTitle($event)">
-		</div>
-		<div class="item field">
-			<label>Permalink</label>
-			<input type="text" ng-model="bridgepage.permalink" ng-blur="onBlurSlug($event)">
-		</div>
 
 		<div class="ui styled fluid accordion" sui-accordion>
+			<h3 class="ui top attached header title active">
+				<i class="dropdown icon"></i>
+				Page Settings
+			</h3>
+			<div class="ui attached segment content active">
+
+				<div class="field">
+					<label>Template</label>
+					<select class="ui dropdown" ng-model="template" ng-options="t.name for t in templates" sui-dropdown></select>
+				</div>
+				<div class="field">
+					<label>Page Title</label>
+					<input type="text" ng-model="bridgepage.title" ng-blur="onBlurTitle($event)">
+				</div>
+				<div class="field">
+					<label>Permalink</label>
+					<input type="text" ng-model="bridgepage.permalink" ng-blur="onBlurSlug($event)">
+				</div>
+
+			</div>
 			<h3 class="ui top attached header title">
 				<i class="dropdown icon"></i>
 				Social Sharing
@@ -76,7 +84,7 @@
 						</span>
 					</div>
 				</div>
-				<div class="hr-line-dashed"></div>
+
 				<div class="field">
 					<label class="col-sm-2 control-label">Share Title</label>
 
@@ -88,7 +96,7 @@
 						</span>
 					</div>
 				</div>
-				<div class="hr-line-dashed"></div>
+
 				<div class="field">
 					<label class="col-sm-2 control-label">Share Description</label>
 
@@ -125,13 +133,9 @@
 				</div>
 
 			</div>
+			<ng-include src="template.control_url ? 'bpage/' + template.control_url : ''"></ng-include>
 		</div>
 
-		<h4 class="ui horizontal divider header">
-			Template
-		</h4>
-
-		<div ng-if="template.control_url" ng-include="'bpage/' + template.control_url"></div>
 	</div>
 
 </div>
