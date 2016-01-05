@@ -1,4 +1,4 @@
-<a class="ui item" ui-sref="public.www.home">
+<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref="public.www.home" ui-sref-opts="{reload:true}">
 	<img class="ui rounded mini image" src="/images/sm-64.png">
 </a>
 
@@ -7,14 +7,20 @@
 	<span class="text">My Sites</span>
 </a>
 
-<div class="item" ng-if="!isSitelessPage()" sm-access="edit_theme_options" if-not="hide">
+<div class="item" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="edit_theme_options" if-not="hide">
 	<a class="ui inverted basic red button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		<i class="options icon"></i>
 		Theme
 	</a>
 </div>
+<div class="item" ng-if="$state.includes('public.www')" sm-access="edit_theme_options" if-not="hide">
+	<a class="ui inverted basic red button" ui-sref="public.app.home">
+		<i class="left arrow icon"></i>
+		Back to Site
+	</a>
+</div>
 
-<div class="active item thin" ng-if="!isSitelessPage()" data-inline="true" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
+<div class="{{$state.includes('public.app') && !$state.includes('public.app.admin') ? 'active' : ''}} item thin" ng-if="!isSitelessPage()" data-inline="true" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
 	<div class="ui inverted basic red labeled icon button">
 		<i class="users icon"></i>
 		Smart<strong>Member</strong>
