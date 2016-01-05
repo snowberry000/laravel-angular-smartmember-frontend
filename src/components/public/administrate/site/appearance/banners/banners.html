@@ -31,8 +31,12 @@
 								clicks
 								<div class="detail">{{ad.clicks}}</div>
 							</div>
-							<button class="ui right floated small button" ng-click="delete(ad)">
+							<!-- <button class="ui right floated small button" ng-click="delete(ad)">
 								Delete
+							</button> -->
+							<button class="btn btn-danger btn-outline btn-xs" sm-delete={{ad.id}}>
+								Delete
+								<i class="fa fa-trash"></i>
 							</button>
 							<button class="ui right floated small button" ng-click="smModal.Show('public.administrate.site.appearance.banner', {id: ad.id})">
 								Edit

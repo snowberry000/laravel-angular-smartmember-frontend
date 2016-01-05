@@ -37,35 +37,60 @@ app.controller( "BannersController", function( $scope, $rootScope, $state, $http
 		} );
 	}
 
-	$scope.delete = function( $ad )
+	$scope.deleteResource = function( id )
 	{
-		var modalInstance = $modal.open( {
-			templateUrl: '/templates/modals/deleteConfirm.html',
-			controller: "modalController",
-			scope: $scope,
-			resolve: {
-				id: function()
+		var itemWithId = _.find( $scope.ads, function( next_item )
+		{
+			return next_item.id === parseInt(id);
+		} );
+
+		// itemWithId.remove().then( function()
+		// {
+		// 	$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+		// } );
+		itemWithId.remove().then( function( response )
+		{
+			for( var i = 0; i < $scope.ads.length; i++ )
+			{
+				if( $scope.ads[ i ].id == itemWithId.id )
 				{
-					return $ad.id
+					$scope.ads.splice( i, 1 );
+					break;
 				}
 			}
+			toastr.success( "Ad removed!" );
 		} );
-		modalInstance.result.then( function()
-		{
-			$ad.remove().then( function( response )
-			{
-				for( var i = 0; i < $scope.ads.length; i++ )
-				{
-					if( $scope.ads[ i ].id == $ad.id )
-					{
-						$scope.ads.splice( i, 1 );
-						break;
-					}
-				}
-				toastr.success( "Ad removed!" );
-			} );
-		} )
-	}
+	};
+
+	// $scope.delete = function( $ad )
+	// {
+	// 	var modalInstance = $modal.open( {
+	// 		templateUrl: '/templates/modals/deleteConfirm.html',
+	// 		controller: "modalController",
+	// 		scope: $scope,
+	// 		resolve: {
+	// 			id: function()
+	// 			{
+	// 				return $ad.id
+	// 			}
+	// 		}
+	// 	} );
+	// 	modalInstance.result.then( function()
+	// 	{
+	// 		$ad.remove().then( function( response )
+	// 		{
+	// 			for( var i = 0; i < $scope.ads.length; i++ )
+	// 			{
+	// 				if( $scope.ads[ i ].id == $ad.id )
+	// 				{
+	// 					$scope.ads.splice( i, 1 );
+	// 					break;
+	// 				}
+	// 			}
+	// 			toastr.success( "Ad removed!" );
+	// 		} );
+	// 	} )
+	// }
 
 	$scope.save = function()
 	{
