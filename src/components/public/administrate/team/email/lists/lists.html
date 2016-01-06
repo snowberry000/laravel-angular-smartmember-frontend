@@ -51,7 +51,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="next_item in emailLists">
+								<tr dir-paginate="next_item in emailLists | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 									<td class="responsive_table_item">
 										{{next_item.name}}
 										<small ng-if="next_item.segment_query"><b><i>filter:</i></b> {{next_item.segment_query}}</small>
@@ -81,15 +81,11 @@
 								</tr>
 
 							</tbody>
-							<tfoot>
-								<tr>
-									<td colspan="4">
-										<ul class="pagination pull-right"></ul>
-									</td>
-								</tr>
-							</tfoot>
+							
 						</table>
-
+						<div class="text-right"  ng-if="!loading">
+							<dir-pagination-controls max-size="5"></dir-pagination-controls>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -14,27 +14,43 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 	var access =null;
 	$site=$rootScope.site;
 	$user=$rootScope.user;
+	$scope.loading=true;
 	console.log('user: ');
 	console.log($user)
-	$scope.initialize=function()
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 2,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
-		Restangular.all('email').getList().then(function(response){
-			emails=response;
-			$scope.emails=emails;
-			var access = $scope.hasAccess($user.role);
-			if($state.current.name.split('.')[1]=='smartmail'){
-			    console.log(access)
-			    if(!access ){
-			    	smModal.Show('public.administrate.account.memberships');
-			    }
-			}
-		});
-		$scope.blockCalls=false;
-		$scope.processingCall=false;
-		
-		$scope.query = '';
-		$scope.currentPage = 1;
-	}
+
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
+
+
+	// $scope.initialize=function()
+	// {
+	// 	$params = {'p':$scope.pagination.current_page};
+	// 	Restangular.all('email').getList($params).then(function(response){
+	// 		emails=response;
+	// 		$scope.pagination.total_count = response.total_count;
+	// 		$scope.loading=false;
+	// 		$scope.emails=emails;
+	// 		var access = $scope.hasAccess($user.role);
+	// 		if($state.current.name.split('.')[1]=='smartmail'){
+	// 		    console.log(access)
+	// 		    if(!access ){
+	// 		    	smModal.Show('public.administrate.account.memberships');
+	// 		    }
+	// 		}
+	// 	});
+	// 	$scope.query = '';
+	// }
 
 
 	
@@ -64,28 +80,57 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 	}
 
 	
-
-	$scope.loadMore =function()
+	$scope.paginate = function()
 	{
-	    if(!$scope.blockCalls&&!$scope.processingCall)
-	    {
-	        $scope.processingCall=true;
-	        $params = {'p':++$scope.currentPage, company_id: $site.company_id};
-	        
-	        if ($scope.query) {
-	            $params.q = $scope.query;
-	        }
+		console.log($scope.emails);
+		console.log(typeof $scope.emails);
+		
+			$scope.loading = true;
 
-	        Restangular.all('email').getList($params).then(function($response){
-	            $scope.emails=$scope.emails.concat($response);
-	            if($response.length==0)
-	                $scope.blockCalls=true;
-	            $scope.processingCall=false;
-	        });
-	    }
-	    else
-	        return;
+			var $params = { p: $scope.pagination.current_page, site_id: $site.id };
+
+			if( $scope.query )
+			{
+				$params.q = encodeURIComponent( $scope.query );
+			}
+
+			Restangular.all( '' ).customGET( 'email' + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+			{
+				var access = $scope.hasAccess($user.role);
+				if($state.current.name.split('.')[1]=='smartmail'){
+				    console.log(access)
+				    if(!access ){
+				    	smModal.Show('public.administrate.account.memberships');
+				    }
+				}
+				$scope.loading = false;
+				$scope.pagination.total_count = data.total_count;
+				$scope.emails = Restangular.restangularizeCollection( null, data.items, 'email');
+			} );
+		
 	}
+
+	// $scope.paginate =function()
+	// {
+	//     if(!$scope.blockCalls&&!$scope.processingCall)
+	//     {
+	//         $scope.processingCall=true;
+	//         $params = {'p':++$scope.pagination.current_page, company_id: $site.company_id};
+	        
+	//         if ($scope.query) {
+	//             $params.q = $scope.query;
+	//         }
+
+	//         Restangular.all('email').getList($params).then(function($response){
+	//             $scope.emails=$scope.emails.concat($response);
+	//             if($response.length==0)
+	//                 $scope.blockCalls=true;
+	//             $scope.processingCall=false;
+	//         });
+	//     }
+	//     else
+	//         return;
+	// }
 
 	$scope.search= function()
 	{
@@ -135,5 +180,5 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
         });
 	};
 
-	$scope.initialize();
+	$scope.paginate();
 });

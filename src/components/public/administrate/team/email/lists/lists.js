@@ -17,12 +17,45 @@ app.controller("EmailListsController", function ($scope, $localStorage,$rootScop
 	$scope.loading = true;
 	$site=$rootScope.site;
 
-	Restangular.all('emailList').getList()
-	    .then(function(response){
-	        console.log(response);
-	        $scope.emailLists = response;
-	        $scope.loading = false;
-	    })
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 2,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
+
+	$scope.paginate = function()
+	{
+			$scope.loading = true;
+
+			var $params = { p: $scope.pagination.current_page, site_id: $site.id };
+
+			if( $scope.query )
+			{
+				$params.q = encodeURIComponent( $scope.query );
+			}
+
+			Restangular.all( '' ).customGET('emailList' + '?p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+			{
+				$scope.loading = false;
+				$scope.pagination.total_count = data.total_count;
+				$scope.emailLists = Restangular.restangularizeCollection( null, data.items, 'emailList' );
+			} );
+	}
+	$scope.paginate();
+	// Restangular.all('emailList').getList()
+	//     .then(function(response){
+	//         console.log(response);
+	//         $scope.emailLists = response.items;
+	//         $scope.loading = false;
+	//     })
 
 
 	$scope.search = function()
@@ -51,27 +84,6 @@ app.controller("EmailListsController", function ($scope, $localStorage,$rootScop
 	    })
 	}
 
-	$scope.loadMore = function(){
-
-	    if(!$scope.blockCalls && !$scope.processingCall)
-	    {
-	        $scope.processingCall=true;
-	        var $params = {p:++$scope.currentPage , company_id :$site.company_id};
-	        if ($scope.query) {
-	            $params.q = $scope.query;
-	        }
-
-	        Restangular.all('emailList').getList($params).then(function (emailLists) {
-	            $scope.emailLists = $scope.emailLists.concat(emailLists);
-	            
-	            if(emailLists.length == 0)
-	                 $scope.blockCalls=true;
-
-	            $scope.processingCall=false;
-	        });
-	    } else
-	        return;
-	}
 
 	$scope.deleteResource = function (emailListId) {
         var emailListWithId = _.find($scope.emailLists, function (emailList) {
