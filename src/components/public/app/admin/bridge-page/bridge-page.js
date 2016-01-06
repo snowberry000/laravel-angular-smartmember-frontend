@@ -319,6 +319,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$scope.close = function()
 	{
+        $state.go('public.app.lessons');
 		smSidebar.Close();
 	}
 
