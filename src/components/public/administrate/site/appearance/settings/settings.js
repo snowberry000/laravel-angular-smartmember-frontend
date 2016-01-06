@@ -69,7 +69,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 			smModal.Close( 'public.administrate.site.appearance.settings' );
 			$scope.site_options.isOpen = false;
 			$localStorage.homepage_url = $scope.site_options.homepage_url;
-			$state.transitionTo('public.app', $stateParams, { 
+			$state.transitionTo($state.current, $stateParams, { 
 			  reload: true, inherit: false, location: false
 			});
 		} );
