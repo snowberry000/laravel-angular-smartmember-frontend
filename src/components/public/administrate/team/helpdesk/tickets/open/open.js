@@ -20,7 +20,19 @@ app.controller( "OpenController", function( $scope, $location, $localStorage, $r
 	$scope.ticket_users = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 25;
-	$scope.pagination = { currentPage: 1 };
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 2,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
 
 	$scope.disable = false;
 	$scope.$parent.selection = { ticketSelected: false, selectedTickets: [] };
