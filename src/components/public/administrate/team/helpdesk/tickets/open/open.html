@@ -13,7 +13,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr class="warning" ng-click="smModal.Show('public.administrate.team.helpdesk.ticket' , {id: next_item.id})" ng-repeat="next_item in tickets[pagination.currentPage] | orderBy : customSort : 'true'">
+		<tr  ng-click="smModal.Show('public.administrate.team.helpdesk.ticket' , {id: next_item.id})" dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page  | orderBy : customSort : 'true'" total-items="pagination.total_count"  current-page="pagination.current_page">
+
+		<!-- <tr class="warning" ng-click="smModal.Show('public.administrate.team.helpdesk.ticket' , {id: next_item.id})" ng-repeat="next_item in tickets[pagination.currentPage] | orderBy : customSort : 'true'"> -->
 			<td>
 				<h4 class="ui image header">
 					<img src="{{next_item.profile_image || '/images/image.png'}}" class="ui mini rounded image">
@@ -46,6 +48,7 @@
 
 <span ng-if="pagination.total_count > 0">{{pagination.total_count}} tickets found</span>
 <span ng-if="pagination.total_count == 0">No tickets found</span>
-<div class="text-right" ng-if="!loading && tickets[pagination.currentPage].length > 0">
-	<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.currentPage" class="pagination-sm pull-right" boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
-</div>
+{{pagination|json}}
+<div class="text-right"  ng-if="!loading">
+					<dir-pagination-controls max-size="5"></dir-pagination-controls>
+				</div>

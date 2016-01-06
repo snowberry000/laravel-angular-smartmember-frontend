@@ -19,9 +19,21 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 	$scope.type_to_fetch = 'open';
 
 	$scope.ticket_users = [];
-	$scope.currentPage = 1;
+	$scope.current_page = 1;
 	$scope.itemsPerPage = 25;
-	$scope.pagination = { currentPage: 1 };
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 2,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.FetchTickets();
+		}
+	} );
 
 	$scope.disable = false;
 	$scope.requesting_data = false;
@@ -31,26 +43,26 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 		$scope.requesting_data = true;
 
 		var search_parameters = {
-			p: $scope.pagination.currentPage,
+			p: $scope.pagination.current_page,
 			status: $scope.type_to_fetch,
 			site_id: $site.id
 		}
 
 		Restangular.all( '' ).customGET( 'supportTicket', search_parameters ).then( function( response )
 		{
-			$scope.tickets[ $scope.pagination.currentPage ] = response.tickets;
+			$scope.tickets[ $scope.pagination.current_page ] = response.tickets;
 			$scope.pagination.total_count = response.count;
 			$scope.requesting_data = false;
 
-			for( var i = $scope.tickets[ $scope.pagination.currentPage ].length - 1; i >= 0; i-- )
+			for( var i = $scope.tickets[ $scope.pagination.current_page ].length - 1; i >= 0; i-- )
 			{
-				if( $scope.tickets[ $scope.pagination.currentPage ][ i ].agent != null && _.findLastIndex( $scope.ticket_users, { id: $scope.tickets[ $scope.pagination.currentPage ][ i ].agent.id } ) < 0 )
+				if( $scope.tickets[ $scope.pagination.current_page ][ i ].agent != null && _.findLastIndex( $scope.ticket_users, { id: $scope.tickets[ $scope.pagination.current_page ][ i ].agent.id } ) < 0 )
 				{
 					$scope.ticket_users.push( {
-						"id": $scope.tickets[ $scope.pagination.currentPage ][ i ].agent.id,
-						"user_name": $scope.tickets[ $scope.pagination.currentPage ][ i ].agent.first_name + ' ' + $scope.tickets[ $scope.pagination.currentPage ][ i ].agent.last_name,
-						"email": $scope.tickets[ $scope.pagination.currentPage ][ i ].agent.email,
-						"image": $scope.tickets[ $scope.pagination.currentPage ][ i ].agent.profile_image
+						"id": $scope.tickets[ $scope.pagination.current_page ][ i ].agent.id,
+						"user_name": $scope.tickets[ $scope.pagination.current_page ][ i ].agent.first_name + ' ' + $scope.tickets[ $scope.pagination.current_page ][ i ].agent.last_name,
+						"email": $scope.tickets[ $scope.pagination.current_page ][ i ].agent.email,
+						"image": $scope.tickets[ $scope.pagination.current_page ][ i ].agent.profile_image
 					} );
 				}
 			};
@@ -59,6 +71,11 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 
 	$scope.$watch( 'type_to_fetch', function( new_value, old_value )
 	{
+		$scope.pagination = {
+		current_page: 1,
+		per_page: 2,
+		total_count: 0
+	};
 		$scope.FetchTickets();
 
 	}, true );

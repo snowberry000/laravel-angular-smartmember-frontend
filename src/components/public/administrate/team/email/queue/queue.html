@@ -48,7 +48,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="next_item in data[ pagination.current_page ]">
+								<tr dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 									<td class="responsive_table_item">
 										{{next_item.email.subject}}
 									</td>
@@ -102,9 +102,9 @@
 
 							</tbody>
 						</table>
-						<div class="text-right" ng-if="!loading">
-							<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.current_page" class="pagination-sm " boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
-						</div>
+						<div class="text-right"  ng-if="!loading && pagination.total_count > 0">
+					<dir-pagination-controls max-size="5"></dir-pagination-controls>
+				</div>
 
 					</div>
 				</div>
