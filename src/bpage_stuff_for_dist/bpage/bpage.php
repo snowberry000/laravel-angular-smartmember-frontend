@@ -112,6 +112,10 @@ function applySwapSpots($html, $swapspots)
                         $key2 = substr( $key2, 5 );
                         $swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
                     }
+					elseif( strpos( $key2, 'utm_' ) === 0 )
+					{
+						$swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
+					}
                 }
             }
 
