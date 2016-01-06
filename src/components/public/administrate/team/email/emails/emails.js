@@ -28,7 +28,6 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 
 		if( new_value != old_value )
 		{
-			alert("asd");
 			$scope.paginate();
 		}
 	} );
