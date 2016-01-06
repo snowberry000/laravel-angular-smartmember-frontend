@@ -22,7 +22,7 @@ app.controller( "OpenController", function( $scope, $location, $localStorage, $r
 	$scope.itemsPerPage = 25;
 	$scope.pagination = {
 		current_page: 1,
-		per_page: 2,
+		per_page: 25,
 		total_count: 0
 	};
 

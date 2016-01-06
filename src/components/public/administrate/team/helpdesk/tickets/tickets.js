@@ -23,7 +23,7 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 	$scope.itemsPerPage = 25;
 	$scope.pagination = {
 		current_page: 1,
-		per_page: 2,
+		per_page: 25,
 		total_count: 0
 	};
 
@@ -73,7 +73,7 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 	{
 		$scope.pagination = {
 		current_page: 1,
-		per_page: 2,
+		per_page: 25,
 		total_count: 0
 	};
 		$scope.FetchTickets();

@@ -25,7 +25,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 	$scope.data = [];
 	$scope.pagination = {
 		current_page: 1,
-		per_page: 2,
+		per_page: 25,
 		total_count: 0
 	};
 
@@ -70,7 +70,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 		$scope.data = [];
 		$scope.pagination = {
 		current_page: 1,
-		per_page: 2,
+		per_page: 25,
 		total_count: 0
 	};
 		var $params = { p: $scope.pagination.current_page };
