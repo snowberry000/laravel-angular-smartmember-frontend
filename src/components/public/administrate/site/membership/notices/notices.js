@@ -14,7 +14,7 @@ app.controller( "NoticesController", function( $scope, $state, $rootScope, $loca
 {
 	$scope.template_data = {
 		title: 'SITE NOTICES',
-		description: 'toastr your members of new things',
+		description: 'Toastr your members of new things',
 		singular: 'site notice',
 		edit_route: 'public.administrate.site.membership.notice',
 		api_object: 'siteNotice'

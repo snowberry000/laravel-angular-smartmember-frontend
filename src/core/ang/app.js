@@ -33,7 +33,7 @@ var app = angular.module( 'app', [
 	'ct.ui.router.extras'
 ] );
 
-app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
+app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
 	$calledurl = window.location.host;
@@ -110,7 +110,8 @@ app.run( function( $rootScope, $localStorage, ipCookie, smModal, smSidebar, $htt
 			}
 		} );
 //
-	editableOptions.theme = 'bs3';
+	editableThemes['default'].submitTpl = '<button type="submit"><span class="fa fa-check"></span></button>';
+	editableThemes['default'].cancelTpl = '<button type="submit"><span class="fa fa-times"></span></button>';
 
 	var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
