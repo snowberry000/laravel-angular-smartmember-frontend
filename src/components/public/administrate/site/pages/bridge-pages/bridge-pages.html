@@ -22,7 +22,7 @@
 			<div class="ui divided items">
 				<div class="item" ng-repeat="next_item in data[ pagination.current_page ]">
 					<div class="ui medium image">
-						<img src="{{next_item.data.site_logo || '/images/image.png'}}">
+						<img src="{{next_item.featured_image || '/images/image.png'}}">
 					</div>
 					<div class="middle aligned content">
 						<a class="header" ng-href="/{{next_item.permalink}}" target="_blank">
