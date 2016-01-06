@@ -33,7 +33,6 @@ app.controller("EmailListsController", function ($scope, $localStorage,$rootScop
 
 	$scope.paginate = function()
 	{
-
 			$scope.loading = true;
 
 			var $params = { p: $scope.pagination.current_page, site_id: $site.id };
