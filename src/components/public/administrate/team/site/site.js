@@ -38,12 +38,14 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootS
 		}
 	}
 
-	$scope.clone_sites = Restangular.all( 'site' ).getList( { cloneable: 1 } );
+	Restangular.all( 'site' ).getList( { cloneable: 1 } ).then(function(response){
+		$scope.clone_sites = response;
+	});
 	//$scope.site = $rootScope.site;
 	$scope.site = {};
 	$scope.changeSite = function( id )
 	{
-		$scope.current_clone_site = _.find( $clone_sites, { id: id } );
+		$scope.current_clone_site = _.find( $scope.clone_sites, { id: id } );
 	}
 	$scope.update = function()
 	{
