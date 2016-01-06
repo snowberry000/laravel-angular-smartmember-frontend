@@ -19,7 +19,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 		{
 			if( subdomain == "my" )
 			{
-				$state.go('public.app');
+				$state.go('public.my');
 				/*window.location.href = 'http://www.' + possible_domain + '.' + parts.join('.');*/
 			}
 			else if( subdomain == "www" )
