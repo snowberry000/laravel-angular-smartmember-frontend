@@ -20,8 +20,19 @@ app.controller("AutorespondersController", function ($scope,smModal,$filter, $lo
 	}
 
 	$scope.data = [];
-	$scope.pagination = {current_page: 1};
-	$scope.pagination.total_count = 1;
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 2,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
 
 	$scope.paginate = function(){
 
