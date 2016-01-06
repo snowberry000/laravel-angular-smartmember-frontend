@@ -76,7 +76,7 @@ describe('Test SM invite', function(){
     });
 
     it('should allow people to create lessons', function() {
-        element(by.css('.create_site_lessons')).click().then(function() {
+        element(by.css('.ui.modal.active .create_site_lessons')).click().then(function() {
             browser.waitForAngular();
             var previous_modules = element.all(by.repeater('next_item in lessons'));
             var previous_count = 0;
@@ -86,7 +86,7 @@ describe('Test SM invite', function(){
             element(by.model('next_item.title')).sendKeys('Test lesson 1');
             element(by.model('next_item.content')).sendKeys('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rhoncus dignissim urna, et euismod nisi viverra sed. Nulla sit amet tempor nisl. Nunc metus sem, malesuada elementum leo ut, lacinia condimentum leo. Quisque interdum porta ante, sed hendrerit lectus ultrices blandit. Nunc tempor, dui vel accumsan convallis, felis urna accumsan turpis, eu faucibus lorem risus sit amet nisl. In sit amet consequat justo. Donec condimentum ex erat, sit amet vehicula metus imperdiet nec. Sed ut volutpat mi. Donec ac odio at neque tincidunt ultricies ut ut libero.');
 
-            element(by.css('.add_more_lesson')).click().then(function() {
+            element(by.css('.ui.modal.active .add_more_lesson')).click().then(function() {
                 browser.waitForAngular();
                 var new_modules = element.all(by.repeater('next_item in lessons'));
                 expect(new_modules.count()).toEqual(previous_count+1);
@@ -100,28 +100,46 @@ describe('Test SM invite', function(){
                 return classes.split(' ').indexOf(cls) !== -1;
             });
         }
-        element(by.css('.finish_lesson_step')).click().then(function() {
+        element(by.css('.ui.modal.active .finish_lesson_step')).click().then(function() {
             browser.waitForAngular();
-            expect(hasClass(element(by.css('.create_site_lessons .text-center .huge i:first-child')), 'green')).toBe(true);
+            expect(hasClass(element(by.css('.ui.modal.active .create_site_lessons .text-center .huge i:first-child')), 'green')).toBe(true);
         });
     });
 
     it('should allow people to lock their content', function() {
-        element(by.css('.lock_site_content')).click().then(function() {
+        element(by.css('.ui.modal.active .lock_site_content')).click().then(function() {
             browser.waitForAngular();
-            var previous_modules = element.all(by.repeater('next_item in lessons'));
-            var previous_count = 0;
-            previous_modules.count().then(function(count){
-                previous_count = count;
-            })
-            element(by.model('next_item.title')).sendKeys('Test lesson 1');
-            element(by.model('next_item.content')).sendKeys('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam rhoncus dignissim urna, et euismod nisi viverra sed. Nulla sit amet tempor nisl. Nunc metus sem, malesuada elementum leo ut, lacinia condimentum leo. Quisque interdum porta ante, sed hendrerit lectus ultrices blandit. Nunc tempor, dui vel accumsan convallis, felis urna accumsan turpis, eu faucibus lorem risus sit amet nisl. In sit amet consequat justo. Donec condimentum ex erat, sit amet vehicula metus imperdiet nec. Sed ut volutpat mi. Donec ac odio at neque tincidunt ultricies ut ut libero.');
-
-            element(by.css('.add_more_lesson')).click().then(function() {
-                browser.waitForAngular();
-                var new_modules = element.all(by.repeater('next_item in lessons'));
-                expect(new_modules.count()).toEqual(previous_count+1);
+            element(by.model('access_type')).then(function(options){
+                options[2].click();
             });
+            element(by.model('access.access_level_name')).sendKeys('Premium content');
+            element(by.css('.ui.modal.active .finish_locking_content')).click().then(function() {
+                browser.waitForAngular();
+                expect(hasClass(element(by.css('.ui.modal.active .lock_site_content .text-center .huge i:first-child')), 'green')).toBe(true);
+            })
         });
     });
+
+    it('should allow people to invite members', function() {
+        function getRandomEmail() {
+            var strValues = "abcdefghijk123456789";
+            var strEmail = "";
+            for (var i = 0; i < strValues.length; i++) {
+                strEmail = strEmail + strValues.charAt(Math.round(strValues.length * Math.random()));
+            }
+            return strEmail + "@mymail.test";
+        };
+
+        element(by.css('.ui.modal.active .invite_members')).click().then(function() {
+            browser.waitForAngular();
+            var import_email = getRandomEmail();
+            element(by.model('members.emails')).sendKeys(import_email);
+            element(by.css('.ui.modal.active .finish_invite_step')).click().then(function() {
+                browser.waitForAngular();
+                expect(hasClass(element(by.css('.ui.modal.active .invite_members .text-center .huge i:first-child')), 'green')).toBe(true);
+            })
+        });
+    });
+
+
 });
