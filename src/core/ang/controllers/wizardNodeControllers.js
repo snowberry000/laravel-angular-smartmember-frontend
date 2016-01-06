@@ -1254,15 +1254,22 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 	}
 	$scope.save = function()
 	{
-		if( $scope.module.title != undefined )
+		if( $scope.module.title && $scope.module.title.length > 0)
 		{
-			$scope.saving = true;
+			$scope.adding = true;
 			Restangular.all( 'module' ).post( $scope.module ).then( function( response )
 			{
 				toastr.success( "Module added" );
 				//$scope.modules.push(response);
-				//$rootScope.modules.unshift( response );
-				$scope.saving = false;
+				if( $rootScope.modules == undefined )
+				{
+					$rootScope.modules = [];
+				}
+
+				$rootScope.modules.unshift( response );
+				$scope.adding = false;
+				$scope.module = { site_id: $rootScope.site.id }
+				//$rootScope.parent_wizard.next($scope.current_node.id , $scope.current_node);
 			} );
 		}
 		$rootScope.parent_wizard.next( 1, $scope.current_node );

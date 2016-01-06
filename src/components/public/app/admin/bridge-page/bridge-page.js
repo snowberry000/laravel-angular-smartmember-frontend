@@ -20,11 +20,11 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$site = $rootScope.site;
 	$scope.loading = true;
-	$templates = Restangular.all( 'bridgeTemplate' ).customGETLIST( 'getlist' ).then( function( response )
+	$templates = Restangular.all( 'bridgeTemplate' ).customGET( 'getlist' ).then( function( response )
 	{
 		$scope.templates = response;
 	} )
-	$emailLists = Restangular.all( 'emailList' ).getList().then( function( response )
+	$emailLists = Restangular.all( 'emailList' ).customGET().then( function( response )
 	{
 		$scope.emailLists = response;
 	} )
