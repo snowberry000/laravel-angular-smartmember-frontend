@@ -73,14 +73,39 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			Restangular.one( 'site/members' ).get().then( function( response )
 			{
 				$grouped_sites = response;
-				$sites = response;
-				$sites = _.uniq( $sites, function( item, key, a )
-				{
-					if( item )
-					{
-						return item.id;
+				$sites_copy = response;
+				$sites = [];
+				$sites_copy = _.groupBy( $sites_copy, function(item){
+					switch(item.role){
+						case 'owner':
+							return 0;
+						case 'admin':
+							return 1;
+						case 'editor':
+							return 2;
+						case 'support':
+							return 3;
+						case 'member':
+							return 4;
 					}
-				} );
+				});
+		
+				angular.forEach($sites_copy , function(value , key){
+					for (var i = 0; i < value.length ; i++) {
+						if(value[i].subdomain == 'likastic')
+							console.log('')
+						var exists = _.findWhere($sites , {id : value[i].id});
+						if(!exists){
+							$sites.push(value[i]);
+						}
+						else if(exists.subdomain == 'likastic'){
+							console.log(exists);
+						}
+					};
+					
+				})
+
+				
 				/*
 				 $grouped_sites.admin = _.uniq($grouped_sites.admin, function(item, key, a) {
 				 if(item)
