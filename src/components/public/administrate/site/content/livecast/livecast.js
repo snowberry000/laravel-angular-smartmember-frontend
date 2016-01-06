@@ -129,7 +129,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             $scope.next_item.access_level_type = 2;
 
         $scope.next_item.id ? $scope.page_title = 'Edit livecast' : $scope.page_title = 'Create livecast';
-
+        $scope.next_item.discussion_settings = $next_item.discussion_settings || {};
         var seo = {};
         if ($scope.next_item.seo_settings) {
             $.each($scope.next_item.seo_settings, function (key, data) {

@@ -66,7 +66,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
             $next_item.site_id = $scope.site.id;
 		}
 		$scope.next_item.id ? $scope.page_title = 'Edit post' : $scope.page_title = 'Create post';
-
+		$scope.next_item.discussion_settings = $next_item.discussion_settings || {};
 		if( $stateParams.clone )
 		{
 			delete $next_item.id;

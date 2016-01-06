@@ -43,6 +43,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         }
 
         $scope.next_item.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
+        $scope.next_item.discussion_settings = $next_item.discussion_settings || {};
         $scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type);
         $scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
 
