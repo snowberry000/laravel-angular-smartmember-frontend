@@ -551,6 +551,7 @@ app.controller( 'bridgepageEngineController', function( $scope, $localStorage, s
 
 	$scope.close = function()
 	{
+        $state.go('public.app.lessons');
 		smSidebar.Close();
 		$rootScope.viewport = '';
 	}
