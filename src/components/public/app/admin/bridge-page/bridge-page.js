@@ -319,8 +319,9 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$scope.close = function()
 	{
-        $state.go('public.app.lessons');
-		smSidebar.Close();
+        $state.go('public.app.home');
+        smSidebar.Close();
+        smModal.Show('public.administrate.site.pages.bridge-pages');
 	}
 
 	$scope.save = function( cloned )
@@ -552,8 +553,9 @@ app.controller( 'bridgepageEngineController', function( $scope, $localStorage, s
 
 	$scope.close = function()
 	{
-        $state.go('public.app.lessons');
+        $state.go('public.app.home');
 		smSidebar.Close();
+        smModal.Show('public.administrate.site.pages.bridge-pages');
 		$rootScope.viewport = '';
 	}
 
