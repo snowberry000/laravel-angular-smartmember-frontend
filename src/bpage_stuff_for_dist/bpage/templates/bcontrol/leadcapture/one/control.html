@@ -185,6 +185,67 @@
     </div>
 
     <div class="field">
+        <h4>Term URL</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="term_url" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.term_url">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Term Text</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="term_text" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.term_text">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Open in New Tab?</h4>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="open_term_link_in_new_tab" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.open_term_link_in_new_tab" ng-true-value="'_blank'"
+                   ng-false-value="'_self'">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Privacy URL</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="privacy_url" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.privacy_url">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Privacy Text</h4>
+
+        <div class="col-sm-10">
+            <input type="text" name="privacy_text" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.privacy_text">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Open in New Tab?</h4>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="open_privacy_link_in_new_tab" class="form-control input-lg"
+                   ng-model="bridgepage.swapspot.open_privacy_link_in_new_tab" ng-true-value="'_blank'"
+                   ng-false-value="'_self'">
+        </div>
+    </div>
+
+    <div class="field">
+        <h4>Term/Privacy Text Color</h4>
+        <spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.term_text_color"></spectrum-colorpicker>
+    </div>
+
+    <div class="field">
         <h4>Custom Footer HTML</h4>
 
         <div class="col-sm-10">
