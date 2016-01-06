@@ -17,7 +17,13 @@ app.controller("EmailSubscriberController", function ($scope,$q, smModal,$localS
 	}else{
 		$scope.emailsubscriber = {company_id: $site.company_id};
 	}
-	$emailLists = Restangular.all('emailList').getList({list_type: 'user'}).then(function(response){$scope.emailLists = response;})
+	//$emailLists = Restangular.all('emailList').getList({list_type: 'user', 'bypass_paging': 'true'}).then(function(response){$scope.emailLists = response;})
+	
+	$emailLists=Restangular.all( '' ).customGET('emailList?bypass_paging=true').then( function( data )
+	{
+		$scope.emailLists  = Restangular.restangularizeCollection( null, data.items, 'emailList');
+	} );
+
 	$scope.emailSubscribers = [];
 	$dependencies = [$emailLists];
 	if($stateParams.id){
