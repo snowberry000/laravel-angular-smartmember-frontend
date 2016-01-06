@@ -19,7 +19,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="next_item in emails">
+					<tr dir-paginate="next_item in emails | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 						<td>
 							{{next_item.subject}}
 						</td>
@@ -46,6 +46,9 @@
 					</tr>
 				</tfoot>
 			</table>
+			<div class="text-right"  ng-if="!loading">
+				<dir-pagination-controls max-size="5"></dir-pagination-controls>
+			</div>
 
 		</div>
 	</div>
