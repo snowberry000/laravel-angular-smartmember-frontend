@@ -226,7 +226,7 @@ if( !$html )
     });
 </script>
 <div class="alt_style_container" style="height: 100%;">
-    <div class="bp_content content">
+    <div class="bp_content content" id="wrapper">
         <?= $html ?>
     </div>
 </div>
