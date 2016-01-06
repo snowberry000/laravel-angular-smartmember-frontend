@@ -28,7 +28,13 @@ app.controller("EmailFormsController", function ($scope, $rootScope, $localStora
     $scope.loading = true;
     $site=$rootScope.site;
 
-    $emailList = Restangular.all('emailList').getList().then(function(response){console.log(response);$scope.emailLists = response; $scope.emailListId = response[0];})
+    // $emailList = Restangular.all('emailList').getList().then(function(response){console.log(response);$scope.emailLists = response; $scope.emailListId = response[0];})
+    $emailList =Restangular.all( '' ).customGET('emailList?bypass_paging=true').then( function( data )
+    {
+        $scope.emailLists  = Restangular.restangularizeCollection( null, data.items, 'emailList');
+        $scope.emailListId = data.items[0];
+    } );
+
     $sites = Restangular.one('supportTicket').customGET('sites').then(function(response){console.log(response);$scope.sites = response.sites;})
 
     $q.all([$emailList , $sites]).then(function(res){$scope.loading = false;})
