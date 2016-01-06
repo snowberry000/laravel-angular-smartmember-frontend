@@ -4,25 +4,23 @@
 </h3>
 <div class="ui attached segment content">
 
-    <div ng-show="general">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Background Image</label>
+    <h4>Background Image</h4>
 
-            <div class="col-sm-10">
-                <button type="button"
-                        sm-uploader="background_url" ng-model="bridgepage.swapspot.background_url">Choose Background Image
-                </button>
-                <div class="width-100 set_featured_image">
-                    <img class="set_featured_image img-responsive img-thumbnail" ng-src="{{bridgepage.swapspot.background_url}}"
-                         ng-show="bridgepage.swapspot.background_url" style="width:auto;"/>
-                </div>
-                <div class="col-md-12" ng-if="bridgepage.swapspot.background_url">
-                    <i class="ace-icon fa fa-remove" ng-click="bridgepage.swapspot.background_url=''">Remove</i>
-                </div>
-                <input type="hidden" name="ad" class="form-control input-lg" ng-model="bridgepage.swapspot.background_url">
-            </div>
-        </div>
+    <div class="inline field">
+        <label>Upload image</label>
+        <button type="button" class="ui button" sm-uploader="background_url" ng-model="bridgepage.swapspot.background_url" data-allowMultiple="false">
+            <i class="upload icon"></i>
+            Choose File
+        </button>
     </div>
+    <div class="field" ng-if="bridgepage.swapspot.background_url">
+        <img class="ui fluid image" ng-src="{{bridgepage.swapspot.background_url}}">
+        <button class="ui left labeled tiny basic red icon button m-t-sm" ng-click="bridgepage.swapspot.background_url=''">
+            Clear
+            <i class="remove icon"></i>
+        </button>
+    </div>
+
 </div>
 
 <h3 class="ui top attached header title">
