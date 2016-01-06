@@ -24,7 +24,7 @@ app.controller( "PostsController", function( $scope, $rootScope, $localStorage, 
 	$scope.data = [];
 	$scope.pagination = {
 		current_page: 1,
-		per_page: 2,
+		per_page: 25,
 		total_count: 0
 	};
 
@@ -70,7 +70,7 @@ app.controller( "PostsController", function( $scope, $rootScope, $localStorage, 
 		$scope.data = [];
 		$scope.pagination = {
 				current_page: 1,
-				per_page: 2,
+				per_page: 25,
 				total_count: 0
 			};
 		var $params = { site_id: $site.id, p: $scope.pagination.current_page };

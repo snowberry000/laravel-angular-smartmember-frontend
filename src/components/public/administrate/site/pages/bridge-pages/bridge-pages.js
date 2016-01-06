@@ -21,7 +21,7 @@ app.controller("BridgePagesController", function ($scope, $localStorage, $state,
     $scope.data = [];
     $scope.pagination = {
         current_page: 1,
-        per_page: 2,
+        per_page: 25,
         total_count: 0
     };
 

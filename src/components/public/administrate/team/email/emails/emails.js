@@ -19,7 +19,7 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 	console.log($user)
 	$scope.pagination = {
 		current_page: 1,
-		per_page: 2,
+		per_page: 25,
 		total_count: 0
 	};
 
