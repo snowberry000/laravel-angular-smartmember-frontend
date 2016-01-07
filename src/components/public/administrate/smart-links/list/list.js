@@ -14,7 +14,7 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
     $scope.template_data = {
         title: 'SMARTLINKS',
         description: 'Create rotating links',
-        singular: 'smart link',
+        singular: 'Smart Link',
         edit_route: 'public.administrate.smart-links.create',
         api_object: 'smartLink'
     }
