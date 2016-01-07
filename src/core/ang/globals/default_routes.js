@@ -89,6 +89,9 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 						case "forum_categories":
 							$state.go("public.app.forum-category",{permalink: parts[1]}, {location: false});
 							break;
+                        case 'affcontests':
+                            $state.go( 'public.app.affiliateContest', { permalink: parts[1] }, { location: false } );
+                            break;
 					}
 				} );
 			}
