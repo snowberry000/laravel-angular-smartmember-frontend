@@ -57,6 +57,11 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
 
     $scope.paginate();
 
+    $scope.init = function()
+    {
+        var clipboard = new Clipboard( '.copy-button' );
+    }
+
     $scope.deleteResource = function( id )
     {
         var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
@@ -69,4 +74,9 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
             $scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
         } );
     };
+
+    $scope.copied = function()
+    {
+        toastr.success("Link copied!");
+    }
 });

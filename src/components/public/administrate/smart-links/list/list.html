@@ -36,7 +36,13 @@
                         {{next_item.title}}
                     </td>
                     <td style="width:125px;">
-                        {{app.appUrl}}/{{next_item.permalink}}
+                        <div class="ui action input" ng-init="init()">
+                            <input type="text" disabled class="endpoint-api" id="copy_me" value="{{app.appUrl}}/{{next_item.permalink}}" style="opacity:1;">
+                            <button class="ui teal right labeled icon button copy-button" data-clipboard-target="#copy_me" data-clipboard-action="copy" ng-click="copied()">
+                                <i class="copy icon"></i>
+                                Copy
+                            </button>
+                        </div>
                     </td>
                     <td style="width:125px;">
                         {{next_item.type}}

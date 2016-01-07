@@ -14,7 +14,12 @@
 
                 <div class="inline field">
                     <label>Permalink</label>
-                    <input type="text" value="" data-content="This is the url users will go to" data-on="focus" ng-model="next_item.permalink"  ng-blur="onBlurSlug($event)" sui-popup>
+                    <div class="ui labeled input">
+                        <div class="ui label">
+                            {{app.appUrl}}/
+                        </div>
+                        <input type="text" value="" data-content="This is the url users will go to" data-on="focus" ng-model="next_item.permalink"  ng-blur="onBlurSlug($event)" sui-popup>
+                    </div>
                 </div>
 
 			</div>
