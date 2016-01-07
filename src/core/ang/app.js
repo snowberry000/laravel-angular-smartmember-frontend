@@ -138,9 +138,14 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 		$rootScope.app.show_engine = true;
 	}
 
-	if( location.href.indexOf( '?new' ) > -1 )
+	if( location.href.indexOf( '?vimeo' ) > -1 )
 	{
-		$localStorage.open_sites_wizard_modal = true;
+		$localStorage.open_vimeo_modal = true;
+	}
+
+	if( location.href.indexOf( '?stripe' ) > -1 )
+	{
+		$localStorage.open_stripe_modal = true
 	}
 
 	Restangular.setBaseUrl( $rootScope.app.apiUrl );
