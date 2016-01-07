@@ -28,6 +28,13 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
         total_count: 0
     };
 
+    $scope.rotation_types = {
+        random: 'Random',
+        sequential: 'Sequential',
+        least_hit: 'Least hit',
+        weighted: 'Weighted'
+    };
+
     $scope.$watch( 'pagination.current_page', function( new_value, old_value )
     {
         if( new_value != old_value )
