@@ -484,12 +484,12 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 			Restangular.service( 'appConfiguration' ).post( data ).then( function( response )
 			{
-				location.href = $scope.app.apiUrl + '/stripe/auth/' + response.id + '?state=' + $localStorage.user.access_token;
+				location.href = $scope.app.apiUrl + '/stripe/auth/' + response.id + '?state=' + $localStorage.user.id + ':' + $rootScope.site.subdomain;
 			} );
 		}
 		else
 		{
-			location.href = $scope.app.apiUrl + '/stripe/auth/' + ($scope.current_integration.id ? $scope.current_integration.id : '') + '?state=' + $localStorage.user.access_token;
+			location.href = $scope.app.apiUrl + '/stripe/auth/' + ($scope.current_integration.id ? $scope.current_integration.id : '') + '?state=' + $localStorage.user.id + ':' + $rootScope.site.subdomain;
 		}
 	}
 
