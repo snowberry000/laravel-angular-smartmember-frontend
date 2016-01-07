@@ -19,7 +19,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SmartLinksCreateController", function ($scope, $rootScope, Restangular, $stateParams, smModal, toastr, close) {
+app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filter, Restangular, $stateParams, smModal, toastr, close) {
     $site = $rootScope.site;
     $scope.template_data = {
         title: 'SMARTLINK',
@@ -185,6 +185,14 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
     $scope.addUrls = function( num ) {
         for( x = 0; x < num; x++ )
             $scope.next_item.urls.push({url: '',enabled: true});
+    }
+
+    $scope.onBlurSlug = function( $event )
+    {
+        if( $scope.next_item.permalink )
+        {
+            $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.permalink );
+        }
     }
 
     $scope.save = function() {
