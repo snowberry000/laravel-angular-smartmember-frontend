@@ -19,6 +19,7 @@ app.controller('RefundPageController', function ($scope, $site,$rootScope, $loca
             $scope.refund = $refund[0];
             $scope.embed_content = $scope.refund.embed_content;
         }
+        $rootScope.page_title = $scope.refund.title ? $scope.refund.title : 'Refund Page';
         $scope.refund.isOpen = false;
         $scope.refund.type = 'Refund Page';
         $scope.refund.site_id = $site.id;

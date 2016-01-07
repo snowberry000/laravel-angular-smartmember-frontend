@@ -57,7 +57,6 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		switch( $scope.template.id )
 		{
             case 5:
-			case "5":
 				$scope.bridgepage.swapspot.logo = 'https://s3.amazonaws.com/smpub/bp/beyondbasick.png';
 				$scope.bridgepage.swapspot.headline = 'Get This Free Time Turner Today 2!';
 				$scope.bridgepage.swapspot.ad = 'https://s3.amazonaws.com/smpub/bp/harrypotter.jpg';
@@ -77,7 +76,6 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.copyright = 'Copyright © 2016. All Rights Reserved.';
 				break;
             case 4:
-			case "4":
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
 				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
 				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
@@ -92,7 +90,6 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
 				break;
             case 6:
-			case "6":
 				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
 				$scope.bridgepage.swapspot.optin_heading = 'Enter your best name & email';
@@ -110,7 +107,6 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.emailListId = $emailLists[ 0 ];
 				break;
             case 7:
-			case "7":
 				$scope.bridgepage.swapspot.background_url = 'https://s3.amazonaws.com/smpub/bp/trans-webinar.jpg';
 				$scope.bridgepage.swapspot.tagline_text_color = '#565656';
 				$scope.bridgepage.swapspot.headline_text_color = '#39a0e1';

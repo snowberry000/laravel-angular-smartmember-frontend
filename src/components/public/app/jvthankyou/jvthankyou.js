@@ -15,7 +15,7 @@ app.controller('JvthankyouController', function ($scope, $site,$rootScope, Resta
     $scope.isChecked = false; 
     $scope.urlPopover = {isOpen : false};
     $scope.loading = true;
-
+    
     $scope.init = function() {
         Restangular.all('affiliateJVPage').getList({company_id : $site.company_id}).then(function (jv) {
             $scope.loading = false;
@@ -26,6 +26,7 @@ app.controller('JvthankyouController', function ($scope, $site,$rootScope, Resta
                 $scope.jv.company_id = $site.company_id;  
                 $scope.jv.title = "";
             }
+            $rootScope.page_title = $scope.jv.title;
 
             $scope.jv.subscribe_button_text = $scope.jv.subscribe_button_text ? 
                                                     $scope.jv.subscribe_button_text : '';

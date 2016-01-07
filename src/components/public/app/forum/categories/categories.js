@@ -10,8 +10,9 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "CategoriesController", function( $scope, Restangular )
+app.controller( "CategoriesController", function( $scope, $rootScope,Restangular )
 {
+	$rootScope.page_title = "Forum";
 	$scope.categories = false;
 	$scope.category = {};
 

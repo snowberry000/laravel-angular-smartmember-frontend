@@ -5,10 +5,10 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		smModal.Show( "public.administrate.team.dashboard" );
 		return false;
 	}
-	
+
 	$scope.current_site = $rootScope.site;
 	$site = $rootScope.site;
-	console.log('site?', $site);
+	console.log( 'site?', $site );
 	console.log( 'stateParams' );
 	console.log( $stateParams );
 	var $sites, $company, $connected_accounts, $configured_app_configurations, $current_integration;
@@ -32,12 +32,12 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 	$scope.cancel = function()
 	{
-		smModal.Show("public.administrate.team.app_configurations." + ($scope.integration_id ? 'list' : 'available'));
+		smModal.Show( "public.administrate.team.app_configurations." + ($scope.integration_id ? 'list' : 'available') );
 	}
 
 	$scope.initapp_configurations = function()
 	{
-		$scope.sites = $sites.sites;
+		$scope.sites = $rootScope.sites;
 		$scope.company = $company;
 		$scope.connected_accounts = $connected_accounts;
 		$scope.configured_app_configurations = $configured_app_configurations;
@@ -88,15 +88,17 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 
 		if( ( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id ) || $scope.current_integration && typeof $scope.current_integration.site_id != 'undefined' && $scope.current_integration.site_id )
-	{
-
-		if( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id )
 		{
-			$scope.current_integration.site_id = $stateParams.site_id;
-		}
 
-		$scope.current_site = _.findWhere( $scope.sites, { id: parseInt( $scope.current_integration.site_id ) } ) || _.findWhere( $scope.sites, { id: $scope.current_integration.site_id + '' } );
-	} else {
+			if( typeof $stateParams.site_id != 'undefined' && $stateParams.site_id )
+			{
+				$scope.current_integration.site_id = $stateParams.site_id;
+			}
+
+			$scope.current_site = _.findWhere( $scope.sites, { id: parseInt( $scope.current_integration.site_id ) } ) || _.findWhere( $scope.sites, { id: $scope.current_integration.site_id + '' } );
+		}
+		else
+		{
 
 			$scope.current_site = $rootScope.site;
 			$scope.current_integration.site_id = $rootScope.site.id;
@@ -505,7 +507,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 			Restangular.service( 'appConfiguration' ).post( data ).then( function( response )
 			{
-				location.href = $scope.app.apiUrl + '/vimeo/auth/' + response.id + '?state=' + $localStorage.user.access_token;
+				location.href = $scope.app.apiUrl + '/vimeo/auth/' + response.id + '?state=' + $localStorage.user.id + ':' + $rootScope.site.subdomain;
 			} );
 		}
 		else

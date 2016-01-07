@@ -30,7 +30,11 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.loading=true;
     $scope.syllabus = {edit_mode : $rootScope.edit_mode}
     $scope.salesPage=window.location.hash.substr(1);
-    
+   
+
+    $scope.toggleModule =function($module){
+        $module.hide_module=!$module.hide_module;
+    }
 
     if($scope.site.show_syllabus_toggle)
     {
@@ -52,6 +56,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
             return $mod.lessons.length==0;
         });
         $.each($scope.modules, function (key, data) {
+            data.hide_module = false;
             $.each(data.lessons, function (key, data) {
                 $scope.lesson_count++;
                 data.showCounter=$scope.lesson_count;
@@ -108,6 +113,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         var lessons = [];
         //alert("called");
         $.each($(".module_item"), function (key, module) {
+            delete module.hide_module;
             $upLessons = $(module).find(".lesson_item");
             if($upLessons.length==0)
             {
@@ -151,6 +157,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         var module_copy = angular.copy(module);
         delete module_copy.lessons;
         delete module_copy.show_me;
+        delete module_copy.hide_module;
         Restangular.all('module').customPUT(module_copy , module.id).then(function(response){
 
         })
@@ -179,7 +186,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.toggleComplete = function(lesson){
         if (!lesson.user_note){
             Restangular.service('userNote')
-                .post({complete: 1})
+                .post({complete: 1 , site_id: $rootScope.site.id, lesson_id : lesson.id})
                 .then(function(response){
                     lesson.user_note = response;
                 });
