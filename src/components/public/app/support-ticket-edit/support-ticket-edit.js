@@ -15,6 +15,7 @@ app.controller('PublicSupportTicketEditController', function ($scope,$site,$root
         $scope.loading=false;
         $ticket=response;
         $scope.ticket = $ticket.ticket;
+        $rootScope.page_title = $scope.ticket.subject  ? $scope.ticket.subject + ' edit' : 'Supoort Ticket Edit';
         $scope.reply = {parent_id : $scope.ticket.id , company_id : $scope.ticket.company_id};
     });
 

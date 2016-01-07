@@ -10,12 +10,13 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "Forum-topicController", function( $scope, $stateParams, Restangular )
+app.controller( "Forum-topicController", function( $scope, $stateParams, Restangular,$rootScope )
 {
 	Restangular.one( 'forumTopic', 'permalink' )
 		.get( { permalink: $stateParams.permalink } )
 		.then( function( response )
 		{
+			$rootScope.page_title = response.title;
 			$scope.topic = response;
 		} );
 

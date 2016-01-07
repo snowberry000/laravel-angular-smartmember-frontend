@@ -9,15 +9,17 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('AffiliateContestController', function ($scope, $state, $stateParams, Restangular) {
+app.controller('AffiliateContestController', function ($scope,$rootScope, $state, $stateParams, Restangular) {
     //console.log($affiliateContest);
     $scope.loading=true;
+
     if($stateParams.permalink)
         Restangular.one('affiliateContestByPermalink' , $stateParams.permalink).get().then(function(response){
             $affiliateContest=response;
             $scope.loading=false;
             $scope.affiliateContest=$affiliateContest;
             $scope.getLeaderBoard();
+            $rootScope.page_title = $affiliateContest.title ? $affiliateContest.title : null;
         });
     else
     {
