@@ -64,9 +64,9 @@ gulp.task( 'js', function()
 		.pipe( concat( 'main.min.js' ) )
 		.pipe( gulp.dest( 'dist/js' ) );
 
-	 gulp.src(["src/**/*.e2e.js","!src/tests/*","!src/tests/**"])
-		.pipe( concat( 'e2e.tests.js' ) )
-		.pipe( gulp.dest( 'src/tests' ) );
+	 //gulp.src(["src/**/*.e2e.js","!src/tests/*","!src/tests/**"])
+		//.pipe( concat( 'e2e.tests.js' ) )
+		//.pipe( gulp.dest( 'src/tests' ) );
 
 	return true;
 } );
