@@ -42,7 +42,7 @@
 											<span>Choose a different account</span>
 										</div>
 										<div class="col-md-6">
-											<select class="form-control" ng-model="selected_account" ng-change="changeAccount()">
+											<select class="form-control" ng-model="selected_account" ng-change="changeAccount(selected_account)">
 												<option ng-repeat="vimeo_integration in vimeo_app_configurations"
 														ng-selected="vimeo_integration.id == selected_account"
 														value="{{vimeo_integration.id}}">{{vimeo_integration.account.name ?

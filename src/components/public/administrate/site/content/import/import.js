@@ -130,14 +130,15 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
         };
     }
 
-    $scope.changeAccount = function(){
+    $scope.changeAccount = function(selected_account){
+        selected_account = parseInt(selected_account);
         console.log('Change account called');
         angular.forEach( $scope.videos.data, function( value ){
             if( value.added )
                 $videosAdded.items.push({remote_id: value.uri })
         });
-        console.log($scope.selected_account);
-        var selected_integration = _.findWhere($scope.vimeo_app_configurations, {id: $scope.selected_account}) || _.findWhere( $scope.vimeo_app_configurations, {id: $scope.selected_account + ''});
+        console.log(selected_account);
+        var selected_integration = _.findWhere($scope.vimeo_app_configurations, {id: selected_account}) || _.findWhere( $scope.vimeo_app_configurations, {id: selected_account + ''});
 
         if( selected_integration ) {
             $scope.page = 1;
