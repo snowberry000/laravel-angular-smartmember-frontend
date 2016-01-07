@@ -94,7 +94,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
                             $state.go( 'public.app.affiliateContest', { permalink: parts[1] }, { location: false } );
                             break;
                         case 'smart_links':
-                            //location.href = response.redirect_url;
+                            location.href = response.redirect_url;
                             break;
 					}
 				} );
