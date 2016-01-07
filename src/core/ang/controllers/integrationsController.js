@@ -37,7 +37,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 	$scope.initapp_configurations = function()
 	{
-		$scope.sites = $sites.sites;
+		$scope.sites = $rootScope.sites;
 		$scope.company = $company;
 		$scope.connected_accounts = $connected_accounts;
 		$scope.configured_app_configurations = $configured_app_configurations;
@@ -507,7 +507,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 			Restangular.service( 'appConfiguration' ).post( data ).then( function( response )
 			{
-				location.href = $scope.app.apiUrl + '/vimeo/auth/' + response.id + '?state=' + $localStorage.user.access_token;
+				location.href = $scope.app.apiUrl + '/vimeo/auth/' + response.id + '?state=' + $localStorage.user.id + ':' + $rootScope.site.subdomain;
 			} );
 		}
 		else

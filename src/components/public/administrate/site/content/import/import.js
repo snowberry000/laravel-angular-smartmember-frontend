@@ -74,7 +74,8 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                         $scope.filter($scope.selectedTag);
                     $scope.checkAlreadyAdded();
                     $scope.page++;
-                    $scope.callVimeo();
+                    $scope.wait = false;
+                    $scope.paginateIt();
                 } else {
                     $scope.wait = false;
                     $scope.paginateIt();
@@ -88,7 +89,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
 
     angular.forEach( $scope.site.configured_app, function(value,key){
-        if( value.type == 'vimeo' )
+        if( value.type == 'vimeo' && value.account)
         {
             $scope.vimeo_app_configurations.push( value );
         }
