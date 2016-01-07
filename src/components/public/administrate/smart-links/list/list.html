@@ -24,7 +24,7 @@
                 <thead>
                 <tr>
                     <th data-toggle="true">Name</th>
-                    <th data-hide="all">Shareable Url</th>
+                    <th>Shareable Url</th>
                     <th data-hide="all">Rotation Type</th>
                     <th data-hide="all">Links</th>
                     <th class="text-right">Action</th>
@@ -36,10 +36,16 @@
                         {{next_item.title}}
                     </td>
                     <td style="width:125px;">
-                        {{app.appUrl}}/{{next_item.permalink}}
+                        <div class="ui action input" ng-init="init()">
+                            <input type="text" disabled class="endpoint-api" value="{{app.appUrl}}/{{next_item.permalink}}" style="opacity:1;">
+                            <button class="ui teal right labeled icon button copy-button" data-clipboard-action="copy" data-text="{{app.appUrl}}/{{next_item.permalink}}" ng-click="copied()">
+                                <i class="copy icon"></i>
+                                Copy
+                            </button>
+                        </div>
                     </td>
                     <td style="width:125px;">
-                        {{next_item.type}}
+                        {{rotation_types[next_item.type]}}
                     </td>
                     <td style="width: 160px;">
                         <ol>

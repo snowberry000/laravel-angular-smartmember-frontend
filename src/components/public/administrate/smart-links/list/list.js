@@ -28,6 +28,13 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
         total_count: 0
     };
 
+    $scope.rotation_types = {
+        random: 'Random',
+        sequential: 'Sequential',
+        least_hit: 'Least hit',
+        weighted: 'Weighted'
+    };
+
     $scope.$watch( 'pagination.current_page', function( new_value, old_value )
     {
         if( new_value != old_value )
@@ -57,6 +64,15 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
 
     $scope.paginate();
 
+    $scope.init = function()
+    {
+        var clipboard = new Clipboard( '.copy-button', {
+            text: function(trigger) {
+                return trigger.getAttribute('data-text');
+            }
+        } );
+    }
+
     $scope.deleteResource = function( id )
     {
         var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
@@ -69,4 +85,9 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
             $scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
         } );
     };
+
+    $scope.copied = function()
+    {
+        toastr.success("Link copied!");
+    }
 });

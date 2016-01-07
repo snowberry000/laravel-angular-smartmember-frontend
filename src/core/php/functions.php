@@ -91,6 +91,16 @@ function DetectAndPerformBridgePageThings()
 						{
 							$bpage_data = 'notbp';
 						}
+						else
+						{
+							$redirect_data = json_decode( $bpage_data );
+
+							if( property_exists( $redirect_data, 'type' ) && $redirect_data->type == 'smart_link' )
+							{
+								header( 'Location: ' . $redirect_data->redirect_url );
+								exit;
+							}
+						}
 
 						$client->set( $redisKeys[ 'data' ], $bpage_data );
 					}

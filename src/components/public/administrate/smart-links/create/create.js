@@ -19,7 +19,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SmartLinksCreateController", function ($scope, $rootScope, Restangular, $stateParams, smModal, toastr, close) {
+app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filter, Restangular, $stateParams, smModal, toastr, close) {
     $site = $rootScope.site;
     $scope.template_data = {
         title: 'SMARTLINK',
@@ -29,17 +29,38 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
         api_object: 'smartLink'
     }
 
+    $scope.randomPermalink = function(length) {
+        if( length == undefined )
+            length = 6;
+
+        var characters = "abcdefghijklmnopqrstuwxyz0123456789".split('');
+        var permalink = [];
+        var length_of_characters = characters.length;
+
+        for( var i = 0; i < length; i++ )
+        {
+            var n = Math.floor( Math.random() * length_of_characters );
+            permalink.push( characters[ n ] );
+        }
+
+        return permalink.join('');
+    }
+
     $scope.next_item = {
         type: 'random',
+        permalink: $scope.randomPermalink(),
         urls: [
             {
-                url: ''
+                url: '',
+                enabled: true
             },
             {
-                url: ''
+                url: '',
+                enabled: true
             },
             {
-                url: ''
+                url: '',
+                enabled: true
             }
         ]
     };
@@ -80,13 +101,98 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
         }
     ];
 
+    $scope.moveUp = function(url){
+
+    }
+
+    $scope.moveDown = function(url){
+
+    }
+
+    $scope.moveUp = function(url){
+        var count = 0;
+        var found = false;
+        angular.forEach( $scope.next_item.urls, function(value, key){
+
+            if( !found )
+                count++;
+
+            if( value == url ) {
+                $scope.next_item.urls = _.without($scope.next_item.urls, value);
+                found = true;
+            }
+        });
+
+        var second_count = 0;
+        var new_urls = [];
+
+        angular.forEach( $scope.next_item.urls, function(value, key){
+            second_count++;
+
+            if( count - 1 == second_count )
+                new_urls.push( url );
+
+            new_urls.push( value );
+        });
+
+        $scope.next_item.urls = new_urls;
+    }
+
+    $scope.moveDown = function(url){
+        var count = 0;
+        var found = false;
+        angular.forEach( $scope.next_item.urls, function(value, key){
+
+            if( !found )
+                count++;
+
+            if( value == url ) {
+                $scope.next_item.urls = _.without($scope.next_item.urls, value);
+                found = true;
+            }
+        });
+
+        var second_count = 0;
+        var new_urls = [];
+
+        var added = false;
+
+        angular.forEach( $scope.next_item.urls, function(value, key){
+            second_count++;
+
+            if( count + 1 == second_count ) {
+                new_urls.push(url);
+                added = true;
+            }
+
+            new_urls.push( value );
+        });
+
+        if( !added )
+            new_urls.push( url );
+
+        $scope.next_item.urls = new_urls;
+    }
+
+    $scope.deleteUrl = function(url){
+        $scope.next_item.urls = _.without( $scope.next_item.urls, url );
+    }
+
     $scope.SetRotationType = function( type ) {
         $scope.next_item.type = type;
     }
 
     $scope.addUrls = function( num ) {
         for( x = 0; x < num; x++ )
-            $scope.next_item.urls.push({url: ''});
+            $scope.next_item.urls.push({url: '',enabled: true});
+    }
+
+    $scope.onBlurSlug = function( $event )
+    {
+        if( $scope.next_item.permalink )
+        {
+            $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.permalink );
+        }
     }
 
     $scope.save = function() {
@@ -94,7 +200,7 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
 
         angular.forEach( $scope.next_item.urls, function(value, key){
             if( !value.url )
-                delete $scope.next_item.urls[ key ];
+                $scope.next_item.urls = _.without( $scope.next_item.urls, $scope.next_item.urls[ key ] );
             else {
                 value.order = count;
                 count++;

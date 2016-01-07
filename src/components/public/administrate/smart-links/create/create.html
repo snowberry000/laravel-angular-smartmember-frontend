@@ -12,6 +12,16 @@
 					<input type="text" value="" data-content="This name helps locate it among your list of Smart Links" data-on="focus" ng-model="next_item.title" sui-popup>
 				</div>
 
+                <div class="inline field">
+                    <label>Permalink</label>
+                    <div class="ui labeled input">
+                        <div class="ui label">
+                            {{app.appUrl}}/
+                        </div>
+                        <input type="text" value="" data-content="This is the url users will go to" data-on="focus" ng-model="next_item.permalink"  ng-blur="onBlurSlug($event)" sui-popup>
+                    </div>
+                </div>
+
 			</div>
 			<div class="ui segment form">
 				<div class="inline field">
@@ -34,6 +44,7 @@
 						<th>URL</th>
 						<th class="collapsing text-center">Visits</th>
 						<th class="collapsing text-center">Weight</th>
+						<th class="collapsing text-center">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -53,7 +64,7 @@
 						</td>
 						<td>
 							<div class="ui transparent input small_stat">
-								<input type="text" placeholder="0" class="text-center">
+								<input type="text" placeholder="0" class="text-center" value="{{url.visits}}">
 							</div>
 						</td>
 						<td>
@@ -61,6 +72,19 @@
 								<input type="text" placeholder="10" class="text-center" ng-model="url.weight">
 							</div>
 						</td>
+                        <td>
+                            <div class="ui mini right floated icon buttons">
+                                <button class="ui button" ng-if="$index != 0" ng-click="moveUp( url )">
+                                    <i class="arrow up icon"></i>
+                                </button>
+                                <button class="ui button" ng-if="$index != widgets.length - 1" ng-click="moveDown( url )">
+                                    <i class="arrow down icon"></i>
+                                </button>
+                                <button class="ui button" ng-click="deleteUrl( url )">
+                                    <i class="delete icon"></i>
+                                </button>
+                            </div>
+                        </td>
 					</tr>
 				</tbody>
 				<tfoot class="full-width">
