@@ -14,7 +14,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, toastr) {
+app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, toastr , $state) {
 	var lesson = Restangular.all("lesson");
     Restangular.all('').customGET('lesson?type=vimeo&bypass_paging=true').then(function(response){
         $videosAdded = response;
@@ -197,6 +197,9 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
             };
             $scope.selectedTag = null;
             toastr.success("All shown videos has been added");
+            $state.transitionTo($state.current , {} , {
+                reload : true , inherit : false , location : false
+            })
         });
 
 

@@ -1,4 +1,4 @@
-app.controller('VimeoVideoController',function($scope,$http,Restangular,toastr){
+app.controller('VimeoVideoController',function($scope,$http,Restangular,toastr , $state){
     $scope.addLesson = function (){
         var tag = ($scope.next_item.tags[0] != undefined) ?  tag = $scope.next_item.tags[0].tag : '';
         var featured_image = ($scope.next_item.pictures != undefined && $scope.next_item.pictures.sizes[3] != undefined) ? $scope.next_item.pictures.sizes[3].link : '';
@@ -22,6 +22,9 @@ app.controller('VimeoVideoController',function($scope,$http,Restangular,toastr){
         Restangular.service('lesson').post(lesson).then(function(response){
             toastr.success("Lesson saved!");
             $scope.next_item.added = true;
+            $state.transitionTo($state.current , {} , {
+                reload : true , inherit : false , location : false
+            })
 
         });
     }
