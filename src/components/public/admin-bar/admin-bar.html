@@ -1,6 +1,7 @@
 <div class="ui dropdown item" sui-dropdown>
 	<img class="ui rounded mini image" src="{{user.profile_image}}">
 	<i class="dropdown icon"></i>
+
 	<div class="menu">
 		<a class="item" ng-click="smModal.Show('public.administrate.account.settings')">Account settings</a>
 		<a class="item" ui-sref="public.www.home">Site Directory</a>
@@ -50,8 +51,14 @@
 </a>
 
 
-
 <div class="right menu">
+
+
+	<a class="item thin" ng-click="smModal.Show('public.administrate.smart-links.list')" ng-if="!isSitelessPage()" sm-access="manage_content" if-not="hide" title="Smart Links" position="left center" sui-popup>
+		<button class="ui inverted basic red icon button">
+			<i class="linkify icon"></i>
+		</button>
+	</a>
 
 	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_email" if-not="hide" title="Email" position="left center" sui-popup>
 		<div class="ui dropdown" sui-dropdown>
@@ -74,6 +81,7 @@
 		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')">
 			<button class="ui inverted basic red icon button">
 				<i class="life ring icon"></i>
+
 				<div ng-if="site.unread_support_ticket" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
 			</button>
 		</div>
@@ -159,10 +167,6 @@
 							<i class="bar chart icon"></i>
 							{{ 'STATS' | translate }}
 						</a>
-                        <a class="item" ng-click="smModal.Show('public.administrate.smart-links.list')">
-                            <i class="linkify icon"></i>
-                            {{ 'SMARTLINKS' | translate }}
-                        </a>
 					</div>
 				</div>
 			</div>
