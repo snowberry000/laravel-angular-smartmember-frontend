@@ -13,7 +13,7 @@
 
                 <div class="jumbotron" ng-hide="vimeo.access_token">
                     <p>
-                        <a ng-click="setBackUrl() ; smModal.Show('public.administrate.team.integration.choose' , {'integration' : 'vimeo'})"
+                        <a ng-click="setBackUrl() ; smModal.Show('public.administrate.team.integration.configure',{integration: 'vimeo'});"
                            class="btn btn-lg btn-brand btn-vimeo-login same_window">
                             <i class="fa fa-vimeo-square"></i>
                             Please set up a Vimeo integration to import videos from
@@ -110,7 +110,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="next_item in videos_to_show | filter:$parent.searchText"
+                                            <tr ng-repeat="next_item in videos_to_show"
                                                 class="footable-even"
                                                 ng-init="next_item.show_details = false" ng-class="{'footable-detail-show': next_item.show_details}" ng-if="!next_item.hide" ng-hide="next_item.added" style="display: table-row;" ng-controller="VimeoVideoController">
                                                 <td class="footable-visible footable-first-column">

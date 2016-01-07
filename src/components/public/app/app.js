@@ -78,6 +78,11 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 				$scope.bannerView( value.banner.id );
 			}
 		} );
+		$rootScope.site.configured_app = [];
+		angular.forEach( details.app_configuration, function( value, key )
+		{
+			$rootScope.site.configured_app.push(value);
+		} );
 
 		$rootScope.options.theme_selection = false;
 		$rootScope.options.themes = global_themes;

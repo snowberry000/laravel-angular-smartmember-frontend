@@ -14,9 +14,9 @@
 
 				<select class="form-control m-b-md m-t-xl" ng-model="$parent.chosen_entity">
 					<option value="0" ng-selected="chosen_entity == 0">Choose a {{integration.sites_only ? 'site' : 'site or team'}}...</option>
-					<optgroup label="Teams" ng-if="!integration.sites_only">
+					<!--<optgroup label="Teams" ng-if="!integration.sites_only">
 						<option value="team" ng-selected="chosen_entity == 'team'">{{company.name}}</option>
-					</optgroup>
+					</optgroup>-->
 					<optgroup label="Sites">
 						<option ng-repeat="site in sites" value="{{site.id}}" ng-selected="site.id == chosen_entity" >{{(site.domain ? site.domain : site.subdomain+'.'+app.rootDomain)}}</option>
 					</optgroup>
