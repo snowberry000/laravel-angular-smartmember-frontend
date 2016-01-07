@@ -19,7 +19,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SmartLinksCreateController", function ($scope, $rootScope, Restangular, smModal, toastr, close) {
+app.controller("SmartLinksCreateController", function ($scope, $rootScope, Restangular, $stateParams, smModal, toastr, close) {
     $site = $rootScope.site;
     $scope.template_data = {
         title: 'SMARTLINK',
@@ -40,17 +40,24 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
             },
             {
                 url: ''
-            },
-            {
-                url: ''
-            },
-            {
-                url: ''
             }
         ]
     };
 
-    $scope.rotation_methods = [
+    if( $stateParams.id ) {
+        $nextItemRequest = Restangular.one($scope.template_data.api_object, $stateParams.id).get().then(function (response) {
+            $scope.next_item = response;
+
+            if( !$scope.next_item.urls ) {
+                $scope.next_item.urls = [];
+            }
+
+            if( $scope.next_item.urls.length < 3 )
+                $scope.addUrls( 3 - $scope.next_item.urls.length );
+        });
+    }
+
+    $scope.rotation_types = [
         {
             value: 'random',
             label: 'Random',
@@ -73,25 +80,34 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
         }
     ];
 
+    $scope.SetRotationType = function( type ) {
+        $scope.next_item.type = type;
+    }
+
+    $scope.addUrls = function( num ) {
+        for( x = 0; x < num; x++ )
+            $scope.next_item.urls.push({url: ''});
+    }
+
     $scope.save = function() {
         var count = 1;
 
-        angular.forEach( next_item.urls, function(value, key){
+        angular.forEach( $scope.next_item.urls, function(value, key){
             if( !value.url )
-                delete next_item.urls[ key ];
+                delete $scope.next_item.urls[ key ];
             else {
-                next_item.order = count;
+                value.order = count;
                 count++;
             }
         });
 
-        if( next_item.id ) {
-            next_item.put().then(function(response){
-
+        if( $scope.next_item.id ) {
+            $scope.next_item.put().then(function(response){
+                smModal.Show('public.administrate.smart-links.list');
             });
         } else {
-            Restangular( $scope.template_data.api_object ).post( next_item ).then(function(response){
-
+            Restangular.all( $scope.template_data.api_object ).post( $scope.next_item ).then(function(response){
+                smModal.Show('public.administrate.smart-links.list');
             });
         }
     }

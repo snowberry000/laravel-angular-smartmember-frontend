@@ -36,12 +36,15 @@
                         {{next_item.title}}
                     </td>
                     <td style="width:125px;">
-                        {{next_item.url}}
+                        {{app.appUrl}}/{{next_item.permalink}}
+                    </td>
+                    <td style="width:125px;">
+                        {{next_item.type}}
                     </td>
                     <td style="width: 160px;">
                         <ol>
-                            <li ng-repeat="link in next_item.links">
-                                {{link.url}}
+                            <li ng-repeat="url in next_item.urls">
+                                {{url.url}}
                             </li>
                         </ol>
                     </td>
