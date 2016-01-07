@@ -61,6 +61,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				the_options.onVisible = function()
 				{
 					modal.element.addClass( 'smooth_changes' );
+					$('.ui.popup').popup( 'hide all' );
 				};
 				the_options.onHidden = function()
 				{
