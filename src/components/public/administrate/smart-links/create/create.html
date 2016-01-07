@@ -1,16 +1,58 @@
 <div class="ui modal">
-    <div class="header">
-        <i class="configure icon"></i>
-        Links
-    </div>
-    <div class="content">
-        <div class="description">
-            stuff
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button close">
-            Close
-        </div>
-    </div>
+	<div class="header">
+		<i class="linkify icon"></i>
+		Create a Smart Link
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui segment form">
+				<div class="inline field">
+					<label>Link Name</label>
+					<input type="text" ng-model="">
+				</div>
+
+				<div class="ui message">
+					<p>This name helps locate it among your list of Smart Links</p>
+				</div>
+
+
+			</div>
+			<div class="ui segment form">
+				<div class="inline field">
+					<label>Rotation Logic</label>
+
+					<div class="ui buttons">
+						<div class="ui button" ng-class="{single:'active'}[recipient_type]" ng-click="SetRecipientType('single')">
+							<i class="random icon"></i>
+							Random
+						</div>
+						<div class="ui button" ng-class="{members:'active'}[recipient_type]" ng-click="SetRecipientType('members')">
+							<i class="ordered list icon"></i>
+							Sequential
+						</div>
+						<div class="ui button" ng-class="{segment:'active'}[recipient_type]" ng-click="SetRecipientType('segment')">
+							<i class="crosshairs icon"></i>
+							Least Hit
+						</div>
+						<div class="ui button" ng-class="{segment:'active'}[recipient_type]" ng-click="SetRecipientType('segment')">
+							<i class="calculator icon"></i>
+							Weighted
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ng-click="smModal.Show('public.administrate.smart-links.list')" class="ui black button">
+			Cancel
+		</a>
+		<a ng-click="save()" class="ui right labeled green icon button">
+			Save changes
+			<i class="check icon"></i>
+		</a>
+	</div>
 </div>
