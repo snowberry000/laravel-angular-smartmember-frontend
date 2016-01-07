@@ -40,6 +40,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 	$urlRouterProvider.otherwise( function( $injector )
 	{
 		console.log( "On otherwise" );
+
 		var $state = $injector.get( '$state' );
 		var Restangular = $injector.get( 'Restangular' );
 
@@ -93,7 +94,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
                             $state.go( 'public.app.affiliateContest', { permalink: parts[1] }, { location: false } );
                             break;
                         case 'smart_links':
-                            console.log(' we got a smart link' );
+                            location.href = response.redirect_url;
                             break;
 					}
 				} );
