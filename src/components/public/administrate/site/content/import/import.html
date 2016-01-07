@@ -9,7 +9,7 @@
 				<p>Connect a Vimeo account and import it's videos to turn into lessons</p>
 			</div>
 
-			<div class="ui section divider"></div>
+			<div class="ui section divider" ng-if="!vimeo.access_token"></div>
 
 			<div class="ui basic segment text-center" ng-if="!vimeo.access_token">
 				<a class="massive ui blue button" ng-click="setBackUrl();smModal.Show('public.administrate.team.integration.configure',{integration: 'vimeo'});">
