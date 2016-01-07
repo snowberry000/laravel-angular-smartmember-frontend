@@ -16,10 +16,7 @@ app.config(function($stateProvider){
 
 app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, toastr , $state) {
 	var lesson = Restangular.all("lesson");
-    Restangular.all('').customGET('lesson?type=vimeo&bypass_paging=true').then(function(response){
-        $videosAdded = response;
-        $scope.initialize();
-    })
+    
     $scope.videos = false;
     $scope.vimeo_app_configurations = [];
     $scope.vimeo = {};
@@ -27,16 +24,31 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     $scope.page = 1;
     $scope.wait = false;
     $scope.tags = [];
+      $scope.pagination = {
+        current_page: 1,
+        per_page: 50,
+        total_count: 0
+    };
 
     //for new pagination
     $scope.site = $rootScope.site;
     console.log('This is site', $scope.site);
-    $scope.itemsPerPage = 25;
-    $scope.pagination = {currentPage : 1};
+    $scope.pagination.per_page = 50;
+
+ 
+
+    $scope.$watch( 'pagination.current_page', function( new_value, old_value )
+    {
+        if( new_value != old_value )
+        {
+            $scope.callVimeo();
+        }
+    } );
+
 
     $scope.paginateIt = function() {
-        var begin = (($scope.pagination.currentPage - 1) * $scope.itemsPerPage),
-            end = begin + $scope.itemsPerPage;
+        var begin = (($scope.pagination.current_page - 1) * $scope.pagination.per_page),
+            end = begin + $scope.pagination.per_page;
 
         $scope.videos_to_show = $scope.videos.data.slice(begin, end);
     }
@@ -57,13 +69,15 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     $scope.callVimeo = function() {
         var user_id = $scope.vimeo.remote_id.toString();
         user_id = user_id.substring(7);
-        var $url = "https://api.vimeo.com/users/" + user_id + "/videos?page="+$scope.page+"&per_page=50";
+        var $url = "https://api.vimeo.com/users/" + user_id + "/videos?page="+$scope.pagination.current_page +"&per_page=50";
         $http.get($url,{headers: {'Authorization': 'Bearer ' + $scope.vimeo.access_token}})
             .then(function(response){
                 if (response.status != '500')
                 {
+
                     if ($scope.videos){
                         if( response.data ) {
+                             $scope.videos_to_show =response.data.data;
                             for (var i = 0; i < response.data.data.length; i++) {
                                 $scope.videos.data.push(response.data.data[i]);
                             };
@@ -71,20 +85,25 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                     } else {
                         $scope.videos = response.data;
                     }
+
+                    $scope.pagination.total_count =response.data.total;
                     if($scope.selectedTag)
                         $scope.filter($scope.selectedTag);
                     $scope.checkAlreadyAdded();
                     $scope.page++;
                     $scope.wait = false;
-                    $scope.paginateIt();
+                    $scope.videos_to_show =response.data.data;
+                    //$scope.paginateIt();
                 } else {
                     $scope.wait = false;
-                    $scope.paginateIt();
+                    $scope.videos_to_show =response.data.data;
+                    //$scope.paginateIt();
                 }
             }, function(response)
             {
                 $scope.wait = false;
-                $scope.paginateIt();
+                $scope.videos_to_show =response.data.data;
+            //    $scope.paginateIt();
             });
     }
 
@@ -161,7 +180,10 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
         }
     }
 
-
+    Restangular.all('').customGET('lesson?type=vimeo&bypass_paging=true').then(function(response){
+        $videosAdded = response;
+        $scope.initialize();
+    })
 
     $scope.checkAlreadyAdded = function(){
         console.log('video data is here', $scope.videos.data);
