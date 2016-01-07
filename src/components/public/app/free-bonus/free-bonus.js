@@ -18,11 +18,13 @@ app.controller('FreeBonusController', function ($scope,$site,$rootScope, $localS
         $scope.loading=false;
         if($bonus.length>0){
             $scope.bonus = $bonus[0];
+
             $scope.embed_content = $scope.bonus.embed_content;
         }
         $scope.bonus.type = 'Free Bonus';
         $scope.bonus.site_id = $site.id;
         $scope.bonus.isOpen = false;
+         $rootScope.page_title = $scope.bonus.title ? $scope.bonus.title : 'Free Bonus';
         $scope.isChecked=false;
         $anchorScroll($location.hash());
     });

@@ -179,7 +179,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.toggleComplete = function(lesson){
         if (!lesson.user_note){
             Restangular.service('userNote')
-                .post({complete: 1})
+                .post({complete: 1 , site_id: $rootScope.site.id, lesson_id : lesson.id})
                 .then(function(response){
                     lesson.user_note = response;
                 });
