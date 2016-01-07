@@ -30,7 +30,11 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.loading=true;
     $scope.syllabus = {edit_mode : $rootScope.edit_mode}
     $scope.salesPage=window.location.hash.substr(1);
-    
+   
+
+    $scope.toggleModule =function($module){
+        $module.hide_module=!$module.hide_module;
+    }
 
     if($scope.site.show_syllabus_toggle)
     {
@@ -52,6 +56,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
             return $mod.lessons.length==0;
         });
         $.each($scope.modules, function (key, data) {
+            data.hide_module = false;
             $.each(data.lessons, function (key, data) {
                 $scope.lesson_count++;
                 data.showCounter=$scope.lesson_count;
