@@ -37,8 +37,8 @@
                         </tbody>
                     </table>
                 </div>
-                <a sm-access="view_affiliate_stats" if-not="hide" ng-click="limit_qty = 1000000;" class="ui center labeled green icon button" style="margin-top:10px;">
-                    View All
+                <a sm-access="view_affiliate_stats" if-not="hide" ng-click="limit_qty > 10 ? limit_qty = 10 : limit_qty = 1000000;" class="ui center labeled green icon button" style="margin-top:10px;">
+                    {{limit_qty > 10 ? 'View Less' : 'View All'}}
                     <i class="eye icon"></i>
                 </a>
                 <img ng-src="{{leaderboard.contest.featured_image}}" class="featured_image_preview img-responsive img-thumbnail" ng-show="leaderboard.contest.featured_image" />
