@@ -33,6 +33,7 @@ var app = angular.module( 'app', [
 	'ct.ui.router.extras'
 ] );
 
+
 app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;

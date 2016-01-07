@@ -117,6 +117,8 @@ function translation_config($translateProvider) {
 			HELPDESK_CATEGORIES: 'Helpdesk categories',
 			EXPORT_SUBSCRIBERS: 'Export subscribers',
 			SAVE_CHANGES_AND_CONTINUE: 'Save Changes and Continue',
+            SMARTLINKS: 'Smart Links',
+            SMARTLINK: 'Smart Link',
 
 			// Form help text
 			FORM_COMPANY_NAME_HELPBLOCK: 'This is the primary name for your team; it will show up in various menus & headings for you and your team members. Your team name is usually the name of your company.',

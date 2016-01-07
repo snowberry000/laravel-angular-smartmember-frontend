@@ -26,7 +26,7 @@ app.controller('JvpageController', function ($scope,$site, Restangular,$rootScop
                 $scope.jv.company_id = $site.company_id;  
                 $scope.jv.title = "";
             }
-
+            $rootScope.page_title = $scope.jv.title ? $scope.jv.title : 'JV page';
             $scope.jv.subscribe_button_text = $scope.jv.subscribe_button_text ? 
                                                     $scope.jv.subscribe_button_text : '';
         });

@@ -30,8 +30,9 @@ app.config(function($stateProvider){
         })
 }); 
 
-app.controller('ThankyouController', function ($scope, $site, $access_levels) {
+app.controller('ThankyouController', function ($scope, $site, $access_levels,$rootScope) {
     $scope.site = $site;
+    $rootScope.page_title = 'Thank you!';
 
     $scope.getQueryVariable = function(variable)
     {

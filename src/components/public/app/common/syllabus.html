@@ -43,17 +43,21 @@
 	<div class="col-lg-9 connectModulePanels" ng-if="syllabus.edit_mode"  ui-sortable="ModuleSortableOptions">
 		<div class="ui attached segment section_background_color module_item" data-id="{{module.id}}" ng-repeat="(key, module) in modules" ng-if="(module.lessons.length > 0 || module.show_me) && (!query || ( module.lessons | filter: query).length > 0)" data-id="{{module.id}}">
 			<div class="ibox-title">
-				<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" ng-click="hide_module = !hide_module">
+				<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" >
+					
 					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
 				</a>
-				<a ng-if="!module.id && syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+				<a ng-if="!module.id && syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'">
 					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
 				</a>
-				<a ng-if="!syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+				<a ng-if="!syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" >
+					
 					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
 				</a>
+				<button style="float:right;" class="ui module_label_background_color module_label_text_color left label" ng-click="toggleModule(module)"><i class="fa {{module.hide_module ? 'fa-plus' : 'fa-minus'}}" style="margin-right:4px"></i>
+				</button>
 			</div>
-			<div class="connectLessons ui very relaxed divided ordered list" ng-show="!hide_module" ng-if="site.syllabus_format == 'list'" ui-sortable="LessonSortableOptions">
+			<div class="connectLessons ui very relaxed divided ordered list" ng-show="!module.hide_module" ng-if="site.syllabus_format == 'list'" ui-sortable="LessonSortableOptions">
 				<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}">
 					<div class="right floated content">
 						<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
@@ -108,20 +112,23 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-9 connectModulePanels" ng-if="!syllabus.edit_mode">
+	<div class="col-lg-9 connectModulePanels" ng-if="!syllabus.edit_mode" >
 		<div class="ui attached segment section_background_color module_item" data-id="{{module.id}}" ng-repeat="(key, module) in modules" ng-if="(module.lessons.length > 0 || module.show_me) && (!query || ( module.lessons | filter: query).length > 0)" data-id="{{module.id}}">
 			<div class="ibox-title">
-				<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" ng-click="hide_module = !hide_module">
+				<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" ng-click="toggleModule(module)">
+					<i class="fa {{module.hide_module ? 'fa-plus' : 'fa-minus'}}" style="margin-right:4px" ></i>
 					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
 				</a>
-				<a ng-if="!module.id && syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+				<a ng-if="!module.id && syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="toggleModule(module)">
+					<i class="fa {{module.hide_module ? 'fa-plus' : 'fa-minus'}}"  style="margin-right:4px" ></i>
 					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
 				</a>
-				<a ng-if="!syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="hide_module = !hide_module">
+				<a ng-if="!syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="toggleModule(module)">
+					<i class="fa {{module.hide_module ? 'fa-plus' : 'fa-minus'}}"  style="margin-right:4px" ></i>
 					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
 				</a>
 			</div>
-			<div class="connectLessons ui very relaxed divided ordered list" ng-show="!hide_module" ng-if="site.syllabus_format == 'list'">
+			<div class="connectLessons ui very relaxed divided ordered list" ng-show="!module.hide_module" ng-if="site.syllabus_format == 'list'">
 				<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}">
 					<div class="right floated content">
 						<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>

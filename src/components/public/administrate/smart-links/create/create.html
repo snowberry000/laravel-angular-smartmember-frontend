@@ -1,0 +1,89 @@
+<div class="ui modal">
+	<div class="header">
+		<i class="linkify icon"></i>
+		Create a Smart Link
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui segment form">
+				<div class="inline field">
+					<label>Link Name</label>
+					<input type="text" value="" data-content="This name helps locate it among your list of Smart Links" data-on="focus" ng-model="next_item.title" sui-popup>
+				</div>
+
+			</div>
+			<div class="ui segment form">
+				<div class="inline field">
+					<label>Rotation Logic</label>
+
+					<div class="ui buttons">
+						<div class="ui button" ng-class="{'active': next_item.type == rotation_type.value}" ng-repeat="rotation_type in rotation_types" ng-click="SetRotationType( rotation_type.value )">
+							<i class="random icon"></i>
+							{{rotation_type.label}}
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<table class="ui compact celled definition table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>URL</th>
+						<th class="collapsing text-center">Visits</th>
+						<th class="collapsing text-center">Weight</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="url in next_item.urls">
+						<td class="collapsing">
+							<div class="ui fitted slider checkbox">
+								<input type="checkbox" ng-checked="url.enabled"> <label></label>
+							</div>
+						</td>
+						<td>
+							<div class="ui fluid corner labeled input">
+								<input type="text" placeholder="url" ng-model="url.url">
+								<div class="ui corner label">
+									<i class="linkify icon"></i>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="ui transparent input small_stat">
+								<input type="text" placeholder="0" class="text-center">
+							</div>
+						</td>
+						<td>
+							<div class="ui transparent input small_stat">
+								<input type="text" placeholder="10" class="text-center" ng-model="url.weight">
+							</div>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot class="full-width">
+					<tr>
+						<th></th>
+						<th colspan="4">
+							<div class="ui right floated small primary labeled icon button" ng-click="addUrls(3);">
+								<i class="plus icon"></i> Add More
+							</div>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ng-click="smModal.Show('public.administrate.smart-links.list')" class="ui black button">
+			Cancel
+		</a>
+		<a ng-click="save()" class="ui right labeled green icon button">
+			Save changes
+			<i class="check icon"></i>
+		</a>
+	</div>
+</div>

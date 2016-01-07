@@ -14,7 +14,7 @@ var path = require( 'path' );
 var exists = require( 'path-exists' ).sync;
 var runSequence = require( 'run-sequence' );
 var exec = require('child_process').exec;
-var protractor = require("gulp-protractor").protractor;
+//var protractor = require("gulp-protractor").protractor;
 var shell = require('gulp-shell')
 
 
@@ -67,6 +67,15 @@ gulp.task( 'js', function()
 	 //gulp.src(["src/**/*.e2e.js","!src/tests/*","!src/tests/**"])
 		//.pipe( concat( 'e2e.tests.js' ) )
 		//.pipe( gulp.dest( 'src/tests' ) );
+
+	return true;
+} );
+
+gulp.task( 'tests', function()
+{
+	gulp.src(["src/**/*.e2e.js","!src/tests/*","!src/tests/**"])
+			.pipe( concat( 'e2e.tests.js' ) )
+			.pipe( gulp.dest( 'src/tests' ) );
 
 	return true;
 } );
@@ -230,7 +239,7 @@ gulp.task( 'php', function()
 
 gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ,'json'] );
 gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' ,'json', 'watch'] );
-gulp.task( 'test', [ 'test-e2e'] );
+//gulp.task( 'test', [ 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
 {

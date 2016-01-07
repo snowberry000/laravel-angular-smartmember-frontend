@@ -15,7 +15,8 @@ DetectAndPerformBridgePageThings();
 
 	<base href="/"></base>
 
-	<title>Smart Member</title>
+	<!-- <title>{{page_title ? page_title : 'Loading'}} </title> -->
+	<title ng-bind="page_title">Loading</title>
 	<meta name="description" content="">
 
 	<!-- <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css"> -->
