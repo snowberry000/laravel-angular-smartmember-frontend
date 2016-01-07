@@ -20,6 +20,7 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 {
 	$rootScope.site = $site;
 	$rootScope.page_title = $site.name;
+	//$rootScope.page_title = 'chanbged title';
 
 	$rootScope.is_admin = false;
 	$rootScope.site = $site;

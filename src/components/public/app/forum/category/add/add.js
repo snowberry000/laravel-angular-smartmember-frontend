@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AddController", function( $scope, Restangular, $stateParams )
+app.controller( "AddController", function( $scope, Restangular, $stateParams,$rootScope )
 {
 
 	if( $stateParams.id )
@@ -18,6 +18,7 @@ app.controller( "AddController", function( $scope, Restangular, $stateParams )
 		Restangular.one( 'forumCategory', $stateParams.id ).get().then( function( response )
 		{
 			$scope.category = response;
+			$rootScope.page_title = $scope.category ? $scope.category.title : 'Add Forum Category';
 		} )
 	}
 

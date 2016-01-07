@@ -18,6 +18,7 @@ app.controller( "Forum-categoryController", function( $scope, $rootScope, $state
 		.then( function( response )
 		{
 			$scope.category = response;
+			$rootScope.page_title = $scope.category.title ? $scope.category.title  : 'Category';
 			$rootScope.category = response;
 		} );
 
