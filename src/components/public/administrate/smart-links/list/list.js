@@ -28,7 +28,6 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
         total_count: 0
     };
 
-    /*
     $scope.$watch( 'pagination.current_page', function( new_value, old_value )
     {
         if( new_value != old_value )
@@ -70,5 +69,4 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
             $scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
         } );
     };
-    */
 });

@@ -2,8 +2,8 @@
 
 // An example configuration file.
 exports.config = {
-	sauceUser: 'johnrazmus',
-	sauceKey: 'f82c9281-e5af-4e36-9385-7a2d4cc24b8c',
+	//sauceUser: 'johnrazmus',
+	//sauceKey: 'f82c9281-e5af-4e36-9385-7a2d4cc24b8c',
 
 	capabilities: {
 		'browserName': 'chrome'
@@ -20,15 +20,15 @@ exports.config = {
 		realtimeFailure: true
 	},
 	params: {
-		env: 'com',
-		subdomain: 'testcases',
+		env: 'in',
+		subdomain: 'cat',
 		user: {
 			email: 'jawad@likastic.com',
 			password: 'hello123'
 		},
 		non_admin_user: {
-			email: 'moshin@likastic.com',
-			password: 'hello123'
+			email: 'nguyen.hoangngan2011@yahoo.com',
+			password: 'nha530678'
 		},
 		user_accessRights_lesser_than_admin: {
 			email: 'mohsin@likastic.com',

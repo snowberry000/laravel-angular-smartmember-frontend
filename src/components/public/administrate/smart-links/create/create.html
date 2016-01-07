@@ -9,7 +9,7 @@
 			<div class="ui segment form">
 				<div class="inline field">
 					<label>Link Name</label>
-					<input type="text" value="" data-content="This name helps locate it among your list of Smart Links" data-on="focus" sui-popup>
+					<input type="text" value="" data-content="This name helps locate it among your list of Smart Links" data-on="focus" ng-model="next_item.title" sui-popup>
 				</div>
 
 			</div>
@@ -18,21 +18,9 @@
 					<label>Rotation Logic</label>
 
 					<div class="ui buttons">
-						<div class="ui button" ng-class="{single:'active'}[recipient_type]" ng-click="SetRecipientType('single')">
+						<div class="ui button" ng-class="{'active': next_item.type == rotation_type.value}" ng-repeat="rotation_type in rotation_types" ng-click="SetRotationType( rotation_type.value )">
 							<i class="random icon"></i>
-							Random
-						</div>
-						<div class="ui button" ng-class="{members:'active'}[recipient_type]" ng-click="SetRecipientType('members')">
-							<i class="ordered list icon"></i>
-							Sequential
-						</div>
-						<div class="ui button" ng-class="{segment:'active'}[recipient_type]" ng-click="SetRecipientType('segment')">
-							<i class="crosshairs icon"></i>
-							Least Hit
-						</div>
-						<div class="ui button" ng-class="{segment:'active'}[recipient_type]" ng-click="SetRecipientType('segment')">
-							<i class="calculator icon"></i>
-							Weighted
+							{{rotation_type.label}}
 						</div>
 					</div>
 
@@ -49,15 +37,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr ng-repeat="url in next_item.urls">
 						<td class="collapsing">
 							<div class="ui fitted slider checkbox">
-								<input type="checkbox" checked> <label></label>
+								<input type="checkbox" ng-checked="url.enabled"> <label></label>
 							</div>
 						</td>
 						<td>
 							<div class="ui fluid corner labeled input">
-								<input type="text" placeholder="url">
+								<input type="text" placeholder="url" ng-model="url.url">
 								<div class="ui corner label">
 									<i class="linkify icon"></i>
 								</div>
@@ -70,57 +58,7 @@
 						</td>
 						<td>
 							<div class="ui transparent input small_stat">
-								<input type="text" placeholder="ex. 10" class="text-center">
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="collapsing">
-							<div class="ui fitted slider checkbox">
-								<input type="checkbox" checked> <label></label>
-							</div>
-						</td>
-						<td>
-							<div class="ui fluid corner labeled input">
-								<input type="text" placeholder="url">
-								<div class="ui corner label">
-									<i class="linkify icon"></i>
-								</div>
-							</div>
-						</td>
-						<td>
-							<div class="ui transparent input small_stat">
-								<input type="text" placeholder="0" class="text-center">
-							</div>
-						</td>
-						<td>
-							<div class="ui transparent input small_stat">
-								<input type="text" placeholder="ex. 10" class="text-center">
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="collapsing">
-							<div class="ui fitted slider checkbox">
-								<input type="checkbox"> <label></label>
-							</div>
-						</td>
-						<td class="disabled">
-							<div class="ui fluid corner labeled input">
-								<input type="text" placeholder="url">
-								<div class="ui corner label">
-									<i class="linkify icon"></i>
-								</div>
-							</div>
-						</td>
-						<td class="disabled">
-							<div class="ui transparent input small_stat">
-								<input type="text" placeholder="0" class="text-center">
-							</div>
-						</td>
-						<td class="disabled">
-							<div class="ui transparent input small_stat">
-								<input type="text" placeholder="ex. 10" class="text-center">
+								<input type="text" placeholder="10" class="text-center" ng-model="url.weight">
 							</div>
 						</td>
 					</tr>
@@ -129,7 +67,7 @@
 					<tr>
 						<th></th>
 						<th colspan="4">
-							<div class="ui right floated small primary labeled icon button">
+							<div class="ui right floated small primary labeled icon button" ng-click="addUrls(3);">
 								<i class="plus icon"></i> Add More
 							</div>
 						</th>
