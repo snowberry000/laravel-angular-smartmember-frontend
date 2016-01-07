@@ -113,6 +113,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         var lessons = [];
         //alert("called");
         $.each($(".module_item"), function (key, module) {
+            delete module.hide_module;
             $upLessons = $(module).find(".lesson_item");
             if($upLessons.length==0)
             {
@@ -156,6 +157,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         var module_copy = angular.copy(module);
         delete module_copy.lessons;
         delete module_copy.show_me;
+        delete module_copy.hide_module;
         Restangular.all('module').customPUT(module_copy , module.id).then(function(response){
 
         })
