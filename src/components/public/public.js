@@ -200,6 +200,11 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		}
 	}
 
+	$rootScope.hideBuildMenu = function () {
+		$('.build_menu').addClass('hidden');
+		$('.build_menu').removeClass('visible');
+	}
+
 	$rootScope.isSitelessPage = function( specific_site )
 	{
 		var parts = location.hostname.split( '.' );
