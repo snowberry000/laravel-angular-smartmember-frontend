@@ -66,7 +66,11 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
 
     $scope.init = function()
     {
-        var clipboard = new Clipboard( '.copy-button' );
+        var clipboard = new Clipboard( '.copy-button', {
+            text: function(trigger) {
+                return trigger.getAttribute('data-text');
+            }
+        } );
     }
 
     $scope.deleteResource = function( id )
