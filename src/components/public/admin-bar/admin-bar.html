@@ -20,13 +20,13 @@
 
 <div class="{{$state.includes('public.app') && !$state.includes('public.app.admin') ? 'active' : ''}} item build_menu_trigger_container">
 	<div class="ui buttons">
-		<a class="ui inverted basic red button" ng-click="smModal.Show('public.administrate.team.sites')">
+		<a class="ui inverted basic red button" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.administrate.team.sites')">
 			Browse
 		</a>
 		<a class="ui inverted basic red button" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="edit_theme_options" if-not="hide" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 			Design
 		</a>
-		<div class="ui inverted basic red button" ng-if="!isSitelessPage()" data-move-popup="false" data-popup=".build_menu" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
+		<div class="ui inverted basic red button" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" data-move-popup="false" data-popup=".build_menu" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
 			Build
 		</div>
 	</div>
@@ -78,7 +78,7 @@
 			</button>
 		</div>
 	</div>
-	<div class="item thin" ng-if="!isSitelessPage()">
+	<div class="item thin" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()">
 		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')" title="Bridge Pages" position="left center" sui-popup>
 			<button class="ui inverted basic red icon button">
 				<i class="browser icon"></i>
