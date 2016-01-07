@@ -1,4 +1,4 @@
-<div class="ui short modal">
+<div class="ui short large modal">
 	<div class="header">
 		<i class="video icon"></i>
 		Import Vimeo Videos
@@ -18,121 +18,52 @@
 				</a>
 			</div>
 
-			<div class="ui icon input" ng-if="vimeo.access_token">
-				<input type="text" placeholder="Search..." ng-model="$parent.searchText" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-				<i class="search icon"></i>
+			<div class="ui menu" ng-if="vimeo.access_token">
+				<div class="item">
+					<div class="ui icon input">
+						<input type="text" placeholder="Search videos..." ng-model="$parent.searchText" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+						<i class="search icon"></i>
+					</div>
+				</div>
+				<div class="right item">
+					<div class="ui input">
+						<select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag" ng-change="filter(tag.tag)" sui-dropdown>
+							<option value="">Tags</option>
+						</select>
+					</div>
+				</div>
 			</div>
 
-
-			Tag Filter &nbsp; &nbsp;
-			<select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag"
-					ng-change="filter(tag.tag)"></select>
-			<div class="ui four doubling stackable link site cards" ng-if="vimeo.access_token">
-				<a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query">
-					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
-						<img class="ui centered middle aligned image" src="{{site.data.site_logo || '/images/white-image.png'}}">
+			<div class="ui four doubling stackable link cards" ng-if="vimeo.access_token && videos_to_show.length > 0 && !wait">
+				<div class="card" ng-repeat="next_item in videos_to_show | filter:$parent.searchText" ng-if="!next_item.hide" ng-hide="next_item.added" ng-controller="VimeoVideoController">
+					<div class="image flex_center" style="background:#000;">
+						<img class="ui centered middle aligned image" src="{{next_item.pictures.sizes[1].link || '/images/white-image.png'}}">
 					</div>
 					<div class="content">
 						<div class="header">
-							{{site.name}}
-						</div>
-						<div class="meta ellipsis">
-							{{site.domain ? site.domain : site.subdomain + '.' + 'smartmember.com' }}
+							{{next_item.name}}
 						</div>
 						<div class="description">
+							{{next_item.description}}
 
-						</div>
-					</div>
-					<div class="extra content">
-
-						<div class="ui {{site.total_revenue >= 10 ? 'three' : 'two'}} normal statistics">
-							<div class="statistic" ng-if="(site.role=='admin' || site.role=='owner' || site.role=='editor')" title="Site members">
-								<div class="value">
-									<i class="users grey icon"></i> {{site.total_members}}
-								</div>
-							</div>
-							<div ng-if="site.total_revenue >= 10 && (site.role=='admin' || site.role=='owner')" class="statistic" title="Site revenue">
-								<div class="value">
-									{{site.total_revenue | currency:"$":0}}
-								</div>
-							</div>
-							<div class="statistic" title="Site lessons">
-								<div class="value">
-									{{site.total_lessons}} <i class="graduation grey icon"></i>
-								</div>
+							<div class="ui icon buttons">
+								<button class="ui button" ng-click="addLesson(next_item)" ng-disabled="next_item.added">
+									<i class="plus icon"></i>
+									{{next_item.added ? 'Added' : 'Add as lesson'}}
+								</button>
+								<a ng-href="{{next_item.link}}" class="ui button" target="_blank">
+									<i class="external icon"></i>
+								</a>
 							</div>
 						</div>
-
 					</div>
-					<div class="ui bottom attached indicating progress" data-value="{{site.progress}}" data-total="5" sui-progress title="Setup wizard progress">
-						<div class="bar"></div>
-					</div>
-				</a>
+				</div>
 			</div>
 
-			<div class="ibox-content" ng-if="vimeo.access_token">
-				<table class="ui fixed single line celled stackable table default breakpoint footable-loaded" data-page-size="25" ng-if="videos_to_show.length > 0 && !wait">
-					<thead>
-						<tr>
-							<th data-toggle="true" class="footable-visible footable-first-column footable-sortable">Video
-								<span class="footable-sort-indicator"></span>
-							</th>
-							<th class="footable-visible footable-sortable">Description
-								<span
-								 class="footable-sort-indicator"></span>
-							</th>
-							<th class="footable-visible footable-sortable">Action
-								<span class="footable-sort-indicator"></span>
-							</th>
-							<th data-hide="all" class="footable-sortable" style="display: none;">Thumbnail
-								<span class="footable-sort-indicator"></span>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="next_item in videos_to_show | filter:$parent.searchText"
-							class="footable-even"
-							ng-init="next_item.show_details = false" ng-class="{'footable-detail-show': next_item.show_details}" ng-if="!next_item.hide" ng-hide="next_item.added" style="display: table-row;" ng-controller="VimeoVideoController">
-							<td class="footable-visible footable-first-column">
-								<span ng-click="next_item.show_details = !next_item.show_details" class="footable-toggle"></span>
-								<a ng-href="{{next_item.link}}" target="_blank">{{next_item.name}}</a>
-							</td>
-							<td class="footable-visible">{{next_item.description}}</td>
-							<td class="footable-visible">
-								<a class="btn btn-brand btn-outline btn-xs" ng-click="addLesson(next_item)" ng-disabled="next_item.added">
-									{{next_item.added ? 'Added' : 'Add as lesson'}}
-									<i class="fa fa-pencil"></i>
-								</a>
-							</td>
-						</tr>
-						<tr ng-repeat-end ng-style="{display: next_item.show_details ? 'table-row' : 'none'}">
-							<td class="footable-row-detail-cell" colspan="4">
-								<div class="footable-row-detail-inner">
-									<div class="footable-row-detail-row">
-										<div class="footable-row-detail-name">
-											Thumbnail:
-										</div>
-										<div class="footable-row-detail-value">
-											<img ng-show="next_item.pictures.sizes[1].link" src="{{next_item.pictures.sizes[1].link}}"
-												 class="img-responsive img-thumbnail" alt=""/>
-										</div>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="5" class="footable-visible">
-								<div class="text-right" ng-if="!wait">
-									<pagination ng-if="videos.data.length > 0" total-items="videos.data.length"
-												items-per-page="itemsPerPage" ng-model="pagination.currentPage" max-size="5" class="pagination-sm pull-right" boundary-links="false" ng-change="paginateIt()"></pagination>
-								</div>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
 
+			<div class="text-right" ng-if="!wait">
+				<pagination ng-if="videos.data.length > 0" total-items="videos.data.length"
+							items-per-page="itemsPerPage" ng-model="pagination.currentPage" max-size="5" class="pagination-sm pull-right" boundary-links="false" ng-change="paginateIt()"></pagination>
 			</div>
 
 
