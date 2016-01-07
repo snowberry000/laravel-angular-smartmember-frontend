@@ -42,7 +42,7 @@
 
 				<div class="field">
 					<label>Template</label>
-					<select class="ui dropdown" ng-model="template" ng-options="t.name for t in templates" sui-dropdown></select>
+					<select class="ui dropdown" ng-model="template" ng-options="t.name for t in templates track by t.id"></select>
 				</div>
 				<div class="field">
 					<label>Page Title</label>
