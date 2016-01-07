@@ -25,25 +25,19 @@
 						<i class="search icon"></i>
 					</div>
 				</div>
-				<div class="row" ng-if="vimeo_app_configurations.length >= 1">
-					<div class="col-md-6">
-						<span>Choose a different account</span>
-					</div>
-					<div class="col-md-6">
-						<select class="form-control" ng-model="selected_account" ng-change="changeAccount()">
-							<option ng-repeat="vimeo_integration in vimeo_app_configurations"
-									ng-selected="vimeo_integration.id == selected_account"
-									value="{{vimeo_integration.id}}">{{vimeo_integration.account.name ?
-								vimeo_integration.account.name : vimeo_integration.account.remote_id}}
-						</option>
-						</select>
-						<!-- <span class="help-block m-b-none">
-							You can add nicknames to your accounts <a
-					 href="/admin/team/app_configurations/connections">here</a> for easier identification.
-						</span> -->
-					</div>
-				</div>
 				<div class="right menu">
+					<div class="item">
+						<div class="ui input">
+							<select class="form-control" ng-model="selected_account" ng-change="changeAccount()" sui-dropdown>
+								<option value="">Account</option>
+								<option ng-repeat="vimeo_integration in vimeo_app_configurations"
+										ng-selected="vimeo_integration.id == selected_account"
+										value="{{vimeo_integration.id}}">{{vimeo_integration.account.name ?
+									vimeo_integration.account.name : vimeo_integration.account.remote_id}}
+								</option>
+							</select>
+						</div>
+					</div>
 					<div class="item">
 						<div busy class="ui button" ng-click="addAll()">
 							<i class="plus icon"></i>
