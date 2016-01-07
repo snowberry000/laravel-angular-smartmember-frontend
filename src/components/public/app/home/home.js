@@ -116,6 +116,10 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $l
                             break;
                         case "bridge_bpages":
                             $state.go( 'bridgepage', { permalink: homepage_url }, { location: false } );
+                            break;
+                        case 'affcontests':
+                            $state.go( 'public.app.affiliateContest', { permalink: homepage_url }, { location: false } );
+                            break;
                     }
                     return;
                 } );
