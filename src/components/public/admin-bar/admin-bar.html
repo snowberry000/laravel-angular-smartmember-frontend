@@ -115,47 +115,47 @@
 				<div class="item">
 					<div class="header">Content</div>
 					<div class="menu">
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.syllabus.lessons')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.lessons')">
 							<i class="student icon"></i>
 							{{ 'LESSONS' | translate }}
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.syllabus.modules')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.modules')">
 							<i class="student icon"></i>
 							{{ 'MODULES' | translate }}
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.blog.posts')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.blog.posts')">
 							<i class="paragraph icon"></i>
 							{{ 'POSTS' | translate }}
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.helpdesk.articles')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.articles')">
 							<i class="life ring icon"></i>
 							Articles
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.helpdesk.categories')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.categories')">
 							<i class="life ring icon"></i>
 							Categories
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.downloads')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.downloads')">
 							<i class="download icon"></i>
 							{{ 'DOWNLOADS' | translate }}
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.livecasts')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.livecasts')">
 							<i class="microphone icon"></i>
 							{{ 'LIVECASTS' | translate }}
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.pages.custom-pages')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.pages.custom-pages')">
 							<i class="file text icon"></i>
 							Pages
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.membership.notices')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.membership.notices')">
 							<i class="announcement icon"></i>
 							Notices
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.import')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.import')">
 							<i class="upload icon"></i>
 							{{ 'IMPORT' | translate }}
 						</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.stats')">
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.stats')">
 							<i class="bar chart icon"></i>
 							{{ 'STATS' | translate }}
 						</a>
@@ -170,14 +170,14 @@
 				<div class="item">
 					<div class="header">Members</div>
 					<div class="menu">
-						<a class="item" ui-sref="public.app.home" ng-click="hideBuildMenu();">Site Home</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
-						<a class="item" sm-access="manage_access_levels" if-not="hide" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.membership.products')">Access Levels</a>
-						<a class="item" sm-access="manage_access_levels" if-not="hide" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.membership.passes')">{{ 'PASSES' | translate }}</a>
-						<a class="item" sm-access="manage_transactions" if-not="hide" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
-						<a class="item" sm-access="view_financial_stats" if-not="hide" ng-click="hideBuildMenu();" ui-sref="public.administrate.wallboard" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.content.syllabus.notes')">User notes</a>
+						<a class="item" ui-sref="public.app.home">Site Home</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
+						<a class="item" sm-access="manage_access_levels" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.products')">Access Levels</a>
+						<a class="item" sm-access="manage_access_levels" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.passes')">{{ 'PASSES' | translate }}</a>
+						<a class="item" sm-access="manage_transactions" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.transactions')">{{ 'TRANSACTIONS' | translate }}</a>
+						<a class="item" sm-access="view_financial_stats" if-not="hide" ui-sref="public.administrate.wallboard" target=_blank>{{ 'SALES_WALLBOARD' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.notes')">User notes</a>
 					</div>
 				</div>
 
@@ -190,18 +190,18 @@
 				<div class="item" sm-access="edit_theme_options" if-not="hide">
 					<div class="header">Sidebars</div>
 					<div class="menu">
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.appearance.widgets')">{{ 'WIDGETS' | translate }}</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.appearance.banners')">{{ 'BANNERS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.appearance.widgets')">{{ 'WIDGETS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.site.appearance.banners')">{{ 'BANNERS' | translate }}</a>
 					</div>
 				</div>
 				<div class="item" sm-access="manage_affiliates" if-not="hide">
 					<div class="header">Affiliates</div>
 					<div class="menu">
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.team.jv.affiliates')">{{ 'AFFILIATES' | translate }}</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.team.jv.teams')">{{ 'AFFILIATE_TEAMS' | translate }}</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.team.jv.fetcher')">{{ 'JVZOO_FETCHER' | translate }}</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.team.jv.contests')">{{ 'CONTESTS' | translate }}</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.team.jv.stats')">{{ 'STATS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.jv.affiliates')">{{ 'AFFILIATES' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.jv.teams')">{{ 'AFFILIATE_TEAMS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.jv.fetcher')">{{ 'JVZOO_FETCHER' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.jv.contests')">{{ 'CONTESTS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.jv.stats')">{{ 'STATS' | translate }}</a>
 					</div>
 				</div>
 			</div>
@@ -213,17 +213,17 @@
 				<div class="item">
 					<div class="header">Settings</div>
 					<div class="menu">
-						<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.appearance.settings')">Site settings</a>
-						<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.pages.core.list')">Core pages</a>
-						<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="hideBuildMenu();smModal.Show('public.administrate.site.appearance.directory')">Directory Listing</a>
+						<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.settings')">Site settings</a>
+						<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.pages.core.list')">Core pages</a>
+						<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.directory')">Directory Listing</a>
 					</div>
 				</div>
 				<div class="item" sm-access="manage_apps" if-not="hide">
 					<div class="header">Apps</div>
 					<div class="menu">
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.team.app_configurations.available')">Add new app</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.team.app_configurations.list')">Installed apps</a>
-						<a class="item" ng-click="hideBuildMenu();smModal.Show('public.administrate.team.app_configurations.connections')">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.available')">Add new app</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.list')">Installed apps</a>
+						<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.connections')">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
 					</div>
 				</div>
 			</div>
