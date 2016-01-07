@@ -25,18 +25,26 @@
 						<i class="search icon"></i>
 					</div>
 				</div>
-				<div class="right item">
-					<div class="ui input">
-						<select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag" ng-change="filter(tag.tag)" sui-dropdown>
-							<option value="">Tags</option>
-						</select>
+				<div class="right menu">
+					<div class="item">
+						<div busy class="ui button" ng-click="addAll()">
+							<i class="plus icon"></i>
+							Add all as lessons
+						</div>
+					</div>
+					<div class="item">
+						<div class="ui input">
+							<select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag" ng-change="filter(tag.tag)" sui-dropdown>
+								<option value="">Tags</option>
+							</select>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="ui four doubling stackable link cards" ng-if="vimeo.access_token && videos_to_show.length > 0 && !wait">
 				<div class="card" ng-repeat="next_item in videos_to_show | filter:$parent.searchText" ng-if="!next_item.hide" ng-hide="next_item.added" ng-controller="VimeoVideoController">
-					<div class="image flex_center" style="background:#000;">
+					<div class="image flex_center" style="background:#000000;">
 						<img class="ui centered middle aligned image" src="{{next_item.pictures.sizes[1].link || '/images/white-image.png'}}">
 					</div>
 					<div class="content">
