@@ -77,29 +77,23 @@
 			</div>
 		</div>
 	</div>
-	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Support" position="left center" sui-popup>
-		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')">
-			<button class="ui inverted basic red icon button">
-				<i class="life ring icon"></i>
+	<a class="item thin" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Support" position="left center" sui-popup>
+		<button class="ui inverted basic red icon button">
+			<i class="life ring icon"></i>
 
-				<div ng-if="site.unread_support_ticket" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
-			</button>
-		</div>
-	</div>
-	<div class="item thin" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()">
-		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')" title="Bridge Pages" position="left center" sui-popup>
-			<button class="ui inverted basic red icon button">
-				<i class="browser icon"></i>
-			</button>
-		</div>
-	</div>
-	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Speed Blogging" position="left center" sui-popup>
-		<div class="ui dropdown" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')">
-			<button class="ui inverted basic red icon button">
-				<i class="checkered flag icon"></i>
-			</button>
-		</div>
-	</div>
+			<div ng-if="site.unread_support_ticket" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
+		</button>
+	</a>
+	<a class="item thin" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" title="Bridge Pages" position="left center" sui-popup>
+		<button class="ui inverted basic red icon button">
+			<i class="browser icon"></i>
+		</button>
+	</a>
+	<a class="item thin" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Speed Blogging" position="left center" sui-popup>
+		<button class="ui inverted basic red icon button">
+			<i class="checkered flag icon"></i>
+		</button>
+	</a>
 
 	<div ng-if="!isSitelessPage() && site.wizard_step >= 5" class="ui category search item" sui-search>
 		<div class="ui icon input">
