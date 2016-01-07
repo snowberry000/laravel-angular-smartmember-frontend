@@ -21,7 +21,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 	{
 		Restangular.all( "siteMetaData" ).getList().then( function( response )
 		{
-			$site_options = response;
+			$site_options =  $rootScope.site.meta_data;
 			$scope.site_options = {};
 			console.log( 'site_options:' );
 			console.log( $site_options );
