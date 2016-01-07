@@ -46,14 +46,16 @@
 						<div class="description">
 							{{next_item.description}}
 
-							<div class="ui icon buttons">
-								<button class="ui button" ng-click="addLesson(next_item)" ng-disabled="next_item.added">
-									<i class="plus icon"></i>
-									{{next_item.added ? 'Added' : 'Add as lesson'}}
-								</button>
-								<a ng-href="{{next_item.link}}" class="ui button" target="_blank">
-									<i class="external icon"></i>
-								</a>
+							<div class="text-center">
+								<div class="ui icon buttons">
+									<button busy class="ui button" ng-click="addLesson(next_item)" ng-disabled="next_item.added">
+										<i class="plus icon"></i>
+										{{next_item.added ? 'Added' : 'Add as lesson'}}
+									</button>
+									<a ng-href="{{next_item.link}}" class="ui button" target="_blank">
+										<i class="external icon"></i>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
