@@ -1,128 +1,159 @@
 <div class="ui modal">
-	<i class="close icon"></i>
-
 	<div class="header">
-		<i class="paragraph icon"></i>
+		<i class="users icon"></i>
 		{{ template_data.title | translate }}
 	</div>
 	<div class="content">
 		<div class="description">
-			<p>{{template_data.description}}</p>
-			
-			<div class="ibox float-e-margins">
-				<div class="ibox-content">
-					<div class="field">
-						<label class="control-label" for="">Search:</label>
-						<input type="text" id="" name="" value="" class="form-control"  ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-						Show users that
-						<select ng-change="$parent.access_level ? search() : ''" class="btn btn_outline btn_small" ng-init="$parent.access_level_status='0'" ng-model="$parent.access_level_status" style="width:inherit; font-weight: normal;color: #000 !important;border: 1px solid #ccc; margin-bottom:10px; margin-left:10px;">
-							<option value="1">have</option>
-							<option value="0">don't have</option>
-						</select>
-						<select ng-change="search()" class="btn btn_outline btn_small" ng-init="$parent.access_level=0" ng-model="$parent.access_level" style="width:inherit; font-weight: normal;color: #000 !important;border: 1px solid #ccc; margin-bottom:10px; margin-left:10px;">
-							<option value="0">Choose Access Level</option>
-							<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
-						</select>
-						<a class="btn btn_outline btn_small btn_outline btn_small" ng-click="$parent.access_level_status='0';$parent.access_level=0" style="margin-bottom:10px; margin-left:10px;">Clear</a>
+			<div class="ui message">
+				<p>{{template_data.description}}</p>
+			</div>
+
+			<div class="ui menu">
+				<div class="item">
+					<div class="ui icon input">
+						<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+						<i class="search icon"></i>
 					</div>
-					<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
-						<div class="sk-bounce1"></div>
-						<div class="sk-bounce2"></div>
-						<div class="sk-bounce3"></div>
-					</div>
-
-					<table class="ui fixed single line celled stackable table" data-page-size="2">
-						<thead>
-							<tr>
-								<th data-hide="title">User</th>
-								<th data-hide="title">Access Levels</th>
-								<th data-hide="title">Role</th>
-								<th data-hide="date">Date</th>
-								<th class="text-right" data-sort-ignore="true">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
-								<td>
-									{{next_item.user.first_name ? next_item.user.first_name + ' ' + next_item.user.last_name : next_item.user.email}}
-									<br ng-hide="next_item.user.first_name" />
-									<div ng-hide="!next_item.user.first_name">
-										{{next_item.user.email}}
-									</div>
-								</td>
-								<td>
-									{{next_item.access_level ? next_item.access_level.name : ""}}
-								</td>
-								<td>
-									{{new_item.type}}
-								</td>
-								<td>
-									{{moment.utc(next_item.created_at).fromNow()}}
-								</td>
-								<td class="text-right">
-									<button class="mini ui button" ng-if="!isAdmin(next_item) && !isAgent(next_item) && !member.access_level_selection" ng-init="next_item.access_level_selection=false" ng-click="stopPropagation($event); next_item.access_level_selection=true">
-										Grant Access Pass
-									</button>
-									<select ng-if="next_item.access_level_selection" ng-init="next_item.new_access_level=0" ng-model="next_item.new_access_level" class="btn btn_outline btn_small" ng-click="stopPropagation($event);">
-										<option value="0">Choose Access Level</option>
-										<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
-									</select>
-									<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); addAccessPass(next_item)">
-										{{next_item.new_access_pass_saving ? 'Saving...': 'Save'}}
-									</button>
-									<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); next_item.access_level_selection=false">
-										Cancel
-									</button>
-									<br/>
-									<br/>
-									<!-- <br ng-if="next_item.access_level_selection" />
-									<button class="btn btn-brand btn-outline btn-sm" ng-if="!next_item.isTeamMember && isOwner(user)" ng-click="addToTeam(next_item)">
-										Add To Team
-									</button> -->
-									<button class="mini ui button" ng-if="!isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item)">
-										Make Admin
-									</button>
-									<button class="mini ui button" ng-if="isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item)">
-										Revoke Admin Status
-									</button>
-									<br/>
-									<br/>
-									<button class="mini ui button" ng-if="!isAgent(next_item)" ng-click="toggleAgent(next_item)">
-										Make Agent
-									</button>
-									<button class="mini ui button" ng-if="isAgent(next_item) && !isAdmin(next_item) && !isOwner(next_item)" ng-click="toggleAgent(next_item)">
-										Revoke Agent Status
-									</button>
-									<br/>
-									<br/>
-									<button class="mini ui button" sm-delete={{next_item.id}}>
-										Delete
-										<i class="fa fa-trash"></i>
-									</button>
-
-								</td>
-							</tr>
-
-						</tbody>
-					</table>
-					<div class="text-right"  ng-if="!loading">
-						<dir-pagination-controls max-size="5"></dir-pagination-controls>
+				</div>
+				<div class="right menu">
+					<div class="item">
+						<div class="ui input">
+							<select data-ng-options="access_level.id for access_level in access_levels" ng-model="access_level.id" sui-dropdown>
+								<option value="">Access Levels</option>
+							</select>
+						</div>
 					</div>
 				</div>
 			</div>
+
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
+				<thead>
+					<tr>
+						<th data-hide="title">User</th>
+						<th data-hide="title">Access Levels</th>
+						<th data-hide="title">Role</th>
+						<th data-hide="all">Date</th>
+						<th class="text-right">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+						<td>
+							{{next_item.user.first_name ? next_item.user.first_name + ' ' + next_item.user.last_name : next_item.user.email}}
+							<br ng-hide="next_item.user.first_name" />
+							<div ng-hide="!next_item.user.first_name">
+								{{next_item.user.email}}
+							</div>
+						</td>
+						<td>
+							{{next_item.access_level ? next_item.access_level.name : ""}}
+						</td>
+						<td>
+							{{new_item.type}}
+						</td>
+						<td>
+							{{moment.utc(next_item.created_at).fromNow()}}
+						</td>
+						<td class="text-right">
+							<div class="ui buttons">
+								<div class="ui button" ng-click="smModal.Show(template_data.edit_route,{id: next_item.id })">
+									Edit
+								</div>
+								<div class="ui floating dropdown icon button" sui-dropdown>
+									<i class="dropdown icon"></i>
+									<div class="menu">
+										<a class="item" href="/{{next_item.permalink}}" target="_blank">
+											<i class="eye icon"></i>
+											View
+										</a>
+										<a class="item" ng-click="smModal.Show( template_data.edit_route , {clone : next_item.id})">
+											<i class="copy icon"></i>
+											Copy
+										</a>
+										<a class="item" sm-delete="{{next_item.id}}">
+											<i class="delete icon"></i>
+											Delete
+										</a>
+									</div>
+								</div>
+							</div>
+
+
+
+							<button class="mini ui button" ng-if="!isAdmin(next_item) && !isAgent(next_item) && !member.access_level_selection" ng-init="next_item.access_level_selection=false" ng-click="stopPropagation($event); next_item.access_level_selection=true">
+								Grant Access Pass
+							</button>
+							<select ng-if="next_item.access_level_selection" ng-init="next_item.new_access_level=0" ng-model="next_item.new_access_level" class="btn btn_outline btn_small" ng-click="stopPropagation($event);">
+								<option value="0">Choose Access Level</option>
+								<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
+							</select>
+							<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); addAccessPass(next_item)">
+								{{next_item.new_access_pass_saving ? 'Saving...': 'Save'}}
+							</button>
+							<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); next_item.access_level_selection=false">
+								Cancel
+							</button>
+							<br/>
+							<br/>
+							<!-- <br ng-if="next_item.access_level_selection" />
+							<button class="btn btn-brand btn-outline btn-sm" ng-if="!next_item.isTeamMember && isOwner(user)" ng-click="addToTeam(next_item)">
+								Add To Team
+							</button> -->
+							<button class="mini ui button" ng-if="!isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item)">
+								Make Admin
+							</button>
+							<button class="mini ui button" ng-if="isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item)">
+								Revoke Admin Status
+							</button>
+							<br/>
+							<br/>
+							<button class="mini ui button" ng-if="!isAgent(next_item)" ng-click="toggleAgent(next_item)">
+								Make Agent
+							</button>
+							<button class="mini ui button" ng-if="isAgent(next_item) && !isAdmin(next_item) && !isOwner(next_item)" ng-click="toggleAgent(next_item)">
+								Revoke Agent Status
+							</button>
+							<br/>
+							<br/>
+							<button class="mini ui button" sm-delete={{next_item.id}}>
+								Delete
+								<i class="fa fa-trash"></i>
+							</button>
+
+						</td>
+					</tr>
+
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="4">
+							<div class="ui pointing label">
+								{{pagination.total_count}} items
+							</div>
+							<dir-pagination-controls max-size="5"></dir-pagination-controls>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="smModal.Show('public.administrate.site.membership.import')" class="ui right labeled icon button">
-			Import Members
-			<i class="checkmark icon"></i>
-		</a>
-		<a target="_blank" href="{{apiURL}}/siteRole/getCSV?access_token={{$storage.user.access_token}}" class="ui right labeled icon button">
-			Export Members
-			<i class="checkmark icon"></i>
-		</a>
 		<div class="ui black deny button close">
 			Close
 		</div>
+		<a href="{{apiURL}}/siteRole/getCSV?access_token={{$storage.user.access_token}}" target="_blank" class="ui right labeled icon button">
+			Export
+			<i class="download icon"></i>
+		</a>
+		<a ng-click="smModal.Show('public.administrate.site.membership.import')" class="ui right labeled icon green button">
+			Add / Import
+			<i class="plus icon"></i>
+		</a>
 	</div>
 </div>
