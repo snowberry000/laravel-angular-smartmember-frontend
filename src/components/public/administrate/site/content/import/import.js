@@ -151,7 +151,10 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
             if(!match)
                 $scope.videos.data[i].hide = true;
             else
+            {
                 //console.log(match)
+            }
+
         };
     }
 

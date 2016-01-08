@@ -88,8 +88,8 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	    accept: function (sourceItemHandleScope, destSortableScope){
 	        return true;
 	    },
-	    itemMoved: function ($event) {//console.log("moved");},//Do what you want},
-	    orderChanged: function($event) {//console.log("orderchange");},//Do what you want},
+	    itemMoved: function ($event) {console.log("moved");},//Do what you want},
+	    orderChanged: function($event) {console.log("orderchange");},//Do what you want},
 	    
 	    dragEnd: function ($event) {
 	        $(window).off();
