@@ -120,7 +120,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
         if( $scope.vimeo_app_configurations.length > 0 ) {
             var selected_integration = _.findWhere($scope.vimeo_app_configurations, {default: 1}) || _.findWhere( $scope.vimeo_app_configurations, {default: "1"});
 
-            if( !selected_integration || !selected_integration.access_token )
+            if( !selected_integration || !selected_integration.account || !selected_integration.account.access_token )
                 selected_integration = $scope.vimeo_app_configurations[0];
 
             if( selected_integration && selected_integration.account && selected_integration.account.access_token ) {
