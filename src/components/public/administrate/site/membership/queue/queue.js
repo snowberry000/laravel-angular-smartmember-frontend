@@ -23,7 +23,7 @@ app.controller( "ImportQueueController", function( $scope,smModal,$rootScope, $l
 	}
 
 	$scope.loading = false;
-	$scope.data = [];
+	$scope.items = [];
 	$scope.pagination = {
 		current_page: 1,
 		per_page: 25,
@@ -48,7 +48,7 @@ app.controller( "ImportQueueController", function( $scope,smModal,$rootScope, $l
 		{
 			$scope.loading = false;
 			$scope.pagination.total_count = data.total_count;
-			$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+			$scope.items = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 		} );
 	}
 
@@ -60,11 +60,11 @@ app.controller( "ImportQueueController", function( $scope,smModal,$rootScope, $l
 		{
 			toastr.success( "Job canceled." );
 
-			angular.forEach( $scope.data[ $scope.pagination.current_page ], function( value, key )
+			angular.forEach( $scope.items[ $scope.pagination.current_page ], function( value, key )
 			{
 				if( value.id == job )
 				{
-					$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], value );
+					$scope.items[ $scope.pagination.current_page ] = _.without( $scope.items[ $scope.pagination.current_page ], value );
 				}
 			} );
 
