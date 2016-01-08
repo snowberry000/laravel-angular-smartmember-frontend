@@ -1064,16 +1064,18 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 
 		$scope.next_item.site_id = $rootScope.site.id;
-		$scope.next_item.title = $scope.next_item.title.trim();
+		if($scope.next_item.title)
+			$scope.next_item.title = $scope.next_item.title.trim();
+
 
 		if( $scope.next_item.permalink == '' )
 		{
 			this.setPermalink( null );
 		}
 
-		if( $scope.next_item.permalink == '' )
+		if( !$scope.next_item.permalink  )
 		{
-			notify( 'Permalink is required!' );
+			toastr.warning( 'Permalink is required!' );
 			return;
 		}
 
@@ -1124,6 +1126,10 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		delete $scope.next_item.module;
 		delete $scope.next_item.site;
 
+		if( !$scope.next_item.permalink ){
+			toastr.warning('Permailnk is required!');
+			return;
+		}
 
 		if( $scope.next_item.permalink == '' )
 		{

@@ -43,6 +43,17 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
         }
     } );
 
+	$scope.GetHitCount = function( next_item )
+	{
+		var total = 0;
+		for(var i = 0; i < next_item.urls.length; i++){
+
+			total += next_item.urls[ i ].visits;
+		}
+
+		return total;
+	}
+
     $scope.paginate = function()
     {
         $scope.loading = true;
