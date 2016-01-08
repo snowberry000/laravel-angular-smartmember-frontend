@@ -7,6 +7,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 	}
 
 	$scope.current_site = $rootScope.site;
+	$scope.loading = true;
 	$site = $rootScope.site;
 	console.log( 'site?', $site );
 	console.log( 'stateParams' );
