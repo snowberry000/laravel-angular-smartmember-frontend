@@ -13,6 +13,7 @@ app.config( function( $stateProvider )
 app.controller( "AffiliatesController", function( $scope, $rootScope, $localStorage, Restangular )
 {
 	$site = $rootScope.site;
+	$scope.order_by = "past_sales";
 
 	$scope.template_data = {
 		title: 'AFFILIATES',
@@ -37,6 +38,9 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 		}
 	} );
 
+	$scope.sort_by_changed = function(){
+		$scope.search();
+	}
 
 	$scope.paginate = function()
 	{
@@ -53,7 +57,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 				$params.q = encodeURIComponent( $scope.query );
 			}
 
-			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?order_by=' + $scope.order_by + '&view=admin&p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
@@ -69,10 +73,10 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 		$scope.loading = true;
 		$scope.data = [];
 		$scope.pagination = {
-		current_page: 1,
-		per_page: 25,
-		total_count: 0
-	};
+			current_page: 1,
+			per_page: 25,
+			total_count: 0,
+		};
 		var $params = { p: $scope.pagination.current_page };
 
 		if( $scope.query )
@@ -80,7 +84,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 			$params.q = encodeURIComponent( $scope.query );
 		}
 
-		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?order_by=' + $scope.order_by + '&view=admin&p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 		{
 			$scope.pagination.total_count = data.total_count;
 
