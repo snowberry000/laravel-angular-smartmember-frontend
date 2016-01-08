@@ -86,21 +86,25 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filt
         {
             value: 'random',
             label: 'Random',
+	        icon: 'random',
             description: ''
         },
         {
             value: 'sequential',
             label: 'Sequential',
+	        icon: 'ordered',
             description: ''
         },
         {
             value: 'least_hit',
             label: 'Least hit',
+	        icon: 'crosshairs',
             description: ''
         },
         {
             value: 'weighted',
             label: 'Weighted',
+	        icon: 'calculator',
             description: ''
         }
     ];

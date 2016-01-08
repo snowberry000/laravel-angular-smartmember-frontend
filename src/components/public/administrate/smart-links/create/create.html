@@ -29,7 +29,7 @@
 
 					<div class="ui buttons">
 						<div class="ui button" ng-class="{'active': next_item.type == rotation_type.value}" ng-repeat="rotation_type in rotation_types" ng-click="SetRotationType( rotation_type.value )">
-							<i class="random icon"></i>
+							<i class="{{rotation_type.icon}} icon"></i>
 							{{rotation_type.label}}
 						</div>
 					</div>
