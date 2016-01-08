@@ -14,6 +14,21 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 	var $sites, $company, $connected_accounts, $configured_app_configurations, $current_integration;
 	$scope.loading = true;
 
+	$scope.promptUninstallApp = function( $integration_instance )
+	{
+		swal( {
+			title: "Are you sure?",
+			text: "Removing this account will disable " + $integration_instance.app_configurations.length + " integration" + ( $integration_instance.app_configurations.length > 1 ? 's' : '' ) + '!',
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, remove it!",
+			closeOnConfirm: true
+		}, function()
+		{
+			$scope.uninstallApp($integration_instance);
+		} );
+	}
 
 	$scope.uninstallApp = function($integration_instance) {
 		var $arrayOfConfigIds = [];
