@@ -3,7 +3,7 @@ header( 'Access-Control-Allow-Origin: *' );
 
 include_once( 'php/functions.php' );
 
-DetectAndPerformBridgePageThings();
+$data = DetectAndPerformBridgePageThings();
 ?>
 <!DOCTYPE html>
 
@@ -25,6 +25,16 @@ DetectAndPerformBridgePageThings();
 	<link rel="stylesheet" href="bower/footable/css/footable.core.css">
 	<link rel="stylesheet" href="css/main.min.css">
 	<link rel="shortcut icon" href="{{options.favicon}}" type="image/x-icon">
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga( 'create', 'UA-48872715-8', 'auto' );
+		<?php if( !empty( $data ) ) PrintUserTrackingScript( $data ); ?>
+		ga('send', 'pageview');
+	</script>
 </head>
 <body resize class="fixed-nav {{$root.admin_nav_open ? 'nav_open' : 'nope'}} {{viewport}} {{options.theme || 'default'}} {{$state.current.data.specialClass}} {{IsWidescreen() ? 'widescreen' : ''}}" landing-scrollspy id="page-top">
 
