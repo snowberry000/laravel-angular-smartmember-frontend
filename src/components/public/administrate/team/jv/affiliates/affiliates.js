@@ -13,7 +13,7 @@ app.config( function( $stateProvider )
 app.controller( "AffiliatesController", function( $scope, $rootScope, $localStorage, Restangular )
 {
 	$site = $rootScope.site;
-	$scope.order_by = "past_sales";
+	$scope.order_by = "created_at";
 
 	$scope.template_data = {
 		title: 'AFFILIATES',
