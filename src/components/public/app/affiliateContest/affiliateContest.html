@@ -13,36 +13,41 @@
                 <h1 class="grey lighter smaller">
                     {{leaderboard.contest.title}}
                 </h1>
-
+                <div sm-access="view_affiliate_stats" if-not="hide" class="ui statistic" ng-if='leaderboard.total_ranks'>
+                  <div class="value">
+                    {{leaderboard.total_ranks}}
+                  </div>
+                  <div class="label">
+                    Sign-ups
+                  </div>
+                </div>
                 <div class="table-responsive">
-                    <table class="ui celled padded table">
+                    <table class="ui celled padded table" ng-init="limit_qty = 10;">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Affiliate Name</th>
-                            <th>Standing</th>
+                            <th>Affiliate / Team</th>
                             <th>Rank</th>
+                            <th>Total</th>
                         </tr></thead>
                         <tbody>
-                        <tr ng-repeat="rank in leaderboard.ranking">
-                            <td>
-                                <h2 class="ui center aligned header">{{rank.position}}</h2>
-                            </td>
+                        <tr ng-repeat="rank in leaderboard.ranking | limitTo: limit_qty">
                             <td class="single line">
                                 {{rank.affiliate_name}}
                             </td>
-                            <td class="right aligned">
-                                {{rank.standing}}
-                            </td>
                             <td>
-                                <div class="label label-primary" style="font-size: 75%;float:left;" ng-if="rank.ahead != -1"> + {{rank.ahead}} ahead of {{rank.ahead_of}} </div>
-                                <div class="label label-success" style="font-size: 100%;float:right;">total: {{rank.rank}} </div>
+                                <h2 class="ui center aligned header">{{rank.position}}</h2>
+                            </td>
+                            <td class="right aligned">
+                                {{rank.rank}}
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
+                <a sm-access="view_affiliate_stats" if-not="hide" ng-click="limit_qty > 10 ? limit_qty = 10 : limit_qty = 1000000;" class="ui center labeled green icon button" style="margin-top:10px;">
+                    {{limit_qty > 10 ? 'View Less' : 'View All'}}
+                    <i class="eye icon"></i>
+                </a>
                 <img ng-src="{{leaderboard.contest.featured_image}}" class="featured_image_preview img-responsive img-thumbnail" ng-show="leaderboard.contest.featured_image" />
             </div>
 

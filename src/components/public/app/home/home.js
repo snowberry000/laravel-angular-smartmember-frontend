@@ -116,6 +116,19 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $l
                             break;
                         case "bridge_bpages":
                             $state.go( 'bridgepage', { permalink: homepage_url }, { location: false } );
+                            break;
+                        case "forum_topics":
+                            $state.go("public.app.forum-topic",{permalink: homepage_url}, {location: false});
+                            break;
+                        case "forum_categories":
+                            $state.go("public.app.forum-category",{permalink: homepage_url}, {location: false});
+                            break;
+                        case 'affcontests':
+                            $state.go( 'public.app.affiliateContest', { permalink: homepage_url }, { location: false } );
+                            break;
+                        case 'smart_links':
+                            location.href = response.redirect_url;
+                            break;
                     }
                     return;
                 } );

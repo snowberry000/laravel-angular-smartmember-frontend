@@ -118,6 +118,8 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 				else
 				{
 					$rootScope.modal_popup_template = false;
+					//location.reload(true);
+					console.log('current state', $state.current.name);
 					$state.go( $state.current, $stateParams, { reload: true } );
 					smModal.Close();
 					return;

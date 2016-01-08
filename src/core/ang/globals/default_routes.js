@@ -40,6 +40,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 	$urlRouterProvider.otherwise( function( $injector )
 	{
 		console.log( "On otherwise" );
+
 		var $state = $injector.get( '$state' );
 		var Restangular = $injector.get( 'Restangular' );
 
@@ -89,6 +90,12 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 						case "forum_categories":
 							$state.go("public.app.forum-category",{permalink: parts[1]}, {location: false});
 							break;
+                        case 'affcontests':
+                            $state.go( 'public.app.affiliateContest', { permalink: parts[1] }, { location: false } );
+                            break;
+                        case 'smart_links':
+                            location.href = response.redirect_url;
+                            break;
 					}
 				} );
 			}
