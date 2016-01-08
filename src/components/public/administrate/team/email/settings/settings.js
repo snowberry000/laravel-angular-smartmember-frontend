@@ -16,20 +16,15 @@ app.controller( "EmailSettingsController", function( $scope, Upload, $rootScope,
 	$scope.loading = true;
 	$site = $rootScope.site;
 
-<<<<<<< HEAD
 	Restangular.all( 'emailSetting' ).customGET( 'settings' ).then( function( response )
 	{
 		console.log( response );
 		$scope.emailSettings = response;
 	} )
-=======
-	Restangular.all('emailSetting').customGET('settings').then(function(response){console.log(response);$scope.emailSettings = response;})
->>>>>>> parent of e068bfd... Comment out all console log
 
 	$scope.imageUpload = function( files )
 	{
 
-<<<<<<< HEAD
 		for( var i = 0; i < files.length; i++ )
 		{
 			var file = files[ i ];
@@ -48,23 +43,24 @@ app.controller( "EmailSettingsController", function( $scope, Upload, $rootScope,
 				//console.log('error status: ' + status);
 			} );
 		}
-=======
-	    for (var i = 0; i < files.length; i++) {
-	        var file = files[i];
-	        Upload.upload({
-	            url: $scope.app.apiUrl + '/utility/upload',
-	            file: file
-	        })
-	            .success(function (data, status, headers, config) {
-	                console.log(data.file_name);
-	                var editor = $.summernote.eventHandler.getModule();
-	                file_location = '/uploads/'+data.file_name;
-	                editor.insertImage($scope.editable, data.file_name);
-	            }).error(function (data, status, headers, config) {
-	                console.log('error status: ' + status);
-	            });
-	    }
->>>>>>> parent of e068bfd... Comment out all console log
+		for( var i = 0; i < files.length; i++ )
+		{
+			var file = files[ i ];
+			Upload.upload( {
+					url: $scope.app.apiUrl + '/utility/upload',
+					file: file
+				} )
+				.success( function( data, status, headers, config )
+				{
+					console.log( data.file_name );
+					var editor = $.summernote.eventHandler.getModule();
+					file_location = '/uploads/' + data.file_name;
+					editor.insertImage( $scope.editable, data.file_name );
+				} ).error( function( data, status, headers, config )
+			{
+				console.log( 'error status: ' + status );
+			} );
+		}
 	}
 
 	$scope.save = function()
