@@ -12,8 +12,6 @@ app.config( function( $stateProvider )
 
 app.controller( "AffiliatesController", function( $scope, $rootScope, $localStorage, Restangular )
 {
-	alert("I am here");
-
 	$site = $rootScope.site;
 	$scope.order_by = "past_sales";
 
