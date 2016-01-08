@@ -5,7 +5,7 @@ app.directive( 'smEditable', function()
 		link: function( scope, element, attributes ){
 			$.fn.editable.defaults.mode = 'inline';
 			scope.$watch(attributes.isEditable , function(value){
-				console.log(value);
+				//console.log(value);
 				if(value){
 					$(element).editable('show');
 				}else{

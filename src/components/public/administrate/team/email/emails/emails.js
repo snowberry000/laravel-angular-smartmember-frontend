@@ -15,8 +15,8 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 	$site=$rootScope.site;
 	$user=$rootScope.user;
 	$scope.loading=true;
-	console.log('user: ');
-	console.log($user)
+	//console.log('user: ');
+	//console.log($user)
 	$scope.pagination = {
 		current_page: 1,
 		per_page: 25,
@@ -43,7 +43,7 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 	// 		$scope.emails=emails;
 	// 		var access = $scope.hasAccess($user.role);
 	// 		if($state.current.name.split('.')[1]=='smartmail'){
-	// 		    console.log(access)
+	// 		    //console.log(access)
 	// 		    if(!access ){
 	// 		    	smModal.Show('public.administrate.account.memberships');
 	// 		    }
@@ -82,8 +82,8 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 	
 	$scope.paginate = function()
 	{
-		console.log($scope.emails);
-		console.log(typeof $scope.emails);
+		//console.log($scope.emails);
+		//console.log(typeof $scope.emails);
 		
 			$scope.loading = true;
 
@@ -98,7 +98,7 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 			{
 				var access = $scope.hasAccess($user.role);
 				if($state.current.name.split('.')[1]=='smartmail'){
-				    console.log(access)
+				    //console.log(access)
 				    if(!access ){
 				    	smModal.Show('public.administrate.account.memberships');
 				    }

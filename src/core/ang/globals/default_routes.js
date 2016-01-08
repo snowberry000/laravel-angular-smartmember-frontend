@@ -39,19 +39,19 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 
 	$urlRouterProvider.otherwise( function( $injector )
 	{
-		console.log( "On otherwise" );
+		//console.log( "On otherwise" );
 
 		var $state = $injector.get( '$state' );
 		var Restangular = $injector.get( 'Restangular' );
 
 		if( subdomain == "my" )
 		{
-			console.log( "Going to 'public.my' state from non-/" );
+			//console.log( "Going to 'public.my' state from non-/" );
 			$state.go( "public.my" );
 		}
 		else if( subdomain == "www" )
 		{
-			console.log( "Going to 'public.www' state from non-/" );
+			//console.log( "Going to 'public.www' state from non-/" );
 			$state.go( "public.www.home" );
 		}
 		else

@@ -38,7 +38,7 @@
 		<span class="pull-right" ng-if="(next_item.transcript_content_public || next_item.access) && next_item.transcript_content" style="padding-right: 20px; padding-top:5px;">
 			<button type="button" class="btn btn-sm btn-primary toggle-transcript" title="View Transcript" ng-click="next_item.showTranscript = !next_item.showTranscript" alt="View Transcript">
 				<span class="glyphicon glyphicon-download" style="margin-right: 5px;" ng-click="next_item.showTranscript = !next_item.showTranscript"></span>
-				{{next_item.transcript_button_text}}
+				{{next_item.transcript_button_text || 'View Transcript'}}
 			</button>
 		</span>
 	</div>

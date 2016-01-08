@@ -9,7 +9,7 @@ app.filter('assingeeFilter', function() {
   	var filtered=[];
   	for(var i=0;i<items.length;i++)
   	{
-  		console.log(assignee.agent_id);
+  		//console.log(assignee.agent_id);
   		if(items[i].agent_id==assignee.agent_id || !assignee.agent_id || assignee.agent_id==0)
   		{
   			filtered.push(items[i]);
@@ -58,8 +58,8 @@ app.filter('datesFilter', function() {
   	else
   		return items;
 
-  	console.log($startDate);
-  	console.log($endDate);
+  	//console.log($startDate);
+  	//console.log($endDate);
 
 
   	for(var i=0;i<items.length;i++)

@@ -52,7 +52,7 @@ app.controller("LoginController", function ($scope, smModal, $rootScope, $localS
             $scope.close();
         }
         else if(selected_url == 'download'){
-            console.log(item.site_id)
+            //console.log(item.site_id)
             Restangular.all('download').customGET('',{site_id: $site.id}).then(function(response){
                 var downloads = response;
                 downloads.items.forEach(function(entity){

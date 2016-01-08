@@ -9,9 +9,9 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 	$scope.current_site = $rootScope.site;
 	$scope.loading = true;
 	$site = $rootScope.site;
-	console.log( 'site?', $site );
-	console.log( 'stateParams' );
-	console.log( $stateParams );
+	//console.log( 'site?', $site );
+	//console.log( 'stateParams' );
+	//console.log( $stateParams );
 	var $sites, $company, $connected_accounts, $configured_app_configurations, $current_integration;
 	$scope.loading = true;
 
@@ -109,8 +109,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		//////////////////////////////
 		$scope.SetIntegrationViewbox( $scope.availableapp_configurations[ 0 ].id );
 		$scope.integration = null;
-		console.log( "integration: " );
-		console.log( $stateParams.integration );
+		//console.log( "integration: " );
+		//console.log( $stateParams.integration );
 		if( typeof $stateParams.integration != 'undefined' && $stateParams.integration != null )
 		{
 			$scope.integration = _.findWhere( $scope.availableapp_configurations, { id: $stateParams.integration } );
@@ -245,8 +245,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		{
 			$q.all( [ $sitesCall, $companyCall, $connected_accountsCall, $configured_app_configurationsCall, $current_integrationCall ] ).then( function( res )
 			{
-				console.log( "All returned: " );
-				console.log( res );
+				//console.log( "All returned: " );
+				//console.log( res );
 				$scope.loading = false;
 				$scope.initapp_configurations();
 			} );
@@ -255,8 +255,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		{
 			$q.all( [ $sitesCall, $companyCall, $connected_accountsCall, $configured_app_configurationsCall ] ).then( function( res )
 			{
-				console.log( "All returned: " );
-				console.log( res );
+				//console.log( "All returned: " );
+				//console.log( res );
 				$scope.loading = false;
 				$scope.initapp_configurations();
 			} );

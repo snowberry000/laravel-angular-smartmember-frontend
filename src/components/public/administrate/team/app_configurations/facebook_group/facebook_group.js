@@ -32,7 +32,7 @@ app.controller("FacebookGroupController", function ($scope, toastr,$localStorage
 		});
 		var user_options = {};
 		$scope.joinGroup = function(group_id){
-			console.log(group_id)
+			//console.log(group_id)
 
 	        group = _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id}) || _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id + ''});
 
@@ -98,7 +98,7 @@ app.controller("FacebookGroupController", function ($scope, toastr,$localStorage
 		}
 
 		$scope.showDialog = function(app_id){
-			console.log($scope.site.facebook_app_id)
+			//console.log($scope.site.facebook_app_id)
 			FB.init({
 		      appId      : $scope.site.facebook_app_id,
 		      xfbml      : true,
@@ -117,7 +117,7 @@ app.controller("FacebookGroupController", function ($scope, toastr,$localStorage
 									
 				    if (response && response.id) {
 				    	FB.api('/' +  response.id, function(group){
-				    		console.log("Facebook", group);
+				    		//console.log("Facebook", group);
 				    		$http.post($scope.app.apiUrl + '/facebook/setgroup',{
 					    		"group_id": response.id.toString(),
 					    		"username": group.name,

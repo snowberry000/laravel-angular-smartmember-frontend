@@ -20,8 +20,8 @@ app.controller("OrganizerController", function ($scope,$rootScope,$localStorage,
 
     $scope.init = function(){
         var details = $site;
-        console.log('details');
-        console.log(details);
+        //console.log('details');
+        //console.log(details);
         if (details) {
             $.each(details.meta_data, function (key, data) {
                 $scope.options[data.key] = data.value;
@@ -40,8 +40,8 @@ app.controller("OrganizerController", function ($scope,$rootScope,$localStorage,
         });
 
         Restangular.all('').customGET("supportArticle?category_id=0&company_id="+$site.company_id).then(function (response) {
-            console.log("supportArticle");
-            console.log(response);
+            //console.log("supportArticle");
+            //console.log(response);
             if (response) {
                 $scope.unassigned_articles = response.articles;
                 $scope.unassigned_articles = $filter('orderBy')($scope.unassigned_articles, 'sort_order');
@@ -210,8 +210,8 @@ app.controller("OrganizerController", function ($scope,$rootScope,$localStorage,
             else
                 return false;
             },
-        itemMoved: function ($event) {console.log("moved"+$event.source.sortableScope);},//Do what you want},
-        orderChanged: function($event) {console.log("orderchange"+$event);},//Do what you want},
+        itemMoved: function ($event) {//console.log("moved"+$event.source.sortableScope);},//Do what you want},
+        orderChanged: function($event) {//console.log("orderchange"+$event);},//Do what you want},
         containment: '#board'//optional param.
     };
 
@@ -219,8 +219,8 @@ app.controller("OrganizerController", function ($scope,$rootScope,$localStorage,
         accept: function (sourceItemHandleScope, destSortableScope){
             return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
         },
-        itemMoved: function ($event) {console.log("moved"+$event.source.sortableScope);},//Do what you want},
-        orderChanged: function($event) {console.log("orderchange"+$event);},//Do what you want},
+        itemMoved: function ($event) {//console.log("moved"+$event.source.sortableScope);},//Do what you want},
+        orderChanged: function($event) {//console.log("orderchange"+$event);},//Do what you want},
         containment: '#board'//optional param.
     };
 

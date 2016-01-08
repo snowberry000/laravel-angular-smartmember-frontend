@@ -164,7 +164,7 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
         });
 
         Restangular.all('widget').customPOST({order: new_order}, 'updateOrder').then(function(){
-            console.log( 'new order saved');
+            //console.log( 'new order saved');
         });
     }
 
@@ -182,7 +182,7 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
         });
 
         Restangular.all('widget').customPOST({order: new_order}, 'updateOrder').then(function(){
-            console.log( 'new order saved');
+            //console.log( 'new order saved');
         });
     }
 

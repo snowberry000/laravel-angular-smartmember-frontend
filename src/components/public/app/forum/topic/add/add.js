@@ -13,7 +13,7 @@ app.controller("AddTopicController", function ($scope,$rootScope, Restangular) {
 
 	$scope.save = function()
 	{
-		console.log($rootScope.category);
+		//console.log($rootScope.category);
 
 		$scope.topic.category_id = $rootScope.category.id;
 		$scope.topic.site_id = $rootScope.category.id;

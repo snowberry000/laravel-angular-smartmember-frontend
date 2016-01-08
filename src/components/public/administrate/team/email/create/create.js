@@ -75,7 +75,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
                         var segment = _.findWhere($scope.segments, {
                             type: 'catch_all'
                         });
-                        console.log('we do have a segment ', segment);
+                        //console.log('we do have a segment ', segment);
                         var recipient_bits = ['catch_all','catch_all'];
                     } else {
                         var recipient_bits = value.recipient.split('_');
@@ -446,7 +446,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     }
 
     $scope.searchMembers = function(q){
-        console.log('are we even kind of running?');
+        //console.log('are we even kind of running?');
         return Restangular.all('').customGET( 'emailSubscriber?p=1&q=' + encodeURIComponent( q ) ).then(function(data){
             return data.items;
         });

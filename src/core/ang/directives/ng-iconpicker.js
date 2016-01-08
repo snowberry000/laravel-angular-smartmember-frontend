@@ -4,7 +4,7 @@ app.directive('ngIconpicker', function ($parse) {
         transclude: false,
         link: function(scope, element, attrs , ctrl) {
             var modelAccessor = $parse(attrs.ngModel);
-            console.log(scope.menu_item);
+            //console.log(scope.menu_item);
             $(element).iconpicker({
                 iconset: "fontawesome",
                 icon: scope.menu_item && scope.menu_item.custom_icon ? scope.menu_item.custom_icon : "fa-bomb",

@@ -148,7 +148,7 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 	$scope.deleteResource = function( menu )
 	{
 		menu = JSON.parse( menu );
-		console.log( menu );
+		//console.log( menu );
 		if( menu && (typeof menu.icon) != 'undefined' )
 		{
 			var itemWithId = _.find( $scope.menu_items, function( next_item )
@@ -250,7 +250,7 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 				{
 					entity.url = entity.permalink;
 				} )
-				console.log( downloads )
+				//console.log( downloads )
 				$scope.show_next = true;
 				$scope.loaded_items = downloads;
 
@@ -282,16 +282,16 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 	$scope.dragControlListeners = {
 		accept: function( sourceItemHandleScope, destSortableScope )
 		{
-			//console.log(sourceItemHandleScope.itemScope.sortableScope.$id+" "+destSortableScope.$id);
+			////console.log(sourceItemHandleScope.itemScope.sortableScope.$id+" "+destSortableScope.$id);
 			return sourceItemHandleScope.itemScope.sortableScope.$id == destSortableScope.$id;
 		},
 		itemMoved: function( $event )
 		{
-			console.log( "moved" + $event.source.sortableScope );
+			//console.log( "moved" + $event.source.sortableScope );
 		},//Do what you want},
 		orderChanged: function( $event )
 		{
-			console.log( "orderchange" + $event );
+			//console.log( "orderchange" + $event );
 		},//Do what you want},
 		containment: '#board'//optional param.
 	};
@@ -299,16 +299,16 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 	$scope.footerDragControlListeners = {
 		accept: function( sourceItemHandleScope, destSortableScope )
 		{
-			//console.log(sourceItemHandleScope.itemScope.sortableScope.$id+" "+destSortableScope.$id);
+			////console.log(sourceItemHandleScope.itemScope.sortableScope.$id+" "+destSortableScope.$id);
 			return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
 		},
 		itemMoved: function( $event )
 		{
-			console.log( "moved" + $event.source.sortableScope );
+			//console.log( "moved" + $event.source.sortableScope );
 		},//Do what you want},
 		orderChanged: function( $event )
 		{
-			console.log( "orderchange" + $event );
+			//console.log( "orderchange" + $event );
 		},//Do what you want},
 		containment: '#board'//optional param.
 	};

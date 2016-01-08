@@ -23,7 +23,7 @@ app.controller("AffiliateController", function ($scope, $localStorage,$statePara
 	}
 	
 	$scope.save = function(){
-	    console.log($scope.affiliate);
+	    //console.log($scope.affiliate);
 	    if ($scope.affiliate.id){
 	        $scope.update();
 	        return;

@@ -52,7 +52,7 @@ app.controller("EmailListsController", function ($scope, $localStorage,$rootScop
 	$scope.paginate();
 	// Restangular.all('emailList').getList()
 	//     .then(function(response){
-	//         console.log(response);
+	//         //console.log(response);
 	//         $scope.emailLists = response.items;
 	//         $scope.loading = false;
 	//     })

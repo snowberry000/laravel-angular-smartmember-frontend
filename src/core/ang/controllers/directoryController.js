@@ -200,7 +200,7 @@ app.controller('DirectoryController', function ($scope,smModal, $rootScope, $loc
                 
             });
             $scope.sites.admin = $scope.sites.admin.concat($sites.admin);
-            console.log($scope.sites.admin.length)
+            //console.log($scope.sites.admin.length)
             $scope.sites.member = $scope.sites.member.concat($sites.member);
             $scope.adminSites[$scope.adminPagination.current_page]=$sites.admin;
             $scope.memberSites[$scope.adminPagination.current_page]=$sites.member;
@@ -243,7 +243,7 @@ app.controller('DirectoryController', function ($scope,smModal, $rootScope, $loc
 
             });
             $scope.sites.admin = $scope.sites.admin.concat($sites.admin);
-            console.log($scope.sites.admin.length)
+            //console.log($scope.sites.admin.length)
             $scope.sites.member = $scope.sites.member.concat($sites.member);
             $scope.adminSites[$scope.adminPagination.current_page]=$sites.admin;
             $scope.memberSites[$scope.adminPagination.current_page]=$sites.member;

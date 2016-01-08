@@ -70,12 +70,12 @@ app.controller( "TicketCreatorController", function( $scope, $localStorage, $roo
 			{
 				//$scope.searched_users = [{email : search , fisrt_name : 'New User'}]
 				$scope.searched_users = _.pluck( response.items, 'user' );
-				console.log( "searchedusers: " + $scope.searched_users );
+				//console.log( "searchedusers: " + $scope.searched_users );
 			}
 			else
 			{
 				$scope.searched_users = _.pluck( response.items, 'user' );
-				console.log( "searchedusers: " + $scope.searched_users );
+				//console.log( "searchedusers: " + $scope.searched_users );
 			}
 		} );
 	}

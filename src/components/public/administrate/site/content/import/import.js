@@ -32,7 +32,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
     //for new pagination
     $scope.site = $rootScope.site;
-    console.log('This is site', $scope.site);
+    //console.log('This is site', $scope.site);
     $scope.pagination.per_page = 50;
 
  
@@ -124,7 +124,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 selected_integration = $scope.vimeo_app_configurations[0];
 
             if( selected_integration && selected_integration.account && selected_integration.account.access_token ) {
-                console.log('yes');
+                //console.log('yes');
                 $scope.selected_account = selected_integration.id;
                 $scope.vimeo.access_token = selected_integration.account.access_token;
                 $scope.vimeo.remote_id = selected_integration.account.remote_id;
@@ -142,8 +142,8 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
 
     $scope.filter = function(tag) {
-        console.log(tag)
-        console.log($scope.videos.data)
+        //console.log(tag)
+        //console.log($scope.videos.data)
         $scope.selectedTag = tag;
         for (var i = $scope.videos.data.length - 1; i >= 0; i--) {
             $scope.videos.data[i].hide = false;
@@ -151,18 +151,18 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
             if(!match)
                 $scope.videos.data[i].hide = true;
             else
-                console.log(match)
+                //console.log(match)
         };
     }
 
     $scope.changeAccount = function(selected_account){
         selected_account = parseInt(selected_account);
-        console.log('Change account called');
+        //console.log('Change account called');
         angular.forEach( $scope.videos.data, function( value ){
             if( value.added )
                 $videosAdded.items.push({remote_id: value.uri })
         });
-        console.log(selected_account);
+        //console.log(selected_account);
         var selected_integration = _.findWhere($scope.vimeo_app_configurations, {id: selected_account}) || _.findWhere( $scope.vimeo_app_configurations, {id: selected_account + ''});
 
         if( selected_integration ) {
@@ -176,7 +176,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
             $scope.videos = false;
 
             $scope.wait = false;
-            console.log( 'what we using: ', $scope.vimeo );
+            //console.log( 'what we using: ', $scope.vimeo );
             $scope.loadVideos();
         }
     }
@@ -187,7 +187,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     })
 
     $scope.checkAlreadyAdded = function(){
-        console.log('video data is here', $scope.videos.data);
+        //console.log('video data is here', $scope.videos.data);
         for (var i = 0; i < $scope.videos.data.length; i++) {
             var test = _.findWhere($videosAdded.items,{remote_id: $scope.videos.data[i].uri});
 

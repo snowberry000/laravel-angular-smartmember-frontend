@@ -132,12 +132,12 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
     $scope.unassigned_lessons = {};
     $scope.modules = {};
     $scope.init = function () {
-        console.log("asdasd");
-        console.log($rootScope.site);
+        //console.log("asdasd");
+        //console.log($rootScope.site);
         var details = $rootScope.site;
-        console.log("details: ");
-        console.log(details);
-        console.log($site);
+        //console.log("details: ");
+        //console.log(details);
+        //console.log($site);
         if (details) {
             $.each(details.meta_data, function (key, data) {
                 $scope.options[data.key] = data.value;
@@ -206,7 +206,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
         }
         if(item.type=='module'){
             var lessons = [];
-            console.log(item)
+            //console.log(item)
             for (var i = 0; i< item.lessons.length ; i++) {
                 if($scope.selectedLessons.indexOf(item.lessons[i].id)>=0){
                     lessons.push(item.lessons[i].id)
@@ -290,7 +290,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
                 return module.id === module_id;
             });
             var lessons = moduleWithId.lessons;
-            console.log(lessons);
+            //console.log(lessons);
 
             Restangular.one("module", moduleWithId.id).remove().then(function () {
                 $scope.modules = _.without($scope.modules, moduleWithId);
@@ -450,8 +450,8 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
                 return false;
         },
 
-        itemMoved: function ($event) {console.log("moved"+$event.source.sortableScope);setTimeout($scope.saveSyllabus, 200);},//Do what you want},
-        orderChanged: function($event) {console.log("orderchange"+$event);setTimeout($scope.saveSyllabus, 200);},//Do what you want},
+        itemMoved: function ($event) {//console.log("moved"+$event.source.sortableScope);setTimeout($scope.saveSyllabus, 200);},//Do what you want},
+        orderChanged: function($event) {//console.log("orderchange"+$event);setTimeout($scope.saveSyllabus, 200);},//Do what you want},
 
         dragStart: function ($event) {
             $(window).mousemove(function (e) {
@@ -482,7 +482,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
         accept: function (sourceItemHandleScope, destSortableScope){
             return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
         },
-        itemMoved: function ($event) {console.log("moved"+$event.source.sortableScope);setTimeout($scope.saveSyllabus, 200);},//Do what you want},
+        itemMoved: function ($event) {//console.log("moved"+$event.source.sortableScope);setTimeout($scope.saveSyllabus, 200);},//Do what you want},
         dragStart: function ($event) {
             $(window).mousemove(function (e) {
                 var x = $(window).innerHeight(),
@@ -505,7 +505,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
         dragEnd: function ($event) {
             $(window).off();
         },
-        orderChanged: function($event) {console.log("orderchange"+$event);setTimeout($scope.saveSyllabus, 200);},//Do what you want},
+        orderChanged: function($event) {//console.log("orderchange"+$event);setTimeout($scope.saveSyllabus, 200);},//Do what you want},
         containment: '#board'//optional param.
     };
     $scope.selectedLessons = [];
@@ -545,7 +545,7 @@ app.controller("SyllabusOrganizerController", function ($scope, $rootScope , $lo
             };
             module.selected = true;
         }
-        console.log($scope.selectedLessons)
+        //console.log($scope.selectedLessons)
     }
 
     $scope.setRedirectUrl = function(){

@@ -159,7 +159,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
             this.onBlurTitle( null );
         }
 
-        console.log( $scope.next_item.categories );
+        //console.log( $scope.next_item.categories );
 		delete $scope.next_item.most_used_categories;
 		delete $scope.next_item.most_used_tags;
 		delete $scope.next_item.access_level;
@@ -214,8 +214,8 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		{
 			Restangular.all( 'post' ).post( $scope.next_item ).then( function( post )
 			{
-				console.log( "draft is this " );
-				console.log( draft );
+				//console.log( "draft is this " );
+				//console.log( draft );
                 if( draft )
                 {
                     Restangular.one( 'draft', draft.id ).remove();
@@ -264,13 +264,13 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 				} )
 				.success( function( data, status, headers, config )
 				{
-					console.log( data.file_name );
+					//console.log( data.file_name );
 					var editor = $.summernote.eventHandler.getModule();
 					file_location = '/uploads/' + data.file_name;
 					editor.insertImage( $scope.editable, data.file_name );
 				} ).error( function( data, status, headers, config )
 			{
-				console.log( 'error status: ' + status );
+				//console.log( 'error status: ' + status );
 			} );
 		}
 	}
@@ -316,8 +316,8 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		Restangular.all( 'draft' ).post( data ).then( function( response )
 		{
 			draft = response;
-			console.log( "draft value chaneged" );
-			console.log( response );
+			//console.log( "draft value chaneged" );
+			//console.log( response );
 		} )
 	}
 

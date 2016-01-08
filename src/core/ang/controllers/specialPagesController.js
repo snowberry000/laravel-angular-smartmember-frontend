@@ -19,7 +19,7 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
     //this looks like it doesn't belong here, but it actually is needed to make the icon picker work
     //the function name has to be updateMenuItem because it is what the icon picker directive looks for
     $scope.updateMenuItem = function ( model ) {
-        console.log('chosen menu item is ' + model.custom_icon);
+        //console.log('chosen menu item is ' + model.custom_icon);
         $scope.site_options.cap_icon = model.custom_icon;
         jQuery('#cap_icon i').attr('class','').addClass('fa ' + $scope.site_options.cap_icon );
         $scope.site_options.open = false;

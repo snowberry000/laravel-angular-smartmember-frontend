@@ -21,7 +21,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 					var rest = Restangular.all( post );
 				}
 
-				console.log( 'allow_multiple', allow_multiple, attr );
+				//console.log( 'allow_multiple', allow_multiple, attr );
 
 				smModal.Show( null, { modal_options: { allowMultiple: allow_multiple } },
 					{ templateUrl: 'templates/modals/newMediaItem.html', controller: 'modalMediaController' },
@@ -30,7 +30,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 						if( key )
 						{
 							var li = {};
-							console.log( item )
+							//console.log( item )
 							li[ key ] = item.file;
 							if( model )
 							{
@@ -57,7 +57,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 						{
 							rest.customPOST( li, "save" ).then( function()
 							{
-								console.log( "Image is uploaded" );
+								//console.log( "Image is uploaded" );
 							} );
 						}
 					}
@@ -111,10 +111,10 @@ app.controller( 'modalMediaController', function( $scope, $localStorage, Upload,
 
 	$scope.upload = function( files )
 	{
-		//console.log('we are trying to upload a file', files.length, files );
+		////console.log('we are trying to upload a file', files.length, files );
 		if( files )
 		{
-			console.log( files.name );
+			//console.log( files.name );
 			$scope.loading = true;
 			//for (var i = 0; i < files.length; i++) {
 			var file = files;
@@ -132,13 +132,13 @@ app.controller( 'modalMediaController', function( $scope, $localStorage, Upload,
 					{
 						returnObject.aws_key = data.aws_key;
 					}
-					console.log(returnObject);
+					//console.log(returnObject);
 
 					close( returnObject );
 
 				} ).error( function( data, status, headers, config )
 			{
-				console.log( 'error status: ' + data );
+				//console.log( 'error status: ' + data );
 			} );
 
 			//allow only 1 file to be uploaded
@@ -159,10 +159,10 @@ app.controller( 'inlineMediaController', function( $scope, Upload )
 
 	$scope.upload = function( files )
 	{
-		//console.log('we are trying to upload a file', files.length, files );
+		////console.log('we are trying to upload a file', files.length, files );
 		if( files )
 		{
-			console.log( files.name );
+			//console.log( files.name );
 			$scope.loading = true;
 			//for (var i = 0; i < files.length; i++) {
 			var file = files;

@@ -86,7 +86,7 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 	$rootScope.$on( '$stateChangeStart'
 		, function( event, toState, toParams, fromState, fromParams )
 		{
-			console.log( fromState.name );
+			//console.log( fromState.name );
 
 			var isAuthenticationRequired = toState.data
 					&& toState.data.requiresLogin
@@ -96,7 +96,7 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 			if( isAuthenticationRequired )
 			{
 				$localStorage.redirect = toState.data.state;
-				console.log( "setting " + $localStorage.redirect );
+				//console.log( "setting " + $localStorage.redirect );
 				event.preventDefault();
 				window.location.href = 'http://' + ( $rootScope.app.domain.indexOf( 'smartmember.' ) == -1 ? '' : $rootScope.subdomain + '.' ) + $rootScope.app.domain + "/sign/in/?message=a valid access token is required";
 			}

@@ -23,7 +23,7 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 			} )
 		}
 
-		console.log( 'the attributes', attributes, 'the_options', the_options );
+		//console.log( 'the attributes', attributes, 'the_options', the_options );
 
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( the_options ).sidebar( 'toggle' );
 	};

@@ -23,8 +23,8 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 		{
 			$site_options =  $rootScope.site.meta_data;
 			$scope.site_options = {};
-			console.log( 'site_options:' );
-			console.log( $site_options );
+			//console.log( 'site_options:' );
+			//console.log( $site_options );
 			$.each( $site_options, function( key, data )
 			{
 				$scope.site_options[ data.key ] = data.value;
@@ -92,7 +92,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 		}
 		else if( selected_url == 'download' )
 		{
-			console.log( item.site_id )
+			//console.log( item.site_id )
 			Restangular.all( '' ).customGET( 'download', { site_id: $site.id } ).then( function( response )
 			{
 				var downloads = response;
