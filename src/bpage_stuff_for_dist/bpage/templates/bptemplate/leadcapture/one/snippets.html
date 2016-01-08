@@ -197,7 +197,7 @@
 
                         var post_data = $(this).serializeArray();
 
-                        $.post( 'http://api.smartmember.dev/optin', post_data)
+                        $.post( 'https://api.smartmember.com/optin', post_data)
                                 .done(function( data ) {
                                     //localStorage.setItem('ngStorage-user', JSON.stringify(data) );//to make this work it is also going to need to set the correct cookie
                                     $('.optin_form_display').hide();
