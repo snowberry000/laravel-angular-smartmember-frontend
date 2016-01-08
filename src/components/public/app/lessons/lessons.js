@@ -162,7 +162,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         delete lesson_copy.current_index;
         delete lesson_copy.module;
         delete lesson_copy.access;
-
+        $scope.loading = true;
         Restangular.all('lesson').customPUT(lesson_copy , lesson.id).then(function(response){
             $state.transitionTo($state.current, $stateParams, { 
               reload: true, inherit: false, location: false
