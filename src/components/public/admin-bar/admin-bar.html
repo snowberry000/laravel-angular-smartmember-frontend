@@ -89,7 +89,7 @@
 			<i class="browser icon"></i>
 		</button>
 	</a>
-	<a class="item thin" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Speed Blogging" position="left center" sui-popup>
+	<a class="item thin" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')" ng-if="!isSitelessPage() && false" sm-access="manage_support_tickets" if-not="hide" title="Speed Blogging" position="left center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="checkered flag icon"></i>
 		</button>
@@ -103,7 +103,7 @@
 		<div class="results"></div>
 	</div>
 
-	<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref="public.www.home" ui-sref-opts="{reload:true}" title="Smart Member Directory" sui-popup>
+	<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref-opts="{reload:true}" title="Smart Member Directory" sui-popup>
 		<img class="ui rounded mini image" src="/images/sm-64.png">
 	</a>
 
