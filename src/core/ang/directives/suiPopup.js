@@ -49,7 +49,10 @@ app.directive( 'suiPopup', function( smModal )
 			};
 
 			console.log( 'the_options', the_options );
-			$( next_item ).popup( the_options );
+			window.setTimeout(function() {
+				$(next_item).popup(the_options);
+				}, 3000);
+
 		}
 	};
 } );

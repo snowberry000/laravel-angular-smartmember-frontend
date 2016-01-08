@@ -24,6 +24,12 @@ app.config(function($stateProvider){
 
 app.controller('LessonsController', function ($scope, smModal, $rootScope, $localStorage,  $state, $stateParams, $filter, Restangular, toastr,$location) {
 
+    $scope.access_level_types = [
+        { id: 4, name: 'Draft (admin-only)' },
+        { id: 3, name: 'Members' },
+        { id: 2, name: 'Locked' },
+        { id: 1, name: 'Visitors' },
+    ];
 
     $scope.lesson_count = 0;
     $rootScope.page_title = 'Lessons';
@@ -134,7 +140,16 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
 
     }
 
+    $scope.saveAccessLevel = function(lesson){
+        if(lesson.access_level_type != 2){
+            $scope.saveLesson(lesson);
+        }else{
+            $scope.editLessonDone(lesson);
+        }
+    }
+
     $scope.saveLesson = function(lesson){
+
         var lesson_copy = angular.copy(lesson);
         delete lesson_copy.user_note;
         delete lesson_copy.showCounter;
@@ -147,9 +162,11 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         delete lesson_copy.current_index;
         delete lesson_copy.module;
         delete lesson_copy.access;
-
+        $scope.loading = true;
         Restangular.all('lesson').customPUT(lesson_copy , lesson.id).then(function(response){
-
+            $state.transitionTo($state.current, $stateParams, { 
+              reload: true, inherit: false, location: false
+            });
         })
     }
 

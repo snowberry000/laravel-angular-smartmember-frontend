@@ -25,11 +25,11 @@
 					<button class="ui icon button" ng-click="showFormat('thumbnail')" ng-class="{thumbnail:'active'}[site.syllabus_format]">
 						<i class="block layout icon"></i>
 					</button>
-
-					<button class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="toggleEditMode()" ng-class="{thumbnail:'active'}[site.syllabus_format]">
-						<i class="edit icon"></i>
-					</button>
 				</div>
+
+				<button busy class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="toggleEditMode()" ng-class="{thumbnail:'active'}[site.syllabus_format]">
+					<i class="edit icon"></i>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -61,7 +61,8 @@
 				<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}">
 					<div class="right floated content">
 						<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
-						<div class="ui label" ng-show="lesson.note">{{lesson.note}}</div>
+						<div class="ui label" ng-if="syllabus.edit_mode" onaftersave="saveLesson(lesson)" editable-text="lesson.note"  ng-show="lesson.note">{{lesson.note}}</div>
+						<div class="ui label" ng-if="!syllabus.edit_mode" ng-show="lesson.note">{{lesson.note}}</div>
 						<span class="ui label right floated" style="cursor:pointer;" ng-if="syllabus.edit_mode" ng-click="editLesson(lesson)">Edit</span>
 					</div>
 
@@ -72,9 +73,11 @@
 					<div class="content">
 						<a class="header" ng-if="syllabus.edit_mode" onaftersave="saveLesson(lesson)" editable-text="lesson.title" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
 						<a class="header" ng-if="!syllabus.edit_mode" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
-						<div class="description">{{lesson.access}}
+						<div ng-if="!syllabus.edit_mode" class="description">{{lesson.access}}
 						
 						</div>
+						<a ng-if="syllabus.edit_mode" onaftersave="saveAccessLevel(lesson)" editable-select="lesson.access_level_type" e-ng-options="al_type.id as al_type.name for al_type in access_level_types">{{lesson.access}}</a>
+						<a ng-if="syllabus.edit_mode && lesson.access_level_type == 2" onaftersave="saveLesson(lesson)" editable-select="lesson.access_level_id" e-ng-options="access_level.id as access_level.name for access_level in access_levels">Change access id</a>
 					</div>
 				</div>
 			</div>

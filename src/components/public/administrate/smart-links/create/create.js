@@ -19,7 +19,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SmartLinksCreateController", function ($scope, $rootScope, Restangular, $stateParams, smModal, toastr, close) {
+app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filter, Restangular, $stateParams, smModal, toastr, close) {
     $site = $rootScope.site;
     $scope.template_data = {
         title: 'SMARTLINK',
@@ -52,15 +52,15 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
         urls: [
             {
                 url: '',
-                enabled: true
+                enabled: 1
             },
             {
                 url: '',
-                enabled: true
+                enabled: 1
             },
             {
                 url: '',
-                enabled: true
+                enabled: 1
             }
         ]
     };
@@ -73,6 +73,10 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
                 $scope.next_item.urls = [];
             }
 
+            angular.forEach( $scope.next_item.urls, function(value){
+                value.enabled = parseInt( value.enabled );
+            });
+
             if( $scope.next_item.urls.length < 3 )
                 $scope.addUrls( 3 - $scope.next_item.urls.length );
         });
@@ -82,24 +86,32 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
         {
             value: 'random',
             label: 'Random',
+	        icon: 'random',
             description: ''
         },
         {
             value: 'sequential',
             label: 'Sequential',
+	        icon: 'ordered list',
             description: ''
         },
         {
             value: 'least_hit',
             label: 'Least hit',
+	        icon: 'crosshairs',
             description: ''
         },
         {
             value: 'weighted',
             label: 'Weighted',
+	        icon: 'calculator',
             description: ''
         }
     ];
+
+    $scope.consoleLog = function(something) {
+        console.log( something );
+    }
 
     $scope.moveUp = function(url){
 
@@ -185,6 +197,14 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, Resta
     $scope.addUrls = function( num ) {
         for( x = 0; x < num; x++ )
             $scope.next_item.urls.push({url: '',enabled: true});
+    }
+
+    $scope.onBlurSlug = function( $event )
+    {
+        if( $scope.next_item.permalink )
+        {
+            $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.permalink );
+        }
     }
 
     $scope.save = function() {

@@ -16,7 +16,7 @@ app.config(function($stateProvider){
 
 app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, toastr , $state) {
 	var lesson = Restangular.all("lesson");
-    
+    $scope.loading = true;
     $scope.videos = false;
     $scope.vimeo_app_configurations = [];
     $scope.vimeo = {};
@@ -120,7 +120,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
         if( $scope.vimeo_app_configurations.length > 0 ) {
             var selected_integration = _.findWhere($scope.vimeo_app_configurations, {default: 1}) || _.findWhere( $scope.vimeo_app_configurations, {default: "1"});
 
-            if( !selected_integration || !selected_integration.access_token )
+            if( !selected_integration || !selected_integration.account || !selected_integration.account.access_token )
                 selected_integration = $scope.vimeo_app_configurations[0];
 
             if( selected_integration && selected_integration.account && selected_integration.account.access_token ) {
@@ -128,6 +128,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 $scope.selected_account = selected_integration.id;
                 $scope.vimeo.access_token = selected_integration.account.access_token;
                 $scope.vimeo.remote_id = selected_integration.account.remote_id;
+                $scope.loading = false;
                 $scope.loadVideos();
             }
         }

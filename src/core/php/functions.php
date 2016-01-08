@@ -80,7 +80,7 @@ function DetectAndPerformBridgePageThings()
 
 					if( empty($bpage_data) )
 					{
-						$url = 'http://api.smartmember.'.$tld.'/bridgePageDataOrFalse';
+						$url = 'http://api.smartmember.'.$tld.'/bridgePageOrSmartLinkData';
 						$curl = curl_init( $url );
 						curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 						curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'origin:http://'.$domain, 'referer:http://'.$domain.$_SERVER[ 'REQUEST_URI' ], 'content-type:application/json' ) );

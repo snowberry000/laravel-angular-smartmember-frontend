@@ -10,9 +10,31 @@
 			<p>{{template_data.description}}</p>
 
 			<div class="ibox">
-				<div class="ibox-content">
-					<div class="field">
-						<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
+				<div class="ibox-content" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
+					<div class="field" style='margin-bottom: 10px'>
+						<div class="ui category search">
+						  <div class="ui icon input">
+						    <input type="text" placeholder="Search..." ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" >
+						    <i class="search icon"></i>
+						  </div>
+						</div>
+					</div>
+					<div class="ui form">
+					  <div class="inline fields">
+					    <label for="fruit">Sort By:</label>
+					    <div class="field">
+					      <div class="ui radio checkbox">
+					        <input type="radio" ng-model='order_by' value='created_at' ng-click='sort_by_changed()'>
+					        <label>Most Recent</label>
+					      </div>
+					    </div>
+					    <div class="field">
+					      <div class="ui radio checkbox">
+					        <input type="radio" ng-model='order_by' value='past_sales' ng-click='sort_by_changed()'>
+					        <label>Past Sales</label>
+					      </div>
+					    </div>
+					  </div>
 					</div>
 					<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
 						<div class="sk-bounce1"></div>

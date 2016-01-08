@@ -54,10 +54,32 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 			$scope.loading = false;
 			$scope.pagination.total_count = data.total_count;
 			$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+			$scope.addAccessLevel($scope.data);
 		} );
 	}
 
 	$scope.paginate();
+
+	$scope.addAccessLevel = function(data){
+		if(!data || !data.length)
+			return;
+		$.each(data, function (key, data) {
+		    switch(parseInt(data.access_level_type)){
+		        case 1:
+		            data.access = 'Public';
+		            break;
+		        case 2:
+		            data.access = data.access_level !== undefined && data.access_level !== null && data.access_level.name !== undefined ? data.access_level.name : '';
+		            break;
+		        case 3:
+		            data.access = 'Members';
+		            break;
+		        case 4:
+		            data.access = 'Draft (admin-only)';
+		            break;
+		    }
+		});
+	}
 
 	$scope.deleteResource = function( id )
 	{

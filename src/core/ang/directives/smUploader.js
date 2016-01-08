@@ -77,9 +77,15 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 		}
 	};
 } );
-app.controller( 'modalMediaController', function( $scope, Upload, close )
+
+app.controller( 'modalMediaController', function( $scope, $localStorage, Upload, close, Restangular )
 {
-	console.log( 'we started up' );
+	Restangular.service('media')
+		.getList()
+		.then(function(response){
+			$scope.media_files = response;
+		});
+	
 	$scope.loading = false;
 	$scope.cancel = function()
 	{
@@ -99,6 +105,10 @@ app.controller( 'modalMediaController', function( $scope, Upload, close )
 		$scope.upload( $scope.files );
 	} );
 
+	$scope.select = function(media){
+		close({file: media.source});
+	}
+
 	$scope.upload = function( files )
 	{
 		//console.log('we are trying to upload a file', files.length, files );
@@ -108,9 +118,8 @@ app.controller( 'modalMediaController', function( $scope, Upload, close )
 			$scope.loading = true;
 			//for (var i = 0; i < files.length; i++) {
 			var file = files;
-
 			Upload.upload( {
-					url: $scope.app.apiUrl + '/utility/upload' + ( $scope.privacy ? '?private=' + $scope.privacy : '' ),
+					url: $scope.app.apiUrl + '/utility/upload?access_token=' + $localStorage.user.access_token + ( $scope.privacy ? '&private=' + $scope.privacy : '' ),
 					file: file
 				} )
 				.success( function( data, status, headers, config )
@@ -123,6 +132,7 @@ app.controller( 'modalMediaController', function( $scope, Upload, close )
 					{
 						returnObject.aws_key = data.aws_key;
 					}
+					console.log(returnObject);
 
 					close( returnObject );
 

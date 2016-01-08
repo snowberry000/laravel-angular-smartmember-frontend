@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AffiliateController", function ($scope, $localStorage,$stateParams, $rootScope ,Restangular, toastr, $state , smModal) {
+app.controller("AffiliateController", function ($scope, $localStorage,$stateParams, $rootScope ,Restangular, toastr, $state , smModal) {	
 	$site = $rootScope.site;
 	if ( $stateParams.id ) {
 		Restangular.one('affiliate', $stateParams.id).get().then(function(response){
