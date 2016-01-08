@@ -77,7 +77,7 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 			} );
 
 			var isAgent = _.find( $scope.agents, { 'id': $user.id } ) || _.find( $scope.agents, { 'id': $user.id + '' } );
-			console.log( $scope.agents )
+			//console.log( $scope.agents )
 			if( isAgent )
 			{
 				$scope.display_replies = $scope.ticket.reply.concat( $scope.ticket.notes )
@@ -86,7 +86,7 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 
 				angular.forEach( $scope.display_replies, function( value, key )
 				{
-					console.log( key, ' => ', $scope.formatDate( value.created_at ) );
+					//console.log( key, ' => ', $scope.formatDate( value.created_at ) );
 				} );
 
 			}

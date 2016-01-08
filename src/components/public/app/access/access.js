@@ -38,7 +38,7 @@ app.controller( 'AccessController', function( $scope, $rootScope, $location, not
 		{
 			// They aren't logged in, so lets pop it up and let those controllers handle what to do with this hash
 			smModal.Show('public.sign.up');
-			console.log( "Showing sign up" );
+			//console.log( "Showing sign up" );
 		}
 	}
 } );

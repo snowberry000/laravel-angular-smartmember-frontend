@@ -30,7 +30,7 @@ app.directive( 'suiPopup', function( smModal )
 
 						if( attributes.stateattributes )
 						{
-							//console.log( "attributes.stateattributes", attributes.stateattributes );
+							////console.log( "attributes.stateattributes", attributes.stateattributes );
 							smModal.Show( attributes.state, JSON.parse(attributes.stateattributes) );
 						}
 						else
@@ -48,7 +48,7 @@ app.directive( 'suiPopup', function( smModal )
 				}
 			};
 
-			console.log( 'the_options', the_options );
+			//console.log( 'the_options', the_options );
 			window.setTimeout(function() {
 				$(next_item).popup(the_options);
 				}, 3000);

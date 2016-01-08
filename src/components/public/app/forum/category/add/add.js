@@ -25,7 +25,7 @@ app.controller( "AddController", function( $scope, Restangular, $stateParams,$ro
 	$scope.updateIcon = function( $icon )
 	{
 		// $scope.editing_item.icon=$icon;
-		console.log( $icon );
+		//console.log( $icon );
 		$scope.category.icon = $icon;
 	}
 

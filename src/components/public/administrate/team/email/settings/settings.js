@@ -14,7 +14,7 @@ app.controller("EmailSettingsController", function ($scope,Upload, $rootScope, $
 	$scope.loading = true;
 	$site=$rootScope.site;
 
-	Restangular.all('emailSetting').customGET('settings').then(function(response){console.log(response);$scope.emailSettings = response;})
+	Restangular.all('emailSetting').customGET('settings').then(function(response){//console.log(response);$scope.emailSettings = response;})
 
 	$scope.imageUpload = function(files){
 
@@ -25,12 +25,12 @@ app.controller("EmailSettingsController", function ($scope,Upload, $rootScope, $
 	            file: file
 	        })
 	            .success(function (data, status, headers, config) {
-	                console.log(data.file_name);
+	                //console.log(data.file_name);
 	                var editor = $.summernote.eventHandler.getModule();
 	                file_location = '/uploads/'+data.file_name;
 	                editor.insertImage($scope.editable, data.file_name);
 	            }).error(function (data, status, headers, config) {
-	                console.log('error status: ' + status);
+	                //console.log('error status: ' + status);
 	            });
 	    }
 	}

@@ -63,7 +63,7 @@ app.controller("BannerController", function ($scope, $rootScope, $state, $http,$
 	        $scope.ad.site_id = $site.id;
 
 	        Restangular.all('siteAds').post($scope.ad).then(function(response){
-	            console.log(response);
+	            //console.log(response);
 	            $scope.ad = response;
 	            toastr.success("Banner saved!");
                 smModal.Show('public.administrate.site.appearance.banners');

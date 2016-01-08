@@ -26,7 +26,7 @@ app.controller("SiteStatsController", function ($scope, $state, Restangular) {
 
     $summary = Restangular.all('site').customGET('summary').then(function(response){$scope.summary = response; summary = response ;$scope.init()})
 
-    console.log($scope.summary);
+    //console.log($scope.summary);
 
     $scope.series = ['Count',];
   

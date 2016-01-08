@@ -135,7 +135,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$scope.initialize = function()
 	{
-		console.log( "doing initialize" );
+		//console.log( "doing initialize" );
 		if( !$scope.bridgepage.id )
 		{
 			$scope.bridgepage.site_id = $rootScope.site.id;
@@ -246,13 +246,13 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				} )
 				.success( function( data, status, headers, config )
 				{
-					console.log( data.file_name );
+					//console.log( data.file_name );
 					var editor = $.summernote.eventHandler.getModule();
 					file_location = '/uploads/' + data.file_name;
 					editor.insertImage( $scope.editable, data.file_name );
 				} ).error( function( data, status, headers, config )
 			{
-				console.log( 'error status: ' + status );
+				//console.log( 'error status: ' + status );
 			} );
 		}
 	}
@@ -319,7 +319,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 			$scope.bridgepage = clonedBridgePage;
 
-			console.log( 'cloned page: ', $scope.bridgepage );
+			//console.log( 'cloned page: ', $scope.bridgepage );
 
 			$scope.save( true );
 		} );
@@ -585,7 +585,7 @@ app.controller( 'bridgepageEngineController', function( $scope, $localStorage, s
 
 	$scope.$on( '$destroy', function()
 	{
-		console.log( $scope.original_data );
+		//console.log( $scope.original_data );
 
 		$scope.destroyed = true;
 		$state.transitionTo( $state.current, $stateParams, {

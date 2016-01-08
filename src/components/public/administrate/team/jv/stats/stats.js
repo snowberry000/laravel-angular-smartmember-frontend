@@ -59,10 +59,10 @@ app.controller( "AffiliateStatsController", function( $scope, $rootScope, $state
 	}
 
 	var access = $scope.hasAccess( $user.role );
-	console.log( "My access is" + access )
+	//console.log( "My access is" + access )
 	if( $state.current.name.split( '.' )[ 1 ] == 'smartmail' )
 	{
-		console.log( access )
+		//console.log( access )
 		if( !access )
 		{
 			smModal.Show( 'public.administrate.account.memberships' );

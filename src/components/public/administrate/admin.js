@@ -47,8 +47,8 @@ app.controller( 'AdminController', function( $scope, Upload, $window, $sessionSt
 	var new_company = null;
 	$rootScope.site = $site;
 	$rootScope.user = $user;
-	console.log( 'admin user:' );
-	console.log( $rootScope.user );
+	//console.log( 'admin user:' );
+	//console.log( $rootScope.user );
 
 	$scope.resolveAdmin = function()
 	{
@@ -71,7 +71,7 @@ app.controller( 'AdminController', function( $scope, Upload, $window, $sessionSt
 		}
 
 		$scope.site = $site;
-		console.log( $scope.site )
+		//console.log( $scope.site )
 
 		if( $user.id == $localStorage.user.id )
 		{
@@ -389,13 +389,13 @@ app.controller( 'AdminController', function( $scope, Upload, $window, $sessionSt
 			} )
 				.success( function( data, status, headers, config )
 				{
-					console.log( data.file_name );
+					//console.log( data.file_name );
 					var editor = $.summernote.eventHandler.getModule();
 					file_location = '/uploads/' + data.file_name;
 					editor.insertImage( $scope.editable, data.file_name );
 				} ).error( function( data, status, headers, config )
 				{
-					console.log( 'error status: ' + status );
+					//console.log( 'error status: ' + status );
 				} );
 		}
 	}

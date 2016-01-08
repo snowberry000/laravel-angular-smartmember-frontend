@@ -32,7 +32,7 @@ app.controller('JvpageController', function ($scope,$site, Restangular,$rootScop
         });
 
         Restangular.all('emailList').getList().then(function(response){
-            console.log('here we goes');
+            //console.log('here we goes');
         });
     }
 
@@ -72,7 +72,7 @@ app.controller('JvpageController', function ($scope,$site, Restangular,$rootScop
                         editor.insertImage($scope.editable, data.file_name);
                     }
                 }).error(function (data, status, headers, config) {
-                    console.log('error status: ' + status);
+                    //console.log('error status: ' + status);
                 });
         }
     }

@@ -16,7 +16,7 @@ app.controller( 'siteSettingsWizardController', function( $scope, $rootScope, $f
 	{
 		$rootScope.$watch( 'current_changed', function( current_changed )
 		{
-			console.log( $scope )
+			//console.log( $scope )
 			if( current_changed == $scope.intention_feature.id - 1 && parseInt( $rootScope.site.is_completed ) == 0 )
 			{
 				if( $scope.site.intention && parseInt( $rootScope.site.is_completed ) == 0 )
@@ -362,7 +362,7 @@ app.controller( 'menuWizardController', function( $rootScope, $scope, $http, $fi
 
 		$( ".menu_item" ).each( function( key, value )
 		{
-			console.log( key );
+			//console.log( key );
 			$postMenuItem = $( value ).data( "component" );
 			$postMenuItem.sort_order = key;
 			delete $postMenuItem.isOpen;
@@ -374,7 +374,7 @@ app.controller( 'menuWizardController', function( $rootScope, $scope, $http, $fi
 
 		$( ".footer_menu_item" ).each( function( key, value )
 		{
-			console.log( key );
+			//console.log( key );
 			$postMenuItem = $( value ).data( "component" );
 			$postMenuItem.sort_order = key;
 			delete $postMenuItem.isOpen;
@@ -425,7 +425,7 @@ app.controller( 'menuWizardController', function( $rootScope, $scope, $http, $fi
 				{
 					entity.url = entity.permalink;
 				} )
-				console.log( downloads )
+				//console.log( downloads )
 				$scope.show_next = true;
 				$scope.loaded_items = downloads;
 
@@ -457,16 +457,16 @@ app.controller( 'menuWizardController', function( $rootScope, $scope, $http, $fi
 	$scope.dragControlListeners = {
 		accept: function( sourceItemHandleScope, destSortableScope )
 		{
-			//console.log(sourceItemHandleScope.itemScope.sortableScope.$id+" "+destSortableScope.$id);
+			////console.log(sourceItemHandleScope.itemScope.sortableScope.$id+" "+destSortableScope.$id);
 			return sourceItemHandleScope.itemScope.sortableScope.$id == destSortableScope.$id;
 		},
 		itemMoved: function( $event )
 		{
-			console.log( "moved" + $event.source.sortableScope );
+			//console.log( "moved" + $event.source.sortableScope );
 		},//Do what you want},
 		orderChanged: function( $event )
 		{
-			console.log( "orderchange" + $event );
+			//console.log( "orderchange" + $event );
 		},//Do what you want},
 		containment: '#board'//optional param.
 	};
@@ -474,16 +474,16 @@ app.controller( 'menuWizardController', function( $rootScope, $scope, $http, $fi
 	$scope.footerDragControlListeners = {
 		accept: function( sourceItemHandleScope, destSortableScope )
 		{
-			//console.log(sourceItemHandleScope.itemScope.sortableScope.$id+" "+destSortableScope.$id);
+			////console.log(sourceItemHandleScope.itemScope.sortableScope.$id+" "+destSortableScope.$id);
 			return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
 		},
 		itemMoved: function( $event )
 		{
-			console.log( "moved" + $event.source.sortableScope );
+			//console.log( "moved" + $event.source.sortableScope );
 		},//Do what you want},
 		orderChanged: function( $event )
 		{
-			console.log( "orderchange" + $event );
+			//console.log( "orderchange" + $event );
 		},//Do what you want},
 		containment: '#board'//optional param.
 	};
@@ -554,7 +554,7 @@ app.controller( 'accessWizardController', function( $rootScope, $scope, $http, $
 	{
 		$scope.access_level.facebook_group_id = $scope.access_level.facebook_group_id.toString();
 	}
-	console.log( $scope.access_level.facebook_group_id )
+	//console.log( $scope.access_level.facebook_group_id )
 	var paypal = _.findWhere( $scope.site.configured_app, { type: 'paypal' } )
 	var stripe = _.findWhere( $scope.site.configured_app, { type: 'stripe' } )
 
@@ -576,7 +576,7 @@ app.controller( 'accessWizardController', function( $rootScope, $scope, $http, $
 		$scope.paypal_checkout = true;
 	}
 
-	console.log( "access levels: " + $scope.access_level );
+	//console.log( "access levels: " + $scope.access_level );
 	$scope.access_level.isOpen = false;
 
 	$scope.save = function()
@@ -775,7 +775,7 @@ app.controller( 'postWizardController', function( $scope, $rootScope, $filter, $
 			this.onBlurTitle( null );
 		}
 
-		console.log( $scope.next_item.categories );
+		//console.log( $scope.next_item.categories );
 		delete $scope.next_item.most_used_categories;
 		delete $scope.next_item.most_used_tags;
 		delete $scope.next_item.access_level;
@@ -861,13 +861,13 @@ app.controller( 'postWizardController', function( $scope, $rootScope, $filter, $
 				} )
 				.success( function( data, status, headers, config )
 				{
-					console.log( data.file_name );
+					//console.log( data.file_name );
 					var editor = $.summernote.eventHandler.getModule();
 					file_location = '/uploads/' + data.file_name;
 					editor.insertImage( $scope.editable, data.file_name );
 				} ).error( function( data, status, headers, config )
 			{
-				console.log( 'error status: ' + status );
+				//console.log( 'error status: ' + status );
 			} );
 		}
 	}
@@ -1391,7 +1391,7 @@ app.controller( 'inviteMembersWizardController', function( $scope, $rootScope, $
 	$scope.members = {};
 	$scope.access_level_hash = {};
 	$scope.options = $rootScope.wizard_server && $rootScope.wizard_server.options ? $rootScope.wizard_server.options : {};
-	console.log( $scope.options );
+	//console.log( $scope.options );
 	if( !_.isEmpty( $scope.options ) )
 	{
 		$scope.options = JSON.parse( $scope.options );

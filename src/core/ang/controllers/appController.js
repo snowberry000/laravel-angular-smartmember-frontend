@@ -32,7 +32,7 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	$scope.showLessonNotification = function( lessonCount )
 	{
 
-		console.log("lesson notifications");
+		//console.log("lesson notifications");
 		var options = [];
 
 		$.each( $scope.site.meta_data, function( key, data )
@@ -92,7 +92,7 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	}
 	$scope.showNonLessonNotification = function( nonAdminResponse, i )
 	{
-		console.log("non lesson notifications");
+		//console.log("non lesson notifications");
 		if( i < $scope.nonLessonNotices )
 		{
 			$scope.title = "<div style='font-size: 15px;'><b>" + nonAdminResponse[ i ].title + "</b></div>";
@@ -147,7 +147,7 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	{
 		Restangular.one( '/lessonByTitle/' + $lessonToGet ).get().then( function( response )
 		{
-			console.log( response );
+			//console.log( response );
 			window.open( "/" + response.permalink, "_self" );
 		} );
 	}

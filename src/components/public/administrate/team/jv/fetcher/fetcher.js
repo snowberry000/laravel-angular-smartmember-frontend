@@ -17,7 +17,7 @@ app.controller("FetcherController", function ($scope, $rootScope, $localStorage,
 	}
 
     $scope.url = $scope.app.apiUrl + '/jvzoo/' + $rootScope.site.hash;
-    console.log('here it is: ', $scope.url );
+    //console.log('here it is: ', $scope.url );
 
 	$scope.copied = function()
 	{

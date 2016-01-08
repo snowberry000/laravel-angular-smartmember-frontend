@@ -4,7 +4,7 @@ $(function () {
 
         if( $(this ).parent().find('ul' ).length )
         {
-            console.log( 'has children', $(this ).parent().find('ul' ).html() );
+            //console.log( 'has children', $(this ).parent().find('ul' ).html() );
         }
         else
         {

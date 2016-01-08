@@ -10,7 +10,7 @@ app.config(function($stateProvider){
 
 app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http )
 {
-    console.log('here we goes');
+    //console.log('here we goes');
     $scope.account = {};
 
     var getUrlVars = function()

@@ -14,7 +14,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 {
 	$rootScope.$watch( 'user_loaded', function( new_value, old_value )
 	{
-		console.log( 'user_loaded changed to ', new_value, ' from ', old_value );
+		//console.log( 'user_loaded changed to ', new_value, ' from ', old_value );
 
 		if( new_value && new_value != old_value )
 		{
@@ -27,7 +27,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 				if( $rootScope.user.sm_access && !$rootScope.user.setup_wizard_complete )
 				{
 					smModal.Show( 'public.administrate.wizard', { id: 'account_wizard', modal_options: {duration:0} } );
-					console.log( "Lets do the setup wizard!" );
+					//console.log( "Lets do the setup wizard!" );
 				}
 				else
 				{

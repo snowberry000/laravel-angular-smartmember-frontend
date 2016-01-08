@@ -112,12 +112,12 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
                 file: file
             })
                 .success(function (data, status, headers, config) {
-                    console.log(data.file_name);
+                    //console.log(data.file_name);
                     var editor = $.summernote.eventHandler.getModule();
                     file_location = '/uploads/'+data.file_name;
                     editor.insertImage($scope.editable, data.file_name);
                 }).error(function (data, status, headers, config) {
-                    console.log('error status: ' + status);
+                    //console.log('error status: ' + status);
                 });
         }
     }
@@ -180,7 +180,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
     $scope.start = function(){
         var data = {site_id : $rootScope.site.id , user_id : $user.id , key : 'articles.content' , value : JSON.stringify($scope.article)}
         Restangular.all('draft').post(data).then(function(response){
-            console.log(response);
+            //console.log(response);
             draft=response;
         })
     }

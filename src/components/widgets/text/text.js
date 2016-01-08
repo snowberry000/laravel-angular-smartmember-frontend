@@ -17,7 +17,7 @@ app.controller("WidgetChosenTextController", function ($scope) {
         $scope.$parent.save( $scope.chosen_widget );
     }
 
-    console.log('how many times does this get called?', $scope.chosen_widget );
+    //console.log('how many times does this get called?', $scope.chosen_widget );
 });
 
 app.controller("WidgetDisplayTextController", function ($scope) {

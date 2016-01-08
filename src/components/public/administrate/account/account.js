@@ -42,7 +42,7 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 
 	$scope.$on('$locationChangeStart', function (event, next, current) {
 		$urlParsed=current.split('/');
-		console.log($urlParsed[$urlParsed.length-1]=="photo");
+		//console.log($urlParsed[$urlParsed.length-1]=="photo");
 		if(!$scope.validate()&&($urlParsed[$urlParsed.length-1]=="photo"))
 		{
 	        var answer = confirm("Image is not saved, Sure you want to leave?");
@@ -97,7 +97,7 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 			{
                 toastr.success("Email successfully added");
 				$scope.user.linked_accounts.push(response.account);
-				console.log($scope.user.linked_accounts);
+				//console.log($scope.user.linked_accounts);
 			}
 			else 
 			{
@@ -114,7 +114,7 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 
 	$scope.removeLinkedAccount = function(account){
 		Restangular.one('linkedAccount' , account.id).remove().then(function(response){
-			console.log(response);
+			//console.log(response);
 			if (response && response.success == true)
 			{
 				toastr.success("Account successfully removed");

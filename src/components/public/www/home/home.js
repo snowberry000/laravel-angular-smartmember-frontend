@@ -11,7 +11,7 @@ app.config(function($stateProvider){
 app.controller("WwwHomeController", function ($scope, Restangular) {
 
 	Restangular.all('directory').getList().then(function (data) {
-		console.log( 'the data', data );
+		//console.log( 'the data', data );
 		$scope.site_listings = data;
 	});
 

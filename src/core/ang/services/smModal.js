@@ -12,8 +12,8 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				var state_data = $state.get( state );
 			}
 
-			//console.log( 'params', params );
-			//console.log( stateParams )
+			////console.log( 'params', params );
+			////console.log( stateParams )
 			var stateParams = {};
 			if( params )
 			{
@@ -70,7 +70,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 
 				};
 
-				//console.log( 'the_options:', the_options );
+				////console.log( 'the_options:', the_options );
 				// The modal object has the element built, if this is a bootstrap modal
 				// you can call 'modal' to show it, if it's a custom modal just show or hide
 				// it as you need to.
@@ -85,7 +85,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 					}
 
 					modal.element.remove();
-					console.log( "I guess we closed it?" );
+					//console.log( "I guess we closed it?" );
 					//$scope.message = result ? "You said Yes" : "You said No";
 					if( cb )
 					{
@@ -108,7 +108,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 		},
 		attach: function( modal_id, events )
 		{
-			console.log( 'attaching ' + events + ' to ' + modal_id );
+			//console.log( 'attaching ' + events + ' to ' + modal_id );
 			$( modal_id ).modal( 'attach events', events );
 		},
 		next: function( modal_id, options, events )
