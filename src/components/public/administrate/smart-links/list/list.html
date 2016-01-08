@@ -50,7 +50,7 @@
                     <td style="width: 160px;">
                         <ol>
                             <li ng-repeat="url in next_item.urls">
-                                {{url.url}}
+                                {{url.url}} {{!url.enabled || url.enabled == '0' ? '(disabled)' : ''}}
                             </li>
                         </ol>
                     </td>
