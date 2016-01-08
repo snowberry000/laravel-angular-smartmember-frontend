@@ -1,0 +1,78 @@
+<div class="ui floating labeled icon dropdown button" sui-dropdown>
+	<input type="hidden" ng-model="selected_url">
+	<i class="newspaper icon"></i>
+	<span class="text">Select Content</span>
+	<div class="menu">
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">Core Pages</span>
+			<div class="menu">
+				<div class="item" data-value="/">Home</div>
+				<div class="item" data-value="info">Sales Page</div>
+				<div class="item" data-value="lessons">Syllabus</div>
+				<div class="item" data-value="support">Support</div>
+				<div class="item" data-value="blog">Blog</div>
+				<div class="item" data-value="refund-page">Refund Page</div>
+				<div class="item" data-value="support-ticket">Submit support ticket</div>
+				<div class="item" data-value="download-center">Download Center</div>
+				<div class="item" data-value="support-tickets">Support Tickets</div>
+			</div>
+		</div>
+		<div class="item">
+			<i class="dropdown icon"></i>
+			<span class="text">Site Content</span>
+			<div class="menu">
+				<div class="item" data-value="lesson">Choose a lesson</div>
+				<div class="item" data-value="customPage">Choose a page</div>
+				<div class="item" data-value="post">Choose a post</div>
+				<div class="item" data-value="livecast">Choose a livecast</div>
+				<div class="item" data-value="supportArticle">Choose a support article</div>
+				<div class="item" data-value="download">Choose a download</div>
+				<div class="item" data-value="bridgePage">Choose a bridgePage</div>
+			</div>
+		</div>
+		<div class="item" data-value="">
+			Custom url
+		</div>
+	</div>
+</div>
+
+<div class="ui form">
+	<div class="field">
+		<select class="form-control" ng-model="selected_url" ng-change="selectUrl(model ,selected_url , false)" sui-dropdown>
+			<option value="">Select Content</option>
+			<optgroup label="Core Pages">
+				<option value="/">Home</option>
+				<option value="info">Sales Page</option>
+				<option value="lessons">Syllabus</option>
+				<option value="support">Support</option>
+				<option value="blog">Blog</option>
+				<option value="refund-page">Refund Page</option>
+				<option value="support-ticket">Submit support ticket</option>
+				<option value="download-center">Download Center</option>
+				<option value="support-tickets">Support Tickets</option>
+			</optgroup>
+			<optgroup label="Site Content">
+				<option value="lesson">Choose a lesson</option>
+				<option value="customPage">Choose a page</option>
+				<option value="post">Choose a post</option>
+				<option value="livecast">Choose a livecast</option>
+				<option value="supportArticle">Choose a support article</option>
+				<option value="download">Choose a download</option>
+				<option value="bridgePage">Choose a bridgePage</option>
+			</optgroup>
+			<optgroup label="Other">
+				<option value="" selected>Custom url</option>
+			</optgroup>
+		</select>
+	</div>
+	<div class="field">
+		<select class="ui dropdown" ng-if="show_next" ng-model="model.url" ng-change="selectUrl(model , model.url , true)" sui-dropdown>
+			<option ng-repeat="item in loaded_items.items" value="{{item.url}}">{{item.title}}
+			</option>
+		</select>
+	</div>
+	<div class="field" ng-hide="selected_url">
+		<input type="text" ng-blur="selectUrl(model , model.url , false)" ng-model="model.url">
+	</div>
+</div>
