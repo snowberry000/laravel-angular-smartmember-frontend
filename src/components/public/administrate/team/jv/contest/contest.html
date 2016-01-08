@@ -20,13 +20,13 @@
 					<label>Contest Type</label>
 					<div class="field">
 						<div class="ui radio checkbox">
-							<input type="radio" checked="" tabindex="0" class="hidden" value="sales" ng-model="contest.type">
+							<input type="radio" checked="" tabindex="0"  value="sales" ng-model="contest.type">
 							<label>Sales</label>
 						</div>
 					</div>
 					<div class="field">
 						<div class="ui radio checkbox">
-							<input type="radio" tabindex="0" class="hidden" value="leads" ng-model="contest.type">
+							<input type="radio" tabindex="0"  value="leads" ng-model="contest.type">
 							<label>Leads</label>
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 						<i class="remove icon"></i>
 					</button>
 				</div>
-				<div ng-if="ad.banner_image_url" class="field">
+				<div ng-if="contest.featured_image" class="field">
 					<img class="ui large image" ng-src="{{contest.featured_image}}" style="max-width:100%;">
 				</div>
 				<div class="field">
