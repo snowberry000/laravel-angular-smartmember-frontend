@@ -24,7 +24,7 @@ app.controller( "CoreController", function( $scope, smModal )
 		},
 		{
 			title: 'Syllabus',
-			description: 'This page lists your sites lessons and modules in an organized "education" style format.',
+			description: 'This page lists your site\'s lessons and modules in an organized "education" style format.',
 			image: '',
 			icon: 'student',
 			template: 'syllabus',
