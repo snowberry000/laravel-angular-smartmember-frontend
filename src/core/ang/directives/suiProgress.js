@@ -4,11 +4,17 @@ app.directive( 'suiProgress', function()
 		restrict: 'A',
 		link: function( scope, next_item, attributes )
 		{
-			$(next_item).progress({
+			var the_options = {
 				text: {
 					success : 'setup completed!'
-				}
-			});
+				},
+				value: attributes.value || 0
+			};
+
+			if( attributes.text )
+				the_options[ 'text' ] = attributes.text;
+
+			$(next_item).progress( the_options );
 			scope.next_item = next_item;
 			/*scope.$watch(attributes.value, function(value){
 

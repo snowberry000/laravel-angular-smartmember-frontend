@@ -1,78 +1,64 @@
-
 <div class="ui modal">
+	<div class="header">
+		<i class="users icon"></i>
+		Your Member Imports
+	</div>
 	<div class="content">
-		<div class="row">
-			<div class="col-lg-12">
-
-				<div class="ibox-content clear_box page-heading">
-					<div class="p-xs">
-						<div class="row">
-							<div class="col-md-9">
-								<div class="pull-left m-r-md">
-									<i class="fa fa-envelope-o text-branded mid-icon"></i>
-								</div>
-								<h2 class="ui header">{{ 'IMPORT_QUEUE' | translate }}</h2>
-								<span>View the progress of your member import.</span>
-							</div>
-							<div class="col-md-3 text-right">
-								<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-									<i class="fa fa-question"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
+		<div class="description">
+			<div class="ui message">
+				<p>These are the imports you've done previously, and the status of any still-processing import jobs.</p>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="ibox">
-					<div class="ibox-content">
-						<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
-							<div class="sk-bounce1"></div>
-							<div class="sk-bounce2"></div>
-							<div class="sk-bounce3"></div>
-						</div>
-						<table class="ui fixed single line celled stackable table" data-page-size="3" ng-if="data.length > 0 && !loading" foonice>
-							<thead>
-								<tr>
-									<th>Date</th>
-									<th>Status</th>
-									<th>Active</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="next_item in data[ pagination.current_page ]">
-									<td class="responsive_table_item">
-										{{moment.utc(next_item.created_at).fromNow()}}
-									</td>
-									<td style="width: 80px;">
-										{{next_item.status}}
-									</td>
-									<td style="width: 80px;">
-										{{next_item.active == 0 ? 'Inactive' : 'Active'}}
-									</td>
 
-								</tr>
+			<div class="ui section divider"></div>
 
-							</tbody>
-						</table>
-						<div class="text-right" ng-if="!loading">
-							<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.current_page" class="pagination-sm " boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
-						</div>
-
-					</div>
-				</div>
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
 			</div>
+
+			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
+				<thead>
+					<tr>
+						<th data-toggle="">Progress</th>
+						<th data-hide="">Status</th>
+						<th data-hide="">Created</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate="next_item in data[ pagination.current_page ] | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+						<td>
+							<div class="ui indicating progress" data-text="{active: 'Importing {value} of {total} members',success: '{total} Members Imported!'}" data-value="{{next_item.done_count}}" data-total="{{next_item.total_count}}" sui-progress>
+								<div class="bar"></div>
+								<div class="label">Importing Members</div>
+							</div>
+						</td>
+						<td>
+							{{next_item.active == 0 ? 'Done' : 'Active'}}
+						</td>
+						<td style="width: 160px;">
+							{{moment.utc(next_item.created_at).fromNow()}}
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="4">
+							<div class="ui pointing label">
+								{{pagination.total_count}} items
+							</div>
+							<dir-pagination-controls max-size="5"></dir-pagination-controls>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+
 		</div>
 	</div>
 	<div class="actions">
-	    <a ng-click="smModal.Show('public.administrate.site.membership.import')" class="ui right labeled icon button">
-	        Back
-	    </a>
-	    <div class="ui black deny button close">
-	        Close
-	    </div>
+		<a ng-click="smModal.Show('public.administrate.site.membership.import')" class="ui deny button close">
+			Back to importing
+		</a>
+		<div class="ui black deny button close">
+			Close
+		</div>
 	</div>
 </div>
