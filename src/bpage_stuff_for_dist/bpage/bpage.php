@@ -20,11 +20,13 @@ function applyParamSpots($swapspots, $params)
     $prefix = 'bridgepage.swapspot.';
 
     $new_swapspots = [];
+
     foreach ($swapspots as $swapspot) {
         preg_match_all('/{{(.*?)}}/', $swapspot->value, $matches);
         if (count($matches > 1) && count($matches[0] > 0)) {
             $i = 0;
             $replace = [];
+
             foreach ($matches[1] as $match) {
                 if (strpos($match, '||') !== FALSE) {
 
@@ -51,6 +53,7 @@ function applyParamSpots($swapspots, $params)
 
                     $replace[$matches[0][$i]] = $value;
                 }
+
                 $i++;
             }
 
@@ -91,6 +94,31 @@ function applySwapSpots($html, $swapspots)
 
         if (array_key_exists($key, $swapspots)) {
             $swaps[$matches[0][$i]] = $swapspots[$key];
+
+			if( $key == 'bridgepage.swapspot.option_hidden_fields' )
+			{
+				$data_to_capture = [
+					'aid'
+				];
+
+				foreach( $_GET as $key2 =>$val2 )
+				{
+					if( in_array( $key2, $data_to_capture ) )
+					{
+						$swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
+					}
+					elseif( strpos( $key2, 'meta_' ) === 0 )
+					{
+						$key2 = substr( $key2, 5 );
+						$swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
+					}
+					elseif( strpos( $key2, 'utm_' ) === 0 )
+					{
+						$swaps[$matches[0][$i]] .= '<input type="hidden" name="' . $key2 . '" value="' . $val2 . '" />';
+					}
+				}
+			}
+
         } else {
             $swaps[$matches[0][$i]] = $default;
         }
