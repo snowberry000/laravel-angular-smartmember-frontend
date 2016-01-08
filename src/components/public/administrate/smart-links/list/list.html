@@ -6,10 +6,12 @@
     <div class="content">
         <div class="description">
             <div class="ui message">
-                <p>{{template_data.description}}</p>
+                <p>Create smart links that can rotate using the details you provide below.</p>
+				<p>These are great for split testing campaigns, or running advertising co-ops, or even just making
+					long urls shorter for your marketing efforts!</p>
+				<p>If you have a mapped domain name with Smart Member you can use that as well to shorten your links.
+					Click <a href="">here</a> to learn how to map a domain name.</p>
             </div>
-
-            <div class="ui section divider"></div>
 
             <div class="ui icon input">
                 <input type="text" placeholder="Search..." ng-model="query" ng-change="paginate()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
@@ -50,7 +52,7 @@
                     <td style="width: 160px;">
                         <ol>
                             <li ng-repeat="url in next_item.urls">
-                                {{url.url}} {{!url.enabled || url.enabled == '0' ? '(disabled)' : ''}}
+                                {{url.url}} {{!url.enabled || url.enabled == '0' ? '(disabled)' : ''}} ({{url.visits}} hits)
                             </li>
                         </ol>
                     </td>
