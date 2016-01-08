@@ -2,8 +2,9 @@
 
 <wave-spinner ng-if="loading"></wave-spinner>
 <div ng-if="!$state.includes('public.app.admin')" class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
-
-	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">
+	
+	<button ng-click="smModal.Show('public.administrate.team.jv.affiliates')">I am here</button>
+	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">		
 
 		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
 			<div class="column" style="text-align: right;">

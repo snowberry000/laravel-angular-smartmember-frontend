@@ -78,7 +78,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 	};
 } );
 
-app.controller( 'modalMediaController', function( $scope, Upload, close, Restangular )
+app.controller( 'modalMediaController', function( $scope, $localStorage, Upload, close, Restangular )
 {
 	Restangular.service('media')
 		.getList()
@@ -118,9 +118,8 @@ app.controller( 'modalMediaController', function( $scope, Upload, close, Restang
 			$scope.loading = true;
 			//for (var i = 0; i < files.length; i++) {
 			var file = files;
-
 			Upload.upload( {
-					url: $scope.app.apiUrl + '/utility/upload' + ( $scope.privacy ? '?private=' + $scope.privacy : '' ),
+					url: $scope.app.apiUrl + '/utility/upload?access_token=' + $localStorage.user.access_token + ( $scope.privacy ? '&private=' + $scope.privacy : '' ),
 					file: file
 				} )
 				.success( function( data, status, headers, config )
