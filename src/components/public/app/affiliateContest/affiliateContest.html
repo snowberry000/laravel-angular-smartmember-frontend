@@ -13,7 +13,14 @@
                 <h1 class="grey lighter smaller">
                     {{leaderboard.contest.title}}
                 </h1>
-
+                <div sm-access="view_affiliate_stats" if-not="hide" class="ui statistic" ng-if='leaderboard.total_ranks'>
+                  <div class="value">
+                    {{leaderboard.total_ranks}}
+                  </div>
+                  <div class="label">
+                    Sign-ups
+                  </div>
+                </div>
                 <div class="table-responsive">
                     <table class="ui celled padded table" ng-init="limit_qty = 10;">
                         <thead>
