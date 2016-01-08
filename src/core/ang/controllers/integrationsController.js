@@ -13,6 +13,25 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 	console.log( $stateParams );
 	var $sites, $company, $connected_accounts, $configured_app_configurations, $current_integration;
 	$scope.loading = true;
+
+
+	$scope.uninstallApp = function($integration_instance) {
+		var $arrayOfConfigIds = [];
+		for($i =0; $i<$integration_instance.app_configurations.length ; $i++)
+		{
+			$arrayOfConfigIds.push($integration_instance.app_configurations[$i].id);
+		}
+		
+		Restangular.service( 'appConfiguration/uninstall' ).post( {ids : $arrayOfConfigIds} ).then( function( response )
+		{
+			$integration_instance.app_configurations = [];
+		});
+		// Restangular.one( 'appConfiguration', account.id ).remove().then( function()
+		// {
+		// }
+
+	}
+
 	$scope.groupapp_configurations = function()
 	{
 		$scope.grouped_app_configurations = [
