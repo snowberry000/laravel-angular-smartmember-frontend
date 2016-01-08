@@ -402,6 +402,9 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	else if( location.href.indexOf( '?signup' ) != -1 )
 	{
 		smModal.Show( 'public.sign.up' );
+	} else if (location.href.indexOf('?signin') != -1)
+	{
+		smModal.Show('public.sign.in');
 	}
 
 
