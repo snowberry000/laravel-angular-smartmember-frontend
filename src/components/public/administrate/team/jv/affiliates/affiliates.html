@@ -14,6 +14,23 @@
 					<div class="field">
 						<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
 					</div>
+					<div class="ui form">
+					  <div class="inline fields">
+					    <label for="fruit">Sort By:</label>
+					    <div class="field">
+					      <div class="ui radio checkbox">
+					        <input type="radio" ng-model='order_by' value='past_sales' ng-click='sort_by_changed()'>
+					        <label>Past Sales</label>
+					      </div>
+					    </div>
+					    <div class="field">
+					      <div class="ui radio checkbox">
+					        <input type="radio" ng-model='order_by' value='user_name' ng-click='sort_by_changed()'>
+					        <label>Name</label>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 					<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
 						<div class="sk-bounce1"></div>
 						<div class="sk-bounce2"></div>
