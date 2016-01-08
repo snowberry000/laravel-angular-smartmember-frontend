@@ -1,4 +1,100 @@
 <div class="ui modal">
+	<div class="header">
+		<i class="dollar icon"></i>
+		{{ template_data.title | translate }}
+	</div>
+	<div class="content">
+		<div class="description">
+			<div class="ui message">
+				<p>{{template_data.description}}</p>
+			</div>
+
+			<div class="ui icon input">
+				<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+				<i class="search icon"></i>
+			</div>
+
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
+				<thead>
+					<tr>
+						<th data-toggle="true">Transaction</th>
+						<th data-hide="all">Type</th>
+						<th data-hide="all">Source</th>
+						<th data-hide="all">Customer</th>
+						<th data-hide="all">User</th>
+						<th data-hide="all">Item</th>
+						<th data-hide="all">Price</th>
+						<th data-hide="all">TXN ID</th>
+						<th data-hide="all">Date</th>
+						<th class="text-right">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-class="{sale:'positive',rfnd:'negative'}[next_item.type]" dir-paginate="next_item in data[pagination.current_page] | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
+						<td>
+							<strong>{{next_item.price}}</strong>
+							<strong>{{next_item.access_level.name ? next_item.access_level.name : next_item.product_id}}</strong>
+							<strong>{{next_item.type}} </strong>
+							from <strong>{{next_item.name}}</strong>
+							<strong>{{moment.utc(next_item.created_at).fromNow()}}</strong>
+						</td>
+						<td>{{next_item.type}}</td>
+						<td>{{next_item.source}}</td>
+						<td>{{next_item.name}}</td>
+						<td>{{next_item.user.first_name ? next_item.user.first_name + ' ' + next_item.user.last_name : next_item.user.email}}</td>
+						<td>{{next_item.access_level.name ? next_item.access_level.name : next_item.product_id}}</td>
+						<td>{{next_item.price}}</td>
+						<td>{{next_item.transaction_id}}</td>
+						<td>
+							{{moment.utc(next_item.created_at).fromNow()}}
+						</td>
+						<td class="text-right">
+							<div class="ui buttons">
+								<div class="ui button">
+									Edit
+								</div>
+								<div class="ui floating dropdown icon button" sui-dropdown>
+									<i class="dropdown icon"></i>
+
+									<div class="menu">
+										<a class="item" sm-delete="{{next_item.id}}">
+											<i class="delete icon"></i>
+											Delete
+										</a>
+									</div>
+								</div>
+							</div>
+
+						</td>
+					</tr>
+
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="4">
+							<div class="ui pointing label">
+								{{pagination.total_count}} items
+							</div>
+							<dir-pagination-controls max-size="5"></dir-pagination-controls>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui black deny button close">
+			Close
+		</div>
+	</div>
+</div>
+
+<div class="ui modal">
 	<i class="close icon"></i>
 
 	<div class="header">
@@ -13,10 +109,10 @@
 				<div class="ibox-content">
 					<div class="field" style='margin-bottom: 10px'>
 						<div class="ui category search">
-						  <div class="ui icon input">
-						    <input type="text" placeholder="Search..." ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" >
-						    <i class="search icon"></i>
-						  </div>
+							<div class="ui icon input">
+								<input type="text" placeholder="Search..." ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+								<i class="search icon"></i>
+							</div>
 						</div>
 					</div>
 					<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
@@ -40,7 +136,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+							<tr dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
 								<td>{{next_item.type}}</td>
 								<td>{{next_item.source}}</td>
 								<td>{{next_item.name}}</td>
@@ -66,7 +162,7 @@
 						</tfoot>
 					</table>
 
-					<div class="text-right"  ng-if="!loading">
+					<div class="text-right" ng-if="!loading">
 						<dir-pagination-controls max-size="5"></dir-pagination-controls>
 					</div>
 				</div>
