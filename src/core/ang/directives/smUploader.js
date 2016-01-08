@@ -78,7 +78,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 	};
 } );
 
-app.controller( 'modalMediaController', function( $scope, $localStorage, Upload, close, Restangular )
+app.controller( 'modalMediaController', function( $scope,smModal, $location,$localStorage, Upload, close, Restangular )
 {
 	Restangular.service('media')
 		.getList()
@@ -135,6 +135,9 @@ app.controller( 'modalMediaController', function( $scope, $localStorage, Upload,
 					console.log(returnObject);
 
 					close( returnObject );
+					if($location.path()=='/support-ticket')
+						smModal.Close();
+					
 
 				} ).error( function( data, status, headers, config )
 			{
