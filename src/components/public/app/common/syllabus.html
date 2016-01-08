@@ -61,7 +61,8 @@
 				<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}">
 					<div class="right floated content">
 						<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
-						<div class="ui label" ng-show="lesson.note">{{lesson.note}}</div>
+						<div class="ui label" ng-if="syllabus.edit_mode" onaftersave="saveLesson(lesson)" editable-text="lesson.note"  ng-show="lesson.note">{{lesson.note}}</div>
+						<div class="ui label" ng-if="!syllabus.edit_mode" ng-show="lesson.note">{{lesson.note}}</div>
 						<span class="ui label right floated" style="cursor:pointer;" ng-if="syllabus.edit_mode" ng-click="editLesson(lesson)">Edit</span>
 					</div>
 
