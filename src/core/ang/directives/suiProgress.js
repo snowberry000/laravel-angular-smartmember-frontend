@@ -7,8 +7,7 @@ app.directive( 'suiProgress', function()
 			var the_options = {
 				text: {
 					success : 'setup completed!'
-				},
-				value: attributes.value || 0
+				}
 			};
 
 			if( attributes.text )

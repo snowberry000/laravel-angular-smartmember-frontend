@@ -19,20 +19,16 @@
 				<thead>
 					<tr>
 						<th data-toggle="">Progress</th>
-						<th data-hide="">Status</th>
 						<th data-hide="">Created</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="next_item in data[ pagination.current_page ] | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+					<tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 						<td>
-							<div class="ui indicating progress" data-text="{active: 'Importing {value} of {total} members',success: '{total} Members Imported!'}" data-value="{{next_item.done_count}}" data-total="{{next_item.total_count}}" sui-progress>
+							<div class="ui indicating progress" data-text="{active: 'Importing {value} of {total} members',success: '{total} Members Imported!'}" data-value="{{next_item.done_count || 1}}" data-total="{{next_item.total_count}}" sui-progress>
 								<div class="bar"></div>
 								<div class="label">Importing {{next_item.total_count}} Members</div>
 							</div>
-						</td>
-						<td>
-							{{next_item.active == 0 ? 'Done' : 'Active'}}
 						</td>
 						<td style="width: 160px;">
 							{{moment.utc(next_item.created_at).fromNow()}}
