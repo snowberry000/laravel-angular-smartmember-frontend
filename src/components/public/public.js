@@ -49,8 +49,12 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 
 	$scope.GetAdminBarInclude = function()
-	{
-		if( $scope.isLoggedIn() /*&& !$rootScope.isSitelessPage()*/ )
+	{	
+		var state = $state.current.name.split('.');
+		if(state.length >= 3){
+			state = state[2];
+		}
+		if( $scope.isLoggedIn() && state != 'wallboard')
 		{
 			return 'templates/components/public/admin-bar/admin-bar.html';
 		}
