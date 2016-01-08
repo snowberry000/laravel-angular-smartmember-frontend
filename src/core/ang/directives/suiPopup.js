@@ -12,7 +12,7 @@ app.directive( 'suiPopup', function( smModal )
 				target: attributes.target || false,
 				popup: attributes.popup || false,
 				exclusive: true,
-				preserve: true,
+				preserve: false,
 				duration: attributes.edit ? 100 : (attributes.duration || 0),
 				delay: {
 					show: 100,
