@@ -1,11 +1,14 @@
 <div class="ui small modal">
-	<div class="header">
-		<i class="upload icon"></i>
-		Upload
-	</div>
-	<div class="content">
-		<div class="modal-body">
 
+	<div class="header no-border">
+		<div class="ui top attached tabular menu" sui-tabs>
+			<a class="item active" data-tab="upload">Upload</a>
+			<a class="item" data-tab="media_files">Media Files</a>
+		</div>
+	</div>
+	
+	<div class='content'>
+		<div class="ui bottom attached tab segment no-border active" data-tab="upload">
 			<style>
 				.drop-box.dragover {
 					border: 2px solid #21ba45 !important;
@@ -29,9 +32,18 @@
 					or drag a file here...
 				</h3>
 			</div>
+		</div>
 
+		<div class="ui bottom attached tab segment no-border" data-tab="media_files">
+			<h4>Click on the media to select</h4>
+			<div class='ui grid'>
+				<div class='four wide column media-select' ng-repeat="media in media_files" >
+					<img ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
+				</div>
+			</div>
 		</div>
 	</div>
+
 	<div class="actions">
 		<div class="ui black deny button close" ng-hide="loading">
 			Cancel
