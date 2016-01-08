@@ -92,7 +92,7 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filt
         {
             value: 'sequential',
             label: 'Sequential',
-	        icon: 'ordered',
+	        icon: 'ordered list',
             description: ''
         },
         {
