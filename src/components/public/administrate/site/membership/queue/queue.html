@@ -15,7 +15,7 @@
 				<div class="ui loader"></div>
 			</div>
 
-			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
+			<table class="ui celled striped padded structured table" ng-if="items.length > 0 && !loading" foonice>
 				<thead>
 					<tr>
 						<th data-toggle="">Progress</th>
@@ -23,15 +23,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+					<tr dir-paginate="item in items | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 						<td>
-							<div class="ui indicating progress" data-text="{active: 'Importing {value} of {total} members',success: '{total} Members Imported!'}" data-value="{{next_item.done_count || 1}}" data-total="{{next_item.total_count}}" sui-progress>
+							{{new_queue}}
+							<div class="ui indicating progress" data-text="{active: 'Importing {value} of {total} members',success: '{total} Members Imported!'}" data-value="{{item.done_count || 1}}" data-total="{{item.total_count}}" sui-progress>
 								<div class="bar"></div>
-								<div class="label">Importing {{next_item.total_count}} Members</div>
+								<div class="label">Importing {{item.total_count}} Members</div>
 							</div>
 						</td>
 						<td style="width: 160px;">
-							{{moment.utc(next_item.created_at).fromNow()}}
+							{{moment.utc(item.created_at).fromNow()}}
 						</td>
 					</tr>
 				</tbody>
