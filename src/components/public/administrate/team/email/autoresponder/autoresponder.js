@@ -107,7 +107,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 
 	$scope.save = function(){
 	    
-	    //console.log($scope.autoResponder);
+	    console.log($scope.autoResponder);
 	    $scope.autoResponder.emails=[];
 	    $.each($(".email_item"), function (key, email) {
 	        $tempEmail=$(email).data("component");

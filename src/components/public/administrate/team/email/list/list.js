@@ -82,7 +82,7 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 	}
 
 	$scope.update = function(){
-	    //console.log(emailList);
+	    console.log(emailList);
 	    $scope.emailList.put().then(function(response){
 	        for (var i = 0; i < $scope.emailList.length; i++) {
 	            if($scope.emailList[i].id == response.id){
@@ -228,7 +228,7 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 	    else
 	        return;
 
-	    //console.log("Query attribute " + current_attribute);
+	    console.log("Query attribute " + current_attribute);
 	    // if (! attributes.current_attribute) return;
 
 	    return attributes[current_attribute](term, lhs);
@@ -239,7 +239,7 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 	}
 
 	function suggestNext(term, lhs) {
-	    //console.log("Selection eff" + selection);
+	    console.log("Selection eff" + selection);
 
 	    switch (selection) {
 	        case SELECTION_ATTRIBUTE:
@@ -287,7 +287,7 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 	};
 
 	function on_attach() {
-	    //console.log("Attached");
+	    console.log("Attached");
 	}
 
 	$scope.resolve();

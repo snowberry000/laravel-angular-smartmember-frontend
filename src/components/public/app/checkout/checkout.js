@@ -168,7 +168,7 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
         else
             params.notify_url = $scope.app.apiUrl + "/paypal/process/" + $scope.access_level.id + "/none";
 
-        //console.log( 'notify url: ' + params.notify_url );
+        console.log( 'notify url: ' + params.notify_url );  
         if ($scope.access_level.trial_amount)
         {
             params['a1'] = $scope.access_level.trial_amount;

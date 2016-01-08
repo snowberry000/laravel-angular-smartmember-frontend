@@ -95,15 +95,15 @@ app.controller( "BannersController", function( $scope, $rootScope, $state, $http
 	$scope.save = function()
 	{
 		$scope.postAds = [];
-		//console.log( "check1" );
+		console.log( "check1" );
 		$.each( $( ".ad_items" ), function( key, ad )
 		{
-			//console.log( "check2" );
+			console.log( "check2" );
 			$tempAd = $( ad ).data( "component" );
 			$tempAd.sort_order = key;
 			$scope.postAds.push( $tempAd );
 		} );
-		//console.log( $scope.postAds );
+		console.log( $scope.postAds );
 		$scope.update();
 	}
 
@@ -144,10 +144,10 @@ app.controller( 'adminSiteWidgetsController', function( $scope, $state, $http, $
 	}
 	$scope.divide( $ads );
 
-	//console.log( "display ads: " );
-	//console.log( $scope.displayAds );
-	//console.log( "hidden ads: " );
-	//console.log( $scope.hiddenAds );
+	console.log( "display ads: " );
+	console.log( $scope.displayAds );
+	console.log( "hidden ads: " );
+	console.log( $scope.hiddenAds );
 
 	$scope.currentPage = 1;
 
@@ -189,7 +189,7 @@ app.controller( 'adminSiteWidgetsController', function( $scope, $state, $http, $
 			$scope.postAds.push( value );
 		} );
 
-		//console.log( $scope.postAds );
+		console.log( $scope.postAds );
 		$scope.update();
 	}
 
@@ -241,11 +241,11 @@ app.controller( 'adminSiteWidgetsController', function( $scope, $state, $http, $
 		},
 		itemMoved: function( $event )
 		{
-			//console.log( "moved" );
+			console.log( "moved" );
 		},//Do what you want},
 		orderChanged: function( $event )
 		{
-			//console.log( "orderchange2" );
+			console.log( "orderchange2" );
 			setTimeout( 200, $scope.save )
 		},//Do what you want},
 

@@ -26,7 +26,7 @@ app.controller("TeamInviteController", function ($scope,smModal,toastr, $state, 
 	$scope.$watch('current_company' , function(current_company){
 		if(current_company){
 			$scope.role = $scope.getRole($user.role , current_company.id)
-			//console.log($scope.role)
+			console.log($scope.role)
 		}
 	})
 	$scope.getRole = function(role , company_id){

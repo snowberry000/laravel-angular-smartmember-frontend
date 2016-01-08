@@ -6,7 +6,7 @@ app.directive( 'siteCard', function( $timeout )
 		templateUrl: 'templates/components/public/www/common/site-card.html',
 		controller: function( $scope, $element )
 		{
-			//console.log( 'the scope', $scope, 'the element ', $element );
+			console.log( 'the scope', $scope, 'the element ', $element );
 
 			// Function for collapse ibox
 			$scope.showhide = function()

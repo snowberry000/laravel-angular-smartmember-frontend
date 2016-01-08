@@ -9,10 +9,10 @@ app.directive('siteAd', ['$timeout', '$parse', function ($timeout, $parse) {
             }
             else
             {
-              //console.log('info called');
+              console.log('info called');
             }
-          	//console.log('attrs: ');
-          	//console.log(attrs.id);
+          	console.log('attrs: ');
+          	console.log(attrs.id);
          }, 1, false);
          
          var fn = $parse(attrs.myRightClick);

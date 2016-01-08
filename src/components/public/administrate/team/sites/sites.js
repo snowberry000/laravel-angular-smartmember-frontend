@@ -79,12 +79,12 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 
 		return;
 
-		//console.log( "doing loadMore" );
+		console.log( "doing loadMore" );
 
 		for( var i = 1; i <= 20; i++ )
 		{
-			//console.log( '$rootScope.sites.length', $rootScope.sites.length );
-			//console.log( '$scope.iter', $scope.iter, $scope.sites );
+			console.log( '$rootScope.sites.length', $rootScope.sites.length );
+			console.log( '$scope.iter', $scope.iter, $scope.sites );
 
 			if( $rootScope.sites.length > $scope.iter )
 			{
@@ -136,7 +136,7 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 
 	// 		} );
 	// 		$scope.sites.admin = $scope.sites.admin.concat( $sites.admin );
-	// 		//console.log( $scope.sites.admin.length )
+	// 		console.log( $scope.sites.admin.length )
 	// 		$scope.sites.member = $scope.sites.member.concat( $sites.member );
 	// 		$scope.adminSites[ $scope.adminPagination.current_page ] = $sites.admin;
 	// 		$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;

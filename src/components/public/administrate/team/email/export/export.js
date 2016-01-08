@@ -211,7 +211,7 @@ app.controller("EmailSubscriberExportController", function ($scope,$q,  $localSt
         }
 
 
-        //console.log(' Segment Query: ' + $scope.queueEmailData.segmentQuery)
+        console.log(' Segment Query: ' + $scope.queueEmailData.segmentQuery)
 
        /* Restangular.one('emailList').customPOST({segment_query: $scope.queueEmailData.segmentQuery}, 'users')
             .then(function (response) {

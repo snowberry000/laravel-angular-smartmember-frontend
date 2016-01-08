@@ -4,7 +4,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     var next_item=null;
     $scope.updateIcon = function($icon){
         $scope.editing_item.icon=$icon;
-        //console.log($scope.next_item.icon);
+        console.log($scope.next_item.icon);
     }
 
     $scope.resolve = function () {
@@ -22,8 +22,8 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     
     $scope.editing_item = angular.copy( next_item );
     $scope.modelOpen=false;
-    //console.log('menu icon: ');
-    //console.log($scope.editing_item);
+    console.log('menu icon: ');
+    console.log($scope.editing_item);
 
     $scope.menuItemLabel=function(){
         $('.ui-iconpicker').toggleClass('open');
@@ -47,7 +47,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
                 downloads.forEach(function(entity){
                     entity.url = entity.permalink;
                 })
-                //console.log(downloads)
+                console.log(downloads)
                 $scope.show_next = true;
                 $scope.loaded_items = downloads;
 

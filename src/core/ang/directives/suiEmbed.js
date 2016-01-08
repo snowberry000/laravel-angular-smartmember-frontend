@@ -20,7 +20,7 @@ app.directive( 'suiEmbed', function( smModal )
 				//find & remove port number
 				domain = domain.split( ':' )[ 0 ];
 
-				//console.log( "THE DOMAIN: ", domain, url );
+				console.log( "THE DOMAIN: ", domain, url );
 
 				if( domain )
 				{
@@ -35,14 +35,14 @@ app.directive( 'suiEmbed', function( smModal )
 				return false;
 			};
 
-			//console.log( "next_item", next_item, attributes );
+			console.log( "next_item", next_item, attributes );
 
 			var the_templates = {
 				iframe: function( url, parameters )
 				{
 					// returns html for iframe
 					return attributes.originalEmbed;
-					//console.log( 'templates iframe', url, parameters );
+					console.log( 'templates iframe', url, parameters );
 				},
 				placeholder: function( image, icon )
 				{
@@ -65,26 +65,26 @@ app.directive( 'suiEmbed', function( smModal )
 				placeholder: attributes.placeholder,
 				onCreate: function( params )
 				{
-					//console.log( "onCreate", params );
+					console.log( "onCreate", params );
 				},
 				onDisplay: function( params )
 				{
-					//console.log( "onDisplay", params );
+					console.log( "onDisplay", params );
 				},
 				onPlaceholderDisplay: function( params )
 				{
-					//console.log( "onPlaceholderDisplay", params );
+					console.log( "onPlaceholderDisplay", params );
 				},
 				onEmbed: function( params )
 				{
-					//console.log( "onEmbed", params );
+					console.log( "onEmbed", params );
 				}
 			};
 
 			if( the_templates )
 				the_options[ 'templates' ] = the_templates;
 
-			//console.log( "the attrs", attributes );
+			console.log( "the attrs", attributes );
 
 			$( next_item ).embed( the_options );
 		}

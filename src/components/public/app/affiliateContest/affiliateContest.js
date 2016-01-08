@@ -10,7 +10,7 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('AffiliateContestController', function ($scope,$rootScope, $state, $stateParams, Restangular) {
-    ////console.log($affiliateContest);
+    //console.log($affiliateContest);
     $scope.loading=true;
 
     if($stateParams.permalink)
@@ -32,7 +32,7 @@ app.controller('AffiliateContestController', function ($scope,$rootScope, $state
     $scope.getLeaderBoard = function()
     {
         Restangular.one('affiliateLeaderboard', $affiliateContest.id).get().then(function(response){
-            //console.log(response);
+            console.log(response);
             $scope.leaderboard=response;
         });
     }

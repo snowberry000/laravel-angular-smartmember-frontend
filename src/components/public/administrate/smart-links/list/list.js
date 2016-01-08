@@ -86,10 +86,10 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
 
     $scope.deleteResource = function( id )
     {
-        //console.log(id);
+        console.log(id);
         var itemWithId = _.find( $scope.data, function( next_item )
         {
-            //console.log(next_item.id  +" "+id);
+            console.log(next_item.id  +" "+id);
             return next_item.id == id;
         } );
 

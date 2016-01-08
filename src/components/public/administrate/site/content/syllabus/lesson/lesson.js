@@ -349,7 +349,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 					var editor = $.summernote.eventHandler.getModule();
 
 					$scope.next_item[ type ] += '<img src=\'' + data.file_name + '\'>';
-					//console.log( 'do we gots editable now? ', $scope.editable );
+					console.log( 'do we gots editable now? ', $scope.editable );
 					//$scope.editable seems to be undefined, not sure why
 					/*
 					 if(type=='transcript')
@@ -539,7 +539,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 		}
 		Restangular.all( 'draft' ).post( data ).then( function( response )
 		{
-			//console.log( response );
+			console.log( response );
 			draft = response;
 		} )
 	}
