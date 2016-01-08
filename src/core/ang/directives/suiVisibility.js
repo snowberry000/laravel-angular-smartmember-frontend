@@ -22,7 +22,7 @@ app.directive( 'suiVisibility', function( $timeout )
 
 				}, 1000 );
 
-				//console.log( "doing visibility with", $( next_item ).find( 'img' ), the_options );
+				console.log( "doing visibility with", $( next_item ).find( 'img' ), the_options );
 			}
 			else
 			{
@@ -39,14 +39,14 @@ app.directive( 'suiVisibility', function( $timeout )
 						{
 							scope.$apply( attributes.dataTrigger );
 							scope.$apply( attributes.trigger );
-							//console.log( "triggered?" );
+							console.log( "triggered?" );
 
 						}, 100 );
 
-						//console.log( 'attributes', attributes );
+						console.log( 'attributes', attributes );
 						//attributes.dataTrigger;
 
-						//console.log( "Loadin it" );
+						console.log( "Loadin it" );
 					},
 					onPassing  : function(calculations) {
 
@@ -54,7 +54,7 @@ app.directive( 'suiVisibility', function( $timeout )
 						{
 							scope.$apply( attributes.dataTrigger );
 							scope.$apply( attributes.trigger );
-							//console.log( "triggered?" );
+							console.log( "triggered?" );
 
 						}, 100 );
 					},

@@ -101,7 +101,7 @@ app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, 
 	$scope.update = function()
 	{
 		$members = [];
-		//console.log( $scope.affiliate_team.members );
+		console.log( $scope.affiliate_team.members );
 		if( ($scope.affiliate_team.members.length > 0) && ($scope.affiliate_team.members[ 0 ].id) )
 		{
 			$members = $scope.affiliate_team.members.map( function( member )

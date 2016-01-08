@@ -5,11 +5,11 @@ app.filter('parseurl', function() {
     		return input;
     	}
         else if(input.indexOf('mailto') == 0){
-            //console.log()
+            console.log()
             return input;
         }
     	else if(input.indexOf('www.') == 0){
-    		//console.log()
+    		console.log()
     		return "http://"+input;
     	}
     	else if (input.charAt(0) != "/"){

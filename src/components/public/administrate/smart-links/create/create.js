@@ -110,7 +110,7 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filt
     ];
 
     $scope.consoleLog = function(something) {
-        //console.log( something );
+        console.log( something );
     }
 
     $scope.moveUp = function(url){

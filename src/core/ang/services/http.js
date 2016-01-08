@@ -31,7 +31,7 @@ app.factory( 'httpInterceptor', function( $q, $rootScope, $injector, $location )
 		'responseError': function( rejection )
 		{
 			var toastr = $injector.get( "toastr" );
-			//console.log( rejection )
+			console.log( rejection )
 			$rootScope.loaded = true;
 			if( rejection.status == 405 )
 			{
@@ -55,7 +55,7 @@ app.factory( 'httpInterceptor', function( $q, $rootScope, $injector, $location )
 				if( rejection.data && rejection.data.message )
 				{
 					toastr.error( rejection.data.message );
-					//console.log( rejection.data.message );
+					console.log( rejection.data.message );
 				}
 			}
 

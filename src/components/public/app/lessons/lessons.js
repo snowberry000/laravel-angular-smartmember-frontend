@@ -213,7 +213,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         Restangular.one('userNote',lesson.user_note.id)
             .put({complete: lesson.user_note.complete ? 0 : 1})
             .then(function(response){
-                //console.log(response);
+                console.log(response);
                 lesson.user_note.complete = !lesson.user_note.complete;
             });
         
@@ -272,7 +272,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     }
 
     $scope.editLessonDone = function(edited_lesson){
-        //console.log(edited_lesson);
+        console.log(edited_lesson);
         $scope.addAccessLevel(edited_lesson);
         if(edited_lesson && edited_lesson.id){
 

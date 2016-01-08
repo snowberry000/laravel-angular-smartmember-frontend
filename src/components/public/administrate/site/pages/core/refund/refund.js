@@ -100,12 +100,12 @@ app.controller("RefundController", function ($scope, $localStorage, smModal , $r
                 file: file
             })
                 .success(function (data, status, headers, config) {
-                    //console.log(data.file_name);
+                    console.log(data.file_name);
                     var editor = $.summernote.eventHandler.getModule();
                     file_location = '/uploads/'+data.file_name;
                     editor.insertImage($scope.editable, data.file_name);
                 }).error(function (data, status, headers, config) {
-                    //console.log('error status: ' + status);
+                    console.log('error status: ' + status);
                 });
         }
     }

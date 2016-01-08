@@ -89,7 +89,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
                     var editor = $.summernote.eventHandler.getModule();
 
                     $scope.next_item[ type ] += '<img src=\''+data.file_name+'\'>';
-                    //console.log('do we gots editable now? ', $scope.editable );
+                    console.log('do we gots editable now? ', $scope.editable );
                     //$scope.editable seems to be undefined, not sure why
                     /*
                      if(type=='transcript')
@@ -187,7 +187,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
     $scope.start = function(){
         var data = {site_id : $site.id , user_id : $user.id , key : 'pages.content' , value : JSON.stringify($scope.page)}
         Restangular.all('draft').post(data).then(function(response){
-            //console.log(response);
+            console.log(response);
             draft=response;
         })
     }

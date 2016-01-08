@@ -84,7 +84,7 @@ app.controller("EmailISubscribermportController", function ($scope,$q, $localSto
     }
 
     $scope.removeFromList = function($argSubs){
-        //console.log($argSubs);
+        console.log($argSubs);
         $scope.emailSubscribers = _.reject($scope.emailSubscribers, function($subs){ return $subs.name == $argSubs.name&&$subs.email == $argSubs.email; });
     }
 
@@ -131,7 +131,7 @@ app.controller("EmailISubscribermportController", function ($scope,$q, $localSto
             $scope.sendIter++;
             if($scope.sendIter==$scope.emailSubscribers.length)
             {
-                //console.log("i am printing subscribers count "+$scope.sendIter);
+                console.log("i am printing subscribers count "+$scope.sendIter);
                 toastr.success($scope.totalAdded+" Subscribers Added!");
                 smModal.Show("public.administrate.team.email.subscribers");
             }

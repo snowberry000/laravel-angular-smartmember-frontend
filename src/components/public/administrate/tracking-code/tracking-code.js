@@ -12,7 +12,7 @@ app.config(function($stateProvider){
 app.controller("TrackingCodeController", function ($scope,$state, $localStorage,  Restangular, toastr) {
 	$scope.showModal = function(){
 	    $name = 'Member Stats Dashboard';
-	    //console.log($state.current.name);
+	    console.log($state.current.name);
 	    if($state.current.name=='public.administrate.tracking-code')
 	        $name = 'Tracking Code';
 	    else if($state.current.name == 'public.administrate.affiliate-dashboard')

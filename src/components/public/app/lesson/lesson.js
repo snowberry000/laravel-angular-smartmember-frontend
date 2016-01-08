@@ -57,7 +57,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 
 		if( $rootScope.Modulelessons )
 		{
-			//console.log( "now here it is" );
+			console.log( "now here it is" );
 			$rootScope.showCounter = _.findLastIndex( $rootScope.Modulelessons, { permalink: $stateParams.permalink } ) + 1;
 			$scope.showCounter = $rootScope.showCounter;
 			$index = $scope.showCounter - 1;
@@ -66,18 +66,18 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		}
 		else
 		{
-			//console.log( "here it is" );
+			console.log( "here it is" );
 			Restangular.one( 'module', 'home' ).get().then( function( response )
 			{
-				//console.log( response );
+				console.log( response );
 				$scope.modules = response;// $filter('orderBy')(response, 'sort_order');
 				$scope.modules = _.reject( $scope.modules, function( $mod )
 				{
 					return $mod.lessons.length == 0;
 				} );
-				//console.log( $scope.modules );
+				console.log( $scope.modules );
 				$rootScope.Modulelessons = [];
-				//console.log( "length: " + $scope.modules.length );
+				console.log( "length: " + $scope.modules.length );
 				$.each( $scope.modules, function( key, temp_module )
 				{
 					$modlessons = $filter( 'orderBy' )( temp_module.lessons, 'sort_order' );
@@ -87,7 +87,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 					} );
 				} );
 				$rootScope.showCounter = _.findLastIndex( $rootScope.Modulelessons, { permalink: $stateParams.permalink } ) + 1;
-				//console.log( "show counter: " + $rootScope.showCounter );
+				console.log( "show counter: " + $rootScope.showCounter );
 				$scope.showCounter = $rootScope.showCounter;
 				$index = $scope.showCounter - 1;
 				$scope.lesson.total_lessons = $rootScope.Modulelessons.length;

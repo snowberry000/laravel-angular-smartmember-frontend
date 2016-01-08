@@ -46,7 +46,7 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 		Restangular.all('accessLevelShareKey').customGET().then(function(response) {
 			if (response.total_count > 0)
 			{
-				//console.log('items for keys', response.items);
+				console.log('items for keys', response.items);
 				angular.forEach (response.items, function(item){
 					$scope.keys.push(item);
 				})
@@ -104,7 +104,7 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 		}
 		if($scope.access_level.facebook_group_id)
 			$scope.access_level.facebook_group_id = $scope.access_level.facebook_group_id.toString();
-		//console.log($scope.access_level.facebook_group_id)
+		console.log($scope.access_level.facebook_group_id) 
 	    paypal = _.findWhere($scope.site.configured_app,{type: 'paypal'})
 	    stripe = _.findWhere($scope.site.configured_app,{type: 'stripe'})
 
@@ -118,7 +118,7 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 	    else
 	        $scope.paypal_checkout = true;
 
-		//console.log("access levels: "+$scope.access_level);
+		console.log("access levels: "+$scope.access_level);
 		$scope.access_level.isOpen = false;
 	}
 

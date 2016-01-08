@@ -17,7 +17,7 @@ app.directive( 'suiSearch', [ '$http', '$localStorage', function( $http, $localS
 					onResponse: function( the_data )
 					{
 
-						//console.log( 'the_data', the_data );
+						console.log( 'the_data', the_data );
 						var response = {
 							results: {}
 						};

@@ -3,7 +3,7 @@ app.service('User', function ($localStorage, $rootScope, $location, Restangular,
 
     this.profileImage = function () {
         var url = 'https://graph.facebook.com/' + $localStorage.facebook_user_id + '/picture';
-        //console.log(url);
+        console.log(url);
         return url;
     }
 

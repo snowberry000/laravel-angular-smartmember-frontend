@@ -77,7 +77,7 @@ app.controller("AgentStatsController", function ($scope, $localStorage,$rootScop
 	     });
 	 }
 
-	 //console.log($scope.agents);
+	 console.log($scope.agents);
 
 	 $scope.openModal = function(){
 	     var modalInstance = $modal.open({

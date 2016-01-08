@@ -64,7 +64,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.$watch( 'user_loaded', function( new_value, old_value )
 	{
-		////console.log( 'user changed to ', new_value, ' from ', old_value );
+		console.log( 'user changed to ', new_value, ' from ', old_value );
 		if( new_value && $rootScope.user && $rootScope.user.id )
 		{
 			$rootScope.sites_loading = true;
@@ -97,13 +97,13 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				angular.forEach($sites_copy , function(value , key){
 					for (var i = 0; i < value.length ; i++) {
 						if(value[i].subdomain == 'likastic')
-							////console.log('')
+							console.log('')
 						var exists = _.findWhere($sites , {id : value[i].id});
 						if(!exists){
 							$sites.push(value[i]);
 						}
 						else if(exists.subdomain == 'likastic'){
-							////console.log(exists);
+							console.log(exists);
 						}
 					};
 					
@@ -136,7 +136,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				 $sites = $sites.concat( $grouped_sites.member );
 				 }*/
 
-				////console.log( '$sites', $sites );
+				console.log( '$sites', $sites );
 
 				angular.forEach( $sites, function( site, key )
 				{
@@ -463,7 +463,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 					$modalInstance.close( returnObject );
 				} ).error( function( data, status, headers, config )
 			{
-				////console.log( 'error status: ' + data );
+				console.log( 'error status: ' + data );
 			} );
 		}
 	};

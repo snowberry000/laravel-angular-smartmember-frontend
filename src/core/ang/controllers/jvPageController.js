@@ -7,7 +7,7 @@ app.controller( 'adminJVPageController', function( $scope, smModal, Restangular,
 	$site = $rootScope.site;
 	$scope.init = function()
 	{
-		//console.log( 'are we running?' );
+		console.log( 'are we running?' );
 		Restangular.all( 'emailList/sendMailLists' ).getList().then( function( response )
 		{
 			$scope.emailLists = response;
@@ -80,7 +80,7 @@ app.controller( 'adminJVPageController', function( $scope, smModal, Restangular,
 					}
 				} ).error( function( data, status, headers, config )
 			{
-				//console.log( 'error status: ' + status );
+				console.log( 'error status: ' + status );
 			} );
 		}
 	}

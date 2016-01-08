@@ -18,7 +18,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	$rootScope.wizard_server = [];
 	$scope.wizard_loaded = false;
 
-	//console.log( "Wizards.GetCurrent( $stateParams.id )", $stateParams );
+	console.log( "Wizards.GetCurrent( $stateParams.id )", $stateParams );
 	$wizard = Wizards.GetCurrent( $stateParams.id );
 	$nodes = Nodes.GetAll();
 	$wizard_server = Restangular.all( 'wizard' ).customGET( '', {
@@ -28,7 +28,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	{
 		$scope.wizard_loaded = true;
 
-		//console.log( "THE WIZARD: ", $wizard );
+		console.log( "THE WIZARD: ", $wizard );
 		$scope.static_wizard = $wizard;
 		$rootScope.wizard = [];
 
@@ -51,7 +51,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		if( $scope.id == undefined )
 		{
 			$scope.id = 0;
-			//console.log( 'scope is reset' );
+			console.log( 'scope is reset' );
 		}
 
 
@@ -122,7 +122,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 
 	$scope.cancel = function( node )
 	{
-		//console.log( "cancel node: ", node, $rootScope.wizard_server, $scope );
+		console.log( "cancel node: ", node, $rootScope.wizard_server, $scope );
 		smModal.Show( 'public.administrate.wizard', { id: $scope.static_wizard.slug } );
 		if( node )
 		{
@@ -145,7 +145,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	$scope.next = function( current, node )
 	{
 		current = parseInt( current );
-		//console.log( 'Current node id is ', current );
+		console.log( 'Current node id is ', current );
 		if( node )
 		{
 			//node.HideBox( node );

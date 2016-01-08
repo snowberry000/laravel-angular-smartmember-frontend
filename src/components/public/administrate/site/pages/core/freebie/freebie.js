@@ -46,7 +46,7 @@ app.controller("FreebieController", function ($scope, $localStorage,$rootScope, 
         delete bonus.isOpen;
 
         if (bonus.id) {
-            //console.log(bonus)
+            console.log(bonus)
             Restangular.all('specialPage').customPUT(bonus , bonus.id);
             toastr.success("Free Bonus Page has been saved");
             smModal.Show('public.administrate.site.pages.core.list');
@@ -131,12 +131,12 @@ app.controller("FreebieController", function ($scope, $localStorage,$rootScope, 
                 file: file
             })
                 .success(function (data, status, headers, config) {
-                    //console.log(data.file_name);
+                    console.log(data.file_name);
                     var editor = $.summernote.eventHandler.getModule();
                     file_location = '/uploads/'+data.file_name;
                     editor.insertImage($scope.editable, data.file_name);
                 }).error(function (data, status, headers, config) {
-                    //console.log('error status: ' + status);
+                    console.log('error status: ' + status);
                 });
         }
     }

@@ -51,7 +51,7 @@ app.directive( 'smContentpicker', function( smModal, $compile )
 
 			scope.$watch( 'selected_url', function( new_value, old_value )
 			{
-				//console.log( "our value changed from " + old_value + " to " + new_value );
+				console.log( "our value changed from " + old_value + " to " + new_value );
 
 			}, true);
 

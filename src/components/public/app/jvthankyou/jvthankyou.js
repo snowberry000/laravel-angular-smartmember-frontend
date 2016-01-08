@@ -69,7 +69,7 @@ app.controller('JvthankyouController', function ($scope, $site,$rootScope, Resta
                         editor.insertImage($scope.editable, data.file_name);
                     }
                 }).error(function (data, status, headers, config) {
-                    //console.log('error status: ' + status);
+                    console.log('error status: ' + status);
                 });
         }
     }
