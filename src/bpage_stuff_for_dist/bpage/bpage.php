@@ -129,8 +129,6 @@ function fetchBpageHTML($data, $params)
 $title = '';
 if( !$html )
 {
-	$data = json_decode( $bpage_data );
-
     $html = fetchBpageHTML($data, $paramSwaps);
     //remove dynamic video
     $html = preg_replace('/\<div class\=\"videoWrapper\" dynamic=\"(.*)<\/div>/i', "", $html);
@@ -157,6 +155,14 @@ if( !$html )
     $(document).ready(function () {
         var tracking_code_url = "http<?php echo in_array($tld,array('dev','in')) ? '':'s';?>://api.<?php echo $rootDomain; ?>/siteMetaData/getTrackingCode?subdomain=<?php echo $subdomain; ?>&permalink=<?php echo ltrim($_SERVER['REQUEST_URI'], '/'); ?>";
         var current_domain = '<?php echo $domain; ?>';
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga( 'create', 'UA-48872715-8', 'auto' );
+		ga('send', 'pageview');
+
         $.getJSON(tracking_code_url, function (data) {
 
             (function (w, d, t, r, u) {
@@ -170,21 +176,9 @@ if( !$html )
                 }, i = d.getElementsByTagName(t)[0], i.parentNode.insertBefore(n, i)
             })(window, document, "script", "//bat.bing.com/bat.js", "uetq");
 
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
             if (typeof data.google_analytics_id != 'undefined' && data.google_analytics_id != '') {
-                ga('create', data.google_analytics_id, current_domain);
-                ga('send', 'pageview');
+				ga('create', data.google_analytics_id, current_domain, {'name': 'newTracker', 'cookieName': '_ga_user'});
+				ga('newTracker.send', 'pageview');
             }
 
             if (typeof data.facebook_retargetting_pixel != 'undefined' && data.facebook_retargetting_pixel != '') {
