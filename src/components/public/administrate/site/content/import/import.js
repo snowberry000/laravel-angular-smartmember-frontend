@@ -16,7 +16,7 @@ app.config(function($stateProvider){
 
 app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, toastr , $state) {
 	var lesson = Restangular.all("lesson");
-    
+    $scope.loading = true;
     $scope.videos = false;
     $scope.vimeo_app_configurations = [];
     $scope.vimeo = {};
@@ -128,6 +128,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 $scope.selected_account = selected_integration.id;
                 $scope.vimeo.access_token = selected_integration.account.access_token;
                 $scope.vimeo.remote_id = selected_integration.account.remote_id;
+                $scope.loading = false;
                 $scope.loadVideos();
             }
         }
