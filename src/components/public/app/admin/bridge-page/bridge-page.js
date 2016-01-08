@@ -26,7 +26,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 	} )
 	$emailLists = Restangular.all( 'emailList' ).customGET().then( function( response )
 	{
-		$scope.emailLists = response;
+		$scope.emailLists = response.items;
 	} )
 
 	if( $stateParams.id )
@@ -179,7 +179,19 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		if( $scope.bridgepage.id != undefined )
 		{
 			$scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl( $scope.bridgepage.swapspot.optin_action );
-			$scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, { id: $scope.bridgepage.swapspot.sm_list_id } );
+			$scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, { id: parseInt( $scope.bridgepage.swapspot.sm_list_id ) } ) ||  _.findWhere( $scope.emailLists, { id: $scope.bridgepage.swapspot.sm_list_id + '' } );
+
+            if( $scope.bridgepage.swapspot.access_levels ) {
+                var old_level_ids = $scope.bridgepage.swapspot.access_levels.split(',');
+                $scope.bridgepage.swapspot.access_levels = [];
+
+                angular.forEach( old_level_ids, function(value){
+                    var new_level = _.findWhere( $scope.access_levels, {id: parseInt( value )}) || _.findWhere( $scope.access_levels, {id: value + ''});
+
+                    if( new_level )
+                        $scope.bridgepage.swapspot.access_levels.push( new_level );
+                });
+            }
 		}
 		else
 		{
@@ -363,10 +375,26 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 			if( $scope.bridgepage.swapspot.emailListId != undefined )
 			{
 				$scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="list" value="' + $scope.bridgepage.swapspot.emailListId.id + '">\n' +
-					'<input type="hidden" name="team" value="' + $scope.bridgepage.swapspot.emailListId.company_id + '">\n';
+					'<input type="hidden" name="account_id" value="' + $scope.user.id + '">\n';
 				$scope.bridgepage.swapspot.sm_list_id = $scope.bridgepage.swapspot.emailListId.id;
 			}
-			$scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="redirect_url" value="' + $scope.bridgepage.swapspot.redirect_url + '">\n';
+
+            if ( $scope.bridgepage.swapspot.access_levels != undefined)
+            {
+                var level_ids = [];
+
+                angular.forEach( $scope.bridgepage.swapspot.access_levels, function(value){
+                    level_ids.push( value.id );
+                });
+
+                level_ids = level_ids.join(',');
+
+                $scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="access_levels" value="' + level_ids + '">';
+                $scope.bridgepage.swapspot.access_levels = level_ids;
+            }
+
+            if( $scope.bridgepage.swapspot.redirect_url != undefined )
+			    $scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="redirect_url" value="' + $scope.bridgepage.swapspot.redirect_url + '">\n';
 
 		}
 
