@@ -9,7 +9,9 @@
 				<p>Here you can view / remove any 3rd-party accounts you've connected.</p>
 				<p>If you remove an account below, any Apps installed using that connection will be disabled.</p>
 			</div>
-
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
 			<div class="ui three cards">
 				<div class="card" ng-repeat="account in connected_accounts">
 					<div class="content">

@@ -1,108 +1,115 @@
-<div class="ui modal">
-	<i class="close icon"></i>
-	
+<div class="ui large modal">
 	<div class="header">
-		<i class="paragraph icon"></i>
+		<i class="bar chart icon"></i>
+		Content Stats
 	</div>
 	<div class="content">
 		<div class="description">
-		
-			<div class="row  border-bottom white-bg dashboard-header">
-				<div class="col-sm-4">
-					<h2 class="ui header">Lesson Stats</h2>
-					<small>performance stats for lesson content</small>
-					<p ng-hide="summary.lessons_top_list">
-						no lessons have been viewed yet
-					</p>
-					<ul class="list-group clear-list m-t">
 
-						<li class="list-group-item {{key == 0 ? 'fist-item' : ''}}" ng-repeat="(key, next_item) in summary.lessons_top_list">
-							<span class="pull-right">
-								{{next_item.views}} views
-							</span>
-							<span class="label label-{{key == 0 ? 'success' : ''}}{{key == 1 ? 'info' : ''}}{{key == 2 ? 'primary' : ''}}">
-								{{key + 1}}
-							</span>
-							{{next_item.title}}
-						</li>
-					</ul>
-				</div>
-				<div class="col-sm-8">
-					<div class="flot-chart dashboard-chart">
-						<div flot width= "580" height="180" class="flot-chart-content" dataset="charts[0].data" options="charts[0].options"></div>
-					</div>
-					<div class="row text-left">
-						<div class="col-xs-4 text-center">
-							<div class=" m-l-md">
-								<span class="h4 font-bold m-t block">{{summary.lessons_total_views ? summary.lessons_total_views : 0}}</span>
-								<small class="text-muted m-b block">Viewed all time</small>
-							</div>
-						</div>
-						<div class="col-xs-4 text-center">
-							<span class="h4 font-bold m-t block">{{summary.lessons_avg_daily_visits ? summary.lessons_avg_daily_visits : 0 | number:2}}</span>
-							<small class="text-muted m-b block">Viewed per day</small>
-						</div>
-						<div class="col-xs-4 text-center">
-							<span class="h4 font-bold m-t block">{{stats.lesson_views_today ? stats.lesson_views_today : 0}}</span>
-							<small class="text-muted m-b block">Viewed today</small>
-						</div>
-
-					</div>
-				</div>
-
-			</div>
-			<div class="row  border-bottom white-bg dashboard-header">
-				<div class="col-sm-4">
-					<h2 class="ui header">Download Stats</h2>
-					<small>performance stats for download content</small>
-
-					<p ng-hide="summary.downloads_top_list">
-						no downloads have been processed yet
-					</p>
-					<ul class="list-group clear-list m-t">
-
-						<li class="list-group-item {{key == 0 ? 'fist-item' : ''}}" ng-repeat="(key, next_item) in summary.downloads_top_list">
-							<span class="pull-right">
-								{{next_item.views}} downloads
-							</span>
-							<span class="label label-{{key == 0 ? 'success' : ''}}{{key == 1 ? 'primary' : ''}}{{key == 2 ? 'info' : ''}}">
-								{{key + 1}}
-							</span>
-							{{next_item.title}}
-						</li>
-					</ul>
-				</div>
-				<div class="col-sm-8">
-					<div class="flot-chart dashboard-chart">
-						<div flot width= "580" height="180" class="flot-chart-content" dataset="charts[1].data" options="charts[1].options"></div>
-					</div>
-					<div class="row text-left">
-						<div class="col-xs-4 text-center">
-							<div class=" m-l-md">
-								<span class="h4 font-bold m-t block">{{summary.total_downloads ? summary.total_downloads : 0}}</span>
-								<small class="text-muted m-b block">Downloads all time</small>
-							</div>
-						</div>
-						<div class="col-xs-4 text-center">
-							<span class="h4 font-bold m-t block">{{summary.avg_daily_downloads ? stats.avg_daily_downloads : 0 | number:2}}</span>
-							<small class="text-muted m-b block">Downloads per day</small>
-						</div>
-						<div class="col-xs-4 text-center">
-							<span class="h4 font-bold m-t block">{{stats.downloads_today ? stats.downloads_today : 0}}</span>
-							<small class="text-muted m-b block">Downloads today</small>
-						</div>
-
-					</div>
-				</div>
-
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
 			</div>
 
-			
+			<div class="ui grid">
+				<div class="three wide column text-center">
+
+					<div class="ui statistic">
+						<div class="value">
+							<i class="download icon"></i>
+							{{summary.total_downloads ? summary.total_downloads : 0}}
+						</div>
+						<div class="label">
+							Downloads
+						</div>
+					</div>
+
+				</div>
+				<div class="thirteen wide column">
+
+					<div class="flot-chart dashboard-chart">
+						<div flot width="580" height="180" class="flot-chart-content" dataset="charts[1].data" options="charts[1].options"></div>
+					</div>
+
+					<div class="ui segment">
+						<div class="ui blue labels">
+							<a class="ui label">
+								Downloads all time
+								<div class="detail">{{summary.total_downloads ? summary.total_downloads : 0}}</div>
+							</a>
+							<a class="ui label">
+								Downloads per day
+								<div class="detail">{{summary.avg_daily_downloads ? summary.avg_daily_downloads : 0 | number:2}}</div>
+							</a>
+							<a class="ui label">
+								Downloads today
+								<div class="detail">{{stats.downloads_today ? stats.downloads_today : 0}}</div>
+							</a>
+						</div>
+
+						<div ng-if="summary.downloads_top_list" class="ui relaxed divided list">
+							<div class="item" ng-repeat="(key, next_item) in summary.downloads_top">
+								<i class="large download middle aligned icon"></i>
+								<div class="content">
+									<a class="header">{{next_item.title}}</a>
+									<div class="description">{{next_item.views}} downloads</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="three wide column text-center">
+
+					<div class="ui statistic">
+						<div class="value">
+							<i class="student icon"></i>
+							{{summary.lessons_total_views ? summary.lessons_total_views : 0}}
+						</div>
+						<div class="label">
+							Lesson views
+						</div>
+					</div>
+
+				</div>
+				<div class="thirteen wide column">
+
+					<div class="flot-chart dashboard-chart">
+						<div flot width="580" height="180" class="flot-chart-content" dataset="charts[0].data" options="charts[0].options"></div>
+					</div>
+
+					<div class="ui segment">
+						<div class="ui blue labels">
+							<a class="ui label">
+								Viewed all time
+								<div class="detail">{{summary.lessons_total_views ? summary.lessons_total_views : 0}}</div>
+							</a>
+							<a class="ui label">
+								Viewed per day
+								<div class="detail">{{summary.lessons_avg_daily_visits ? summary.lessons_avg_daily_visits : 0 | number:2}}</div>
+							</a>
+							<a class="ui label">
+								Viewed today
+								<div class="detail">{{stats.lesson_views_today ? stats.lesson_views_today : 0}}</div>
+							</a>
+						</div>
+
+						<div ng-if="summary.lessons_top_list" class="ui relaxed divided list">
+							<div class="item" ng-repeat="(key, next_item) in summary.lessons_top_list">
+								<i class="large student middle aligned icon"></i>
+								<div class="content">
+									<a class="header">{{next_item.title}}</a>
+									<div class="description">{{next_item.views}} views</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 	<div class="actions">
-		<!-- /SAMPLE ACTION BUTTON -->
-		
 		<div class="ui black deny button close">
 			Close
 		</div>
