@@ -31,7 +31,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
+					<tr dir-paginate="next_item in data[pagination.current_page] | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
 						<td class="responsive_table_item">
 							{{next_item.user.first_name ? next_item.user.first_name + next_item.user.last_name : next_item.user.email}}
 						</td>
