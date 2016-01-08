@@ -4,6 +4,9 @@
 		{{ page_title | translate }}
 	</div>
 	<div class="content">
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui text loader">Loading</div>
+		</div>
 		<div class="description">
 
 			<div class="ui top attached tabular menu" sui-tabs>
@@ -32,14 +35,14 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="cancel(); smModal.Show(template_data.cancel_route)" class="ui black button">
+		<a ng-click="cancel();smModal.Show(template_data.cancel_route)" class="ui black button">
 			Cancel
 		</a>
 		<a ng-click="saveAsDraft()" class="ui right labeled icon button" ng-if="next_item.access_level_type!=1">
 			Save as Draft
 			<i class="save icon"></i>
 		</a>
-		<a ng-click="publish()" class="ui right labeled icon button">
+		<a ng-click="publish()" class="ui right labeled green icon button">
 			Publish
 			<i class="check icon"></i>
 		</a>

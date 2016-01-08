@@ -2,8 +2,7 @@
 
 <wave-spinner ng-if="loading"></wave-spinner>
 <div ng-if="!$state.includes('public.app.admin')" class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
-
-	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">
+	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">		
 
 		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
 			<div class="column" style="text-align: right;">
@@ -21,6 +20,9 @@
 				<div class="ui buttons" ng-show="isLoggedIn()">
 					<button busy class="ui button join_button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">Join</button>
 				</div>
+	
+
+
 			</div>
 		</div>
 		<div class="row">

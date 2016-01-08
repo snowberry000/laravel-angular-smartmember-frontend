@@ -43,6 +43,17 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
         }
     } );
 
+	$scope.GetHitCount = function( next_item )
+	{
+		var total = 0;
+		for(var i = 0; i < next_item.urls.length; i++){
+
+			total += next_item.urls[ i ].visits;
+		}
+
+		return total;
+	}
+
     $scope.paginate = function()
     {
         $scope.loading = true;
@@ -75,14 +86,16 @@ app.controller("SmartLinksListController", function ($scope, $rootScope, Restang
 
     $scope.deleteResource = function( id )
     {
-        var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+        console.log(id);
+        var itemWithId = _.find( $scope.data, function( next_item )
         {
+            console.log(next_item.id  +" "+id);
             return next_item.id == id;
         } );
 
         itemWithId.remove().then( function()
         {
-            $scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+            $scope.data = _.without( $scope.data , itemWithId );
         } );
     };
 

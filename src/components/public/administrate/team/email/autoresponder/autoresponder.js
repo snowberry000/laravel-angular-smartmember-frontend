@@ -12,8 +12,16 @@ app.config(function($stateProvider){
 app.controller("AutoresponderController", function ($filter,smModal,$scope,$rootScope, $q ,$localStorage, Restangular,toastr,notify, $state, $stateParams) {
 	
 	$site = $rootScope.site;
-	$emails = Restangular.all('email').getList().then(function(response){$scope.emails = response});
-	$emailLists = Restangular.all('emailList').getList().then(function(response){$scope.emailLists = response});
+	$emails = Restangular.all('').customGET('email?bypass_paging=true').then(function(response){
+		$scope.emails = response.items;
+	});
+
+	$emailLists = Restangular.all('').customGET('emailList?bypass_paging=true').then(function(response){
+		$scope.emailLists = response.items;
+	});
+
+	// $emails = Restangular.all('email').getList().then(function(response){$scope.emails = response});
+	// $emailLists = Restangular.all('emailList').getList().then(function(response){$scope.emailLists = response});
 	$autoResponder=null;
 	if ($stateParams.id){
 		$autoResponder = Restangular.one('emailAutoResponder', $stateParams.id).get().then(function(response){
