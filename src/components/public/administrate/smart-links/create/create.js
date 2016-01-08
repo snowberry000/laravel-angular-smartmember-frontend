@@ -52,15 +52,15 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filt
         urls: [
             {
                 url: '',
-                enabled: true
+                enabled: 1
             },
             {
                 url: '',
-                enabled: true
+                enabled: 1
             },
             {
                 url: '',
-                enabled: true
+                enabled: 1
             }
         ]
     };
@@ -72,6 +72,10 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filt
             if( !$scope.next_item.urls ) {
                 $scope.next_item.urls = [];
             }
+
+            angular.forEach( $scope.next_item.urls, function(value){
+                value.enabled = parseInt( value.enabled );
+            });
 
             if( $scope.next_item.urls.length < 3 )
                 $scope.addUrls( 3 - $scope.next_item.urls.length );
@@ -100,6 +104,10 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filt
             description: ''
         }
     ];
+
+    $scope.consoleLog = function(something) {
+        console.log( something );
+    }
 
     $scope.moveUp = function(url){
 

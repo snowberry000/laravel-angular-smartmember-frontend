@@ -51,7 +51,7 @@
 					<tr ng-repeat="url in next_item.urls">
 						<td class="collapsing">
 							<div class="ui fitted slider checkbox">
-								<input type="checkbox" ng-checked="url.enabled"> <label></label>
+								<input type="checkbox" ng-model="url.enabled" ng-true-value="1" ng-false-value="0"> <label></label>
 							</div>
 						</td>
 						<td>
