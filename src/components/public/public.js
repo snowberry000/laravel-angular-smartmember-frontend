@@ -407,7 +407,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	{
 		smModal.Show('public.sign.in');
 	}
-    else if ( location.href.indexOf('#forgot') != -1 )
+    else if ( location.href.indexOf('?forgot') != -1 )
     {
         smModal.Show('public.sign.forgot');
     }
