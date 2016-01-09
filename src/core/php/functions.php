@@ -124,8 +124,10 @@ function DetectAndPerformBridgePageThings()
 					}
 				}
 
-				if( !empty($html) || ( !empty($bpage_data) && $bpage_data != '{"message":"Route not found, please try again.","code":404}' ) )
-				{
+				if( !empty($html) || ( !empty($bpage_data) 
+					&& $bpage_data != '{"message":"Route not found, please try again.","code":404}' 
+					&& $bpage_data != '{"type":"sm_data","data":[]}{"message":"Oops, something went wrong! Please try again soon","code":500}') 
+				){
 					include 'bpage/bpage.php';
 
 					exit;
