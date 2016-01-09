@@ -74,12 +74,34 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
 				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );//data.items;
+				$scope.data = $scope.filterDuplicate($scope.data);
 			} );
 		}
 	}
 
 	$scope.paginate();
 	$scope.resolve();
+
+	$scope.filterDuplicate = function(data){
+		var new_data = [];
+		for (var i = data.length - 1; i >= 0; i--) {
+			if(!data[i].user_id)
+				continue;
+			var index = _.findWhere(new_data , {user_id : data[i].user_id});
+
+			if(index){
+				if(index.type && index.type.split(',').indexOf(data[i].type) < 0)
+					index.type = index.type + ',' + data[i].type;
+				if(data[i].access_level){
+					index.access_level = index.access_level ? index.access_level + ',' + data[i].access_level.name : data[i].access_level.name;
+				}
+			}else{
+				data[i].access_level = data[i].access_level ? data[i].access_level.name : '';
+				new_data.push(data[i]);
+			}
+		};
+		return new_data;
+	}
 
 	$scope.search = function()
 	{

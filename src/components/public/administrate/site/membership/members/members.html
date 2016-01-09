@@ -51,10 +51,10 @@
 							</div>
 						</td>
 						<td>
-							{{next_item.access_level ? next_item.access_level.name : ""}}
+							{{next_item.access_level}}
 						</td>
 						<td>
-							{{new_item.type}}
+							{{next_item.type}}
 						</td>
 						<td>
 							{{moment.utc(next_item.created_at).fromNow()}}
