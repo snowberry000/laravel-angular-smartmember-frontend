@@ -73,7 +73,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = data.items;//Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );//data.items;
 			} );
 		}
 	}
