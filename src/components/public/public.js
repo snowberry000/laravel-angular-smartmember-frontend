@@ -402,10 +402,20 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	else if( location.href.indexOf( '?signup' ) != -1 )
 	{
 		smModal.Show( 'public.sign.up' );
-	} else if (location.href.indexOf('?signin') != -1)
+	}
+    else if (location.href.indexOf('?signin') != -1)
 	{
 		smModal.Show('public.sign.in');
 	}
+    else if (location.href.indexOf('?forgot') != -1)
+    {
+        smModal.Show('public.sign.forgot');
+    }
+    else if (location.href.indexOf('?reset') != -1)
+    {
+        if( !$localStorage.user )
+            smModal.Show('public.sign.reset');
+    }
 
 
 	$scope.cancelThemeSelection = function()

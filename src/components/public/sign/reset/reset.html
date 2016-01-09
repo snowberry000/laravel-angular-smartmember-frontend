@@ -1,76 +1,60 @@
-<div class="ui modal reset" ng-controller="resetController" ng-init="PopModal('reset');init()">
-	<div class="header">
-		Reset Your Password
-	</div>
-	<div class="content">
-		<div class="description">
+<div class="ui short modal">
+    <div class="header">
+        Reset your Password for {{site.name}}
+    </div>
+    <div class="content">
+        <div class="description">
 
-			<div class="ui two column middle aligned very relaxed stackable centered grid container">
-				<div class="column">
+            <div class="ui two column middle aligned very relaxed stackable centered grid container">
+                <div class="column">
 
-					<div ng-if="inprocess_register">
-						<p class="alert alert_info"><i class="ts_icon ts_icon_info_circle"></i>Looks like someone started signing up with that email but never set a password. Enter the email below and check for the "password reset" message in your inbox to continue.</p>
-					</div>
+                    <form class="ui form" ng-submit="reset(data.new_password)" ng-if="hash">
 
-					<form class="ui form" ng-submit="reset(data.new_password)" ng-if="hash">
+                        <input type="hidden" name="password_reset_hash">
 
-						<input type="hidden" name="password_reset_hash">
+                        <p>Enter a <strong>new password</strong> below</p>
 
-						<p>Enter a <strong>new password</strong> below</p>
+                        <div class="field">
+                            <label>New Password</label>
+                            <div class="ui left icon input">
+                                <input type="password" placeholder="New Password" ng-model="data.new_password">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <div class="ui left icon input">
+                                <input type="password" placeholder="Confirm Password">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                        </div>
+                        <button busy type="submit" class="ui blue submit button">
+                            Save Password
+                        </button>
+                    </form>
+                </div>
+            </div>
 
-						<div class="field">
-							<label>New Password</label>
-							<div class="ui left icon input">
-								<input type="password" placeholder="New Password" ng-model="data.new_password">
-								<i class="fa fa-lock icon"></i>
-							</div>
-						</div>
-						<div class="field">
-							<label>Confirm Password</label>
-							<div class="ui left icon input">
-								<input type="password" placeholder="Confirm Password">
-								<i class="fa fa-lock icon"></i>
-							</div>
-						</div>
-						<button type="submit" class="ui blue submit button">
-							Save Password
-						</button>
-					</form>
-
-					<form class="m-t" ng-if="!hash">
-						<p>Enter your email address below and we'll send a special reset password link to your inbox.</p>
-
-						<div class="form-group">
-							<input type="email" class="form-control" placeholder="Email" required="" ng-model="reset_email">
-						</div>
-						<button type="" class="btn btn-primary block full-width m-b" ng-click="forgot(reset_email)">Reset my password</button>
-
-						<p class="text-muted text-center"><small>Do not have an account?</small></p>
-						<a class="btn btn-sm btn-white btn-block" ui-sref="public.sign.up">Create an account</a>
-					</form>
-
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<div class="actions">
-		<a class="ui close labeled icon button" ui-sref="public.sign.in">
-			Login
-			<i class="fa fa-user icon"></i>
-		</a>
-		<a class="ui close labeled icon button" ui-sref="public.sign.up">
-			Sign Up
-			<i class="fa fa-edit icon"></i>
-		</a>
-		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button">
-			Need help?
-			<i class="fa fa-life-ring icon"></i>
-		</a>
-	</div>
+        </div>
+    </div>
+    <div class="actions">
+        <a class="ui labeled icon button" ng-click="smModal.Show('public.sign.in')">
+            Login
+            <i class="user icon"></i>
+        </a>
+        <a class="ui labeled icon button" ng-click="smModal.Show('public.sign.up')">
+            Sign Up
+            <i class="edit icon"></i>
+        </a>
+        <a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button">
+            Need help?
+            <i class="life ring icon"></i>
+        </a>
+        <div ng-if="!$state.includes('public.my')" class="close ui black button">
+            Close
+        </div>
+    </div>
 </div>
-
-
 
 
 
