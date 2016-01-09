@@ -44,12 +44,12 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 		var $state = $injector.get( '$state' );
 		var Restangular = $injector.get( 'Restangular' );
 
-		if( subdomain == "my" )
+		if( subdomain == "my" && possible_domain == 'smartmember' && parts.length == 1 )
 		{
 			console.log( "Going to 'public.my' state from non-/" );
 			$state.go( "public.my" );
 		}
-		else if( subdomain == "www" )
+		else if( subdomain == "www" && possible_domain == 'smartmember' && parts.length == 1 )
 		{
 			console.log( "Going to 'public.www' state from non-/" );
 			$state.go( "public.www.home" );
