@@ -43,7 +43,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				var the_options = {
 					observeChanges: true,
 					duration: 100,
-					closable: subdomain == 'my' ? false : true,
+					closable: subdomain == 'my' ? false : false,
 					dimmerSettings: {
 						opacity: 0.3
 					},

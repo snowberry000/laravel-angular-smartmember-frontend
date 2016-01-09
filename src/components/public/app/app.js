@@ -67,9 +67,8 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
                 angular.forEach( $rootScope.site.capabilities, function(value){
                     if( value == 'view_restricted_content' )
                     {
-                        $('.mobile_admin_notification').show();
                         $timeout(function(){
-                            $('.public .logged_in').attr('style', 'margin-top: 62px !important');
+                            //$('.public .logged_in').attr('style', 'margin-top: 62px !important');
                         });
                     }
                 })
