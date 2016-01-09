@@ -1,2 +1,6 @@
 <div class="ui top fixed inverted pointing menu admin_bar" ng-include="GetAdminBarInclude()"></div>
+<div class="ui top fixed inverted pointing menu mobile_admin_notification" sm-access="view_restricted_content" if-not="hide">
+    
+    Our bad, it's gone!
+</div>
 <ui-view ng-class="'ui ' + (meta_data.page_background_style == 'boxed' && !$state.includes('public.www') ? '' : 'fluid') + ' container pusher'"></ui-view>
