@@ -151,6 +151,9 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.saveLesson = function(lesson){
 
         var lesson_copy = angular.copy(lesson);
+        if(lesson.access_level_type == 2 && lesson.access_level_id ==0){
+            return "Please choose an access level id"
+        }
         delete lesson_copy.user_note;
         delete lesson_copy.showCounter;
         delete lesson_copy.show_content_publicly;
@@ -164,9 +167,8 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         delete lesson_copy.access;
         $scope.loading = true;
         Restangular.all('lesson').customPUT(lesson_copy , lesson.id).then(function(response){
-            $state.transitionTo($state.current, $stateParams, { 
-              reload: true, inherit: false, location: false
-            });
+            $scope.editLessonDone(response);
+            $scope.loading = false;
         })
     }
 

@@ -77,7 +77,7 @@
 						
 						</div>
 						<a ng-if="syllabus.edit_mode" onaftersave="saveAccessLevel(lesson)" editable-select="lesson.access_level_type" e-ng-options="al_type.id as al_type.name for al_type in access_level_types">{{lesson.access}}</a>
-						<a ng-if="syllabus.edit_mode && lesson.access_level_type == 2" onaftersave="saveLesson(lesson)" editable-select="lesson.access_level_id" e-ng-options="access_level.id as access_level.name for access_level in access_levels">Change access id</a>
+						<a ng-if="syllabus.edit_mode && lesson.access_level_type == 2" onaftersave="saveLesson(lesson)" editable-select="lesson.access_level_id" e-ng-options="access_level.id as access_level.name for access_level in access_levels">{{ lesson.access_level.name || 'Change access id'}}</a>
 					</div>
 				</div>
 			</div>
