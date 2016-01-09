@@ -40,7 +40,7 @@ app.controller( "EmailQueueController", function( $scope,smModal,$rootScope, $lo
 	$scope.paginate = function()
 	{
 
-		if( typeof $scope.data[ $scope.pagination.current_page ] != 'object' )
+		if( true )
 		{
 
 			$scope.loading = true;
@@ -56,7 +56,7 @@ app.controller( "EmailQueueController", function( $scope,smModal,$rootScope, $lo
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
 		}
 	}
@@ -79,7 +79,7 @@ app.controller( "EmailQueueController", function( $scope,smModal,$rootScope, $lo
 		{
 			$scope.pagination.total_count = data.total_count;
 
-			$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+			$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 
 			$scope.loading = false;
 		}, function( error )
@@ -146,11 +146,11 @@ app.controller( "EmailQueueController", function( $scope,smModal,$rootScope, $lo
 		{
 			toastr.success( "Job canceled." );
 
-			angular.forEach( $scope.data[ $scope.pagination.current_page ], function( value, key )
+			angular.forEach( $scope.data, function( value, key )
 			{
 				if( value.id == job )
 				{
-					$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], value );
+					$scope.data = _.without( $scope.data, value );
 				}
 			} );
 
@@ -162,7 +162,7 @@ app.controller( "EmailQueueController", function( $scope,smModal,$rootScope, $lo
 		Restangular.service( "emailJob/sendNow" ).post( { id: job } ).then( function( response )
 		{
 			toastr.success( "Job scheduled to send immediately!" );
-			var job_item = _.findWhere( emailJob, { id: job } ) || _.findWhere( $scope.data[ $scope.pagination.current_page ], { id: job + '' } );
+			var job_item = _.findWhere( emailJob, { id: job } ) || _.findWhere( $scope.data, { id: job + '' } );
 			job_item.admin_tools = false;
 			job_item.status = 'Refresh to see progress';
 		} );

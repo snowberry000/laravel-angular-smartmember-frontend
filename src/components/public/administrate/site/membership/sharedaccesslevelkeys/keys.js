@@ -27,7 +27,7 @@ app.controller( "ShareAccessLevelKeysController", function( $scope, $localStorag
 
 	$scope.paginate = function()
 	{
-		if( typeof $scope.data[ $scope.pagination.current_page ] != 'object' )
+		if( true )
 		{
 
 			$scope.loading = true;
@@ -42,7 +42,7 @@ app.controller( "ShareAccessLevelKeysController", function( $scope, $localStorag
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
 		}
 	}
@@ -74,17 +74,17 @@ app.controller( "ShareAccessLevelKeysController", function( $scope, $localStorag
 		} )
 	}
 
-	$scope.afterDelete = function(id){
+	$scope.deleteResource = function(id){
 
 		if(id){
-			var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+			var itemWithId = _.find( $scope.data, function( next_item )
 			{
-				return next_item.id === id;
+				return next_item.id === parseInt(id);
 			} );
 
 			itemWithId.remove().then( function()
 			{
-				$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+				$scope.data = _.without( $scope.data, itemWithId );
 			} );
 		}
 		
