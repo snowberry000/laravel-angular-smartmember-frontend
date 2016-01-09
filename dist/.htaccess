@@ -70,6 +70,7 @@ ErrorDocument 404 /pricing
 
 <ifModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^admin http://%{HTTP_HOST}/ [L]
     RewriteRule ^lesson/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^download/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^page/(.*)$ http://%{HTTP_HOST}/$1 [L]
