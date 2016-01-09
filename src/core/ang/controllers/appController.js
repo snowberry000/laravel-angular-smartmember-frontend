@@ -153,6 +153,8 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	}
 	$scope.showNotifications = function()
 	{
+        //temporarily disabled until they are mobile friendly and closeable
+        return;
 		Restangular.all( 'siteNotice/getnotifications' ).getList().then( function( response )
 		{
 			$scope.nonLessonNotices = 0;

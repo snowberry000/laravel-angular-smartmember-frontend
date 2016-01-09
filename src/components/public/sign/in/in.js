@@ -112,7 +112,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 			{
 				if( $state.current.name == 'public.sign.in' || $state.current.name == 'public.sign.in2' )
 				{
-					$state.go( 'public.app.home', {}, { reload: true } );
+					$state.go( 'public.app.home', {show_modal: false}, { reload: true } );
 					smModal.Close();
 				}
 				else

@@ -79,6 +79,9 @@ ErrorDocument 404 /pricing
     RewriteRule ^site/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^forum-category/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^forum-topic/(.*)$ http://%{HTTP_HOST}/$1 [L]
+    RewriteRule ^support-ticket/create(.*)$ http://%{HTTP_HOST}/support-ticket [L]
+    RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST}/?signin [L]
+    RewriteRule ^sign/up(.*)$ http://%{HTTP_HOST}/?signup [L]
 </ifModule>
 
 <ifModule mod_rewrite.c>

@@ -25,7 +25,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 			$access_pass = { site_id: $site.id };
 
 			roleRequest = Restangular.all( 'siteRole' ).customGET('', { site_id: $site.id } ).then(function(response){
-				roles = response;
+				roles = response.items;
 			});
 
 			accessLevelRequest = Restangular.all( 'accessLevel' ).customGET('', { site_id: $site.id } ).then(function(response){

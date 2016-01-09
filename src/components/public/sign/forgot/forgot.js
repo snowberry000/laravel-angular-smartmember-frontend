@@ -21,6 +21,22 @@ app.controller('ResetController', function ($rootScope, smModal, $scope, $localS
 			$scope.inprocess_register = true;
 		}
 	}
+
+    var getUrlVars = function()
+    {
+        var vars = {};
+        var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
+        {
+            vars[ key ] = decodeURIComponent( value );
+        } );
+        return vars;
+    }
+
+    if( $scope.$_GET['reset_hash'] )
+    {
+        $scope.hash = $scope.$_GET['reset_hash'];
+    }
+
 	$scope.reset = function(password){
 		auth.customPOST({reset_token : $scope.hash , password : password} , 'reset').then(function(data){
 			if (data.message  && data.message == "no such email found") {
