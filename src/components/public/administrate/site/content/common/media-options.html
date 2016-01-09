@@ -27,8 +27,8 @@
 	</div>
 
 	<div class="field" ng-show="next_item.featured_image">
-		<div class="ui checkbox" sui-checkbox>
-			<input type="checkbox" tabindex="0" class="hidden" ng-true-value="1" ng-false-value="0" ng-model="next_item.always_show_featured_image" ng-checked="next_item.always_show_featured_image">
+		<div class="ui checkbox" ng-model="next_item.always_show_featured_image" sui-checkbox>
+			<input type="checkbox" tabindex="0" class="hidden" ng-true-value="1" ng-false-value="0" ng-checked="next_item.always_show_featured_image">
 			<label>Check to show this featured image when viewing this content's individual page</label>
 		</div>
 		<div class="ui message">

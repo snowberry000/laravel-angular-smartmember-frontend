@@ -27,8 +27,8 @@
 				<div class="ui segment grouped fields">
 					<label>Access Level(s)</label>
 					<div class="field" ng-repeat="access_level in access_levels">
-						<div class="ui checkbox" sui-checkbox>
-							<input type="checkbox" tabindex="0" class="hidden" ng-model="members.access_levels[access_level.id]">
+						<div class="ui checkbox" ng-model="members.access_levels[access_level.id]" sui-checkbox>
+							<input type="checkbox" tabindex="0" class="hidden">
 							<label>{{access_level.name}}</label>
 						</div>
 					</div>

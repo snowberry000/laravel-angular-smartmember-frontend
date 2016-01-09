@@ -26,8 +26,8 @@
 					<img class="ui large image" ng-src="{{ad.banner_image_url}}" style="max-width:100%;">
 				</div>
 				<div class="field">
-					<div class="ui checkbox" ng-click="toggleNewTab()" sui-checkbox>
-						<input type="checkbox" tabindex="0" ng-true-value="1" ng-false-value="0" ng-model="ad.open_in_new_tab"  ng-checked="ad.open_in_new_tab">
+					<div class="ui checkbox" ng-model="ad.open_in_new_tab" sui-checkbox>
+						<input type="checkbox" tabindex="0" class="hidden">
 						<label>Open link in new tab</label>
 					</div>
 				</div>
