@@ -80,7 +80,7 @@ function DetectAndPerformBridgePageThings()
 
 					if( empty($bpage_data) )
 					{
-						$url = 'http://api.smartmember.'.$tld.'/bridgePageOrSmartLinkData';
+						$url = 'http://api.smartmember.'.$tld.'/initialLoadingData';
 						$curl = curl_init( $url );
 						curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 						curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'origin:http://'.$domain, 'referer:http://'.$domain.$_SERVER[ 'REQUEST_URI' ], 'content-type:application/json' ) );
@@ -93,22 +93,35 @@ function DetectAndPerformBridgePageThings()
 						}
 						else
 						{
-							$redirect_data = json_decode( $bpage_data );
+							$data = json_decode( $bpage_data );
 
-							if( property_exists( $redirect_data, 'type' ) && $redirect_data->type == 'smart_link' )
+							if( property_exists( $data, 'type' ) && $data->type == 'smart_link' )
 							{
-								header( 'Location: ' . $redirect_data->redirect_url );
+								header( 'Location: ' . $data->redirect_url );
 								exit;
 							}
 						}
 
-						$client->set( $redisKeys[ 'data' ], $bpage_data );
+						if( !empty( $data ) && property_exists( $data, 'type' ) && $data->type == 'sm_data' )
+						{
+							$bpage_data = '';
+						}
+						else
+							$client->set( $redisKeys[ 'data' ], $bpage_data );
 					}
 				}
 
 				if( !empty($bpage_data) && $bpage_data == 'notbp' )
 				{
 					$bpage_data = '';
+				}
+				elseif( !empty( $bpage_data ) )
+				{
+					$data = json_decode( $bpage_data );
+					if( !empty( $data ) && is_object( $data ) && property_exists( $data,  'type' ) && $data->type == 'sm_data' )
+					{
+						$bpage_data = '';
+					}
 				}
 
 				if( !empty($html) || ( !empty($bpage_data) && $bpage_data != '{"message":"Route not found, please try again.","code":404}' ) )
@@ -123,5 +136,31 @@ function DetectAndPerformBridgePageThings()
 
 			}
 		}
+		else
+		{
+			$url = 'http://api.smartmember.'.$tld.'/initialLoadingData';
+			$curl = curl_init( $url );
+			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'origin:http://'.$domain, 'referer:http://'.$domain.$_SERVER[ 'REQUEST_URI' ], 'content-type:application/json' ) );
+			$remote_data = curl_exec( $curl );
+			curl_close( $curl );
+
+			if( !empty( $remote_data ) && $remote_data != 'notbp' )
+				$data = json_decode( $remote_data );
+		}
 	}
+
+	return !empty( $data ) ? $data : [];
+}
+
+function PrintUserTrackingScript( $data )
+{
+	if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'google_analytics_id' ) )
+		$user_ga_code = $data->data->google_analytics_id;
+
+	if( !empty( $user_ga_code ) ) :
+		?>
+		ga('create', '<?php echo $user_ga_code; ?>', 'auto', {'name': 'newTracker', 'cookieName': '_ga_user'});
+		ga('newTracker.send', 'pageview');
+	<?php endif;
 }

@@ -29,7 +29,7 @@
 
 					<div class="ui buttons">
 						<div class="ui button" ng-class="{'active': next_item.type == rotation_type.value}" ng-repeat="rotation_type in rotation_types" ng-click="SetRotationType( rotation_type.value )">
-							<i class="random icon"></i>
+							<i class="{{rotation_type.icon}} icon"></i>
 							{{rotation_type.label}}
 						</div>
 					</div>
@@ -105,7 +105,7 @@
 		<a ng-click="smModal.Show('public.administrate.smart-links.list')" class="ui black button">
 			Cancel
 		</a>
-		<a ng-click="save()" class="ui right labeled green icon button">
+		<a busy ng-click="save()" class="ui right labeled green icon button">
 			Save changes
 			<i class="check icon"></i>
 		</a>

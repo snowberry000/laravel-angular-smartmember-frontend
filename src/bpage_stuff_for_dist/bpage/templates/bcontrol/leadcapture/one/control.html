@@ -66,82 +66,89 @@
 
     </div>
 </div>
-
 <h3 class="ui top attached header title">
-	<i class="dropdown icon"></i>
-	Optin Section
+    <i class="dropdown icon"></i>
+    Optin Section
 </h3>
 <div class="ui attached segment content">
-    <h4>Optin Heading</h4>
-    <div class="field">
-
-        <input type="text" name="headline" class=""
-               ng-model="bridgepage.swapspot.optin_heading">
-    </div>
-
-    <h4>Optin Form Providers</h4>
-    <div class="field">
-        <select class="small" ng-model="bridgepage.swapspot.optin_type">
-            <option value="0" selected>Choose your optin form provider</option>
-            <optgroup label="Other">
-                <option value="sm">Smart Member</option>
-            </optgroup>
-            <optgroup label="3rd-party-autoresponder">
-                <option value="3rdparty">Custom Embed Code</option>
-            </optgroup>
-        </select>
-    </div>
-
-    <h4  ng-show="bridgepage.swapspot.optin_type == 'sm'" >Choose Email List</h4>
-    <div class="field" ng-show="bridgepage.swapspot.optin_type == 'sm'">
-        <select class="form-control email_select" id="emailListId" placeholder="Choose Email List"
-                ng-model="bridgepage.swapspot.emailListId"
-                ng-options="emailList.name for emailList in emailLists">
-        </select>
-    </div>
-
-    <h4 ng-show="bridgepage.swapspot.optin_type == 'sm'">Redirect URL</h4>
-    <div class="field" ng-show="bridgepage.swapspot.optin_type == 'sm'">
-        <input type="text" class="form-control" ng-model="bridgepage.swapspot.redirect_url" />
-        <span class="help-block m-b-none">
-           This will be the URL that the user will be redirect to after subscribe
-        </span>
-    </div>
-
-    <h4 ng-show="bridgepage.swapspot.optin_type == '3rdparty'">Optin Form</h4>
-    <div class="field" ng-show="bridgepage.swapspot.optin_type == '3rdparty'">
+    <div ng-show="optin">
+        <div class="field">
+            <h4>Optin Heading</h4>
+                <input type="text" name="headline" ng-model="bridgepage.swapspot.optin_heading">
+        </div>
+        <div class="field">
+            <h4>Optin Form Providers</h4>
+            <select class="small" ng-model="bridgepage.swapspot.optin_type">
+                <option value="0" selected>Choose your optin form provider</option>
+                <optgroup label="Other">
+                    <option value="sm">Smart Member</option>
+                </optgroup>
+                <optgroup label="3rd-party-autoresponder">
+                    <option value="3rdparty">Custom Embed Code</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="field" ng-show="bridgepage.swapspot.optin_type == 'sm'">
+            <h4>Choose Email List</h4>
+            <select class="form-control email_select" id="emailListId" placeholder="Choose Email List"
+                    ng-model="bridgepage.swapspot.emailListId"
+                    ng-options="emailList.name for emailList in emailLists">
+            </select>
+        </div>
+        <div class="field" ng-show="bridgepage.swapspot.optin_type == 'sm'">
+            <h4 ng-show="bridgepage.swapspot.optin_type == 'sm'">Redirect URL</h4>
+            <input type="text" class="form-control" ng-model="bridgepage.swapspot.redirect_url" />
+            <span class="help-block m-b-none">
+               This will be the URL that the user will be redirect to after subscribe
+            </span>
+        </div>
+        <div class="field" ng-show="bridgepage.swapspot.optin_type == 'sm'">
+            <h4>Choose Access Levels to Grant</h4>
+            <select class="form-control email_select" multiple
+                    ng-model="bridgepage.swapspot.access_levels"
+                    ng-options="access_level.name for access_level in access_levels">
+            </select>
+        </div>
+        <div class="field" ng-show="bridgepage.swapspot.optin_type == 'sm'">
+            <h4 ng-show="bridgepage.swapspot.optin_type == 'sm'">Thank You message</h4>
+            <input type="text" class="form-control" ng-model="bridgepage.swapspot.optin_thankyou_message" />
+            <span class="help-block m-b-none">
+               If the redirect url is left blank, the form will submit via ajax and show this message after they sign up
+            </span>
+        </div>
+        <div class="field" ng-show="bridgepage.swapspot.optin_type == '3rdparty'">
+            <h4 ng-show="bridgepage.swapspot.optin_type == '3rdparty'">Optin Form</h4>
          <textarea name="embed" rows="10" class="form-control input-lg"
                    ng-model="bridgepage.swapspot.optin_form"></textarea>
-        <a class="btn btn-primary ng-scope" ng-click="setForm()">Set Form</a>
+            <a class="btn btn-primary ng-scope" ng-click="setForm()">Set Form</a>
 
-        <div ng-show="isSetForm">
-            <label>Choose the name field: </label>
-            <select class="optin_name_options form-control" ng-model="bridgepage.swapspot.optin_name_field" ng-options="name_option for name_option in bridgepage.swapspot.name_options"></select>
-            <br />
-            <label>Choose the email field: </label>
-            <select class="optin_email_options form-control" ng-model="bridgepage.swapspot.optin_email_field" ng-options="email_option for email_option in bridgepage.swapspot.email_options"></select>
+            <div ng-show="isSetForm">
+                <label>Choose the name field: </label>
+                <select class="optin_name_options form-control" ng-model="bridgepage.swapspot.optin_name_field" ng-options="name_option for name_option in bridgepage.swapspot.name_options"></select>
+                <br />
+                <label>Choose the email field: </label>
+                <select class="optin_email_options form-control" ng-model="bridgepage.swapspot.optin_email_field" ng-options="email_option for email_option in bridgepage.swapspot.email_options"></select>
+            </div>
+        </div>
+
+        <div class="field">
+            <h4>Hide Name Field</h4>
+            <input type="checkbox" name="mark_name_visible" class=""
+                   ng-model="bridgepage.swapspot.mark_name_visible" ng-true-value="'none'" ng-false-value="'block'">
+        </div>
+
+        <div class="field" ng-show="bridgepage.swapspot.optin_type == '3rdparty'">
+            <h4 ng-show="bridgepage.swapspot.optin_type == '3rdparty'">Mark Name Field as Required</h4>
+            <input type="checkbox" name="mark_name_required" class=""
+                   ng-model="bridgepage.swapspot.mark_name_required" ng-true-value="'required'" ng-false-value="'notrequired'">
+        </div>
+
+        <div class="field">
+            <h4>Turn optin to members</h4>
+            <input type="checkbox" name="turn_optin_to_member" class=""
+                   ng-model="bridgepage.swapspot.turn_optin_to_member" ng-true-value="'1'" ng-false-value="'0'" ng-change="addSiteHiddenField()">
         </div>
     </div>
-
-    <h4>Hide Name Field</h4>
-    <div class="field">
-        <input type="checkbox" name="mark_name_visible" class=""
-               ng-model="bridgepage.swapspot.mark_name_visible" ng-true-value="'none'" ng-false-value="'block'">
-    </div>
-
-    <h4 ng-show="bridgepage.swapspot.optin_type == '3rdparty'">Mark Name Field as Required</h4>
-    <div class="field" ng-show="bridgepage.swapspot.optin_type == '3rdparty'">
-        <input type="checkbox" name="mark_name_required" class=""
-               ng-model="bridgepage.swapspot.mark_name_required" ng-true-value="'required'" ng-false-value="'notrequired'">
-    </div>
-
-    <h4>Turn optin to members</h4>
-    <div class="field">
-        <input type="checkbox" name="turn_optin_to_member" class=""
-               ng-model="bridgepage.swapspot.turn_optin_to_member" ng-true-value="'1'" ng-false-value="'0'" ng-change="addSiteHiddenField()">
-    </div>
-
-
 </div>
 
 <h3 class="ui top attached header title">

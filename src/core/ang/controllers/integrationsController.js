@@ -7,12 +7,47 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 	}
 
 	$scope.current_site = $rootScope.site;
+	$scope.loading = true;
 	$site = $rootScope.site;
 	console.log( 'site?', $site );
 	console.log( 'stateParams' );
 	console.log( $stateParams );
 	var $sites, $company, $connected_accounts, $configured_app_configurations, $current_integration;
 	$scope.loading = true;
+
+	$scope.promptUninstallApp = function( $integration_instance )
+	{
+		swal( {
+			title: "Are you sure?",
+			text: "Removing this account will disable " + $integration_instance.app_configurations.length + " integration" + ( $integration_instance.app_configurations.length > 1 ? 's' : '' ) + '!',
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, remove it!",
+			closeOnConfirm: true
+		}, function()
+		{
+			$scope.uninstallApp($integration_instance);
+		} );
+	}
+
+	$scope.uninstallApp = function($integration_instance) {
+		var $arrayOfConfigIds = [];
+		for($i =0; $i<$integration_instance.app_configurations.length ; $i++)
+		{
+			$arrayOfConfigIds.push($integration_instance.app_configurations[$i].id);
+		}
+		
+		Restangular.service( 'appConfiguration/uninstall' ).post( {ids : $arrayOfConfigIds} ).then( function( response )
+		{
+			$integration_instance.app_configurations = [];
+		});
+		// Restangular.one( 'appConfiguration', account.id ).remove().then( function()
+		// {
+		// }
+
+	}
+
 	$scope.groupapp_configurations = function()
 	{
 		$scope.grouped_app_configurations = [
@@ -532,6 +567,9 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			default: typeof $scope.current_integration.default != 'undefined' && $scope.current_integration.default != null ? $scope.current_integration.default : 0
 		};
 
+		if($scope.current_integration.connected_account_id && data.type == 'vimeo'){
+			data.default = 1;
+		}
 		if( $scope.current_integration.id )
 		{
 			Restangular.all( 'appConfiguration' ).customPUT( data, $scope.current_integration.id ).then( function( response )
@@ -576,6 +614,10 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		{
 			smModal.Show( "public.administrate.team.app_configurations.list" );
 		}
+
+		$state.transitionTo($state.current , $stateParams , {
+			reload : true , inherit : false , location : false
+		});
 	}
 
 	$scope.enableIntegration = function( integration_id )

@@ -10,12 +10,13 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "CoreController", function( $scope )
+app.controller( "CoreController", function( $scope, smModal )
 {
+
 	$scope.data = [
 		{
-			title: 'Home Page',
-			description: 'This page is the "featured" area of your site. Each theme has a different home page featuring different aspects of your site.',
+			title: 'Front Page',
+			description: 'This is the main page of your site, located on the front of it (ex. .com/) when no other page is view.',
 			image: '',
 			icon: 'home',
 			template: 'home',
@@ -23,7 +24,7 @@ app.controller( "CoreController", function( $scope )
 		},
 		{
 			title: 'Syllabus',
-			description: 'This page lists your sites lessons and modules in an organized "education" style format.',
+			description: 'This page lists your site\'s lessons and modules in an organized "education" style format.',
 			image: '',
 			icon: 'student',
 			template: 'syllabus',
@@ -96,4 +97,11 @@ app.controller( "CoreController", function( $scope )
 			url: '/'
 		}
 	];
+
+
+	$scope.cancel = function()
+	{
+		smModal.Show('public.administrate.site.pages.core.list');
+	}
+
 } );

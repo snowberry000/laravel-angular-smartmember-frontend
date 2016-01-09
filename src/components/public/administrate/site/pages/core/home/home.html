@@ -1,47 +1,44 @@
 <div class="ui modal">
-    <i class="close icon"></i>
-
     <div class="header">
-        <i class="paragraph icon"></i>
-        {{ template_data.title | translate }}
+        <i class="setting icon"></i>
+        Front Page Settings
     </div>
     <div class="content">
+        <div class="description">
 
-        <div class="row">
-            <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
-                <div class="hpanel">
-                    <div class="panel-body">
-                        <form method="get" class="ui form save_form">
-                            <div class="field">
-                                <label class="col-sm-2 control-label">Homepage URL</label>
+			<div class="ui  message">
+				<p>This is the main page of your site, located on the front of it (ex. .com/) when no other page is view.</p>
+			</div>
 
-                                <div class="col-sm-10">
-                                    <a ng-model="site_options" class="select_Homepage" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{ site_options.homepage_url || 'Select url' }}
-                                    </a>
+            <h3 class="ui horizontal divider header">
+                <i class="setting icon"></i>
+                Settings
+            </h3>
 
-                                    <!-- <a class="select_Homepage" popover-template="1" popover-is-open="site_options.isOpen"
-                                       popover-title="Enter item url" ng-click="site_options.isOpen=true"
-                                       data-html="true">{{ site_options.homepage_url || 'Select url' }}
-                                    </a> -->
+            <div class="ui segment form">
+                <div class="field">
+                    <label>What content do you want shown on the front page of site?</label>
 
-                                    <span class="help-block m-b-none">
-                                        By default the homepage will be the syllabus page
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+					<a ng-model="site_options" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">
+						{{ site_options.homepage_url || 'Select url' }}
+					</a>
+
                 </div>
+
+				<div class="ui compact info message">
+					<p>By default the Front Page will show the Syllabus</p>
+				</div>
             </div>
         </div>
     </div>
+
     <div class="actions">
-        <div ng-click="save()" class="ui right labeled icon button">
-           Save changes
-            <i class="checkmark icon"></i>
+        <div class="ui black deny button close" ng-click="cancel()">
+            Back
         </div>
-        <div class="ui black deny button close">
-            Close
-        </div>
+        <button ng-click="save()" class="ui right labeled icon green button">
+            Save changes
+            <i class="check icon"></i>
+        </button>
     </div>
 </div>

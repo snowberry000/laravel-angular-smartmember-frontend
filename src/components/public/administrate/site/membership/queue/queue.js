@@ -22,60 +22,37 @@ app.controller( "ImportQueueController", function( $scope,smModal,$rootScope, $l
 		api_object: 'importJob'
 	}
 
-	$scope.data = [];
-	$scope.pagination = { current_page: 1 };
-	$scope.pagination.total_count = 1;
+	$scope.loading = false;
+	$scope.items = [];
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
 
 	$scope.paginate = function()
 	{
+		$scope.loading = true;
 
-		if( typeof $scope.data[ $scope.pagination.current_page ] != 'object' )
+		var $params = { p: $scope.pagination.current_page, site_id: $rootScope.site.id };
+
+		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id ).then( function( data )
 		{
-
-			$scope.loading = true;
-
-			var $params = { p: $scope.pagination.current_page };
-
-			if( $scope.query )
-			{
-				$params.q = encodeURIComponent( $scope.query );
-			}
-
-			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
-			{
-				$scope.loading = false;
-				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
-			} );
-		}
+			$scope.loading = false;
+			$scope.pagination.total_count = data.total_count;
+			$scope.items = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+		} );
 	}
 
 	$scope.paginate();
-
-	$scope.search = function()
-	{
-		$scope.loading = true;
-		$scope.data = [];
-		$scope.pagination = { current_page: 1 };
-		var $params = { p: $scope.pagination.current_page };
-
-		if( $scope.query )
-		{
-			$params.q = encodeURIComponent( $scope.query );
-		}
-
-		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
-		{
-			$scope.pagination.total_count = data.total_count;
-
-			$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
-
-			$scope.loading = false;
-		}, function( error )
-		{
-			$scope.data = [];
-		} )
-	}
 
 	$scope.deleteJob = function( job )
 	{
@@ -83,11 +60,11 @@ app.controller( "ImportQueueController", function( $scope,smModal,$rootScope, $l
 		{
 			toastr.success( "Job canceled." );
 
-			angular.forEach( $scope.data[ $scope.pagination.current_page ], function( value, key )
+			angular.forEach( $scope.items[ $scope.pagination.current_page ], function( value, key )
 			{
 				if( value.id == job )
 				{
-					$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], value );
+					$scope.items[ $scope.pagination.current_page ] = _.without( $scope.items[ $scope.pagination.current_page ], value );
 				}
 			} );
 

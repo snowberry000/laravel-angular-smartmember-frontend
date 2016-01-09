@@ -1,174 +1,89 @@
-
 <div class="ui modal">
-	<div class="row content">
-		<div class="col-lg-12">
-
-			<div class="ibox-content page-heading clear_box">
-				<div class="p-xs">
-					<div class="row">
-						<div class="col-md-9">
-							<div class="pull-left m-r-md">
-								<i class="fa fa-fighter-jet text-branded mid-icon"></i>
-							</div>
-							<h2 class="ui header">{{ affiliate.id ? 'UPDATE_AFFILIATE' : 'ADD_AFFILIATE' | translate }}</h2>
-							<span>Update an existing affiliate or add a new one below.</span>
-						</div>
-						<div class="col-md-3 text-right">
-							<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-								<i class="fa fa-question"></i>
-							</button>
-						</div>
-					</div>
-				</div>
+	<div class="header">
+		<i class="rocket icon"></i>
+		{{ page_title | translate }}
+	</div>
+	<div class="content">
+		<div class="description">
+			
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
 			</div>
-
-			<div class="ibox float-e-margins">
-				<div class="ibox-title">
+			
+			<div class="ui form">
+				
+				<div class="field">
+					<label>Request ID</label>
+					<input type="text" ng-model="affiliate.affiliate_request_id">
 				</div>
-				<div class="ibox-content">
-					<form class="ui form" ng-submit="save()">
-
-						<div class="field">
-							<label class="col-sm-2 control-label">Request ID</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.affiliate_request_id">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">User ID</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.user_id">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">Name</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.user_name">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">Email</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.user_email">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">Country</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.user_country">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">User Note</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.user_note">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">Past Sales</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.past_sales">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">Product</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.product_name">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">Photo / Image</label>
-
-							<div class="col-sm-10">
-
-								<button type="button" class="btn btn-danger set_featured_image" sm-uploader="featured_image" ng-model="affiliate.featured_image" >Choose Image</button>
-								<div class="width-100 set_featured_image">
-									<img class="featured_image_preview img-responsive img-thumbnail"
-										 ng-src="{{affiliate.featured_image}}"
-										 ng-show="affiliate.featured_image"
-										 style="width:250px;"/>
-								</div>
-								<div class="width-100 text-center">
-									<img class="featured_image_preview img-responsive img-thumbnail" src="" style="display:none;width:auto;" />
-								</div>
-								<input type="hidden" name="featured_image" class="form-control" ng-model="affiliate.featured_image">
-
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<label class="col-sm-2 control-label">Admin Notes</label>
-
-							<div class="col-sm-10">
-								<input type="text" class="form-control" ng-model="affiliate.admin_note">
-								<span class="help-block m-b-none">
-
-								</span>
-							</div>
-						</div>
-						<div class="hr-line-dashed"></div>
-
-						<!-- <div class="field">
-							<div class="col-sm-4 col-sm-offset-2">
-								<button class="btn btn-brand" type="submit">{{ 'SAVE_CHANGES' | translate }}</button>
-								<a ng-click="smModal.Show('public.administrate.team.jv.affiliates')" class="btn btn-white ng-scope">Cancel</a>
-							</div>
-						</div> -->
-					</form>
+				
+				<div class="field">
+					<label>User ID</label>
+					<input type="text" ng-model="affiliate.user_id">
 				</div>
+				
+				<div class="field">
+					<label>Name</label>
+					<input type="text" ng-model="affiliate.user_name">
+				</div>
+				
+				<div class="field">
+					<label>Email</label>
+					<input type="text" ng-model="affiliate.user_email">
+				</div>
+				
+				<div class="field">
+					<label>Country</label>
+					<input type="text" ng-model="affiliate.user_country">
+				</div>
+				
+				<div class="field">
+					<label>User Note</label>
+					<input type="text" ng-model="affiliate.user_note">
+				</div>
+				
+				<div class="field">
+					<label>Past Sales</label>
+					<input type="text" ng-model="affiliate.past_sales">
+				</div>
+				
+				<div class="field">
+					<label>Product</label>
+					<input type="text" ng-model="affiliate.product_name">
+				</div>
+
+				<div class="inline field">
+
+					<label>Upload image / photo</label>
+					<button type="button" class="ui button" sm-uploader="featured_image" ng-model="affiliate.featured_image">
+						<i class="upload icon"></i>
+						Choose File
+					</button>
+				</div>
+				<div class="field">
+					<img class="ui fluid image" ng-src="{{affiliate.featured_image}}" ng-show="affiliate.featured_image">
+				</div>
+				<button class="ui left labeled icon button" ng-if="affiliate.featured_image" ng-click="affiliate.featured_image=''">
+					Clear
+					<i class="remove icon"></i>
+				</button>
+				
+				<div class="field">
+					<label>Admin Notes</label>
+					<input type="text" ng-model="affiliate.admin_note">
+				</div>
+			
 			</div>
+		
 		</div>
 	</div>
 	<div class="actions">
-	    <button ng-click="save()" class="ui right labeled icon button">
-	        Save changes
-	        <i class="checkmark icon"></i>
-	    </button>
-	    <div class="ui black deny button close" ng-click="smModal.Show('public.administrate.team.jv.affiliates')">
-	        Cancel
-	    </div>
+		<div class="ui black deny button close" ng-click="smModal.Show('public.administrate.team.jv.affiliates')">
+			Cancel
+		</div>
+		<button ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="check icon"></i>
+		</button>
 	</div>
 </div>
