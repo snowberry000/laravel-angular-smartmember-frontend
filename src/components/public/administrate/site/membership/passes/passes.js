@@ -39,7 +39,7 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 	$scope.paginate = function()
 	{
 
-		if( typeof $scope.data[ $scope.pagination.current_page ] != 'object' )
+		if( true )
 		{
 
 			$scope.loading = true;
@@ -55,7 +55,7 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = data.items;//Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				$scope.data = data.items;//Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
 		}
 	}
@@ -93,13 +93,13 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 
 	$scope.deleteResource = function( id )
 	{
-		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+		var itemWithId = _.find( $scope.data, function( next_item )
 		{
 			return next_item.id === parseInt(id);
 		} );
 		Restangular.all('siteRole').customPUT({access_level_id : null} , id).then(function(response){
 			toastr.success("Access pass deleted!");
-			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+			$scope.data = _.without( $scope.data, itemWithId );
 		})
 	};
 } );
