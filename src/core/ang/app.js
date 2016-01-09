@@ -141,7 +141,29 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 	if( location.href.indexOf( '?new' ) > -1 )
 	{
 		$localStorage.open_sites_wizard_modal = true;
+		$location.search('new', null)
 	}
+	else if( location.href.indexOf( '?signup' ) != -1 )
+	{
+		$localStorage.open_signup_modal = true;
+		$location.search('signup', null)
+	}
+    else if ( location.href.indexOf('?signin') != -1 )
+	{
+		$localStorage.open_signin_modal = true;
+		$location.search('signin', null)
+	}
+    else if ( location.href.indexOf('?forgot') != -1 )
+    {
+        $localStorage.open_forgot_modal = true;
+        $location.search('forgot', null)
+    }
+    else if ( location.href.indexOf('?reset') != -1 )
+    {
+        if( !$localStorage.user )
+            $localStorage.open_reset_modal = true;
+        $location.search('reset', null)
+    }
 
 	Restangular.setBaseUrl( $rootScope.app.apiUrl );
 	Restangular.setDefaultHeaders( { 'Content-Type': 'application/json' } );
