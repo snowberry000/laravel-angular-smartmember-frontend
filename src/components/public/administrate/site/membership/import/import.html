@@ -26,12 +26,13 @@
 
 				<div class="ui segment grouped fields">
 					<label>Access Level(s)</label>
-					<div class="field" ng-repeat="access_level in access_levels">
-						<div class="ui checkbox" sui-checkbox>
-							<input type="checkbox" tabindex="0" class="hidden" ng-model="members.access_levels[access_level.id]">
-							<label>{{access_level.name}}</label>
-						</div>
-					</div>
+					<ul class="list-group" style="max-height: 450px; overflow-y: auto;" ng-repeat="access_level in access_levels">
+						<li class="list-group-item">
+							<label>
+								<input type="checkbox" ng-model="members.access_levels[access_level.id]"> {{access_level.name}}
+							</label>
+						</li>
+					</ul>
 
 					<div class="ui compact info message">
 						<p>Choose which access levels the member will be given</p>
