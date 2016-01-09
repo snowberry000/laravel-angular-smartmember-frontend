@@ -68,12 +68,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		if( new_value && $rootScope.user && $rootScope.user.id )
 		{
 			$rootScope.sites_loading = true;
-			if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
-				$localStorage.open_sites_wizard_modal = null;
-				$timeout(function(){
-					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
-				} , 3000)
-			}
+			
 			Restangular.one( 'site/members' ).get().then( function( response )
 			{
 				$grouped_sites = response;
@@ -109,7 +104,12 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 					
 				})
 
-				
+				if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
+					$localStorage.open_sites_wizard_modal = null;
+					$timeout(function(){
+						smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
+					} , 5000)
+				}
 				/*
 				 $grouped_sites.admin = _.uniq($grouped_sites.admin, function(item, key, a) {
 				 if(item)
@@ -399,22 +399,35 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			} );
 		}
 	}
-	else if( location.href.indexOf( '?signup' ) != -1 )
+	else if( $localStorage.open_signup_modal )
 	{
-		smModal.Show( 'public.sign.up' );
+		$timeout(function(){
+			smModal.Show( 'public.sign.up' );
+		} , 5000)
+		$localStorage.open_signup_modal = null;
 	}
-    else if ( location.href.indexOf('?signin') != -1 )
+    else if ( $localStorage.open_signin_modal )
 	{
-		smModal.Show('public.sign.in');
+		$timeout(function(){
+			smModal.Show('public.sign.in');
+		} , 5000)
+		$localStorage.open_signin_modal = null;
 	}
-    else if ( location.href.indexOf('?forgot') != -1 )
+    else if ( $localStorage.open_forgot_modal )
     {
-        smModal.Show('public.sign.forgot');
+    	$timeout(function(){
+    		smModal.Show('public.sign.forgot');
+    	} , 5000)
+        $localStorage.open_forgot_modal = null;
     }
-    else if ( location.href.indexOf('?reset') != -1 )
+    else if ( $localStorage.open_reset_modal )
     {
-        if( !$localStorage.user )
-            smModal.Show('public.sign.reset');
+        if( !$localStorage.user ){
+        	$timeout(function(){
+        		smModal.Show('public.sign.reset');
+        	} , 5000)
+        }
+        $localStorage.open_reset_modal = null;
     }
 
 
