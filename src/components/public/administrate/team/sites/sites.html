@@ -53,6 +53,7 @@
 				<a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query">
 					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
 						<img class="ui centered middle aligned image" src="{{site.data.site_logo || '/images/white-image.png'}}">
+						<div class="ui top right attached label">{{site.role}}</div>
 					</div>
 					<div class="content">
 						<div class="header">
