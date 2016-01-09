@@ -40,7 +40,7 @@ describe('Test SM invite', function(){
             element(by.model('site.subdomain')).sendKeys('testsite' + site_number);
             element(by.css('.save_new_site')).click().then(function() {
                 browser.waitForAngular();
-                expect(browser.getCurrentUrl()).toContain('testsite' + site_number + '.smartmember.in');
+                expect(browser.getCurrentUrl()).toContain('testsite' + site_number + '.smartmember.' + browser.params.env);
             });
         });
     });
