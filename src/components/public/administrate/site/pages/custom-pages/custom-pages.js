@@ -23,7 +23,7 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $rootSc
     $scope.data = [];
     $scope.pagination = {
         current_page: 1,
-        per_page: 25,
+        per_page: 2,
         total_count: 0
     };
 
@@ -63,7 +63,7 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $rootSc
         $scope.data = [];
         $scope.pagination = {
         current_page: 1,
-        per_page: 25,
+        per_page: 2,
         total_count: 0
     };
 

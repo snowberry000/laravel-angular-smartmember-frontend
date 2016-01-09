@@ -26,7 +26,7 @@ app.controller( "EmailSubscribersController", function( $scope, $rootScope ,$loc
 	
 	$scope.pagination = {
 		current_page: 1,
-		per_page: 25,
+		per_page: 2,
 		total_count: 0
 	};
 

@@ -26,7 +26,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.data = [];
 	$scope.pagination = {
 		current_page: 1,
-		per_page: 25,
+		per_page: 2,
 		total_count: 0
 	};
 
@@ -87,7 +87,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		$scope.data = [];
 		$scope.pagination = {
 		current_page: 1,
-		per_page: 25,
+		per_page: 2,
 		total_count: 0
 	};
 		var $params = { site_id: $site.id, p: $scope.pagination.current_page };
