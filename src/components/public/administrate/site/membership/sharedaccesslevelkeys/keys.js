@@ -27,7 +27,7 @@ app.controller( "ShareAccessLevelKeysController", function( $scope, $localStorag
 
 	$scope.paginate = function()
 	{
-		if( typeof $scope.data != 'object' )
+		if( true )
 		{
 
 			$scope.loading = true;

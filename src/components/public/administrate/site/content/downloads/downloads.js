@@ -37,7 +37,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 
 	$scope.paginate = function()
 	{
-		if( typeof $scope.data != 'object' )
+		if( true )
 		{
 
 			$scope.loading = true;
