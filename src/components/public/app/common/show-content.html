@@ -1,3 +1,7 @@
+
+<h2 class="ui top attached header section_background_color">
+	{{next_item.title}}
+</h2>
 <div class="ui attached clearing segment section_background_color" ng-if="loading || next_item.featured_image || next_item.embed_content || !next_item.access">
 
 	<div class="ui active inverted dimmer" ng-if="loading">
@@ -46,11 +50,7 @@
 		</span>
 	</div>
 </div>
-<div class="ui attached clearing padded segment section_background_color">
-
-	<a class="ui top right attached label" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.administrate.site.content.syllabus.lesson', {id: next_item.id})">
-		edit
-	</a>
+<div class="ui attached clearing padded segment section_background_color text-left">
 
 	<div ng-show="next_item.showTranscript" class="transcript_stuff" style="padding: 15px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px; border-radius: 4px; display: block;">
 		<h4 class="text-left">Transcript:</h4>
