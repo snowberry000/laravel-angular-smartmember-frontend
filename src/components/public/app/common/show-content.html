@@ -5,7 +5,7 @@
 	</div>
 
 	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content )" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
-	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" class="ui embed video_container" dynamic="next_item.embed_content">
+	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content">
 
 	</div>
 
