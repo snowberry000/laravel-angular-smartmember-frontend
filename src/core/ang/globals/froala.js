@@ -81,6 +81,5 @@ app.value('froalaConfig', {
         return apiURL + '/utility/upload';
     })(),
     fileUploadMethod: 'POST',
-    requestWithCORS: false,
-    zIndex: 9995
+    requestWithCORS: false
 });
