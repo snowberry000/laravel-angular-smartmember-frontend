@@ -5,7 +5,7 @@
 		<div class="active section">{{category.title}}</div>
 	</h3>
 
-	<a class="ui right floated right labeled icon button" ng-click="smModal.Show('public.app.forum.topic.add')">
+	<a class="ui right floated right labeled icon button" ng-if="isLoggedIn()" ng-click="smModal.Show('public.app.forum.topic.add')">
 		Add New Topic
 		<i class="plus icon"></i>
 	</a>

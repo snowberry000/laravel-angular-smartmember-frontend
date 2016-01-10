@@ -29,7 +29,7 @@
 				<div class="description">
 					<p dynamic=topic.description></p>
 				</div>
-				<div class="extra">
+				<div class="extra" ng-if="isLoggedIn()">
 					<div class="ui right floated animated button" tabindex="0" ng-click='scrollBottom()' ng-if='topic.category.allow_content && topic.allow_content'>
 						<div class="visible content">Reply</div>
 						<div class="hidden content">
@@ -70,10 +70,10 @@
 		</div>
 	</div>
 </div>
-<h3 class="ui attached header" ng-if='topic.category.allow_content && topic.allow_content'>
+<h3 class="ui attached header" ng-if='topic.category.allow_content && topic.allow_content && isLoggedIn()'>
 	Leave a reply
 </h3>
-<div class="ui attached clearing segment" ng-if='topic.category.allow_content && topic.allow_content'>
+<div class="ui attached clearing segment" ng-if='topic.category.allow_content && topic.allow_content && isLoggedIn()'>
 	<textarea froala ng-model="content" placeholder="Leave a reply"></textarea>
 
 	<button busy class="ui right floated right labeled icon green button m-t-md" ng-click='addReply(content)'>
