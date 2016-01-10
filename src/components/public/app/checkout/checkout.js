@@ -22,6 +22,7 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('CheckoutController', function ($scope, $site, $rootScope , $location , notify ,$localStorage ,$stateParams,Restangular) {
+        
     $scope.access_level = {};
 
     var paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', site_id: $scope.site.id, default: "1"});
