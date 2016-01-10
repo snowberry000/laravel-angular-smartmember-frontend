@@ -16,7 +16,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AppController", function( $scope, $site, $rootScope, $localStorage, $location, Restangular, toastr, $window, $timeout )
+app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
 	$rootScope.site = $site;
 	$rootScope.page_title = $site.name;
@@ -42,6 +42,41 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 			$rootScope.access_levels = response;
 		})
 	}
+
+
+	$scope.ShouldSuiHandleEmbed = function( embed_code )
+	{
+		var url = $filter('extractsrc')(embed_code);
+
+		//console.log( 'the url: ', url );
+
+		var domain;
+		//find & remove protocol (http, ftp, etc.) and get domain
+		if( url.indexOf( "//" ) > -1 )
+		{
+			domain = url.split( '/' )[ 2 ];
+		}
+		else
+		{
+			domain = url.split( '/' )[ 0 ];
+		}
+
+		//find & remove port number
+		domain = domain.split( ':' )[ 0 ];
+
+		//console.log( "THE DOMAIN: ", domain, url );
+
+		if( domain )
+		{
+			if( domain.indexOf('youtube.com') > -1 )
+				return true;
+
+			if( domain.indexOf('vimeo.com') > -1 )
+				return true;
+		}
+
+		return false;
+	};
 
 	$scope.init = function()
 	{

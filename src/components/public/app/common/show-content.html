@@ -4,7 +4,10 @@
 		<div class="ui text loader">Loading</div>
 	</div>
 
-	<div class="ui embed" ng-if="next_item.embed_content" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content )" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" class="ui embed video_container" dynamic="next_item.embed_content">
+
+	</div>
 
 	<img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && (!next_item.embed_content || next_item.always_show_featured_image == 1)">
 
