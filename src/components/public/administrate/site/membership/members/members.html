@@ -121,6 +121,10 @@
 		</div>
 	</div>
 	<div class="actions">
+		<a ng-click="smModal.Show('public.administrate.site.membership.queue')" class="ui left floated left labeled icon button">
+			Import History <span ng-if="active_count && active_count > 0">({{active_count}} job processing)</span>
+			<i class="eye icon"></i>
+		</a>
 		<div class="ui black deny button close">
 			Close
 		</div>

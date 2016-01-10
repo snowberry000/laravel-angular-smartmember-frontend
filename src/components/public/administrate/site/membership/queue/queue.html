@@ -18,22 +18,31 @@
 			<table class="ui celled striped padded structured table" ng-if="items.length > 0 && !loading" foonice>
 				<thead>
 					<tr>
-						<th data-toggle="">Progress</th>
+						<th data-toggle="">Members</th>
+						<th data-hide="">Status</th>
+						<th data-hide="">Import Progress</th>
 						<th data-hide="">Created</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="item in items | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+					<tr class="{{item.is_active ? 'warning' : 'positive'}}" dir-paginate="item in items | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 						<td>
-							{{new_queue}}
-							<div class="ui indicating progress" data-starttrigger="true" data-text="member" data-value="{{item.done_count}}" data-total="{{item.total_count}}" sui-progress>
-								<div class="bar">
+							{{item.total_count}}
+						</td>
+						<td>
+							<div class="label" ng-if="item.is_active">Importing</div>
+							<div class="label" ng-if="!item.is_active">Done</div>
+						</td>
+						<td>
+							<div class="ui indicating progress" data-value="{{item.done_count}}" data-total="{{item.total_count}}" data-percent="100">
+								<div class="bar" style="transition-duration: 300ms;width:{{(item.done_count / item.total_count) * 100}}%;">
 									<div class="progress"></div>
 								</div>
-								<div class="label">Importing {{item.total_count}} Members</div>
+								<div class="label" ng-if="item.is_active">{{item.done_count}} of {{item.total_count}} imported... please wait</div>
+								<div class="label" ng-if="!item.is_active">{{item.total_count}} imported!</div>
 							</div>
 						</td>
-						<td style="width: 160px;">
+						<td>
 							{{moment.utc(item.created_at).fromNow()}}
 						</td>
 					</tr>

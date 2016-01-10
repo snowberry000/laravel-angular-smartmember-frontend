@@ -42,6 +42,10 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		Restangular.all('accessLevel').getList({site_id : $scope.site.id}).then(function(response){
 			$scope.access_levels = response;
 		})
+
+		Restangular.all('importJob/active').customGET().then(function(response) {
+			$scope.active_count = response;
+		})
 	}
 
 	$scope.paginate = function()
