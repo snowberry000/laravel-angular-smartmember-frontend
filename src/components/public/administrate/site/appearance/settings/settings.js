@@ -61,6 +61,13 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 
 	$scope.save = function()
 	{
+
+		$scope.site_options.site  = {
+			name: $scope.site.name,
+			subdomain: $scope.site.subdomain,
+			domain: $scope.site.domain
+		};
+
 		delete $scope.site_options.url;
 		delete $scope.site_options.open;
 		Restangular.all( 'siteMetaData' ).customPOST( $scope.site_options, "save" ).then( function()

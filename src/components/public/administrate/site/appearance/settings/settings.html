@@ -10,6 +10,56 @@
 			<div class="ui styled fluid accordion" sui-accordion>
 				<div class="title">
 					<i class="dropdown icon"></i>
+					General Settings
+				</div>
+				<div class="content">
+					<div class="ui form">
+
+						<div class="two fields">
+							<div class="eight wide field">
+								<label>1. Site name</label>
+								<input type="text" ng-model="site.name" placeholder="My Awesome Site" ng-blur="setSubdomain($event)" required>
+							</div>
+
+							<div class="eight wide field">
+								<label>2. Site URL / Subdomain</label>
+
+								<div class="ui right labeled input">
+									<div class="ui label">
+										http://
+									</div>
+									<input type="text" ng-model="site.subdomain" placeholder="mysite" required>
+									<div class="ui label">
+										smartmember.com
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="field">
+							<label>Domain Mapping</label>
+
+							<div class="ui right labeled input">
+								<div class="ui label">
+									http://
+								</div>
+								<input type="text" ng-model="site.domain" placeholder="www.mysite.com" required>
+							</div>
+
+							<div class="ui ignored info message">
+								<p>
+									For advanced users, if you'd like to map this site to it's own unique domain name instead of the
+									subdomain version provided above, enter it's domain here and read
+									<a href="http://help.smartmember.com/lesson/domain-mapping" target="_blank">these instructions</a>
+									to finish configuring it.
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
 					Change logo
 				</div>
 				<div class="content">
