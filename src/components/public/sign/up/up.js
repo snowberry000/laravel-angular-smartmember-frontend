@@ -151,10 +151,10 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, i
 		{
 			$localStorage.cbreceipt = false;
 		}
-		/*if( $rootScope.app.subdomain == 'sm' )
+		if( $rootScope.app.subdomain == 'sm' )
 		{
 			window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
-		}*/
+		}
 		else
 		{
 			if( $rootScope.isSitelessPage() )

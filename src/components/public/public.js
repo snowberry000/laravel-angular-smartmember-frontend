@@ -209,9 +209,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		var parts = location.hostname.split( '.' );
 		var subdomain = parts.shift();
 		var domain = parts.shift();
-		var tld = parts.shift();
 
-		if( domain != 'smartmember' || (tld != 'soy' && tld != 'in' && tld != 'dev') )
+		if( domain != 'smartmember' )
 			return false;
 
 		if( specific_site )

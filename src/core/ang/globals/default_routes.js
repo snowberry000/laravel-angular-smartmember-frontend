@@ -10,13 +10,12 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 	var parts = location.hostname.split( '.' );
 	var subdomain = parts.shift();
 	var possible_domain = parts.shift();
-	var tld = parts.shift();
 
 	$urlRouterProvider.when( '/', function( $injector )
 	{
 		var $state = $injector.get( '$state' );
 
-		if( possible_domain == 'smartmember' && (tld == 'soy' || tld == 'in' || tld == 'dev') )
+		if( possible_domain == 'smartmember' && parts.length == 1 )
 		{
 			if( subdomain == "my" )
 			{
