@@ -10,14 +10,18 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "Forum-topicController", function( $scope, $stateParams, Restangular,$rootScope )
+app.controller( "Forum-topicController", function( $scope, $stateParams, Restangular, $rootScope )
 {
+	$scope.loading = true;
+
 	Restangular.one( 'forumTopic', 'permalink' )
 		.get( { permalink: $stateParams.permalink } )
 		.then( function( response )
 		{
 			$rootScope.page_title = response.title;
 			$scope.topic = response;
+
+			$scope.loading = false;
 		} );
 
 	$scope.addReply = function( content )
@@ -26,12 +30,17 @@ app.controller( "Forum-topicController", function( $scope, $stateParams, Restang
 		{
 			return;
 		}
+
+		$scope.loading = true;
+
 		Restangular.service( 'forumReply' )
 			.post( { content: content, topic_id: $scope.topic.id, category_id: $scope.topic.category.id } )
 			.then( function( response )
 			{
 				$scope.topic.replies.push( response );
 				$scope.content = "";
+
+				$scope.loading = false;
 			} );
 	}
 

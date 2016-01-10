@@ -10,6 +10,10 @@
 
 <div class="ui attached segment">
 
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui loader"></div>
+	</div>
+
 	<div class="ui items">
 		<div class="item">
 			<div class="ui small image">
@@ -60,6 +64,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="item" ng-if="topic.replies.length === 0">
+			<p>No replies yet!</p>
 		</div>
 	</div>
 </div>

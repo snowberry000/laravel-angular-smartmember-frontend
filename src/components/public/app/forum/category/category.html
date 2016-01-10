@@ -5,9 +5,17 @@
 		<div class="active section">{{category.title}}</div>
 	</h3>
 
-	<a class="ui right floated button" ng-click="smModal.Show('public.app.forum.topic.add')">Add New Topic</a>
+	<a class="ui right floated right labeled icon button" ng-click="smModal.Show('public.app.forum.topic.add')">
+		Add New Topic
+		<i class="plus icon"></i>
+	</a>
 </div>
 <div class="ui attached segment">
+
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui loader"></div>
+	</div>
 
 	<div class="ui link items">
 		<a class="item" ui-sref="public.app.forum.topic({permalink: topic.permalink})" ng-repeat="topic in category.topics | orderBy:'-updated_at'">
@@ -31,5 +39,8 @@
 				</div>
 			</div>
 		</a>
+		<div class="item" ng-if="category.topics.length === 0">
+			<p>No topics yet!</p>
+		</div>
 	</div>
 </div>
