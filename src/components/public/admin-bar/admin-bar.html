@@ -2,7 +2,7 @@
 	<div class="menu">
 		<a class="ui icon button" ng-click="smSidebar.Show('.left_app_sidebar_contents', '', {closable:true,dimPage:true});">
 			<i class="sidebar icon"></i>
-			Site
+			Menu
 		</a>
 	</div>
 	<div class="right menu">
@@ -16,7 +16,7 @@
 
 <div class="menu">
 	<div class="ui dropdown item {{show_admin_mobile_top_nav || 'mobile hidden'}} profile_image_container" sui-dropdown>
-		<img class="ui rounded mini image" src="{{user.profile_image}}">
+		<img class="ui rounded mini image" src="{{user.profile_image || '/images/image.png'}}">
 		<i class="dropdown icon"></i>
 
 		<div class="menu">
