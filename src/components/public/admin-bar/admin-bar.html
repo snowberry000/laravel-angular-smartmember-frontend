@@ -53,19 +53,17 @@
 </div>
 
 <div class="{{$state.includes('public.app') && !$state.includes('public.app.admin') ? 'active' : ''}} item build_menu_trigger_container {{show_admin_mobile_top_nav || 'mobile hidden'}}">
-	<div class="ui buttons">
-		<a class="ui inverted basic red button" ng-click="smModal.Show('public.administrate.team.sites')">
-			Browse
-		</a>
-		<a class="ui inverted basic red button" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="edit_theme_options" if-not="hide" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
-			Design
-		</a>
-		<div class="ui inverted basic red button mobile only" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" ng-click="smSidebar.Show('.left_sidebar_contents', 'admin-mobile.html');">
-			Build
-		</div>
-		<div class="ui inverted basic red button mobile hidden" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" data-move-popup="false" data-popup=".build_menu" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
-			Build
-		</div>
+	<a class="ui inverted basic red button" ng-click="smModal.Show('public.administrate.team.sites')">
+		Browse
+	</a>
+	<a class="ui inverted basic red button" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="edit_theme_options" if-not="hide" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
+		Design
+	</a>
+	<div class="ui inverted basic red button mobile only" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" ng-click="smSidebar.Show('.left_sidebar_contents', 'admin-mobile.html');">
+		Build
+	</div>
+	<div class="ui inverted basic red button mobile hidden" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" data-move-popup="false" data-popup=".build_menu" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
+		Build
 	</div>
 </div>
 
