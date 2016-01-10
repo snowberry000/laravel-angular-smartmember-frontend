@@ -23,14 +23,14 @@ app.controller( 'AccessController', function( $scope, $rootScope, $location, not
             {
                 $localStorage.hash = false;
 
-	            if( $rootScope.app.subdomain == 'sm' )
+	            /*if( $rootScope.app.subdomain == 'sm' )
 	            {
 		            window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
 	            }
 	            else
-	            {
+	            {*/
 		            location.href = '/';
-	            }
+	            //}
 
             } );
 		}
