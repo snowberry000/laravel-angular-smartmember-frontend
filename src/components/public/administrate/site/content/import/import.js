@@ -116,7 +116,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
             }
 
         });
-
+        $scope.loading = false;
         if( $scope.vimeo_app_configurations.length > 0 ) {
             var selected_integration = _.findWhere($scope.vimeo_app_configurations, {default: 1}) || _.findWhere( $scope.vimeo_app_configurations, {default: "1"});
 
@@ -128,7 +128,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 $scope.selected_account = selected_integration.id;
                 $scope.vimeo.access_token = selected_integration.account.access_token;
                 $scope.vimeo.remote_id = selected_integration.account.remote_id;
-                $scope.loading = false;
+                
                 $scope.loadVideos();
             }
         }
