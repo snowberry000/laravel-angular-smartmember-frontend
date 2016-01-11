@@ -6,7 +6,7 @@
 			<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.menus')">Site nav menus</a>
 			<a class="item" sm-access="edit_theme_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.pages.core.list')">Core pages</a>
 			<a class="item" sm-access="edit_site_options" if-not="hide" ng-click="smModal.Show('public.administrate.site.appearance.directory')">Directory Listing</a>
-			<a class="item" ng-if='app.subdomain == "chrisrecord"' sm-access='manage_roles' if-not='hide' ng-click="smModal.Show('public.administrate.listings')">Manage Directory</a>
+			<a class="item" ng-if='app.subdomain == "sm"' sm-access='manage_roles' if-not='hide' ng-click="smModal.Show('public.administrate.listings')">Manage Directory</a>
 		</div>
 	</div>
 	<div class="item" sm-access="manage_apps" if-not="hide">
