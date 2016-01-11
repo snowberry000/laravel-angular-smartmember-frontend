@@ -23,11 +23,8 @@ app.directive( 'suiProgress', function()
 
 			$( next_item ).progress( the_options );
 
-			console.log( 'progress options', the_options );
-			console.log( 'progress attributes', attributes );
 			if( attributes.starttrigger )
 			{
-				console.log( 'triggering it and setting to ', attributes.value );
 				$( next_item ).progress( 'increment', attributes.value );
 			}
 
@@ -47,7 +44,6 @@ app.directive( 'suiProgress', function()
 			{
 				$rootScope.$watch( 'site.wizard_step', function( value )
 				{
-					console.log( 'we got some wizard values: ', value );
 					if( value && $rootScope.site && $rootScope.site.wizard_step )
 					{
 						if( $rootScope.site.wizard_step > 0 )
@@ -65,7 +61,6 @@ app.directive( 'suiProgress', function()
 			{
 				$scope.$watch( 'current_value', function( value )
 				{
-					console.log( 'we got some progress values: ', value );
 					$( $scope.next_item ).progress( { value: value } );
 				} );
 			}
