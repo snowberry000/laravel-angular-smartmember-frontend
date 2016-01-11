@@ -177,7 +177,6 @@ if( !$html )
             margin: 0;
         }
     </style>
-    
 </head>
 <body class="live_bridge_page">
 <script type="text/javascript">
