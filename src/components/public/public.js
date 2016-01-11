@@ -68,7 +68,25 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		if( new_value && $rootScope.user && $rootScope.user.id )
 		{
 			$rootScope.sites_loading = true;
-			
+
+			if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
+				$localStorage.open_sites_wizard_modal = null;
+				$timeout(function(){
+					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
+				} , 3000)
+			}else if($localStorage.open_stripe_modal && $rootScope.site && $rootScope.site.is_admin){
+				
+				$timeout(function(){
+					smModal.Show( 'public.administrate.team.app_configurations.list' );
+					$localStorage.open_stripe_modal = null;
+				} , 3000)
+			}else if($localStorage.open_vimeo_modal && $rootScope.site && $rootScope.site.is_admin){
+				$timeout(function(){
+					smModal.Show( 'public.administrate.team.app_configurations.list' );
+					$localStorage.open_vimeo_modal = null;
+				} , 3000)
+			}
+
 			Restangular.one( 'site/members' ).get().then( function( response )
 			{
 				$grouped_sites = response;
