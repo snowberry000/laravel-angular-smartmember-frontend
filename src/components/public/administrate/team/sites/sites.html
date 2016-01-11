@@ -49,8 +49,9 @@
 				<p>These are all the sites you've created, joined, or managing.</p>
 			</div>
 
-			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="loadMore()" ng-init="loadMore()">
-				<a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query">
+			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="paginate()" ng-init="paginate()">
+				<!-- <a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query"> -->
+				<a class="card" ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" dir-paginate="site in sites_to_show | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
 						<img class="ui centered middle aligned image" src="{{site.data.site_logo || '/images/white-image.png'}}">
 						<div class="ui top right attached label">{{site.role}}</div>
@@ -92,10 +93,12 @@
 					</div>
 				</a>
 			</div>
-
-			<div class="text-right" ng-if='!loading'>
-				<pagination total-items="adminPagination.total_count" max-size="5" items-per-page="25" ng-model="adminPagination.current_page" class="pagination-sm" boundary-links="true" ng-change="loadMore()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+			<div class="text-right"  ng-if="pagination.total_count > 25">
+				<dir-pagination-controls max-size="5"></dir-pagination-controls>
 			</div>
+			<!-- <div class="text-right" ng-if='!loading'>
+				<pagination total-items="adminPagination.total_count" max-size="5" items-per-page="25" ng-model="adminPagination.current_page" class="pagination-sm" boundary-links="true" ng-change="loadMore()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+			</div> -->
 		</div>
 	</div>
 	<div class="actions">
