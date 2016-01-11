@@ -26,4 +26,9 @@ app.controller("ListingController", function ($scope,smModal,$stateParams,Upload
 		});
 	}
 
+	$scope.saveAndApprove = function(){
+		$scope.listing.approve = true;
+		$scope.save();
+	}
+
 });
