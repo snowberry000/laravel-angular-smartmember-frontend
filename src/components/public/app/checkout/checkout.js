@@ -109,9 +109,9 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
                 angular.forEach( $scope.access_level.payment_methods, function( value, key ) {
                     if( value.payment_method_id !== undefined && value.payment_method_id == 1 )
                         jvzoo_enabled = true;
-                    if( value.payment_method_id !== undefined && value.payment_method_id == 2 )
+                    if( value.payment_method_id !== undefined && value.payment_method_id == 2 && $scope.paypal)
                         paypal_enabled = true;
-                    if( value.payment_method_id !== undefined && value.payment_method_id == 3 )
+                    if( value.payment_method_id !== undefined && value.payment_method_id == 3 && $scope.stripe)
                         stripe_enabled = true;
                 });
 
