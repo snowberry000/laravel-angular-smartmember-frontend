@@ -24,7 +24,7 @@ app.config(function($stateProvider){
 app.controller('CheckoutController', function ($scope, $site, $rootScope , $location , notify ,$localStorage ,$stateParams,Restangular) {
     var handler = null;
     $scope.initialize = function(){
-        $scope.access_level = {};
+        //$scope.access_level = {};
 
         $scope.paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', site_id: $scope.site.id, default: "1"});
 
@@ -42,15 +42,15 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
         if( !$scope.stripe )
             $scope.stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', site_id: $scope.site.id}) || _.findWhere($scope.site.configured_app,{type: 'stripe'});
 
-        if( $scope.stripe === undefined )
-            $scope.stripe_checkout = false;
-        else
-            $scope.stripe_checkout = true;
+        //if( $scope.stripe === undefined )
+        //    $scope.stripe_checkout = false;
+        //else
+        //    $scope.stripe_checkout = true;
 
-        if( $scope.paypal === undefined )
-            $scope.paypal_checkout = false;
-        else
-            $scope.paypal_checkout = true;
+        //if( $scope.paypal === undefined )
+         //   $scope.paypal_checkout = false;
+        //else
+         //   $scope.paypal_checkout = true;
 
         $scope.jvzoo_checkout = false;
 
