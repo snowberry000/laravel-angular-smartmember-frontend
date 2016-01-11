@@ -105,6 +105,9 @@ app.controller( "PostsController", function( $scope, $rootScope, $localStorage, 
 			itemWithId.remove().then( function()
 			{
 				$scope.data = _.without( $scope.data, itemWithId );
+				$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 			} );
 	};
 } );
