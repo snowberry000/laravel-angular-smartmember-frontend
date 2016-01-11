@@ -83,6 +83,9 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 							$state.go( 'public.app.support-article', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "bridge_bpages":
+							
+							location.reload();
+
 							$state.go( 'bridgepage', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "forum_topics":

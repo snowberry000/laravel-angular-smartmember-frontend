@@ -9,12 +9,14 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 			elem.on( 'click', function()
 			{
 				var key = attr.smUploader;
+				var closeOnModalCompletion = attr.closeModal;
 				var post = attr.restangular;
 				var model = attr.ngModel;
 				var awskey = attr.ngAwskey;
 				var allow_multiple = attr.allowmultiple ? attr.allowmultiple : true;
 				scope.privacy = attr.privacy ? attr.privacy : false;
 				var hideLink = attr.hidelink ? attr.hidelink : false;
+				scope.testLink = 'https://testtest.com';
 
 				if( post )
 				{
@@ -23,7 +25,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 
 				console.log( 'allow_multiple', allow_multiple, attr );
 
-				smModal.Show( null, { modal_options: { allowMultiple: allow_multiple } },
+				smModal.Show( null, { modal_options: { allowMultiple: allow_multiple } , "closeOnModalCompletion": closeOnModalCompletion },
 					{ templateUrl: 'templates/modals/newMediaItem.html', controller: 'modalMediaController' },
 					function( item )
 					{
@@ -78,7 +80,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 	};
 } );
 
-app.controller( 'modalMediaController', function( $scope, $localStorage, Upload, close, Restangular )
+app.controller( 'modalMediaController', function( $scope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
 {
 	Restangular.service('media')
 		.getList()
@@ -135,6 +137,9 @@ app.controller( 'modalMediaController', function( $scope, $localStorage, Upload,
 					console.log(returnObject);
 
 					close( returnObject );
+					console.log($stateParams.closeOnModalCompletion);
+					if($stateParams.closeOnModalCompletion == 'true')
+						smModal.Close();
 
 				} ).error( function( data, status, headers, config )
 			{

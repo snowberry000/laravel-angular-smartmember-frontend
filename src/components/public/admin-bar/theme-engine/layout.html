@@ -1,6 +1,6 @@
 <div class="item ">
 	<h4 class="ui header">
-		Site Background Image
+		Site Logo Image
 	</h4>
 	<div class="color-picker">
 		<div>
@@ -51,7 +51,7 @@
 						<div class="ui text loader">Loading</div>
 					</div>
 				</div>
-				<div class="col-md-12 height40" ng-hide="loading" ng-init="data_to_update = 'site_background_image'">
+				<div class="col-md-12 height40" ng-hide="loading" ng-init="data_to_update = 'site_logo'">
 					<form method="post">
 						<div ngf-select="" ngf-drop="" ng-model="files" ngf-multiple="multiple" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="dropzone drop-box upload-image-container" ngf-drop-available="dropAvailable">
 							Select or Drop File
@@ -60,9 +60,9 @@
 				</div>
 			</div>
 			<br>
-			<img ng-if="meta_data['site_background_image']" src="{{meta_data['site_background_image']}}" style="max-width:100%"/>
+			<img ng-if="meta_data['site_logo']" src="{{meta_data['site_logo']}}" style="max-width:100%"/>
 			<br>
-			<span ng-click="meta_data['site_background_image'] = ''" style="cursor:pointer;">&times; Remove</span>
+			<span ng-click="meta_data['site_logo'] = ''" style="cursor:pointer;">&times; Remove</span>
 		</div>
 		<div class="media-body" style="color : black">
 
