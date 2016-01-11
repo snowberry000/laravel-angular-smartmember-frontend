@@ -90,6 +90,9 @@ app.controller("ArticleCategoriesController", function ($scope,smModal,$rootScop
 
         itemWithId.remove().then(function () {
             $scope.data = _.without($scope.data, itemWithId);
+            $state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
         });
     };
 });

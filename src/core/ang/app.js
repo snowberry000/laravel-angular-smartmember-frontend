@@ -88,6 +88,7 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 		{
 			console.log( fromState.name );
 
+			window.Intercom('update');
 			var isAuthenticationRequired = toState.data
 					&& toState.data.requiresLogin
 					&& !($localStorage.user && $localStorage.user.id)
@@ -195,6 +196,10 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 
 	//Check for User token:
 	$rootScope.$storage = $localStorage;
+	
+	window.Intercom('boot', {
+	  app_id: "pntame3f"
+	});
 	$rootScope.$watch( "$storage.user.access_token", function()
 	{
 		if( $localStorage.user && $localStorage.user.access_token )
@@ -212,6 +217,13 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 				// });
 			}
 			$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
+			var intercomData = {
+			  app_id: "pntame3f",
+			  name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
+			  email: $localStorage.user.email,
+			  created_at: moment($localStorage.user.created_at).unix()
+			};
+			window.Intercom('boot', intercomData);
 		}
 	} );
 	$rootScope.$watch( "$storage.homepage_url", function()

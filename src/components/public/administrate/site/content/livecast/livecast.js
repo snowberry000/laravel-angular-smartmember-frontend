@@ -222,6 +222,9 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             $scope.next_item.put().then(function(){
                 smModal.Show('public.administrate.site.content.livecasts');
                 toastr.success("Livecast updated!");
+                $state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
             });
         }
         else{
@@ -230,6 +233,9 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
                     Restangular.one('draft' , draft.id).remove();
                 smModal.Show('public.administrate.site.content.livecasts');
                 toastr.success("Livecast Created!");
+                $state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 
             })
         }
