@@ -19,6 +19,27 @@ app.config( function( $stateProvider )
 app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
 	$rootScope.site = $site;
+
+	var intercom = _.findWhere($scope.site.app_configuration,{type:'intercom'});
+
+	if (intercom){
+		if ($localStorage.user && $localStorage.user.id){
+			var intercomData = {
+			  app_id: intercom.username,
+			  name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
+			  email: $localStorage.user.email,
+			  created_at: moment($localStorage.user.created_at).unix()
+			};
+			window.Intercom('boot', intercomData);
+		}else{
+			window.Intercom('boot',{app_id: intercom.username});
+		}
+
+	}
+
+	console.log(intercom);
+
+
 	$rootScope.page_title = $site.name;
 	//$rootScope.page_title = 'chanbged title';
 

@@ -520,4 +520,5 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$scope.Init();
 
+
 } );
