@@ -9,12 +9,17 @@
 			<div class="ui text loader">Loading</div>
 		</div>
 
+		<div ng-if="leaderboard.contest.content" class="ui segment basic" dynamic="leaderboard.contest.content"></div>
+
+		<div ng-if="leaderboard.contest.content" class="ui horizontal divider">
+			stats
+		</div>
 
 		<div class="ui grid text-center">
 			<div class="one column row">
 				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 1">
 
-					<div class="ui huge statistic segment">
+					<div class="ui huge statistic green segment">
 						<div class="value">
 							{{rank.position}}
 						</div>
@@ -27,7 +32,7 @@
 			<div class="two column row">
 				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 3" ng-if="key >= 1">
 
-					<div class="ui large statistic segment">
+					<div class="ui large statistic">
 						<div class="value">
 							{{rank.position}}
 						</div>
@@ -40,7 +45,7 @@
 			<div class="three column row">
 				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 6" ng-if="key >= 3">
 
-					<div class="ui statistic segment">
+					<div class="ui statistic">
 						<div class="value">
 							{{rank.position}}
 						</div>
@@ -53,7 +58,7 @@
 			<div class="four column row">
 				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 10" ng-if="key >= 6">
 
-					<div class="ui small statistic segment">
+					<div class="ui small statistic">
 						<div class="value">
 							{{rank.position}}
 						</div>
@@ -65,7 +70,7 @@
 			</div>
 		</div>
 
-		<table class="ui celled padded table" ng-init="limit_qty = 20;">
+		<table class="ui celled padded table m-t-lg" ng-init="limit_qty = 20;">
 			<thead>
 				<tr>
 					<th>Individual Affiliates</th>
