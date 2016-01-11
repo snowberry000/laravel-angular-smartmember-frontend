@@ -16,7 +16,7 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 		{ id: 2, name: 'Members' }
 	];
 
-	$scope.payment_method_types = [
+	$rootScope.payment_method_types = [
 		{ id: 1, name: 'JVzoo' },
 		{ id: 2, name: 'Paypal' },
 		{ id: 3, name: 'Stripe' }
