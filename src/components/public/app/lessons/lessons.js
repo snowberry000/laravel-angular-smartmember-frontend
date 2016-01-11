@@ -58,9 +58,13 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         $modules=response;
         $scope.modules = $modules;
         $scope.copy_modules = $modules;
-        $scope.modules = _.reject($scope.modules,function($mod){
-            return $mod.lessons.length==0;
-        });
+
+        if(!$scope.syllabus.edit_mode){
+            $scope.modules = _.reject($scope.modules,function($mod){
+                return $mod.lessons.length==0;
+            });
+        }
+        
         $.each($scope.modules, function (key, data) {
             data.hide_module = false;
             $.each(data.lessons, function (key, data) {
@@ -344,10 +348,11 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     }
 
     $scope.done = function(response){
+        
+// $state.reload();
         $state.transitionTo($state.current, $stateParams, { 
           reload: true, inherit: false, location: false
         });
-// $state.reload();
         return;
         smModal.Close();
         switch($scope.syllabus.current_action){
