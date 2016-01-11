@@ -57,6 +57,12 @@ ErrorDocument 404 /pricing
 </ifModule>
 
 <ifModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{HTTP_HOST} ^blog.smartmember\.com$ [NC]
+        RewriteRule (.*) http://help.smartmember.com [R=301,L]
+</ifModule>
+
+<ifModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^admin http://%{HTTP_HOST}/ [L]
     RewriteRule ^lesson/(.*)$ http://%{HTTP_HOST}/$1 [L]

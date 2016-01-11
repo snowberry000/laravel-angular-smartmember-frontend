@@ -73,7 +73,7 @@ app.controller("ListingsController", function ($scope,Restangular,$rootScope,$ht
 				else
 				{
 					$scope.pagination.total_count = data.total_count;
-					$scope.data = data;
+					$scope.data = Restangular.restangularizeCollection( null, data, $scope.template_data.api_object );;
 				}
 			} );
 		}
