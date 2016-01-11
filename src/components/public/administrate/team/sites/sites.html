@@ -12,7 +12,7 @@
 				</div>
 				<div class="ui left icon input">
 					<i class="search icon"></i>
-					<input type="text" placeholder="Search..." ng-model="$parent.query">
+					<input type="text" placeholder="Search..." ng-model="site_query" ng-change="paginate()">
 				</div>
 				<div class="header">
 					<i class="tags icon"></i>
@@ -51,7 +51,7 @@
 
 			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="paginate()" ng-init="paginate()">
 				<!-- <a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query"> -->
-				<a class="card" ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" dir-paginate="site in sites_to_show | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+				<a class="card" ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" dir-paginate="site in sites_to_show | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
 						<img class="ui centered middle aligned image" src="{{site.logo || '/images/white-image.png'}}">
 						<div class="ui top right attached label">{{site.role}}</div>
