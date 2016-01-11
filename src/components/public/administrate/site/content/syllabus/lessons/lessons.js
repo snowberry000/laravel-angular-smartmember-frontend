@@ -91,6 +91,9 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 		itemWithId.remove().then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
+			$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 		} );
 	};
 } );
