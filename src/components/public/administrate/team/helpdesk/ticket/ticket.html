@@ -12,6 +12,15 @@
 					</div>
 					<div ng-if="ticket.reply" class="ui attached segment" ng-repeat="next_item in ticket.reply">
 						<div dynamic="next_item.message"></div>
+						<div ng-if="next_item.attachment">
+							<span  class="ui horizontal divider" style="
+							    font-weight: 100;
+							    font-size: smaller;
+							">
+								Attachment
+							</span>
+							<img ng-src="{{next_item.attachment}}"></img>
+						</div>
 					</div>
 
 					<h3 class="ui horizontal divider header">
