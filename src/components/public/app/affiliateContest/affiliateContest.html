@@ -1,57 +1,128 @@
-<div class="row" style="margin-left: auto;margin-right: auto;" ng-init="init()">
-    <div class="ui grid">
-        <div class="twelve wide column" ng-if="loading">
-            <div class="ui segment" style="min-height:200px;min-width:500px;">
-                <div class="ui active inverted dimmer">
-                    <div class="ui text loader">Loading</div>
-                </div>
-            </div>
-        </div>
-        <div class="sixteen wide column" ng-if="!loading">
+<div class="twelve wide column">
 
-            <div class="ui piled segment section_background_color">
-                <h1 class="grey lighter smaller">
-                    {{leaderboard.contest.title}}
-                </h1>
-                <div sm-access="view_affiliate_stats" if-not="hide" class="ui statistic" ng-if='leaderboard.total_ranks'>
-                  <div class="value">
-                    {{leaderboard.total_ranks}}
-                  </div>
-                  <div class="label">
-                    Sign-ups
-                  </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="ui celled padded table" ng-init="limit_qty = 10;">
-                        <thead>
-                        <tr>
-                            <th>Affiliate / Team</th>
-                            <th>Rank</th>
-                            <th>Total</th>
-                        </tr></thead>
-                        <tbody>
-                        <tr ng-repeat="rank in leaderboard.ranking | limitTo: limit_qty">
-                            <td class="single line">
-                                {{rank.affiliate_name}}
-                            </td>
-                            <td>
-                                <h2 class="ui center aligned header">{{rank.position}}</h2>
-                            </td>
-                            <td class="right aligned">
-                                {{rank.rank}}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <a sm-access="view_affiliate_stats" if-not="hide" ng-click="limit_qty > 10 ? limit_qty = 10 : limit_qty = 1000000;" class="ui center labeled green icon button" style="margin-top:10px;">
-                    {{limit_qty > 10 ? 'View Less' : 'View All'}}
-                    <i class="eye icon"></i>
-                </a>
-                <img ng-src="{{leaderboard.contest.featured_image}}" class="featured_image_preview img-responsive img-thumbnail" ng-show="leaderboard.contest.featured_image" />
-            </div>
+	<h2 class="ui top attached header section_background_color">
+		{{leaderboard.contest.title}}
+	</h2>
+	<div class="ui attached clearing segment section_background_color" ng-init="full_display=false">
 
-        </div>
-    </div>
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui text loader">Loading</div>
+		</div>
+
+		<img ng-src="{{leaderboard.contest.featured_image}}" ng-if="leaderboard.contest.featured_image" class="ui fluid image">
+
+		<div ng-if="leaderboard.contest.content" class="ui segment basic" dynamic="leaderboard.contest.content"></div>
+
+		<div ng-if="leaderboard.contest.content" class="ui horizontal divider">
+			stats
+		</div>
+
+		<div class="ui grid text-center">
+			<div class="one column row">
+				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 1">
+
+					<div class="ui huge statistic green segment">
+						<div class="value">
+							#{{rank.position}}
+						</div>
+						<div class="label">
+							{{rank.affiliate_name}}
+							<span ng-if="limit_qty > 20" sm-access="view_affiliate_stats" if-not="hide"></span>
+						</div>
+						<div class="ui red floating label">{{rank.rank}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="two column row">
+				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 3" ng-if="key >= 1">
+
+					<div class="ui large statistic basic segment">
+						<div class="value">
+							#{{rank.position}}
+							<div class="ui top right attached label" style="padding:.5em;">{{rank.rank}}</div>
+						</div>
+						<div class="label">
+							{{rank.affiliate_name}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="three column row">
+				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 6" ng-if="key >= 3">
+
+					<div class="ui statistic basic segment">
+						<div class="value">
+							#{{rank.position}}
+							<div class="ui top right attached label" style="padding:.5em;">{{rank.rank}}</div>
+						</div>
+						<div class="label">
+							{{rank.affiliate_name}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="four column row">
+				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 10" ng-if="key >= 6">
+
+					<div class="ui small statistic basic segment">
+						<div class="value">
+							#{{rank.position}}
+							<div class="ui top right attached label" style="padding:.5em;">{{rank.rank}}</div>
+						</div>
+						<div class="label">
+							{{rank.affiliate_name}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<table class="ui celled padded table m-t-lg">
+			<thead>
+				<tr>
+					<th>Individual Affiliates</th>
+					<th class="text-center">Rank</th>
+					<th class="text-center">
+						Total {{leaderboard.contest.type == 'leads' ? "Leads" : ""}}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(key,rank) in leaderboard.ranking | limitTo: (full_display ? 100000 : 25)" ng-if="key >= 10">
+					<td class="single line">
+						{{rank.affiliate_name}}
+					</td>
+					<td>
+						<h2 class="ui center aligned header">{{rank.position}}</h2>
+					</td>
+					<td class="center aligned">
+						<div class="ui label">{{rank.rank}}</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="ui grid text-center" sm-access="view_affiliate_stats" if-not="hide" ng-if="leaderboard.total_ranks && full_display">
+			<div class="one column row">
+				<div class="column">
+					<div class="ui statistic">
+						<div class="value">
+							{{leaderboard.total_ranks}}
+						</div>
+						<div class="label">
+							{{leaderboard.contest.type == 'leads' ? 'Leads' : 'Sales'}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<a sm-access="view_affiliate_stats" if-not="hide" ng-click="full_display = !full_display" class="ui center labeled green icon button" style="margin-top:10px;">
+			{{full_display ? 'View Normal Stats' : 'View Full Stats'}}
+			<i class="eye icon"></i>
+		</a>
+
+	</div>
+
 
 </div>

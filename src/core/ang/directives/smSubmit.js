@@ -18,7 +18,7 @@ app.directive( 'smForm', function()
 				inline: true
 			} );
 
-			formElement.one("submit", function(event) {
+			formElement.on("submit", function(event) {
 				if( !$( formElement ).form('is valid') ) {
 					event.stopImmediatePropagation();
 					event.preventDefault();

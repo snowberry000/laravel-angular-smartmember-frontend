@@ -95,6 +95,9 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
             $scope.categories.push(response);
             toastr.success("Support category added successfully!");
             delete $scope.article.createCategory;
+            $state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
         });
     }
 
@@ -136,6 +139,9 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
             $scope.article.put().then(function(response){
                 toastr.success("Support article edited successfully!");
                 smModal.Show("public.administrate.site.content.helpdesk.articles");
+                $state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
             })
         }
         else{
@@ -144,6 +150,9 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
                     Restangular.one('draft' , draft.id).remove();
                 toastr.success("Support article added successfully!");
                 smModal.Show("public.administrate.site.content.helpdesk.articles");
+                $state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
             })
         }
     }
