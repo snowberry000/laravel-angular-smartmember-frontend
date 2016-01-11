@@ -34,7 +34,7 @@
 			Back to Site
 		</a>
 	</div>
-	<a class="ui item {{show_admin_mobile_top_nav || 'mobile hidden'}} wizard_container" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.administrate.wizard' , {id : 'account_wizard'})" ng-if="isSitelessPage('my') && user.sm_access">
+	<a class="ui item {{show_admin_mobile_top_nav || 'mobile hidden'}} wizard_container" title="Setup your account with a step-by-step tour guide" ng-click="smModal.Show('public.administrate.wizard' , {id : 'account_wizard'})" ng-if="isSitelessPage('my') && $state.includes('public.my') && user.sm_access">
 		<div class="ui indicating inverted progress m-b-none" style="width: 100%;" data-value="0" data-total="1" data-type="wizard" sui-account-progress>
 			<div class="bar">
 				<div class="progress">{{site.wizard_step}}</div>
@@ -42,7 +42,7 @@
 			<div class="label" style="font-size: 0.8em;">Account Wizard</div>
 		</div>
 	</a>
-	<a class="ui item {{show_admin_mobile_top_nav || 'mobile hidden'}} wizard_container" sm-access="view_restricted_content" if-not="hide" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.administrate.wizard' , {id : 'site_launch_wizard'})" ng-if="!isSitelessPage() && site.wizard_step < 5">
+	<a class="ui item {{show_admin_mobile_top_nav || 'mobile hidden'}} wizard_container" sm-access="view_restricted_content" if-not="hide" title="Setup your site with a step-by-step tour guide" ng-click="smModal.Show('public.administrate.wizard' , {id : 'site_launch_wizard'})" ng-if="!isSitelessPage() && $state.includes('public.app') && site.wizard_step < 5">
 		<div class="ui indicating inverted progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step}}" data-total="5" data-type="wizard" sui-progress>
 			<div class="bar">
 				<div class="progress">{{site.wizard_step}} of 5 steps</div>
@@ -59,10 +59,10 @@
 	<a class="ui inverted basic red button" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="edit_theme_options" if-not="hide" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		Design
 	</a>
-	<div class="ui inverted basic red button mobile only" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" ng-click="smSidebar.Show('.left_sidebar_contents', 'admin-mobile.html');">
+	<div class="ui inverted basic red button mobile only" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage() && $state.includes('public.app')" ng-click="smSidebar.Show('.left_sidebar_contents', 'admin-mobile.html');">
 		Build
 	</div>
-	<div class="ui inverted basic red button mobile hidden" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" data-move-popup="false" data-popup=".build_menu" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
+	<div class="ui inverted basic red button mobile hidden" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage() && $state.includes('public.app')" data-move-popup="false" data-popup=".build_menu" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
 		Build
 	</div>
 </div>
@@ -71,13 +71,13 @@
 <div class="right ui inverted app_shortcuts_container menu {{show_admin_mobile_top_nav || 'mobile hidden'}}">
 
 
-	<a class="item thin" ng-click="smModal.Show('public.administrate.smart-links.list')" ng-if="!isSitelessPage()" sm-access="manage_content" if-not="hide" title="Smart Links" position="left center" sui-popup>
+	<a class="item thin" ng-click="smModal.Show('public.administrate.smart-links.list')" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_content" if-not="hide" title="Smart Links" position="left center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="linkify icon"></i>
 		</button>
 	</a>
 
-	<div class="item thin" ng-if="!isSitelessPage()" sm-access="manage_email" if-not="hide" title="Email" position="left center" sui-popup>
+	<div class="item thin" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_email" if-not="hide" title="Email" position="left center" sui-popup>
 		<div class="ui dropdown" sui-dropdown>
 			<button class="ui inverted basic red icon button">
 				<i class="envelope icon"></i>
@@ -94,14 +94,14 @@
 			</div>
 		</div>
 	</div>
-	<a class="item thin" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')" ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Support" position="left center" sui-popup>
+	<a class="item thin" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_support_tickets" if-not="hide" title="Support" position="left center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="life ring icon"></i>
 
 			<div ng-if="site.unread_support_ticket" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
 		</button>
 	</a>
-	<a class="item thin" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage()" title="Bridge Pages" position="left center" sui-popup>
+	<a class="item thin" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage() && $state.includes('public.app')" title="Bridge Pages" position="left center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="browser icon"></i>
 		</button>
@@ -120,7 +120,7 @@
 		<div class="results"></div>
 	</div>
 
-	<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref-opts="{reload:true}" ng-href="http://www.smartmember.com" target="_blank" title="Smart Member Directory">
+	<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref-opts="{reload:true}" ui-sref="public.www.home" title="Smart Member Directory">
 		<img class="ui rounded mini image" src="/images/sm-64.png">
 	</a>
 
