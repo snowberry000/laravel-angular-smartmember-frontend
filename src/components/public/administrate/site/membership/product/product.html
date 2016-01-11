@@ -313,6 +313,7 @@
 						<h4 class="ui header">Payment Methods</h4>
 						<div class="field">
 							<div class="col-sm-12">
+								{{payment_method_types}}
 								<select multiple ng-model="access_level.payment_methods" class="form-control used_payment_methods">
 									<option ng-selected="paymentMethodExists(p.id) || !access_level.id" ng-repeat="p in payment_method_types | filter:validPaymentMethod" value={{p.id}}>{{p.name}}</option>
 								</select>
