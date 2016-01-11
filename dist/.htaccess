@@ -65,7 +65,6 @@ ErrorDocument 404 /pricing
     RewriteRule ^livecast/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^post/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-article/(.*)$ http://%{HTTP_HOST}/$1 [L]
-    RewriteRule ^site/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^forum-category/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^forum-topic/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-ticket/create(.*)$ http://%{HTTP_HOST}/support-ticket [L]

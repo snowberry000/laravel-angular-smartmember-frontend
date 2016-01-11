@@ -10,17 +10,42 @@
 		<h2>Launches January 12th, 2016</h2>
 		<h2><timer end-time="1452614400000">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds.</timer></h2>
 
-		<div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+		<a class="ui huge primary button" ng-href="http://3c.smartmember.com/prelaunch">
+			Get Started <i class="right arrow icon"></i>
+		</a>
 	</div>
 
 </div>
+<div class="ui vertical stripe segment" style="padding: 2em 0px;">
+	<div class="ui text text-center container">
 
+		<h3>
+			The best sites for
+			<div class="ui inline scrolling {{loading_categories ? 'loading' : ''}} dropdown" ng-model="current_category" sui-dropdown>
+				<div class="text" style="text-decoration: underline;">
+					{{current_category}}
+				</div>
+				<i class="dropdown icon"></i>
 
-<div class="ui vertical stripe segment">
+				<div class="menu">
+					<div class="item" data-value="{{next_item}}" ng-repeat="next_item in directory_categories">
+						{{next_item}}
+					</div>
+				</div>
+			</div>
+		</h3>
+
+	</div>
+</div>
+
+<div class="ui vertical stripe segment" style="padding-top: 3em;">
 	<div class="ui middle aligned stackable grid container">
 		<div class="row">
 			<div class="sixteen wide column">
-				<h3 class="ui header">Example Sites</h3>
+
+				<div class="ui active inverted dimmer" ng-if="loading_sites">
+					<div class="ui text loader">Loading sites</div>
+				</div>
 
 				<div class="ui four doubling stackable link site cards">
 					<a site-card class="card" ng-repeat="next_item in site_listings" ui-sref="public.www.site({permalink: next_item.permalink || next_item.site_id})"></a>
