@@ -42,6 +42,9 @@ app.controller('themeEngineController', function ($rootScope, $scope, smSidebar,
             $rootScope.viewport = '';
             smSidebar.Close();
             $rootScope.app.show_engine = false;
+            $state.transitionTo($state.current, $stateParams, { 
+              reload: true, inherit: false, location: false
+            });        
         });
     }
 
