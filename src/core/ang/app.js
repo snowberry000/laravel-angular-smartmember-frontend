@@ -30,7 +30,8 @@ var app = angular.module( 'app', [
 	'infinite-scroll',
 	'ui.sortable',
 	'angularUtils.directives.dirPagination',
-	'ct.ui.router.extras'
+	'ct.ui.router.extras',
+	'720kb.socialshare'
 ] );
 
 
