@@ -76,7 +76,14 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, i
 						$rootScope.redirectedFromLoginMessage = false;
 						window.location.href = $localStorage.accessed_url;
 					}
+
+					if($localStorage.access_pass_redirect){
+						$localStorage.access_pass_redirect = null;	
+						window.location.href = '/'
+					}
+
 					toastr.success( "Registered!" );
+
 					//location.reload();
 
 				},
