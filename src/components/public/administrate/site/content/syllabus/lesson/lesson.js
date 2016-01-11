@@ -409,6 +409,9 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
             }
             toastr.success( "Module has been saved" );
 			$scope.isOpen = false;
+			$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 		} );
 	}
 	$scope.getFileName = function( $url )
@@ -499,6 +502,9 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 			{
 				smModal.Show($scope.template_data.success_route);
 			}
+			$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 		} )
 
 	}

@@ -208,6 +208,9 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 			$scope.next_item.put().then(function(response){
 				smModal.Show("public.administrate.site.content.blog.posts");
 				toastr.success( "Your post has been updated!" );
+				$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 			})
 		}
 		else
@@ -223,6 +226,9 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
 				smModal.Show("public.administrate.site.content.blog.posts" );
+				$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 			} );
 		}
 	}

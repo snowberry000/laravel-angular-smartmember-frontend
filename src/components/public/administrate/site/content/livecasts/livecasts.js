@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "LivecastsController", function( $scope, $rootScope, $http, Restangular )
+app.controller( "LivecastsController", function( $scope, $stateParams,$state,$rootScope, $http, Restangular )
 {
 	$scope.template_data = {
 		title: 'LIVECASTS',
@@ -102,6 +102,9 @@ app.controller( "LivecastsController", function( $scope, $rootScope, $http, Rest
 		itemWithId.remove().then( function()
 		{
 			$scope.data= _.without( $scope.data, itemWithId );
+			$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 		} );
 	};
 } );
