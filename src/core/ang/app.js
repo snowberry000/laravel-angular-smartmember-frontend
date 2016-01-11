@@ -88,6 +88,7 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 		{
 			console.log( fromState.name );
 
+			//window.Intercom('update');
 			var isAuthenticationRequired = toState.data
 					&& toState.data.requiresLogin
 					&& !($localStorage.user && $localStorage.user.id)
