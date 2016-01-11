@@ -3,7 +3,7 @@
 	<h2 class="ui top attached header section_background_color">
 		{{leaderboard.contest.title}}
 	</h2>
-	<div class="ui attached clearing segment section_background_color">
+	<div class="ui attached clearing segment section_background_color" ng-init="limit_qty = 20;">
 
 		<div class="ui active inverted dimmer" ng-if="loading">
 			<div class="ui text loader">Loading</div>
@@ -25,6 +25,7 @@
 						</div>
 						<div class="label">
 							{{rank.affiliate_name}}
+							<span ng-if="limit_qty > 20" sm-access="view_affiliate_stats" if-not="hide">{{rank.rank}}</span>
 						</div>
 					</div>
 				</div>
@@ -38,6 +39,7 @@
 						</div>
 						<div class="label">
 							{{rank.affiliate_name}}
+							<span ng-if="limit_qty > 20" sm-access="view_affiliate_stats" if-not="hide">({{rank.rank}})</span>
 						</div>
 					</div>
 				</div>
@@ -51,6 +53,7 @@
 						</div>
 						<div class="label">
 							{{rank.affiliate_name}}
+							<span ng-if="limit_qty > 20" sm-access="view_affiliate_stats" if-not="hide">({{rank.rank}})</span>
 						</div>
 					</div>
 				</div>
@@ -64,18 +67,19 @@
 						</div>
 						<div class="label">
 							{{rank.affiliate_name}}
+							<span ng-if="limit_qty > 20" sm-access="view_affiliate_stats" if-not="hide">({{rank.rank}})</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<table class="ui celled padded table m-t-lg" ng-init="limit_qty = 20;">
+		<table class="ui celled padded table m-t-lg">
 			<thead>
 				<tr>
 					<th>Individual Affiliates</th>
 					<th class="text-center">Rank</th>
-					<th class="text-center" sm-access="view_affiliate_stats" if-not="hide">Total</th>
+					<th class="text-center" ng-if="limit_qty > 20" sm-access="view_affiliate_stats" if-not="hide">Total</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -86,7 +90,7 @@
 					<td>
 						<h2 class="ui center aligned header">{{rank.position}}</h2>
 					</td>
-					<td class="center aligned" sm-access="view_affiliate_stats" if-not="hide">
+					<td class="center aligned" ng-if="limit_qty > 20" sm-access="view_affiliate_stats" if-not="hide">
 						{{rank.rank}}
 					</td>
 				</tr>
@@ -108,7 +112,7 @@
 			</div>
 		</div>
 
-		<a sm-access="view_affiliate_stats" if-not="hide" ng-click="limit_qty > 20 ? limit_qty = 10 : limit_qty = 1000000;" class="ui center labeled green icon button" style="margin-top:10px;">
+		<a sm-access="view_affiliate_stats" if-not="hide" ng-click="limit_qty > 20 ? limit_qty = 20 : limit_qty = 1000000;" class="ui center labeled green icon button" style="margin-top:10px;">
 			{{limit_qty > 20 ? 'View Less' : 'View All'}}
 			<i class="eye icon"></i>
 		</a>
