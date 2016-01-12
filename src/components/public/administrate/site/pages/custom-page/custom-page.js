@@ -57,12 +57,21 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
             });
         }
         $scope.next_item.seo_settings = seo;
+
+        if( !$scope.next_item.id )
+        {
+            if( $stateParams.speed_blogging ) {
+                angular.forEach( $stateParams.speed_blogging, function(value, index){
+                    $scope.next_item[ index ] = value;
+                })
+            }
+        }
     }
 
     
 
     if( $stateParams.id )
-        Restangular.one( 'customPage', $stateParams.id ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
+        Restangular.one( 'customPage', $stateParams.id ).get().then(function(response){$scope.next_item = $next_item = response ; console.log($next_item);$scope.initialize()})
     else if( $stateParams.clone )
     {
         Restangular.one( 'customPage', $stateParams.clone ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
@@ -74,14 +83,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
     }
 
     //speed blogging stuff here
-    if( !$scope.next_item.id )
-    {
-        if( $stateParams.speed_blogging ) {
-            angular.forEach( $stateParams.speed_blogging, function(value, index){
-                $scope.next_item[ index ] = value;
-            })
-        }
-    }
+    
 
     var draft;
     var changed;
