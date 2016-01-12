@@ -10,16 +10,18 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('PublicDownloadController', function ($scope, $rootScope ,$localStorage, $state, $stateParams,  Restangular, toastr, $filter) {
-    $download={};
-    $scope.loading=true;
-    Restangular.one('downloadByPermalink' , $stateParams.permalink).get().then(function(response){
-        $download=response;
-        $scope.loading=false;
-        $scope.download = $download;
-        $rootScope.page_title = $download.title || $rootScope.page_title;
-    });
+
 
     $scope.updateStats = function(){
+        $download={};
+        $scope.loading=true;
+        Restangular.one('downloadByPermalink' , $stateParams.permalink).get().then(function(response){
+            $download=response;
+            $scope.loading=false;
+            $scope.download = $download;
+            $rootScope.page_title = $download.title || $rootScope.page_title;
+        });
+        
         if ($scope.download.download_link)
         {
             Restangular.all('get').customGET('download/'+$scope.download.id).then(function(response){
