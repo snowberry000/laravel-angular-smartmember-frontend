@@ -21,7 +21,6 @@ var app = angular.module( 'app', [
 	'ngAnimate',
 	'toastr',
 	'timer',
-	'localytics.directives',
 	'ngBusy',
 	'angularModalService',
 	'ngDragDrop',
