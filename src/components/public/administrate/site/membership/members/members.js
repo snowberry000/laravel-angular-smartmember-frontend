@@ -171,11 +171,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAccess = function( member )
 	{
-		if(member.type == 'owner')
+		if(member.type.indexOf('owner') >= 0)
 			return;
 		var new_role = member.type;
 
-		if(member.type != 'admin')
+		if(member.type.indexOf('admin') < 0)
 			new_role = 'admin';
 		else
 			new_role = 'member';
@@ -275,11 +275,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			} )
 		}*/
 		var new_role = member.type;
-		if(member.type == 'member')
+		if(member.type.indexOf('member') >= 0)
 		{
 			new_role = 'support';
 		}
-		else if(member.type == 'support'){
+		else if(member.type.indexOf('support') >= 0){
 			new_role = 'member'
 		}
 		Restangular.all( 'siteRole' ).customPUT( { type: new_role}, member.id ).then(function(response){
@@ -327,7 +327,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.isOwner = function( member )
 	{
-		return member.type == 'owner';
+		return member.type.indexOf('owner') >= 0;
 		/*var p_owner = _.findWhere( member.type, { role_type: 1 } ) || _.findWhere( member.type, { role_type: "1" } );
 		var owner = _.findWhere( member.type, { role_type: 2 } ) || _.findWhere( member.type, { role_type: "2" } );
 		var manager = _.findWhere( member.type, { role_type: 3 } ) || _.findWhere( member.type, { role_type: "3" } );
@@ -340,7 +340,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.isAgent = function( member )
 	{
-		return member.type == 'support' || member.type == 'admin' || member.type == 'owner';
+		return member.type.indexOf('support') >= 0 || member.type.indexOf('admin') >= 0 || member.type.indexOf('owner') >= 0;
 		/*var agent = _.findWhere( member.type, { role_type: 5 } ) || _.findWhere( member.type, { role_type: "5" } );
 		if( agent )
 		{
@@ -351,7 +351,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.isAdmin = function( member )
 	{
-		return member.type == 'admin' || member.type == 'owner';
+		return member.type.indexOf('admin') >= 0 || member.type.indexOf('owner') >= 0;
 		/*var admin = _.findWhere( member.type, { role_type: 4 } ) || _.findWhere( member.type, { role_type: "4" } );
 		if( admin )
 		{
