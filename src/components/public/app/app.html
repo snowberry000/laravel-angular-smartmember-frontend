@@ -4,7 +4,7 @@
 <div ng-if="!$state.includes('public.app.admin')" class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">		
 
-		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none member_sign_row">
+		<div ng-if="(!isLoggedIn() || !is_member) && app.subdomain != 'sm'" class="row p-b-none member_sign_row">
 			<div class="column" style="text-align: right;">
 				<div class="pull-left small monitor hidden large monitor hidden">
 					<a class="ui icon button" ng-click="smSidebar.Show('.left_app_sidebar_contents', '', {closable:true,dimPage:true});">
