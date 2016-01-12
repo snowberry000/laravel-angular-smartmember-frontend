@@ -341,11 +341,11 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 			return;
 		}
 
-		if( $scope.bridgepage.title == '' || $scope.bridgepage.title == undefined )
-		{
-			toastr.error( "Titlte is required" );
-			return;
-		}
+		// if( $scope.bridgepage.title == '' || $scope.bridgepage.title == undefined )
+		// {
+		// 	toastr.error( "Titlte is required" );
+		// 	return;
+		// }
 
 		if( $scope.bridgepage.swapspot.enable_timer )
 		{
