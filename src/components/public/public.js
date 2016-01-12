@@ -430,6 +430,13 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
         }
         $localStorage.open_reset_modal = null;
     }
+    else if ( $localStorage.open_speedblogging_modal )
+    {
+        $timeout(function(){
+            smModal.Show('public.administrate.speed_blogging');
+        });
+        $localStorage.open_speedblogging_modal = null;
+    }
 
 
 	$scope.cancelThemeSelection = function()

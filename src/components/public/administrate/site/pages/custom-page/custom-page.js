@@ -73,7 +73,15 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         $scope.initialize();
     }
 
-   
+    //speed blogging stuff here
+    if( !$scope.next_item.id )
+    {
+        if( $stateParams.speed_blogging ) {
+            angular.forEach( $stateParams.speed_blogging, function(value, index){
+                $scope.next_item[ index ] = value;
+            })
+        }
+    }
 
     var draft;
     var changed;

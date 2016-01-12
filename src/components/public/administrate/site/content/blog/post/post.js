@@ -108,6 +108,16 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 			$scope.next_item.most_used_tags = response.most_used_tags;
 		} )
 
+        //speed blogging stuff here
+        if( !$scope.next_item.id )
+        {
+            if( $stateParams.speed_blogging ) {
+                angular.forEach( $stateParams.speed_blogging, function(value, index){
+                    $scope.next_item[ index ] = value;
+                })
+            }
+        }
+
 
 		$scope.$watch( 'post', function( post, oldPost )
 		{
