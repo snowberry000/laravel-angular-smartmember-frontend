@@ -34,7 +34,8 @@ app.controller( "WwwHomeController", function( $scope, Restangular )
 		{
 			$scope.loading_sites = true;
 
-			Restangular.all( 'directory?category=' + encodeURIComponent( $scope.current_category ) ).getList().then( function( data )
+			//Restangular.all( 'directory?category=' + encodeURIComponent( $scope.current_category ) ).getList().then( function( data )
+			Restangular.all( 'directory' ).getList().then( function( data )
 			{
 				console.log( 'site_listings', data );
 				$scope.site_listings = data;

@@ -19,7 +19,7 @@
 <div class="ui vertical stripe segment" style="padding: 2em 0px;">
 	<div class="ui text text-center container">
 
-		<h3>
+		<h3 ng-if="false">
 			The best sites for
 			<div class="ui inline scrolling {{loading_categories ? 'loading' : ''}} dropdown" ng-model="current_category" sui-dropdown>
 				<div class="text" style="text-decoration: underline;">
@@ -33,6 +33,9 @@
 					</div>
 				</div>
 			</div>
+		</h3>
+		<h3 ng-if="false">
+			Example Smart Member Sites
 		</h3>
 
 	</div>
