@@ -8,7 +8,7 @@
         <div class="description">
 
             <div class="ui message">
-                <p>Choose what kind of content you want to make.</p>
+                <p>Choose what kind of content you want to create. </p>
             </div>
 
             <div class="ui section divider"></div>
@@ -17,7 +17,7 @@
                 <div class="ui loader"></div>
             </div>
 
-            <div class="ui stackable four cards" ng-if="!loading">
+            <div class="ui stackable three cards" ng-if="!loading">
                 <a class="ui card" ng-repeat="type in content_types" ng-click="smModal.Show( type.route,{speed_blogging: next_item})" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false">
                     <div class="image text-center p-sm">
                         <i class="huge icons">
@@ -25,8 +25,10 @@
                             <i class="green {{ type.icon }} icon"></i>
                         </i>
                     </div>
-                    <div class="extra">
-                        {{ type.description }}
+                    <div class="extra text-center">
+                        <h3 class="ui header">
+                            {{ type.description }}
+                        </h3>
                     </div>
                 </a>
             </div>
