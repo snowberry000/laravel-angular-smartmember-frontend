@@ -2,9 +2,8 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.speed_blogging",{
-			url: "/speed_blogging",
-			templateUrl: "/templates/components/public/administrate/speed_blogging/speed_blogging.html",
+		.state("public.administrate.speed-blogging",{
+			templateUrl: "/templates/components/public/administrate/speed-blogging/speed-blogging.html",
 			controller: "SpeedBloggingController"
 		})
 }); 
@@ -13,18 +12,18 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
     $scope.content_types = [
         {
             route: 'public.administrate.site.content.syllabus.lesson',
-            icon: 'write',
-            description: 'Create a lesson'
+            icon: 'student',
+            description: 'Lesson'
         },
         {
             route: 'public.administrate.site.content.blog.post',
-            icon: 'pin',
-            description: 'Create a post'
+            icon: 'rss',
+            description: 'Post'
         },
         {
             route: 'public.administrate.site.pages.custom-page',
             icon: 'file text',
-            description: 'Create a page'
+            description: 'Page'
         }
     ];
 
