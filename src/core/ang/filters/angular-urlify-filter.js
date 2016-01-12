@@ -153,12 +153,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                 text = downcode(text);
 
-                return text.replace(/[^-\w\s]/g, '')   // remove unneeded chars
-                    .replace(/[^a-z0-9\s]/gi,'')
-                    .replace(/[\?]+/g,'') //remove question mark
-                    .replace(/^\s+|\s+$/g, '')  // trim leading/trailing spaces
-                    .replace(/[-\s]+/g, '-')    // convert spaces to hyphens
-                    .toLowerCase();             // convert to lowercase
+                return text.replace(/(<([^>]+)>)/ig,"") //get rid of tags and stuff
+                    .replace( /-/g, ' ') //convert hyphens to spaces so we can trim the excess ones
+                    .trim() //trim the excess spaces off the beginning and end
+                    .replace( / /g, "-" ) //turn spaces into hyphens
+                    .replace(/[^a-zA-Z0-9-_]/g, '')//get rid of other symbols
+                    .replace(/-+/g, '-');//get rid of multiple hyphens
+
 
             };
         });

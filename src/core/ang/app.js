@@ -178,6 +178,13 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
             $localStorage.open_reset_modal = true;
         $location.search('reset', null)
     }
+    else if (location.href.indexOf('?speedblogging') != -1 )
+    {
+        $localStorage.open_speedblogging_modal = true;
+        $localStorage.speed_blogging_parameters = $location.search();
+
+        $location.url($location.path());
+    }
 
 	Restangular.setBaseUrl( $rootScope.app.apiUrl );
 	Restangular.setDefaultHeaders( { 'Content-Type': 'application/json' } );
@@ -270,14 +277,14 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 		{
 			e.preventDefault();
 //            $location.path('/sign/in/').search({message: 'a valid access token is required'});
-			window.location.href = 'http://' + location.hostname + "/sign/in/?message=a valid access token is required ";
+			window.location.href = 'http://' + location.hostname + "?signin";
 			//$state.go('sign.in',{message: 'a valid access token is required'});
 		}
 
 		if( isHome )
 		{
 			e.preventDefault();
-			window.location.href = 'http://' + location.hostname + "/sign/in/?message=a valid access token is required "
+            window.location.href = 'http://' + location.hostname + "?signin";
 			//$state.go('sign.in');
 		}
 
