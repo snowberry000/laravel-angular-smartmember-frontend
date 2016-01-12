@@ -29,7 +29,17 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
     }
     $site = $rootScope.site;
     $user = $rootScope.user;
-
+    $scope.closeOnCancel=$stateParams.closeOnCancel;
+    $scope.cancel = function(){
+        if($scope.closeOnCancel)
+        {
+            smModal.Close();
+        }
+        else
+        {
+            smModal.Show('public.administrate.site.pages.custom-pages');
+        }
+    }
     $scope.initialize = function(){
         if(!$scope.next_item.id)
         {
