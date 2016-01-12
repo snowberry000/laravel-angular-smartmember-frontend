@@ -294,7 +294,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 	{
         if( !$scope.next_item.permalink )
         {
-            $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title );
+            $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title).toLowerCase();
         }
         $scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
 	}
