@@ -467,7 +467,6 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$scope.RefreshScreen = function()
 	{
-
 		$state.go( $state.current, $stateParams, { reload: 'public.app' } );
 	}
 
