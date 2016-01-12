@@ -13,6 +13,7 @@ app.config( function( $stateProvider )
 app.controller( "TicketController", function( $scope, $localStorage, smModal, $state, $rootScope, $stateParams, $filter, Restangular, toastr )
 {
 	$scope.display_replies = [];
+	$scope.change_ticket_status = '';
 	$user = $rootScope.user;
 	if( $stateParams.id )
 	{
@@ -45,7 +46,12 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 
 		$scope.reply = { parent_id: $scope.ticket.id, company_id: $scope.ticket.company_id };
 		$scope.send_email = false;
-
+		if ($scope.ticket.status == 'open')
+		{
+			$scope.change_ticket_status = 'pending';
+		} else {
+			$scope.change_ticket_status = $scope.ticket.status;
+		}
 
 
 		Restangular.all( '' ).customGET( 'siteRole?type=support' ).then( function( data )
@@ -252,6 +258,7 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 
 	$scope.sendReply = function()
 	{
+
 		if( $scope.admin_mode )
 		{
 			Restangular.all( 'adminNote' ).post( {
