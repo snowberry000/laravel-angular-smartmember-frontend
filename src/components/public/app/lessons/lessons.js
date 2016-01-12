@@ -277,7 +277,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     }
 
     $scope.editLessonDone = function(edited_lesson){
-        console.log(edited_lesson);
+
         $scope.addAccessLevel(edited_lesson);
         if(edited_lesson && edited_lesson.id){
             //fix lessons module
@@ -289,6 +289,10 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
                     }
 
                 };
+                if(!edited_lesson.module_id && !$scope.modules[i].id)
+                {
+                    $scope.modules[i].lessons.push(edited_lesson);
+                }
                 if($scope.modules[i].id == edited_lesson.module_id){
                     $scope.modules[i].lessons.push(edited_lesson);
                 }
@@ -305,6 +309,18 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
                 };
             };
         }
+
+        for(var i=0;i<$scope.modules.length;i++)
+        {   
+            $rootScope.Modulelessons.push.apply( $rootScope.Modulelessons, $filter('orderBy')($scope.modules[i].lessons, 'sort_order') );
+        }
+        for(var i=0;i<$scope.modules.length;i++)
+        {   
+            $scope.modules[i].lessons = $filter('orderBy')($scope.modules[i].lessons, 'sort_order') ;
+            if(!$scope.modules[i].id)
+                console.log($scope.modules[i].lessons);
+        }
+
     }
 
     $scope.addLessonDone = function(added_lesson){
