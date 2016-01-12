@@ -65,11 +65,12 @@
 	<div class="ui stackable internally celled grid">
 		<div class="ui  stackable grid container">
 			<div class="row">
-				<div class="eleven wide column">
+				<div class="eleven wide column" >
 
 					<h3 class="ui header">Site Description</h3>
+					<div dynamic="site_listing.description"></div>
 
-					{{site_listing.description}}
+					
 
 					<h3 class="ui header" ng-if="site_listing.sites.length > 0">Other Sites</h3>
 
@@ -80,7 +81,7 @@
 				</div>
 				<div class="five wide column">
 					<div class="overlay">
-						<div class="ui labeled icon vertical menu">
+						<div class="ui labeled icon compact menu">
 							<a class="item"
 							   socialshare
 							   socialshare-provider="twitter"

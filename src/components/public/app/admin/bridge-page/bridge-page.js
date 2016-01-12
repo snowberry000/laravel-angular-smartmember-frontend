@@ -20,6 +20,24 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$site = $rootScope.site;
 	$scope.loading = true;
+
+	$scope.randomPermalink = function(length) {
+	    if( length == undefined )
+	        length = 6;
+
+	    var characters = "abcdefghijklmnopqrstuwxyz0123456789".split('');
+	    var permalink = [];
+	    var length_of_characters = characters.length;
+
+	    for( var i = 0; i < length; i++ )
+	    {
+	        var n = Math.floor( Math.random() * length_of_characters );
+	        permalink.push( characters[ n ] );
+	    }
+
+	    return permalink.join('');
+	}
+
 	$templates = Restangular.all( 'bridgeTemplate' ).customGET( 'getlist' ).then( function( response )
 	{
 		$scope.templates = response;
@@ -38,7 +56,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 	}
 	else
 	{
-		$scope.bridgepage = $page = { site_id: $site.id, access_level_type: 4 }
+		$scope.bridgepage = $page = { site_id: $site.id, access_level_type: 4 , permalink : $scope.randomPermalink() }
 	}
 
 	$dependencies = [ $templates, $emailLists ];
@@ -341,11 +359,11 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 			return;
 		}
 
-		if( $scope.bridgepage.title == '' || $scope.bridgepage.title == undefined )
-		{
-			toastr.error( "Titlte is required" );
-			return;
-		}
+		// if( $scope.bridgepage.title == '' || $scope.bridgepage.title == undefined )
+		// {
+		// 	toastr.error( "Titlte is required" );
+		// 	return;
+		// }
 
 		if( $scope.bridgepage.swapspot.enable_timer )
 		{

@@ -68,7 +68,8 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 	$scope.Init = function()
 	{
 		// Show something at least on pageload
-		smModal.Show( 'public.sign.in', {modal_options: {duration:0}} );
+		if(!$localStorage.user || !$localStorage.user.access_token)
+			smModal.Show( 'public.sign.in', {modal_options: {duration:0}} );
 	}
 
 	$scope.Init();

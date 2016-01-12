@@ -178,7 +178,7 @@ app.controller( "ContestController", function( $scope, $filter, Upload, $localSt
 	{
 		if( !$scope.contest.permalink && $title )
 		{
-			$scope.contest.permalink = "leaderboard-" + $filter( 'urlify' )( $title );
+			$scope.contest.permalink = "leaderboard-" + $filter( 'urlify' )( $title ).toLowerCase();
 		}
 
 	}

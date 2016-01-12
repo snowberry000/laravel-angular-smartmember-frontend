@@ -17,86 +17,28 @@
 			stats
 		</div>
 
-		<div class="ui grid text-center">
-			<div class="one column row">
-				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 1">
-
-					<div class="ui huge statistic green segment">
-						<div class="value">
-							#{{rank.position}}
-						</div>
-						<div class="label">
-							{{rank.affiliate_name}}
-							<span ng-if="limit_qty > 20" sm-access="view_affiliate_stats" if-not="hide"></span>
-						</div>
-						<div class="ui red floating label">{{rank.rank}}</div>
-					</div>
-				</div>
-			</div>
-			<div class="two column row">
-				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 3" ng-if="key >= 1">
-
-					<div class="ui large statistic basic segment">
-						<div class="value">
-							#{{rank.position}}
-							<div class="ui top right attached label" style="padding:.5em;">{{rank.rank}}</div>
-						</div>
-						<div class="label">
-							{{rank.affiliate_name}}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="three column row">
-				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 6" ng-if="key >= 3">
-
-					<div class="ui statistic basic segment">
-						<div class="value">
-							#{{rank.position}}
-							<div class="ui top right attached label" style="padding:.5em;">{{rank.rank}}</div>
-						</div>
-						<div class="label">
-							{{rank.affiliate_name}}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="four column row">
-				<div class="column" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: 10" ng-if="key >= 6">
-
-					<div class="ui small statistic basic segment">
-						<div class="value">
-							#{{rank.position}}
-							<div class="ui top right attached label" style="padding:.5em;">{{rank.rank}}</div>
-						</div>
-						<div class="label">
-							{{rank.affiliate_name}}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<table class="ui celled padded table m-t-lg">
+		<table class="ui striped padded celled definition large table">
 			<thead>
 				<tr>
-					<th>Individual Affiliates</th>
-					<th class="text-center">Rank</th>
-					<th class="text-center">
-						Total {{leaderboard.contest.type == 'leads' ? "Leads" : ""}}
-					</th>
+					<th></th>
+					<th>Affiliates & Teams</th>
+					<th class="center aligned">Total {{leaderboard.contest.type == 'leads' ? "Leads" : ""}}</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(key,rank) in leaderboard.ranking | limitTo: (full_display ? 100000 : 25)" ng-if="key >= 10">
-					<td class="single line">
-						{{rank.affiliate_name}}
+				<tr class="{{rank.position <= 10 ? 'positive' : ''}}" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: (full_display ? 100000 : 25)">
+					<td>
+						<h2 class="ui center aligned header">
+							{{rank.position}}
+						</h2>
 					</td>
 					<td>
-						<h2 class="ui center aligned header">{{rank.position}}</h2>
+						<h3>{{rank.affiliate_name}}</h3>
 					</td>
 					<td class="center aligned">
-						<div class="ui label">{{rank.rank}}</div>
+						<div class="ui large {{rank.position <= 10 ? 'green' : ''}} label">
+							{{rank.rank}}
+						</div>
 					</td>
 				</tr>
 			</tbody>
@@ -110,7 +52,7 @@
 							{{leaderboard.total_ranks}}
 						</div>
 						<div class="label">
-							{{leaderboard.contest.type == 'leads' ? 'Leads' : 'Sales'}}
+							Total {{leaderboard.contest.type == 'leads' ? 'Leads' : 'Sales'}}
 						</div>
 					</div>
 				</div>

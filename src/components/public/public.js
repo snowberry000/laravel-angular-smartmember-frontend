@@ -54,7 +54,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		if(state.length >= 3){
 			state = state[2];
 		}
-		if( $scope.isLoggedIn() && state != 'wallboard')
+		if( $scope.isLoggedIn() && state != 'wallboard' && ($rootScope.app.subdomain != 'sm' || $rootScope.site.is_admin == true))
 		{
 			return 'templates/components/public/admin-bar/admin-bar.html';
 		}
@@ -72,19 +72,19 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
 				$localStorage.open_sites_wizard_modal = null;
 				$timeout(function(){
-					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
-				} , 3000)
+					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard' , modal_options : {duration : 0 }} );
+				} , 50)
 			}else if($localStorage.open_stripe_modal && $rootScope.site && $rootScope.site.is_admin){
 				
 				$timeout(function(){
-					smModal.Show( 'public.administrate.team.app_configurations.list' );
+					smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }});
 					$localStorage.open_stripe_modal = null;
-				} , 3000)
+				} , 50)
 			}else if($localStorage.open_vimeo_modal && $rootScope.site && $rootScope.site.is_admin){
 				$timeout(function(){
-					smModal.Show( 'public.administrate.team.app_configurations.list' );
+					smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }} );
 					$localStorage.open_vimeo_modal = null;
-				} , 3000)
+				} , 50)
 			}
 
 			Restangular.one( 'site/members' ).get().then( function( response )
@@ -134,8 +134,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
 					$localStorage.open_sites_wizard_modal = null;
 					$timeout(function(){
-						smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
-					} , 5000)
+						smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard' , modal_options : {duration : 0 }} );
+					} , 50)
 				}
 
 				angular.forEach( $sites, function( site, key )
@@ -403,32 +403,39 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	else if( $localStorage.open_signup_modal )
 	{
 		$timeout(function(){
-			smModal.Show( 'public.sign.up' );
-		} , 5000)
+			smModal.Show( 'public.sign.up' ,{ modal_options : {duration : 0 }} );
+		} , 50)
 		$localStorage.open_signup_modal = null;
 	}
     else if ( $localStorage.open_signin_modal )
 	{
 		$timeout(function(){
-			smModal.Show('public.sign.in');
-		} , 5000)
+			smModal.Show('public.sign.in' , { modal_options : {duration : 0 }});
+		} , 50)
 		$localStorage.open_signin_modal = null;
 	}
     else if ( $localStorage.open_forgot_modal )
     {
     	$timeout(function(){
-    		smModal.Show('public.sign.forgot');
-    	} , 5000)
+    		smModal.Show('public.sign.forgot' , { modal_options : {duration : 0 }});
+    	} , 50)
         $localStorage.open_forgot_modal = null;
     }
     else if ( $localStorage.open_reset_modal )
     {
         if( !$localStorage.user ){
         	$timeout(function(){
-        		smModal.Show('public.sign.reset');
-        	} , 5000)
+        		smModal.Show('public.sign.reset' , { modal_options : {duration : 0 }});
+        	} , 50)
         }
         $localStorage.open_reset_modal = null;
+    }
+    else if ( $localStorage.open_speedblogging_modal )
+    {
+        $timeout(function(){
+            smModal.Show('public.administrate.speed-blogging');
+        });
+        $localStorage.open_speedblogging_modal = null;
     }
 
 
@@ -460,7 +467,6 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$scope.RefreshScreen = function()
 	{
-
 		$state.go( $state.current, $stateParams, { reload: 'public.app' } );
 	}
 

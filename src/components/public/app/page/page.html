@@ -1,6 +1,9 @@
-<div class="sixteen wide column" ng-if="!loading">
+<div class="twelve wide column" ng-if="!loading">
 	<div class="column">
-		<div class="ui compact segment basic">
+		<div class="ui compact segment basic" style="
+    margin-left: auto;
+    margin-right: auto;
+">
 			<h2 class="ui header headline_text_color">
 				{{page.title}}
 			</h2>
@@ -9,7 +12,7 @@
 </div>
 <div class="twelve wide column">
 
-	<div class="ui piled segment section_background_color" data-position="top left" data-edit="true" data-state="public.administrate.site.content.custom-page" data-stateAttributes="{id:{{page.id}}}" sui-popup>
+	<div class="ui piled segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.administrate.site.pages.custom-page" data-stateAttributes='{"id":{{page.id}}, "closeOnCancel":true}' sui-popup>
 
 		<div class="ui active inverted dimmer" ng-if="loading">
 			<div class="ui text loader">Loading</div>

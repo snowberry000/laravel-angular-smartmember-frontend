@@ -28,9 +28,14 @@ app.controller("EmailISubscribermportController", function ($scope,$q, $localSto
         $scope.emailsubscriber = {email_lists:[]};
         $scope.emailsubscriber.email_lists.push(response);
     });
-    emailLists = Restangular.all('emailList').getList({list_type: 'user'}).then(function(response){
-        $scope.emailLists = response;
-    })
+    // emailLists = Restangular.all('emailList').getList({list_type: 'user'}).then(function(response){
+    //     $scope.emailLists = response;
+    // })
+
+emailLists=Restangular.all( '' ).customGET('emailList?list_type=user&bypass_paging=true').then( function( data )
+    {
+        $scope.emailLists  = Restangular.restangularizeCollection( null, data.items, 'emailList');
+    } );
    
     $q.all([emailLists , emailListId]).then(function(response){
         $scope.init();

@@ -23,7 +23,8 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 	var intercom = _.findWhere($scope.site.app_configuration,{type:'intercom'});
 
 	if (intercom){
-		if ($localStorage.user && $localStorage.user.id){
+        //we are disabling support for now, we'll probably add some integration settings in the future to allow this
+		if (false && $localStorage.user && $localStorage.user.id){
 			var intercomData = {
 			  app_id: intercom.username,
 			  name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
@@ -32,6 +33,7 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			};
 			window.Intercom('boot', intercomData);
 		}else{
+            console.log( 'we should be trying to boot up:::', intercom.username );
 			window.Intercom('boot',{app_id: intercom.username});
 		}
 

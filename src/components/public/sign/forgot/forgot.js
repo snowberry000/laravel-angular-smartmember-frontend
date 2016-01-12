@@ -22,19 +22,9 @@ app.controller('ResetController', function ($rootScope, smModal, $scope, $localS
 		}
 	}
 
-    var getUrlVars = function()
+    if( $rootScope.$_GET['reset_hash'] )
     {
-        var vars = {};
-        var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
-        {
-            vars[ key ] = decodeURIComponent( value );
-        } );
-        return vars;
-    }
-
-    if( $scope.$_GET['reset_hash'] )
-    {
-        $scope.hash = $scope.$_GET['reset_hash'];
+        $scope.hash = $rootScope.$_GET['reset_hash'];
     }
 
 	$scope.reset = function(password){
