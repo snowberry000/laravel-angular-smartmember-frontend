@@ -19,8 +19,11 @@
 							">
 								Attachment
 							</span>
-							<img ng-src="{{next_item.attachment}}"></img>
+							<img ng-src="{{next_item.attachment}}"/>
 						</div>
+					</div>
+					<div ng-if="ticket.notes" class="ui attached segment" style="url('https://cdn.livechatinc.com/app/production/img/tickets/comment-bg.png') no-repeat scroll top right #dcf4fc;" ng-repeat="next_item in ticket.notes">
+						<div dynamic="next_item.note"></div>
 					</div>
 
 					<h3 class="ui horizontal divider header">
@@ -430,8 +433,7 @@
 										<div class="row">
 											<div class="col-md-6">
 												Mark as
-												<select ng-init="ticket.status == 'open' ? $parent.change_ticket_status = 'pending' : $parent.change_ticket_status=ticket.status"
-														ng-model="$parent.change_ticket_status">
+												<select ng-model="change_ticket_status">
 													<option ng-selected="(ticket.status == 'open' && status.id == 'pending') || (ticket.status != 'open' && status.id==ticket.status)"
 															ng-repeat="status in statuses" value="{{status.id}}">
 														{{status.value}}
