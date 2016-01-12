@@ -8,7 +8,7 @@
 			Smart Member 2.0
 		</h1>
 		<h2>Launches January 12th, 2016</h2>
-		<h2><timer end-time="1452614400000">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds.</timer></h2>
+		<h2><timer end-time="1452621600000">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds.</timer></h2>
 
 		<a class="ui huge primary button" ng-href="http://3c.smartmember.com/prelaunch">
 			Get Started <i class="right arrow icon"></i>
@@ -19,7 +19,7 @@
 <div class="ui vertical stripe segment" style="padding: 2em 0px;">
 	<div class="ui text text-center container">
 
-		<h3>
+		<h3 ng-if="false">
 			The best sites for
 			<div class="ui inline scrolling {{loading_categories ? 'loading' : ''}} dropdown" ng-model="current_category" sui-dropdown>
 				<div class="text" style="text-decoration: underline;">
@@ -33,6 +33,9 @@
 					</div>
 				</div>
 			</div>
+		</h3>
+		<h3 ng-if="false">
+			Example Smart Member Sites
 		</h3>
 
 	</div>
@@ -55,41 +58,6 @@
 		</div>
 	</div>
 </div>
-
-
-<div ng-if="false" class="ui vertical stripe quote segment">
-	<div class="ui equal width stackable internally celled grid">
-		<div class="center aligned row">
-			<div class="column">
-				<h3>"What a Company"</h3>
-				<p>That is what they all say about us</p>
-			</div>
-			<div class="column">
-				<h3>"I shouldn't have gone with their competitor."</h3>
-				<p>
-					<img src="assets/images/avatar/nan.jpg" class="ui avatar image">
-					<b>Nan</b>
-					Chief Fun Officer Acme Toys
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div ng-if="false" class="ui vertical stripe segment">
-	<div class="ui text container">
-		<h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
-		<p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
-		<a class="ui large button">Read More</a>
-		<h4 class="ui horizontal header divider">
-			<a href="#">Case Studies</a>
-		</h4>
-		<h3 class="ui header">Did We Tell You About Our Bananas?</h3>
-		<p>Yes I know you probably disregarded the earlier boasts as non-sequitor filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
-		<a class="ui large button">I'm Still Quite Interested</a>
-	</div>
-</div>
-
 
 <div ng-if="false" class="ui inverted vertical footer segment">
 	<div class="ui container">
