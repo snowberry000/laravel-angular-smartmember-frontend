@@ -1,16 +1,15 @@
-<div class="ui segment" ng-controller="FacebookGroupController" ng-if='site.facebook_group_id'>
+<div class="ui segment" ng-controller="FacebookGroupController">
 	<h2 class="ui header" ng-if='!facebook_groups'>Join The Discussion</h2>
-	<p ng-if='!facebook_groups'>Join our private member-only facebook group discussion and connect with other
+	<p ng-if='!joined_facebook_groups'>Join our private member-only facebook group discussion and connect with other
 		members of this site.
 	</p>
 	<select ng-selected="0" data-ng-options="group.remote_id as group.username for group in facebook_groups" class='form-control input-lg hide' ng-model="group_id.selected" placeholder='Select Facebook Group' style="display: none;">
 	</select>
-	<a class="btn btn-info btn-sm" type="button"
-	   ng-if='!facebook_groups' ng-click='joinGroup(group_id.selected)'>
+	<a href="#" class="btn btn-info btn-sm" ng-if='!joined_facebook_groups' ng-click='joinGroup(group_id.selected)'>
 		<img src="/images/facebook_group_connect.png" style="width: 100%;" alt=""/>
 	</a>
-	<span ng-if='facebook_groups'>
-		 <a ng-repeat="group in facebook_groups" ng-if="group.remote_id" target="_blank" href='https://www.facebook.com/{{group.remote_id}}'>
+	<span ng-if='joined_facebook_groups'>
+		 <a ng-repeat="group in joined_facebook_groups" ng-if="group.remote_id" target="_blank" href='https://www.facebook.com/{{group.remote_id}}'>
 			 <h3 ng-if="facebook_groups.length > 1">{{group.name}}</h3>
 			 <img src="/images/facebook_group_view.png" style="width: 100%;" alt=""/>
 		 </a>
