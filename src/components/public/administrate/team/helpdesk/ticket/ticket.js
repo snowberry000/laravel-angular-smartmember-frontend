@@ -12,7 +12,7 @@ app.config( function( $stateProvider )
 
 app.controller( "TicketController", function( $scope, $localStorage, smModal, $state, $rootScope, $stateParams, $filter, Restangular, toastr )
 {
-
+	$scope.display_replies = [];
 	$user = $rootScope.user;
 	if( $stateParams.id )
 	{
@@ -47,11 +47,13 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 		$scope.send_email = false;
 
 
-		Restangular.service( 'siteRole' ).getList( { type: 'support' } ).then( function( data )
-		{
 
+		Restangular.all( '' ).customGET( 'siteRole?type=support' ).then( function( data )
+		{
+			data=data.items;
 			angular.forEach( data, function( value )
 			{
+				console.log(value);
 				if( typeof value.user != 'undefined' )
 				{
 					var user_name = value.user.first_name + ' ' + value.user.last_name;
@@ -308,6 +310,8 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 				'send_email': $scope.send_email
 			} ).then( function( response )
 			{
+				if(response.status == "solved")
+					$rootScope.site.unread_support_ticket-=1;
 				toastr.success( "Ticket status changed!" );
 
 				var action = {

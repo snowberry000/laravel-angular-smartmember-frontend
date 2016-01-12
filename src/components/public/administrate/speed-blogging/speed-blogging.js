@@ -8,7 +8,13 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SpeedBloggingController", function ($scope, $rootScope, close, smModal) {
+app.controller("SpeedBloggingController", function ($scope, $rootScope, close, smModal, $localStorage) {
+
+    if( $localStorage.speed_blogging_parameters ) {
+        $rootScope.$_GET = $localStorage.speed_blogging_parameters;
+        delete $localStorage.speed_blogging_parameters;
+    }
+
     $scope.content_types = [
         {
             route: 'public.administrate.site.content.syllabus.lesson',
@@ -64,6 +70,7 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
                                     }
 
                                     $scope.loading = false;
+                                    $scope.addSource();
                                 }
                             } );
                         }
@@ -86,12 +93,14 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
                                     $scope.next_item.title = json_data[ 0 ].title;
 
                                     $scope.loading = false;
+                                    $scope.addSource();
                                 }
                             } );
                         }
                         else
                         {
                             $scope.loading = false;
+                            $scope.addSource();
                         }
                         break;
                     case 'image':
@@ -119,6 +128,30 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
         }
     } );
 
-    if( !$rootScope.$_GET['embed'] )
+
+    $scope.addSource = function() {
+        angular.forEach($rootScope.$_GET, function (value, key) {
+            switch (key) {
+                case 'source_title':
+                    if ($rootScope.$_GET['source_url']) {
+                        $scope.next_item.content += '<br>Source: <a href="' + $rootScope.$_GET['source_url'] + '" target="_blank">' + value + '</a>';
+                    } else {
+                        $scope.next_item.content += 'Source: ' + value;
+                    }
+                    break;
+                case 'source_url':
+                    if ($rootScope.$_GET['source_title']) {
+
+                    } else {
+                        $scope.next_item.content += 'Source: ' + value;
+                    }
+                    break;
+            }
+        });
+    }
+
+    if( !$rootScope.$_GET['type'] || $rootScope.$_GET['type'] != 'embed' ) {
         $scope.loading = false;
+        $scope.addSource();
+    }
 });
