@@ -281,6 +281,19 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         console.log(edited_lesson);
         $scope.addAccessLevel(edited_lesson);
         if(edited_lesson && edited_lesson.id){
+            //fix lessons module
+            for (var i = $scope.modules.length - 1; i >= 0; i--) {
+                for (var j = $scope.modules[i].lessons.length - 1; j >= 0; j--) {
+                    if($scope.modules[i].lessons[j].id == edited_lesson.id){
+                        $scope.modules[i].lessons.splice(j , 1);
+                        // $state.reload();
+                    }
+
+                };
+                if($scope.modules[i].id == edited_lesson.module_id){
+                    $scope.modules[i].lessons.push(edited_lesson);
+                }
+            };
 
             for (var i = $scope.modules.length - 1; i >= 0; i--) {
                 for (var j = $scope.modules[i].lessons.length - 1; j >= 0; j--) {
@@ -350,10 +363,10 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.done = function(response){
         
 // $state.reload();
-        $state.transitionTo($state.current, $stateParams, { 
-          reload: true, inherit: false, location: false
-        });
-        return;
+        // $state.transitionTo($state.current, $stateParams, { 
+        //   reload: true, inherit: false, location: false
+        // });
+        // return;
         smModal.Close();
         switch($scope.syllabus.current_action){
             case 'edit_lesson':
