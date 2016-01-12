@@ -39,6 +39,23 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 		}
 	} );
 
+	$scope.promptRemoveMe = function( $event,$argSite )
+	{
+		$event.preventDefault();
+		swal( {
+			title: "Are you sure?",
+			text: "Removing this account will remove all of your roles from "+$argSite.name+"!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, remove it!",
+			closeOnConfirm: true
+		}, function()
+		{
+			$scope.revoke($argSite);
+		} );
+	}
+
 	$scope.paginate = function() {
         var begin = (($scope.pagination.current_page - 1) * $scope.pagination.per_page),
             end = begin + $scope.pagination.per_page;
@@ -53,6 +70,14 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
         $scope.countSites('editor');
         $scope.countSites('support');
         $scope.countSites('member');
+    }
+
+    $scope.revoke = function ($argSite) {
+    	
+    	Restangular.all('siteRole/removeUserFromSite').customPOST({'site_id': $argSite.id ,'user_id' : $rootScope.site.user_id }).then(function(response){
+            $scope.sites_to_show = _.filter($scope.sites_to_show, function($tempSite){ return $tempSite.id!=$argSite.id; });
+            toastr.success(response.length+' roles of you are removed from '+$argSite.name);
+        });
     }
 
 	$scope.filterBy = function(role){

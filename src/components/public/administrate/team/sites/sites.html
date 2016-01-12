@@ -64,7 +64,7 @@
 							{{site.domain ? site.domain : site.subdomain + '.' + 'smartmember.com' }}
 						</div>
 						<div class="description">
-
+							<button class="ui top left attached label"  ng-if ="site.role!='owner'" ng-click="promptRemoveMe($event,site)">Remove me</button>
 						</div>
 					</div>
 					<div class="extra content">
