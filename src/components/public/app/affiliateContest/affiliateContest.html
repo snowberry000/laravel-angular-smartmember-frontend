@@ -24,7 +24,7 @@
 					<th>Affiliates & Teams</th>
 					<th class="center aligned">Total {{leaderboard.contest.type == 'leads' ? "Leads" : ""}}</th>
 				</tr>
-			</thead>
+			</thead> 
 			<tbody>
 				<tr class="{{rank.position <= 10 ? 'positive' : ''}}" ng-repeat="(key,rank) in leaderboard.ranking | limitTo: (full_display ? 100000 : 25)">
 					<td>
