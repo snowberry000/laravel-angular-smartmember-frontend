@@ -390,7 +390,9 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	{
 		if( !$localStorage.user )
 		{
-			smModal.Show( 'public.sign.transaction' );
+            $timeout( function(){
+                smModal.Show( 'public.sign.transaction' );
+            }, 1000);
 		}
 		else
 		{
