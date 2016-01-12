@@ -47,8 +47,8 @@
 					<div class="row">
 						<div class="col-md-6">
 							Mark as
-							<select ng-init="ticket.status == 'open' ? $parent.change_ticket_status = 'pending' : $parent.change_ticket_status=ticket.status"
-									ng-model="$parent.change_ticket_status">
+							<select ng-init="ticket.status == 'open' ? change_ticket_status = 'pending' : change_ticket_status=ticket.status"
+									ng-model="change_ticket_status">
 								<option ng-selected="(ticket.status == 'open' && status.id == 'pending') || (ticket.status != 'open' && status.id==ticket.status)"
 										ng-repeat="status in statuses" value="{{status.id}}">
 									{{status.value}}
