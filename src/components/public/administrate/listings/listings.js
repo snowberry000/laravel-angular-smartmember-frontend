@@ -44,9 +44,9 @@ app.controller("ListingsController", function ($scope,Restangular,$rootScope,$ht
 			})
 	}
 
-	$scope.deleteResource = function(id){
+	/*$scope.deleteResource = function(id){
 		location.reload();
-	}
+	}*/
 
 	$scope.paginate = function()
 	{
@@ -126,9 +126,9 @@ app.controller("ListingsController", function ($scope,Restangular,$rootScope,$ht
 		itemWithId.remove().then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
-			$state.transitionTo($state.current, $stateParams, { 
-          reload: true, inherit: false, location: false
-        });
+			// $state.transitionTo($state.current, $stateParams, { 
+	  //         reload: true, inherit: false, location: false
+	  //       });
 		} );
 	};
 });
