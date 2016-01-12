@@ -396,7 +396,10 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
 			Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
 			{
-				location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
+                if( location.href.indexOf( 'sm.smartmember.' ) == -1 )
+				    location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
+                else
+                    location.href = 'http://my.smartmember.' + $rootScope.app.env;
 			} );
 		}
 	}
