@@ -1,6 +1,6 @@
 var app = angular.module('app');
 
-app.factory( 'httpInterceptor', function( $q, $rootScope, $injector, $location )
+app.factory( 'httpInterceptor', function( $q, $rootScope, $injector, $location, $localStorage, ipCookie )
 {
 	return {
 		'request': function( config )
@@ -43,11 +43,11 @@ app.factory( 'httpInterceptor', function( $q, $rootScope, $injector, $location )
 				window.location.href = 'http://training.' + $rootScope.app.rootDomain + '/domain-not-found';
 				return [];
 			}
-			if( rejection.status == 401 && $location.path() != '/sign/in/' )
+			if( rejection.status == 401 && !$localStorage.open_signin_modal )
 			{
-				// $rootScope.accessed_url;
-				// $location.path('/sign/in/').search({redirectURL: $rootScope.accessed_url});
-				$location.path( '/sign/in/' ).search( { message: 'a valid access token is required' } );
+                delete $localStorage.user;
+                ipCookie.remove('user', {'domain' : $rootScope.app.domain, 'path' : '/'});
+				location.href = '/sign/in';
 				return [];
 			}
 			else

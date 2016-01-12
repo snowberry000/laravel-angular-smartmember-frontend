@@ -76,6 +76,7 @@ ErrorDocument 404 /pricing
     RewriteRule ^support-ticket/create(.*)$ http://%{HTTP_HOST}/support-ticket [L]
     RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST}/?signin [L]
     RewriteRule ^sign/up(.*)$ http://%{HTTP_HOST}/?signup [L]
+    RewriteRule ^sign/forgot(.*)$ http://%{HTTP_HOST}/?forgot [L]
 </ifModule>
 
 <ifModule mod_rewrite.c>

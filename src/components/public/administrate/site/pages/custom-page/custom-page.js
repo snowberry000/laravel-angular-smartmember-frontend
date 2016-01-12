@@ -73,7 +73,15 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         $scope.initialize();
     }
 
-   
+    //speed blogging stuff here
+    if( !$scope.next_item.id )
+    {
+        if( $stateParams.speed_blogging ) {
+            angular.forEach( $stateParams.speed_blogging, function(value, index){
+                $scope.next_item[ index ] = value;
+            })
+        }
+    }
 
     var draft;
     var changed;
@@ -104,7 +112,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
 
     $scope.setPermalink = function ($event) {
         if (!$scope.next_item.permalink)
-            $scope.next_item.permalink = $filter('urlify')($scope.next_item.title);
+            $scope.next_item.permalink = $filter('urlify')($scope.next_item.title).toLowerCase();
         $scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
     }
     $scope.onBlurSlug = function ($event) {
