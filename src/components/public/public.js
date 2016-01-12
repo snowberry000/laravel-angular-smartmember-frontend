@@ -72,17 +72,17 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
 				$localStorage.open_sites_wizard_modal = null;
 				$timeout(function(){
-					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
+					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard' , modal_options : {duration : 0 }} );
 				} , 3000)
 			}else if($localStorage.open_stripe_modal && $rootScope.site && $rootScope.site.is_admin){
 				
 				$timeout(function(){
-					smModal.Show( 'public.administrate.team.app_configurations.list' );
+					smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }});
 					$localStorage.open_stripe_modal = null;
 				} , 3000)
 			}else if($localStorage.open_vimeo_modal && $rootScope.site && $rootScope.site.is_admin){
 				$timeout(function(){
-					smModal.Show( 'public.administrate.team.app_configurations.list' );
+					smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }} );
 					$localStorage.open_vimeo_modal = null;
 				} , 3000)
 			}
@@ -134,7 +134,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
 					$localStorage.open_sites_wizard_modal = null;
 					$timeout(function(){
-						smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
+						smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard' , modal_options : {duration : 0 }} );
 					} , 5000)
 				}
 
@@ -403,21 +403,21 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	else if( $localStorage.open_signup_modal )
 	{
 		$timeout(function(){
-			smModal.Show( 'public.sign.up' );
+			smModal.Show( 'public.sign.up' ,{ modal_options : {duration : 0 }} );
 		} , 5000)
 		$localStorage.open_signup_modal = null;
 	}
     else if ( $localStorage.open_signin_modal )
 	{
 		$timeout(function(){
-			smModal.Show('public.sign.in');
+			smModal.Show('public.sign.in' , { modal_options : {duration : 0 }});
 		} , 5000)
 		$localStorage.open_signin_modal = null;
 	}
     else if ( $localStorage.open_forgot_modal )
     {
     	$timeout(function(){
-    		smModal.Show('public.sign.forgot');
+    		smModal.Show('public.sign.forgot' , { modal_options : {duration : 0 }});
     	} , 5000)
         $localStorage.open_forgot_modal = null;
     }
@@ -425,7 +425,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
     {
         if( !$localStorage.user ){
         	$timeout(function(){
-        		smModal.Show('public.sign.reset');
+        		smModal.Show('public.sign.reset' , { modal_options : {duration : 0 }});
         	} , 5000)
         }
         $localStorage.open_reset_modal = null;
