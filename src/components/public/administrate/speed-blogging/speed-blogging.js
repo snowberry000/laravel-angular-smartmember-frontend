@@ -13,17 +13,17 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
         {
             route: 'public.administrate.site.content.syllabus.lesson',
             icon: 'student',
-            description: 'Create a lesson'
+            description: 'Lesson'
         },
         {
             route: 'public.administrate.site.content.blog.post',
             icon: 'rss',
-            description: 'Create a post'
+            description: 'Post'
         },
         {
             route: 'public.administrate.site.pages.custom-page',
             icon: 'file text',
-            description: 'Create a page'
+            description: 'Page'
         }
     ];
 
