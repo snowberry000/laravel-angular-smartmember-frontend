@@ -12,7 +12,7 @@ app.config(function($stateProvider){
 app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$state,smModal, $localStorage ,  Restangular, toastr, Upload) {
 	
 	$scope.init = function(){
-		if($notification.id)
+		if($notification.id || $stateParams.clone)
 		{
 		    $scope.site_notice = $notification;
 		    $scope.site_notice.sdate = new Date(moment.utc($scope.site_notice.start_date));
@@ -29,10 +29,23 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 	
 	$notification=null;
 	$site=$rootScope.site;
+
 	if( $stateParams.id )
 	{
 		Restangular.one( 'siteNotice', $stateParams.id ).get().then(function(response){
 			$notification=response;
+			$scope.init();
+		});
+	}
+	else if( $stateParams.clone )
+	{
+		Restangular.one( 'siteNotice', $stateParams.clone ).get().then(function(response){
+			$notification=response;
+			delete $notification.id;
+			delete $notification.created_at;
+			delete $notification.deleted_at;
+			delete $notification.updated_at;
+			delete $notification.type;
 			$scope.init();
 		});
 	}

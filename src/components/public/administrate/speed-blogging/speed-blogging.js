@@ -8,7 +8,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SpeedBloggingController", function ($scope, $rootScope, close, smModal, $localStorage) {
+app.controller("SpeedBloggingController", function ($scope, $rootScope, close, smModal, $localStorage, $filter) {
 
     if( $localStorage.speed_blogging_parameters ) {
         $rootScope.$_GET = $localStorage.speed_blogging_parameters;
@@ -38,6 +38,11 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
     $scope.next_item.content = $scope.next_item.content || '';
 
     $scope.loading = true;
+
+    $scope.setPermalink = function( $event ) {
+        if( $scope.next_item.title )
+            $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title).toLowerCase();
+    };
 
     angular.forEach( $rootScope.$_GET, function( value, key )
     {
@@ -71,6 +76,7 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
 
                                     $scope.loading = false;
                                     $scope.addSource();
+                                    $scope.setPermalink();
                                 }
                             } );
                         }
@@ -94,6 +100,7 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
 
                                     $scope.loading = false;
                                     $scope.addSource();
+                                    $scope.setPermalink();
                                 }
                             } );
                         }
@@ -101,6 +108,7 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
                         {
                             $scope.loading = false;
                             $scope.addSource();
+                            $scope.setPermalink();
                         }
                         break;
                     case 'image':
@@ -110,8 +118,9 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
                 }
                 break;
             case 'title':
-                $scope.next_item.title = $scope.strip_tags( value );
-                $scope.next_item.title = $scope.lesson.title.trim();
+                $scope.next_item.title = value.replace(/<\/?[^>]+>/gi, "");
+                $scope.next_item.title = $scope.next_item.title.trim();
+                $scope.setPermalink();
                 break;
             case 'content':
             case 'description':
@@ -121,13 +130,15 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
                 $scope.next_item.featured_image = value;
                 break;
             case 'image':
-                $scope.next_item.title = value.split( '/' ).pop();
+                if( !$scope.next_item.title || $scope.next_item.title.trim() == '' ) {
+                    $scope.next_item.title = value.split('/').pop();
+                    $scope.setPermalink();
+                }
                 $scope.next_item.content += '<img src="' + value + '" />';
                 $scope.next_item.featured_image = value;
                 break;
         }
     } );
-
 
     $scope.addSource = function() {
         angular.forEach($rootScope.$_GET, function (value, key) {
