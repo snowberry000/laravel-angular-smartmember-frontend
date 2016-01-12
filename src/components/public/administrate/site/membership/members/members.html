@@ -70,16 +70,16 @@
 										<a class="item" ng-if="!isAdmin(next_item) && !isAgent(next_item) && !member.access_level_selection" ng-init="next_item.access_level_selection=false" ng-click="stopPropagation($event); next_item.access_level_selection=true">
 											Grant Access Pass
 										</a>
-										<a class="item" ng-if="!isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item)">
+										<a class="item" ng-if="!isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item);next_item.access_level_selection=false">
 											Make Admin
 										</a>
 										<a class="item" ng-if="isAdmin(next_item) && !isOwner(user)" ng-click="toggleAccess(next_item)">
 											Revoke Admin Status
 										</a>
-										<a class="item" ng-if="!isAgent(next_item)" ng-click="toggleAgent(next_item)">
+										<a class="item" ng-if="!isAgent(next_item)" ng-click="toggleAgent(next_item);next_item.access_level_selection=false">
 											Make Agent
 										</a>
-										<a class="item" ng-if="isAgent(next_item) && !isAdmin(next_item) && !isOwner(next_item)" ng-click="toggleAgent(next_item)">
+										<a class="item" ng-if="isAgent(next_item) && !isAdmin(next_item) && !isOwner(next_item)" ng-click="toggleAgent(next_item);next_item.access_level_selection=false">
 											Revoke Agent Status
 										</a>
 										<a class="item" sm-delete="{{next_item.id}}">
@@ -95,7 +95,7 @@
 								<option value="0">Choose Access Level</option>
 								<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
 							</select>
-							<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); addAccessPass(next_item)">
+							<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); addAccessPass(next_item);next_item.access_level_selection=false">
 								{{next_item.new_access_pass_saving ? 'Saving...': 'Save'}}
 							</button>
 							<button class="mini ui button" ng-if="next_item.access_level_selection" ng-click="stopPropagation($event); next_item.access_level_selection=false">
