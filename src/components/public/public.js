@@ -54,7 +54,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		if(state.length >= 3){
 			state = state[2];
 		}
-		if( $scope.isLoggedIn() && state != 'wallboard')
+		if( $scope.isLoggedIn() && state != 'wallboard' && $rootScope.app.subdomain != 'sm')
 		{
 			return 'templates/components/public/admin-bar/admin-bar.html';
 		}
