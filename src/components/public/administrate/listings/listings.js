@@ -1,24 +1,23 @@
-var app = angular.module( "app" );
+var app = angular.module("app");
 
-app.config( function( $stateProvider )
-{
+app.config(function($stateProvider){
 	$stateProvider
-		.state( "public.administrate.site.content.downloads", {
-			url: "/downloads",
-			templateUrl: "/templates/components/public/administrate/site/content/downloads/downloads.html",
-			controller: "DownloadsController"
-		} )
-} );
+		.state("public.administrate.listings",{
+			url: "/listings",
+			templateUrl: "/templates/components/public/administrate/listings/listings.html",
+			controller: "ListingsController"
+		})
+}); 
 
-app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $localStorage, $state, $stateParams, Restangular, toastr, $filter )
-{
+app.controller("ListingsController", function ($scope,Restangular,$rootScope,$http) {
 	$scope.template_data = {
-		title: 'DOWNLOADS',
-		description: 'Provided downloadable photos, files, media, and more',
-		singular: 'download',
-		edit_route: 'public.administrate.site.content.download',
-		api_object: 'download'
+		title: 'Manage Directory Listings',
+		description: '',
+		singular: 'directory',
+		edit_route: 'public.administrate.listing',
+		api_object: 'directory'
 	}
+
 	$scope.site = $site = $rootScope.site;
 	$scope.data = [];
 		$scope.pagination = {
@@ -35,6 +34,20 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 		}
 	} );
 
+	$scope.approve = function(listing){
+		$http.get($rootScope.app.apiUrl + '/directory/approve/' + listing.site_id)
+			.success(function(response){
+				listing.approved = true;
+				listing.pending_updates = false;
+				listing.title = listing.pending_title;
+				console.log(response);
+			})
+	}
+
+	$scope.deleteResource = function(id){
+		location.reload();
+	}
+
 	$scope.paginate = function()
 	{
 		if( true )
@@ -49,7 +62,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 				$params.q = encodeURIComponent( $scope.query );
 			}
 
-			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' ) ).then( function( data )
+			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + ( $scope.query ? '&q=' + $scope.query : '' ) ).then( function( data )
 			{
 				$scope.loading = false;
 
@@ -60,7 +73,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 				else
 				{
 					$scope.pagination.total_count = data.total_count;
-					$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+					$scope.data = Restangular.restangularizeCollection( null, data, $scope.template_data.api_object );;
 				}
 			} );
 		}
@@ -84,7 +97,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 			$params.q = encodeURIComponent( $scope.query );
 		}
 
-		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' ) ).then( function( data )
+		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + ( $scope.query ? '&q=' + $scope.query : '' ) ).then( function( data )
 		{
 			if( !data )
 			{
@@ -118,5 +131,4 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
         });
 		} );
 	};
-
-} );
+});

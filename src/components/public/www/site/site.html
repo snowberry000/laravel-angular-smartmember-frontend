@@ -4,6 +4,10 @@
 
 </div>
 
+<div class="ui active inverted dimmer" ng-if="loading">
+	<div class="ui text loader">Loading site</div>
+</div>
+
 <div class="ui vertical segment">
 	<div class="ui stackable grid container">
 		<div class="row">
@@ -77,9 +81,31 @@
 				<div class="five wide column">
 					<div class="overlay">
 						<div class="ui labeled icon vertical menu">
-							<a class="item"><i class="twitter icon"></i> Tweet</a>
-							<a class="item"><i class="facebook icon"></i> Share</a>
-							<a class="item"><i class="mail icon"></i> E-mail</a>
+							<a class="item"
+							   socialshare
+							   socialshare-provider="twitter"
+							   socialshare-text="{{site_listing.title}}"
+							   socialshare-hashtags="smartmember"
+							   socialshare-url="">
+								<i class="twitter icon"></i>
+								Tweet
+							</a>
+							<a class="item"
+							   socialshare
+							   socialshare-provider="facebook"
+							   socialshare-text="{{site_listing.title}}"
+							   socialshare-description="{{site_listing.subtitle}}"
+							   socialshare-url="">
+								<i class="facebook icon"></i>
+								Share
+							</a>
+							<a class="item"
+							   socialshare
+							   socialshare-provider="google+"
+							   socialshare-url="">
+								<i class="google plus icon"></i>
+								Share
+							</a>
 						</div>
 					</div>
 

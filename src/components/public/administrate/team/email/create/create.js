@@ -348,8 +348,10 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
 
             toastr.success("Your email has been saved");
 
-            if( $scope.email.action && $scope.email.action == 3 )
+            if( $scope.email.action && $scope.email.action == 3 ) {
                 toastr.success("Your email has been queued for sending!");
+                smModal.Show('public.administrate.team.email.queue');
+            }
         })
     }
 
@@ -370,7 +372,15 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
         $scope.email.recipient_type = $scope.recipient_type;
 
         Restangular.service("email").post($scope.email).then(function(response){
+            var original_action = false;
+
+            if( $scope.email.action && $scope.email.action == 3 )
+                original_action = $scope.email.action;
+
             $scope.email = response;
+
+            if( original_action )
+                $scope.email.action = 3;
 
             angular.forEach($scope.email.recipients, function(value){
                 var recipient_bits = value.recipient.split('_');
@@ -383,8 +393,10 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
 
             toastr.success("Your email has been saved");
 
-            if( $scope.email.action && $scope.email.action == 3 )
+            if( $scope.email.action && $scope.email.action == 3 ) {
                 toastr.success("Your email has been queued for sending!");
+                smModal.Show('public.administrate.team.email.queue');
+            }
         });
     }
 

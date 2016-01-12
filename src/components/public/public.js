@@ -109,18 +109,27 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		
 				angular.forEach($sites_copy , function(value , key){
 					for (var i = 0; i < value.length ; i++) {
+                        if( !value[i].subdomain )
+                            continue;
+
 						if(value[i].subdomain == 'likastic')
 							console.log('')
 						var exists = _.findWhere($sites , {id : value[i].id});
 						if(!exists){
+                            if( value[i].total_revenue )
+                                value[i].total_revenue = parseInt( value[i].total_revenue );
+                            if( value[i].total_lessons )
+                                value[i].total_lessons = parseInt( value[i].total_lessons );
+                            if( value[i].total_members )
+                                value[i].total_members = parseInt( value[i].total_members );
+
 							$sites.push(value[i]);
 						}
 						else if(exists.subdomain == 'likastic'){
 							console.log(exists);
 						}
 					};
-					
-				})
+				});
 
 				if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
 					$localStorage.open_sites_wizard_modal = null;
@@ -128,33 +137,6 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 						smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard'} );
 					} , 5000)
 				}
-				/*
-				 $grouped_sites.admin = _.uniq($grouped_sites.admin, function(item, key, a) {
-				 if(item)
-				 return item.id;
-				 });
-				 $grouped_sites.member = _.uniq($grouped_sites.member, function(item, key, a) {
-				 if(item)
-				 return item.id;
-				 });*/
-				//if( $grouped_sites.admin )
-				//{
-				/*angular.forEach( $grouped_sites.admin, function( next_item, key )
-				 {
-				 if( next_item.sites )
-				 {
-				 $sites = $sites.concat( next_item.sites );
-				 }
-				 } );*/
-				//$sites = $sites.concat( $grouped_sites.admin );
-				//}
-
-				/*if( $grouped_sites.member )
-				 {
-				 $sites = $sites.concat( $grouped_sites.member );
-				 }*/
-
-				console.log( '$sites', $sites );
 
 				angular.forEach( $sites, function( site, key )
 				{
@@ -519,5 +501,6 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	} );
 
 	$scope.Init();
+
 
 } );

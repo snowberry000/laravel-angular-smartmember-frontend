@@ -17,20 +17,61 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 	$scope.domain = $location.host().split( "." ).splice( -2, 1 ).pop();
 	$scope.isCollapsed = false;
 	$scope.env = $scope.app.env;
+    $scope.site_query = '';
 
 	$scope.iter = 0;
 
 	$scope.sites = [];
 	$scope.siteCounters={};
-	$scope.filterBy = function(role){
-		if(role == 'admin'){
-			$scope.sites = $filter('filter')($rootScope.sites,{role : 'admin'});
-			var sites_2 = $filter('filter')($rootScope.sites,{role : 'owner'});
-			$scope.sites = $scope.sites.concat(sites_2);
-		}else{
-			$scope.sites = $filter('filter')($rootScope.sites,{role : role});
+
+	$scope.sites = [];
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: $rootScope.sites.length
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
 		}
-		$scope.siteCounters[role] = $scope.sites.length;
+	} );
+
+	$scope.paginate = function() {
+        var begin = (($scope.pagination.current_page - 1) * $scope.pagination.per_page),
+            end = begin + $scope.pagination.per_page;
+
+        $scope.sites_to_show = $rootScope.sites;
+        $scope.sites_to_show = $filter('orderBy')($scope.sites_to_show, ['-total_revenue', '-total_lessons', '-total_members']);
+        $scope.sites_to_show = $filter('filter')( $scope.sites_to_show, $scope.site_query );
+        $scope.pagination.total_count = $scope.sites_to_show.length;
+        $scope.sites_to_show = $scope.sites_to_show.slice(begin, end);
+
+        $scope.countSites('admin');
+        $scope.countSites('editor');
+        $scope.countSites('support');
+        $scope.countSites('member');
+    }
+
+	$scope.filterBy = function(role){
+        $scope.pagination.current_page = 1;
+		if(role == 'admin'){
+            $scope.sites_to_show = $rootScope.sites;
+            $scope.sites_to_show = $filter('orderBy')($scope.sites_to_show, ['-total_revenue', '-total_lessons', '-total_members']);
+            $scope.sites_to_show = $filter('filter')( $scope.sites_to_show, $scope.site_query );
+			$scope.sites = $filter('filter')($scope.sites_to_show,{role : 'admin'});
+			var sites_2 = $filter('filter')($scope.sites_to_show,{role : 'owner'});
+			$scope.sites_to_show = $scope.sites.concat(sites_2);
+		}else{
+            $scope.sites_to_show = $rootScope.sites;
+            $scope.sites_to_show = $filter('orderBy')($scope.sites_to_show, ['-total_revenue', '-total_lessons', '-total_members']);
+            $scope.sites_to_show = $filter('filter')( $scope.sites_to_show, $scope.site_query );
+			$scope.sites_to_show = $filter('filter')($scope.sites_to_show,{role : role});
+		}
+		$scope.siteCounters[role] = $scope.sites_to_show.length;
+		$scope.pagination.total_count = $scope.sites_to_show.length;
 	}
 
 	$scope.countSites = function(role){
@@ -93,55 +134,6 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 			}
 		}
 	};
-
-	// $scope.search = function()
-	// {
-
-	// 	$scope.loading = true;
-	// 	$scope.adminSites = [];
-	// 	$scope.memberSites = [];
-	// 	$scope.currentPage = 1;
-	// 	$scope.adminPagination = { current_page: 1 };
-	// 	$scope.adminPagination.total_count = 1;
-
-	// 	Restangular.all( 'site' ).customGET( 'members?p=' + ($scope.adminPagination.current_page) + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( response )
-	// 	{
-	// 		$scope.loading = false;
-	// 		$sites = response;
-	// 		$scope.adminPagination.total_count = $sites.admin.count;
-	// 		$sites.admin = $sites.admin.sites;
-	// 		$sites.member = $sites.member.sites;
-	// 		// if(response.admin.length>0 || response.member.length>0)
-	// 		//     $scope.disable = false;
-
-	// 		angular.forEach( $sites.admin, function( site, key )
-	// 		{
-	// 			site.data = {};
-	// 			angular.forEach( site.meta_data, function( data, key )
-	// 			{
-	// 				site.data[ data.key ] = data.value;
-	// 			} );
-	// 		} );
-
-	// 		angular.forEach( $sites.member, function( site, key )
-	// 		{
-	// 			site.data = {};
-
-	// 			angular.forEach( site.meta_data, function( data, key )
-	// 			{
-	// 				site.data[ data.key ] = data.value;
-	// 			} );
-
-	// 			site.is_agent = $scope.isAgent( $user.role );
-
-	// 		} );
-	// 		$scope.sites.admin = $scope.sites.admin.concat( $sites.admin );
-	// 		console.log( $scope.sites.admin.length )
-	// 		$scope.sites.member = $scope.sites.member.concat( $sites.member );
-	// 		$scope.adminSites[ $scope.adminPagination.current_page ] = $sites.admin;
-	// 		$scope.memberSites[ $scope.adminPagination.current_page ] = $sites.member;
-	// 	} );
-	// }
 
 	$scope.$on('$destroy', function() {
         alert("In destroy");
