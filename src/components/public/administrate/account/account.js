@@ -80,6 +80,15 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 		})
 	}
 
+	$scope.saveName = function(){
+		user.put({first_name : $scope.user.first_name, last_name: $scope.user.last_name}).then(function(response){
+			$scope.user = response;
+			$localStorage.user.first_name = response.first_name;
+			$localStorage.user.last_name = response.last_name;
+			toastr.success("Your name has been changed!");
+		})
+	}
+
 	$scope.saveEmail = function(){
 		user.put({email : $scope.user.newemail}).then(function(response){
 			$scope.user = response;
