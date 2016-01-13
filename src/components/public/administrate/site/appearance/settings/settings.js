@@ -29,6 +29,8 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 			{
 				$scope.site_options[ data.key ] = data.value;
 			} );
+
+			$scope.site_options.default_syllabus_closed  == '1' ? $scope.site_options.default_syllabus_closed =true : $scope.site_options.default_syllabus_closed = false;
 		} )
 		Restangular.all( 'sharedKey/associatedKey' ).customGET().then( function( data )
 		{
@@ -65,11 +67,12 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 		$scope.site_options.site  = {
 			name: $scope.site.name,
 			subdomain: $scope.site.subdomain,
-			domain: $scope.site.domain
+			domain: $scope.site.domain,
 		};
 
 		delete $scope.site_options.url;
 		delete $scope.site_options.open;
+		console.log($scope.site_options.default_syllabus_closed);
 		Restangular.all( 'siteMetaData' ).customPOST( $scope.site_options, "save" ).then( function()
 		{
 			toastr.success( "Options are saved!" );
@@ -81,6 +84,24 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 			});
 		} );
 	}
+
+	// $scope.saveSyllabusOptions = function()
+	// {
+
+	// 	$scope.site_options.default_syllabus_closed  = true;
+	// 	delete $scope.site_options.url;
+	// 	delete $scope.site_options.open;
+	// 	Restangular.all( 'siteMetaData' ).customPOST( $scope.site_options, "save" ).then( function()
+	// 	{
+	// 		toastr.success( "Options are saved!" );
+	// 		smModal.Close( 'public.administrate.site.appearance.settings' );
+	// 		$scope.site_options.isOpen = false;
+	// 		$localStorage.homepage_url = $scope.site_options.homepage_url;
+	// 		$state.transitionTo($state.current, $stateParams, { 
+	// 		  reload: true, inherit: false, location: false
+	// 		});
+	// 	} );
+	// }
 
 	$scope.selectUrl = function( item, selected_url, show_next )
 	{

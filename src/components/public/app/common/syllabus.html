@@ -120,7 +120,7 @@
 			<div class="ibox-title">
 				<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" ng-click="toggleModule(module)">
 					<i class="fa {{module.hide_module ? 'fa-plus' : 'fa-minus'}}" style="margin-right:4px" ></i>
-					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
+					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }} 
 				</a>
 				<a ng-if="!module.id && syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" ng-click="toggleModule(module)">
 					<i class="fa {{module.hide_module ? 'fa-plus' : 'fa-minus'}}"  style="margin-right:4px" ></i>
