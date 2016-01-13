@@ -440,7 +440,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
     {
         $timeout(function(){
             smModal.Show('public.sign.unsubscribe');
-        }, 1000);
+        }, 3000);
         $localStorage.open_unsubscribe_modal = null;
     }
     else if ( $localStorage.open_speedblogging_modal )
