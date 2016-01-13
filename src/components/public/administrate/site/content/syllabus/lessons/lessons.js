@@ -38,8 +38,13 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 		}
 	} );
 
-	$scope.paginate = function()
+	$scope.paginate = function(search)
 	{
+		if (search)
+		{
+			$scope.pagination.current_page = 1;
+		}
+		
 		$scope.loading = true;
 
 		var $params = { p: $scope.pagination.current_page, site_id: $rootScope.site.id };

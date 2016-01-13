@@ -35,7 +35,12 @@ app.controller("ArticlesController", function ($scope,$rootScope, $localStorage,
         }
     } );
 
-    $scope.paginate = function(){
+    $scope.paginate = function(search){
+
+        if (search)
+        {
+            $scope.pagination.current_page = 1;
+        }
 
         if( true ) {
 
