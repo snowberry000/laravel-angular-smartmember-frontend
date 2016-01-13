@@ -14,6 +14,9 @@ app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$
     $scope.facebook_groups = [];
     $scope.joined_facebook_groups = [];
 
+    if( !$localStorage.user )
+        return;
+
     angular.forEach( $scope.site.configured_app, function(value){
         if( value.type == 'facebook_group')
             $scope.facebook_groups.push( value );
