@@ -86,11 +86,16 @@
 				<div class="metadata">
 					<span class="date">{{moment.utc( comment.created_at ).fromNow()}}</span>
 				</div>
-				<div class="text">
+				<div ng-if="!comment.edit" class="text">
 					{{comment.body}}
+				</div>
+				<div ng-if="comment.edit" class="text">
+					<p editable-text="comment.body" onaftersave="editComment(comment)" >{{comment.body}}</p>
 				</div>
 				<div class="actions">
 					<a class="reply" ng-show="next_item.discussion_settings.allow_replies" ng-init="show_reply_div = false" ng-click="show_reply_div = !show_reply_div">Reply</a>
+					<a class="reply" ng-if="site.is_admin" ng-init="comment.edit = false" ng-click="comment.edit = !comment.edit">Edit</a>
+					<a class="reply" ng-if="site.is_admin || comment.user_id == user.id" ng-click="deleteComment(comment)">Delete</a>
 				</div>
 			</div>
 			<div class="comments" ng-if="comment.reply">
@@ -103,11 +108,15 @@
 						<div class="metadata">
 							<span class="date">{{moment.utc( reply.created_at ).fromNow()}}</span>
 						</div>
-						<div class="text">
+						<div ng-if="!reply.edit" class="text">
 							{{reply.body}}
 						</div>
-						<div class="actions" ng-hide="1">
-							<a class="reply" ng-click="$parent.show_reply_div = !$parent.show_reply_div">Reply</a>
+						<div ng-if="reply.edit" class="text">
+							<p editable-text="reply.body" onaftersave="editReply(reply)" >{{reply.body}}</p>
+						</div>
+						<div class="actions">
+							<a class="reply" ng-if="site.is_admin" ng-init="reply.edit = false" ng-click="reply.edit = !reply.edit">Edit</a>
+							<a class="reply" ng-if="site.is_admin || reply.user_id == user.id" ng-click="deleteReply(reply , comment)">Delete</a>
 						</div>
 					</div>
 				</div>
@@ -124,7 +133,7 @@
 			</div>
 		</div>
 
-		<h4 class="ui horizontal divider header" ng-if="false && (!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
+		<h4 class="ui horizontal divider header" ng-if="(!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
 			<i class="plus icon"></i>
 			Add Comment
 		</h4>

@@ -52,17 +52,17 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
             $scope.show_next = show_next;
             $scope.close();
         }
-        else if(selected_url == 'download'){
-            Restangular.all('download').customGET('',{site_id: $rootScope.site.id}).then(function(response){
-                var downloads = response;
-                $scope.loaded_items={};
-                downloads.forEach(function(entity){
-                    entity.url = entity.permalink;
-                })
-                $scope.show_next = true;
-                $scope.loaded_items.items = downloads;
-            })
-        }
+        // else if(selected_url == 'download'){
+        //     Restangular.all('download').customGET('',{site_id: $rootScope.site.id}).then(function(response){
+        //         var downloads = response;
+        //         $scope.loaded_items={};
+        //         downloads.forEach(function(entity){
+        //             entity.url = entity.permalink;
+        //         })
+        //         $scope.show_next = true;
+        //         $scope.loaded_items.items = downloads;
+        //     })
+        // }
         else if(selected_url == 'post'){
             $scope.loaded_items={};
             Restangular.all(selected_url).customGET('',{site_id: $rootScope.site.id}).then(function(response){
