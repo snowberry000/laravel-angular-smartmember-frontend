@@ -361,12 +361,12 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 	$scope.assignToSMTech = function()
 	{
 		Restangular.one( 'supportTicket', $scope.ticket.id ).put( {
-			'company_id': 10372,
+			'site_id': 2056,
 			'agent_id': 2
 		} ).then( function( response )
 		{
 			$scope.ticket.agent_id = 2;
-			$scope.ticket.company_id = 10372;
+			$scope.ticket.side_id = 2056;
 			$scope.ticket.sm_tech = true;
 			toastr.success( "Ticket assigned to SM Tech team" );
 		} )

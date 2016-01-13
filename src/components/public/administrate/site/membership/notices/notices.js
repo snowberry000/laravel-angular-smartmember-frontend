@@ -35,8 +35,13 @@ app.controller( "NoticesController", function( $scope, $state, $rootScope, $loca
 		}
 	} );
 
-	$scope.paginate = function()
+	$scope.paginate = function(search)
 	{
+		if (search)
+		{
+			$scope.pagination.current_page = 1;
+		}
+
 		if( true )
 		{
 

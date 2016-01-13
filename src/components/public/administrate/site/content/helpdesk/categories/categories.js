@@ -34,8 +34,11 @@ app.controller("ArticleCategoriesController", function ($scope,smModal,$rootScop
         }
     } );
 
-    $scope.paginate = function(){
-
+    $scope.paginate = function(search){
+        if (search)
+        {
+            $scope.pagination.current_page = 1;
+        }
         if( true ) {
 
             $scope.loading = true;

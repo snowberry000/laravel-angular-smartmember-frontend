@@ -35,8 +35,13 @@ app.controller( "LivecastsController", function( $scope, $stateParams,$state,$ro
 		}
 	} );
 
-	$scope.paginate = function()
+	$scope.paginate = function(search)
 	{
+
+		if (search)
+		{
+			$scope.pagination.current_page = 1;
+		}
 
 		if( true )
 		{
