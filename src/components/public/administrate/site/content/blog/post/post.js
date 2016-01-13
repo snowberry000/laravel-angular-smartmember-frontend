@@ -146,7 +146,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		cancel_route: 'public.administrate.site.content.blog.posts',
 		success_route: 'public.administrate.site.content.blog.posts',
 		transcript: false,
-		access_choice: false
+		access_choice: true
 	}
 	$scope.site = $site = $rootScope.site;
 
@@ -211,7 +211,16 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
         delete $scope.next_item.most_used_categories;
 		delete $scope.next_item.most_used_tags;
 		delete $scope.next_item.access_level;
-		$scope.next_item.access_level_type = 1;
+		//$scope.next_item.access_level_type = 1;
+        if( $scope.next_item.access_level_type == 2 && $scope.next_item.access_level_id == 0 )
+        {
+            $scope.next_item.access_level_type = 3;
+        }
+
+		if( $scope.next_item.access_level_type != 2 )
+        {
+            $scope.next_item.access_level_id = 0;
+        }
 		if( $scope.next_item.id )
 		{
 
