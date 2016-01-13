@@ -11,7 +11,7 @@ app.config(function($stateProvider){
 
 app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $localStorage, $state, $stateParams,  Restangular, toastr, $filter, $window) {
     
-    $rootScope.page_title = 'Downloads';
+    $rootScope.page_title = $rootScope.site.name+' - Download Center';
     $scope.loading=true;
     
 

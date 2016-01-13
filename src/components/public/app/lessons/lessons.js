@@ -32,7 +32,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     ];
 
     $scope.lesson_count = 0;
-    $rootScope.page_title = 'Lessons';
+    $rootScope.page_title = $rootScope.site.name+' - Lessons';
     $scope.loading=true;
     $scope.syllabus = {edit_mode : $rootScope.edit_mode}
     $scope.salesPage=window.location.hash.substr(1);

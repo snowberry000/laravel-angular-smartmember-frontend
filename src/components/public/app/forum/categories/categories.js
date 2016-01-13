@@ -14,7 +14,7 @@ app.controller( "CategoriesController", function( $scope, $rootScope,Restangular
 {
 	$scope.loading = true;
 
-	$rootScope.page_title = "Forum";
+	$rootScope.page_title = $rootScope.site.name+' - Forum';
 	$scope.categories = false;
 	$scope.category = {};
 
