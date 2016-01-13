@@ -29,9 +29,11 @@ app.controller( "TicketCreatorController", function( $scope, $localStorage, $roo
 	$scope.agents = [];
 	$scope.searched_users = [];
 
-	Restangular.all( 'siteRole' ).getList( { type: 'support' } ).then( function( response )
+	
+
+	Restangular.all( '' ).customGET( 'siteRole?type=support' ).then( function( response )
 	{
-		$scope.agents = response;
+		$scope.agents = response.items;
 	} );
 
 	Restangular.one( 'supportTicket' ).customGET( 'sites' ).then( function( response )
@@ -90,6 +92,7 @@ app.controller( "TicketCreatorController", function( $scope, $localStorage, $roo
 
 		Restangular.all( 'supportTicket' ).post( ticket ).then( function( response )
 		{
+			$rootScope.site.unread_support_ticket+=1;
 			toastr.success( "Ticket Created successfully!" );
 			smModal.Show('public.administrate.team.helpdesk.tickets');
 		} );

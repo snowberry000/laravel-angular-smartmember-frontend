@@ -147,6 +147,9 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             $scope.download.put().then(function(response){
                 smModal.Show("public.administrate.site.content.downloads");
                 toastr.success("Download has been saved");
+                $state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
             })   
         }
         else {
@@ -156,6 +159,9 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                 $scope.download = download;
                 smModal.Show("public.administrate.site.content.downloads");
                 toastr.success("Download has been saved!");
+                $state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
             });
         }
         

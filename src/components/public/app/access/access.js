@@ -37,6 +37,7 @@ app.controller( 'AccessController', function( $scope, $rootScope, $location, not
 		else
 		{
 			// They aren't logged in, so lets pop it up and let those controllers handle what to do with this hash
+			$localStorage.access_pass_redirect = true;
 			smModal.Show('public.sign.up');
 			console.log( "Showing sign up" );
 		}

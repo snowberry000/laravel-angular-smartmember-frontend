@@ -1,30 +1,36 @@
-app.directive( 'suiDropdown', function($timeout)
+app.directive( 'suiDropdown', function( $timeout )
 {
 	return {
 		restrict: 'A',
-        require: '?ngModel',
-        scope: {
-            ngModel: '='
-        },
-		link: function( scope, next_item, attributes, ngModel  )
+		require: '?ngModel',
+		scope: {
+			ngModel: '='
+		},
+		link: function( scope, next_item, attributes, ngModel )
 		{
-			$(next_item).dropdown();
+			var options = {
+				onChange: function( value, text, $choice ) {
 
-            if(ngModel){
-                /*
-                angular.forEach(ngModel.$modelValue,function(value){
-                    $(next_item).parent().find('[data-value=' + value + ']').click();
-                });
-                */
-            }
-
-			$(next_item).on('keydown' , function(event){
-				if (event.which == 13){
-					var href = $('.item.selected:first a').attr('href');
-					if(href)
-						window.location.href = href;
+					if( ngModel )
+					{
+						ngModel.$setViewValue( value );
+					}
 				}
-			})
+			};
+
+			$( next_item ).dropdown( options );
+
+			$( next_item ).on( 'keydown', function( event )
+			{
+				if( event.which == 13 )
+				{
+					var href = $( '.item.selected:first a' ).attr( 'href' );
+					if( href )
+					{
+						window.location.href = href;
+					}
+				}
+			} )
 		}
 	};
 } );

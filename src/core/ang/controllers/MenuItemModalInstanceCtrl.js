@@ -25,6 +25,14 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     console.log('menu icon: ');
     console.log($scope.editing_item);
 
+    $scope.deleteResource = function(id){
+        Restangular.one('siteMenuItem', id)
+            .remove()
+            .then(function(response){
+                location.reload();
+            });
+    }
+
     $scope.menuItemLabel=function(){
         $('.ui-iconpicker').toggleClass('open');
     }

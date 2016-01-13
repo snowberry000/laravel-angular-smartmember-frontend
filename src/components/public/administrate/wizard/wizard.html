@@ -1,4 +1,4 @@
-<div class="ui modal">
+<div class="ui modal"><i class="close icon"></i>
 	<div class="header">
 		<i class="magic icon"></i>
 		{{ static_wizard.name }}
@@ -16,7 +16,7 @@
 
 			<div class="ui section divider"></div>
 
-			<div class="ui four cards">
+			<div class="ui stackable four cards">
 				<a class="ui card {{node.slug}}" ng-if="node.completed || node.enabled" ng-repeat="(key,node) in wizard" id="{{ $index }}" data-enabled="{{node.enabled}}" ng-click="smModal.Show('',{} , {'templateUrl' : node.template , 'controller' : node.controller});" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false" wizardnode>
 					<div class="image text-center p-sm">
 						<i class="huge icons">

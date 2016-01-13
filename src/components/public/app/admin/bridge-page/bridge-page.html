@@ -8,7 +8,7 @@
 		<div class="item {{show_options ? 'active' :''}}">
 			<button class="ui default button" ng-click="toggleSidebar()">Options</button>
 		</div>
-		<div class="pointing icon menu">
+		<div class="pointing icon menu" ng-hide="true">
 			<a class="item {{viewport == '' ? 'active' :''}}" ng-click="toggleViewPort('')" title="View as desktop" sui-popup>
 				<i class="desktop icon"></i>
 			</a>

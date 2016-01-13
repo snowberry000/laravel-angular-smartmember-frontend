@@ -29,7 +29,17 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
     }
     $site = $rootScope.site;
     $user = $rootScope.user;
-
+    $scope.closeOnCancel=$stateParams.closeOnCancel;
+    $scope.cancel = function(){
+        if($scope.closeOnCancel)
+        {
+            smModal.Close();
+        }
+        else
+        {
+            smModal.Show('public.administrate.site.pages.custom-pages');
+        }
+    }
     $scope.initialize = function(){
         if(!$scope.next_item.id)
         {
@@ -57,12 +67,21 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
             });
         }
         $scope.next_item.seo_settings = seo;
+
+        if( !$scope.next_item.id )
+        {
+            if( $stateParams.speed_blogging ) {
+                angular.forEach( $stateParams.speed_blogging, function(value, index){
+                    $scope.next_item[ index ] = value;
+                })
+            }
+        }
     }
 
     
 
     if( $stateParams.id )
-        Restangular.one( 'customPage', $stateParams.id ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
+        Restangular.one( 'customPage', $stateParams.id ).get().then(function(response){$scope.next_item = $next_item = response ; console.log($next_item);$scope.initialize()})
     else if( $stateParams.clone )
     {
         Restangular.one( 'customPage', $stateParams.clone ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
@@ -73,7 +92,8 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         $scope.initialize();
     }
 
-   
+    //speed blogging stuff here
+    
 
     var draft;
     var changed;
@@ -104,7 +124,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
 
     $scope.setPermalink = function ($event) {
         if (!$scope.next_item.permalink)
-            $scope.next_item.permalink = $filter('urlify')($scope.next_item.title);
+            $scope.next_item.permalink = $filter('urlify')($scope.next_item.title).toLowerCase();
         $scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
     }
     $scope.onBlurSlug = function ($event) {

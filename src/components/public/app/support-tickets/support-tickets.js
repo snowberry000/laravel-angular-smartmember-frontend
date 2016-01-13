@@ -12,7 +12,7 @@ app.config(function($stateProvider){
 
 app.controller('PublicSupportTicketsController', function ($scope, $site,$rootScope,$localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
     $scope.loading=true;
-    $rootScope.page_title='Support Tickets';
+    $rootScope.page_title=$rootScope.site.name+' - Support Tickets';
     Restangular.all('supportTicket').customGET('userTickets').then(function(response){
         $scope.loading=false;
         $tickets=response;

@@ -16,9 +16,32 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AppController", function( $scope, $site, $rootScope, $localStorage, $location, Restangular, toastr, $window, $timeout )
+app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
 	$rootScope.site = $site;
+
+	var intercom = _.findWhere($scope.site.app_configuration,{type:'intercom'});
+
+	if (intercom){
+        //we are disabling support for now, we'll probably add some integration settings in the future to allow this
+		if (false && $localStorage.user && $localStorage.user.id){
+			var intercomData = {
+			  app_id: intercom.username,
+			  name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
+			  email: $localStorage.user.email,
+			  created_at: moment($localStorage.user.created_at).unix()
+			};
+			window.Intercom('boot', intercomData);
+		}else{
+            console.log( 'we should be trying to boot up:::', intercom.username );
+			window.Intercom('boot',{app_id: intercom.username});
+		}
+
+	}
+
+	console.log(intercom);
+
+
 	$rootScope.page_title = $site.name;
 	//$rootScope.page_title = 'chanbged title';
 
@@ -42,6 +65,41 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
 			$rootScope.access_levels = response;
 		})
 	}
+
+
+	$scope.ShouldSuiHandleEmbed = function( embed_code )
+	{
+		var url = $filter('extractsrc')(embed_code);
+
+		//console.log( 'the url: ', url );
+
+		var domain;
+		//find & remove protocol (http, ftp, etc.) and get domain
+		if( url.indexOf( "//" ) > -1 )
+		{
+			domain = url.split( '/' )[ 2 ];
+		}
+		else
+		{
+			domain = url.split( '/' )[ 0 ];
+		}
+
+		//find & remove port number
+		domain = domain.split( ':' )[ 0 ];
+
+		//console.log( "THE DOMAIN: ", domain, url );
+
+		if( domain )
+		{
+			if( domain.indexOf('youtube.com') > -1 )
+				return true;
+
+			if( domain.indexOf('vimeo.com') > -1 )
+				return true;
+		}
+
+		return false;
+	};
 
 	$scope.init = function()
 	{
@@ -67,9 +125,8 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $localStor
                 angular.forEach( $rootScope.site.capabilities, function(value){
                     if( value == 'view_restricted_content' )
                     {
-                        $('.mobile_admin_notification').show();
                         $timeout(function(){
-                            $('.public .logged_in').attr('style', 'margin-top: 62px !important');
+                            //$('.public .logged_in').attr('style', 'margin-top: 62px !important');
                         });
                     }
                 })

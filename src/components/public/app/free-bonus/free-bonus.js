@@ -24,7 +24,7 @@ app.controller('FreeBonusController', function ($scope,$site,$rootScope, $localS
         $scope.bonus.type = 'Free Bonus';
         $scope.bonus.site_id = $site.id;
         $scope.bonus.isOpen = false;
-         $rootScope.page_title = $scope.bonus.title ? $scope.bonus.title : 'Free Bonus';
+         $rootScope.page_title = $scope.bonus.title ? $rootScope.site.name+' - '+$scope.bonus.title : $rootScope.site.name+' - Free Bonus';
         $scope.isChecked=false;
         $anchorScroll($location.hash());
     });

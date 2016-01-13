@@ -10,12 +10,13 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 	var parts = location.hostname.split( '.' );
 	var subdomain = parts.shift();
 	var possible_domain = parts.shift();
+	var tld = parts.shift();
 
 	$urlRouterProvider.when( '/', function( $injector )
 	{
 		var $state = $injector.get( '$state' );
 
-		if( possible_domain == 'smartmember' && parts.length == 1 )
+		if( possible_domain == 'smartmember' && parts.length === 0 && tld != 'io' )
 		{
 			if( subdomain == "my" )
 			{
@@ -44,12 +45,12 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 		var $state = $injector.get( '$state' );
 		var Restangular = $injector.get( 'Restangular' );
 
-		if( subdomain == "my" )
+		if( subdomain == "my" && possible_domain == 'smartmember' && parts.length == 1 )
 		{
 			console.log( "Going to 'public.my' state from non-/" );
 			$state.go( "public.my" );
 		}
-		else if( subdomain == "www" )
+		else if( subdomain == "www" && possible_domain == 'smartmember' && parts.length == 1 )
 		{
 			console.log( "Going to 'public.www' state from non-/" );
 			$state.go( "public.www.home" );
@@ -82,6 +83,9 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 							$state.go( 'public.app.support-article', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "bridge_bpages":
+							
+							location.reload();
+
 							$state.go( 'bridgepage', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "forum_topics":

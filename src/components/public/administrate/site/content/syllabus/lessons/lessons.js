@@ -83,14 +83,17 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 
 	$scope.deleteResource = function( id )
 	{
-		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+		var itemWithId = _.find( $scope.data, function( next_item )
 		{
 			return next_item.id == id;
 		} );
 
 		itemWithId.remove().then( function()
 		{
-			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+			$scope.data = _.without( $scope.data, itemWithId );
+			$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 		} );
 	};
 } );

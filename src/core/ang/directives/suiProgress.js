@@ -10,47 +10,61 @@ app.directive( 'suiProgress', function()
 				}
 			};
 
+			scope.progress_type = attributes.type || 'normal';
+			//scope.current_value = attributes.value;
+
 			if( attributes.text == 'member' )
 			{
-				the_options[ 'text' ] = {
-					active: 'Importing: {value} of ' + attributes.total + ' members processed',
-					success: '{total} Members Imported!'
-				};
+				/*the_options[ 'text' ] = {
+				 active: 'Importing: {value} of ' + attributes.total + ' members processed',
+				 success: '{total} Members Imported!'
+				 };*/
 			}
 
 			$( next_item ).progress( the_options );
 
-			console.log( 'progress options', the_options );
-			console.log( 'progress attributes', attributes );
 			if( attributes.starttrigger )
 			{
 				$( next_item ).progress( 'increment', attributes.value );
 			}
 
 			scope.next_item = next_item;
-			/*scope.$watch(attributes.value, function(value){
+			scope.$watch( attributes.value, function( value )
+			{
 
-			 if( attributes.value > 0 )
-			 $(next_item).progress('increment', value);//( value );
-			 });*/
+				if( attributes.value > 0 )
+				{
+					$( next_item ).progress( 'increment', value );
+				}//( value );
+			} );
 		},
 		controller: function( $scope, $rootScope )
 		{
-			$rootScope.$watch( 'site.wizard_step', function( value )
+			if( $scope.progress_type == 'wizard' )
 			{
-				console.log( 'we got some wizard values: ', value );
-				if( value && $rootScope.site && $rootScope.site.wizard_step )
+				$rootScope.$watch( 'site.wizard_step', function( value )
 				{
-					if( $rootScope.site.wizard_step > 0 )
+					if( value && $rootScope.site && $rootScope.site.wizard_step )
 					{
-						$( $scope.next_item ).progress( { value: value } );
-					}//( value );
-				}
-				else
+						if( $rootScope.site.wizard_step > 0 )
+						{
+							$( $scope.next_item ).progress( { value: value } );
+						}//( value );
+					}
+					else
+					{
+						$( $scope.next_item ).progress( { value: 0 } );//( value );
+					}
+				} );
+			}
+			else
+			{
+				$scope.$watch( 'current_value', function( value )
 				{
-					$( $scope.next_item ).progress( { value: 0 } );//( value );
-				}
-			} );
+					$( $scope.next_item ).progress( { value: value } );
+				} );
+			}
+
 		}
 	};
 } );

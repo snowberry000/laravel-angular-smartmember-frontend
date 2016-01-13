@@ -18,7 +18,13 @@ app.value('froalaConfig', {
         "'Times New Roman',Times,serif": 'Times New Roman',
         'Verdana,Geneva,sans-serif': 'Verdana'
     },
-    toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|', 'color', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
+    toolbarButtons: [
+                        'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|', 
+                        'color', '|', 
+                        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote', 
+                        'paragraphFormat', 'align', 'formatOL', 'formatUL', 'insertHR','undo', 'redo', 'clearFormatting', 'selectAll', 'html',
+
+                    ],
     imageUploadURL: (function(){
         var domainParts = location.host.split( '.' );
 

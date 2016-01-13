@@ -1,4 +1,4 @@
-<div class="ui large modal">
+<div class="ui large modal"><i class="close icon"></i>
 	<div class="header">
 		<i class="globe icon"></i>
 		My BridgePages
@@ -20,7 +20,7 @@
 			<div class="ui section divider"></div>
 
 			<div class="ui divided items">
-				<div class="item" dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+				<div class="item" dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 					<div class="ui medium image">
 						<img src="{{next_item.featured_image || '/images/image.png'}}">
 					</div>
@@ -49,7 +49,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="ui label">Limited</div>
 						</div>
 					</div>
 				</div>

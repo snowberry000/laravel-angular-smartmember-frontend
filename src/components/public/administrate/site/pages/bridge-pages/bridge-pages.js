@@ -35,7 +35,7 @@ app.controller("BridgePagesController", function ($scope, $localStorage, $state,
 
     $scope.paginate = function(){
 
-        if( typeof $scope.data[ $scope.pagination.current_page] != 'object' ) {
+        if( true ) {
 
             $scope.loading = true;
 
@@ -48,7 +48,7 @@ app.controller("BridgePagesController", function ($scope, $localStorage, $state,
             Restangular.all('').customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' )).then(function (data) {
                 $scope.loading = false;
                 $scope.pagination.total_count = data.total_count;
-                $scope.data[ $scope.pagination.current_page] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+                $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
             });
         }
     }
@@ -110,7 +110,7 @@ app.controller("BridgePagesController", function ($scope, $localStorage, $state,
             };
 
             Restangular.all('bridgePage').post(clonedBridgePage).then(function (page) {
-                $scope.data[ $scope.pagination.current_page ].shift(page);
+                $scope.data.shift(page);
                 toastr.success("Bridge page has been cloned!");
                 $state.go("public.administrate.site.pages.bridge-page" , {"id" : page.id});
             });
@@ -119,11 +119,11 @@ app.controller("BridgePagesController", function ($scope, $localStorage, $state,
 
     $scope.deleteResource = function (id) {
 
-        var page = _.find($scope.data[ $scope.pagination.current_page ], function (next_item) {
+        var page = _.find($scope.data, function (next_item) {
             return next_item.id === parseInt(id);
         });
         page.remove().then(function () {
-            $scope.data[ $scope.pagination.current_page ] = _.without($scope.data[ $scope.pagination.current_page ], page);
+            $scope.data = _.without($scope.data, page);
         });
     };
 });

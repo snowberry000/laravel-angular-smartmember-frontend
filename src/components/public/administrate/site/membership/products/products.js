@@ -48,7 +48,7 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 
 	$scope.paginate = function()
 	{
-		if( typeof $scope.data[ $scope.pagination.current_page ] != 'object' )
+		if( true )
 		{
 
 			$scope.loading = true;
@@ -63,7 +63,7 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
 		}
 	}
@@ -100,14 +100,14 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 	}
 
 	$scope.deleteResource = function(id){
-		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+		var itemWithId = _.find( $scope.data, function( next_item )
 		{
 			return next_item.id === parseInt(id);
 		} );
 
 		itemWithId.remove().then( function()
 		{
-			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+			$scope.data = _.without( $scope.data, itemWithId );
 			$rootScope.access_levels = _.reject($rootScope.access_levels , function(item){
 				return item.id == parseInt(id);
 			});
@@ -130,16 +130,16 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 		// } );
 		Restangular.service( "accessLevel/refreshHash" ).post( $access ).then( function( response )
 		{
-			for( var i = 0; i < $scope.data[ $scope.pagination.current_page ].length; i++ )
+			for( var i = 0; i < $scope.data.length; i++ )
 			{
-				if( $scope.data[ $scope.pagination.current_page ][ i ].id == response.id )
+				if( $scope.data[ i ].id == response.id )
 				{
 					// why doesn't this update it instead?
 					// $scope.data[ $scope.pagination.current_page ].hash = response.hash;
 
 					//$scope.data[ $scope.pagination.current_page ].splice( i, 1, response );
 					//because you were missing [i]
-					$scope.data[ $scope.pagination.current_page ][i].hash = response.hash;
+					$scope.data[i].hash = response.hash;
 				}
 			}
 			toastr.success( "Product level hash updated!" );

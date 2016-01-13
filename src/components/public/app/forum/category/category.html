@@ -1,38 +1,46 @@
-<div class="sixteen wide column">
-	
-	<div class="ui top attached clearing segment">
-		<h3 class="ui header huge breadcrumb m-t-sm">
-			<a class="section" ui-sref="public.app.forum.categories">Forum</a>
-			<div class="divider"> / </div>
-			<div class="active section">{{category.title}}</div>
-		</h3>
+<div class="ui attached clearing segment">
+	<h3 class="ui header huge breadcrumb m-t-sm">
+		<a class="section" ui-sref="public.app.forum.categories">Forum</a>
+		<div class="divider"> / </div>
+		<div class="active section">{{category.title}}</div>
+	</h3>
 
-		<a class="ui right floated button" ng-click="smModal.Show('public.app.forum.topic.add')">Add New Topic</a>
+	<a class="ui right floated right labeled icon button" ng-if="isLoggedIn()" ng-click="smModal.Show('public.app.forum.topic.add')">
+		Add New Topic
+		<i class="plus icon"></i>
+	</a>
+</div>
+<div class="ui attached segment">
+
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui loader"></div>
 	</div>
-	<div class="ui attached segment">
 
-		<div class="ui link items">
-			<a class="item" ui-sref="public.app.forum.topic({permalink: topic.permalink})" ng-repeat="topic in category.topics | orderBy:'-updated_at'">
-				<div class="ui tiny image">
-					<img src="{{topic.user.profile_image}}">
-				</div>
-				<div class="middle aligned content">
-					<div class="header">{{topic.title}}</div>
-					<div class="description">
-						<div class="ui small labels">
-							<div class="ui left pointing basic label">
-								{{moment.utc(topic.updated_at).fromNow()}}
-							</div>
-							<div class="ui label" title="replies">
-								<i class="comment icon"></i> {{topic.total_replies}}
-							</div>
-							<div class="ui label" title="views">
-								<i class="eye icon"></i> {{topic.total_views}}
-							</div>
+	<div class="ui link items">
+		<a class="item" ui-sref="public.app.forum.topic({permalink: topic.permalink})" ng-repeat="topic in category.topics | orderBy:'-updated_at'">
+			<div class="ui tiny image">
+				<img src="{{topic.user.profile_image || '/images/image.png'}}">
+			</div>
+			<div class="middle aligned content">
+				<div class="header">{{topic.title}}</div>
+				<div class="description">
+					<div class="ui small labels">
+						<div class="ui left pointing basic label">
+							{{moment.utc(topic.updated_at).fromNow()}}
+						</div>
+						<div class="ui label" title="replies">
+							<i class="comment icon"></i> {{topic.total_replies}}
+						</div>
+						<div class="ui label" title="views">
+							<i class="eye icon"></i> {{topic.total_views}}
 						</div>
 					</div>
 				</div>
-			</a>
+			</div>
+		</a>
+		<div class="item" ng-if="category.topics.length === 0">
+			<p>No topics yet!</p>
 		</div>
 	</div>
 </div>

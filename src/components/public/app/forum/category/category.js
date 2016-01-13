@@ -13,13 +13,18 @@ app.config( function( $stateProvider )
 
 app.controller( "Forum-categoryController", function( $scope, $rootScope, $stateParams, Restangular )
 {
+	$scope.loading = true;
+
 	Restangular.one( 'forumCategory', 'permalink' )
 		.get( { permalink: $stateParams.permalink } )
 		.then( function( response )
 		{
 			$scope.category = response;
-			$rootScope.page_title = $scope.category.title ? $scope.category.title  : 'Category';
+			$rootScope.page_title = $rootScope.site.name+' - '+ $scope.category.title ;
+			$rootScope.page_title = $scope.category.title ? $scope.category.title : 'Category';
 			$rootScope.category = response;
+
+			$scope.loading = false;
 		} );
 
 

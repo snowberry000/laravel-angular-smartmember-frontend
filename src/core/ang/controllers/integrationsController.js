@@ -57,6 +57,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			{ type: 'vimeo', app_configurations: [] },
 			{ type: 'paypal', app_configurations: [] },
 			{ type: 'clickbank', app_configurations: [] },
+			{ type: 'intercom', app_configurations: [] },
 		];
 
 		angular.forEach( $scope.configured_app_configurations, function( value, key )
@@ -293,6 +294,15 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			long_description: '<p class="font-bold text-success">Automatically add your JVZoo affiliates in this section</p> <p class=""> Install the JVzoo Extension following the instructions provided, and every time you visit JVzoo the extension will automatically add your affiliates in this management area. You can add affiliates from these JVzoo locations.</p> <p style="text-align:center;"> <a target="_blank" href="https://www.jvzoo.com/sellers/youraffiliates?f_aff=&f_prod=&f_stat=&r=25000" data-bypass="true">Your Affiliates</a> | <a target="_blank" href="https://www.jvzoo.com/sellers/affiliaterequests?f_aff=&r=250000" data-bypass="true">Affiliate Requests</a> </p>'
 		},
 		{
+			id: 'intercom',
+			name: 'Intercom: Live Chat',
+			short_name: 'Intercom',
+			sites_only: true,
+			description: 'Allow your agents to communicate with your customers in realtime',
+			logo: 'http://designerfund.com/bridge/wp-content/uploads/2015/08/Intercom-logo-01.png',
+			long_description: '<p><a href="http://www.intercom.com" target="_blank">Intercom</a> allows your agents to communicate with your customers in realtime</p>'
+		},
+		{
 			id: 'jvzoo',
 			name: 'JVZoo: Payment Gateway',
 			short_name: 'JVZoo Payment',
@@ -519,12 +529,12 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 			Restangular.service( 'appConfiguration' ).post( data ).then( function( response )
 			{
-				location.href = $scope.app.apiUrl + '/stripe/auth/' + response.id + '?state=' + $localStorage.user.access_token;
+				location.href = $scope.app.apiUrl + '/stripe/auth/' + response.id + '?state=' + $localStorage.user.id + ':' + $rootScope.site.subdomain;
 			} );
 		}
 		else
 		{
-			location.href = $scope.app.apiUrl + '/stripe/auth/' + ($scope.current_integration.id ? $scope.current_integration.id : '') + '?state=' + $localStorage.user.access_token;
+			location.href = $scope.app.apiUrl + '/stripe/auth/' + ($scope.current_integration.id ? $scope.current_integration.id : '') + '?state=' + $localStorage.user.id + ':' + $rootScope.site.subdomain;
 		}
 	}
 

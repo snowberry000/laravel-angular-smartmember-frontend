@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
+app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http , close )
 {
 
 	$rootScope.page_title = "Smart member";
@@ -80,6 +80,9 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 			{
 				$rootScope.redirectedFromLoginMessage = false;
 				window.location.href = $localStorage.accessed_url;
+			}else if($stateParams.close && $localStorage.add_user_to_site){
+				$scope.$storage.user = response;
+				close(response);
 			}
 		} );
 	};
@@ -112,7 +115,10 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 			{
 				if( $state.current.name == 'public.sign.in' || $state.current.name == 'public.sign.in2' )
 				{
-					$state.go( 'public.app.home', {show_modal: false}, { reload: true } );
+					// $state.transitionTo($state.current , $stateParams , {
+					//    reload: 'public.app' , inherit : false , location : false
+					// });
+					$state.go( 'public.app.home', {show_modal: false}, { reload: true,location:false } );
 					smModal.Close();
 				}
 				else
@@ -120,7 +126,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 					$rootScope.modal_popup_template = false;
 					//location.reload(true);
 					console.log('current state', $state.current.name);
-					$state.go( $state.current, $stateParams, { reload: true } );
+					$state.go( $state.current, $stateParams, { reload: true, location:false } );
 					smModal.Close();
 					return;
 				}

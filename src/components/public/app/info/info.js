@@ -13,7 +13,7 @@ app.controller('InfoController', function ($scope, $rootScope,$location, $localS
 
 
 	$scope.lesson_count = 0;
-	$rootScope.page_title = 'Sales Page';
+	$rootScope.page_title = $rootScope.site.name+' - Sales Page';
 	$scope.salesPage=window.location.hash.substr(1);
 	$scope.loading=true;
 

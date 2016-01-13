@@ -1,73 +1,83 @@
-<div class="twelve wide column">
-
-	<div class="ui top attached header huge breadcrumb">
+<div class="ui attached clearing segment">
+	<h3 class="ui header huge breadcrumb">
 		<a class="section" ui-sref="public.app.forum.categories">Forum</a>
-		<i class="right chevron icon divider"></i>
+		<div class="divider"> /</div>
 		<a class="section" ui-sref="public.app.forum.category({permalink: topic.category.permalink})">{{topic.category.title}}</a>
-		<i class="right arrow icon divider"></i>
+		<div class="divider"> /</div>
 		<div class="active section">Topic</div>
+	</h3>
+</div>
+
+<div class="ui attached segment">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui loader"></div>
 	</div>
 
-	<div class="ui segment">
-
-		<div class="ui items">
-			<div class="item">
-				<div class="ui small image">
-					<img src="{{topic.user.profile_image}}">
+	<div class="ui items">
+		<div class="item">
+			<div class="ui small image">
+				<img src="{{topic.user.profile_image || '/images/image.png'}}">
+			</div>
+			<div class="content">
+				<div class="header">
+					{{topic.title}}
 				</div>
-				<div class="content">
-					<div class="header">
-						{{topic.title}}
-					</div>
-					<div class="meta">
-						<span class="stay">{{moment.utc(topic.created_at).fromNow()}}</span>
-					</div>
-					<div class="description">
-						<p dynamic=topic.description></p>
-					</div>
-					<div class="extra">
-						<div class="ui right floated animated button" tabindex="0" ng-click='scrollBottom()' ng-if='topic.category.allow_content && topic.allow_content'>
-							<div class="visible content">Reply</div>
-							<div class="hidden content">
-								<i class="right arrow icon"></i>
-							</div>
+				<div class="meta">
+					<span class="stay">{{moment.utc(topic.created_at).fromNow()}}</span>
+				</div>
+				<div class="description">
+					<p dynamic=topic.description></p>
+				</div>
+				<div class="extra" ng-if="isLoggedIn()">
+					<div class="ui right floated animated button" tabindex="0" ng-click='scrollBottom()' ng-if='topic.category.allow_content && topic.allow_content'>
+						<div class="visible content">Reply</div>
+						<div class="hidden content">
+							<i class="right arrow icon"></i>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="ui segment">
+</div>
+<div class="ui attached segment" ng-if="topic.replies.length > 0">
 
-		<div class="ui divided items">
-			<div class="item reply" ng-repeat='reply in topic.replies | orderBy:"created_at"'>
-				<div class="ui tiny image">
-					<img src="{{reply.user.profile_image}}">
+	<div class="ui divided items">
+		<div class="item reply" ng-repeat='reply in topic.replies | orderBy:"created_at"'>
+			<div class="ui tiny image">
+				<img src="{{reply.user.profile_image}}">
+			</div>
+			<div class="content">
+				<div class="description">
+					<div dynamic=reply.content></div>
 				</div>
-				<div class="content">
-					<div class="description">
-						<div dynamic=reply.content></div>
+				<div class="extra text-right">
+					<div class="ui small basic label">
+						{{moment.utc(reply.created_at).fromNow()}}
 					</div>
-					<div class="extra text-right">
-						<div class="ui small basic label">
-							{{moment.utc(reply.created_at).fromNow()}}
-						</div>
-						<div class="ui mini animated button" tabindex="0" ng-click='replyComment(reply.content)' ng-if='topic.category.allow_content && topic.allow_content'>
-							<div class="visible content">Reply</div>
-							<div class="hidden content">
-								<i class="right arrow icon"></i>
-							</div>
+					<div class="ui mini animated button" tabindex="0" ng-click='replyComment(reply.content)' ng-if='topic.category.allow_content && topic.allow_content'>
+						<div class="visible content">Reply</div>
+						<div class="hidden content">
+							<i class="right arrow icon"></i>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="item" ng-if="topic.replies.length === 0">
+			<p>No replies yet!</p>
+		</div>
 	</div>
-	<div class="ui segment" id='comment_box' ng-if='topic.category.allow_content && topic.allow_content'>
-		<h3 class="ui header">Leave a reply</h3>
-		<textarea froala ng-model="content" placeholder="Leave a reply"></textarea>
+</div>
+<h3 class="ui attached header" ng-if='topic.category.allow_content && topic.allow_content && isLoggedIn()'>
+	Leave a reply
+</h3>
+<div class="ui attached clearing segment" ng-if='topic.category.allow_content && topic.allow_content && isLoggedIn()'>
+	<textarea froala ng-model="content" placeholder="Leave a reply"></textarea>
 
-		<button class="ui button m-t-md" ng-click='addReply(content)'>Add Reply</button>
-	</div>
-
+	<button busy class="ui right floated right labeled icon green button m-t-md" ng-click='addReply(content)'>
+		Add Reply
+		<i class="plus icon"></i>
+	</button>
 </div>

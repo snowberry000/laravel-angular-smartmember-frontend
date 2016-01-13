@@ -32,7 +32,7 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     ];
 
     $scope.lesson_count = 0;
-    $rootScope.page_title = 'Lessons';
+    $rootScope.page_title = $rootScope.site.name+' - Lessons';
     $scope.loading=true;
     $scope.syllabus = {edit_mode : $rootScope.edit_mode}
     $scope.salesPage=window.location.hash.substr(1);
@@ -58,11 +58,19 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         $modules=response;
         $scope.modules = $modules;
         $scope.copy_modules = $modules;
-        $scope.modules = _.reject($scope.modules,function($mod){
-            return $mod.lessons.length==0;
-        });
+
+        if(!$scope.syllabus.edit_mode){
+            $scope.modules = _.reject($scope.modules,function($mod){
+                return $mod.lessons.length==0;
+            });
+        }
+        
         $.each($scope.modules, function (key, data) {
-            data.hide_module = false;
+            
+            $default_syllabus_closed = _.find($scope.site.meta_data, function(obj){ return obj.key == 'default_syllabus_closed'; });
+            if($default_syllabus_closed)
+                data.hide_module = $default_syllabus_closed.value=='1' ? true : false;
+            console.log("its asdsad " +data.hide_module);
             $.each(data.lessons, function (key, data) {
                 $scope.lesson_count++;
                 data.showCounter=$scope.lesson_count;
@@ -151,6 +159,9 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     $scope.saveLesson = function(lesson){
 
         var lesson_copy = angular.copy(lesson);
+        if(lesson.access_level_type == 2 && lesson.access_level_id ==0){
+            return "Please choose an access level id"
+        }
         delete lesson_copy.user_note;
         delete lesson_copy.showCounter;
         delete lesson_copy.show_content_publicly;
@@ -162,11 +173,9 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         delete lesson_copy.current_index;
         delete lesson_copy.module;
         delete lesson_copy.access;
-        $scope.loading = true;
+        //$scope.loading = true;
         Restangular.all('lesson').customPUT(lesson_copy , lesson.id).then(function(response){
-            $state.transitionTo($state.current, $stateParams, { 
-              reload: true, inherit: false, location: false
-            });
+            $scope.editLessonDone(response);
         })
     }
 
@@ -272,9 +281,26 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     }
 
     $scope.editLessonDone = function(edited_lesson){
-        console.log(edited_lesson);
+
         $scope.addAccessLevel(edited_lesson);
         if(edited_lesson && edited_lesson.id){
+            //fix lessons module
+            for (var i = $scope.modules.length - 1; i >= 0; i--) {
+                for (var j = $scope.modules[i].lessons.length - 1; j >= 0; j--) {
+                    if($scope.modules[i].lessons[j].id == edited_lesson.id){
+                        $scope.modules[i].lessons.splice(j , 1);
+                        // $state.reload();
+                    }
+
+                };
+                if(!edited_lesson.module_id && !$scope.modules[i].id)
+                {
+                    $scope.modules[i].lessons.push(edited_lesson);
+                }
+                if($scope.modules[i].id == edited_lesson.module_id){
+                    $scope.modules[i].lessons.push(edited_lesson);
+                }
+            };
 
             for (var i = $scope.modules.length - 1; i >= 0; i--) {
                 for (var j = $scope.modules[i].lessons.length - 1; j >= 0; j--) {
@@ -287,6 +313,18 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
                 };
             };
         }
+
+        for(var i=0;i<$scope.modules.length;i++)
+        {   
+            $rootScope.Modulelessons.push.apply( $rootScope.Modulelessons, $filter('orderBy')($scope.modules[i].lessons, 'sort_order') );
+        }
+        for(var i=0;i<$scope.modules.length;i++)
+        {   
+            $scope.modules[i].lessons = $filter('orderBy')($scope.modules[i].lessons, 'sort_order') ;
+            if(!$scope.modules[i].id)
+                console.log($scope.modules[i].lessons);
+        }
+
     }
 
     $scope.addLessonDone = function(added_lesson){
@@ -342,11 +380,12 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     }
 
     $scope.done = function(response){
-        $state.transitionTo($state.current, $stateParams, { 
-          reload: true, inherit: false, location: false
-        });
+        
 // $state.reload();
-        return;
+        // $state.transitionTo($state.current, $stateParams, { 
+        //   reload: true, inherit: false, location: false
+        // });
+        // return;
         smModal.Close();
         switch($scope.syllabus.current_action){
             case 'edit_lesson':

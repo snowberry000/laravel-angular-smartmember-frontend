@@ -8,22 +8,12 @@ app.config(function($stateProvider){
 		})
 });
 
-app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http )
+app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http, smModal )
 {
     console.log('here we goes');
     $scope.account = {};
 
-    var getUrlVars = function()
-    {
-        var vars = {};
-        var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
-        {
-            vars[ key ] = decodeURIComponent( value );
-        } );
-        return vars;
-    }
-
-    var $_GET = getUrlVars();
+    var $_GET = $rootScope.$_GET;
 
     Restangular.all('').customGET('user/transactionAccount/' + $_GET['cbreceipt']).then(function(response){
         $scope.account = response;
@@ -62,7 +52,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
                 $rootScope.modal_popup_template = false;
                 delete $rootScope.$_GET['cbreceipt'];
                 $state.go($state.current, $stateParams, {reload: true});
-                $scope.CloseModal('transaction-account-setup');
+                smModal.Close();
             },
             function( response )
             {
@@ -100,7 +90,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             $rootScope.modal_popup_template = false;
             delete $rootScope.$_GET['cbreceipt'];
             $state.go($state.current, $stateParams, {reload: true});
-            $scope.CloseModal('transaction-account-setup');
+            smModal.Close();
         } );
     }
 
@@ -114,7 +104,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             $rootScope.modal_popup_template = false;
             delete $rootScope.$_GET['cbreceipt'];
             $state.go($state.current, $stateParams, {reload: true});
-            $scope.CloseModal('transaction-account-setup');
+            smModal.Close();
         },
         function( response )
         {

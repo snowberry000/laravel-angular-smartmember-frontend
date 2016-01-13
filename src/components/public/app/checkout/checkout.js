@@ -22,76 +22,81 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('CheckoutController', function ($scope, $site, $rootScope , $location , notify ,$localStorage ,$stateParams,Restangular) {
-    $scope.access_level = {};
+    var handler = null;
+    $scope.initialize = function(){
+        //$scope.access_level = {};
 
-    var paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', site_id: $scope.site.id, default: "1"});
+        $scope.paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', site_id: $scope.site.id, default: "1"});
 
-    if( !paypal )
-        paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', company_id: $scope.site.company_id, default: "1"});
+        if( !$scope.paypal )
+            $scope.paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', company_id: $scope.site.company_id, default: "1"});
 
-    if( !paypal )
-        paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', site_id: $scope.site.id}) || _.findWhere($scope.site.configured_app,{type: 'paypal'});
+        if( !$scope.paypal )
+            $scope.paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', site_id: $scope.site.id}) || _.findWhere($scope.site.configured_app,{type: 'paypal'});
 
-    var stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', site_id: $scope.site.id, default: "1"});
+        $scope.stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', site_id: $scope.site.id, default: "1"});
 
-    if( !stripe )
-        stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', company_id: $scope.site.company_id, default: "1"});
+        if( !$scope.stripe )
+            $scope.stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', company_id: $scope.site.company_id, default: "1"});
 
-    if( !stripe )
-        stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', site_id: $scope.site.id}) || _.findWhere($scope.site.configured_app,{type: 'stripe'});
+        if( !$scope.stripe )
+            $scope.stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', site_id: $scope.site.id}) || _.findWhere($scope.site.configured_app,{type: 'stripe'});
 
-    if( stripe === undefined )
-        $scope.stripe_checkout = false;
-    else
-        $scope.stripe_checkout = true;
+        //if( $scope.stripe === undefined )
+        //    $scope.stripe_checkout = false;
+        //else
+        //    $scope.stripe_checkout = true;
 
-    if( paypal === undefined )
-        $scope.paypal_checkout = false;
-    else
-        $scope.paypal_checkout = true;
+        //if( $scope.paypal === undefined )
+         //   $scope.paypal_checkout = false;
+        //else
+         //   $scope.paypal_checkout = true;
 
-    $scope.jvzoo_checkout = false;
+        $scope.jvzoo_checkout = false;
 
-    $scope.checkout_success = false;
+        $scope.checkout_success = false;
 
-    angular.forEach($site.meta_data, function(value, key) {
-        if(value.key=='site_logo')
-            $scope.site_logo = value.value;
-        if(value.key=='currency')
-            $scope.currency = value.value;
-    });
+        angular.forEach($site.meta_data, function(value, key) {
+            if(value.key=='site_logo')
+                $scope.site_logo = value.value;
+            if(value.key=='currency')
+                $scope.currency = value.value;
+        });
 
-    if( typeof $scope.currency == 'undefined' || $scope.currency == '' )
-        $scope.currency = 'USD';
+        if( typeof $scope.currency == 'undefined' || $scope.currency == '' )
+            $scope.currency = 'USD';
 
-    $scope.currencies = [
-        {id: 'USD',label: '$'},
-        {id: 'CAD',label: '$'},
-        {id: 'AUD',label: '$'},
-        {id: 'HKD',label: '$'},
-        {id: 'EUR',label: '&euro;'},
-        {id: 'GBP',label: '&pound;'}
-    ];
+        $scope.currencies = [
+            {id: 'USD',label: '$'},
+            {id: 'CAD',label: '$'},
+            {id: 'AUD',label: '$'},
+            {id: 'HKD',label: '$'},
+            {id: 'EUR',label: '&euro;'},
+            {id: 'GBP',label: '&pound;'}
+        ];
+        
+        var email , name;
+
+        handler = StripeCheckout.configure({
+            key: $rootScope.app.stripe_pk,
+            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+            token: function(token) {
+              Restangular.all('transaction').post({access_id : $scope.access_level.id , token : token.id , type : 'stripe' , name : name , email : token.email}).then(function(response){
+                  $scope.stripe_checkout = false;
+                  $scope.paypal_checkout = false;
+                  $scope.checkout_success = true;
+
+                  window.location.href = '/thank-you?access_level_id=' + $scope.access_level.id;
+              })
+            }
+          });
+    }
     
-    var email , name;
-
-    var handler = StripeCheckout.configure({
-        key: $rootScope.app.stripe_pk,
-        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-        token: function(token) {
-          Restangular.all('transaction').post({access_id : $scope.access_level.id , token : token.id , type : 'stripe' , name : name , email : token.email}).then(function(response){
-              $scope.stripe_checkout = false;
-              $scope.paypal_checkout = false;
-              $scope.checkout_success = true;
-
-              window.location.href = '/thank-you?access_level_id=' + $scope.access_level.id;
-          })
-        }
-      });
 
     $scope.init = function(){
     	Restangular.one('accessLevel',$stateParams.id).get().then(function(response){
     		$scope.access_level = response;
+            $scope.initialize()
 
             if( typeof $scope.access_level.jvzoo_button != 'undefined' && $scope.access_level.jvzoo_button != '' && $scope.access_level.jvzoo_button != null && typeof $scope.access_level.product_id != 'undefined' && $scope.access_level.product_id != '' && $scope.access_level.product_id != null )
                 $scope.jvzoo_checkout = true;
@@ -104,19 +109,20 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
                 angular.forEach( $scope.access_level.payment_methods, function( value, key ) {
                     if( value.payment_method_id !== undefined && value.payment_method_id == 1 )
                         jvzoo_enabled = true;
-                    if( value.payment_method_id !== undefined && value.payment_method_id == 2 )
+                    if( value.payment_method_id !== undefined && value.payment_method_id == 2 && $scope.paypal)
                         paypal_enabled = true;
-                    if( value.payment_method_id !== undefined && value.payment_method_id == 3 )
+                    if( value.payment_method_id !== undefined && value.payment_method_id == 3 && $scope.stripe)
                         stripe_enabled = true;
                 });
 
                 if( $scope.access_level.payment_methods.length > 0 ) {
-                    if (paypal_enabled == false)
-                        $scope.paypal_checkout = false;
-                    if (stripe_enabled == false)
+                    $scope.paypal_checkout = paypal_enabled;
+                    $scope.stripe_checkout = stripe_enabled;
+                    $scope.jvzoo_checkout = jvzoo_enabled;
+                    /*if (stripe_enabled == false)
                         $scope.stripe_checkout = false;
                     if (jvzoo_enabled == false)
-                        $scope.jvzoo_checkout = false;
+                        $scope.jvzoo_checkout = false;*/
                 }
 
                 if( typeof $scope.access_level.currency == 'undefined' || $scope.access_level.currency == '' )
@@ -126,14 +132,14 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
                     var new_stripe = _.findWhere($scope.site.configured_app,{type: 'stripe', id: $scope.access_level.stripe_integration }) || _.findWhere($scope.site.configured_app,{type: 'stripe', id: $scope.access_level.stripe_integration + '' })
 
                     if( new_stripe )
-                        stripe = new_stripe;
+                        $scope.stripe = new_stripe;
                 }
 
                 if( $scope.access_level.paypal_integration && $scope.access_level.paypal_integration != 0 ){
                     var new_paypal = _.findWhere($scope.site.configured_app,{type: 'paypal', id: $scope.access_level.paypal_integration }) || _.findWhere($scope.site.configured_app,{type: 'paypal', id: $scope.access_level.paypal_integration + '' })
 
                     if( new_paypal )
-                        paypal = new_paypal;
+                        $scope.paypal = new_paypal;
                 }
             }
     	});
@@ -155,7 +161,7 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
 
         var params = {
             cmd: "_xclick",
-            business: paypal.remote_id,
+            business: $scope.paypal.remote_id,
             item_name: $scope.access_level.name,
             'return': $scope.app.appUrl + '/thank-you?access_level_id=' + $scope.access_level.id,
             "cancel_return": $scope.app.appUrl + $scope.access_level.information_url,

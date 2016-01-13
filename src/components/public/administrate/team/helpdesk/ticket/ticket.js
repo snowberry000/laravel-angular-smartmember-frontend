@@ -12,7 +12,8 @@ app.config( function( $stateProvider )
 
 app.controller( "TicketController", function( $scope, $localStorage, smModal, $state, $rootScope, $stateParams, $filter, Restangular, toastr )
 {
-
+	$scope.display_replies = [];
+	$scope.change_ticket_status = '';
 	$user = $rootScope.user;
 	if( $stateParams.id )
 	{
@@ -45,13 +46,20 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 
 		$scope.reply = { parent_id: $scope.ticket.id, company_id: $scope.ticket.company_id };
 		$scope.send_email = false;
-
-
-		Restangular.service( 'siteRole' ).getList( { type: 'support' } ).then( function( data )
+		if ($scope.ticket.status == 'open')
 		{
+			$scope.change_ticket_status = 'pending';
+		} else {
+			$scope.change_ticket_status = $scope.ticket.status;
+		}
 
+
+		Restangular.all( '' ).customGET( 'siteRole?type=support' ).then( function( data )
+		{
+			data=data.items;
 			angular.forEach( data, function( value )
 			{
+				console.log(value);
 				if( typeof value.user != 'undefined' )
 				{
 					var user_name = value.user.first_name + ' ' + value.user.last_name;
@@ -250,6 +258,7 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 
 	$scope.sendReply = function()
 	{
+
 		if( $scope.admin_mode )
 		{
 			Restangular.all( 'adminNote' ).post( {
@@ -308,6 +317,8 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 				'send_email': $scope.send_email
 			} ).then( function( response )
 			{
+				if(response.status == "solved")
+					$rootScope.site.unread_support_ticket-=1;
 				toastr.success( "Ticket status changed!" );
 
 				var action = {

@@ -58,7 +58,7 @@
 				<div class="field">
 					<label>Attachment</label>
 
-					<button ng-hide="ticket.attachment" class="ui button negative" type="button" sm-uploader="attachment"  ng-model="ticket.attachment">Attach File</button>
+					<button ng-hide="ticket.attachment" class="ui button negative" type="button" sm-uploader="attachment" close-modal='true' ng-model="ticket.attachment">Attach File</button>
 					<span class="attached_file_name"></span>
 					<input type="hidden" name="attachment" class="form-control input-lg" ng-modl="ticket.attachment" />
 					<a ng-show="ticket.attachment" data-bypass="true" target="_blank"

@@ -10,6 +10,6 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("Error-406Controller", function ($scope,$rootScope) {
-	$rootScope.page_title  = 'Error-406';
+	$rootScope.page_title  = $rootScope.site.name+' - Error-406';
 
 });

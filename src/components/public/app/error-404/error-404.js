@@ -10,6 +10,6 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("Error-404Controller", function ($scope,$rootScope) {
-	$rootScope.page_title = 'Error-404';
+	$rootScope.page_title = $rootScope.site.name+' - Error-404';
 
 });

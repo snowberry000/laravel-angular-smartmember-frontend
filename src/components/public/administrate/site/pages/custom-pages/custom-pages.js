@@ -37,7 +37,7 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $rootSc
 
     $scope.paginate = function(){
 
-        if( typeof $scope.data[ $scope.pagination.current_page] != 'object' ) {
+        if( true ) {
 
             $scope.loading = true;
 
@@ -50,7 +50,7 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $rootSc
             Restangular.all('').customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' )).then(function (data) {
                 $scope.loading = false;
                 $scope.pagination.total_count = data.total_count;
-                $scope.data[ $scope.pagination.current_page] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+                $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
             });
         }
     }
@@ -76,7 +76,7 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $rootSc
         Restangular.all('').customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then(function(data){
             $scope.pagination.total_count = data.total_count;
 
-            $scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+            $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 
             $scope.loading = false;
         } , function(error){
@@ -85,12 +85,12 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $rootSc
     }
     
     $scope.deleteResource = function (id) {
-        var itemWithId = _.find($scope.data[ $scope.pagination.current_page ], function (next_item) {
+        var itemWithId = _.find($scope.data, function (next_item) {
             return next_item.id == id;
         });
 
         itemWithId.remove().then(function () {
-            $scope.data[ $scope.pagination.current_page ] = _.without($scope.data[ $scope.pagination.current_page ], itemWithId);
+            $scope.data = _.without($scope.data, itemWithId);
         });
     };
 });

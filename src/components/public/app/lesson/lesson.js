@@ -151,7 +151,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 
 	$scope.deleteComment = function( comment )
 	{
-		if( !$scope.user.id == comment.user_id )
+		if( !$scope.user.id == comment.user_id && !$rootScope.site.is_admin)
 		{
 			toastr.error( "Sorry , you are not authorized to remove this comment" );
 			return;
@@ -162,9 +162,23 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		} )
 	}
 
+	$scope.editComment = function( comment )
+	{
+		if( !$scope.user.id == comment.user_id && !$rootScope.site.is_admin)
+		{
+			toastr.error( "Sorry , you are not authorized to remove this comment" );
+			return;
+		}
+		Restangular.all( 'comment').customPUT({body : comment.body} , comment.id).then( function( response )
+		{
+			comment.edit = false;
+			//$scope.lesson.comments = _.without( $scope.lesson.comments, comment );
+		} )
+	}
+
 	$scope.deleteReply = function( reply, comment )
 	{
-		if( !$scope.user.id == reply.user_id )
+		if( !$scope.user.id == reply.user_id && !$rootScope.site.is_admin)
 		{
 			toastr.error( "Sorry , you are not authorized to remove this reply" );
 			return;
@@ -172,6 +186,19 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		Restangular.one( 'comment', reply.id ).remove().then( function( response )
 		{
 			comment.reply = _.without( comment.reply, reply );
+		} )
+	}
+
+	$scope.editReply = function( reply )
+	{
+		if( !$scope.user.id == reply.user_id && !$rootScope.site.is_admin)
+		{
+			toastr.error( "Sorry , you are not authorized to remove this reply" );
+			return;
+		}
+		Restangular.all( 'comment').customPUT({body : reply.body} , reply.id).then( function( response )
+		{
+			reply.edit = false;
 		} )
 	}
 

@@ -22,18 +22,6 @@ ErrorDocument 404 /pricing
 
 <ifModule mod_rewrite.c>
         RewriteEngine On
-        RewriteCond %{HTTP_HOST} ^sm\.smartmember\.com [NC]
-        RewriteRule ^admin\/account\/memberships$ http://my.smartmember.com/ [R=301,L]
-</ifModule>
-
-<ifModule mod_rewrite.c>
-        RewriteEngine On
-        RewriteCond %{HTTP_HOST} ^sm\.smartmember\.com [NC]
-        RewriteRule ^/?$ http://my.smartmember.com/ [R=301,L]
-</ifModule>
-
-<ifModule mod_rewrite.c>
-        RewriteEngine On
         RewriteCond %{HTTP_HOST} ^www\.([^\.]*)\.smartmember\.com$ [NC]
         RewriteRule (.*) http://%1.smartmember.com/$1 [R=301,L]
 </ifModule>
@@ -69,19 +57,32 @@ ErrorDocument 404 /pricing
 </ifModule>
 
 <ifModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{HTTP_HOST} ^blog.smartmember\.com$ [NC]
+        RewriteRule (.*) http://help.smartmember.com [R=301,L]
+</ifModule>
+<ifModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{HTTP_HOST} ^3c.smartmember\.com$ [NC]
+        RewriteRule ^prelaunch$ http://sm.smartmember.com [R=301,L]
+</ifModule>
+
+<ifModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^admin http://%{HTTP_HOST}/ [L]
     RewriteRule ^lesson/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^download/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^page/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^livecast/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^post/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-article/(.*)$ http://%{HTTP_HOST}/$1 [L]
-    RewriteRule ^site/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^forum-category/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^forum-topic/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-ticket/create(.*)$ http://%{HTTP_HOST}/support-ticket [L]
     RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST}/?signin [L]
     RewriteRule ^sign/up(.*)$ http://%{HTTP_HOST}/?signup [L]
+    RewriteRule ^sign/forgot(.*)$ http://%{HTTP_HOST}/?forgot [L]
+    RewriteRule ^sign/unsubscribe(.*)$ http://%{HTTP_HOST}/?unsubscribe&%{QUERY_STRING} [L]
 </ifModule>
 
 <ifModule mod_rewrite.c>

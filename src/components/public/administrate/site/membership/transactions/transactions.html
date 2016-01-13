@@ -1,4 +1,4 @@
-<div class="ui modal">
+<div class="ui modal"><i class="close icon"></i>
 	<div class="header">
 		<i class="dollar icon"></i>
 		{{ template_data.title | translate }}
@@ -34,7 +34,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-class="{sale:'positive',rfnd:'negative'}[next_item.type]" dir-paginate="next_item in data[pagination.current_page] | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
+					<tr ng-class="{sale:'positive',rfnd:'negative'}[next_item.type]" dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
 						<td>
 							<strong>{{next_item.price}}</strong>
 							<strong>{{next_item.access_level.name ? next_item.access_level.name : next_item.product_id}}</strong>
@@ -94,7 +94,7 @@
 	</div>
 </div>
 
-<div class="ui modal">
+<div class="ui modal"><i class="close icon"></i>
 	<i class="close icon"></i>
 
 	<div class="header">
@@ -136,7 +136,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
+							<tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
 								<td>{{next_item.type}}</td>
 								<td>{{next_item.source}}</td>
 								<td>{{next_item.name}}</td>

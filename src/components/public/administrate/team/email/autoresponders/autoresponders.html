@@ -1,5 +1,5 @@
 
-<div class="ui modal">
+<div class="ui modal"><i class="close icon"></i>
 	<div class="content">
 	    <div class="row">
 	        <div class="col-lg-12">
@@ -45,7 +45,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr dir-paginate="next_item in data[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+								<tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 									<td class="responsive_table_item">
 										{{next_item.name}}
 									</td>

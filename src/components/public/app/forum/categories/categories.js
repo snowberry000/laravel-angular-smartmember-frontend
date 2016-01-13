@@ -12,7 +12,9 @@ app.config( function( $stateProvider )
 
 app.controller( "CategoriesController", function( $scope, $rootScope,Restangular )
 {
-	$rootScope.page_title = "Forum";
+	$scope.loading = true;
+
+	$rootScope.page_title = $rootScope.site.name+' - Forum';
 	$scope.categories = false;
 	$scope.category = {};
 
@@ -21,6 +23,8 @@ app.controller( "CategoriesController", function( $scope, $rootScope,Restangular
 		.then( function( response )
 		{
 			$scope.categories = response;
+
+			$scope.loading = false;
 		} );
 
 } );

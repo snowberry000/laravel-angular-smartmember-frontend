@@ -1,27 +1,49 @@
 <div class="ui attached segment">
+	<h2 class="ui center aligned header headline_text_color">
+		<i class="comment icon"></i>
+		Forum
+	</h2>
+</div>
+<div class="ui attached segment">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui loader"></div>
+	</div>
+
 	<div class="ui divided link items">
 		<div class="item" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false" ng-repeat='cat in categories | orderBy:"-updated_at"'>
 			<a ui-sref="public.app.forum.category({permalink: cat.permalink})" class="image text-center">
-				<i class="huge {{hoverIn ? 'circular' : 'bordered'}} {{cat.icon}} icon"></i>
+				<i class="huge {{hoverIn ? 'green' : ''}} bordered {{cat.icon}} icon"></i>
 			</a>
 			<a ui-sref="public.app.forum.category({permalink: cat.permalink})" class="content">
 				<div class="header">{{cat.title}}</div>
 				<div class="meta">
 					<span class="cinema">{{cat.total_topics}} topics, {{cat.total_replies}} replies</span>
 				</div>
-				<div class="description" >
+				<div class="description">
 					<p dynamic=cat.description></p>
 				</div>
 				<div class="extra">
-					<div class="ui label"><i class="{{cat.access_level_type > 1 ? 'lock' : ''}} icon"></i> {{cat.access_level_type | accessType}} </div>
+					<div class="ui label">
+						<i class="{{cat.access_level_type > 1 ? 'lock' : 'globe'}} icon"></i>
+						{{cat.access_level_type | accessType}}
+					</div>
 				</div>
 			</a>
-			<div class="ui top right attached label" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.app.forum.category.add', {id: cat.id})">
-				<i class="edit icon"></i> edit
+			<div class="content text-right">
+				<div class="ui label" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.app.forum.category.add', {id: cat.id})">
+					<i class="edit icon"></i> edit
+				</div>
 			</div>
+		</div>
+		<div class="item" ng-if="categories.length === 0">
+			<p>No categories yet!</p>
 		</div>
 	</div>
 </div>
 <div class="ui right aligned attached segment" sm-access='manage_content' if-not='hide'>
-	<button class="ui button" ng-click="smModal.Show('public.app.forum.category.add')">Add new category</button>
+	<button class="ui right labeled green icon button" ng-click="smModal.Show('public.app.forum.category.add')">
+		Add new category
+		<i class="plus icon"></i>
+	</button>
 </div>

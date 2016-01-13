@@ -4,7 +4,7 @@
 <div ng-if="!$state.includes('public.app.admin')" class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">		
 
-		<div ng-if="!isLoggedIn() || !is_member" class="row p-b-none">
+		<div ng-if="(!isLoggedIn() || !is_member) && app.subdomain != 'sm'" class="row p-b-none member_sign_row">
 			<div class="column" style="text-align: right;">
 				<div class="pull-left small monitor hidden large monitor hidden">
 					<a class="ui icon button" ng-click="smSidebar.Show('.left_app_sidebar_contents', '', {closable:true,dimPage:true});">
@@ -29,7 +29,7 @@
 			<div class="middle aligned column m-b-lg mobile hidden tablet hidden" ng-if="meta_data.logo_position == 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/common/top-nav.html'"></div>
 			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column'">
 
-				<a sm-class="'ui ' + meta_data.logo_size + (meta_data.logo_border ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="/{{options.logo_url}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''}}">
+				<a sm-class="'ui ' + meta_data.logo_size + (meta_data.logo_border == '1' ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="/{{options.logo_url}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''}}">
 					<h1 ng-hide="options.site_logo" class="headline_text_color">{{site.name}}</h1>
 					<img ng-show="options.site_logo" sui-popup data-edit="{{site.is_admin ? true : false}}" data-state="public.administrate.site.appearance.settings" ng-src="{{options.site_logo}}" class="m-t-sm m-b-sm">
 				</a>
@@ -52,7 +52,7 @@
 	</div>
 </div>
 
-<div class="ui small delete modal">
+<div class="ui small delete modal"><i class="close icon"></i>
 	<div class="content">
 		<p>Are you sure you want to delete this?</p>
 	</div>

@@ -45,7 +45,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 	$scope.paginate = function()
 	{
 
-		if( typeof $scope.data[ $scope.pagination.current_page ] != 'object' )
+		if( true )
 		{
 
 			$scope.loading = true;
@@ -61,7 +61,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
 		}
 	}
@@ -88,7 +88,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 		{
 			$scope.pagination.total_count = data.total_count;
 
-			$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+			$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 
 			$scope.loading = false;
 		}, function( error )
@@ -100,14 +100,14 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 	$scope.deleteResource = function( id )
 	{
 
-		var itemWithId = _.find( $scope.data[ $scope.pagination.current_page ], function( next_item )
+		var itemWithId = _.find( $scope.data, function( next_item )
 		{
 			return next_item.id === parseInt(id);
 		} );
 
 		itemWithId.remove().then( function()
 		{
-			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+			$scope.data = _.without( $scope.data, itemWithId );
 		} );
 	};
 } );

@@ -42,12 +42,16 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		Restangular.all('accessLevel').getList({site_id : $scope.site.id}).then(function(response){
 			$scope.access_levels = response;
 		})
+
+		Restangular.all('importJob/active').customGET().then(function(response) {
+			$scope.active_count = response;
+		})
 	}
 
 	$scope.paginate = function()
 	{
 
-		if( typeof $scope.data[ $scope.pagination.current_page ] != 'object' )
+		if( true )
 		{
 
 			$scope.loading = true;
@@ -73,13 +77,35 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
-				$scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );//data.items;
+				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );//data.items;
+				$scope.data = $scope.filterDuplicate($scope.data);
 			} );
 		}
 	}
 
 	$scope.paginate();
 	$scope.resolve();
+
+	$scope.filterDuplicate = function(data){
+		var new_data = [];
+		for (var i = data.length - 1; i >= 0; i--) {
+			if(!data[i].user_id)
+				continue;
+			var index = _.findWhere(new_data , {user_id : data[i].user_id});
+
+			if(index){
+				if(index.type && index.type.split(',').indexOf(data[i].type) < 0)
+					index.type = index.type + ',' + data[i].type;
+				if(data[i].access_level){
+					index.access_level = index.access_level ? index.access_level + ',' + data[i].access_level.name : data[i].access_level.name;
+				}
+			}else{
+				data[i].access_level = data[i].access_level ? data[i].access_level.name : '';
+				new_data.push(data[i]);
+			}
+		};
+		return new_data;
+	}
 
 	$scope.search = function()
 	{
@@ -145,11 +171,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAccess = function( member )
 	{
-		if(member.type == 'owner')
+		if(member.type.indexOf('owner') >= 0)
 			return;
 		var new_role = member.type;
 
-		if(member.type != 'admin')
+		if(member.type.indexOf('admin') < 0)
 			new_role = 'admin';
 		else
 			new_role = 'member';
@@ -249,11 +275,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			} )
 		}*/
 		var new_role = member.type;
-		if(member.type == 'member')
+		if(member.type.indexOf('member') >= 0)
 		{
 			new_role = 'support';
 		}
-		else if(member.type == 'support'){
+		else if(member.type.indexOf('support') >= 0){
 			new_role = 'member'
 		}
 		Restangular.all( 'siteRole' ).customPUT( { type: new_role}, member.id ).then(function(response){
@@ -301,7 +327,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.isOwner = function( member )
 	{
-		return member.type == 'owner';
+		return member.type.indexOf('owner') >= 0;
 		/*var p_owner = _.findWhere( member.type, { role_type: 1 } ) || _.findWhere( member.type, { role_type: "1" } );
 		var owner = _.findWhere( member.type, { role_type: 2 } ) || _.findWhere( member.type, { role_type: "2" } );
 		var manager = _.findWhere( member.type, { role_type: 3 } ) || _.findWhere( member.type, { role_type: "3" } );
@@ -314,7 +340,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.isAgent = function( member )
 	{
-		return member.type == 'support' || member.type == 'admin' || member.type == 'owner';
+		return member.type.indexOf('support') >= 0 || member.type.indexOf('admin') >= 0 || member.type.indexOf('owner') >= 0;
 		/*var agent = _.findWhere( member.type, { role_type: 5 } ) || _.findWhere( member.type, { role_type: "5" } );
 		if( agent )
 		{
@@ -325,7 +351,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.isAdmin = function( member )
 	{
-		return member.type == 'admin' || member.type == 'owner';
+		return member.type.indexOf('admin') >= 0 || member.type.indexOf('owner') >= 0;
 		/*var admin = _.findWhere( member.type, { role_type: 4 } ) || _.findWhere( member.type, { role_type: "4" } );
 		if( admin )
 		{
@@ -336,12 +362,12 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.deleteResource = function( id )
 	{
-		var itemWithId = _.find($scope.data[ $scope.pagination.current_page ], function (next_item) {
+		var itemWithId = _.find($scope.data, function (next_item) {
 			return next_item.id == id;
 		});
 		itemWithId.remove().then( function()
 		{
-			$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
+			$scope.data = _.without( $scope.data, itemWithId );
 		} );
 
 	};

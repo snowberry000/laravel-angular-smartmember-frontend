@@ -1,4 +1,4 @@
-<div class="ui modal">
+<div class="ui modal"><i class="close icon"></i>
 	<div class="ibox-content">
 		<div class="field">
 			<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">

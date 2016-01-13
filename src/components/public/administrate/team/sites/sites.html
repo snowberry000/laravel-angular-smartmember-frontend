@@ -1,4 +1,4 @@
-<div class="ui large modal">
+<div class="ui large modal"><i class="close icon"></i>
 	<div class="header">
 		<i class="globe icon"></i>
 		My Sites
@@ -12,7 +12,7 @@
 				</div>
 				<div class="ui left icon input">
 					<i class="search icon"></i>
-					<input type="text" placeholder="Search..." ng-model="$parent.query">
+					<input type="text" placeholder="Search..." ng-model="site_query" ng-change="paginate()">
 				</div>
 				<div class="header">
 					<i class="tags icon"></i>
@@ -49,10 +49,12 @@
 				<p>These are all the sites you've created, joined, or managing.</p>
 			</div>
 
-			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="loadMore()" ng-init="loadMore()">
-				<a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query">
+			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="paginate()" ng-init="paginate()">
+				<!-- <a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query"> -->
+				<a class="card" ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" dir-paginate="site in sites_to_show | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
-						<img class="ui centered middle aligned image" src="{{site.data.site_logo || '/images/white-image.png'}}">
+						<img class="ui centered middle aligned image" src="{{site.logo || '/images/white-image.png'}}">
+						<div class="ui top right attached label">{{site.role}}</div>
 					</div>
 					<div class="content">
 						<div class="header">
@@ -62,7 +64,7 @@
 							{{site.domain ? site.domain : site.subdomain + '.' + 'smartmember.com' }}
 						</div>
 						<div class="description">
-
+							<button class="ui top left attached label"  ng-if ="site.role!='owner'" ng-click="promptRemoveMe($event,site)">Remove me</button>
 						</div>
 					</div>
 					<div class="extra content">
@@ -86,22 +88,24 @@
 						</div>
 
 					</div>
-					<div class="ui bottom attached indicating progress" data-value="{{site.progress}}" data-total="5" sui-progress title="Setup wizard progress">
+					<div ng-if="site.role=='admin' || site.role=='owner' || site.role=='editor'" class="ui bottom attached indicating progress" data-value="{{site.progress}}" data-total="5" sui-progress title="Setup wizard progress">
 						<div class="bar"></div>
 					</div>
 				</a>
 			</div>
-
-			<div class="text-right" ng-if='!loading'>
-				<pagination total-items="adminPagination.total_count" max-size="5" items-per-page="25" ng-model="adminPagination.current_page" class="pagination-sm" boundary-links="true" ng-change="loadMore()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+			<div class="text-right"  ng-if="pagination.total_count > 25">
+				<dir-pagination-controls max-size="5"></dir-pagination-controls>
 			</div>
+			<!-- <div class="text-right" ng-if='!loading'>
+				<pagination total-items="adminPagination.total_count" max-size="5" items-per-page="25" ng-model="adminPagination.current_page" class="pagination-sm" boundary-links="true" ng-change="loadMore()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+			</div> -->
 		</div>
 	</div>
 	<div class="actions">
 		<div ng-if="!$state.includes('public.my')" class="ui black deny button close">
 			Close
 		</div>
-		<a ng-click="smModal.Show('public.administrate.team.site')" class="ui right labeled icon green button">
+		<a ng-if="site.is_customer || ( isSitelessPage('my') && user.sm_access )" ng-click="smModal.Show('public.administrate.team.site')" class="ui right labeled icon green button">
 			Create new Site
 			<i class="plus icon"></i>
 		</a>

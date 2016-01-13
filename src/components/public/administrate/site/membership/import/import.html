@@ -1,4 +1,4 @@
-<div class="ui modal">
+<div class="ui modal"><i class="close icon"></i>
 	<div class="header">
 		<i class="users icon"></i>
 		Import Members
@@ -24,11 +24,11 @@
 					</div>
 				</div>
 
-				<div class="ui segment grouped fields">
+				<div class="ui segment grouped fields" style="max-height: 450px; overflow-y: auto;">
 					<label>Access Level(s)</label>
 					<div class="field" ng-repeat="access_level in access_levels">
-						<div class="ui checkbox" sui-checkbox>
-							<input type="checkbox" tabindex="0" class="hidden" ng-model="members.access_levels[access_level.id]">
+						<div class="ui checkbox" ng-model="members.access_levels[access_level.id]" sui-checkbox>
+							<input type="checkbox" tabindex="0" class="hidden">
 							<label>{{access_level.name}}</label>
 						</div>
 					</div>
@@ -50,10 +50,6 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="smModal.Show('public.administrate.site.membership.queue')" class="ui left floated left labeled icon button">
-			View previous imports <span ng-if="active_count">({{active_count}} job still processing)</span>
-			<i class="eye icon"></i>
-		</a>
 		<div class="ui black deny button close">
 			Close
 		</div>

@@ -28,30 +28,35 @@
   }
 
   .admin_bar .ui.labeled.icon.button {
-    padding-left: 2.77142857em!important;
+    padding-left: 2.77142857em !important;
   }
   .ui.menu .thin.item {
-    padding-left:0.54285714em;
-    padding-right:0.54285714em;
+    padding-left: 0.54285714em;
+    padding-right: 0.54285714em;
   }
 }
 
 @media screen and (min-width: 801px) {
-  .mobile_admin_notification {
-    display: none !important;
-  }
+
 }
+
 @media screen and (max-width: 800px) {
-  .admin_bar {
-    display: none !important;
-  }
 
-  .public .logged_in {
-    margin-top: 0 !important;
-  }
-
-  .mobile_admin_notification {
-    display: none;
-  }
 }
 
+.public .ui.menu.admin_bar {
+  .build_menu_trigger_container .buttons {
+    margin: 0px auto !important;
+  }
+
+  .app_shortcuts_container .item {
+    width: auto !important;
+  }
+  .profile_image_container {
+    width: auto !important;
+  }
+  .item.wizard_container {
+    width: 150px !important;
+    margin: 0px auto !important;
+  }
+}

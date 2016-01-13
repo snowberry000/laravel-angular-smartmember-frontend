@@ -43,7 +43,8 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				var the_options = {
 					observeChanges: true,
 					duration: 100,
-					closable: subdomain == 'my' ? false : true,
+					closable: subdomain == 'my' ? false : false,
+					autofocus: false,
 					dimmerSettings: {
 						opacity: 0.3
 					},
@@ -74,7 +75,7 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 				// The modal object has the element built, if this is a bootstrap modal
 				// you can call 'modal' to show it, if it's a custom modal just show or hide
 				// it as you need to.
-				modal.element.modal( the_options ).modal( 'show' );
+				modal.element.modal( the_options).modal( 'show' );
 
 				modal.close.then( function( result )
 				{

@@ -228,7 +228,7 @@
 
     <div class="field clear_both" ng-if="users.length > 0">
         <label>Sending to {{users.length}}  Users</label>
-        <div class="ui modal">
+        <div class="ui modal"><i class="close icon"></i>
             <div class="tab_pane large_bottom_padding selected">
                 <div class="admin_list_item member_item active" data-ng-repeat="user in users_to_show">
                     <a href="#" class=" member_preview_link member_image thumb_36" style="background-image: url(https://secure.gravatar.com/avatar/{{ member.email_hash }}?d=identicon&s=48); background-color: rgb(246, 246, 246);" aria-hidden="true"></a>
@@ -460,7 +460,7 @@
     </div>
     <div class="field clear_both" ng-show="exclude_email" ng-if="exclude_users.length > 0">
         <label>Not Sending to {{exclude_users.length}}  Users</label>
-        <div class="ui modal">
+        <div class="ui modal"><i class="close icon"></i>
             <div class="tab_pane large_bottom_padding selected">
                 <div class="admin_list_item member_item active" data-ng-repeat="user in exclude_users_to_show">
                     <a href="#" class=" member_preview_link member_image thumb_36" style="background-image: url(https://secure.gravatar.com/avatar/{{ member.email_hash }}?d=identicon&s=48); background-color: rgb(246, 246, 246);" aria-hidden="true"></a>

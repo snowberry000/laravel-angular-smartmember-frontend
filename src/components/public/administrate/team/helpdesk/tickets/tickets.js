@@ -27,6 +27,8 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 		total_count: 0
 	};
 
+	$scope.sortTicket = {};
+
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
@@ -38,6 +40,12 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 	$scope.disable = false;
 	$scope.requesting_data = false;
 
+	$scope.sortTickets = function($type) {
+		// alert("called");
+		$scope.sortTicket.type = $type;
+		$scope.FetchTickets();
+	}
+
 	$scope.FetchTickets = function()
 	{
 		$scope.requesting_data = true;
@@ -45,7 +53,8 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 		var search_parameters = {
 			p: $scope.pagination.current_page,
 			status: $scope.type_to_fetch,
-			site_id: $site.id
+			site_id: $site.id,
+			sortBy: $scope.sortTicket.type
 		}
 
 		Restangular.all( '' ).customGET( 'supportTicket', search_parameters ).then( function( response )

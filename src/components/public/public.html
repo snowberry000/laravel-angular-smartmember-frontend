@@ -1,11 +1,2 @@
-<div class="ui top fixed inverted pointing menu admin_bar" ng-include="GetAdminBarInclude()"></div>
-<div class="ui top fixed inverted pointing menu mobile_admin_notification" style="display:none;">
-    <div class="item">
-        <div class="ui buttons" style="margin-left: auto;margin-right: auto;">
-            <a href="http://help.smartmember.com/182016-smart-member-20-live-important-update-re-mobile-users" class="ui inverted basic red button">
-                Mobile Admin Coming Soon.
-            </a>
-        </div>
-    </div>
-</div>
-<ui-view ng-class="'ui ' + (meta_data.page_background_style == 'boxed' && !$state.includes('public.www') ? '' : 'fluid') + ' container pusher'"></ui-view>
+<div class="ui top fixed inverted pointing stackable menu admin_bar" ng-include="GetAdminBarInclude()"></div>
+<ui-view ng-class="'ui ' + (meta_data.page_background_style == 'boxed' && !$state.includes('public.www') ? '' : 'fluid') + ' container the_main_container pusher'"></ui-view>

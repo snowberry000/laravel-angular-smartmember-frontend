@@ -13,6 +13,7 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
 {
 	$scope.posts = [];
 	$scope.loading=true;
+	$rootScope.page_title = "Blogs";
 	Restangular.all( 'post' ).getList( { 'site_id': $site.id } ).then( function( response )
 	{
 		$scope.loading=false;

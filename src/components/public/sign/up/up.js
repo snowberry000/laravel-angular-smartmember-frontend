@@ -76,7 +76,14 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, i
 						$rootScope.redirectedFromLoginMessage = false;
 						window.location.href = $localStorage.accessed_url;
 					}
+
+					if($localStorage.access_pass_redirect){
+						$localStorage.access_pass_redirect = null;	
+						window.location.href = '/'
+					}
+
 					toastr.success( "Registered!" );
+
 					//location.reload();
 
 				},
@@ -99,15 +106,15 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, i
 
 	$scope.validate = function()
 	{
-		if ($scope.user.first_name.length === 0 || !$scope.user.first_name)
+		if (!$scope.user.first_name || $scope.user.first_name.length === 0)
 		{
 			return false;
 		}
-		if ($scope.user.email.length === 0 || !$scope.user.email)
+		if (!$scope.user.email || $scope.user.email.length === 0)
 		{
 			return false;
 		}
-		if ($scope.user.password.length === 0 || !$scope.user.password)
+		if (!$scope.user.password || $scope.user.password.length === 0)
 		{
 			return false;
 		}

@@ -20,6 +20,7 @@ app.directive( 'suiPopup', function( smModal )
 				},
 				transition: attributes.transition || 'slide down',
 				on: attributes.on || 'hover',
+				lastResort: 'bottom center',
 				inline: attributes.inline || false,
 				movePopup: (attributes.movePopup == "false") ? false : true,
 				onVisible: function()
@@ -48,7 +49,7 @@ app.directive( 'suiPopup', function( smModal )
 				}
 			};
 
-			console.log( 'the_options', the_options );
+			//console.log( 'the_options', the_options );
 			window.setTimeout(function() {
 				$(next_item).popup(the_options);
 				}, 3000);

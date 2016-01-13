@@ -108,6 +108,16 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 			$scope.next_item.most_used_tags = response.most_used_tags;
 		} )
 
+        //speed blogging stuff here
+        if( !$scope.next_item.id )
+        {
+            if( $stateParams.speed_blogging ) {
+                angular.forEach( $stateParams.speed_blogging, function(value, index){
+                    $scope.next_item[ index ] = value;
+                })
+            }
+        }
+
 
 		$scope.$watch( 'post', function( post, oldPost )
 		{
@@ -136,7 +146,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		cancel_route: 'public.administrate.site.content.blog.posts',
 		success_route: 'public.administrate.site.content.blog.posts',
 		transcript: false,
-		access_choice: false
+		access_choice: true
 	}
 	$scope.site = $site = $rootScope.site;
 
@@ -201,13 +211,25 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
         delete $scope.next_item.most_used_categories;
 		delete $scope.next_item.most_used_tags;
 		delete $scope.next_item.access_level;
-		$scope.next_item.access_level_type = 1;
+		//$scope.next_item.access_level_type = 1;
+        if( $scope.next_item.access_level_type == 2 && $scope.next_item.access_level_id == 0 )
+        {
+            $scope.next_item.access_level_type = 3;
+        }
+
+		if( $scope.next_item.access_level_type != 2 )
+        {
+            $scope.next_item.access_level_id = 0;
+        }
 		if( $scope.next_item.id )
 		{
 
 			$scope.next_item.put().then(function(response){
 				smModal.Show("public.administrate.site.content.blog.posts");
 				toastr.success( "Your post has been updated!" );
+				$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 			})
 		}
 		else
@@ -223,6 +245,9 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
 				smModal.Show("public.administrate.site.content.blog.posts" );
+				$state.transitionTo($state.current, $stateParams, { 
+          reload: true, inherit: false, location: false
+        });
 			} );
 		}
 	}
@@ -231,7 +256,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 	{
         if( !$scope.next_item.permalink )
         {
-            $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title );
+            $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title ).toLowerCase();
         }
         $scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
 	}

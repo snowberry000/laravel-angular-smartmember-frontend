@@ -1,0 +1,41 @@
+<div class="ui modal"><i class="close icon"></i>
+
+    <div class="header">
+        <i class="write icon"></i>
+        Select Content Type
+    </div>
+    <div class="content">
+        <div class="description">
+
+            <div class="ui message">
+                <p>Choose what kind of content you want to create. </p>
+            </div>
+
+            <div class="ui section divider"></div>
+
+            <div class="ui active inverted dimmer" ng-if="loading">
+                <div class="ui loader"></div>
+            </div>
+
+            <div class="ui stackable three cards" ng-if="!loading">
+                <a class="ui card" ng-repeat="type in content_types" ng-click="smModal.Show( type.route,{speed_blogging: next_item})" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false">
+                    <div class="image text-center p-sm">
+                        <i class="huge icons">
+                            <i class="big green {{hoverIn ? 'loading sun' : 'thin circle'}} icon"></i>
+                            <i class="green {{ type.icon }} icon"></i>
+                        </i>
+                    </div>
+                    <div class="extra text-center">
+                        <h3 class="ui header">
+                            {{ type.description }}
+                        </h3>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <div class="actions">
+
+    </div>
+</div>
