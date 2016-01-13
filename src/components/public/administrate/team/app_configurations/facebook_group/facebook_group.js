@@ -11,28 +11,33 @@ app.config(function($stateProvider){
 
 app.controller("FacebookGroupController", function ($scope, toastr,$localStorage,  Restangular, $http, notify,Facebook) {
 		$scope.facebook_groups = [];
+		$scope.joined_facebook_groups = [];
+
+        angular.forEach( $scope.site.configured_app, function(value){
+            if( value.type == 'facebook_group')
+                $scope.facebook_groups.push( value );
+        })
+
 		$scope.group_id = {}
 		$scope.group_id.selected = $scope.site.is_admin ? 0 : $scope.site.facebook_group_id
 		Restangular.one('facebook').customGET('groups-joined', {user_id: $localStorage.user.id}).then(function(response){
 
 	        if( response.length > 0 ) {
 	            angular.forEach(response, function (value, key) {
-	                $scope.facebook_groups.push(value);
+	                $scope.joined_facebook_groups.push(value);
 	            });
 	        }
 
-			if ($scope.facebook_groups.length == 0)
-				$scope.facebook_groups = false;
+			if ($scope.joined_facebook_groups.length == 0)
+				$scope.joined_facebook_groups = false;
 
 			$scope.show_add_group = false;
-
-			if ($scope.site.facebook_app_id){
-				$scope.show_add_group = true;
-			}
 		});
 		var user_options = {};
 		$scope.joinGroup = function(group_id){
 			console.log(group_id)
+
+            console.log(' we have integrations I think: ', $scope.site.configured_app );
 
 	        group = _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id}) || _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id + ''});
 
