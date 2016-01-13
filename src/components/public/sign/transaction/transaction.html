@@ -64,7 +64,7 @@
                 <div class="column">
 
                     <form class="ui form" ng-submit="associateAccount()">
-                        <h3>You probably have an active account at one of many Smartmember sites before. Please Login or click on Forget Password to retrieve your password again.</h3>
+                        <h3>You probably already have an active account at one of the many Smartmember sites. Please Login or click  Forgot Password to retrieve your password</h3>
                         <div class="field">
                             <label>Email</label>
                             <div class="ui left icon input">
@@ -166,6 +166,10 @@
         </div>
     </div>
     <div class="actions">
+        <a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.forgot')" ng-if="account.last_logged_in">
+            Forgot password?
+            <i class="lock icon"></i>
+        </a>
         <a href="http://help.smartmember.com" class="ui close right labeled icon button">
             Need help?
             <i class="fa fa-life-ring icon"></i>
