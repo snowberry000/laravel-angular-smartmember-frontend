@@ -29,7 +29,7 @@ app.directive( 'smAccess', function()
 			if (take_action){
 				switch(attributes.ifNot){
 					case 'hide':
-                        console.log( 'why are we hiding this guy?', scope.site );
+                        //console.log( 'why are we hiding this guy?', scope.site );
 						$(element).hide();
 						break;
 					case 'disable':

@@ -9,134 +9,166 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("FacebookGroupController", function ($scope, toastr,$localStorage,  Restangular, $http, notify,Facebook) {
-		$scope.facebook_groups = [];
-		$scope.joined_facebook_groups = [];
+app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$localStorage,  Restangular, $http, notify,Facebook) {
+    $scope.available_facebook_groups = [];
+    $scope.facebook_groups = [];
+    $scope.joined_facebook_groups = [];
 
-        angular.forEach( $scope.site.configured_app, function(value){
-            if( value.type == 'facebook_group')
-                $scope.facebook_groups.push( value );
-        })
+    angular.forEach( $scope.site.configured_app, function(value){
+        if( value.type == 'facebook_group')
+            $scope.facebook_groups.push( value );
+    });
 
-		$scope.group_id = {}
-		$scope.group_id.selected = $scope.site.is_admin ? 0 : $scope.site.facebook_group_id
-		Restangular.one('facebook').customGET('groups-joined', {user_id: $localStorage.user.id}).then(function(response){
+    $scope.access_levels_checked = [];
 
-	        if( response.length > 0 ) {
-	            angular.forEach(response, function (value, key) {
-	                $scope.joined_facebook_groups.push(value);
-	            });
-	        }
+    $scope.addFBGroup = function(access_level_id) {
+        $scope.access_levels_checked.push( access_level_id );
 
-			if ($scope.joined_facebook_groups.length == 0)
-				$scope.joined_facebook_groups = false;
+        access_level = _.findWhere( $scope.access_levels, {id: parseInt( access_level_id )} ) || _.findWhere( $scope.access_levels, {id: access_level_id + ""} );
 
-			$scope.show_add_group = false;
-		});
-		var user_options = {};
-		$scope.joinGroup = function(group_id){
-			console.log(group_id)
+        if( access_level ) {
+            if (access_level.facebook_group_id && $scope.available_facebook_groups.indexOf(access_level.facebook_group_id) == -1)
+                $scope.available_facebook_groups.push(access_level.facebook_group_id);
 
-            console.log(' we have integrations I think: ', $scope.site.configured_app );
+            if (access_level.grants && access_level.grants.length > 0) {
+                angular.forEach(access_level.grants, function (value) {
+                    if (value.grant_id && $scope.access_levels_checked.indexOf(value.grant_id) == -1)
+                        $scope.addFBGroup( value.grant_id );
+                });
+            }
+        }
+    }
 
-	        group = _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id}) || _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id + ''});
+    if( $scope.user && $scope.user.role && $rootScope.access_levels ) {
+        angular.forEach($scope.user.role, function (value) {
+            if( value.access_level_id && value.access_level_id != 0 && value.access_level_id != "" )
+            {
+                if( $scope.access_levels_checked.indexOf( value.access_level_id ) == -1 )
+                    $scope.addFBGroup( value.access_level_id );
+            }
+        });
+    }
 
-	        FB.init({
-	            appId      : group.username,
-	            xfbml      : true,
-	            version    : 'v2.4'
-	        });
+    //console.log('our real groups: ', $scope.available_facebook_groups );
 
-	        FB.login(function(response){
-	            var user_id = response.authResponse.userID;
+    if( $scope.available_facebook_groups.length > 0 )
+        $scope.selected_group = $scope.available_facebook_groups[0];
 
-	            $http.put($scope.app.apiUrl + "/user/" + $localStorage.user.id ,{facebook_user_id: user_id}).then(function(response){
-	                FB.ui({
-	                    method: 'game_group_join',
-	                    id: group.remote_id
-	                }, function(response) {
-	                    if (response.added == true) {
-	                        swal('Congratulations, you have joined our Facebook Group!', 'You can access the group at any time by clicking the Facebook icon on the right side of the members area.');
-	                        user_options.fb_group_joined = group.remote_id;
-	                        Restangular.all('user').customPOST({user_options: user_options, user_id: $localStorage.user.id}, "saveFacebookGroupOption").then(function(response){
-	                            $scope.facebook_groups = response;
-	                        });
-	                    } else {
-	                        if (response.error_code == 4001){
-	                            user_options.fb_group_joined = group.remote_id;
-	                            Restangular.all('user').customPOST({user_options: user_options, user_id: $localStorage.user.id}, "saveFacebookGroupOption").then(function(response){
-	                                swal("You are already a member of this group");
-	                                $scope.facebook_groups = response;
-	                            });
-	                        }
-	                    }
-	                });
-	            })
-	        }, {scope: ''});
+    $scope.group_id = {}
+    $scope.group_id.selected = $scope.site.is_admin ? 0 : $scope.site.facebook_group_id
+    Restangular.one('facebook').customGET('groups-joined', {user_id: $localStorage.user.id}).then(function(response){
 
-		}
+        if( response.length > 0 ) {
+            angular.forEach(response, function (value, key) {
+                $scope.joined_facebook_groups.push(value);
+            });
+        }
 
-	    $scope.saveGroup = function(group_id) {
-	        $http.post($scope.app.apiUrl + "/saveAlFb/" + group_id, {access_levels: $scope.site.fb_group_access_levels}).then(function(response) {
-	            // notify({
-	            //         message:'Your group access levels have been saved',
-	            //         classes: 'alert-success',
-	            //         templateUrl : 'templates/modals/notifyTemplate.html'
-	            //     });
-	            toastr.success('Your group access levels have been saved', 'Toastr fun!');
+        if ($scope.joined_facebook_groups.length == 0)
+            $scope.joined_facebook_groups = false;
 
-	        });
-	    }
+        $scope.show_add_group = false;
+    });
+    var user_options = {};
+    $scope.joinGroup = function(group_id){
+        group = _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id}) || _.findWhere( $scope.site.configured_app, {type:'facebook_group',remote_id: group_id + ''});
 
-		$scope.addGroup = function(){
-			$scope.showDialog();
-		}
+        FB.init({
+            appId      : group.username,
+            xfbml      : true,
+            version    : 'v2.4'
+        });
 
-		$scope.setAppId = function(){
-			$http.put($scope.app.apiUrl + "/site/" + $scope.site.id,
-				{
-					facebook_app_id: $scope.site.facebook_app_id,
-					facebook_secret_key: $scope.site.facebook_secret_key
-				}).success(function(){
-					$scope.show_add_group = true;
-				});
-		}
+        FB.login(function(response){
+            var user_id = response.authResponse.userID;
 
-		$scope.showDialog = function(app_id){
-			console.log($scope.site.facebook_app_id)
-			FB.init({
-		      appId      : $scope.site.facebook_app_id,
-		      xfbml      : true,
-		      version    : 'v2.4'
-		    });
+            $http.put($scope.app.apiUrl + "/user/" + $localStorage.user.id ,{facebook_user_id: user_id}).then(function(response){
+                FB.ui({
+                    method: 'game_group_join',
+                    id: group.remote_id
+                }, function(response) {
+                    if (response.added == true) {
+                        swal('Congratulations, you have joined our Facebook Group!', 'You can access the group at any time by clicking the Facebook icon on the right side of the members area.');
+                        user_options.fb_group_joined = group.remote_id;
+                        Restangular.all('user').customPOST({user_options: user_options, user_id: $localStorage.user.id}, "saveFacebookGroupOption").then(function(response){
+                            $scope.joined_facebook_groups = response;
+                        });
+                    } else {
+                        if (response.error_code == 4001){
+                            user_options.fb_group_joined = group.remote_id;
+                            Restangular.all('user').customPOST({user_options: user_options, user_id: $localStorage.user.id}, "saveFacebookGroupOption").then(function(response){
+                                swal("You are already a member of this group");
+                                $scope.joined_facebook_groups = response;
+                            });
+                        }
+                    }
+                });
+            })
+        }, {scope: ''});
 
-			FB.login(function(){
-	 			FB.ui({
-				  method: 'game_group_create',
-				  name: 'My Test Group',
-				  description: 'A description for the test group',
-				  privacy: 'CLOSED',
-				},
-				function(response) {
-					
-									
-				    if (response && response.id) {
-				    	FB.api('/' +  response.id, function(group){
-				    		console.log("Facebook", group);
-				    		$http.post($scope.app.apiUrl + '/facebook/setgroup',{
-					    		"group_id": response.id.toString(),
-					    		"username": group.name,
-					    		"password": group.privacy, 
-					    	}).success(function(res){
-					    		$scope.facebook_groups.push(res);
-					    	})
-				    	});
-				    	
-				    } else {
+    }
 
-				    }
-				 }
-				);
-			}, {scope: ''});		
-		}
+    $scope.saveGroup = function(group_id) {
+        $http.post($scope.app.apiUrl + "/saveAlFb/" + group_id, {access_levels: $scope.site.fb_group_access_levels}).then(function(response) {
+            // notify({
+            //         message:'Your group access levels have been saved',
+            //         classes: 'alert-success',
+            //         templateUrl : 'templates/modals/notifyTemplate.html'
+            //     });
+            toastr.success('Your group access levels have been saved', 'Toastr fun!');
+
+        });
+    }
+
+    $scope.addGroup = function(){
+        $scope.showDialog();
+    }
+
+    $scope.setAppId = function(){
+        $http.put($scope.app.apiUrl + "/site/" + $scope.site.id,
+            {
+                facebook_app_id: $scope.site.facebook_app_id,
+                facebook_secret_key: $scope.site.facebook_secret_key
+            }).success(function(){
+                $scope.show_add_group = true;
+            });
+    }
+
+    $scope.showDialog = function(app_id){
+        console.log($scope.site.facebook_app_id)
+        FB.init({
+          appId      : $scope.site.facebook_app_id,
+          xfbml      : true,
+          version    : 'v2.4'
+        });
+
+        FB.login(function(){
+            FB.ui({
+              method: 'game_group_create',
+              name: 'My Test Group',
+              description: 'A description for the test group',
+              privacy: 'CLOSED',
+            },
+            function(response) {
+
+
+                if (response && response.id) {
+                    FB.api('/' +  response.id, function(group){
+                        console.log("Facebook", group);
+                        $http.post($scope.app.apiUrl + '/facebook/setgroup',{
+                            "group_id": response.id.toString(),
+                            "username": group.name,
+                            "password": group.privacy,
+                        }).success(function(res){
+                            $scope.facebook_groups.push(res);
+                        })
+                    });
+
+                } else {
+
+                }
+             }
+            );
+        }, {scope: ''});
+    }
 });
