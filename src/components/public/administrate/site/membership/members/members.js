@@ -48,15 +48,21 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		})
 	}
 
-	$scope.paginate = function()
+	$scope.paginate = function(search)
 	{
+		var $params = { p: $scope.pagination.current_page, site_id: $site.id };
+
+		if (search)
+		{
+			$scope.pagination.current_page = 1;
+		}
 
 		if( true )
 		{
 
 			$scope.loading = true;
 
-			var $params = { p: $scope.pagination.current_page, site_id: $site.id };
+
 
 			if( $scope.query )
 			{
@@ -112,10 +118,10 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		$scope.loading = true;
 		$scope.data = [];
 		$scope.pagination = {
-		current_page: 1,
-		per_page: 25,
-		total_count: 0
-	};
+			current_page: 1,
+			per_page: 25,
+			total_count: 0
+		};
 		var $params = { site_id: $site.id, p: $scope.pagination.current_page };
 
 		if( $scope.query )
