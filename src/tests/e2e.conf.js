@@ -20,7 +20,7 @@ exports.config = {
 		realtimeFailure: true
 	},
 	params: {
-		env: 'com',
+		env: 'in',
 		subdomain: 'cat',
 		user: {
 			email: 'jawad@likastic.com',
