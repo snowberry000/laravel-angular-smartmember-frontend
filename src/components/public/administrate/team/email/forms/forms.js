@@ -15,7 +15,8 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 {
 
 	$scope.site_options = {};
-
+	$site = $rootScope.site;
+	$scope.emailList={company_id: $site.company_id};
 	$scope.site_options.isOpen = false;
 	$scope.site_options.redirect_url = '';
 	$scope.url = $scope.app.apiUrl + '/optin';
@@ -29,7 +30,8 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 	};
 
 	$scope.loading = true;
-	$site = $rootScope.site;
+	
+	$scope.showCreateList = false;
 
 	// $emailList = Restangular.all('emailList').getList().then(function(response){console.log(response);$scope.emailLists = response; $scope.emailListId = response[0];})
 	$emailList = Restangular.all( '' ).customGET( 'emailList?bypass_paging=true' ).then( function( data )
@@ -52,7 +54,9 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 	{
 		toastr.success( "Link copied" );
 	}
-
+	$scope.toogleListCreate = function () {
+		$scope.showCreateList=!$scope.showCreateList;
+	}
 	$scope.setForm = function()
 	{
 		var site_id = $scope.site_id ? $scope.site_id.id : undefined;
@@ -80,35 +84,51 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 			'</form>';
 	}
 
-	$scope.createNewList = function()
-	{
-
-		var modalInstance = $modal.open( {
-			templateUrl: 'templates/modals/emailListCreator.html',
-			controller: function( $scope, $uibModalInstance )
-			{
-				$scope.save = function( list )
-				{
-					//console.log(list);
-					$uibModalInstance.close( $scope.list );
-				}
-				$scope.cancel = function()
-				{
-					$uibModalInstance.dismiss( 'cancel' );
-				};
-			},
-			scope: $scope
-		} );
-		modalInstance.result.then( function( list )
-		{
-			Restangular.service( 'emailList' ).post( list )
+	$scope.createList = function ($list) {
+		$scope.emailList.name = $list;
+		$scope.emailList.account_id = $site.user_id;
+		$scope.emailList.list_type = 'user';
+		var list = angular.copy($scope.emailList);
+		Restangular.service( 'emailList' ).post(list )
 				.then( function( response )
 				{
 					$scope.emailListId = response;
 					$scope.emailLists.push( response );
+					$scope.emailList={company_id: $site.company_id};
+					$scope.toogleListCreate ();
 				} );
-		} )
 	}
+
+
+	// $scope.createNewList = function()
+	// {
+
+	// 	var modalInstance = $modal.open( {
+	// 		templateUrl: 'templates/modals/emailListCreator.html',
+	// 		controller: function( $scope, $uibModalInstance )
+	// 		{
+	// 			$scope.save = function( list )
+	// 			{
+	// 				//console.log(list);
+	// 				$uibModalInstance.close( $scope.list );
+	// 			}
+	// 			$scope.cancel = function()
+	// 			{
+	// 				$uibModalInstance.dismiss( 'cancel' );
+	// 			};
+	// 		},
+	// 		scope: $scope
+	// 	} );
+	// 	modalInstance.result.then( function( list )
+	// 	{
+	// 		Restangular.service( 'emailList' ).post( list )
+	// 			.then( function( response )
+	// 			{
+	// 				$scope.emailListId = response;
+	// 				$scope.emailLists.push( response );
+	// 			} );
+	// 	} )
+	// }
 
 	$scope.selectUrl = function( item, selected_url, show_next )
 	{

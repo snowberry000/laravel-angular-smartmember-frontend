@@ -54,7 +54,17 @@
                                         </select>
                                     </div>
                                     <div class='col-sm-4 ' style="margin-top:10px;">
-                                        <a ng-click='createNewList()' class="ui right labeled icon button"><small class='text-small'>Create New List</small></a>
+                                        <a ng-click='toogleListCreate()' class="ui right labeled icon button"><small class='text-small'>Create New List</small></a>
+                                        <div ng-if="showCreateList">
+                                            <label class="col-sm-2 control-label">List Name</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" ng-model="emailList.name">
+                                                <span class="help-block m-b-none">Give your list a name so you & subscribers can recognize it</span><br>
+                                                <button ng-click="createList(emailList.name)">Add List</button>
+                                                <button ng-click="toogleListCreate()">Cancel</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                     
