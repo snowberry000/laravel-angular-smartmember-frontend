@@ -66,7 +66,11 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
         }
         
         $.each($scope.modules, function (key, data) {
-            data.hide_module = false;
+            
+            $default_syllabus_closed = _.find($scope.site.meta_data, function(obj){ return obj.key == 'default_syllabus_closed'; });
+            if($default_syllabus_closed)
+                data.hide_module = $default_syllabus_closed.value=='1' ? true : false;
+            console.log("its asdsad " +data.hide_module);
             $.each(data.lessons, function (key, data) {
                 $scope.lesson_count++;
                 data.showCounter=$scope.lesson_count;
