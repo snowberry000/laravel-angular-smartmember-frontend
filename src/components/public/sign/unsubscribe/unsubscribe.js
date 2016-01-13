@@ -5,19 +5,24 @@ app.config(function($stateProvider){
 		.state("public.sign.unsubscribe",{
 			url: "/unsubscribe",
 			templateUrl: "/templates/components/public/sign/unsubscribe/unsubscribe.html",
-			controller: "UnsubscribeController"
+			controller: "unsubscribeController"
 		})
 }); 
 
 app.controller('unsubscribeController', function ($location,notify,$state,$scope, $rootScope, $localStorage, Restangular) {
-  
-  $scope.email=$location.search().hash;
-    $scope.company_id = $location.search().network_id;
-  $scope.job_id = $location.search().job_id;
-  $scope.list_type = $location.search().list_type;
-  $rootScope.is_admin=true;
-  $scope.emailLists=[];
-  $scope.reason="";
+
+    if( $localStorage.unsubscribe_parameters ) {
+        $rootScope.$_GET = $localStorage.unsubscribe_parameters;
+        delete $localStorage.unsubscribe_parameters;
+    }
+
+    $scope.email = $rootScope.$_GET['hash'];
+    $scope.company_id = $rootScope.$_GET['network_id'];
+    $scope.job_id = $rootScope.$_GET['job_id'];
+    $scope.list_type = $rootScope.$_GET['list_type'];
+    $rootScope.is_admin=true;
+    $scope.emailLists=[];
+    $scope.reason="";
 
   var $params =  {'hash':$scope.email,  'company_id':$scope.company_id, 'list_type':$scope.list_type};
 

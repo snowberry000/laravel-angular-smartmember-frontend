@@ -178,6 +178,13 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
             $localStorage.open_reset_modal = true;
         $location.search('reset', null)
     }
+    else if ( location.href.indexOf('?unsubscribe') != -1 )
+    {
+        $localStorage.open_unsubscribe_modal = true;
+        $localStorage.unsubscribe_parameters = $location.search();
+
+        $location.url($location.path());
+    }
     else if (location.href.indexOf('?speedblogging') != -1 )
     {
         $localStorage.open_speedblogging_modal = true;
