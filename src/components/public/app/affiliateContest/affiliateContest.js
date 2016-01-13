@@ -23,7 +23,7 @@ app.controller( 'AffiliateContestController', function( $scope, $rootScope, $sta
 			$scope.loading = false;
 			$scope.affiliateContest = $affiliateContest;
 			$scope.getLeaderBoard();
-			$rootScope.page_title = $affiliateContest.title ? $affiliateContest.title : null;
+			$rootScope.page_title = $affiliateContest.title ?$rootScope.site.name+' - '+ $affiliateContest.title : $rootScope.site.name+' - Affiliate Contest';
 		} );
 	}
 	else

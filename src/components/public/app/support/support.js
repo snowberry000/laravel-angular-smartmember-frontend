@@ -10,7 +10,7 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('PublicSupportController', function ($scope,$site,$rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr ) {
-    $rootScope.page_title = 'Support';
+    $rootScope.page_title = $rootScope.site.name+' - Support';
     $scope.init = function(){
         Restangular.all('supportCategory').getList({public_view:true}).then(function(response){
             $scope.categories = response;
