@@ -1,5 +1,3 @@
-
-
 // An example configuration file.
 exports.config = {
 	//sauceUser: 'johnrazmus',
@@ -18,6 +16,12 @@ exports.config = {
 		defaultTimeoutInterval: 920000,
 		isVerbose: true,
 		realtimeFailure: true
+	},
+	suites: {
+		sign: [ 'specs/objects/*.js',
+			'specs/suites/sign/**/*.js' ],
+		site: [ 'specs/objects/*.js',
+			'specs/suites/site/**/*.js' ]
 	},
 	params: {
 		env: 'in',
@@ -200,8 +204,8 @@ exports.config = {
 	allScriptsTimeout: 920000,
 	onPrepare: function()
 	{
-		var failFast = require('jasmine-fail-fast');
-		jasmine.getEnv().addReporter(failFast.init());
+		var failFast = require( 'jasmine-fail-fast' );
+		jasmine.getEnv().addReporter( failFast.init() );
 		//browser.driver.get( 'http://' + browser.params.subdomain + '.smartmember.' + browser.params.env );
 	}
 };

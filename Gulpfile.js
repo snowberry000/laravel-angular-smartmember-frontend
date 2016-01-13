@@ -73,11 +73,11 @@ gulp.task( 'js', function()
 
 gulp.task( 'tests', function()
 {
-	gulp.src(["src/**/*.e2e.js","!src/tests/*","!src/tests/**"])
-			.pipe( concat( 'e2e.tests.js' ) )
-			.pipe( gulp.dest( 'src/tests' ) );
-
-	return true;
+	//gulp.src(["src/**/*.e2e.js","!src/tests/*","!src/tests/**"])
+//			.pipe( concat( 'e2e.tests.js' ) )
+			//.pipe( gulp.dest( 'src/tests' ) );
+//
+	//return true;
 } );
 
 
@@ -115,10 +115,6 @@ gulp.task( 'templates', function()
 		.pipe( replace( "/core", "/tpl" ) )
 		.pipe( gulp.dest( 'dist/templates' ) );
 } );
-
-gulp.task( 'test-e2e', shell.task([
-	'protractor src/tests/e2e.conf.js'
-]));
 
 
 gulp.task( 'watch', function()
@@ -237,9 +233,9 @@ gulp.task( 'php', function()
 		.pipe( gulp.dest( 'dist/php/' ) );
 } );
 
-gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ,'json'] );
-gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' ,'json', 'watch'] );
-gulp.task( 'test', [ 'test-e2e'] );
+gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ,'json', 'tests'] );
+gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' ,'json', 'tests', 'watch'] );
+gulp.task( 'test', [ 'tests', 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
 {
