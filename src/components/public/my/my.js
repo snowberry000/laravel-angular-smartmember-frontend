@@ -6,7 +6,17 @@ app.config( function( $stateProvider )
 		.state( "public.my", {
 			url: "/",
 			templateUrl: "/templates/components/public/my/my.html",
-			controller: "MyController"
+			controller: "MyController",
+			resolve: {
+				loadPlugin: function( $ocLazyLoad )
+				{
+					return $ocLazyLoad.load( [
+						{
+							files: [ 'bower/semantic/dist/components/transition.min.css' ]
+						}
+					] );
+				}
+			}
 		} )
 } );
 
@@ -69,9 +79,13 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 	{
 		// Show something at least on pageload
 		if(!$localStorage.user || !$localStorage.user.access_token)
+		{
 			smModal.Show( 'public.sign.in', {modal_options: {duration:0}} );
+			
+		}
+			
 	}
 
-	$scope.Init();
+	
 
 } );

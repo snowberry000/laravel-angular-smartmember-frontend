@@ -21,9 +21,9 @@ $data = DetectAndPerformBridgePageThings();
 
 	<!-- <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css"> -->
 	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="css/main.min.css">
 	<link rel="stylesheet" href="css/vendor.min.css">
 	<link rel="stylesheet" href="bower/footable/css/footable.core.css">
-	<link rel="stylesheet" href="css/main.min.css">
 	<link rel="shortcut icon" href="{{options.favicon}}" type="image/x-icon">
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -46,7 +46,7 @@ $data = DetectAndPerformBridgePageThings();
 <div id="wrapper" class="pusher" ui-view></div>
 
 <script src="js/vendor.min.js"></script>
-<script src="js/main.min.js"></script>
+
 
 <!-- <script src="bower/slimScroll/jquery.slimscroll.min.js"></script> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.js"></script>
@@ -56,5 +56,6 @@ $data = DetectAndPerformBridgePageThings();
 <!--<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script>-->
 <script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
 
+<script src="js/main.min.js"></script>
 </body>
 </html>
