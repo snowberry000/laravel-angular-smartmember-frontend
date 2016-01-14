@@ -83,6 +83,7 @@
 						<thead>
 							<tr>
 								<th>Reporter</th>
+								<th>Site</th>
 								<th>Activity</th>
 								<th>Assignee</th>
 								<th>Age</th>
@@ -101,6 +102,9 @@
 											</div>
 										</div>
 									</h4>
+								</td>
+								<td ng-bind-html="showSite(next_item.site_id);">
+
 								</td>
 								<td class="single line">
 									<span ng-show="next_item.last_replied_at==null">
