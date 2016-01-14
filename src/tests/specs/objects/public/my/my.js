@@ -1,13 +1,13 @@
-var SiteHomepage = function()
+var PageObject = function()
 {
-	var login_button = element( by.css( '.login_button' ) );
 	var email_input = element( by.model( 'user.email' ) );
 	var password_input = element( by.model( 'user.password' ) );
-	var submit_button = element( by.css( 'button[type=submit]' ) );
+	var login_button = element( by.css( '.button.green' ) );
+	var register_button = element( by.css( '.button.blue' ) );
 
 	this.Visit = function()
 	{
-		return browser.get( 'http://' + browser.params.subdomain + '.smartmember.' + browser.params.env );
+		return browser.get( 'http://my.smartmember.' + browser.params.env );
 	};
 
 	this.PopModal = function()
@@ -22,10 +22,14 @@ var SiteHomepage = function()
 	{
 		return password_input.sendKeys( text );
 	};
-	this.SubmitForm = function()
+	this.GetSignInButton = function()
 	{
-		return submit_button.click()
+		return login_button
+	};
+	this.GetSignUpButton = function()
+	{
+		return register_button
 	};
 };
 
-module.exports = new SiteHomepage();
+module.exports = new PageObject();

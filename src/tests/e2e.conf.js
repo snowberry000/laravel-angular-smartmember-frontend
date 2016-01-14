@@ -1,3 +1,8 @@
+// __dirname retuns a path of this particular config file
+// assuming that protractor.conf.js is in the root of the project
+var basePath = __dirname + '/specs/';
+// /path/to/project/test/e2e/
+
 // An example configuration file.
 exports.config = {
 	//sauceUser: 'johnrazmus',
@@ -9,7 +14,7 @@ exports.config = {
 
 	maxSessions: 1,
 	specs: [
-		'e2e.tests.js'
+		'specs/**/*.js'
 	],
 	jasmineNodeOpts: {
 		showColors: true,
@@ -18,17 +23,15 @@ exports.config = {
 		realtimeFailure: true
 	},
 	suites: {
-		sign: [ 'specs/objects/*.js',
-			'specs/suites/sign/**/*.js' ],
-		site: [ 'specs/objects/*.js',
-			'specs/suites/site/**/*.js' ]
+		sign: [ 'specs/objects/*.js', 'specs/suites/sign/**/*.js' ],
+		site: [ 'specs/objects/*.js', 'specs/suites/site/**/*.js' ]
 	},
 	params: {
 		env: 'in',
-		subdomain: 'cat',
+		subdomain: 'my',
 		user: {
-			email: 'jawad@likastic.com',
-			password: 'hello123'
+			email: 'joe-tester@asdfgmail.com',
+			password: '123123'
 		},
 		non_admin_user: {
 			email: 'nguyen.hoangngan2011@yahoo.com',
@@ -207,5 +210,22 @@ exports.config = {
 		var failFast = require( 'jasmine-fail-fast' );
 		jasmine.getEnv().addReporter( failFast.init() );
 		//browser.driver.get( 'http://' + browser.params.subdomain + '.smartmember.' + browser.params.env );
+
+
+		// "relativePath" - path, relative to "basePath" variable
+
+		// If your entity files have suffixes - you can also keep them here
+		// not to mention them in test files every time
+
+		global.RequireObject = function( relativePath )
+		{
+			return require( basePath + 'objects/' + relativePath + '/' + relativePath.split('/').pop() + '.js' );
+		};
+
+		global.RequireHelper = function( relativePath )
+		{
+			return require( basePath + 'helpers/' + relativePath + '.js' );
+		};
+
 	}
 };

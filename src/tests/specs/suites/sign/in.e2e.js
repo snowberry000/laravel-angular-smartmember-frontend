@@ -1,24 +1,19 @@
 describe( 'Sign people in successfully', function()
 {
-	var admin_toolbar = require('admin-toolbar.js');
-	var next_item = require('site-homepage.js');
+	var admin_toolbar = RequireObject('public/admin-bar');
+	var current_page = RequireObject('public/my');
 
 	it( 'should be able to sign people in', function()
 	{
-		next_item.Visit();
+		current_page.Visit();
 
-		next_item.PopModal().then( function()
+		current_page.SetEmail( browser.params.user.email );
+		current_page.SetPassword( browser.params.user.password );
+
+		current_page.GetSignInButton().click().then( function()
 		{
 			browser.waitForAngular();
-
-			next_item.SetEmail( browser.params.non_admin_user.email );
-			next_item.SetPassword( browser.params.non_admin_user.password );
-
-			next_item.SubmitForm().click().then( function()
-			{
-				browser.waitForAngular();
-				expect( admin_toolbar.GetToolbar() ).toBe( true );
-			} )
-		} );
+			expect( admin_toolbar.GetToolbar().isPresent() ).toBe(true);
+		} )
 	} );
 } );
