@@ -407,6 +407,7 @@
         }
 
         var enable_popup = parseInt($('input[name="enable_popup"]').val());
+
         if (enable_popup == 1)
         {
             jQuery('.cta_button').bind('click', function(e){
@@ -485,6 +486,23 @@
 
     };
 
+    var showTimer = function()
+    {
+        var enable_timer = parseInt($('input[name="enable_timer"]').val());
+        if (enable_timer)
+        {
+            $('.headline_wrapper').addClass('col-md-8');
+            $('.timer_wrapper').show();
+        } else {
+            $('.headline_wrapper').addClass('col-md-12');
+            $('.timer_wrapper').hide();
+        }
+    }
+
+    window.setInterval(function() {
+        showTimer();
+    }, 1000);
+
     setInterval(function() {
         updateCountdowns();
     }, 1000);
@@ -500,6 +518,7 @@
                             <input type="hidden" name="time_end_action" value="{{bridgepage.swapspot.time_end_action}}">
                             <input type="hidden" name="time_redirect_url" value="{{bridgepage.swapspot.time_redirect_url}}">
                         </div>
+                        <input type="hidden" name="enable_timer" value="{{bridgepage.swapspot.enable_timer}}">
                         <input type="hidden" name="enable_popup" value="{{bridgepage.swapspot.enable_popup}}">
                         <div class="row">
                             <div class="col-md-{{bridgepage.swapspot.enable_timer ? '8' : '12'}} headline_wrapper">
