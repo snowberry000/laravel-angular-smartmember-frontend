@@ -2,8 +2,7 @@
 <VirtualHost *>
     UseCanonicalName Off
     ServerName api.smartmember.dev
-    VirtualDocumentRoot /home/ubuntu/api.smartmember.com/public
-    VirtualScriptAlias  /home/ubuntu/api.smartmember.com/public
+    DocumentRoot /home/ubuntu/api.smartmember.com/public
     <Directory /home/ubuntu/api.smartmember.com/public/>
         Options Indexes FollowSymLinks
         AllowOverride All
@@ -17,8 +16,7 @@
     UseCanonicalName Off
     ServerName my.smartmember.com
     ServerAlias *.smartmember.com
-    VirtualDocumentRoot /home/ubuntu/app.smartmember.com/dist
-    VirtualScriptAlias  /home/ubuntu/app.smartmember.com/dist
+    DocumentRoot /home/ubuntu/app.smartmember.com/dist
     <Directory /home/ubuntu/app.smartmember.com/dist/>
         Options Indexes FollowSymLinks
         AllowOverride All
