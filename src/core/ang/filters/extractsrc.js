@@ -6,8 +6,11 @@ app.filter('extractsrc', function () {
 		//console.log( "THE VALUE", value );
 
 		var regex = /<.*?src=[\'\"](.*?)[\'\"]/g;
-		var src = regex.exec(value)[1];
-
+		var src = regex.exec(value);
+		if (src)
+		{
+			src = src[1];
+		}
 		return src;
 	};
 });
