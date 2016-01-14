@@ -10,10 +10,30 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "TicketsController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
+app.controller( "TicketsController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, $timeout )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
+
+    Restangular.all('user/sites').getList({capability: 'manage_support_tickets'}).then(function(response){
+        response.sort(function(a,b){
+            var first_one = a.domain && a.domain != '' ? a.domain : a.subdomain + '.smartmember.' + $scope.app.env;
+            var second_one = b.domain && b.domain != '' ? b.domain : b.subdomain + '.smartmember.' + $scope.app.env;
+
+            if( first_one > second_one )
+                return 1;
+            else if( second_one > first_one )
+                return -1;
+            else
+                return 0;
+        });
+
+        $scope.available_sites = response;
+        $timeout(function(){
+            //couldn't figure out what the directive should be to do this...
+            $('.ui.dropdown').dropdown();
+        })
+    });
 
 	$scope.tickets = [];
 	$scope.type_to_fetch = 'open';
@@ -52,6 +72,10 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
         $scope.FetchTickets();
     }
 
+    $scope.sites = [
+        $site.id
+    ];
+
 	$scope.FetchTickets = function()
 	{
 		$scope.requesting_data = true;
@@ -59,12 +83,15 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 		var search_parameters = {
 			p: $scope.pagination.current_page,
 			status: $scope.type_to_fetch,
-			site_id: $site.id,
 			sortBy: $scope.sortTicket.type
 		}
 
         if( $scope.ticket_query )
             search_parameters.q = $scope.ticket_query;
+
+        if( $scope.sites && $scope.sites.length > 0 ) {
+            search_parameters.sites = $scope.sites.join(',');
+        }
 
 		Restangular.all( '' ).customGET( 'supportTicket', search_parameters ).then( function( response )
 		{
@@ -85,6 +112,12 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 				}
 			};
 		} );
+	}
+
+	$scope.showSite = function(site_id)
+	{
+		var site = _.findWhere($scope.available_sites, {id: site_id});
+		return site.domain ? site.domain : site.subdomain + '.smarmember.' + app.env
 	}
 
 	$scope.$watch( 'type_to_fetch', function( new_value, old_value )
