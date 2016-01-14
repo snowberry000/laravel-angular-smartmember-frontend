@@ -11,5 +11,5 @@ machine:
     - webdriver-manager start:
         background: true
 dependencies:
-  override:
-    npm install karma-jasmine
+  pre:
+    - npm install karma-jasmine
