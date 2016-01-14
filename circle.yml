@@ -1,0 +1,15 @@
+machine:
+  node:
+    version: 4.2.2
+  java:
+    version: oraclejdk8
+  post:
+    # Fetch Protractor
+    - npm install -g protractor
+    # Start WebdriverJs client and Selenium server
+    - webdriver-manager update
+    - webdriver-manager start:
+        background: true
+dependencies:
+  pre:
+    - npm install karma-jasmine

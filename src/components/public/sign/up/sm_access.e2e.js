@@ -36,14 +36,15 @@ describe( 'Test SM invite', function()
 		{
 			var randomNumber = "";
 			var possible = "0123456789";
-            for( var i = 0; i < 3; i++ )
-            {
-                randomNumber += possible.charAt( Math.floor( Math.random() * possible.length ) );
-            }
-            return randomNumber;
-        }
+			for( var i = 0; i < 3; i++ )
+			{
+				randomNumber += possible.charAt( Math.floor( Math.random() * possible.length ) );
+			}
+			return randomNumber;
+		}
 
-        element( by.css( '.create_new_site' ) ).click().then( function()
+
+		element( by.css( '.create_new_site' ) ).click().then( function()
 		{
 			browser.waitForAngular();
 			var site_number = getRandomNumber();
@@ -55,7 +56,8 @@ describe( 'Test SM invite', function()
 				expect( browser.getCurrentUrl() ).toContain( 'testsite' + site_number + '.smartmember.in' );
 			} );
 		} );
-	} );
+	} )
+	;
 
 
 	it( 'should allow people to create module', function()
@@ -181,4 +183,5 @@ describe( 'Test SM invite', function()
 	} );
 
 
-} );
+} )
+;
