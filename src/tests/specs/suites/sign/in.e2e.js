@@ -1,8 +1,8 @@
+var admin_toolbar = RequireObject('public/admin-bar');
+var current_page = RequireObject('public/my');
+
 describe( 'Sign people in successfully', function()
 {
-	var admin_toolbar = RequireObject('public/admin-bar');
-	var current_page = RequireObject('public/my');
-
 	it( 'should be able to sign people in', function()
 	{
 		current_page.Visit();
