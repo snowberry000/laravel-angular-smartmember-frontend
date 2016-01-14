@@ -184,6 +184,7 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
         $localStorage.unsubscribe_parameters = $location.search();
 
         $location.url($location.path());
+        
     }
     else if (location.href.indexOf('?speedblogging') != -1 )
     {
