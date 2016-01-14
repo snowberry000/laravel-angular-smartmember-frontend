@@ -1,3 +1,10 @@
+if (jasmine.version) { //the case for version 2.0.0
+	console.log('jasmine-version:' + jasmine.version);
+}
+else { //the case for version 1.3
+	console.log('jasmine-version:' + jasmine.getEnv().versionString());
+}
+
 describe( 'Sign people in successfully', function()
 {
 	it( 'should be able to sign people in', function()
