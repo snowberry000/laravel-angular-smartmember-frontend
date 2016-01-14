@@ -36,6 +36,35 @@
 				</div>
 				<div class="title">
 					<i class="dropdown icon"></i>
+					Update name
+				</div>
+				<div class="content">
+					<div class="ui form">
+						<div class="field">
+							<label class="col-sm-3 control-label">First Name</label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="user.first_name">
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="field">
+							<label class="col-sm-3 control-label">Last Name</label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="user.last_name">
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="field">
+							<div class="col-sm-4 col-sm-offset-3">
+								<button class="btn btn-primary" ng-click="saveName()">Update name</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
 					Change password
 				</div>
 				<div class="content">

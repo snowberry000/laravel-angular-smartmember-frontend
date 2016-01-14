@@ -35,8 +35,11 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $rootSc
         }
     } );
 
-    $scope.paginate = function(){
-
+    $scope.paginate = function(search){
+        if (search)
+        {
+            $scope.pagination.current_page = 1;
+        }
         if( true ) {
 
             $scope.loading = true;

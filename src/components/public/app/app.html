@@ -14,10 +14,10 @@
 				</div>
 				<div class="ui buttons" ng-show="!isLoggedIn()">
 					<a class="ui button login_button" href="#" ng-click="smModal.Show('public.sign.in')">Log-in</a>
-					<div class="or"></div>
-					<a class="ui positive button register_button" href="#" ng-click="smModal.Show('public.sign.up')">Sign up</a>
+					<div class="or" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )"></div>
+					<a class="ui positive button register_button" href="#" ng-click="smModal.Show('public.sign.up')" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )">Sign up</a>
 				</div>
-				<div class="ui buttons" ng-show="isLoggedIn()">
+				<div class="ui buttons" ng-show="isLoggedIn() && ( !meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' ) )">
 					<button busy class="ui button join_button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">Join</button>
 				</div>
 	

@@ -42,22 +42,30 @@
 					<div ng-if="!requesting_data && tickets.length==0">
 						<p class="alert alert-info">No tickets found</p>
 					</div>
-					<div>
-						Order by 
-						<select ng-model="sortTicket.type" ng-change="sortTickets(sortTicket.type)">
-							<option ng-click="sortTickets('activity')">
-								Activity
-							</option>
-							<!-- <option  value='assignee'>
-								Assignee
-							</option> -->
-							<option  value = 'age'>
-								Age
-							</option>
-							<option  value = 'reporter' >
-								Reporter
-							</option>
-						</select>
+					<div class="ui form">
+                        <div class="ui two column grid container">
+                            <div class="column field">
+                                <label>Order by</label>
+                                <select ng-model="sortTicket.type" ng-change="sortTickets(sortTicket.type)">
+                                    <option ng-click="sortTickets('activity')">
+                                        Activity
+                                    </option>
+                                    <!-- <option  value='assignee'>
+                                        Assignee
+                                    </option> -->
+                                    <option  value = 'age'>
+                                        Age
+                                    </option>
+                                    <option  value = 'reporter' >
+                                        Reporter
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="column field">
+                                <label>Search</label>
+                                <input ng-model="ticket_query" ng-change="searchTickets()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" />
+                            </div>
+                        </div>
 					</div>
 
 					<table class="ui selectable table" ng-if="tickets[pagination.current_page].length > 0 && !requesting_data">
