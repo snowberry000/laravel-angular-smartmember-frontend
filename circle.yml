@@ -7,4 +7,4 @@ machine:
     # Start WebdriverJs client and Selenium server
     - webdriver-manager update
     - webdriver-manager start:
-      background: true
+        background: true
