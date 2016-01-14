@@ -10,7 +10,9 @@ app.filter('extractsrc', function () {
 		if (src)
 		{
 			src = src[1];
+			return src;
+		} else {
+			return value;
 		}
-		return src;
 	};
 });
