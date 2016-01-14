@@ -37,7 +37,7 @@ exports.config = {
 			email: 'nguyen.hoangngan2011@yahoo.com',
 			password: 'nha530678'
 		},
-		user_accessRights_lesser_than_admin: { 
+		user_accessRights_lesser_than_admin: {
 			email: 'mohsin@likastic.com',
 			password: 'hello123'
 		},
