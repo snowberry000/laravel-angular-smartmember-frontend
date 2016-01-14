@@ -100,8 +100,7 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
     }
 
     $scope.revoke = function ($argSite) {
-    	
-    	Restangular.all('siteRole/removeUserFromSite').customPOST({'site_id': $argSite.id ,'user_id' : $rootScope.site.user_id }).then(function(response){
+    	Restangular.all('siteRole/removeUserFromSite').customPOST({'site_id': $argSite.id ,'user_id' : $scope.user.id }).then(function(response){
             $scope.sites_to_show = _.filter($scope.sites_to_show, function($tempSite){ return $tempSite.id!=$argSite.id; });
             toastr.success(response.length+' roles of you are removed from '+$argSite.name);
         });
