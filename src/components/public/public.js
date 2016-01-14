@@ -392,7 +392,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		{
             $timeout( function(){
                 smModal.Show( 'public.sign.transaction' );
-            }, 1000);
+            }, 50);
 		}
 		else
 		{
@@ -410,21 +410,21 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	{
 		$timeout(function(){
 			smModal.Show( 'public.sign.up' ,{ modal_options : {duration : 0 }} );
-		} , 1000)
+		} , 50)
 		$localStorage.open_signup_modal = null;
 	}
     else if ( $localStorage.open_signin_modal )
 	{
 		$timeout(function(){
 			smModal.Show('public.sign.in' , { modal_options : {duration : 0 }});
-		} , 1000)
+		} , 50)
 		$localStorage.open_signin_modal = null;
 	}
     else if ( $localStorage.open_forgot_modal )
     {
     	$timeout(function(){
     		smModal.Show('public.sign.forgot' , { modal_options : {duration : 0 }});
-    	} , 1000)
+    	} , 50)
         $localStorage.open_forgot_modal = null;
     }
     else if ( $localStorage.open_reset_modal )
@@ -432,7 +432,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
         if( !$localStorage.user ){
         	$timeout(function(){
         		smModal.Show('public.sign.reset' , { modal_options : {duration : 0 }});
-        	} , 1000)
+        	} , 50)
         }
         $localStorage.open_reset_modal = null;
     }
@@ -440,14 +440,14 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
     {
         $timeout(function(){
             smModal.Show('public.sign.unsubscribe');
-        }, 3000);
+        }, 50);
         $localStorage.open_unsubscribe_modal = null;
     }
     else if ( $localStorage.open_speedblogging_modal )
     {
         $timeout(function(){
             smModal.Show('public.administrate.speed-blogging');
-        }, 1000);
+        }, 50);
         $localStorage.open_speedblogging_modal = null;
     }
 
