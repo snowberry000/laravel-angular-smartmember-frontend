@@ -1,3 +1,10 @@
 machine:
   node:
     version: 4.2.2
+  post:
+    # Fetch Protractor
+    - npm install -g protractor
+    # Start WebdriverJs client and Selenium server
+    - webdriver-manager update
+    - webdriver-manager start:
+      background: true
