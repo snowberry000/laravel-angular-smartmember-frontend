@@ -6,17 +6,7 @@ app.config( function( $stateProvider )
 		.state( "public.administrate.site.content.blog.post", {
 			url: "/post/:id?",
 			templateUrl: "/templates/components/public/administrate/site/content/blog/post/post.html",
-			controller: "PostController",
-			resolve: {
-				loadPlugin: function( $ocLazyLoad )
-				{
-					return $ocLazyLoad.load( [
-						{
-							name: 'summernote'
-						}
-					] );
-				}
-			}
+			controller: "PostController"
 		} )
 } );
 
@@ -254,7 +244,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 
 	$scope.setPermalink = function( $event )
 	{
-        if( !$scope.next_item.permalink )
+        if( !$scope.next_item.permalink && $scope.next_item.title )
         {
             $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title ).toLowerCase();
         }
