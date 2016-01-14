@@ -54,7 +54,7 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 		}
 
 
-		Restangular.all( '' ).customGET( 'siteRole?type=support' ).then( function( data )
+		Restangular.all( '' ).customGET( 'supportAgents' ).then( function( data )
 		{
 			data=data.items;
 			angular.forEach( data, function( value )

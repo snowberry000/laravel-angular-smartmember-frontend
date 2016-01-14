@@ -235,10 +235,12 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$scope.$watch( 'template', function()
 	{
-		if( $scope.bridgepage.id == undefined )
+		if ($scope.bridgepage!= undefined)
 		{
-			$scope.loadDefaultValue();
+			if( $scope.bridgepage.id == undefined )
+				$scope.loadDefaultValue();
 		}
+
 	} );
 
 	$scope.range = function( min, max, step )
