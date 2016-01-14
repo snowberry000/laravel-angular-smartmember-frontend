@@ -109,6 +109,9 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
     $scope.initialize = function(){
 
+        $scope.site.configured_app = _.sortBy($scope.site.configured_app , function(item){
+            return -item.id;
+        })
         angular.forEach( $scope.site.configured_app, function(value,key){
             if( value.type == 'vimeo' && value.account)
             {
