@@ -44,6 +44,27 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
             $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title).toLowerCase();
     };
 
+    $scope.addSource = function() {
+        angular.forEach($rootScope.$_GET, function (value, key) {
+            switch (key) {
+                case 'source_title':
+                    if ($rootScope.$_GET['source_url']) {
+                        $scope.next_item.content += '<br>Source: <a href="' + $rootScope.$_GET['source_url'] + '" target="_blank">' + value + '</a>';
+                    } else {
+                        $scope.next_item.content += 'Source: ' + value;
+                    }
+                    break;
+                case 'source_url':
+                    if ($rootScope.$_GET['source_title']) {
+
+                    } else {
+                        $scope.next_item.content += 'Source: ' + value;
+                    }
+                    break;
+            }
+        });
+    }
+
     angular.forEach( $rootScope.$_GET, function( value, key )
     {
         switch( key )
@@ -139,27 +160,6 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
                 break;
         }
     } );
-
-    $scope.addSource = function() {
-        angular.forEach($rootScope.$_GET, function (value, key) {
-            switch (key) {
-                case 'source_title':
-                    if ($rootScope.$_GET['source_url']) {
-                        $scope.next_item.content += '<br>Source: <a href="' + $rootScope.$_GET['source_url'] + '" target="_blank">' + value + '</a>';
-                    } else {
-                        $scope.next_item.content += 'Source: ' + value;
-                    }
-                    break;
-                case 'source_url':
-                    if ($rootScope.$_GET['source_title']) {
-
-                    } else {
-                        $scope.next_item.content += 'Source: ' + value;
-                    }
-                    break;
-            }
-        });
-    }
 
     if( !$rootScope.$_GET['type'] || $rootScope.$_GET['type'] != 'embed' ) {
         $scope.loading = false;
