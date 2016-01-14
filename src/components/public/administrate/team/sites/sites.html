@@ -66,6 +66,9 @@
 						<div class="description">
 							<button class="ui top left attached label"  ng-if ="site.role!='owner'" ng-click="promptRemoveMe($event,site)">Remove me</button>
 						</div>
+						<div class="description">
+							<button class="ui top left attached label"  ng-if ="site.role=='owner' && site.subdomain != app.subdomain" ng-click="deleteResource($event,site)">Delete Site</button>
+						</div>
 					</div>
 					<div class="extra content">
 
