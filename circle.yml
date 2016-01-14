@@ -11,7 +11,10 @@ machine:
     - webdriver-manager start:
         background: true
   hosts:
-    *.smartmember.pro: 127.0.0.1
+    smartmember.pro: 127.0.0.1
+    my.smartmember.pro: 127.0.0.1
+    smartmember.pro: 127.0.0.1
+    
 dependencies:
   pre:
     - npm install karma-jasmine
