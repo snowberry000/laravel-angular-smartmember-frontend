@@ -56,6 +56,33 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 		} );
 	}
 
+	$scope.deleteResource = function( $event , $site )
+	{
+		$event.preventDefault();
+		swal( {
+			title: "Are you sure?",
+			text: "Are you sure want to delete this site?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete it!",
+			closeOnConfirm: true
+		}, function()
+		{
+			$scope.delete($site);
+		} );
+		
+	}
+
+	$scope.delete = function( site )
+	{
+
+		Restangular.all('site').customDELETE(site.id).then( function()
+		{
+			$scope.sites_to_show = _.without( $scope.sites_to_show , site);
+		} );
+	};
+
 	$scope.paginate = function() {
         var begin = (($scope.pagination.current_page - 1) * $scope.pagination.per_page),
             end = begin + $scope.pagination.per_page;
