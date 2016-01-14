@@ -189,11 +189,15 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		{
 			$.each( $scope.bridgepage.swapspots, function( key, data )
 			{
+				if (data.name == 'enable_timer')
+				{
+					swapspot[data.name] = parseInt(data.value);
+				}
 				swapspot[ data.name ] = data.value;
 			} );
 		}
 		$scope.bridgepage.swapspot = swapspot;
-
+		console.log('enable timer', $scope.bridgepage.swapspot.enable_timer);
 		if( $scope.bridgepage.id != undefined )
 		{
 			$scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl( $scope.bridgepage.swapspot.optin_action );
