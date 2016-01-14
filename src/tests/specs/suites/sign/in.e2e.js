@@ -1,10 +1,10 @@
-var admin_toolbar = RequireObject('public/admin-bar');
-var current_page = RequireObject('public/my');
-
 describe( 'Sign people in successfully', function()
 {
 	it( 'should be able to sign people in', function()
 	{
+		var admin_toolbar = RequireObject('public/admin-bar');
+		var current_page = RequireObject('public/my');
+
 		current_page.Visit();
 
 		current_page.SetEmail( browser.params.user.email );

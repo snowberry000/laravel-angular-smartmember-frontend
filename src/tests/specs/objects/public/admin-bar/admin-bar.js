@@ -8,4 +8,4 @@ var PageObject = function()
 	}
 };
 
-module.exports = PageObject;
+module.exports = new PageObject();
