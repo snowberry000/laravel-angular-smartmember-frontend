@@ -63,12 +63,14 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 		var search_parameters = {
 			p: $scope.pagination.current_page,
 			status: $scope.type_to_fetch,
-			sortBy: $scope.sortTicket.type,
-            sites: $scope.sites
+			sortBy: $scope.sortTicket.type
 		}
 
         if( $scope.ticket_query )
             search_parameters.q = $scope.ticket_query;
+
+        if( $scope.sites && $scope.sites.length > 0 )
+            search_parameters.sites = $scope.sites;
 
 		Restangular.all( '' ).customGET( 'supportTicket', search_parameters ).then( function( response )
 		{
