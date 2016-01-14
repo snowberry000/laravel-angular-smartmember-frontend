@@ -19,7 +19,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 
 	$scope.resolve = function()
 	{
-		Restangular.all( "siteMetaData" ).getList().then( function( response )
+		Restangular.all( "siteMetaData" ).getList({bypass_paging: 1}).then( function( response )
 		{
 			$site_options =  $rootScope.site.meta_data;
 			$scope.site_options = {};
