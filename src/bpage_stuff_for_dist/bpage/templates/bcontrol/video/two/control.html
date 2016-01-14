@@ -58,15 +58,15 @@
     <div ng-show="timer">
         <div class="field">
             <h4 >Enabled timer on this BP</h4>
-                <input type="checkbox" ng-model="bridgepage.swapspot.enable_timer" ng-checked="bridgepage.swapspot.enable_timer" class="" ng-true-value="1" ng-false-value="0">
+                <input type="checkbox" ng-model="bridgepage.swapspot.enable_timer" ng-checked="bridgepage.swapspot.enable_timer == 1" class="" ng-true-value="1" ng-false-value="0">
         </div>
         <div class="field">
             <h4 >Timer Settings</h4>
                 <label>
-                    <input type="radio" ng-model="bridgepage.swapspot.timer_settings" ng-value="1" name="timer_settings" ng-disabled="!bridgepage.swapspot.enable_timer"> Specific time and date
+                    <input type="radio" ng-model="bridgepage.swapspot.timer_settings" ng-value="1" name="timer_settings" ng-disabled="bridgepage.swapspot.enable_timer == 0"> Specific time and date
                 </label>
                 <label>
-                    <input type="radio" ng-model="bridgepage.swapspot.timer_settings" ng-value="2" name="timer_settings" ng-disabled="!bridgepage.swapspot.enable_timer"> Evergreen countdown on page load
+                    <input type="radio" ng-model="bridgepage.swapspot.timer_settings" ng-value="2" name="timer_settings" ng-disabled="bridgepage.swapspot.enable_timer == 0"> Evergreen countdown on page load
                 </label>
             <div ng-if="bridgepage.swapspot.timer_settings == 1">
                 <div class="col-sm-5">
@@ -105,10 +105,10 @@
         <div class="field">
             <h4>Time end action</h4>
                 <label>
-                    <input type="radio" ng-model="bridgepage.swapspot.time_end_action" ng-value="1" name="role" ng-disabled="!bridgepage.swapspot.enable_timer"> Hide Timer
+                    <input type="radio" ng-model="bridgepage.swapspot.time_end_action" ng-value="1" name="role" ng-disabled="bridgepage.swapspot.enable_timer == 0"> Hide Timer
                 </label>
                 <label>
-                    <input type="radio" ng-model="bridgepage.swapspot.time_end_action" ng-value="2" name="role" ng-disabled="!bridgepage.swapspot.enable_timer"> Redirect to URL
+                    <input type="radio" ng-model="bridgepage.swapspot.time_end_action" ng-value="2" name="role" ng-disabled="bridgepage.swapspot.enable_timer == 0"> Redirect to URL
                 </label>
         </div>
 
