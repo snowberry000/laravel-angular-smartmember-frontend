@@ -52,6 +52,10 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
         $scope.FetchTickets();
     }
 
+    $scope.sites = [
+        $site.id
+    ];
+
 	$scope.FetchTickets = function()
 	{
 		$scope.requesting_data = true;
@@ -59,8 +63,8 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 		var search_parameters = {
 			p: $scope.pagination.current_page,
 			status: $scope.type_to_fetch,
-			site_id: $site.id,
-			sortBy: $scope.sortTicket.type
+			sortBy: $scope.sortTicket.type,
+            sites: $scope.sites
 		}
 
         if( $scope.ticket_query )
