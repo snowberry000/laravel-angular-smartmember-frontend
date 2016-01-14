@@ -117,7 +117,7 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 	$scope.showSite = function(site_id)
 	{
 		var site = _.findWhere($scope.available_sites, {id: site_id});
-		return site.domain ? site.domain : site.subdomain + '.smarmember.' + app.env
+		return site.domain ? site.domain : site.subdomain + '.smarmember.' + $rootScope.app.env
 	}
 
 	$scope.$watch( 'type_to_fetch', function( new_value, old_value )
