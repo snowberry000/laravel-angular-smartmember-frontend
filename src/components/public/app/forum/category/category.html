@@ -27,7 +27,7 @@
 				<div class="description">
 					<div class="ui small labels">
 						<div class="ui left pointing basic label">
-							{{moment.utc(topic.updated_at).fromNow()}}
+							{{moment.utc(topic.replies[0].updated_at).fromNow()}}
 						</div>
 						<div class="ui label" title="replies">
 							<i class="comment icon"></i> {{topic.total_replies}}
