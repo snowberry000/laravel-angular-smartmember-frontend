@@ -10,3 +10,6 @@ machine:
     - webdriver-manager update
     - webdriver-manager start:
         background: true
+dependencies:
+  pre:
+    npm install karma-jasmine@~0.2.2
