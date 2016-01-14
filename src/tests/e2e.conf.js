@@ -22,11 +22,14 @@ exports.config = {
 		isVerbose: true,
 		realtimeFailure: true
 	},
+	seleniumAddress: 'http://localhost:4444/wd/hub',
+	baseUrl: 'http://smartmember.pro',
 	suites: {
 		sign: [ 'specs/objects/*.js', 'specs/suites/sign/**/*.js' ],
 		site: [ 'specs/objects/*.js', 'specs/suites/site/**/*.js' ]
 	},
 	params: {
+		site_url: 'smartmember.pro',
 		env: 'in',
 		subdomain: 'my',
 		user: {

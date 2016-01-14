@@ -7,7 +7,7 @@ var PageObject = function()
 
 	this.Visit = function()
 	{
-		return browser.get( 'http://my.smartmember.' + browser.params.env );
+		return browser.get( 'http://my.' + browser.params.site_url );
 	};
 
 	this.PopModal = function()

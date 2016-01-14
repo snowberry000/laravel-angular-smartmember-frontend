@@ -10,6 +10,15 @@ machine:
     - webdriver-manager update
     - webdriver-manager start:
         background: true
+  hosts:
+    *.smartmember.pro: 127.0.0.1
 dependencies:
   pre:
     - npm install karma-jasmine
+    - cp ./httpd.conf.circle /etc/apache2/sites-available/default
+    - sudo a2enmod rewrite
+    - sudo service apache2 restart
+
+general:
+  artifacts:
+    - "/var/log/apache2/"
