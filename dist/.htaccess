@@ -71,7 +71,7 @@ ErrorDocument 404 /pricing
     RewriteEngine On
     RewriteRule ^admin http://%{HTTP_HOST}/ [L]
     RewriteRule ^lesson/(.*)$ http://%{HTTP_HOST}/$1 [L]
-    RewriteRule ^download/(.*)$ http://%{HTTP_HOST}/$1 [L]
+    RewriteRule ^download/(.*)$ http://%{HTTP_HOST}/$1 [L] 
     RewriteRule ^page/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^livecast/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^post/(.*)$ http://%{HTTP_HOST}/$1 [L]
