@@ -79,7 +79,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				}
 			}
 
-			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.access_level_query ? '&access_level_id=' +  $scope.access_level_query : '' ) +  ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 			{
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
@@ -91,6 +91,13 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.paginate();
 	$scope.resolve();
+
+	$scope.clearFilter = function()
+	{
+		$scope.access_level_query = '';
+		$scope.paginate(true);
+		$('.access_level_dropdown .text').empty();
+	}
 
 	$scope.filterDuplicate = function(data){
 		var new_data = [];
