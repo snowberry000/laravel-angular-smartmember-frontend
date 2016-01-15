@@ -45,7 +45,12 @@ function DetectAndPerformBridgePageThings()
 		{
 			require_once 'bpage/php/redis/Autoloader.php';
 			Predis\Autoloader::register();
-			$client = new Predis\Client();
+
+			if ($tld == 'com'){
+				$client = new Predis\Client(['host'=>'52.34.174.209']);
+			}else{
+				$client = new Predis\Client();
+			}
 
 			try
 			{
