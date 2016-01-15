@@ -98,4 +98,4 @@ ErrorDocument 404 /pricing
 
 
 
-Header set Access-Control-Allow-Origin "*"
+#Header set Access-Control-Allow-Origin "*"
