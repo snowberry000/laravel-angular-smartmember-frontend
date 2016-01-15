@@ -32,15 +32,23 @@ app.controller( "AddController", function( $scope, Restangular, $stateParams,$ro
 	$scope.save = function()
 	{
 		$scope.category.site_id = $scope.site.id;
-
-		Restangular.service( 'forumCategory' )
-			.post( $scope.category )
-			.then( function( response )
-			{
+		if( $stateParams.id )
+		{
+			$scope.category.put().then(function(response){
 				location.reload();
-				//$scope.categories.push( response );
-				//$scope.category = {};
-			} );
+			});
+		}
+		else{
+			Restangular.service( 'forumCategory' )
+				.post( $scope.category )
+				.then( function( response )
+				{
+					location.reload();
+					//$scope.categories.push( response );
+					//$scope.category = {};
+				} );
+		}
+
 	}
 
 } );

@@ -49,20 +49,20 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
             $scope.show_next = show_next;
             item.isOpen = false;
         }
-        else if(selected_url == 'download'){
-            Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-                var downloads = response;
-                downloads.forEach(function(entity){
-                    entity.url = entity.permalink;
-                })
-                console.log(downloads)
-                $scope.show_next = true;
-                $scope.loaded_items = downloads;
+        // else if(selected_url == 'download'){
+        //     Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
+        //         var downloads = response;
+        //         downloads.forEach(function(entity){
+        //             entity.url = entity.permalink;
+        //         })
+        //         console.log(downloads)
+        //         $scope.show_next = true;
+        //         $scope.loaded_items = downloads;
 
-            })
-        }
+        //     })
+        // }
         else{
-            Restangular.all(selected_url).customGET('',{site_id: item.site_id}).then(function(response){
+            Restangular.all(selected_url).customGET('',{site_id: item.site_id , 'bypass_paging' : true}).then(function(response){
                 if(response.route == 'customPage')
                     response.route = 'page';
                 if(response.route == 'supportArticle')
