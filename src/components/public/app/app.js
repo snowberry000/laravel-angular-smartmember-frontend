@@ -146,7 +146,8 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 
 			if( value.type == 'banner' )
 			{
-				$scope.bannerView( value.banner.id );
+				if (value.banner != undefined)
+					$scope.bannerView( value.banner.id );
 			}
 		} );
 		$rootScope.site.configured_app = [];
