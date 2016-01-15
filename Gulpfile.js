@@ -57,7 +57,7 @@ gulp.task( 'bower', function()
 
 gulp.task( 'js', function()
 {
-    gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**","!src/tests/*", "!src/**/*.e2e.js"])
+    gulp.src(["src/**/*.js","!src/bpage_stuff_for_dist/**","!src/e2e-tests/**", "!src/**/*.e2e.js", "!src/**/*.test.js"])
 		.pipe( angularFilesort() )
 		.pipe( ngAnnotate() )
 		//.pipe( minifyjs() )
