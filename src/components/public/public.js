@@ -36,6 +36,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	$rootScope.sites_loaded = false;
 	$rootScope.sites = {};
 
+	$scope.current_hostname = location.hostname;
+
 	$rootScope.access_level_types = [
 		{ id: 4, name: 'Draft (admin-only)' },
 		{ id: 3, name: 'Members' },
@@ -213,7 +215,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.isSitelessPage = function( specific_site )
 	{
-		var parts = location.hostname.split( '.' );
+		var parts = $scope.current_hostname.split( '.' );
+
 		var subdomain = parts.shift();
 		var domain = parts.shift();
 		var tld = parts.shift();
