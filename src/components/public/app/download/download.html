@@ -1,9 +1,11 @@
 <div ng-if="loading" style="margin-bottom:40px;">
+
     <h3 class="ui header">
         Loading please wait . . .
     </h3>
 </div>
-<div class="content ui modal " style="padding: 0px;" ng-init="updateStats()">
+<div class="content" >
+
 	<div class="row">
 		<div ng-if="!loading" class="col-lg-8 zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
 			<div class="hpanel blog-article-box">
@@ -12,7 +14,7 @@
 						<div dynamic="download.embed_content"></div>
 					</div>
 					<div class="lesson_meta" style="min-height: 40px; position:relative;">
-						<span style="position:absolute; bottom: 5px; right: 5px; color: #34495e;" title="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times." alt="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times."><i class="fa fa-download"></i>{{download.history_count[0].count}}</span>
+						<span style="position:absolute; bottom: 5px; right: 5px; color: #34495e;" title="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times." alt="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times." class=" ui button disabled"><i class="fa fa-download"></i>{{download.history_count[0].count}}</span>
 					</div>
 					<h4 class="ui header">{{download.title}}
 					<a ng-if="is_site_admin || is_team_member" href="/admin/site/content/download/{{download.id}}" class="btn btn-success pull-right">Edit</a>
@@ -26,7 +28,7 @@
                     </h3>
 
 					<div class="width-100 text-center">
-						<a href="#" data-bypass="true" class="btn btn-success btn-sm" ng-click="updateStats(download)">
+						<a href="#" data-bypass="true" class="ui button" ng-click="updateStats(download)">
 							{{download.download_button_text || 'Download'}}
 						</a>
 					</div>
@@ -37,7 +39,7 @@
 					    <img ng-src="{{download.featured_image}}" class="img-responsive" />
 					</div>
 					<div>
-						<p style="line-height: 24px;">
+						<p style="line-height: 24px;font-weight: 600;">
 							{{download.description}}
 						</p>
 					</div>
@@ -47,13 +49,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-4 animated-panel zoomIn pull-right" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+		<!-- <div class="col-lg-4 animated-panel zoomIn pull-right" style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
 			<div class="hpanel">
 				<div class="panel-body" style="padding:15px;">
 					<a href="/download-center">Return to Download Center</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="col-lg-4 animated-panel zoomIn pull-right"
                  style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
             <div class="hpanel">
