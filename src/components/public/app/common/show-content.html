@@ -13,7 +13,7 @@
 
 	</div>
 
-	<img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && (!next_item.embed_content || next_item.always_show_featured_image == 1)">
+	<img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && (!next_item.embed_content && next_item.always_show_featured_image == 1)">
 
 	<div ng-if="!next_item.access">
 		<a class="ui fluid image" ng-if="next_item.access_level.information_url" ng-href="{{next_item.access_level.information_url}}">
