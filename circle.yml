@@ -4,8 +4,11 @@ machine:
   java:
     version: oraclejdk8
   post:
+    - npm install -g gulp
+    - bower install
     # Fetch Protractor
     - npm install -g protractor
+    - gulp compile
     # Start WebdriverJs client and Selenium server
     - webdriver-manager update
     - webdriver-manager start:
@@ -13,7 +16,7 @@ machine:
   hosts:
     smartmember.pro: 127.0.0.1
     my.smartmember.pro: 127.0.0.1
-    smartmember.pro: 127.0.0.1
+    test.smartmember.pro: 127.0.0.1
     
 dependencies:
   pre:
