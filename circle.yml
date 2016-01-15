@@ -5,10 +5,8 @@ machine:
     version: oraclejdk8
   post:
     - npm install -g gulp
-    - bower install
     # Fetch Protractor
     - npm install -g protractor
-    - gulp compile
     # Start WebdriverJs client and Selenium server
     - webdriver-manager update
     - webdriver-manager start:
@@ -24,6 +22,10 @@ dependencies:
     - cp ./httpd.conf.circle /etc/apache2/sites-available/default
     - sudo a2enmod rewrite
     - sudo service apache2 restart
+  override:
+    - bower install
+    - gulp compile
+
 
 general:
   artifacts:
