@@ -75,10 +75,10 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 		$scope.loading = true;
 		$scope.data = [];
 		$scope.pagination = {
-            current_page: 1,
-            per_page: 25,
-            total_count: 0
-        };
+			current_page: 1,
+			per_page: 25,
+			total_count: 0
+		};
 
 		var $params = { site_id: $site.id, p: $scope.pagination.current_page };
 
@@ -122,20 +122,20 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 		smModal.Show('public.app.delete' , {route : 'accessLevel' , id : id} , null , $scope.afterDelete);
 	};
 
-    $scope.promptRefreshHash = function( access_level ) {
-        swal( {
-            title: "Are you sure you want to refresh the hash?",
-            text: 'Resetting this hash will make the previous instant access URL for ' + access_level.name,
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, refresh it!",
-            closeOnConfirm: true
-        }, function()
-        {
-            $scope.refreshHash( access_level );
-        } );
-    }
+	$scope.promptRefreshHash = function( access_level ) {
+		swal( {
+			title: "Are you sure you want to refresh the hash?",
+			text: 'Resetting this hash will make the previous instant access URL for ' + access_level.name,
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, refresh it!",
+			closeOnConfirm: true
+		}, function()
+		{
+			$scope.refreshHash( access_level );
+		} );
+	}
 
 	$scope.refreshHash = function( $access )
 	{
@@ -157,12 +157,12 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 		toastr.success( "Link copied!" );
 	}
 
-    $scope.init = function()
-    {
-        var clipboard = new Clipboard( '.copy-button', {
-            text: function(trigger) {
-                return trigger.getAttribute('data-text');
-            }
-        } );
-    }
+	$scope.init = function()
+	{
+		var clipboard = new Clipboard( '.copy-button', {
+			text: function(trigger) {
+				return trigger.getAttribute('data-text');
+			}
+		} );
+	}
 } );
