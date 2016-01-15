@@ -18,10 +18,12 @@
 				</div>
 				<div class="right menu">
 					<div class="item">
-						<div class="ui input">
-							<select data-ng-options="access_level.id as access_level.name for access_level in access_levels" ng-model="access_level.id" ng-change="filterAccessLevel(access_level.id)" sui-dropdown>
+						<div class="ui input access_level_dropdown">
+							<select ng-model="access_level_query" ng-change="paginate(true)" sui-dropdown>
 								<option value="">Access Levels</option>
+								<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
 							</select>
+							<a class="ui black deny button" ng-hide="access_level_query == '' || access_level_query == undefined" ng-click="clearFilter();">Clear</a>
 						</div>
 					</div>
 				</div>

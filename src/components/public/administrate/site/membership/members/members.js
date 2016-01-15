@@ -92,10 +92,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.paginate();
 	$scope.resolve();
 
-	$scope.filterAccessLevel = function(access_level_id)
+	$scope.clearFilter = function()
 	{
-		$scope.access_level_query = access_level_id;
+		$scope.access_level_query = '';
 		$scope.paginate(true);
+		$('.access_level_dropdown .text').empty();
 	}
 
 	$scope.filterDuplicate = function(data){
