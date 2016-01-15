@@ -1,7 +1,7 @@
 
-<VirtualHost *>
+<VirtualHost *:80>
     UseCanonicalName Off
-    ServerName api.smartmember.dev
+    ServerName api.smartmember.pro
     DocumentRoot /home/ubuntu/api.smartmember.com/public
     <Directory /home/ubuntu/api.smartmember.com/public/>
         Options Indexes FollowSymLinks
@@ -12,10 +12,10 @@
         Require local
     </Directory>
 </VirtualHost>
-<VirtualHost *>
+<VirtualHost *:80>
     UseCanonicalName Off
-    ServerName my.smartmember.com
-    ServerAlias *.smartmember.com
+    ServerName my.smartmember.pro
+    ServerAlias *.smartmember.pro
     DocumentRoot /home/ubuntu/app.smartmember.com/dist
     <Directory /home/ubuntu/app.smartmember.com/dist/>
         Options Indexes FollowSymLinks
