@@ -7,7 +7,6 @@ var app = angular.module( 'app', [
 	'restangular',
 	'ipCookie',
 	'ngStorage',
-	'ngUrlify',
 	'facebook',
 	'cgNotify',
 	'ngFileUpload',
