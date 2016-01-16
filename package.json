@@ -5,15 +5,11 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "bower install",
-
     "prestart": "npm install",
-
     "pretest": "npm install",
     "test": "protractor src/tests/e2e.conf.js",
-
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
-
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor src/tests/e2e.conf.js"
   },
@@ -42,6 +38,7 @@
     "jasmine-fail-fast": "^2.0.0",
     "main-bower-files": "^2.11.0",
     "path-exists": "^2.1.0",
+    "readable-stream": "^2.0.5",
     "run-sequence": "^1.1.5",
     "util-deprecate": "^1.0.2"
   },
