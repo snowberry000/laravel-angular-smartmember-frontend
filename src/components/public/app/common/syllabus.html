@@ -81,7 +81,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ui three cards syllabus_cards stackable m-t-xs" ng-show="!module.hide_module" ng-if="site.syllabus_format == 'thumbnail'">
+			<div class="ui three cards syllabus_cards stackable m-t-xs" ng-show="!hide_module" ng-if="site.syllabus_format == 'thumbnail'">
 				<a ng-href="/{{ lesson.permalink }}" class="card" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'">
 					<div class="blurring dimmable image">
 						<div class="ui dimmer">
@@ -152,7 +152,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="ui three cards syllabus_cards stackable m-t-xs" ng-show="!module.hide_module" ng-if="site.syllabus_format == 'thumbnail'">
+			<div class="ui three cards syllabus_cards stackable m-t-xs" ng-show="!hide_module" ng-if="site.syllabus_format == 'thumbnail'">
 				<a ng-href="/{{ lesson.permalink }}" class="card" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'">
 					<div class="blurring dimmable image">
 						<div class="ui dimmer">

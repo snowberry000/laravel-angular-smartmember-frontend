@@ -37,14 +37,15 @@
 	<div class="field">
 		<label class="col-sm-2 control-label">Not-ready Preview:</label>
 		<div class="col-sm-10">
-			<label>
-				<input type="checkbox" ng-true-value="1" ng-false-value="0" name="preview_schedule" ng-model="next_item.preview_schedule">
-				Check to show this content listed on your site, even before it's <strong>Open</strong>
-			</label>
+			<div>
+				<label>
+					<input icheck type="checkbox" ng-true-value="1" ng-false-value="0" name="preview_schedule" ng-model="next_item.preview_schedule">
+					Check to show this content listed on your site, even before it's <strong>Open</strong>
+				</label>
+			</div>
+										<span class="help-block m-b-none">
 
-			<span class="help-block m-b-none">
-
-			</span>
+										</span>
 		</div>
 	</div>
 
@@ -53,13 +54,13 @@
 	<div class="field">
 		<div class="col-sm-5 col-sm-offset-2">
 			<div class="clearfix">
-				<span class="help-block m-b-none">
-					Drip-feeding lets you schedule this content to become available based on the individual viewing member's signup / purchase date. For
-					example, you can have this content become available to members 3 days after they purchase a product.
-				</span>
-				<span class="help-block m-b-none">
-					<strong>note:</strong> this content must have it's Access locked to members for drip-feeding to work.
-				</span>
+											<span class="help-block m-b-none">
+												Drip-feeding lets you schedule this content to become available based on the individual viewing member's signup / purchase date. For
+												example, you can have this content become available to members 3 days after they purchase a product.
+											</span>
+											<span class="help-block m-b-none">
+												<strong>note:</strong> this content must have it's Access locked to members for drip-feeding to work.
+											</span>
 			</div>
 		</div>
 	</div>
@@ -86,12 +87,15 @@
 	<div class="field">
 		<label class="col-sm-2 control-label">Drip-feed Preview:</label>
 		<div class="col-sm-10">
-			<label>
-				<input type="checkbox" ng-true-value="1" ng-false-value="0" name="preview_dripfeed" ng-model="next_item.preview_dripfeed" ng-disabled="next_item.access_level_type != 2 && next_item.access_level_type != 3">
-				Check to show this content listed on your site, even before enough time has passed for the visitor to access it
-			</label>
-			<span class="help-block m-b-none">
-			</span>
+			<div>
+				<label>
+					<input icheck type="checkbox" ng-true-value="1" ng-false-value="0" name="preview_dripfeed" ng-model="next_item.preview_dripfeed" ng-disabled="next_item.access_level_type != 2 && next_item.access_level_type != 3">
+					Check to show this content listed on your site, even before enough time has passed for the visitor to access it
+				</label>
+			</div>
+										<span class="help-block m-b-none">
+
+										</span>
 		</div>
 	</div>
 </div>

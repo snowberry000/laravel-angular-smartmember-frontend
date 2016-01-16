@@ -98,6 +98,12 @@ app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, 
 		} );
 	}
 
+	$scope.exists = function(id){
+		if (_.findWhere($scope.access_level.members,{grant_id: id})){
+			return true;
+		}
+	}
+
 	$scope.update = function()
 	{
 		$members = [];
