@@ -5,7 +5,7 @@ app.config(function($stateProvider){
 		.state("public.app.admin",{
 			url: "/admin",
 			templateUrl: "/templates/components/public/app/admin/admin.html",
-			controller: "PublicAdminController",
+			controller: "AppAdminController",
 			resolve: {
 
 
@@ -13,6 +13,6 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("PublicAdminController", function ( $scope ) {
+app.controller("AppAdminController", function ( $scope ) {
 
 });

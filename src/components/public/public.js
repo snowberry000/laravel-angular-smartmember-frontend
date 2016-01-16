@@ -22,7 +22,6 @@ app.config( function( $stateProvider, paginationTemplateProvider )
 		} );
 
 	paginationTemplateProvider.setPath('/templates/core/html/pagination.html');
-	paginationTemplateProvider.setPath('/templates/core/html/pagination.html');
 
 } );
 

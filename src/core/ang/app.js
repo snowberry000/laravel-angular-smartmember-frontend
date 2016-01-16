@@ -33,7 +33,7 @@ var app = angular.module( 'app', [
 ] );
 
 
-app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
+app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
 	$calledurl = window.location.host;
@@ -82,13 +82,31 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 		$localStorage.accessed_url = window.location.href;
 	}
 
+	function message( to, toP, from, fromP )
+	{
+		return from.name + angular.toJson( fromP ) + " -> " + to.name + angular.toJson( toP );
+	}
+
+	$rootScope.$on( "$stateChangeStart", function( evt, to, toP, from, fromP )
+	{
+		console.log( "Start:   " + message( to, toP, from, fromP ) );
+	} );
+	$rootScope.$on( "$stateChangeSuccess", function( evt, to, toP, from, fromP )
+	{
+		console.log( "Success: " + message( to, toP, from, fromP ) );
+	} );
+	$rootScope.$on( "$stateChangeError", function( evt, to, toP, from, fromP, err )
+	{
+		console.log( "Error:   " + message( to, toP, from, fromP ), err );
+	} );
+
 	$rootScope.$on( '$stateChangeStart'
 		, function( event, toState, toParams, fromState, fromParams )
 		{
 			console.log( fromState.name );
 
-			
-			window.Intercom('update');
+
+			window.Intercom( 'update' );
 
 			var isAuthenticationRequired = toState.data
 					&& toState.data.requiresLogin
@@ -113,8 +131,8 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 			}
 		} );
 //
-	editableThemes['default'].submitTpl = '<button type="submit"><span class="fa fa-check"></span></button>';
-	editableThemes['default'].cancelTpl = '<button type="button" ng-click="$form.$cancel()"><span class="fa fa-times" ></span></button>';
+	editableThemes[ 'default' ].submitTpl = '<button type="submit"><span class="fa fa-check"></span></button>';
+	editableThemes[ 'default' ].cancelTpl = '<button type="button" ng-click="$form.$cancel()"><span class="fa fa-times" ></span></button>';
 
 	var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
@@ -143,55 +161,57 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 	if( location.href.indexOf( '?vimeo' ) > -1 )
 	{
 		$localStorage.open_vimeo_modal = true;
-		$location.search('vimeo', null)
+		$location.search( 'vimeo', null )
 	}
 	if( location.href.indexOf( '?new' ) > -1 )
 	{
 		$localStorage.open_sites_wizard_modal = true;
-		$location.search('new', null)
+		$location.search( 'new', null )
 	}
 	else if( location.href.indexOf( '?signup' ) != -1 )
 	{
 		$localStorage.open_signup_modal = true;
-		$location.search('signup', null)
+		$location.search( 'signup', null )
 	}
 
 	if( location.href.indexOf( '?stripe' ) > -1 )
 	{
 		$localStorage.open_stripe_modal = true
-		$location.search('stripe', null);
+		$location.search( 'stripe', null );
 	}
-    else if ( location.href.indexOf('?signin') != -1 )
+	else if( location.href.indexOf( '?signin' ) != -1 )
 	{
 		$localStorage.open_signin_modal = true;
-		$location.search('signin', null)
+		$location.search( 'signin', null )
 	}
-    else if ( location.href.indexOf('?forgot') != -1 )
-    {
-        $localStorage.open_forgot_modal = true;
-        $location.search('forgot', null)
-    }
-    else if ( location.href.indexOf('?reset') != -1 )
-    {
-        if( !$localStorage.user )
-            $localStorage.open_reset_modal = true;
-        $location.search('reset', null)
-    }
-    else if ( location.href.indexOf('?unsubscribe') != -1 )
-    {
-        $localStorage.open_unsubscribe_modal = true;
-        $localStorage.unsubscribe_parameters = $location.search();
+	else if( location.href.indexOf( '?forgot' ) != -1 )
+	{
+		$localStorage.open_forgot_modal = true;
+		$location.search( 'forgot', null )
+	}
+	else if( location.href.indexOf( '?reset' ) != -1 )
+	{
+		if( !$localStorage.user )
+		{
+			$localStorage.open_reset_modal = true;
+		}
+		$location.search( 'reset', null )
+	}
+	else if( location.href.indexOf( '?unsubscribe' ) != -1 )
+	{
+		$localStorage.open_unsubscribe_modal = true;
+		$localStorage.unsubscribe_parameters = $location.search();
 
-        $location.url($location.path());
-        
-    }
-    else if (location.href.indexOf('?speedblogging') != -1 )
-    {
-        $localStorage.open_speedblogging_modal = true;
-        $localStorage.speed_blogging_parameters = $location.search();
+		$location.url( $location.path() );
 
-        $location.url($location.path());
-    }
+	}
+	else if( location.href.indexOf( '?speedblogging' ) != -1 )
+	{
+		$localStorage.open_speedblogging_modal = true;
+		$localStorage.speed_blogging_parameters = $location.search();
+
+		$location.url( $location.path() );
+	}
 
 	Restangular.setBaseUrl( $rootScope.app.apiUrl );
 	Restangular.setDefaultHeaders( { 'Content-Type': 'application/json' } );
@@ -291,7 +311,7 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 		if( isHome )
 		{
 			e.preventDefault();
-            window.location.href = 'http://' + location.hostname + "?signin";
+			window.location.href = 'http://' + location.hostname + "?signin";
 			//$state.go('sign.in');
 		}
 

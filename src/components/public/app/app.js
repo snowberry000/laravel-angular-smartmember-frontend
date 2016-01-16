@@ -4,14 +4,19 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app", {
-			templateUrl: 'templates/components/public/app/app.html',
-			controller: "AppController",
+			sticky: true,
+			abstract: true,
+			views: {
+				'app': {
+					templateUrl: 'templates/components/public/app/app.html',
+					controller: "AppController"
+				}
+			},
 			resolve: {
 				$site: function( Restangular )
 				{
 					return Restangular.one( 'site', 'details' ).get();
 				},
-
 			}
 		} )
 } );

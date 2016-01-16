@@ -70,8 +70,7 @@
 
 <div class="right ui inverted app_shortcuts_container menu {{show_admin_mobile_top_nav || 'mobile hidden'}}">
 
-
-	<a class="item thin" ng-click="smModal.Show('public.administrate.smart-links.list')" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_content" if-not="hide" title="Smart Links" position="left center" sui-popup>
+	<a class="item thin" ui-sref="public.admin.smart-links.list" ng-click="" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_content" if-not="hide" title="Smart Links" position="left center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="linkify icon"></i>
 		</button>

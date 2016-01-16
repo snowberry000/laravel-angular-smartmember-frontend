@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.smart-links.list",{
+		.state("public.admin.smart-links.list",{
 			url: "/list",
-			templateUrl: "/templates/components/public/administrate/smart-links/list/list.html",
+			templateUrl: "/templates/components/public/admin/smart-links/list/list.html",
 			controller: "SmartLinksListController"
 		})
 }); 
