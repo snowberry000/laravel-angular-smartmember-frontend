@@ -234,7 +234,7 @@
             <div class="col-md-10 col-md-offset-1">
 
                 <div class="embed_container" style="display: {{bridgepage.swapspot.enable_video}}; margin-bottom: 20px;">
-                    <div class="videoWrapper" dynamic="bridgepage.swapspot.embed"></div>
+                    <div class="videoWrapper fr-view" dynamic="bridgepage.swapspot.embed"></div>
                     <div ng-if="visible" class="videoWrapper">
                         {{bridgepage.swapspot.embed}}
                     </div>
@@ -246,7 +246,7 @@
                 <div class="optin_container">
                     <input name="mark_name_required" value="{{bridgepage.swapspot.mark_name_required}}" type="hidden"/>
                     <form action="{{bridgepage.swapspot.optin_action}}" method="post" class="the_form">
-                        <div dynamic="bridgepage.swapspot.option_hidden_fields"></div>
+                        <div dynamic="bridgepage.swapspot.option_hidden_fields" class="fr-view"></div>
                         <div ng-if="visible">{{bridgepage.swapspot.option_hidden_fields}}</div>
                         <h3 style="font-size: 36px; display:none;" class="optin_thankyou">{{bridgepage.swapspot.optin_thankyou_message || "Thanks!"}}</h3>
                         <h3 class="optin_form_display">{{bridgepage.swapspot.optin_heading}}</h3>
@@ -287,7 +287,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div dynamic="bridgepage.swapspot.footer_custom_html"></div>
+                <div dynamic="bridgepage.swapspot.footer_custom_html" class="fr-view"></div>
                 <div ng-if="visible">
                     {{bridgepage.swapspot.footer_custom_html}}
                 </div>
