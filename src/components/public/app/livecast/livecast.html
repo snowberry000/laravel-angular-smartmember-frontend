@@ -16,11 +16,11 @@
 		</div>
 
 		<div class="ui embed" data-source="vimeo" data-url="{{next_item.embed_content | extractsrc}}" data-placeholder="{{next_item.featured_image}}" data-icon="right circle arrow" ng-if="next_item.embed_content && next_item.embed_content.indexOf('<iframe') != -1">
-			<div dynamic="next_item.embed_content" ng-if="next_item.embed_content"></div>
+			<div dynamic="next_item.embed_content" ng-if="next_item.embed_content" class="fr-view"></div>
 		</div>
 
 		<div class="ui segment section_background_color" ng-if="next_item.embed_content && next_item.embed_content.indexOf('<iframe') == -1">
-			<div dynamic="next_item.embed_content" ng-if="next_item.embed_content"></div>
+			<div dynamic="next_item.embed_content" ng-if="next_item.embed_content" class="fr-view"></div>
 		</div>
 
 		<img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && next_item.always_show_featured_image">
@@ -41,7 +41,7 @@
 				<timer countdown="next_item.timeLeft" interval="1000">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
 			</h3>
 
-			<div class="row" dynamic="next_item.content"></div>
+			<div class="row fr-view" dynamic="next_item.content"></div>
 
 			<div class="panel-footer comments_go_here" ng-show="next_item.discussion_settings.show_comments" style="margin-bottom:20px;">
 				<div ng-include="'templates/components/public/app/common/comments.html'"></div>

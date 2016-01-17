@@ -11,7 +11,7 @@
 			<div class="hpanel blog-article-box">
 				<div class="panel-heading" style="padding:0;">
 					<div ng-class="{'video-container':download.embed_content.indexOf('<iframe') != -1}" ng-if="download.embed_content">
-						<div dynamic="download.embed_content"></div>
+						<div dynamic="download.embed_content" class="fr-view"></div>
 					</div>
 					<div class="lesson_meta" style="min-height: 40px; position:relative;">
 						<span style="position:absolute; bottom: 5px; right: 5px; color: #34495e;" title="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times." alt="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times." class=" ui button disabled"><i class="fa fa-download"></i>{{download.history_count[0].count}}</span>
@@ -67,7 +67,7 @@
                     </style>
                    <div ng-repeat="ad in ads" style="margin-top: 50px; display: block; orphans: 4321; border:2px;" >
                    		<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-if="ad.custom_ad" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">
-	                   		<div ng-if="ad.custom_ad" class="col-md-12" dynamic="ad.custom_ad">
+	                   		<div ng-if="ad.custom_ad" class="col-md-12 fr-view" dynamic="ad.custom_ad">
 	                   		</div>
 	                   	</a>
                        	<a site-ad data-id="{{ad.id}}" target="{{ad.open_in_new_tab ? '_blank' : '_self'}}" ng-if="ad.banner_image_url" data-bypass="true" href="{{ad.banner_url}}" ng-click="bannerClick(ad)">

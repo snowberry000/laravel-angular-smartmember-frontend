@@ -15,7 +15,7 @@
                 </h1>
 
                 <div ng-class="{'video-container':jv.embed_content.indexOf('<iframe') != -1}" ng-if="bonus.embed_content">
-                    <div dynamic="bonus.embed_content"></div>
+                    <div dynamic="bonus.embed_content" class="fr-view"></div>
                 </div>
                 <div class="video-container" style="background-color:gray;" ng-if="!bonus.embed_content">
                 </div>
@@ -23,7 +23,7 @@
                 <div>
 
                     <div class="space"></div>
-                    <div dynamic="bonus.content"></div>
+                    <div dynamic="bonus.content" class="fr-view"></div>
                 </div>
 
                 <hr>
