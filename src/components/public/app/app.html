@@ -38,7 +38,7 @@
 		</div>
 	</div>
 </div>
-<div class="ui vertical segment site_middle_background_color main-content {{isLoggedIn() && $state.includes('public.app.admin') ? 'logged_in' : ''}}">
+<div class="ui vertical segment site_middle_background_color main-content {{isLoggedIn() && $state.includes('public.app.admin.bridge-page') ? 'logged_in' : ''}}">
 	<div ui-view name="site" sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable site_ui_view'">
 	</div>
 	<div ui-view name="admin" sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable admin_ui_view'">

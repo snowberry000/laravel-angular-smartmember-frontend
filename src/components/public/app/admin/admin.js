@@ -21,4 +21,5 @@ app.config(function($stateProvider){
 
 app.controller("AppAdminController", function ( $scope ) {
 
+
 });

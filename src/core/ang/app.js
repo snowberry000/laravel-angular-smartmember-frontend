@@ -41,6 +41,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	$rootScope.$location = $location;
 	$rootScope.moment = moment;
 	$rootScope.$state = $state;
+	$rootScope.$stateParams = $stateParams;
 	$rootScope.smModal = smModal;
 	$rootScope.smSidebar = smSidebar;
 
