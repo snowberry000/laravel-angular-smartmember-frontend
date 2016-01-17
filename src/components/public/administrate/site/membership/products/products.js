@@ -119,7 +119,7 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 
 	$scope.delete = function( id )
 	{
-		smModal.Show('public.app.delete' , {route : 'accessLevel' , id : id} , null , $scope.afterDelete);
+		smModal.Show('public.app.site.delete' , {route : 'accessLevel' , id : id} , null , $scope.afterDelete);
 	};
 
 	$scope.promptRefreshHash = function( access_level ) {

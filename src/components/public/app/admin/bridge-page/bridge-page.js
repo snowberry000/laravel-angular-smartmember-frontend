@@ -351,7 +351,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$scope.close = function()
 	{
-        $state.go('public.app.home');
+        $state.go('public.app.site.home');
         smSidebar.Close();
         smModal.Show('public.administrate.site.pages.bridge-pages');
 	}
@@ -601,7 +601,7 @@ app.controller( 'bridgepageEngineController', function( $scope, $localStorage, s
 
 	$scope.close = function()
 	{
-        $state.go('public.app.home');
+        $state.go('public.app.site.home');
 		smSidebar.Close();
         smModal.Show('public.administrate.site.pages.bridge-pages');
 		$rootScope.viewport = '';

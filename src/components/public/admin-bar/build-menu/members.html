@@ -2,7 +2,7 @@
 	<div class="item">
 		<div class="header">Members</div>
 		<div class="menu">
-			<a class="item" ui-sref="public.app.home">Site Home</a>
+			<a class="item" ui-sref="public.app.site.home">Site Home</a>
 			<a class="item" ng-click="smModal.Show('public.administrate.site.membership.members')">{{ 'MEMBERS' | translate }}</a>
 			<a class="item" sm-access="manage_access_levels" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.products')">Access Levels</a>
 			<a class="item" sm-access="manage_access_levels" if-not="hide" ng-click="smModal.Show('public.administrate.site.membership.passes')">{{ 'PASSES' | translate }}</a>

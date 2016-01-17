@@ -1,3 +1,2 @@
 <div class="ui top fixed inverted pointing stackable menu admin_bar" ng-include="GetAdminBarInclude()"></div>
-<ui-view name="app" ng-class="'ui ' + (meta_data.page_background_style == 'boxed' && !$state.includes('public.www') ? '' : 'fluid') + ' container the_main_container pusher'"></ui-view>
-<ui-view name="admin" ng-class="'ui ' + (meta_data.page_background_style == 'boxed' && !$state.includes('public.www') ? '' : 'fluid') + ' container the_main_container pusher'"></ui-view>
+<ui-view ng-class="'ui ' + (meta_data.page_background_style == 'boxed' && !$state.includes('public.www') ? '' : 'fluid') + ' container the_main_container pusher'"></ui-view>

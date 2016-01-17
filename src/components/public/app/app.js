@@ -4,14 +4,8 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app", {
-			sticky: true,
-			abstract: true,
-			views: {
-				'app': {
-					templateUrl: 'templates/components/public/app/app.html',
-					controller: "AppController"
-				}
-			},
+			templateUrl: '/templates/components/public/app/app.html',
+			controller: "AppController",
 			resolve: {
 				$site: function( Restangular )
 				{

@@ -212,7 +212,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				{
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
-				$state.transitionTo('public.app.lessons', $stateParams, { 
+				$state.transitionTo('public.app.site.lessons', $stateParams, {
 				  reload: true, inherit: false, location: false
 				});
 			} )
@@ -237,7 +237,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				{
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
-				$state.transitionTo('public.app.lessons', $stateParams, { 
+				$state.transitionTo('public.app.site.lessons', $stateParams, {
 				  reload: true, inherit: false, location: false
 				});
 			} );

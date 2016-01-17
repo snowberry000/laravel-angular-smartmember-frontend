@@ -118,7 +118,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 					// $state.transitionTo($state.current , $stateParams , {
 					//    reload: 'public.app' , inherit : false , location : false
 					// });
-					$state.go( 'public.app.home', {show_modal: false}, { reload: true,location:false } );
+					$state.go( 'public.app.site.home', {show_modal: false}, { reload: true,location:false } );
 					smModal.Close();
 				}
 				else
