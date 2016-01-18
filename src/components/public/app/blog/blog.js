@@ -14,9 +14,11 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
 	$scope.posts = [];
 	$scope.loading=true;
 	$rootScope.page_title = "Blogs";
-	Restangular.all( 'post' ).getList( { 'site_id': $site.id } ).then( function( response )
-	{
+	Restangular.all('').customGET('post?site_id='+$site.id ).then(function(response){
 		$scope.loading=false;
-		$scope.posts = response;
-	} );
+		// $scope.posts = response;
+		$.each(response, function (key, data) {
+		           $scope.posts[key] = data;
+		        });
+	});
 } );
