@@ -17,7 +17,10 @@ app.directive( 'suiEmbed', function( smModal )
 				{
 					//console.log( 'placeholder', image );
 					// returns html for placeholder element
-					return '<i class="video play icon"></i> <img class="placeholder" src="' + image + '">';
+					if(image && image !="{{next_item.featured_image}}")
+						return '<i class="video play icon"></i> <img class="placeholder" src="' + image + '">';
+					else
+						return '<i class="video play icon"></i>';
 				}
 			};
 
