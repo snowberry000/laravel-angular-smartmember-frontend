@@ -16,10 +16,6 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
 	$rootScope.page_title = "Blogs";
 	Restangular.all('').customGET('post?site_id='+$site.id ).then(function(response){
 		$scope.loading=false;
-		// $scope.posts = response;
-		$.each(response, function (key, data) {
-		           $scope.posts.push(data);
-		        });
-		console.log($scope.posts);
+		$scope.posts = response;
 	});
 } );
