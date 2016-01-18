@@ -18,7 +18,8 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
 		$scope.loading=false;
 		// $scope.posts = response;
 		$.each(response, function (key, data) {
-		           $scope.posts[key] = data;
+		           $scope.posts.push(data);
 		        });
+		console.log($scope.posts);
 	});
 } );
