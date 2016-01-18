@@ -4,7 +4,7 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app.admin.support", {
-			url: "/helpdesk",
+			url: "/support",
 			templateUrl: "/templates/components/public/app/admin/support/support.html",
 			controller: "AdminSupportController"
 		} )
