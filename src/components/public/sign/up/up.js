@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
+app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
 {
 
 	var auth = Restangular.all( 'auth' );
@@ -166,11 +166,11 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, smModal, i
 		{
 			if( $rootScope.isSitelessPage() )
 			{
-				smModal.Show('public.administrate.wizard', {id: 'account_wizard'});
+				$state.go('public.administrate.wizard', {id: 'account_wizard'});
 			}
 			else
 			{
-				smModal.Close();
+				$rootScope.CloseExtraState();
 			}
 			//$state.go( "admin.account.memberships" );
 		}

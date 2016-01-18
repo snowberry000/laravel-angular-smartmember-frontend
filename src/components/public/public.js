@@ -42,8 +42,57 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		{ id: 1, name: 'Visitors' },
 	];
 
+	$rootScope.last_base_state = {};
+	$rootScope.last_site_state = {};
+
 	$scope.current_site_domain = window.location.host;
 	$rootScope.active_theme_option_section = 'layout';
+
+
+	$rootScope.$on( "$stateChangeStart", function( evt, toState, toStateParams, fromState, fromStateParams )
+	{
+		console.log( 'stateChangeStart', toState, fromState )
+
+		if( !(fromState.name.indexOf( 'public.app.admin' ) > -1) && (toState.name.indexOf( 'public.app.admin' ) > -1) )
+		{
+			$rootScope.last_site_state = {
+				state: fromState,
+				params: fromStateParams
+			};
+
+			console.log( 'last_site_state', $rootScope.last_site_state )
+			//$state.go( $scope.stateBehindModal.state, $scope.stateBehindModal.params );
+		}
+
+		if( !(fromState.name.indexOf( 'public.sign' ) > -1) && (toState.name.indexOf( 'public.sign' ) > -1) )
+		{
+			$rootScope.last_base_state = {
+				state: fromState,
+				params: fromStateParams
+			};
+
+			console.log( 'last_base_state', $rootScope.last_base_state )
+			//$state.go( $scope.stateBehindModal.state, $scope.stateBehindModal.params );
+		}
+	} );
+
+	$rootScope.CloseAdminState = function()
+	{
+		console.log( '$rootScope', $rootScope.last_site_state );
+		$state.go( $rootScope.last_site_state.state || 'public.app.site.home', $rootScope.last_site_state.params, $rootScope.last_site_state.state ? null : {reload:true} );
+	};
+
+	$rootScope.CloseExtraState = function()
+	{
+		console.log( '$rootScope', $rootScope.last_base_state );
+		$state.go( $rootScope.last_base_state.state, $rootScope.last_base_state.params, $rootScope.last_base_state.state ? null : {reload:true} );
+	};
+
+	$rootScope.SiteStateExists = function()
+	{
+		return true;
+		return $rootScope.last_site_state.state;
+	}
 
 	$scope.LogOut = function()
 	{

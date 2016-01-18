@@ -4,8 +4,17 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app", {
-			templateUrl: '/templates/components/public/app/app.html',
-			controller: "AppController",
+			sticky: true,
+			abstract: true,
+			views: {
+				'base': {
+					templateUrl: '/templates/components/public/app/app.html',
+					controller: "AppController"
+				},
+				'extra': {
+					template: ""
+				}
+			},
 			resolve: {
 				$site: function( Restangular )
 				{
@@ -18,7 +27,6 @@ app.config( function( $stateProvider )
 app.controller( "AppController", function( $scope, $state, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
 	{
 		$rootScope.site = $site;
-		$rootScope.last_site_state = {};
 
 		var intercom = _.findWhere( $scope.site.app_configuration, { type: 'intercom' } );
 
@@ -70,34 +78,6 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 			{
 				$rootScope.access_levels = response;
 			} )
-		}
-
-		$rootScope.$on( "$stateChangeStart", function( evt, toState, toStateParams, fromState, fromStateParams )
-		{
-			console.log( 'stateChangeStart', toState, fromState )
-
-			if( !(fromState.name.indexOf( 'public.app.admin' ) > -1) && (toState.name.indexOf( 'public.app.admin' ) > -1) )
-			{
-				$rootScope.last_site_state = {
-					state: fromState,
-					params: fromStateParams
-				};
-
-				console.log( 'last_site_state', $rootScope.last_site_state )
-				//$state.go( $scope.stateBehindModal.state, $scope.stateBehindModal.params );
-			}
-		} );
-
-		$rootScope.CloseAdminState = function()
-		{
-			console.log( '$rootScope', $rootScope.last_site_state );
-			$state.go( $rootScope.last_site_state.state || 'public.app.site.home', $rootScope.last_site_state.params, $rootScope.last_site_state.state ? null : {reload:true} );
-		};
-
-		$rootScope.SiteStateExists = function()
-		{
-			return true;
-			return $rootScope.last_site_state.state;
 		}
 
 		$scope.ShouldSuiHandleEmbed = function( embed_code )

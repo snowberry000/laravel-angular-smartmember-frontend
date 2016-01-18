@@ -1,125 +1,127 @@
-var app = angular.module("app");
+var app = angular.module( "app" );
 
-app.config(function($stateProvider){
+app.config( function( $stateProvider )
+{
 	$stateProvider
-		.state("public.sign.transaction",{
+		.state( "public.sign.transaction", {
 			url: "/transaction",
 			templateUrl: "/templates/components/public/sign/transaction/transaction.html"
-		})
-});
+		} )
+} );
 
-app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http, smModal )
+app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http )
 {
-    console.log('here we goes');
-    $scope.account = {};
+	console.log( 'here we goes' );
+	$scope.account = {};
 
-    var $_GET = $rootScope.$_GET;
+	var $_GET = $rootScope.$_GET;
 
-    Restangular.all('').customGET('user/transactionAccount/' + $_GET['cbreceipt']).then(function(response){
-        $scope.account = response;
-    });
+	Restangular.all( '' ).customGET( 'user/transactionAccount/' + $_GET[ 'cbreceipt' ] ).then( function( response )
+	{
+		$scope.account = response;
+	} );
 
-    $scope.account.password = '';
-    $scope.account.create_new_account = false;
-    $scope.email_taken = false;
-    $scope.verification_sent = false;
-    $scope.account.verification_code = '';
+	$scope.account.password = '';
+	$scope.account.create_new_account = false;
+	$scope.email_taken = false;
+	$scope.verification_sent = false;
+	$scope.account.verification_code = '';
 
-    $scope.postAuth = function( response )
-    {
-        $scope.$storage.user = response;
+	$scope.postAuth = function( response )
+	{
+		$scope.$storage.user = response;
 
-        $http.defaults.headers.common[ 'Authorization' ] = "Basic " + response.access_token;
-        ipCookie( 'user', JSON.stringify( response ), { 'domain': $scope.app.domain, 'path': '/' } );
+		$http.defaults.headers.common[ 'Authorization' ] = "Basic " + response.access_token;
+		ipCookie( 'user', JSON.stringify( response ), { 'domain': $scope.app.domain, 'path': '/' } );
 
-        if( $localStorage.hash )
-        {
-            $localStorage.hash = false;
-        }
-        if( $localStorage.cbreceipt )
-        {
-            $localStorage.cbreceipt = false;
-        }
-        $rootScope.first_login_view = true;
-    }
+		if( $localStorage.hash )
+		{
+			$localStorage.hash = false;
+		}
+		if( $localStorage.cbreceipt )
+		{
+			$localStorage.cbreceipt = false;
+		}
+		$rootScope.first_login_view = true;
+	}
 
-    $scope.saveAccount = function()
-    {
-        Restangular.all( 'user/saveTransactionAccount' ).customPOST( $scope.account ).then( function( response )
-            {
-                $scope.postAuth( response );
+	$scope.saveAccount = function()
+	{
+		Restangular.all( 'user/saveTransactionAccount' ).customPOST( $scope.account ).then( function( response )
+			{
+				$scope.postAuth( response );
 
-                $rootScope.modal_popup_template = false;
-                delete $rootScope.$_GET['cbreceipt'];
-                $state.go($state.current, $stateParams, {reload: true});
-                smModal.Close();
-            },
-            function( response )
-            {
-                if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
-                {
-                    $scope.email_taken = true;
-                    $scope.verification_sent = true;
-                    $scope.verification_failed = false;
-                }
-                else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
-                {
-                    $scope.email_taken = true;
-                    $scope.verification_sent = false;
-                    $scope.verification_failed = true;
-                }
-            } );
-    }
+				$rootScope.modal_popup_template = false;
+				delete $rootScope.$_GET[ 'cbreceipt' ];
 
-    $scope.sendVerificationCode = function()
-    {
-        Restangular.all( 'user/sendVerificationCode' ).customPOST( $scope.account ).then( function( response )
-        {
-            $scope.verification_sent = true;
-            $scope.account.verification_code = '';
-        } );
-    }
+				$rootScope.CloseExtraState();
+			},
+			function( response )
+			{
+				if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
+				{
+					$scope.email_taken = true;
+					$scope.verification_sent = true;
+					$scope.verification_failed = false;
+				}
+				else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
+				{
+					$scope.email_taken = true;
+					$scope.verification_sent = false;
+					$scope.verification_failed = true;
+				}
+			} );
+	}
 
-    $scope.associateAccount = function()
-    {
-        $scope.account.transaction = $_GET[ 'cbreceipt' ];
-        Restangular.all( 'user/associateTransactionAccount' ).customPOST( $scope.account ).then( function( response )
-        {
-            $scope.postAuth( response );
+	$scope.sendVerificationCode = function()
+	{
+		Restangular.all( 'user/sendVerificationCode' ).customPOST( $scope.account ).then( function( response )
+		{
+			$scope.verification_sent = true;
+			$scope.account.verification_code = '';
+		} );
+	}
 
-            $rootScope.modal_popup_template = false;
-            delete $rootScope.$_GET['cbreceipt'];
-            $state.go($state.current, $stateParams, {reload: true});
-            smModal.Close();
-        } );
-    }
+	$scope.associateAccount = function()
+	{
+		$scope.account.transaction = $_GET[ 'cbreceipt' ];
+		Restangular.all( 'user/associateTransactionAccount' ).customPOST( $scope.account ).then( function( response )
+		{
+			$scope.postAuth( response );
 
-    $scope.associateNewAccount = function()
-    {
-        $scope.account.transaction = $_GET[ 'cbreceipt' ];
-        Restangular.all( 'user/registerTransactionAccount' ).customPOST( $scope.account ).then( function( response )
-        {
-            $scope.postAuth( response );
+			$rootScope.modal_popup_template = false;
+			delete $rootScope.$_GET[ 'cbreceipt' ];
 
-            $rootScope.modal_popup_template = false;
-            delete $rootScope.$_GET['cbreceipt'];
-            $state.go($state.current, $stateParams, {reload: true});
-            smModal.Close();
-        },
-        function( response )
-        {
-            if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
-            {
-                $scope.email_taken = true;
-                $scope.verification_sent = true;
-                $scope.verification_failed = false;
-            }
-            else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
-            {
-                $scope.email_taken = true;
-                $scope.verification_sent = false;
-                $scope.verification_failed = true;
-            }
-        } );
-    }
+			$rootScope.CloseExtraState();
+		} );
+	}
+
+	$scope.associateNewAccount = function()
+	{
+		$scope.account.transaction = $_GET[ 'cbreceipt' ];
+		Restangular.all( 'user/registerTransactionAccount' ).customPOST( $scope.account ).then( function( response )
+			{
+				$scope.postAuth( response );
+
+				$rootScope.modal_popup_template = false;
+				delete $rootScope.$_GET[ 'cbreceipt' ];
+
+				$rootScope.CloseExtraState();
+			},
+			function( response )
+			{
+				if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
+				{
+					$scope.email_taken = true;
+					$scope.verification_sent = true;
+					$scope.verification_failed = false;
+				}
+				else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
+				{
+					$scope.email_taken = true;
+					$scope.verification_sent = false;
+					$scope.verification_failed = true;
+				}
+			} );
+	}
 } );

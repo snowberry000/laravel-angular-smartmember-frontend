@@ -1,10 +1,17 @@
-var app = angular.module("app");
+var app = angular.module( "app" );
 
-app.config(function($stateProvider){
+app.config( function( $stateProvider )
+{
 	$stateProvider
-		.state("public.sign",{
+		.state( "public.sign", {
 			url: "/sign",
-			templateUrl: "/templates/components/public/sign/sign.html"
-		})
-});
+			sticky: true,
+			abstract: true,
+			views: {
+				'extra': {
+					templateUrl: "/templates/components/public/sign/sign.html"
+				}
+			}
+		} )
+} );
 

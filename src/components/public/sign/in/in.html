@@ -1,4 +1,5 @@
-<div class="ui short modal"><i class="close icon"></i>
+<div class="ui short modal">
+	<i class="close icon"></i>
 	<div class="header">
 		Login to {{site.name || 'Smart Member'}}
 	</div>
@@ -59,7 +60,7 @@
 						<i class="edit icon"></i>
 						Sign Up
 					</a>
-					<a ng-if="!site_options.create_account_url" ng-click="smModal.Show('public.sign.up', $state.includes('public.my') ? {modal_options:{closable:false}} : null)" class="ui big blue labeled icon button">
+					<a ng-if="!site_options.create_account_url" ui-sref="public.sign.up" class="ui big blue labeled icon button">
 						<i class="edit icon"></i>
 						Sign Up
 					</a>
@@ -69,17 +70,17 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.forgot')">
+		<div ng-click="CloseExtraState()" class="ui black button">
+			Close
+		</div>
+		<a ui-sref="public.sign.forgot" class="ui labeled icon button">
 			Forgot password?
 			<i class="lock icon"></i>
 		</a>
-		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button" ng-click="CloseModal();">
+		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
 			Need help?
 			<i class="life ring icon"></i>
 		</a>
-		<div ng-if="!$state.includes('public.my')" class="close ui black deny button">
-			Close
-		</div>
 	</div>
 </div>
 
