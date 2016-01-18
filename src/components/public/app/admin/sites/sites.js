@@ -187,7 +187,6 @@ app.controller( "SitesController", function( $scope, $rootScope, $filter , $loca
 	};
 
 	$scope.$on('$destroy', function() {
-        alert("In destroy");
-        $( "body *" ).unbind( 'scroll' );
+        //$( "body *" ).unbind( 'scroll' );
     });
 } );

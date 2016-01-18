@@ -52,8 +52,8 @@
 	</a>
 </div>
 
-<div class="{{$state.includes('public.app') && !$state.includes('public.app.admin') ? 'active' : ''}} item build_menu_trigger_container {{show_admin_mobile_top_nav || 'mobile hidden'}}">
-	<a class="ui inverted basic red button" ng-click="smModal.Show('public.app.admin.sites')">
+<div class="{{$state.includes('public.app.admin.sites') ? 'active' : ''}} item build_menu_trigger_container {{show_admin_mobile_top_nav || 'mobile hidden'}}">
+	<a class="ui inverted basic red button" ui-sref="public.app.admin.sites">
 		Browse
 	</a>
 	<a class="ui inverted basic red button" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="edit_theme_options" if-not="hide" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">

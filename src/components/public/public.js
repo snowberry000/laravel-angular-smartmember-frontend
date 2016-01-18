@@ -79,7 +79,9 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	$rootScope.CloseAdminState = function()
 	{
 		console.log( '$rootScope', $rootScope.last_site_state );
-		$state.go( $rootScope.last_site_state.state || 'public.app.site.home', $rootScope.last_site_state.params, $rootScope.last_site_state.state ? null : { reload: true } );
+		var go_state = $rootScope.last_site_state.state || ($scope.isSitelessPage() ? '' : 'public.app.site.home');
+
+		$state.go( go_state, $rootScope.last_site_state.params || null, $rootScope.last_site_state.state ? null : { reload: true } );
 	};
 
 	$rootScope.CloseExtraState = function()

@@ -115,13 +115,13 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 			}
 			else
 			{
-				if( $state.current.name == 'public.sign.in' || $state.current.name == 'public.sign.in2' )
+				if( $rootScope.isSitelessPage('my') )
 				{
-					// $state.transitionTo($state.current , $stateParams , {
-					//    reload: 'public.app' , inherit : false , location : false
-					// });
-					$state.go( 'public.app.site.home', { show_modal: false }, { reload: true, location: false } );
-
+					$state.go( 'public.my', null, {reload:true});
+				}
+				else if( $rootScope.isSitelessPage('www') )
+				{
+					$state.go( 'public.www', null, {reload:true});
 				}
 				else
 				{
