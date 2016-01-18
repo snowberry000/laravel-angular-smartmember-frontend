@@ -270,6 +270,13 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		var clipboard = new Clipboard( '.copy-button' );
 	}
 
+	$scope.resolveAccessLevels = function() {
+		Restangular.all( '' ).customGET( 'accessLevel' + '?view=admin&bypass_paging=1&site_id=' + $site.id ).then( function( data )
+		{
+			$scope.access_levels = data.items;
+		});
+	}
+
 	$scope.SetIntegrationViewbox = function( integration_id )
 	{
 
@@ -337,6 +344,15 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			description: 'Allow your customers to buy your Products with Zaxaa',
 			logo: '/images/app_configurations/zaxaa.png',
 			long_description: '<p><a href="http://www.zaxaa.com" target="_blank">Zaxaa</a> allows you to accept payments from the Zaxaa affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
+		},
+		{
+			id: 'infusion',
+			name: 'InfusionSoft',
+			short_name: 'InfusionSoft',
+			sites_only: true,
+			description: 'Allow you to import customers into SmartMember',
+			logo: '/images/app_configurations/infusion.jpg',
+			long_description: '<p><a href="http://www.infusionsoft.com" target="_blank">InfusionSoft</a> allows you to accept payments from the InfusionSoft affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
 		},
 		{
 			id: 'paypal',

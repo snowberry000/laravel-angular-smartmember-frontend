@@ -1,0 +1,99 @@
+<div class="ui modal"><i class="close icon"></i>
+    <div class="header">
+        <i class="configure icon"></i>
+        {{current_integration ? 'Configure' : 'Install'}} Infusion Soft
+    </div>
+    <div class="content">
+        <div class="description">
+            <h3 class="ui horizontal divider header">
+                <i class="magic icon"></i>
+                Setup Instructions
+            </h3>
+
+            <div class="ui ignored positive message">
+                <p>Follow these steps to install the {{integration.name}} app.</p>
+            </div>
+
+            <div class="ui styled fluid accordion" sui-accordion>
+                <h3 class="ui top attached header title active">
+                    <i class="dropdown icon"></i>
+                    Step 1
+                </h3>
+                <div class="ui attached segment content active">
+                    <p>Choose which access level you want to integrate with Infusion Soft and then Copy the URL</p>
+                    <img class="ui bordered image" src="http://content.screencast.com/users/shinobikni/folders/Jing/media/420bd365-f7aa-48cf-b0ba-f70b0185e26c/2016-01-18_1616.png">
+                </div>
+
+                <h3 class="ui top attached header title">
+                    <i class="dropdown icon"></i>
+                    Step 2
+                </h3>
+                <div class="ui attached segment content">
+                    <p>Go to Your E-Commerce Settings. Click on Billing Automation</p>
+                    <img class="ui bordered image" src="http://content.screencast.com/users/shinobikni/folders/Jing/media/63cb76a4-2ea4-4105-8b5c-a7cf798f758e/2016-01-18_1619.png">
+                </div>
+
+                <h3 class="ui top attached header title">
+                    <i class="dropdown icon"></i>
+                    Step 3
+                </h3>
+                <div class="ui attached segment content">
+                    <p>Add Trigger "After a successful purchase in the shopping cart or on an order form"</p>
+                    <img class="ui bordered image" src="http://content.screencast.com/users/shinobikni/folders/Jing/media/4ec8697c-4664-4719-aaaf-69cadabb36aa/2016-01-18_1619.png">
+                </div>
+
+                <h3 class="ui top attached header title">
+                    <i class="dropdown icon"></i>
+                    Step 4
+                </h3>
+                <div class="ui attached segment content">
+                    <p>Select the product you want to associate with the access level from SmartMember and then choose "Send an http post to another server" from the dropdown </p>
+                    <img class="ui bordered image" src="http://content.screencast.com/users/shinobikni/folders/Jing/media/131d4a7e-6637-4221-84ce-932edd73f59d/2016-01-18_1622.png">
+                </div>
+
+                <h3 class="ui top attached header title">
+                    <i class="dropdown icon"></i>
+                    Step 5
+                </h3>
+                <div class="ui attached segment content">
+                    <p>Paste the URL copied from step 1 and click Save</p>
+                    <img class="ui bordered image" src="http://content.screencast.com/users/shinobikni/folders/Jing/media/7f84b8e3-370d-4575-ae87-8eb9bca64815/2016-01-18_1623.png">
+                </div>
+
+            </div>
+            <h3 class="ui horizontal divider header">
+                <i class="setting icon"></i>
+                Settings
+            </h3>
+
+            <div class="ui segment form">
+                <div class="field">
+                    <label>Choose Access Level</label>
+
+                    <div class="ui action input" ng-init="resolveAccessLevels()">
+                        <select ng-model="infusion_access_level" sui-dropdown>
+                            <option value="">Access Levels</option>
+                            <option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Use this as your trigger URL</label>
+                    <div class="ui action input" ng-init="init()">
+                        <input type="text" class="endpoint-api" id="copy_me" value="{{app.apiUrl + '/transaction?type=infusion&subdomain=' + current_site.subdomain}}&access_level={{infusion_access_level}}">
+                        <button class="ui teal right labeled icon button copy-button" data-clipboard-target="#copy_me" data-clipboard-action="copy" clip-copy="app.apiUrl + '/transaction?type=wso&subdomain=' + current_site.subdomain" ng-click="copied()">
+                            <i class="copy icon"></i>
+                            Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui black deny button close" ng-click="cancel()">
+            Back
+        </div>
+    </div>
+</div>
