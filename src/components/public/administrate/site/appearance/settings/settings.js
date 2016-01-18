@@ -31,6 +31,20 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 			} );
 
 			$scope.site_options.default_syllabus_closed  == '1' ? $scope.site_options.default_syllabus_closed =true : $scope.site_options.default_syllabus_closed = false;
+
+            if( !$scope.site_options.welcome_email_subject )
+                $scope.site_options.welcome_email_subject = 'Welcome to %site_name%';
+
+            if( !$scope.site_options.welcome_email_content )
+                $scope.site_options.welcome_email_content =
+            '<h2 style="color:#2ab27b;line-height:30px;margin-bottom:12px;margin:0 0 12px">You\'re in!</h2>' +
+                '<p style="font-size:18px;line-height:24px;margin:0 0 16px;">' +
+                'You\'re now a member at <strong>%site_name%</strong> - welcome!</p>' +
+                '<p style="font-size:20px;line-height:26px;margin:0 0 16px">' +
+                    '<strong>Ready to login?</strong> Below you\'ll find your login details and a link to get started.' +
+                '</p>' +
+                '<hr style="border:none;border-bottom:1px solid #ececec;margin:1.5rem 0;width:100%">' +
+                '%login_details%';
 		} )
 		Restangular.all( 'sharedKey/associatedKey' ).customGET().then( function( data )
 		{

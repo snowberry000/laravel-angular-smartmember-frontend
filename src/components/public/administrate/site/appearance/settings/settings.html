@@ -60,6 +60,36 @@
 				</div>
                 <div class="title">
                     <i class="dropdown icon"></i>
+                    Welcome E-mail
+                </div>
+                <div class="content">
+                    <div class="ui form">
+
+                        <p class="bold no_bottom_margin">Customize the welcome e-mail message</p>
+
+                        <div class="sixteen wide field">
+                            <label>Set the subject for welcome e-mails</label>
+                            <input type="text" ng-model="site_options.welcome_email_subject" />
+                            <div class="ui ignored info message">
+                                <p>
+                                    Add %site_name% anywhere you would like to see the site name.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="sixteen wide field">
+                            <label>Set the content for welcome e-mails</label>
+                            <textarea froala ng-model="site_options.welcome_email_content"></textarea>
+                            <div class="ui ignored info message">
+                                <p>
+                                    Add %login_details% where you would like the login details to show up in the e-mail message.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="title">
+                    <i class="dropdown icon"></i>
                     Hide Sign Up button
                 </div>
                 <div class="content">
