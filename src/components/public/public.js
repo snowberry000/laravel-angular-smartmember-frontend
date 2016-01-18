@@ -57,7 +57,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			state = state[2];
 		}
 
-		if( $scope.isLoggedIn() && state != 'public,wallboard' && ($rootScope.app.subdomain != 'sm' || $rootScope.site.is_admin == true))
+		if( $scope.isLoggedIn() && state != 'public,wallboard' && (true || $rootScope.app.subdomain != 'sm' || $rootScope.site.is_admin == true))
 		{
 			return 'templates/components/public/admin-bar/admin-bar.html';
 		}
