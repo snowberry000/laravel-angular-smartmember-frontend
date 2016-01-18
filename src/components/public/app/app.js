@@ -94,6 +94,11 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 			$state.go( $rootScope.last_site_state.state, $rootScope.last_site_state.params );
 		};
 
+		$rootScope.SiteStateExists = function()
+		{
+			return $rootScope.last_site_state.state;
+		}
+
 		$scope.ShouldSuiHandleEmbed = function( embed_code )
 		{
 			var url = $filter( 'extractsrc' )( embed_code );

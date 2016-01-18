@@ -107,7 +107,7 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="CloseAdminState()" class="ui black button">
+		<a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
 			Close
 		</a>
 		<a ui-sref="{{template_data.edit_route}}" class="ui right labeled icon green button">
