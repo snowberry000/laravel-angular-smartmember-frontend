@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SmartLinksListController", function ($scope, $rootScope, Restangular, toastr, smModal, close) {
+app.controller("SmartLinksListController", function ($scope, $rootScope, Restangular, toastr, smModal) {
     $site = $rootScope.site;
     $scope.template_data = {
         title: 'SMARTLINKS',
