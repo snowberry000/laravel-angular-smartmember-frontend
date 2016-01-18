@@ -15,7 +15,7 @@
 				<div class="ui buttons" ng-show="!isLoggedIn()">
 					<a class="ui button login_button" ui-sref="public.sign.in">Log-in</a>
 					<div class="or" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )"></div>
-					<a class="ui positive button register_button" href="#" ng-click="smModal.Show('public.sign.up')" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )">Sign up</a>
+					<a class="ui positive button register_button" ui-sref="public.sign.up" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )">Sign up</a>
 				</div>
 				<div class="ui buttons" ng-show="isLoggedIn() && ( !meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' ) )">
 					<button busy class="ui button join_button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">Join</button>
@@ -50,7 +50,6 @@
 		</div>
 	</div>
 </div>
-
 
 <div ui-view name="admin" sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable admin_ui_view'">
 </div>
