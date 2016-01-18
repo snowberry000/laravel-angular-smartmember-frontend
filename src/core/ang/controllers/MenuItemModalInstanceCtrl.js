@@ -25,12 +25,38 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     console.log('menu icon: ');
     console.log($scope.editing_item);
 
+    $scope.promptRemoveMe = function(id )
+    {
+        //$event.preventDefault();
+        swal( {
+            title: "Are you sure?",
+            text: "Do you really want to remove this?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, remove it!",
+            closeOnConfirm: true
+        }, function()
+        {
+            $scope.deleteResource( id );
+        } );
+    }
+
     $scope.deleteResource = function(id){
-        Restangular.one('siteMenuItem', id)
-            .remove()
-            .then(function(response){
-                location.reload();
-            });
+        if(typeof $scope.editing_item.custom_icon != 'undefined'){
+            Restangular.one('siteMenuItem', id)
+                .remove()
+                .then(function(response){
+                    smModal.Show('public.administrate.site.appearance.menus')
+                });
+        }
+        else{
+            Restangular.one('siteFooterMenuItem', id)
+                .remove()
+                .then(function(response){
+                    smModal.Show('public.administrate.site.appearance.menus');
+                });
+        }
     }
 
     $scope.menuItemLabel=function(){
