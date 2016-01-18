@@ -9,6 +9,9 @@ app.config(function($stateProvider){
 				'site': {
 					templateUrl: "/templates/components/public/app/site/site.html",
 					controller: "AppSiteController"
+				},
+				'admin': {
+					template: ""
 				}
 			}
 		})

@@ -7,25 +7,17 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/app/admin/smart-links/create/create.html",
 			controller: "SmartLinksCreateController",
             resolve: {
-                loadPlugin: function( $ocLazyLoad )
-                {
-                    return $ocLazyLoad.load( [
-                        {
-                            name: 'ui.radio.checkbox'
-                        }
-                    ] );
-                }
             }
 		})
 }); 
 
-app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filter, Restangular, $stateParams, smModal, toastr, close) {
+app.controller("SmartLinksCreateController", function ($scope, $state, $rootScope, $filter, Restangular, $stateParams, smModal) {
     $site = $rootScope.site;
     $scope.template_data = {
         title: 'SMARTLINK',
         description: 'Create rotating links',
         singular: 'Smart Link',
-        edit_route: 'public.administrate.smart-links.create',
+        edit_route: 'public.app.admin.smart-links.create',
         api_object: 'smartLink'
     }
 
@@ -221,11 +213,11 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filt
 
         if( $scope.next_item.id ) {
             $scope.next_item.put().then(function(response){
-                smModal.Show('public.administrate.smart-links.list');
+                $state.go('public.app.admin.smart-links.list');
             });
         } else {
             Restangular.all( $scope.template_data.api_object ).post( $scope.next_item ).then(function(response){
-                smModal.Show('public.administrate.smart-links.list');
+	            $state.go('public.app.admin.smart-links.list');
             });
         }
     }
