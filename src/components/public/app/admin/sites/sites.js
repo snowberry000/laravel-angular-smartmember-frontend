@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.sites", {
+		.state( "public.app.admin.sites", {
 			url: "/sites",
-			templateUrl: "/templates/components/public/administrate/team/sites/sites.html",
+			templateUrl: "/templates/components/public/app/admin/sites/sites.html",
 			controller: "SitesController"
 		} )
 } );

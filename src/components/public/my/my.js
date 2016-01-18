@@ -5,22 +5,21 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.my", {
 			url: "/",
-			templateUrl: "/templates/components/public/my/my.html",
-			controller: "MyController",
-			resolve: {
-				loadPlugin: function( $ocLazyLoad )
-				{
-					return $ocLazyLoad.load( [
-						{
-							files: [ 'bower/semantic/dist/components/transition.min.css' ]
-						}
-					] );
+			views: {
+				'base': {
+					templateUrl: "/templates/components/public/my/my.html",
+					controller: "MyController",
+				},
+				'extra': {
+					template: ""
 				}
+			},
+			resolve: {
 			}
 		} )
 } );
 
-app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular, $localStorage, smModal )
+app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular, $localStorage )
 {
 	$rootScope.$watch( 'user_loaded', function( new_value, old_value )
 	{
@@ -36,42 +35,31 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 
 				if( $rootScope.user.sm_access && !$rootScope.user.setup_wizard_complete )
 				{
-					smModal.Show( 'public.administrate.wizard', { id: 'account_wizard', modal_options: {duration:0} } );
+					$state.go( 'public.administrate.wizard', { id: 'account_wizard'} );
 					console.log( "Lets do the setup wizard!" );
 				}
 				else
 				{
-					smModal.Show( 'public.administrate.team.sites' );
+					$state.go( 'public.app.admin.sites' );
 				}
-
-				//smModal.Show( 'public.administrate.team.sites' );
 			}
 			else
 			{
-				smModal.Show( 'public.sign.in' );
+				$state.go( 'public.sign.in' );
 			}
 		}
+
+		console.log( "Init 3" );
+
 	}, true );
 
 	$rootScope.$watch( 'sites_loaded', function( new_value, old_value )
 	{
 		if( new_value && new_value != old_value )
 		{
-			if( $rootScope.sites.length > 1 )
-			{
-				// list of sites option
-				//smModal.Show( 'public.administrate.team.sites' );
-			}
-			/*
-			 else{
-
-			 if ($rootScope.sites.length == 1 && $rootScope.sites[0].subdomain == 'sm'){
-			 smModal.Show( 'public.administrate.wizard', {id: 'account_wizard', modal_options: {duration:0} } );
-			 }
-
-			 }
-			 */
 		}
+
+		console.log( "Init 2" );
 
 	}, true );
 
@@ -80,9 +68,15 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 		// Show something at least on pageload
 		if(!$localStorage.user || !$localStorage.user.access_token)
 		{
-			smModal.Show( 'public.sign.in', {modal_options: {duration:0}} );
-			
+			$state.go( 'public.sign.in' );
 		}
+		else
+		{
+
+			console.log( "Guess I'm logged in" );
+		}
+
+		console.log( "Init 1" );
 			
 	}
 

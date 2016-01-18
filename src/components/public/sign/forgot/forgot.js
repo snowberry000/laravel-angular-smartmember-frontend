@@ -56,7 +56,7 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
 			}
 			else
 			{
-				//smModal.Show( 'public.sign.in', { reset: 1 } );
+				//( 'public.sign.in', { reset: 1 } );
 				$state.go( 'public.sign.in' ); // what is reset:1 for above?
 				$scope.message = data.message;
 			}

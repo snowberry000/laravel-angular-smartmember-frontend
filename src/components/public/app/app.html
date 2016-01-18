@@ -1,7 +1,7 @@
 <div ng-if="!$state.includes('public.app.admin.bridge-page')" ng-include="'templates/components/public/app/site/common/dynamic-css.html'"></div>
 
 <wave-spinner ng-if="loading"></wave-spinner>
-<div ng-if="!$state.includes('public.app.admin.bridge-page')" class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
+<div ng-if="!$state.includes('public.app.admin.bridge-page') && !isSitelessPage()" class="ui vertical segment site_top_background_color {{isLoggedIn() ? 'logged_in' : ''}}" ng-init="init();initialize();showNotifications()">
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">		
 
 		<div ng-if="(!isLoggedIn() || !is_member) && app.subdomain != 'sm'" class="row p-b-none member_sign_row">
@@ -42,7 +42,7 @@
 	<div ui-view name="site" sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable site_ui_view'">
 	</div>
 </div>
-<div ng-if="!$state.includes('public.app.admin.bridge-page')" class="ui vertical segment site_bottom_background_color">
+<div ng-if="!$state.includes('public.app.admin.bridge-page') && !isSitelessPage()" class="ui vertical segment site_bottom_background_color">
 
 	<div class="ui grid container">
 		<div class="row">
