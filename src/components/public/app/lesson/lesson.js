@@ -58,7 +58,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		if( $rootScope.Modulelessons )
 		{
 			console.log( "now here it is" );
-			$rootScope.showCounter = _.findLastIndex( $rootScope.Modulelessons, { permalink: $stateParams.permalink } ) + 1;
+			$rootScope.showCounter = _.findLastIndex( $rootScope.Modulelessons, { permalink:  decodeURI($stateParams.permalink)  } ) + 1;
 			$scope.showCounter = $rootScope.showCounter;
 			$index = $scope.showCounter - 1;
 			$scope.assignNextPrev();
@@ -86,7 +86,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 						$rootScope.Modulelessons.push( data );
 					} );
 				} );
-				$rootScope.showCounter = _.findLastIndex( $rootScope.Modulelessons, { permalink: $stateParams.permalink } ) + 1;
+				$rootScope.showCounter = _.findLastIndex( $rootScope.Modulelessons, { permalink: decodeURI($stateParams.permalink) } ) + 1;
 				console.log( "show counter: " + $rootScope.showCounter );
 				$scope.showCounter = $rootScope.showCounter;
 				$index = $scope.showCounter - 1;
