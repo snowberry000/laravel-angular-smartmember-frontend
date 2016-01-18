@@ -91,11 +91,12 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 		$rootScope.CloseAdminState = function()
 		{
 			console.log( '$rootScope', $rootScope.last_site_state );
-			$state.go( $rootScope.last_site_state.state, $rootScope.last_site_state.params );
+			$state.go( $rootScope.last_site_state.state || 'public.app.site.home', $rootScope.last_site_state.params, $rootScope.last_site_state.state ? null : {reload:true} );
 		};
 
 		$rootScope.SiteStateExists = function()
 		{
+			return true;
 			return $rootScope.last_site_state.state;
 		}
 

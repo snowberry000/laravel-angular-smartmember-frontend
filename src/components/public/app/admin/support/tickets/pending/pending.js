@@ -3,14 +3,14 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.helpdesk.tickets.spam", {
-			url: "/spam",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/tickets/spam/spam.html",
-			controller: "SpamController"
+		.state( "public.app.admin.support.tickets.pending", {
+			url: "/pending",
+			templateUrl: "/templates/components/public/app/admin/support/tickets/pending/pending.html",
+			controller: "PendingController"
 		} )
 } );
 
-app.controller( "SpamController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
+app.controller( "PendingController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
@@ -51,7 +51,7 @@ app.controller( "SpamController", function( $scope, $location, $localStorage, $r
 
 		var search_parameters = {
 			p: $scope.pagination.currentPage,
-			status: 'spam',
+			status: 'pending',
 			assignment: $scope.search.assignment,
 			assignee: $scope.search.assignee,
 			'start_date': $scope.search.startDate,

@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.helpdesk.tickets", {
+		.state( "public.app.admin.support.tickets", {
 			url: "/tickets",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/tickets/tickets.html",
+			templateUrl: "/templates/components/public/app/admin/support/tickets/tickets.html",
 			controller: "TicketsController"
 		} )
 } );

@@ -3,14 +3,14 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.helpdesk.tickets.solved", {
-			url: "/solved",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/tickets/solved/solved.html",
-			controller: "SolvedController"
+		.state( "public.app.admin.support.tickets.spam", {
+			url: "/spam",
+			templateUrl: "/templates/components/public/app/admin/support/tickets/spam/spam.html",
+			controller: "SpamController"
 		} )
 } );
 
-app.controller( "SolvedController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
+app.controller( "SpamController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
@@ -51,7 +51,7 @@ app.controller( "SolvedController", function( $scope, $location, $localStorage, 
 
 		var search_parameters = {
 			p: $scope.pagination.currentPage,
-			status: 'solved',
+			status: 'spam',
 			assignment: $scope.search.assignment,
 			assignee: $scope.search.assignee,
 			'start_date': $scope.search.startDate,

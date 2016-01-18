@@ -3,14 +3,14 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.helpdesk.tickets.pending", {
-			url: "/pending",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/tickets/pending/pending.html",
-			controller: "PendingController"
+		.state( "public.app.admin.support.tickets.open", {
+			url: "/open",
+			templateUrl: "/templates/components/public/app/admin/support/tickets/open/open.html",
+			controller: "OpenController",
 		} )
 } );
 
-app.controller( "PendingController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
+app.controller( "OpenController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
@@ -20,7 +20,19 @@ app.controller( "PendingController", function( $scope, $location, $localStorage,
 	$scope.ticket_users = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 25;
-	$scope.pagination = { currentPage: 1 };
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
 
 	$scope.disable = false;
 	$scope.$parent.selection = { ticketSelected: false, selectedTickets: [] };
@@ -51,7 +63,7 @@ app.controller( "PendingController", function( $scope, $location, $localStorage,
 
 		var search_parameters = {
 			p: $scope.pagination.currentPage,
-			status: 'pending',
+			status: 'open',
 			assignment: $scope.search.assignment,
 			assignee: $scope.search.assignee,
 			'start_date': $scope.search.startDate,

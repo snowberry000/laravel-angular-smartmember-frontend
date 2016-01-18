@@ -99,7 +99,6 @@
 		</div>
 
 		<hr ng-if="!loading">
-
 		<table class="ui fixed single line celled stackable table" data-page-size="6" ng-if="tickets[pagination.currentPage].length > 0 && !loading" foonice>
 			<thead>
 				<tr>
@@ -153,7 +152,7 @@
 					</td>
 					<td class="text-right" style="width: 100px;">
 						<div class="btn-group">
-							<a ui-sref="public.administrate.team.helpdesk.ticket({id: next_item.id})" class="btn btn-brand m-t-xs btn-outline btn-md">
+							<a ui-sref="public.app.admin.support.ticket({id: next_item.id})" class="btn btn-brand m-t-xs btn-outline btn-md">
 								<i class="fa fa-pencil"></i>
 								Reply
 							</a>

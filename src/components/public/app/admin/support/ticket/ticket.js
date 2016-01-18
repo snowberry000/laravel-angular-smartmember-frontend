@@ -3,14 +3,14 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.helpdesk.ticket", {
+		.state( "public.app.admin.support.ticket", {
 			url: "/ticket/:id?",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/ticket/ticket.html",
+			templateUrl: "/templates/components/public/app/admin/support/ticket/ticket.html",
 			controller: "TicketController"
 		} )
 } );
 
-app.controller( "TicketController", function( $scope, $localStorage, smModal, $state, $rootScope, $stateParams, $filter, Restangular, toastr )
+app.controller( "TicketController", function( $scope, $localStorage, $state, $rootScope, $stateParams, $filter, Restangular, toastr )
 {
 	$scope.display_replies = [];
 	$scope.change_ticket_status = '';
@@ -105,11 +105,6 @@ app.controller( "TicketController", function( $scope, $localStorage, smModal, $s
 			}
 		} );
 	}
-
-	$scope.cancel = function()
-	{
-		smModal.Show( 'public.administrate.team.helpdesk.tickets' );
-	};
 
 
 	$scope.isImage = function( file )

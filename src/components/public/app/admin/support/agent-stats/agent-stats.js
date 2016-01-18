@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.team.helpdesk.agent-stats",{
+		.state("public.app.admin.support.agent-stats",{
 			url: "/agent-stats",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/agent-stats/agent-stats.html",
+			templateUrl: "/templates/components/public/app/admin/support/agent-stats/agent-stats.html",
 			controller: "AgentStatsController",
 			resolve: {
                 $support_tickets: function(Restangular) {

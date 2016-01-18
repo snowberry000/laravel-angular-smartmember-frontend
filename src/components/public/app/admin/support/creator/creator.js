@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.helpdesk.creator", {
+		.state( "public.app.admin.support.creator", {
 			url: "/creator",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/creator/creator.html",
+			templateUrl: "/templates/components/public/app/admin/support/creator/creator.html",
 			controller: "TicketCreatorController",
 			resolve: {
 				loadPlugin: function( $ocLazyLoad )
@@ -23,7 +23,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "TicketCreatorController", function( $scope, $localStorage, $rootScope, $state, smModal, Restangular, toastr )
+app.controller( "TicketCreatorController", function( $scope, $state, $localStorage, $rootScope, Restangular, toastr )
 {
 	$scope.ticket = {};
 	$scope.agents = [];
@@ -94,7 +94,7 @@ app.controller( "TicketCreatorController", function( $scope, $localStorage, $roo
 		{
 			$rootScope.site.unread_support_ticket+=1;
 			toastr.success( "Ticket Created successfully!" );
-			smModal.Show('public.administrate.team.helpdesk.tickets');
+			$state.go('public.app.admin.support.tickets');
 		} );
 	}
 } );

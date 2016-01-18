@@ -3,14 +3,14 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.helpdesk.tickets.open", {
-			url: "/open",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/tickets/open/open.html",
-			controller: "OpenController",
+		.state( "public.app.admin.support.tickets.solved", {
+			url: "/solved",
+			templateUrl: "/templates/components/public/app/admin/support/tickets/solved/solved.html",
+			controller: "SolvedController"
 		} )
 } );
 
-app.controller( "OpenController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
+app.controller( "SolvedController", function( $scope, $location, $localStorage, $rootScope, $state, Restangular, notify )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
@@ -20,19 +20,7 @@ app.controller( "OpenController", function( $scope, $location, $localStorage, $r
 	$scope.ticket_users = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 25;
-	$scope.pagination = {
-		current_page: 1,
-		per_page: 25,
-		total_count: 0
-	};
-
-	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
-	{
-		if( new_value != old_value )
-		{
-			$scope.paginate();
-		}
-	} );
+	$scope.pagination = { currentPage: 1 };
 
 	$scope.disable = false;
 	$scope.$parent.selection = { ticketSelected: false, selectedTickets: [] };
@@ -63,7 +51,7 @@ app.controller( "OpenController", function( $scope, $location, $localStorage, $r
 
 		var search_parameters = {
 			p: $scope.pagination.currentPage,
-			status: 'open',
+			status: 'solved',
 			assignment: $scope.search.assignment,
 			assignee: $scope.search.assignee,
 			'start_date': $scope.search.startDate,

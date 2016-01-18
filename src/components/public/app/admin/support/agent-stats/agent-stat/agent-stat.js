@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.team.helpdesk.agent-stats.agent-stat",{
+		.state("public.app.admin.support.agent-stats.agent-stat",{
 			url: "/:id?",
-			templateUrl: "/templates/components/public/administrate/team/helpdesk/agent-stats/agent-stat/agent-stat.html",
+			templateUrl: "/templates/components/public/app/admin/support/agent-stats/agent-stat/agent-stat.html",
 			controller: "AgentStatController",
 			resolve: {
                 $agent_id : function($stateParams) {

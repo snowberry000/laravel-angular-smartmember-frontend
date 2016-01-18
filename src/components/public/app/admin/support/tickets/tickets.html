@@ -90,8 +90,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!-- <tr ng-class="{open:'warning',pending:'positive', solved:'positive', spam:'disabled'}[next_item.status]" ng-click="smModal.Show('public.administrate.team.helpdesk.ticket' , {id: next_item.id})" ng-repeat="next_item in tickets[pagination.currentPage] | orderBy : customSort : 'true'"> -->
-							<tr  ng-class="{open:'warning',pending:'positive', solved:'positive', spam:'disabled'}[next_item.status]" ng-click="smModal.Show('public.administrate.team.helpdesk.ticket' , {id: next_item.id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page  " total-items="pagination.total_count"  current-page="pagination.current_page">
+							<!-- <tr ng-class="{open:'warning',pending:'positive', solved:'positive', spam:'disabled'}[next_item.status]" ng-click="smModal.Show('public.app.admin.support.ticket' , {id: next_item.id})" ng-repeat="next_item in tickets[pagination.currentPage] | orderBy : customSort : 'true'"> -->
+							<tr  ng-class="{open:'warning',pending:'positive', solved:'positive', spam:'disabled'}[next_item.status]" ui-sref="public.app.admin.support.ticket({id: next_item.id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page  " total-items="pagination.total_count"  current-page="pagination.current_page">
 								<td>
 									<h4 class="ui image header">
 										<img src="{{next_item.profile_image || '/images/image.png'}}" class="ui mini rounded image">
@@ -137,10 +137,10 @@
 	</div>
 
 	<div class="actions">
-		<a class="ui black back deny button">
+		<a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
 			Close
 		</a>
-		<a ng-click="smModal.Show('public.administrate.team.helpdesk.creator')" class="ui right labeled icon green button">
+		<a ui-sref="public.app.admin.support.creator" class="ui right labeled icon green button">
 			Create a new ticket
 			<i class="plus icon"></i>
 		</a>

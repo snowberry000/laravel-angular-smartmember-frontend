@@ -196,7 +196,7 @@
 	</div>
 
 	<div class="actions">
-		<a class="ui black back deny button" ng-click="cancel()">
+		<a ui-sref="public.app.admin.support.tickets" class="ui black button">
 			Back
 		</a>
 		<a sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment" class="ui right labeled icon button">
@@ -225,7 +225,7 @@
 								</div>
 								<h2 class="ui header">{{ticket.subject}}</h2>
 								<span>Ticket Status: <strong>{{ticket.status}}</strong></span>
-								<a ui-sref="public.administrate.team.helpdesk.tickets.open" style="display: block;">Go back</a>
+								<a ui-sref="public.app.admin.support.tickets.open" style="display: block;">Go back</a>
 							</div>
 							<div class="col-md-3 text-right">
 								<a href="" class="btn btn-white btn-xs">Ticket ID: {{ticket.id}}</a>

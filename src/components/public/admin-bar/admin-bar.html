@@ -93,7 +93,7 @@
 			</div>
 		</div>
 	</div>
-	<a class="item thin" ng-click="smModal.Show('public.administrate.team.helpdesk.tickets')" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_support_tickets" if-not="hide" title="Support" position="left center" sui-popup>
+	<a class="item thin" ui-sref="public.app.admin.support.tickets" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_support_tickets" if-not="hide" title="Support" position="left center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="life ring icon"></i>
 
