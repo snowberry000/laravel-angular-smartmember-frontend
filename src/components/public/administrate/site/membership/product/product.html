@@ -226,13 +226,13 @@
 											border-
 										}</style>
 										<button type="button" class="btn btn-lg btn-default" uib-dropdown-toggle style="font-size: 14px;font-weight: 400;line-height: 1;color: #555555;text-align: center;background-color: #eeeeee;border: 1px solid #cccccc; color: #555555 !important;height: 50px;padding: 10px 16px;font-size: 18px;line-height: 1.3333333;border-radius: 6px 0 0 6px !important;">
-											<span dynamic="_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label"></span>
+											<span dynamic="_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label" class="fr-view"></span>
 											<span class="caret" style="margin-left:5px;border-top-color: #333333 !important;"></span>
 										</button>
 										<ul class="uib-dropdown-menu">
 											<li ng-repeat="currency in currencies">
 												<a ng-click="access_level.currency = currency.id">
-													<span dynamic="currency.label"></span>
+													<span dynamic="currency.label" class="fr-view"></span>
 												</a>
 											</li>
 										</ul>
@@ -282,13 +282,13 @@
 												border-
 											}</style>
 											<button type="button" class="btn btn-lg btn-default" uib-dropdown-toggle style="font-size: 14px;font-weight: 400;line-height: 1;color: #555555;text-align: center;background-color: #eeeeee;border: 1px solid #cccccc; color: #555555 !important;height: 50px;padding: 10px 16px;font-size: 18px;line-height: 1.3333333;border-radius: 6px 0 0 6px !important;">
-												<span dynamic="_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label"></span>
+												<span dynamic="_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label" class="fr-view"></span>
 												<span class="caret" style="margin-left:5px;border-top-color: #333333 !important;"></span>
 											</button>
 											<ul class="uib-dropdown-menu">
 												<li ng-repeat="currency in currencies">
 													<a ng-click="access_level.currency = currency.id">
-														<span dynamic="currency.label"></span>
+														<span dynamic="currency.label" class="fr-view"></span>
 													</a>
 												</li>
 											</ul>

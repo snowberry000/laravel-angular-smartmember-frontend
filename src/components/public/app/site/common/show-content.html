@@ -9,7 +9,7 @@
 	</div>
 
 	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content )" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
-	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content">
+	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content" class="fr-view">
 
 	</div>
 
@@ -55,11 +55,11 @@
 	<div ng-show="next_item.showTranscript" class="transcript_stuff" style="padding: 15px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px; border-radius: 4px; display: block;">
 		<h4 class="text-left">Transcript:</h4>
 		<p style="line-height: 24px;">
-		<div style='white-space: pre-wrap' dynamic='next_item.transcript_content'></div>
+		<div style='white-space: pre-wrap' dynamic='next_item.transcript_content' class="fr-view"></div>
 		</p>
 	</div>
 
-	<div dynamic="next_item.content" ng-if="next_item.content && (next_item.show_content_publicly || next_item.access)"></div>
+	<div dynamic="next_item.content" ng-if="next_item.content && (next_item.show_content_publicly || next_item.access)" class="fr-view"></div>
 
 	<p ng-if="next_item.description">{{next_item.description}}</p>
 

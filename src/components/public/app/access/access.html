@@ -35,7 +35,7 @@
 						<div class="text-center"><h3 class="ui header">Amount:</h3>
 
 							<p class="text-big font-light">
-								<span dynamic="_.findWhere( currencies, {id: access_level.currency} ).label"></span>
+								<span dynamic="_.findWhere( currencies, {id: access_level.currency} ).label" class="fr-view"></span>
 								{{access_level.price}} {{access_level.currency}}
 								<small style="" ng-if="access_level.payment_interval=='monthly'">/mo</small>
 								<small style="" ng-if="access_level.payment_interval=='weekly'">/wk</small>
@@ -86,7 +86,7 @@
 					<div class="panel-body">
 						<div class="text-center"><h2 class="m-b-xs">Checkout with JVzoo</h2>
 							<style>.jvzoo_button_area img { max-width:100% !important;}</style>
-							<div dynamic="access_level.jvzoo_button" class="jvzoo_button_area"></div>
+							<div dynamic="access_level.jvzoo_button" class="jvzoo_button_area fr-view"></div>
 						</div>
 					</div>
 				</div>

@@ -29,7 +29,7 @@
 					<div class="metadata">
 						<div class="date">{{moment.utc(ticket.created_at).fromNow()}}</div>
 					</div>
-					<div class="text" dynamic="autop( linkify( ticket.message ) )">
+					<div class="text fr-view" dynamic="autop( linkify( ticket.message ) )">
 					</div>
 					<div class="actions" ng-if="ticket.attachment">
 						<a class="ui label" href="{{ticket.attachment}}" target="_blank">
@@ -48,7 +48,7 @@
 					<div class="metadata">
 						<div class="date">{{moment.utc(reply.created_at).fromNow()}}</div>
 					</div>
-					<div class="text" dynamic="autop( linkify( reply.message ) )">
+					<div class="text fr-view" dynamic="autop( linkify( reply.message ) )">
 					</div>
 
 					<div class="actions" ng-if="reply.attachment">
