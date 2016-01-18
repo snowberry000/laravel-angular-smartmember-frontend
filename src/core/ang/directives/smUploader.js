@@ -26,7 +26,9 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 				console.log( 'allow_multiple', allow_multiple, attr );
 
 				ModalService.showModal(
-					{ templateUrl: 'templates/modals/newMediaItem.html', controller: 'modalMediaController' }
+					{ templateUrl: 'templates/modals/newMediaItem.html', controller: 'modalMediaController', inputs: {
+					$stateParams: {"closeOnModalCompletion": closeOnModalCompletion }
+				} }
 				).then( function( modal ){
 						modal.element
 						.modal({
@@ -142,13 +144,15 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 	};
 } );
 
-app.controller( 'modalMediaController', function( $scope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
+app.controller( 'modalMediaController', function( $scope, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
 {
-	Restangular.service('media')
-		.getList()
-		.then(function(response){
-			$scope.media_files = response;
-		});
+	console.log( $rootScope.subdomain == 'my');
+	if($localStorage.user && $localStorage.user.access_token && $rootScope.subdomain != 'my')
+		Restangular.service('media')
+			.getList()
+			.then(function(response){
+				$scope.media_files = response;
+			});
 	
 	$scope.loading = false;
 	$scope.cancel = function()
@@ -183,7 +187,7 @@ app.controller( 'modalMediaController', function( $scope, $localStorage, $stateP
 			//for (var i = 0; i < files.length; i++) {
 			var file = files;
 			Upload.upload( {
-					url: $scope.app.apiUrl + '/utility/upload?access_token=' + $localStorage.user.access_token + ( $scope.privacy ? '&private=' + $scope.privacy : '' ),
+					url: $scope.app.apiUrl + '/utility/upload' +  ( $scope.privacy ? '?private=' + $scope.privacy : '' ),
 					file: file
 				} )
 				.success( function( data, status, headers, config )
@@ -199,7 +203,7 @@ app.controller( 'modalMediaController', function( $scope, $localStorage, $stateP
 					console.log(returnObject);
 
 					close( returnObject );
-					console.log($stateParams.closeOnModalCompletion);
+					console.log($stateParams);
 					if($stateParams.closeOnModalCompletion == 'true')
 						smModal.Close();
 
