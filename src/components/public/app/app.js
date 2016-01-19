@@ -45,13 +45,13 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 			}
 			else
 			{
-				console.log( 'we should be trying to boot up:::', intercom.username );
+				//console.log( 'we should be trying to boot up:::', intercom.username );
 				window.Intercom( 'boot', { app_id: intercom.username } );
 			}
 
 		}
 
-		console.log( intercom );
+		//console.log( intercom );
 
 
 		$rootScope.page_title = $site.name;

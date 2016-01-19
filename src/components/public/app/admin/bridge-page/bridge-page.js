@@ -13,7 +13,7 @@ app.config( function( $stateProvider, $stickyStateProvider )
 	//$stickyStateProvider.enableDebug(true);
 } );
 
-app.controller( "BridgePageController", function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
+app.controller( "BridgePageController", function( $scope, $localStorage, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
 {
 	smSidebar.Show( '.top_bp_sidebar_contents', 'bridgepage-editor-controls.html' );
 	smSidebar.Show( '.left_bp_sidebar_contents', 'bridgepage-editor.html' );
@@ -76,7 +76,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		{
             case 5:
 				$scope.bridgepage.swapspot.logo = 'https://s3.amazonaws.com/smpub/bp/beyondbasick.png';
-				$scope.bridgepage.swapspot.headline = 'Get This Free Time Turner Today 2!';
+				$scope.bridgepage.swapspot.headline = 'Get This Free Time Turner Today!';
 				$scope.bridgepage.swapspot.ad = 'https://s3.amazonaws.com/smpub/bp/harrypotter.jpg';
 				$scope.bridgepage.swapspot.background_url = 'https://s3.amazonaws.com/smpub/bp/rsz_challenger.jpg';
 				$scope.bridgepage.swapspot.button = 'Get It Now';
@@ -351,9 +351,9 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$scope.close = function()
 	{
-        $state.go('public.app.site.home');
         smSidebar.Close();
-        smModal.Show('public.administrate.site.pages.bridge-pages');
+
+		$state.go('public.app.admin.bridge-pages');
 	}
 
 	$scope.save = function( cloned )
@@ -454,7 +454,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				}
 				else
 				{
-					smModal.Show( "public.modal.site.pages.bridge-page", { id: page.id } );
+					$state.go( "public.app.admin.bridge-page", { id: page.id } );
 					window.scrollTo( 0, 0 );
 					toastr.success( "Bridge page has been cloned!" );
 				}
@@ -577,7 +577,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 } );
 
-app.controller( 'bridgepageEngineController', function( $scope, $timeout , $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
+app.controller( 'bridgepageEngineController', function( $scope, $timeout , $localStorage, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
 {
 	$scope.original_data = [];
 	$rootScope.viewport = '';
@@ -601,9 +601,9 @@ app.controller( 'bridgepageEngineController', function( $scope, $timeout , $loca
 
 	$scope.close = function()
 	{
-        $state.go('public.app.site.home');
 		smSidebar.Close();
-        smModal.Show('public.administrate.site.pages.bridge-pages');
+		$state.go('public.app.admin.bridge-pages');
+
 		$rootScope.viewport = '';
 	}
 

@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.wallboard", {
+		.state( "public.app.admin.wallboard", {
 			url: "/wallboard",
-			templateUrl: "/templates/components/public/administrate/wallboard/wallboard.html",
+			templateUrl: "/templates/components/public/app/admin/wallboard/wallboard.html",
 			controller: "WallboardController",
 
 		} )
@@ -17,7 +17,7 @@ app.controller( "WallboardController", function($rootScope, $scope, Restangular 
 	
 	Restangular.one('site','details')
 		.get()
-		.then(function(resopnse){
+		.then(function(response){
 			$site = response;
 			$rootScope.site = $site;
 

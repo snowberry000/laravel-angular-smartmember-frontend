@@ -60,10 +60,10 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button close">
+		<a ng-click="CloseAdminState()" class="ui black button">
 			Close
-		</div>
-		<a ui-sref="public.app.admin.bridge-page" ng-click="smModal.Close();" class="ui right labeled icon green button">
+		</a>
+		<a ui-sref="public.app.admin.bridge-page" class="ui right labeled icon green button">
 			Create new BridgePage
 			<i class="plus icon"></i>
 		</a>

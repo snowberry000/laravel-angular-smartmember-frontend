@@ -51,7 +51,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.$on( "$stateChangeStart", function( evt, toState, toStateParams, fromState, fromStateParams )
 	{
-		console.log( 'stateChangeStart', toState, fromState )
+		//console.log( 'stateChangeStart', toState, fromState )
 
 		if( !(fromState.name.indexOf( 'public.app.admin' ) > -1) && (toState.name.indexOf( 'public.app.admin' ) > -1) )
 		{
@@ -78,10 +78,13 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.CloseAdminState = function()
 	{
-		console.log( '$rootScope', $rootScope.last_site_state );
-		var go_state = $rootScope.last_site_state.state || ($scope.isSitelessPage() ? '' : 'public.app.site.home');
+		var go_state = $rootScope.last_site_state.state || (!$scope.isSitelessPage() ? 'public.app.site.home' : '');
+		var params = $rootScope.last_site_state.params || null;
+		var options = $rootScope.last_site_state.state ? null : { reload: true };
 
-		$state.go( go_state, $rootScope.last_site_state.params || null, $rootScope.last_site_state.state ? null : { reload: true } );
+		console.log( 'closing the admin state', go_state, params, options );
+
+		$state.go( go_state, params, options );
 	};
 
 	$rootScope.CloseExtraState = function()
@@ -119,7 +122,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.$watch( 'user_loaded', function( new_value, old_value )
 	{
-		console.log( 'user changed to ', new_value, ' from ', old_value );
+		//console.log( 'user changed to ', new_value, ' from ', old_value );
 		if( new_value && $rootScope.user && $rootScope.user.id )
 		{
 			$rootScope.sites_loading = true;
@@ -551,7 +554,6 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		// }, 50);
 		$localStorage.open_speedblogging_modal = null;
 	}
-
 
 	$scope.cancelThemeSelection = function()
 	{

@@ -100,7 +100,7 @@
 			<div ng-if="site.unread_support_ticket" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
 		</button>
 	</a>
-	<a class="item thin" ng-click="smModal.Show('public.administrate.site.pages.bridge-pages')" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage() && $state.includes('public.app')" title="Bridge Pages" position="left center" sui-popup>
+	<a class="item thin" ui-sref="public.app.admin.bridge-pages" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage() && $state.includes('public.app')" title="Bridge Pages" position="left center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="browser icon"></i>
 		</button>

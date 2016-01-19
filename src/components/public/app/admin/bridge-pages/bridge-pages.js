@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.pages.bridge-pages",{
+		.state("public.app.admin.bridge-pages",{
 			url: "/bridge-pages",
-			templateUrl: "/templates/components/public/administrate/site/pages/bridge-pages/bridge-pages.html",
+			templateUrl: "/templates/components/public/app/admin/bridge-pages/bridge-pages.html",
 			controller: "BridgePagesController"
 		})
 }); 
