@@ -208,42 +208,16 @@ if( !$html )
 				ga('create', data.google_analytics_id, current_domain, {'name': 'newTracker', 'cookieName': '_ga_user'});
 				ga('newTracker.send', 'pageview');
             }
+            <!-- Facebook Pixel Code -->
 
-            if (typeof data.facebook_retargetting_pixel != 'undefined' && data.facebook_retargetting_pixel != '') {
-                !function (f, b, e, v, n, t, s) {
-                    if (f.fbq)return;
-                    n = f.fbq = function () {
-                        n.callMethod ?
-                            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-                    };
-                    if (!f._fbq)f._fbq = n;
-                    n.push = n;
-                    n.loaded = !0;
-                    n.version = '2.0';
-                    n.queue = [];
-                    t = b.createElement(e);
-                    t.async = !0;
-                    t.src = v;
-                    s = b.getElementsByTagName(e)[0];
-                    s.parentNode.insertBefore(t, s)
-                }(window,
-                    document, 'script', '//connect.facebook.net/en_US/fbevents.js');
-                // Insert Your Custom Audience Pixel ID below.
-                fbq('init', data.facebook_retargetting_pixel);
-                fbq('track', 'PageView');
-            }
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                document,'script','//connect.facebook.net/en_US/fbevents.js');
 
-            (function () {
-                var _fbq = window._fbq || (window._fbq = []);
-                if (!_fbq.loaded) {
-                    var fbds = document.createElement('script');
-                    fbds.async = true;
-                    fbds.src = '//connect.facebook.net/en_US/fbds.js';
-                    var s = document.getElementsByTagName('script')[0];
-                    s.parentNode.insertBefore(fbds, s);
-                    _fbq.loaded = true;
-                }
-            })();
+            fbq('init', data.facebook_conversion_pixel);
+            fbq('track', "PageView");
         });
     });
 </script>
