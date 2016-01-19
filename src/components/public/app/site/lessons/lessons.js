@@ -260,13 +260,13 @@ app.controller('LessonsController', function ($scope, smModal, $rootScope, $loca
     }
 
     $scope.editLesson = function(lesson){
-        smModal.Show('public.administrate.site.content.syllabus.lesson' , {id : lesson.id , close:true} ,null , $scope.done);
+        smModal.Show('public.app.admin.lesson' , {id : lesson.id , close:true} ,null , $scope.done);
         $scope.syllabus.current_action = 'edit_lesson';
         $scope.syllabus.current_item = lesson.id;
     }
 
     $scope.addLesson = function(){
-        smModal.Show('public.administrate.site.content.syllabus.lesson' , {close:true} ,null , $scope.done);
+        smModal.Show('public.app.admin.lesson' , {close:true} ,null , $scope.done);
         $scope.syllabus.current_action = 'add_lesson';
     }
 

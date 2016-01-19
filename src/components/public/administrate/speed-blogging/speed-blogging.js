@@ -17,7 +17,7 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
 
     $scope.content_types = [
         {
-            route: 'public.administrate.site.content.syllabus.lesson',
+            route: 'public.app.admin.lesson',
             icon: 'student',
             description: 'Lesson'
         },
