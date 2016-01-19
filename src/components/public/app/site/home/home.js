@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $location, $localStorage, Restangular, notify)
+app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $timeout , $location, $localStorage, Restangular, notify)
 {
 	var homepage_url = null;
 
@@ -149,6 +149,8 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $l
         }
 	}
     else
-        $state.go( "public.app.site.lessons", {}, { location: false } );
+        $timeout(function(){
+            $state.go( "public.app.site.lessons", {}, { location: false } );
+        } , 5)
 
 } );
