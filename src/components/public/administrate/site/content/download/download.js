@@ -51,12 +51,12 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
         }
         $scope.download = $download;
         if ($scope.download.end_published_date)
-            $scope.download.end_published_date = new Date(moment($scope.download.end_published_date).format('l'));
+            $scope.download.end_published_date = new Date(moment.utc($scope.download.end_published_date));
         else
             $scope.download.end_published_date = null;
         if ($scope.download.published_date)
         {
-            $scope.download.published_date = new Date(moment($scope.download.published_date).format('l'));
+            $scope.download.published_date = new Date(moment.utc($scope.download.published_date));
         } else {
             $scope.download.published_date = new Date();
             $scope.download.published_date.setSeconds(0);
@@ -147,9 +147,9 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             $scope.download.put().then(function(response){
                 smModal.Show("public.administrate.site.content.downloads");
                 toastr.success("Download has been saved");
-                $state.transitionTo($state.current, $stateParams, { 
-          reload: true, inherit: false, location: false
-        });
+                $state.transitionTo($state.current, $state.params, { 
+                  reload: true, inherit: false, location: false
+                });
             })   
         }
         else {
@@ -159,9 +159,9 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                 $scope.download = download;
                 smModal.Show("public.administrate.site.content.downloads");
                 toastr.success("Download has been saved!");
-                $state.transitionTo($state.current, $stateParams, { 
-          reload: true, inherit: false, location: false
-        });
+                $state.transitionTo($state.current, $state.params, { 
+                  reload: true, inherit: false, location: false
+                });
             });
         }
         
