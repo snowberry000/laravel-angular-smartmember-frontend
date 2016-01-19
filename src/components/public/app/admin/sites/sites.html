@@ -107,7 +107,7 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div ng-if="!$state.includes('public.my')" class="ui black deny button close">
+		<div ng-if="!isSitelessPage('my')" class="ui black button" ng-click="CloseAdminState()">
 			Close
 		</div>
 		<a ng-if="site.is_customer || ( isSitelessPage('my') && user.sm_access )" ng-click="smModal.Show('public.administrate.team.site')" class="ui right labeled icon green button">
