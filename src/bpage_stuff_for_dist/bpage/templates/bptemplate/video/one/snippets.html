@@ -128,12 +128,12 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-				<div class="embed_container">
-					<div class="videoWrapper fr-view" dynamic="bridgepage.swapspot.embed"></div>
-					<div ng-if="visible" class="videoWrapper">
-						{{bridgepage.swapspot.embed}}
-					</div>
-				</div>
+                <div ng-if="bridgepage.swapspot.embed" class="embed_container">
+                    <div class="fr-view" dynamic="bridgepage.swapspot.embed"></div>
+                    <div ng-if="!bridgepage.swapspot.embed" class="videoWrapper">
+                        {{bridgepage.swapspot.embed}}
+                    </div>
+                </div>
 
 				<a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab}}">
 					<span class="maintext">{{bridgepage.swapspot.button}}</span>

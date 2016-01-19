@@ -17,7 +17,7 @@ app.controller( "WallboardController", function($rootScope, $scope, Restangular 
 	
 	Restangular.one('site','details')
 		.get()
-		.then(function(resopnse){
+		.then(function(response){
 			$site = response;
 			$rootScope.site = $site;
 

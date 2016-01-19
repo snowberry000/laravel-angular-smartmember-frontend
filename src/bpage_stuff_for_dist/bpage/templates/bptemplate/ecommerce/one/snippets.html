@@ -143,8 +143,8 @@ font-weight: bold;
 			</div>
 			<div class="col-md-8 col-md-{{bridgepage.swapspot.ad ? '8' : '10 col-md-offset-1'}}">
 				<div ng-if="bridgepage.swapspot.embed" class="embed_container">
-					<div class="videoWrapper fr-view" dynamic="bridgepage.swapspot.embed"></div>
-					<div ng-if="visible" class="videoWrapper">
+					<div class="fr-view" dynamic="bridgepage.swapspot.embed"></div>
+					<div ng-if="!bridgepage.swapspot.embed" class="videoWrapper">
 						{{bridgepage.swapspot.embed}}
 					</div>
 				</div>

@@ -151,23 +151,62 @@ function DetectAndPerformBridgePageThings()
 			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'origin:http://'.$domain, 'referer:http://'.$domain.$_SERVER[ 'REQUEST_URI' ], 'content-type:application/json' ) );
 			$remote_data = curl_exec( $curl );
 			curl_close( $curl );
-
 			if( !empty( $remote_data ) && $remote_data != 'notbp' )
 				$data = json_decode( $remote_data );
+
 		}
 	}
 
 	return !empty( $data ) ? $data : [];
 }
 
-function PrintUserTrackingScript( $data )
+function PrintUserTrackingScript( $data, $type = 'google_analytic_id' )
 {
-	if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'google_analytics_id' ) )
-		$user_ga_code = $data->data->google_analytics_id;
-
-	if( !empty( $user_ga_code ) ) :
-		?>
-		ga('create', '<?php echo $user_ga_code; ?>', 'auto', {'name': 'newTracker', 'cookieName': '_ga_user'});
-		ga('newTracker.send', 'pageview');
-	<?php endif;
+	switch ($type)
+	{
+		case 'google_analytic_id':
+			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'google_analytics_id' ) )
+				$user_ga_code = $data->data->google_analytics_id;
+			if( !empty( $user_ga_code ) ) :
+				?>
+				ga('create', '<?php echo $user_ga_code; ?>', 'auto', {'name': 'newTracker', 'cookieName': '_ga_user'});
+				ga('newTracker.send', 'pageview');
+			<?php endif;
+			break;
+		case 'fb_pixel':
+			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'facebook_conversion_pixel' ) )
+				$fb_code = $data->data->facebook_conversion_pixel;
+			if( !empty( $fb_code ) ) :
+				?>
+				fbq('init', '<?php echo $fb_code; ?>');
+				fbq('track', "PageView");
+			<?php endif;
+			break;
+		case 'bing_webmaster_tag':
+			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'bing_webmaster_tag' ) )
+				$code = $data->data->bing_webmaster_tag;
+			if( !empty( $code ) ) :
+				?>
+				<meta name="msvalidate.01" content="<?php echo $code; ?>" />
+			<?php endif;
+			break;
+		case 'bing_tracking':
+			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'bing_id' ) )
+				$code = $data->data->bing_id;
+			else $code = '';
+				?>
+				var o={ti:"<?php echo $code; ?>"};
+			<?php
+			break;
+		case 'google_webmaster_tag':
+			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'bing_webmaster_tag' ) )
+				$code = $data->data->google_webmaster_tag;
+			if( !empty( $code ) ) :
+				?>
+				<meta name="google-site-verification" content="<?php echo $code; ?>">
+			<?php endif;
+			break;
+		default:
+			break;
+	}
 }

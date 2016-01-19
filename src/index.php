@@ -12,7 +12,8 @@ $data = DetectAndPerformBridgePageThings();
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
+	<?php if( !empty( $data ) ) PrintUserTrackingScript( $data, 'bing_webmaster_tag' ); ?>
+	<?php if( !empty( $data ) ) PrintUserTrackingScript( $data, 'google_webmaster_tag' ); ?>
 	<base href="/"></base>
 
 	<!-- <title>{{page_title ? page_title : 'Loading'}} </title> -->
@@ -32,10 +33,22 @@ $data = DetectAndPerformBridgePageThings();
 		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 		ga( 'create', 'UA-48872715-8', 'auto' );
-		<?php if( !empty( $data ) ) PrintUserTrackingScript( $data ); ?>
+		<?php if( !empty( $data ) ) PrintUserTrackingScript( $data, 'google_analytic_id' ); ?>
 		ga('send', 'pageview');
 	</script>
+	<!-- Facebook Pixel Code -->
+	<script>
+		!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+				n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+			n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+			t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+				document,'script','//connect.facebook.net/en_US/fbevents.js');
+		<?php if( !empty( $data ) ) PrintUserTrackingScript( $data, 'fb_pixel' ); ?>
 
+	</script>
+	<!-- End Facebook Pixel Code -->
+
+	<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){<?php if( !empty( $data ) ) PrintUserTrackingScript( $data, 'bing_tracking' ); ?>o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script><noscript><img src="//bat.bing.com/action/0?ti=5104308&Ver=2" height="0" width="0" style="display:none; visibility: hidden;" /></noscript>
 	<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/pntame3f';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
 
 </head>

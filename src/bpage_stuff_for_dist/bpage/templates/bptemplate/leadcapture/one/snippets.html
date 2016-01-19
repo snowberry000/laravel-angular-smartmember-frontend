@@ -233,9 +233,9 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <div class="embed_container" style="display: {{bridgepage.swapspot.enable_video}}; margin-bottom: 20px;">
-                    <div class="videoWrapper fr-view" dynamic="bridgepage.swapspot.embed"></div>
-                    <div ng-if="visible" class="videoWrapper">
+                <div ng-if="bridgepage.swapspot.embed" class="embed_container" style="margin-bottom: 20px;">
+                    <div class="fr-view" dynamic="bridgepage.swapspot.embed"></div>
+                    <div ng-if="!bridgepage.swapspot.embed" class="videoWrapper">
                         {{bridgepage.swapspot.embed}}
                     </div>
                 </div>
