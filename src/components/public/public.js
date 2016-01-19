@@ -89,8 +89,13 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.CloseExtraState = function()
 	{
-		console.log( '$rootScope', $rootScope.last_base_state );
-		$state.go( $rootScope.last_base_state.state, $rootScope.last_base_state.params, $rootScope.last_base_state.state ? null : { reload: true } );
+		var go_state = $rootScope.last_base_state.state;
+		var params = $rootScope.last_base_state.params || null;
+		var options = $rootScope.last_base_state.state ? null : { reload: true };
+
+		console.log( 'closing the extra state', go_state, params, options );
+
+		$state.go( go_state, params, options );
 	};
 
 	$rootScope.SiteStateExists = function()
