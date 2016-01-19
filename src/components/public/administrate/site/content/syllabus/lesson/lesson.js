@@ -116,7 +116,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 		    $scope.next_item.dripfeed_settings = $next_item.dripfeed || {};
 			if( $scope.next_item.published_date )
 			{
-				$scope.next_item.published_date = new Date( moment( $scope.next_item.published_date ).format( 'l' ) );
+				$scope.next_item.published_date = new Date( moment.utc( $scope.next_item.published_date ) );
 			}
 			else
 			{
@@ -126,7 +126,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 			}
 			if( $scope.next_item.end_published_date )
 		    {
-		        $scope.next_item.end_published_date = new Date( moment( $scope.next_item.end_published_date ).format( 'l' ) );
+		        $scope.next_item.end_published_date = new Date( moment.utc( $scope.next_item.end_published_date ));
 		    }
 		    else
 		    {
@@ -324,7 +324,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
             }
             toastr.success( "Module has been saved" );
 			$scope.isOpen = false;
-			$state.transitionTo($state.current, $stateParams, { 
+			$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
 		} );
@@ -392,11 +392,14 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 		}
 		else
 		{
+			//console.log($scope.next_item. );
+
 			$callback = Restangular.all( 'lesson' ).post( $scope.next_item );
 		}
 
 		$callback.then( function( lesson )
 		{
+
             if( draft )
             {
                 Restangular.one( 'draft', draft.id ).remove();
@@ -417,7 +420,12 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 			{
 				smModal.Show($scope.template_data.success_route);
 			}
-			$state.transitionTo($state.current, $stateParams, { 
+			console.log('state.params:');
+			console.log($state.params);
+			console.log('stateParams:');
+			console.log($stateParams);
+
+			$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
 		} )
