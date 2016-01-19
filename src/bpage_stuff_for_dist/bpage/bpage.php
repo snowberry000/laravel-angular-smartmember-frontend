@@ -219,6 +219,12 @@ if( !$html )
             fbq('init', data.facebook_conversion_pixel);
             fbq('track', "PageView");
         });
+
+		$('.videoWrapper').each(function(){
+			if( $(this).html().trim() == '' ) {
+				$(this).closest('.embed_container').hide();
+			}
+		});
     });
 </script>
 <div class="alt_style_container" style="height: 100%;">
