@@ -107,7 +107,7 @@ app.controller( "LivecastsController", function( $scope, $stateParams,$state,$ro
 		itemWithId.remove().then( function()
 		{
 			$scope.data= _.without( $scope.data, itemWithId );
-			$state.transitionTo($state.current, $stateParams, { 
+			$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
 		} );
