@@ -110,13 +110,13 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
         }
 
         if ($scope.next_item.end_published_date)
-            $scope.next_item.end_published_date = new Date(moment($scope.next_item.end_published_date).format('l'));
+            $scope.next_item.end_published_date = new Date(moment.utc($scope.next_item.end_published_date));
         else
             $scope.next_item.end_published_date = null;
 
         if ($scope.next_item.published_date)
         {
-            $scope.next_item.published_date = new Date(moment($scope.next_item.published_date).format('l'));
+            $scope.next_item.published_date = new Date(moment.utc($scope.next_item.published_date));
         } else {
             $scope.next_item.published_date = new Date();
             $scope.next_item.published_date.setSeconds(0);

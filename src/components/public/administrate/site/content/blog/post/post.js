@@ -75,7 +75,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 
 	    if( $scope.next_item.end_published_date )
         {
-            $scope.next_item.end_published_date = new Date( moment( $scope.next_item.end_published_date ).format( 'l' ) );
+            $scope.next_item.end_published_date = new Date( moment.utc( $scope.next_item.end_published_date ));
         }
         else
         {
@@ -83,7 +83,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
         }
         if( $scope.next_item.published_date )
 		{
-			$scope.next_item.published_date = new Date( moment( $scope.next_item.published_date ).format( 'l' ) );
+			$scope.next_item.published_date = new Date( moment.utc( $scope.next_item.published_date ) );
 		}
 		else
 		{
