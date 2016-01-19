@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AddTopicController", function ($scope,$rootScope, Restangular) {
+app.controller("AddTopicController", function ($scope,$rootScope, Restangular, $filter) {
 
 	$scope.save = function()
 	{
@@ -17,7 +17,7 @@ app.controller("AddTopicController", function ($scope,$rootScope, Restangular) {
 
 		$scope.topic.category_id = $rootScope.category.id;
 		$scope.topic.site_id = $rootScope.category.id;
-
+		$scope.topic.permalink = $filter('urlify')($scope.topic.title);
 		Restangular.service( 'forumTopic' )	
 			.post( $scope.topic )
 			.then( function( response )
