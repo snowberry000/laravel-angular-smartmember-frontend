@@ -81,6 +81,41 @@ app.controller("SmartLinksCreateController", function ($scope, $rootScope, $filt
                 $scope.addUrls( 3 - $scope.next_item.urls.length );
         });
     }
+    else if( $stateParams.clone ) {
+        $nextItemRequest = Restangular.one($scope.template_data.api_object, $stateParams.clone).get().then(function (response) {
+            $scope.next_item = response;
+
+            $scope.next_item.permalink=$scope.randomPermalink();
+            delete $scope.next_item.id;
+            delete $scope.next_item.updated_at;
+            delete $scope.next_item.deleted_at;
+            delete $scope.next_item.last_url_id;
+            delete $scope.next_item.type;
+
+            if( !$scope.next_item.urls ) {
+                $scope.next_item.urls = [];
+            }
+
+            if( $scope.next_item.urls.length < 3 )
+                $scope.addUrls( 3 - $scope.next_item.urls.length );
+
+            $.each($scope.next_item.urls,function(key,value){
+                delete value.id;
+                delete value.created_at;
+                delete value.updated_at;
+                delete value.deleted_at;
+                value.visits=null;
+                value.weight=null;
+                value.smart_link_id=null;
+            });
+
+            angular.forEach( $scope.next_item.urls, function(value){
+                value.enabled = parseInt( value.enabled );
+            });
+
+            
+        });
+    }
 
     $scope.rotation_types = [
         {
