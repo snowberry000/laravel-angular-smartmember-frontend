@@ -74,6 +74,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			console.log( 'last_base_state', $rootScope.last_base_state )
 			//$state.go( $scope.stateBehindModal.state, $scope.stateBehindModal.params );
 		}
+
+		$('.ui.popup').popup( 'hide all' );
 	} );
 
 	$rootScope.CloseAdminState = function()
