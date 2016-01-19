@@ -1,7 +1,7 @@
 <div class="twelve wide column" ng-class="{'loader':loading}">
 
 	<div class="ui two cards">
-		<a class="ui card" ng-href="/post/{{post.permalink}}" ng-repeat="post in posts | filter: {access_level_type: 1}">
+		<a class="ui card" ng-href="/post/{{post.permalink}}" ng-repeat="post in posts ">
 			<div class="image" ng-if="post.featured_image.length > 0">
 				<img src="{{post.featured_image}}">
 			</div>

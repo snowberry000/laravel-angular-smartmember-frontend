@@ -577,7 +577,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 } );
 
-app.controller( 'bridgepageEngineController', function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
+app.controller( 'bridgepageEngineController', function( $scope, $timeout , $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
 {
 	$scope.original_data = [];
 	$rootScope.viewport = '';
@@ -612,8 +612,12 @@ app.controller( 'bridgepageEngineController', function( $scope, $localStorage, s
 		console.log( $scope.original_data );
 
 		$scope.destroyed = true;
-		$state.transitionTo( $state.current, $stateParams, {
-			reload: true, inherit: false, location: false
-		} );
+		//window.location.href = '/';
+		$timeout(function(){
+			$state.transitionTo( $state.current, $stateParams, {
+			 	reload: true, inherit: false, location: false
+		    } );
+		} , 1000)
+		
 	} );
 } );

@@ -8,7 +8,10 @@
 		<div class="ui text loader">Loading</div>
 	</div>
 
-	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content )" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !next_item.featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}"  sui-embed></div>
+
 	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content" class="fr-view">
 
 	</div>
