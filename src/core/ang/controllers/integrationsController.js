@@ -351,7 +351,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			short_name: 'InfusionSoft',
 			sites_only: true,
 			description: 'Allow you to import customers into SmartMember',
-			logo: '/images/app_configurations/infusion.jpg',
+			logo: '/images/app_configurations/infusion.png',
 			long_description: '<p><a href="http://www.infusionsoft.com" target="_blank">InfusionSoft</a> allows you to accept payments from the InfusionSoft affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
 		},
 		{
