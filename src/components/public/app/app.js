@@ -20,26 +20,30 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 {
 	$rootScope.site = $site;
 
-	var intercom = _.findWhere($scope.site.app_configuration,{type:'intercom'});
+	var intercom = _.findWhere( $scope.site.app_configuration, { type: 'intercom' } );
 
-	if (intercom){
-        //we are disabling support for now, we'll probably add some integration settings in the future to allow this
-		if (false && $localStorage.user && $localStorage.user.id){
+	if( intercom )
+	{
+		//we are disabling support for now, we'll probably add some integration settings in the future to allow this
+		if( $localStorage.user && $localStorage.user.id && $localStorage.user.sm_user )
+		{
 			var intercomData = {
-			  app_id: intercom.username,
-			  name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
-			  email: $localStorage.user.email,
-			  created_at: moment($localStorage.user.created_at).unix()
+				app_id: intercom.username,
+				name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
+				email: $localStorage.user.email,
+				setup_wizard_complete: $localStorage.user.setup_wizard_complete,
+				created_at: moment( $localStorage.user.created_at ).unix()
 			};
-			window.Intercom('boot', intercomData);
-		}else{
-            console.log( 'we should be trying to boot up:::', intercom.username );
-			window.Intercom('boot',{app_id: intercom.username});
+			window.Intercom( 'boot', intercomData );
 		}
-
+		else
+		{
+			console.log( 'we should be trying to boot up:::', intercom.username );
+			window.Intercom( 'boot', { app_id: intercom.username } );
+		}
 	}
 
-	console.log(intercom);
+	console.log( intercom );
 
 
 	$rootScope.page_title = $site.name;
@@ -60,16 +64,18 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 		Restangular.one( 'trackViews', $id ).customPOST( {} );
 	}
 
-	$scope.resolve = function(){
-		Restangular.all( 'accessLevel' ).getList( { site_id: $site.id } ).then(function(response){
+	$scope.resolve = function()
+	{
+		Restangular.all( 'accessLevel' ).getList( { site_id: $site.id } ).then( function( response )
+		{
 			$rootScope.access_levels = response;
-		})
+		} )
 	}
 
 
 	$scope.ShouldSuiHandleEmbed = function( embed_code )
 	{
-		var url = $filter('extractsrc')(embed_code);
+		var url = $filter( 'extractsrc' )( embed_code );
 
 		//console.log( 'the url: ', url );
 
@@ -91,10 +97,12 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 
 		if( domain )
 		{
-			if( domain.indexOf('youtube.com') > -1 )
+			if( domain.indexOf( 'youtube.com' ) > -1 )
+			{
 				return true;
+			}
 
-			if( domain.indexOf('vimeo.com') > -1 )
+			if( domain.indexOf( 'vimeo.com' ) > -1 )
 				return true;
 		}
 
@@ -120,17 +128,19 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			}
 			$rootScope.site = details;
 
-            if( $rootScope.site.capabilities )
-            {
-                angular.forEach( $rootScope.site.capabilities, function(value){
-                    if( value == 'view_restricted_content' )
-                    {
-                        $timeout(function(){
-                            //$('.public .logged_in').attr('style', 'margin-top: 62px !important');
-                        });
-                    }
-                })
-            }
+			if( $rootScope.site.capabilities )
+			{
+				angular.forEach( $rootScope.site.capabilities, function( value )
+				{
+					if( value == 'view_restricted_content' )
+					{
+						$timeout( function()
+						{
+							//$('.public .logged_in').attr('style', 'margin-top: 62px !important');
+						} );
+					}
+				} )
+			}
 		}
 		$scope.ads = details.ad;
 		$scope.widgets = details.widgets;
@@ -146,14 +156,14 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 
 			if( value.type == 'banner' )
 			{
-				if (value.banner != undefined)
+				if( value.banner != undefined )
 					$scope.bannerView( value.banner.id );
 			}
 		} );
 		$rootScope.site.configured_app = [];
 		angular.forEach( details.app_configuration, function( value, key )
 		{
-			$rootScope.site.configured_app.push(value);
+			$rootScope.site.configured_app.push( value );
 		} );
 
 		$rootScope.options.theme_selection = false;
@@ -325,7 +335,8 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 		} );
 	}
 
-	$rootScope.$watch( 'user', function( new_value, old_value ) {
+	$rootScope.$watch( 'user', function( new_value, old_value )
+	{
 
 		if( new_value && new_value.id )
 		{
@@ -333,7 +344,7 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			$rootScope.is_team_member = $scope.hasAccess( new_value.role );
 		}
 
-	},true );
+	}, true );
 
 	$scope.initPublicSite();
 	$scope.resolve();
