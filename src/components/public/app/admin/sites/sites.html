@@ -110,7 +110,7 @@
 		<div ng-if="!isSitelessPage('my')" class="ui black button" ng-click="CloseAdminState()">
 			Close
 		</div>
-		<a ng-if="site.is_customer || ( isSitelessPage('my') && user.sm_access )" ng-click="smModal.Show('public.administrate.team.site')" class="ui right labeled icon green button">
+		<a ng-if="site.is_customer || ( isSitelessPage('my') && user.sm_access )" ui-sref="public.app.admin.site" class="ui right labeled icon green button">
 			Create new Site
 			<i class="plus icon"></i>
 		</a>
