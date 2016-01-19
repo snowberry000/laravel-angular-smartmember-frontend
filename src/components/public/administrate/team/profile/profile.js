@@ -71,7 +71,7 @@ app.controller("TeamProfileController", function ($scope, $localStorage,$state, 
 
      Restangular.all('company').customPUT(params , $scope.company.id).then(function(response){
         toastr.success("Company settings were successfully saved!");
-        $scope.company = response;state.params
+        $scope.company = response;
         $rootScope.current_company = $scope.company;
         $state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
