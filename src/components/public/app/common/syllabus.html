@@ -58,6 +58,7 @@
 				</button>
 			</div>
 			<div class="connectLessons ui very relaxed divided ordered list" ng-show="!module.hide_module" ng-if="site.syllabus_format == 'list'" ui-sortable="LessonSortableOptions">
+				<div style="height: 1px;"></div>
 				<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}">
 					<div class="right floated content">
 						<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
