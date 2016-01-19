@@ -223,7 +223,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
             };
             $scope.selectedTag = null;
             toastr.success("All shown videos has been added");
-            $state.transitionTo($state.current , {} , {
+            $state.transitionTo($state.current , $state.params , {
                 reload : true , inherit : false , location : false
             })
         });

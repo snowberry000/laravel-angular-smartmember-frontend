@@ -324,7 +324,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
             }
             toastr.success( "Module has been saved" );
 			$scope.isOpen = false;
-			$state.transitionTo($state.current, $stateParams, { 
+			$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
 		} );
@@ -417,7 +417,12 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 			{
 				smModal.Show($scope.template_data.success_route);
 			}
-			$state.transitionTo($state.current, $stateParams, { 
+			console.log('state.params:');
+			console.log($state.params);
+			console.log('stateParams:');
+			console.log($stateParams);
+
+			$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
 		} )

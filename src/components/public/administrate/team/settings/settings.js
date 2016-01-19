@@ -28,7 +28,9 @@ app.controller("TeamSettingsController", function ($scope , $localStorage,$state
         Restangular.all('company').customPUT({name : $scope.company.name} , $scope.company.id).then(function(response){
             toastr.success("Company name successfully changed!");
             $rootScope.current_company = $scope.company;
-            $state.reload();
+            $state.transitionTo($state.current, $state.params, { 
+                      reload: true, inherit: false, location: false
+                    });
         })
     }
 });
