@@ -59,7 +59,7 @@
 						<i class="edit icon"></i>
 						Sign Up
 					</a>
-					<a ng-if="!site_options.create_account_url" ng-click="smModal.Show('public.sign.up', $state.includes('public.my') ? {modal_options:{closable:false}} : null)" class="ui big blue labeled icon button">
+					<a ng-if="!site_options.create_account_url" ng-hide="site_options.hide_sign_up_button" ng-click="smModal.Show('public.sign.up', $state.includes('public.my') ? {modal_options:{closable:false}} : null)" class="ui big blue labeled icon button">
 						<i class="edit icon"></i>
 						Sign Up
 					</a>
