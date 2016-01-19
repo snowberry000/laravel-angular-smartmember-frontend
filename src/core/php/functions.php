@@ -193,10 +193,10 @@ function PrintUserTrackingScript( $data, $type = 'google_analytic_id' )
 		case 'bing_tracking':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'bing_id' ) )
 				$code = $data->data->bing_id;
-			if( !empty( $code ) ) :
+			else $code = '';
 				?>
 				var o={ti:"<?php echo $code; ?>"};
-			<?php endif;
+			<?php
 			break;
 		case 'google_webmaster_tag':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'bing_webmaster_tag' ) )
