@@ -21,7 +21,7 @@
 				<div ng-include="'templates/components/public/administrate/site/content/common/content-options.html'"></div>
 			</div>
 			<div class="ui bottom attached tab segment" data-tab="extra">
-				<div ng-include="'templates/components/public/administrate/site/content/syllabus/lesson/edit-options.html'"></div>
+				<div ng-include="'templates/components/public/app/admin/lesson/edit-options.html'"></div>
 			</div>
 			<div class="ui bottom attached tab segment" data-tab="two">
 				<div ng-include="'templates/components/public/administrate/site/content/common/media-options.html'"></div>
@@ -39,14 +39,14 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="cancel();" class="ui black button">
+		<a ui-sref="public.app.admin.lessons" class="ui black button">
 			Cancel
 		</a>
-		<a ng-click="saveAsDraft()" class="ui right labeled icon button" ng-if="next_item.access_level_type!=1">
+		<a busy ng-click="saveAsDraft()" class="ui right labeled icon button" ng-if="next_item.access_level_type!=1">
 			Save as Draft
 			<i class="save icon"></i>
 		</a>
-		<a ng-click="save()" class="ui right labeled green icon button" ng-disabled="!next_item.title">
+		<a busy ng-click="save()" class="ui right labeled green icon button" ng-disabled="!next_item.title">
 			Publish
 			<i class="check icon"></i>
 		</a>

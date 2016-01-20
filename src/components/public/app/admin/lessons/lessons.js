@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.content.syllabus.lessons", {
+		.state( "public.app.admin.lessons", {
 			url: "/lessons",
-			templateUrl: "/templates/components/public/administrate/site/content/syllabus/lessons/lessons.html",
+			templateUrl: "/templates/components/public/app/admin/lessons/lessons.html",
 			controller: "AdminLessonsController"
 		} )
 } );
@@ -17,7 +17,7 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 		title: 'LESSONS',
 		description: 'Add lessons to your site for members to read / watch / hear.',
 		singular: 'lesson',
-		edit_route: 'public.administrate.site.content.syllabus.lesson',
+		edit_route: 'public.app.admin.lesson',
 		api_object: 'lesson'
 	}
 

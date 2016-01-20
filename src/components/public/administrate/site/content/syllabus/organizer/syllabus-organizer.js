@@ -34,7 +34,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 		var modalInstance = $modal.open( {
 			size: 'lg',
 			windowClass: 'lesson-modal-window',
-			templateUrl: '/templates/components/public/administrate/site/content/syllabus/lesson/lesson.html',
+			templateUrl: '/templates/components/public/app/admin/lesson/lesson.html',
 			controller: 'LessonEditModalInstanceCtrl',
 			resolve: {
 				next_item: function()

@@ -381,6 +381,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		itemWithId.remove().then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
+			var this_site = _.findWhere($rootScope.sites , {id : itemWithId.site_id});
+
+			if(this_site){
+				this_site.total_members--;
+			}
 		} );
 
 	};

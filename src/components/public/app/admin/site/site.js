@@ -3,14 +3,14 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.site", {
+		.state( "public.app.admin.site", {
 			url: "/site/:id?",
-			templateUrl: "/templates/components/public/administrate/team/site/site.html",
+			templateUrl: "/templates/components/public/app/admin/site/site.html",
 			controller: "SiteController"
 		} )
 } );
 
-app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootScope, $state, smModal, $localStorage, $location, Restangular, $filter )
+app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootScope, $state,$localStorage, $location, Restangular, $filter )
 {
 	if( $stateParams.id )
 	{
@@ -38,9 +38,10 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootS
 		}
 	}
 
-	Restangular.all( 'site' ).getList( { cloneable: 1 } ).then(function(response){
+	Restangular.all( 'site' ).getList( { cloneable: 1 } ).then( function( response )
+	{
 		$scope.clone_sites = response;
-	});
+	} );
 	//$scope.site = $rootScope.site;
 	$scope.site = {};
 	$scope.changeSite = function( id )
@@ -52,7 +53,7 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootS
 		$scope.site.put().then( function( response )
 		{
 			toastr.success( "Site Edited!" );
-			smModal.Show( "admin.team.sites" );
+			$state.go('public.app.admin.sites');
 		}, function( response )
 		{
 			$scope.saving = false;
