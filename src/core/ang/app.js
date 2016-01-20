@@ -29,7 +29,8 @@ var app = angular.module( 'app', [
 	'ui.sortable',
 	'angularUtils.directives.dirPagination',
 	'ct.ui.router.extras',
-	'720kb.socialshare'
+	'720kb.socialshare',
+	'ngUrlify'
 ] );
 
 
