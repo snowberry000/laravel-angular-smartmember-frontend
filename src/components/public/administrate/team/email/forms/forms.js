@@ -21,7 +21,7 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 	$scope.site_options.redirect_url = '';
 	$scope.url = $scope.app.apiUrl + '/optin';
 	$scope.myForm = '';
-	$scope.show_name_input = true;
+	$scope.show_name_input = 1;
 	$scope.editorOptions2 = {
 		lineNumbers: true,
 		matchBrackets: true,
@@ -43,7 +43,7 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 	$sites = Restangular.one( 'supportTicket' ).customGET( 'sites' ).then( function( response )
 	{
 		console.log( response );
-		$scope.sites = response.sites;
+		$scope.sites = response;
 	} )
 
 	$q.all( [ $emailList, $sites ] ).then( function( res )
