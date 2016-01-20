@@ -16,7 +16,7 @@ app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $l
     
 
     Restangular.all('').customGET('download?bypass_paging=1').then(function(response){
-        $downloads=response.items;
+        $downloads= response ? response.items : [];
         $scope.loading=false;
         $scope.downloads = $downloads;
         if ($scope.downloads && $scope.downloads.length > 0)
