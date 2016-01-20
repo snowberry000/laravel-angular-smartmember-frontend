@@ -2,8 +2,8 @@
     <a href class="pull-right" ng-click="close()">X</a>
     <div>
         <select class="form-control" ng-model="selected_url" ng-change="selectUrl(model ,selected_url , false)">
-            <option value="" selected>Enter a custom url</option>
-            <option value="/">Home</option>
+            <option value="" selected ng-hide="selected_url &&  currentPageName=='home'">{{ currentPageName!='home' ? 'Enter a custom url' : 'Choose a url'}}</option>
+            <option value="/" >Home</option>
             <option value="info">Sales Page</option>
             <option value="lessons">Syllabus</option>
             <option value="support">Support</option>
@@ -25,7 +25,7 @@
         <option ng-repeat="item in loaded_items.items" value="{{item.url}}">{{item.title}}
         </option>
     </select>
-    <div class="form-group" ng-hide="selected_url">
+    <div class="form-group" ng-hide="selected_url || currentPageName=='home' ">
       <input type="text" ng-blur="selectUrl(model , model.url , false)" ng-model="model.url" class="form-control">
     </div>
 </div>

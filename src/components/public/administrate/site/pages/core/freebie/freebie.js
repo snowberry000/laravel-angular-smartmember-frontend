@@ -92,6 +92,7 @@ app.controller("FreebieController", function ($scope, $localStorage,$rootScope, 
       {
           $scope.bonus.free_item_url = selected_url;
           item.url = selected_url;
+          $scope.show_next=show_next;
           $scope.close();
       }
       else if(selected_url == 'download'){
