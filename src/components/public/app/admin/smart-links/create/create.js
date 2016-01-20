@@ -7,11 +7,12 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/app/admin/smart-links/create/create.html",
 			controller: "SmartLinksCreateController",
             resolve: {
+                
             }
 		})
 }); 
 
-app.controller("SmartLinksCreateController", function ($scope, $state, $rootScope, $filter, Restangular, $stateParams, smModal) {
+app.controller("SmartLinksCreateController", function ($scope, $state, $rootScope, $filter, Restangular, $stateParams, $location , smModal) {
     $site = $rootScope.site;
     $scope.template_data = {
         title: 'SMARTLINK',
@@ -71,6 +72,41 @@ app.controller("SmartLinksCreateController", function ($scope, $state, $rootScop
 
             if( $scope.next_item.urls.length < 3 )
                 $scope.addUrls( 3 - $scope.next_item.urls.length );
+        });
+    }
+    else if( $location.search().clone ) {
+        $nextItemRequest = Restangular.one($scope.template_data.api_object, $location.search().clone).get().then(function (response) {
+            $scope.next_item = response;
+
+            $scope.next_item.permalink=$scope.randomPermalink();
+            delete $scope.next_item.id;
+            delete $scope.next_item.updated_at;
+            delete $scope.next_item.deleted_at;
+            delete $scope.next_item.last_url_id;
+            delete $scope.next_item.type;
+
+            if( !$scope.next_item.urls ) {
+                $scope.next_item.urls = [];
+            }
+
+            if( $scope.next_item.urls.length < 3 )
+                $scope.addUrls( 3 - $scope.next_item.urls.length );
+
+            $.each($scope.next_item.urls,function(key,value){
+                delete value.id;
+                delete value.created_at;
+                delete value.updated_at;
+                delete value.deleted_at;
+                value.visits=null;
+                value.weight=null;
+                value.smart_link_id=null;
+            });
+
+            angular.forEach( $scope.next_item.urls, function(value){
+                value.enabled = parseInt( value.enabled );
+            });
+
+            
         });
     }
 
