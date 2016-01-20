@@ -153,71 +153,80 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	}
 	$scope.showNotifications = function()
 	{
-        //temporarily disabled until they are mobile friendly and closeable
-        return;
-		Restangular.all( 'siteNotice/getnotifications' ).getList().then( function( response )
+		if ($rootScope.site)
 		{
-			$scope.nonLessonNotices = 0;
-			$scope.lessonNotices = 0;
-			$scope.shownNonLessonNotices = 0;
-			$scope.lessonsNotification = [];
-			$scope.nonlessonsNotification = [];
-			for( var j = 0; j < response.length; j++ )
+			$site_options = $rootScope.site.meta_data;
+			var site_options = {};
+			$.each($site_options, function (key, data) {
+				site_options[data.key] = data.value;
+       		});
+		}
+		if (site_options.enable_site_notices == 1 || site_options.enable_site_notices == '1' || site_options.enable_lesson_notices == 1 || site_options.enable_lesson_notices == '1')
+		{
+			Restangular.all( 'siteNotice/getnotifications' ).getList().then( function( response )
 			{
-                if( $localStorage.lastID )
-                {
-                    if( $localStorage.lastID.indexOf( response[ j ].id ) < 0 )
-                    {
-                        $localStorage.lastID.push( response[ j ].id );
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                else
-                {
-                    $localStorage.lastID = [];
-                    $localStorage.lastID.push( response[ j ].id );
-                }
-
-				if( response[ j ].type == 'admin' )
+				$scope.nonLessonNotices = 0;
+				$scope.lessonNotices = 0;
+				$scope.shownNonLessonNotices = 0;
+				$scope.lessonsNotification = [];
+				$scope.nonlessonsNotification = [];
+				for( var j = 0; j < response.length; j++ )
 				{
-					$scope.nonlessonsNotification = [];
-					$scope.nonlessonsNotification.push( response[ j ] );
-					$scope.nonLessonNotices++;
+					if( $localStorage.lastID )
+					{
+						if( $localStorage.lastID.indexOf( response[ j ].id ) < 0 )
+						{
+							$localStorage.lastID.push( response[ j ].id );
+						}
+						else
+						{
+							continue;
+						}
+					}
+					else
+					{
+						$localStorage.lastID = [];
+						$localStorage.lastID.push( response[ j ].id );
+					}
+
+					if( response[ j ].type == 'admin' )
+					{
+						$scope.nonlessonsNotification = [];
+						$scope.nonlessonsNotification.push( response[ j ] );
+						$scope.nonLessonNotices++;
+					}
+					else
+					{
+						$scope.lessonsNotification.push( response[ j ].content );
+						$scope.lessonNotices++;
+					}
+				}
+
+				$scope.showLessons = "<ol>";
+				for( var i = 0; i < $scope.lessonsNotification.length && i < 3; i++ )
+				{
+					$scope.showLessons += "<li style='text-align:left;'>" + $scope.lessonsNotification[ i ] + "</li>";
+				}
+				$scope.showLessons += "</ol>";
+
+				if( $scope.lessonsNotification.length > 3 )
+				{
+					$scope.showLessons += "<a  onclick='swal.close();' href='/lessons'>and " + ($scope.lessonsNotification.length - 3 ) + " more!</a>";
+				}
+
+				if( $scope.nonLessonNotices > 0 && $scope.$user != null && (site_options.enable_site_notices == 1 || site_options.enable_site_notices == '1'))
+				{
+					$scope.showNonLessonNotification( $scope.nonlessonsNotification, 0 );
 				}
 				else
 				{
-					$scope.lessonsNotification.push( response[ j ].content );
-					$scope.lessonNotices++;
+					if( $scope.lessonNotices > 0 && $scope.$user != null && (site_options.enable_lesson_notices == 1 || site_options.enable_lesson_notices == '1'))
+					{
+						$scope.showLessonNotification( $scope.lessonNotices );
+					}
 				}
-			}
-
-			$scope.showLessons = "<ol>";
-			for( var i = 0; i < $scope.lessonsNotification.length && i < 3; i++ )
-			{
-				$scope.showLessons += "<li style='text-align:left;'>" + $scope.lessonsNotification[ i ] + "</li>";
-			}
-			$scope.showLessons += "</ol>";
-
-            if( $scope.lessonsNotification.length > 3 )
-            {
-                $scope.showLessons += "<a  onclick='swal.close();' href='/lessons'>and " + ($scope.lessonsNotification.length - 3 ) + " more!</a>";
-            }
-
-			if( $scope.nonLessonNotices > 0 && $scope.$user != null )
-			{
-				$scope.showNonLessonNotification( $scope.nonlessonsNotification, 0 );
-			}
-			else
-			{
-                if( $scope.lessonNotices > 0 && $scope.$user != null )
-                {
-                    $scope.showLessonNotification( $scope.lessonNotices );
-                }
-			}
-		} );
+			} );
+		}
 	}
 
 	$scope.logout = function()
