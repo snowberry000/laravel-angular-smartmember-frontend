@@ -17,6 +17,7 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
 	{
         if( value.key == 'homepage_url' )
         {
+            // alert(value.value);
             homepage_url = value.value;
         }
 	} );

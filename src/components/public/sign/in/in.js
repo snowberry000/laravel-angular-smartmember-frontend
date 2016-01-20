@@ -128,8 +128,9 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 					$rootScope.modal_popup_template = false;
 					//location.reload(true);
 					console.log( 'current state', $state.current.name );
-
+					
 					$rootScope.CloseExtraState();
+					$state.transitionTo('public.app.site.home', {}, { reload: true, inherit: true, notify: true });
 
 					return;
 				}
