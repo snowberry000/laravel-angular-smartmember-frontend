@@ -75,9 +75,9 @@
 	Leave a reply
 </h3>
 <div class="ui attached clearing segment" ng-if='topic.category.allow_content && topic.allow_content && isLoggedIn()'>
-	<textarea froala ng-model="content" placeholder="Leave a reply"></textarea>
+	<textarea froala ng-model="$parent.content" placeholder="Leave a reply"></textarea>
 
-	<button busy class="ui right floated right labeled icon green button m-t-md" ng-click='addReply(content)'>
+	<button busy class="ui right floated right labeled icon green button m-t-md" ng-click='addReply();'>
 		Add Reply
 		<i class="plus icon"></i>
 	</button>
