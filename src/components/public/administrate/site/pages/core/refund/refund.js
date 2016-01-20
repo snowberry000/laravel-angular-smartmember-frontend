@@ -60,7 +60,7 @@ app.controller("RefundController", function ($scope, $localStorage, smModal , $r
       {
           $scope.refund.free_item_url = selected_url;
           item.url = selected_url;
-
+          $scope.show_next=show_next;
           $scope.close();
       }
       else if(selected_url == 'download'){

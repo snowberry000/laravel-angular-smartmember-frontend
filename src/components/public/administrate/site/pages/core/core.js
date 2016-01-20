@@ -10,8 +10,11 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "CoreController", function( $scope, smModal )
+app.controller( "CoreController", function( $scope, smModal,$rootScope )
 {
+	$scope.pageClicked = function ( $current){
+		$rootScope.currentPageName= $current;
+	}
 
 	$scope.data = [
 		{

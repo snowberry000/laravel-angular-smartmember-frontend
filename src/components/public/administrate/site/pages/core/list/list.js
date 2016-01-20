@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "ListController", function( $scope )
+app.controller( "ListController", function( $scope,$rootScope )
 {
-
+	
 } );
