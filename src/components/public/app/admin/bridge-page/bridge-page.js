@@ -72,6 +72,8 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 
 	$scope.loadDefaultValue = function()
 	{
+		if(!$scope.template)
+			return;
 		switch( $scope.template.id )
 		{
             case 5:
@@ -353,7 +355,8 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 	{
         smSidebar.Close();
 
-		$state.go('public.app.admin.bridge-pages');
+        window.location.href = '/admin/bridge-pages';
+		//$state.go('public.app.admin.bridge-pages');
 	}
 
 	$scope.save = function( cloned )
@@ -602,7 +605,9 @@ app.controller( 'bridgepageEngineController', function( $scope, $timeout , $loca
 	$scope.close = function()
 	{
 		smSidebar.Close();
-		$state.go('public.app.admin.bridge-pages');
+		window.location.href = '/admin/bridge-pages';
+
+		//$state.go('public.app.admin.bridge-pages');
 
 		$rootScope.viewport = '';
 	}
