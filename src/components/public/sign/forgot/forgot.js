@@ -15,12 +15,15 @@ app.controller('ResetController', function ($rootScope, smModal, $scope, $localS
 	$rootScope.page_title = "Smartmember - Password Reset";
 	$scope.data = {};
 	$site = $rootScope.site;
-	$site_options =  $rootScope.site.meta_data;
-	$scope.site_options = {};
-	$.each( $site_options, function( key, data )
-	{
-		$scope.site_options[ data.key ] = data.value;
-	} );
+
+    if( $rootScope.site ) {
+        $site_options = $rootScope.site.meta_data;
+        $scope.site_options = {};
+        $.each($site_options, function (key, data) {
+            $scope.site_options[data.key] = data.value;
+        });
+    }
+    
 	if ($location.search().error_message)
 	{
 		if ($location.search().error_message == "inprocess registration")
