@@ -49,6 +49,8 @@ app.controller('ThankyouController', function ($scope, $site, $access_levels,$ro
         $scope.options[data.key] = data.value;
     });
 
+    $scope.options.thankyou_use_custom  == '1' ? $scope.options.thankyou_use_custom =true : $scope.options.thankyou_use_custom = false;
+    
     $scope.jvzoo_product_id = $scope.getQueryVariable('cproditem') || null;
     $scope.access_level_id = $scope.getQueryVariable('access_level_id') || null;
     $scope.access_level = null;

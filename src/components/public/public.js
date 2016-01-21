@@ -121,10 +121,10 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		var state = $state.current.name.split( '.' );
 		if( state.length >= 3 )
 		{
-			state = state[ 2 ];
+			state = state[ 3 ];
 		}
 
-		if( $scope.isLoggedIn() && state != 'public,wallboard' && (true || $rootScope.app.subdomain != 'sm' || $rootScope.site.is_admin == true) )
+		if( $scope.isLoggedIn() && state != 'wallboard' && (true || $rootScope.app.subdomain != 'sm' || $rootScope.site.is_admin == true) )
 		{
 			return 'templates/components/public/admin-bar/admin-bar.html';
 		}

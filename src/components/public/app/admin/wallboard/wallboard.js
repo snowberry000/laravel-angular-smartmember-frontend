@@ -14,7 +14,7 @@ app.config( function( $stateProvider )
 app.controller( "WallboardController", function($rootScope, $scope, Restangular )
 {
 	$rootScope.is_wallboard = true;
-	
+	$scope.wallboard = {};
 	Restangular.one('site','details')
 		.get()
 		.then(function(response){
@@ -27,7 +27,7 @@ app.controller( "WallboardController", function($rootScope, $scope, Restangular 
 				return;
 			}
 
-			$scope.wallboard = {};
+			
 			$scope.loading = true;
 		})
 
