@@ -16,6 +16,18 @@ app.controller('unsubscribeController', function ($location,notify,$state,$scope
     if( $localStorage.unsubscribe_parameters ) {
         $rootScope.$_GET = $localStorage.unsubscribe_parameters;
         delete $localStorage.unsubscribe_parameters;
+    } else {
+        var getUrlVars = function()
+        {
+            var vars = {};
+            var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
+            {
+                vars[ key ] = decodeURIComponent( value );
+            } );
+            return vars;
+        }
+
+        $rootScope.$_GET = getUrlVars();
     }
 
     delete $localStorage.open_unsubscribe_modal;

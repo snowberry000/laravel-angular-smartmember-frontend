@@ -556,12 +556,9 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 	else if( $localStorage.open_unsubscribe_modal )
 	{
+        $localStorage.unsubscribe_parameters = $rootScope.$_GET;
         location.href = $state.href( 'public.sign.unsubscribe' );
 		$localStorage.open_unsubscribe_modal = null;
-		// $timeout(function(){
-		//     smModal.Show('public.sign.unsubscribe');
-		// }, 50);
-		// $localStorage.open_unsubscribe_modal = null;
 	}
 	else if( $localStorage.open_speedblogging_modal )
 	{
