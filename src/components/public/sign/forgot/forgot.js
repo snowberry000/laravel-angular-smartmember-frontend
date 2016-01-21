@@ -57,7 +57,7 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
 			else
 			{
 				//( 'public.sign.in', { reset: 1 } );
-				$state.go( 'public.sign.in' ); // what is reset:1 for above?
+				$state.go( 'public.sign.in', { reset: 1 } ); // what is reset:1 for above? Answer: it specifies whether to show the Email sent message on sign in or not
 				$scope.message = data.message;
 			}
 		} );
