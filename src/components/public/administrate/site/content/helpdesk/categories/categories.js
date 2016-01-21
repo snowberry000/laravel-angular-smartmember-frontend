@@ -93,9 +93,10 @@ app.controller("ArticleCategoriesController", function ($scope,smModal,$rootScop
 
         itemWithId.remove().then(function () {
             $scope.data = _.without($scope.data, itemWithId);
-            $state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+            $setTimeout(
+                function() {$state.transitionTo($state.current, $state.params, { 
+              reload: true, inherit: false, location: false
+            });}, 50);
         });
     };
 });
