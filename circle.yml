@@ -3,6 +3,8 @@ machine:
     version: 4.2.2
   java:
     version: oraclejdk8
+  php:
+    version: 5.5.9
   post:
     - npm install -g gulp
     # Fetch Protractor
@@ -25,6 +27,8 @@ dependencies:
   override:
     - bower install
     - gulp compile
+  post:
+    - cd .. && git clone https://github.com/smart-member/api.smartmember.com.git
 
 
 general:

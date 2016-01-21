@@ -5,7 +5,6 @@
 	<div class="image content">
 		<div class="ui medium image">
 			<img ng-show="options.site_logo" ng-src="{{options.site_logo}}">
-			<img ng-show="!options.site_logo" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/logo-placeholder.png">
 		</div>
 		<div class="description">
 
@@ -19,11 +18,8 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button">
-			Nope
-		</div>
-		<div class="ui positive right labeled icon button">
-			Yep, that's me
+		<div class="ui positive right labeled icon button" ng-click="close()">
+			Close
 			<i class="checkmark icon"></i>
 		</div>
 	</div>

@@ -558,9 +558,9 @@
                         <div class="row">
                             <div class="col-md-12">
 
-                                <div class="embed_container">
-                                    <div class="videoWrapper fr-view" dynamic="bridgepage.swapspot.embed"></div>
-                                    <div ng-if="visible" class="videoWrapper">
+                                <div ng-if="bridgepage.swapspot.embed" class="embed_container">
+                                    <div class="fr-view" dynamic="bridgepage.swapspot.embed"></div>
+                                    <div ng-if="!bridgepage.swapspot.embed" class="videoWrapper">
                                         {{bridgepage.swapspot.embed}}
                                     </div>
                                 </div>

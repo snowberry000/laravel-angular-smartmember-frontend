@@ -75,7 +75,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 
 	    if( $scope.next_item.end_published_date )
         {
-            $scope.next_item.end_published_date = new Date( moment( $scope.next_item.end_published_date ).format( 'l' ) );
+            $scope.next_item.end_published_date = new Date( moment.utc( $scope.next_item.end_published_date ));
         }
         else
         {
@@ -83,7 +83,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
         }
         if( $scope.next_item.published_date )
 		{
-			$scope.next_item.published_date = new Date( moment( $scope.next_item.published_date ).format( 'l' ) );
+			$scope.next_item.published_date = new Date( moment.utc( $scope.next_item.published_date ) );
 		}
 		else
 		{
@@ -217,7 +217,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 			$scope.next_item.put().then(function(response){
 				smModal.Show("public.administrate.site.content.blog.posts");
 				toastr.success( "Your post has been updated!" );
-				$state.transitionTo($state.current, $stateParams, { 
+				$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
 			})
@@ -235,7 +235,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
 				smModal.Show("public.administrate.site.content.blog.posts" );
-				$state.transitionTo($state.current, $stateParams, { 
+				$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
 			} );

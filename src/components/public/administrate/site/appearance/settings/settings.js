@@ -81,7 +81,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 		$scope.site_options.site  = {
 			name: $scope.site.name,
 			subdomain: $scope.site.subdomain,
-			domain: $scope.site.domain,
+			domain: $scope.site.domain || '',
 		};
 
 		delete $scope.site_options.url;
@@ -93,7 +93,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 			smModal.Close( 'public.administrate.site.appearance.settings' );
 			$scope.site_options.isOpen = false;
 			$localStorage.homepage_url = $scope.site_options.homepage_url;
-			$state.transitionTo($state.current, $stateParams, { 
+			$state.transitionTo($state.current, $state.params, { 
 			  reload: true, inherit: false, location: false
 			});
 		} );

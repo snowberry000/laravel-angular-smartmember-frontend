@@ -21,6 +21,8 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 	$scope.user = $localStorage.user;
 	$index = 0;
 
+	// console.log("permalink: " + $stateParams.permalink );
+
 	Restangular.one( 'lessonByPermalink', $stateParams.permalink ).get().then( function( response )
 	{
 		$lesson = response;

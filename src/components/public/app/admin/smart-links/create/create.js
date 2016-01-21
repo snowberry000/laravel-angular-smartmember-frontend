@@ -76,6 +76,7 @@ app.controller("SmartLinksCreateController", function ($scope, $state, $rootScop
     }
     else if( $location.search().clone ) {
         $nextItemRequest = Restangular.one($scope.template_data.api_object, $location.search().clone).get().then(function (response) {
+
             $scope.next_item = response;
 
             $scope.next_item.permalink=$scope.randomPermalink();

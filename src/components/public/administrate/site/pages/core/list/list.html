@@ -25,7 +25,7 @@
                             <p>{{next_item.description}}</p>
                         </div>
                         <div class="extra">
-							<a class="ui red small button" ng-if="next_item.template" ng-click="smModal.Show('public.administrate.site.pages.core.' + next_item.template)">
+							<a class="ui red small button" ng-if="next_item.template" ng-click="smModal.Show('public.administrate.site.pages.core.' + next_item.template); pageClicked(next_item.template)">
 								<i class="left setting icon"></i>
 								edit settings
 							</a>

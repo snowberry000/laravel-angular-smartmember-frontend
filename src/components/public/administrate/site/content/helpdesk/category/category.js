@@ -44,7 +44,7 @@ app.controller("CategoryController", function ($scope,$rootScope,smModal, $local
             $scope.category.put().then(function(response){
             	toastr.success("Support category edited successfully!");
             	smModal.Show("public.administrate.site.content.helpdesk.categories");
-            	$state.transitionTo($state.current, $stateParams, { 
+            	$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
             })
@@ -53,7 +53,7 @@ app.controller("CategoryController", function ($scope,$rootScope,smModal, $local
             Restangular.all('supportCategory').post($scope.category).then(function(response){
                 toastr.success("Support category added successfully!");
                 smModal.Show("public.administrate.site.content.helpdesk.categories");
-                $state.transitionTo($state.current, $stateParams, { 
+                $state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
             })

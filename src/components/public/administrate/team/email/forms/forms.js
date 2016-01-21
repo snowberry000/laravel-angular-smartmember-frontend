@@ -21,7 +21,7 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 	$scope.site_options.redirect_url = '';
 	$scope.url = $scope.app.apiUrl + '/optin';
 	$scope.myForm = '';
-	$scope.show_name_input = true;
+	$scope.show_name_input = 1;
 	$scope.editorOptions2 = {
 		lineNumbers: true,
 		matchBrackets: true,
@@ -43,7 +43,7 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 	$sites = Restangular.one( 'supportTicket' ).customGET( 'sites' ).then( function( response )
 	{
 		console.log( response );
-		$scope.sites = response.sites;
+		$scope.sites = response;
 	} )
 
 	$q.all( [ $emailList, $sites ] ).then( function( res )
@@ -67,7 +67,7 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 		}
 		//swapping out the redirect url to just be a text box for now since this is at the team level, we don't know what site this is for
 		//var redirect_url = $scope.site_options.redirect_url.indexOf( 'http://' ) == -1 && $scope.site_options.redirect_url.indexOf( 'https://' ) == -1 ? 'http://' + ( $scope.app.domain == $scope.app.rootDomain ? $scope.app.subdomain + '.' + $scope.app.domain : $scope.app.domain ) + '/' + $scope.site_options.redirect_url : $scope.site_options.redirect_url;
-		$scope.myForm = '<form action="' + $scope.url + '" method="get">' +
+		$scope.myForm = '<form action="' + $scope.url + '" method="post">' +
 			'<input type="hidden" name="list" value="' + $scope.emailListId.id + '">' +
 			'<input type="hidden" name="team" value="' + $scope.emailListId.company_id + '">' +
 			'<input type="hidden" name="redirect_url" value="' + $scope.site_options.redirect_url + '">';

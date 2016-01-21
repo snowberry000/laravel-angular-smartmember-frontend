@@ -20,6 +20,14 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 		$rootScope.redirectedFromLoginMessage = true;
 	}
 
+	$site = $rootScope.site;
+    if( $rootScope.site ) {
+        $site_options = $rootScope.site.meta_data;
+        $scope.site_options = {};
+        $.each($site_options, function (key, data) {
+            $scope.site_options[data.key] = data.value;
+        });
+    }
 	//$scope.site_logo = "http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/Smart-Member-Gray-Icon-Text-01.png";
 	$scope.action = 0;
 	$scope.login_type = "facebook";

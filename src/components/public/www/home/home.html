@@ -8,7 +8,7 @@
 			Smart Member 2.0
 		</h1>
 
-		<a class="ui huge primary button" ng-href="http://sm.smartmember.com">
+		<a class="ui huge primary button" ng-href="{{isLoggedIn() ? 'http://my.smartmember.com' : 'http://sm.smartmember.com'}}">
 			Get Started <i class="right arrow icon"></i>
 		</a>
 	</div>

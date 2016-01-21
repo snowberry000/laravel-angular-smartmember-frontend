@@ -110,13 +110,13 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
         }
 
         if ($scope.next_item.end_published_date)
-            $scope.next_item.end_published_date = new Date(moment($scope.next_item.end_published_date).format('l'));
+            $scope.next_item.end_published_date = new Date(moment.utc($scope.next_item.end_published_date));
         else
             $scope.next_item.end_published_date = null;
 
         if ($scope.next_item.published_date)
         {
-            $scope.next_item.published_date = new Date(moment($scope.next_item.published_date).format('l'));
+            $scope.next_item.published_date = new Date(moment.utc($scope.next_item.published_date));
         } else {
             $scope.next_item.published_date = new Date();
             $scope.next_item.published_date.setSeconds(0);
@@ -222,7 +222,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             $scope.next_item.put().then(function(){
                 smModal.Show('public.administrate.site.content.livecasts');
                 toastr.success("Livecast updated!");
-                $state.transitionTo($state.current, $stateParams, { 
+                $state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
             });
@@ -233,7 +233,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
                     Restangular.one('draft' , draft.id).remove();
                 smModal.Show('public.administrate.site.content.livecasts');
                 toastr.success("Livecast Created!");
-                $state.transitionTo($state.current, $stateParams, { 
+                $state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
 

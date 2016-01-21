@@ -16,7 +16,7 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("LoginController", function ($scope, smModal, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr, $state) {
-	
+	$site = $rootScope.site;
     $scope.site=$rootScope.site;
     Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'create_account_url', 'login_page_text' ] ).then(function(response){
         $scope.site_options = {};
@@ -46,7 +46,7 @@ app.controller("LoginController", function ($scope, smModal, $rootScope, $localS
             return;
         if(api_resources.indexOf(selected_url)<0)
         {
-            item.url = selected_url;
+            // item.url = selected_url;
             $scope.site_options['create_account_url'] = selected_url;
             $scope.show_next = show_next;
             $scope.close();

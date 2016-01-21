@@ -73,7 +73,9 @@ app.controller("TeamProfileController", function ($scope, $localStorage,$state, 
         toastr.success("Company settings were successfully saved!");
         $scope.company = response;
         $rootScope.current_company = $scope.company;
-        $state.reload();
+        $state.transitionTo($state.current, $state.params, { 
+          reload: true, inherit: false, location: false
+        });
      })
    }
 });

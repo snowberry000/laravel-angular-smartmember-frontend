@@ -9,6 +9,10 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('UnsubscribedController', function ($location,notify,$scope, $rootScope, $localStorage, Restangular) {
+app.controller('UnsubscribedController', function ($location,notify,$scope, $rootScope, $localStorage, Restangular, smModal) {
 	$rootScope.is_admin=true;
+
+    $scope.close = function(){
+        smModal.Close();
+    }
 });

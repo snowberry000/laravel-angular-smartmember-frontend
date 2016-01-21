@@ -16,7 +16,18 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
 	$rootScope.is_admin = true;
 	$rootScope.page_title = "Smartmember - Password Reset";
 	$scope.data = {};
-	if( $location.search().error_message )
+
+	$site = $rootScope.site;
+
+    if( $rootScope.site ) {
+        $site_options = $rootScope.site.meta_data;
+        $scope.site_options = {};
+        $.each($site_options, function (key, data) {
+            $scope.site_options[data.key] = data.value;
+        });
+    }
+    
+	if ($location.search().error_message)
 	{
 		if( $location.search().error_message == "inprocess registration" )
 		{

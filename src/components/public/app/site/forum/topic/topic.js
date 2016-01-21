@@ -24,9 +24,9 @@ app.controller( "Forum-topicController", function( $scope, $stateParams, Restang
 			$scope.loading = false;
 		} );
 
-	$scope.addReply = function( content )
+	$scope.addReply = function()
 	{
-		if( !content )
+		if( !$scope.content )
 		{
 			return;
 		}
@@ -34,7 +34,7 @@ app.controller( "Forum-topicController", function( $scope, $stateParams, Restang
 		$scope.loading = true;
 
 		Restangular.service( 'forumReply' )
-			.post( { content: content, topic_id: $scope.topic.id, category_id: $scope.topic.category.id } )
+			.post( { content: $scope.content, topic_id: $scope.topic.id, category_id: $scope.topic.category.id } )
 			.then( function( response )
 			{
 				$scope.topic.replies.push( response );

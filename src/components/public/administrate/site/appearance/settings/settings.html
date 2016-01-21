@@ -360,12 +360,7 @@
 									<input type="text" name="google_analytics_id" class="no_bottom_margin" ng-model="site_options.google_analytics_id"/>
 								</p>
 								<hr>
-								<h2 class="ui header">Facebook Retargeting Pixel ID</h2>
-								<p class="small_bottom_margin">
-									<input type="text" name="facebook_retargetting_pixel" class="no_bottom_margin" ng-model="site_options.facebook_retargetting_pixel"/>
-								</p>
-								<hr>
-								<h2 class="ui header">Facebook Conversion Tracking Pixel ID</h2>
+								<h2 class="ui header">Facebook Pixel ID</h2>
 								<p class="small_bottom_margin">
 									<input type="text" name="facebook_conversion_pixel" class="no_bottom_margin" ng-model="site_options.facebook_conversion_pixel"/>
 								</p>
@@ -517,6 +512,34 @@
 					    		<input type="text" class="form-control input-lg" ng-model="site_options.default_support_name">
 					    	</div>
 					    </div>
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Site Notices Settings
+				</div>
+				<div class="content" >
+					<div class="card clearfix content_post">
+						<h4 class="ui header">Enable lesson notices</h4>
+						<div class="field">
+							<div class="col-sm-8">
+								<div class="ui checkbox" ng-model="site_options.enable_lesson_notices" sui-checkbox>
+									<input type="checkbox" tabindex="0" class="hidden">
+									<label>Enable</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card clearfix content_post">
+						<h4 class="ui header">Enable site notices</h4>
+						<div class="field">
+							<div class="col-sm-8">
+								<div class="ui checkbox" ng-model="site_options.enable_site_notices" sui-checkbox>
+									<input type="checkbox" tabindex="0" class="hidden">
+									<label>Enable</label>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

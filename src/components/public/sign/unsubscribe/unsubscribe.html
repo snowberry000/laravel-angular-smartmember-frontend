@@ -5,13 +5,15 @@
     <div class="image content">
         <div class="ui medium image">
             <img ng-show="options.site_logo" ng-src="{{options.site_logo}}">
-            <img ng-show="!options.site_logo" src="http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/logo-placeholder.png">
         </div>
         <div class="description">
 
             <h2 class="ui header"> Unsubscribe</h2>
 
             <div class="col span_4_of_6 float_none margin_auto large_bottom_margin">
+
+                <p ng-if="subscriber && subscriber.email && !edit_email">Unsubscribing {{email_address}} <a href="#" ng-click="$parent.edit_email=true">(change)</a></p>
+                <p ng-if="!subscriber || !subscriber.email || edit_email">Enter e-mail address to unsubscribe: <input ng-model="$parent.email_address" ng-change="hash=false" type="text" /> <a href="#" ng-click="$parent.edit_email=false">(save)</a></p>
 
                 <p ng-hide="emailLists.length == 0">Select the lists to unsubscribe</p>
 
@@ -33,9 +35,7 @@
                     </p>
 
                     <p>
-                        <button ng-click="unsubscribe()" class="btn btn_large full_width ladda-button" data-style="expand-right">
-                            <span class="ladda-label">Unsubscribe</span>
-                        </button>
+
                     </p>
 
                 </form>
@@ -46,11 +46,8 @@
         </div>
     </div>
     <div class="actions">
-        <div class="ui black deny button">
-            Nope
-        </div>
-        <div class="ui positive right labeled icon button">
-            Yep, that's me
+        <div class="ui positive right labeled icon button" ng-click="unsubscribe()">
+            Unsubscribe
             <i class="checkmark icon"></i>
         </div>
     </div>
