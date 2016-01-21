@@ -2,7 +2,10 @@
     <div class="header">
         Set up your account
     </div>
-    <div class="content" ng-if="!account.last_logged_in">
+    <div class="ui active inverted dimmer" ng-if="loading">
+        <div class="ui loader"></div>
+    </div>
+    <div class="content" ng-if="!account.last_logged_in && !loading">
         <div class="description">
 
             <div class="ui column middle aligned very relaxed stackable grid container">
@@ -57,7 +60,7 @@
 
         </div>
     </div>
-    <div class="content" ng-if="account.last_logged_in && !account.create_new_account">
+    <div class="content" ng-if="account.last_logged_in && !account.create_new_account && !loading">
         <div class="description">
 
             <div class="ui two column middle aligned very relaxed stackable grid">
@@ -105,7 +108,7 @@
             </div>
         </div>
     </div>
-    <div class="content" ng-if="account.last_logged_in && account.create_new_account">
+    <div class="content" ng-if="account.last_logged_in && account.create_new_account && !loading">
         <div class="description">
 
             <div class="ui two column middle aligned very relaxed stackable grid">
@@ -166,7 +169,7 @@
         </div>
     </div>
     <div class="actions">
-        <a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.forgot')" ng-if="account.last_logged_in">
+        <a class="ui close labeled icon button" ng-click="smModal.Show('public.sign.forgot')" ng-if="account.last_logged_in && !loading">
             Forgot password?
             <i class="lock icon"></i>
         </a>

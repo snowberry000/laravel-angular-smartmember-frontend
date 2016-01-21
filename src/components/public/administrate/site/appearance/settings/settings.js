@@ -31,7 +31,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 			} );
 
 			$scope.site_options.default_syllabus_closed  == '1' ? $scope.site_options.default_syllabus_closed =true : $scope.site_options.default_syllabus_closed = false;
-
+			$scope.site_options.thankyou_use_custom  == '1' ? $scope.site_options.thankyou_use_custom =true : $scope.site_options.thankyou_use_custom = false;
             if( !$scope.site_options.welcome_email_subject )
                 $scope.site_options.welcome_email_subject = 'Welcome to %site_name%';
 
@@ -44,7 +44,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
                     '<strong>Ready to login?</strong> Below you\'ll find your login details and a link to get started.' +
                 '</p>' +
                 '<hr style="border:none;border-bottom:1px solid #ececec;margin:1.5rem 0;width:100%">' +
-                '%login_details%';
+                '%login_details% <br>';
 		} )
 		Restangular.all( 'sharedKey/associatedKey' ).customGET().then( function( data )
 		{
