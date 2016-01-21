@@ -12,7 +12,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, $localStorage, $timeout, $state, $location, $stateParams, $filter, Restangular, toastr, Upload )
+app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, smModal, $localStorage, $timeout, $state, $location, $stateParams, $filter, Restangular, toastr, Upload )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
@@ -403,6 +403,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, $l
 			if( $stateParams.close )
 			{
 				//close( lesson );
+				smModal.Close();
 				return;
 			}
 			if( $rootScope.syllabus_redirect_url )
