@@ -42,9 +42,9 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, $l
 				$next_item = response;
 			} );
 		}
-		else if( $stateParams.clone )
+		else if( $location.search().clone )
 		{
-			$nextItemRequest = Restangular.one( 'lesson', $stateParams.clone ).get().then( function( response )
+			$nextItemRequest = Restangular.one( 'lesson', $location.search().clone ).get().then( function( response )
 			{
 				$next_item = response;
 			} );
@@ -89,7 +89,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, $l
 			success_route: 'public.app.admin.lessons'
 		}
 
-		if( $stateParams.clone )
+		if( $location.search().clone )
 		{
 			delete $next_item.id;
 			delete $next_item.author_id;
@@ -414,9 +414,12 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, $l
 			{
 				$state.go( $scope.template_data.success_route );
 			}
-			$state.transitionTo( $state.current, $state.params, {
+			$timeout(function(){
+				$state.transitionTo( $state.current, $state.params, {
 				reload: true, inherit: false, location: false
 			} );
+			} , 50)
+			
 		} )
 
 	}
