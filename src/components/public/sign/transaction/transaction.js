@@ -54,12 +54,12 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
                 $rootScope.modal_popup_template = false;
                 delete $rootScope.$_GET['cbreceipt'];
 
-                if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
+                if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
+                    location.href = 'http://my.smartmember.' + $rootScope.app.env;
+                } else {
                     $state.go($state.current, $stateParams, {reload: true});
                     smModal.Close();
                 }
-                else
-                    location.href = 'http://my.smartmember.' + $rootScope.app.env;
             },
             function( response )
             {
@@ -97,12 +97,12 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             $rootScope.modal_popup_template = false;
             delete $rootScope.$_GET['cbreceipt'];
 
-            if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
+            if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
+                location.href = 'http://my.smartmember.' + $rootScope.app.env;
+            } else {
                 $state.go($state.current, $stateParams, {reload: true});
                 smModal.Close();
             }
-            else
-                location.href = 'http://my.smartmember.' + $rootScope.app.env;
         } );
     }
 
@@ -116,12 +116,12 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             $rootScope.modal_popup_template = false;
             delete $rootScope.$_GET['cbreceipt'];
 
-            if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
+            if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
+                location.href = 'http://my.smartmember.' + $rootScope.app.env;
+            } else {
                 $state.go($state.current, $stateParams, {reload: true});
                 smModal.Close();
             }
-            else
-                location.href = 'http://my.smartmember.' + $rootScope.app.env;
         },
         function( response )
         {
