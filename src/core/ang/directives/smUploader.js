@@ -63,11 +63,10 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 								}
 							}
 
-							$timeout( function()
-							{
-								smModal.Refresh();
-							}, 1000 );
-
+							// $timeout( function()
+							// {
+							// 	smModal.Refresh();
+							// }, 1000 );
 
 							if( rest )
 							{
@@ -201,11 +200,14 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
 						returnObject.aws_key = data.aws_key;
 					}
 					console.log(returnObject);
-
 					close( returnObject );
 					console.log($stateParams);
+
 					if($stateParams.closeOnModalCompletion == 'true')
 						smModal.Close();
+					// $('.ui.modal.small.upload').modal('hide');
+					$( '.ui.modal.upload' ).modal( 'hide' );
+
 
 				} ).error( function( data, status, headers, config )
 			{
