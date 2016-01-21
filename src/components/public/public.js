@@ -522,7 +522,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 	else if( $localStorage.open_signup_modal )
 	{
-		$state.go( 'public.sign.up' );
+        location.href = $state.href( 'public.sign.up' );
 		// $timeout(function(){
 		// 	smModal.Show( 'public.sign.up' ,{ modal_options : {duration : 0 }} );
 		// } , 50)
@@ -530,7 +530,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 	else if( $localStorage.open_signin_modal )
 	{
-		$state.go( 'public.sign.in' );
+        location.href = $state.href( 'public.sign.in' );
 		// $timeout(function(){
 		// 	smModal.Show('public.sign.in' , { modal_options : {duration : 0 }});
 		// } , 50)
@@ -538,7 +538,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 	else if( $localStorage.open_forgot_modal )
 	{
-		$state.go( 'public.sign.forgot' );
+        location.href = $state.href( 'public.sign.forgot' );
 		// $timeout(function(){
 		// 	smModal.Show('public.sign.forgot' , { modal_options : {duration : 0 }});
 		// } , 50)
@@ -546,7 +546,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 	else if( $localStorage.open_reset_modal )
 	{
-		$state.go( 'public.sign.reset' );
+        location.href = $state.href( 'public.sign.reset' );
 		// if( !$localStorage.user ){
 		// 	$timeout(function(){
 		// 		smModal.Show('public.sign.reset' , { modal_options : {duration : 0 }});
@@ -556,7 +556,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 	else if( $localStorage.open_unsubscribe_modal )
 	{
-		$state.go( 'public.sign.unsubscribe' );
+        location.href = $state.href( 'public.sign.unsubscribe' );
 		$localStorage.open_unsubscribe_modal = null;
 		// $timeout(function(){
 		//     smModal.Show('public.sign.unsubscribe');
