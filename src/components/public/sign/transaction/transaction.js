@@ -12,11 +12,13 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
 {
     console.log('here we goes');
     $scope.account = {};
+    $scope.loading = true;
 
     var $_GET = $rootScope.$_GET;
 
     Restangular.all('').customGET('user/transactionAccount/' + $_GET['cbreceipt']).then(function(response){
         $scope.account = response;
+        $scope.loading = false;
     });
 
     $scope.account.password = '';
@@ -51,8 +53,13 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
 
                 $rootScope.modal_popup_template = false;
                 delete $rootScope.$_GET['cbreceipt'];
-                $state.go($state.current, $stateParams, {reload: true});
-                smModal.Close();
+
+                if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
+                    $state.go($state.current, $stateParams, {reload: true});
+                    smModal.Close();
+                }
+                else
+                    location.href = 'http://my.smartmember.' + $rootScope.app.env;
             },
             function( response )
             {
@@ -89,8 +96,13 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
 
             $rootScope.modal_popup_template = false;
             delete $rootScope.$_GET['cbreceipt'];
-            $state.go($state.current, $stateParams, {reload: true});
-            smModal.Close();
+
+            if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
+                $state.go($state.current, $stateParams, {reload: true});
+                smModal.Close();
+            }
+            else
+                location.href = 'http://my.smartmember.' + $rootScope.app.env;
         } );
     }
 
@@ -103,8 +115,13 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
 
             $rootScope.modal_popup_template = false;
             delete $rootScope.$_GET['cbreceipt'];
-            $state.go($state.current, $stateParams, {reload: true});
-            smModal.Close();
+
+            if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
+                $state.go($state.current, $stateParams, {reload: true});
+                smModal.Close();
+            }
+            else
+                location.href = 'http://my.smartmember.' + $rootScope.app.env;
         },
         function( response )
         {
