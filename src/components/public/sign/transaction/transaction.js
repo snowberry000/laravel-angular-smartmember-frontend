@@ -11,10 +11,14 @@ app.config( function( $stateProvider )
 
 app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http )
 {
-	console.log( 'here we goes' );
 	$scope.account = {};
 
-	var $_GET = $rootScope.$_GET;
+	var $_GET = $localStorage.transaction_params;
+    $rootScope.last_base_state.state = $localStorage.after_transaction_state;
+    $rootScope.last_base_state.params = $localStorage.after_transaction_params;
+    delete $localStorage.transaction_params;
+    delete $localStorage.after_transaction_state;
+    delete $localStorage.after_transaction_params;
 
 	Restangular.all( '' ).customGET( 'user/transactionAccount/' + $_GET[ 'cbreceipt' ] ).then( function( response )
 	{

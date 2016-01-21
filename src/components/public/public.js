@@ -497,10 +497,12 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	{
 		if( !$localStorage.user )
 		{
-			$state.go( 'public.sign.transaction' );
-			// $timeout( function(){
-			//     smModal.Show( 'public.sign.transaction' );
-			// }, 50);
+            $localStorage.transaction_params = $rootScope.$_GET;
+            $localStorage.after_transaction_state = $state.current.name;
+            $localStorage.after_transaction_params = $stateParams;
+            $localStorage.after_transaction_params.permalink = location.href.substr( location.href.lastIndexOf('/') + 1, location.href.indexOf('?') - location.href.lastIndexOf('/') - 1 );
+
+			location.href = $state.href( 'public.sign.transaction' );
 		}
 		else
 		{
