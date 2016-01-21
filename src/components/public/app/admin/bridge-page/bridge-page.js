@@ -7,19 +7,40 @@ app.config( function( $stateProvider, $stickyStateProvider )
 			url: "/bridge-page/:id?",
 			templateUrl: "/templates/components/public/app/admin/bridge-page/bridge-page.html",
 			controller: "BridgePageController",
-			resolve: {}
+			resolve: {
+				$templates: function(Restangular, $stateParams)
+				{
+					return Restangular.all( 'bridgeTemplate' ).customGET( 'getlist' );
+				},
+				$emailLists: function(Restangular, $stateParams)
+				{
+					return Restangular.all( 'emailList' ).customGET();
+				},
+				$page: function(Restangular, $stateParams)
+				{
+					if( $stateParams.id )
+					{
+						return Restangular.one( 'bridgePage', $stateParams.id ).get();
+					}
+					else
+					{
+						return { site_id: $site.id, access_level_type: 4 , permalink : $scope.randomPermalink() };
+					}
+				}
+			}
 		} )
 
 	//$stickyStateProvider.enableDebug(true);
 } );
 
-app.controller( "BridgePageController", function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
+app.controller( "BridgePageController", function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce, $templates,$emailLists, $page)
 {
-	smSidebar.Show( '.top_bp_sidebar_contents', 'bridgepage-editor-controls.html' );
-	smSidebar.Show( '.left_bp_sidebar_contents', 'bridgepage-editor.html' );
-
 	$site = $rootScope.site;
 	$scope.loading = true;
+	$scope.templates = $templates;
+	$scope.emailLists = $emailLists.items;
+	$scope.bridgepage = $page;
+
 
 	$scope.randomPermalink = function(length) {
 	    if( length == undefined )
@@ -37,38 +58,6 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	    return permalink.join('');
 	}
-
-	$templates = Restangular.all( 'bridgeTemplate' ).customGET( 'getlist' ).then( function( response )
-	{
-		$scope.templates = response;
-	} )
-	$emailLists = Restangular.all( 'emailList' ).customGET().then( function( response )
-	{
-		$scope.emailLists = response.items;
-	} )
-
-	if( $stateParams.id )
-	{
-		$page = Restangular.one( 'bridgePage', $stateParams.id ).get().then( function( response )
-		{
-			$scope.bridgepage = response;
-		} )
-	}
-	else
-	{
-		$scope.bridgepage = $page = { site_id: $site.id, access_level_type: 4 , permalink : $scope.randomPermalink() }
-	}
-
-	$dependencies = [ $templates, $emailLists ];
-	if( $stateParams.id )
-	{
-		$dependencies.push( $page );
-	}
-
-	$q.all( $dependencies ).then( function( response )
-	{
-		$scope.initialize()
-	} )
 
 	$scope.loadDefaultValue = function()
 	{
@@ -171,7 +160,9 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		}
 
 		$scope.bridgepage.id ? $scope.page_title = 'Edit page' : $scope.page_title = 'Create page';
-
+		console.log('Bridgepage ID', $scope.bridgepage.id);
+		console.log('CURRENT BRIDGEPAGE', $scope.bridgepage);
+		console.log('CURRENT TEMPLATE', $scope.template);
 		var seo = {};
 		if( $scope.bridgepage.seo_settings )
 		{
@@ -235,17 +226,14 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		}
 
 		$scope.loading = false;
+		console.log('we show sidebar here');
+		smSidebar.Show( '.top_bp_sidebar_contents', 'bridgepage-editor-controls.html' );
+		smSidebar.Show( '.left_bp_sidebar_contents', 'bridgepage-editor.html' );
 	}
 
-	$scope.$watch( 'template', function()
-	{
-		if ($scope.bridgepage!= undefined)
-		{
-			if( $scope.bridgepage.id == undefined )
-				$scope.loadDefaultValue();
-		}
+	$scope.initialize();
 
-	} );
+
 
 	$scope.range = function( min, max, step )
 	{
@@ -351,7 +339,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$scope.close = function()
 	{
-        $state.go('public.app.home');
+        $state.go('public.app.home', {reload: true});
         smSidebar.Close();
         smModal.Show('public.administrate.site.pages.bridge-pages');
 	}
@@ -601,7 +589,7 @@ app.controller( 'bridgepageEngineController', function( $scope, $timeout , $loca
 
 	$scope.close = function()
 	{
-        $state.go('public.app.home');
+        $state.go('public.app.home', {reload: true});
 		smSidebar.Close();
         smModal.Show('public.administrate.site.pages.bridge-pages');
 		$rootScope.viewport = '';
