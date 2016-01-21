@@ -88,6 +88,7 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 
 	$scope.deleteResource = function( id )
 	{
+		
 		var itemWithId = _.find( $scope.data, function( next_item )
 		{
 			return next_item.id == id;

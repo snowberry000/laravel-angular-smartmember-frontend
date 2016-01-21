@@ -6,7 +6,10 @@ app.config( function( $stateProvider )
 		.state( "public.sign.in", {
 			url: "/in/:hash?",
 			templateUrl: "/templates/components/public/sign/in/in.html",
-			controller: 'InController'
+			controller: 'InController',
+			params : {
+				reset : 0
+			}
 		} )
 } );
 
