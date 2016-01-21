@@ -63,6 +63,9 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 
 	}
 
+	console.log('resetFlag:');
+	console.log($stateParams.reset);
+
 	if( $stateParams.reset && $stateParams.reset == 1 )
 	{
 		$scope.reset_sent = 1;
