@@ -100,34 +100,6 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 
 	};
 
-	$scope.updateModuleTitle = function( module_item, $name )
-	{
-		var mod = { 'title': $name };
-		var pageMetaData = Restangular.all( "siteMetaData" );
-		if( module_item.id )
-		{
-			module.customPUT( mod, module_item.id ).then( function()
-			{
-				for( var i = 0; i < $scope.modules.length; i++ )
-				{
-                    if( $scope.modules[ i ].id == module_item.id )
-                    {
-                        $scope.modules[ i ].title = $name;
-                    }
-                }
-                toastr.success( "Module has been saved" );
-			} );
-		}
-		else
-		{
-			pageMetaData.customPOST( { "default_module_title": $name }, "saveSingleOption" ).then( function()
-			{
-				toastr.success( "Default Module name is changed!" );
-				$scope.options[ 'default_module_title' ] = $name;
-			} );
-		}
-	}
-
 	$scope.loading = true;
 	var module = Restangular.all( "module" );
 	var lesson = Restangular.all( "lesson" );
@@ -137,7 +109,6 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 
 	$scope.ModuleSortableOptions = {
 		connectWith: ".connectModulePanels",
-		handler: ".ibox-title",
 		stop: function( e, ui )
 		{
 			$scope.saveSyllabus();
@@ -382,6 +353,64 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 		} )
 	};
 
+    $scope.ConsoleLogIt = function(something) {
+        console.log('incoming data: ', something );
+    }
+
+    $scope.saveModuleTitle = function(module) {
+        var mod = { 'title': module.title };
+        var pageMetaData = Restangular.all( "siteMetaData" );
+        if( module.id )
+        {
+            Restangular.all('module').customPUT( mod, module.id ).then( function()
+            {
+                toastr.success( "Module has been saved" );
+            } );
+        }
+        else if( module.new )
+        {
+            delete module.new;
+            Restangular.all('module').customPOST( module ).then( function( response )
+            {
+                module.isDripFeed = false;
+                module.lessons = [];
+                $scope.$broadcast( 'dataloaded' );
+                toastr.success( "Success! New module is added!" );
+                module.id = response.id;
+            } );
+        }
+        else
+        {
+            pageMetaData.customPOST( { "default_module_title": mod.title }, "saveSingleOption" ).then( function()
+            {
+                toastr.success( "Default Module name is changed!" );
+            } );
+        }
+    }
+
+    $scope.saveLessonTitle = function(next_item) {
+        var les = { 'title': next_item.title, id: next_item.id };
+
+        if( next_item.id )
+        {
+            Restangular.all('lesson').customPUT( les, next_item.id ).then( function()
+            {
+                toastr.success( "Lesson has been saved" );
+            } );
+        }
+        else
+        {
+            Restangular.all('lesson').customPOST( next_item ).then( function( response )
+            {
+                toastr.success( "Success! New lesson is added" );
+                next_item.isOpen = false;
+                next_item.isDripFeed = false;
+                next_item = $scope.accessLevel( next_item );
+
+                next_item.id = response.id;
+            } );
+        }
+    }
 
 	$scope.saveSyllabus = function()
 	{
@@ -423,6 +452,17 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 				toastr.success( "Success! Module saved" );
 			} );
 		}
+        else if(module_item.new )
+        {
+            Restangular.all('module').customPOST( module_item ).then( function( response )
+            {
+                module_item.isDripFeed = false;
+                $scope.$broadcast( 'dataloaded' );
+                toastr.success( "Success! New module is added!" );
+                module_item.id = response.id;
+                delete module_item.new;
+            } );
+        }
 		else
 		{
 			$scope.options.default_module_title;
@@ -477,41 +517,28 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 		for( var i = min; i <= max; i += step ) input.push( i );
 		return input;
 	};
-	$scope.addLesson = function( module_id, title )
+	$scope.addLesson = function( module )
 	{
-		var moduleWithId = _.find( $scope.modules, function( module )
-		{
-			return module.id === module_id;
-		} );
-		moduleWithId.selected = false;
-		if( title == '' )
-		{
-			toastr.error( "Lesson title can not be empty" );
-			return;
-		}
-		var permalink = $filter( 'urlify' )( title );
-		var newLesson = {
-			'module_id': module_id,
+        module.selected = false;
+
+        if( module.new ) {
+            toastr.warning('Your module needs a title before you can add lessons.');
+            return;
+        }
+
+        var newLesson = {
+			module_id: module.id,
 			site_id: $rootScope.site.id,
-			'title': title,
-			access_level_type: 4,
-			permalink: permalink
+            title: '',
+			access_level_type: 4
 		};
 
-		if( !moduleWithId.lessons )
-			moduleWithId.lessons = [];
+		if( !module.lessons )
+			module.lessons = [];
 
-		newLesson.sort_order = moduleWithId.lessons.length + 1;
+		newLesson.sort_order = module.lessons.length + 1;
 
-		lesson.customPOST( newLesson ).then( function( response )
-		{
-			toastr.success( "Success! New lesson is added" );
-			response.isOpen = false;
-			response.isDripFeed = false;
-			response = $scope.accessLevel( response );
-			moduleWithId.lessons.push( response );
-			moduleWithId.pending_lesson = '';
-		} );
+        module.lessons.push( newLesson );
 	}
 	$scope.addUnassignedLesson = function()
 	{
@@ -526,141 +553,15 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	}
 	$scope.addModule = function()
 	{
+        var new_module = {
+            title: '',
+            'new': true,
+            sort_order: $scope.modules.length + 1
+        }
 
-		swal( {
-			title: "Add Module!",
-			text: "Enter Module Name:",
-			type: "input",
-			showCancelButton: true,
-			closeOnConfirm: false,
-			animation: "slide-from-top",
-			inputPlaceholder: "Module name"
-		}, function( inputValue )
-		{
-			if( inputValue === false ) return false;
-			if( inputValue === "" )
-			{
-				swal.showInputError( "You need to write something!" );
-				return false
-			}
-
-			module.customPOST( { title: inputValue } ).then( function( response )
-			{
-				response.isDripFeed = false;
-				$scope.modules.push( response );
-				$scope.modules[ $scope.modules.length - 1 ].lessons = [];
-				$scope.$broadcast( 'dataloaded' );
-				swal.close();
-				toastr.success( "Success! New module is added!" );
-			} );
-
-		} );
-	}
-	$scope.updateCourseTitle = function( course_title )
-	{
-		pageMetaData.customPOST( { "course_title": course_title }, "saveSingleOption" );
+        $scope.modules.push( new_module );
 	}
 
-	$scope.dragControlListeners = {
-		accept: function( sourceItemHandleScope, destSortableScope )
-		{
-			if( sourceItemHandleScope.itemScope.sortableScope.element[ 0 ].id != '12' )
-				return true;
-			else
-				return false;
-		},
-
-		itemMoved: function( $event )
-		{
-			console.log( "moved" + $event.source.sortableScope );
-			setTimeout( $scope.saveSyllabus, 200 );
-		},//Do what you want},
-		orderChanged: function( $event )
-		{
-			console.log( "orderchange" + $event );
-			setTimeout( $scope.saveSyllabus, 200 );
-		},//Do what you want},
-
-		dragStart: function( $event )
-		{
-			$( window ).mousemove( function( e )
-			{
-				var x = $( window ).innerHeight(),
-					y = e.clientY,
-					scrollIncrement = 15,
-					noScrollZone = 300;
-
-				if( typeof $( '.as-sortable-dragging' ) != 'undefined' && typeof $( '.as-sortable-dragging' ).offset() != 'undefined' )
-				{
-					if( y > x / 2 + noScrollZone )
-					{
-						window.scrollBy( 0, scrollIncrement );
-					}
-					if( y < x / 2 - noScrollZone )
-					{
-						window.scrollBy( 0, -1 * scrollIncrement );
-					}
-					else
-					{
-
-					}
-				}
-			} );
-		},
-		dragEnd: function( $event )
-		{
-			$( window ).off();
-		},
-		containment: '#board'//optional param.
-	};
-
-	$scope.dragModuleControlListeners = {
-		accept: function( sourceItemHandleScope, destSortableScope )
-		{
-			return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
-		},
-		itemMoved: function( $event )
-		{
-			console.log( "moved" + $event.source.sortableScope );
-			setTimeout( $scope.saveSyllabus, 200 );
-		},//Do what you want},
-		dragStart: function( $event )
-		{
-			$( window ).mousemove( function( e )
-			{
-				var x = $( window ).innerHeight(),
-					y = e.clientY,
-					scrollIncrement = 15,
-					noScrollZone = 300;
-
-				if( typeof $( '.as-sortable-dragging' ) != 'undefined' && typeof $( '.as-sortable-dragging' ).offset() != 'undefined' )
-				{
-					if( y > x / 2 + noScrollZone )
-					{
-						window.scrollBy( 0, scrollIncrement );
-					}
-					if( y < x / 2 - noScrollZone )
-					{
-						window.scrollBy( 0, -1 * scrollIncrement );
-					}
-					else
-					{
-
-					}
-				}
-			} );
-		},
-		dragEnd: function( $event )
-		{
-			$( window ).off();
-		},
-		orderChanged: function( $event )
-		{
-			console.log( "orderchange" + $event );
-			setTimeout( $scope.saveSyllabus, 200 );
-		},//Do what you want},
-		containment: '#board'//optional param.
-	};
 	$scope.selectedLessons = [];
 
 	$scope.moduleSelected = function( module )
@@ -717,6 +618,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	{
 		$rootScope.syllabus_redirect_url = 'public.administrate.site-content.syllabus';
 	}
+
 	$scope.init();
 } );
 

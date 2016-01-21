@@ -1,101 +1,58 @@
 <div class="ui modal"><i class="close icon"></i>
-	<div class="content" >
-		<div class="row animated fadeInRight">
-			<div class="col-lg-12">
+    <div class="header">
+        <i class="student icon"></i>
+        Lesson organizer
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="ui message">
+                <p>Add new lessons, modules, and re-order them with this organization tool</p>
+            </div>
 
-				<div class="ibox-content page-heading clear_box">
-					<div class="p-xs">
-						<div class="row">
-							<div class="col-md-9">
-								<div class="pull-left m-r-md">
-									<i class="fa fa-globe text-branded mid-icon"></i>
-								</div>
-								<h2 class="ui header">Lesson organizer</h2>
-								<span>Add new lessons, modules, and re-order them with this organization tool</span>
-							</div>
-							<div class="col-md-3 text-right">
-								<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-									<i class="fa fa-question"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
+            <div class="ui attached segment">
+                <button class="ui button" ng-click="addModule()">Add new module</button>
+            </div>
 
-			</div>
-		</div>
+            <div class="ui section divider"></div>
 
-		<div class="row">
-	        <div class="col-lg-9" ng-if="loading">
-	            <div class="sk-spinner sk-spinner-three-bounce">
-	                <div class="sk-bounce1"></div>
-	                <div class="sk-bounce2"></div>
-	                <div class="sk-bounce3"></div>
-	            </div>
-	        </div>
-			<div ng-if="!loading" class="col-lg-9 connectModulePanels" ui-sortable="ModuleSortableOptions">
-				<div class="ibox module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
-					<div class="ibox-title">
-						<h5 class="ui header">{{module.id ? module.title : options['default_module_title'] ? options['default_module_title']: 'Default'}}</h5>
-						
-						<div ibox-tools class="pull-right">
-							
-						</div>
-						<a href="#" ng-if="module.id" style="margin-right:15px;" class="pull-right btn btn-xs btn-white" ng-click="open2(module)">Edit</a>
-						<a href="#" ng-if="!module.id" style="margin-right:15px;" class="pull-right btn btn-xs btn-white" ng-click="open2(module)">Edit</a>
+            <div class="ui active inverted dimmer" ng-if="loading">
+                <div class="ui loader"></div>
+            </div>
 
-					</div>
-
-					<div class="ibox-content">
-
-						<div class="input-group">
-							<input type="text" placeholder="Your lesson title" class="input form-control" ng-init="module.pending_lesson = ''" ng-model="module.pending_lesson">
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-white" ng-click="addLesson(module.id ? module.id : 0, module.pending_lesson)">
-									<i class="fa fa-plus"></i> Add lesson
-								</button>
-							</span>
-						</div>
-						<ul ui-sortable="false" class=" agile-list connectLessons">
-							<li data-ng-repeat="next_item in module.lessons" ng-class="{1:'info-element',2:'success-element', 3:'warning-element', 4:'danger-element', '':'success-element'}[next_item.access_level_type]" class="lesson_item" data-id="{{next_item.id}}">
-
-								<div class="row">
-									<div class="col-sm-3" ng-show="next_item.featured_image">
-										<img src="{{next_item.featured_image}}" class="img-responsive">
-									</div>
-									<div class="col-sm-{{next_item.featured_image ? '9' : '12'}}">
-										{{next_item.title}}
-
-										<div class="agile-detail">
-											<button class="pull-right btn btn-danger btn-outline btn-xs" sm-delete="{{next_item}}">Delete <i class="fa fa-trash"></i></button>
-											<a href="#" class="pull-right btn btn-xs btn-white" ng-click="open1(next_item)">Edit</a>
-											<i class="fa fa-clock-o"></i> {{next_item.access}}
-										</div>
-									</div>
-								</div>
-
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="ibox">
-					<div class="ibox-title">
-						<h5 class="ui header">Add new module</h5>
-					</div>
-					<div class="ibox-content">
-
-						<button class="btn btn-lg btn-block btn-brand" ng-click="addModule()">Add new module</button>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<div class="actions">
-	    <div class="ui black deny button close">
-	        Close
-	    </div>
-	</div>
+            <div ng-if="!loading" class="connectModulePanels"  ui-sortable="ModuleSortableOptions">
+                <div class="ui segments module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
+                    <div class="ui segment">
+                        <div class="tiny ui buttons" style="float:right;">
+                            <button class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
+                            <button class="ui red button" ng-if="module.id || module.new" ng-click="deleteModule(module)" ><i class="align trash icon"></i></button>
+                        </div>
+                        <p>
+                            <a ng-if="module.id || module.new" href="#" editable-text="module.title" onaftersave="saveModuleTitle(module)">{{module.title || 'Empty'}}</a>
+                            <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle(module)">{{options['default_module_title'] || 'Default'}}</a>
+                        </p>
+                    </div>
+                    <div class="ui segments connectLessons" ui-sortable="LessonSortableOptions">
+                        <div class="ui segment lesson_item" data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">
+                            <div class="tiny ui buttons" style="float:right;">
+                                <button class="ui blue button" ng-click="editLesson(lesson)"><i class="align edit icon"></i></button>
+                                <button class="ui red button" ng-click="deleteLesson(lesson)"><i class="align trash icon"></i></button>
+                            </div>
+                            <p>
+                                <a href="#" editable-text="next_item.title" onaftersave="saveLessonTitle(next_item)">{{next_item.title || "Empty"}}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button close">
+            Close
+        </div>
+        <a ng-click="smModal.Show(template_data.edit_route, {modal_options:{closable:false}})" class="ui right labeled icon green button">
+            Create new {{template_data.singular}}
+            <i class="plus icon"></i>
+        </a>
+    </div>
 </div>
