@@ -118,11 +118,14 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $t
 		itemWithId.remove().then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
-			$timeout(function(){
-				$state.transitionTo( $state.current, $state.params, {
+			$state.transitionTo( $state.current, $state.params, {
 				reload: true, inherit: false, location: false
 			} );
-			} , 50)
+			// $timeout(function(){
+			// 	$state.transitionTo( $state.current, $state.params, {
+			// 	reload: true, inherit: false, location: false
+			// } );
+			// } , 50)
 		} );
 	};
 

@@ -9,6 +9,7 @@ app.directive( 'smDelete', function()
 						allowMultiple: true,
 						onApprove: function(){
 							scope.deleteResource(attributes.smDelete);
+							$(".small.delete.modal").modal('hide');
 							return true;
 						}
 					})

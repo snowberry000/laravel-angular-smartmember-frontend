@@ -96,11 +96,14 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 		itemWithId.remove().then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
-			$timeout(function(){
-				$state.transitionTo( $state.current, $state.params, {
-				reload: true, inherit: false, location: false
-			} );
-			} , 50)
+			$state.transitionTo( $state.current, $state.params, {
+					reload: true, inherit: false, location: false
+				} );
+			// $timeout(function(){
+			// 	$state.transitionTo( $state.current, $state.params, {
+			// 		reload: true, inherit: false, location: false
+			// 	} );
+			// } , 50)
 			
 		} );
 	};
