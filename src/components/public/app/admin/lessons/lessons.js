@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AdminLessonsController", function( $scope, $rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr )
+app.controller( "AdminLessonsController", function( $scope, $rootScope, $localStorage,$timeout, $state, $stateParams, $filter, Restangular, toastr )
 {
 	$site = $rootScope.site;
 	$scope.template_data = {
@@ -96,10 +96,11 @@ app.controller( "AdminLessonsController", function( $scope, $rootScope, $localSt
 		itemWithId.remove().then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
-			$setTimeout(
-				function() {$state.transitionTo($state.current, $state.params, { 
-	          reload: true, inherit: false, location: false
-	        });}, 50);
+			$timeout(function(){
+				$state.transitionTo( $state.current, $state.params, {
+				reload: true, inherit: false, location: false
+			} );
+			} , 50)
 			
 		} );
 	};
