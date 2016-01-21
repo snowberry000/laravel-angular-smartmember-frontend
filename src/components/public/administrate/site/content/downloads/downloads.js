@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $localStorage, $state, $stateParams, Restangular, toastr, $filter )
+app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $timeout, $localStorage, $state, $stateParams, Restangular, toastr, $filter )
 {
 	$scope.template_data = {
 		title: 'DOWNLOADS',
@@ -118,9 +118,14 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $l
 		itemWithId.remove().then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
-			$state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+			$state.transitionTo( $state.current, $state.params, {
+				reload: true, inherit: false, location: false
+			} );
+			// $timeout(function(){
+			// 	$state.transitionTo( $state.current, $state.params, {
+			// 	reload: true, inherit: false, location: false
+			// } );
+			// } , 50)
 		} );
 	};
 

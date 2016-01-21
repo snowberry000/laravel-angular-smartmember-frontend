@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("ArticleCategoriesController", function ($scope,smModal,$rootScope, $localStorage, $state, $stateParams,$filter, Restangular, toastr) {
+app.controller("ArticleCategoriesController", function ($scope,smModal,$rootScope, $localStorage, $state, $timeout, $stateParams,$filter, Restangular, toastr) {
 	$site=$rootScope.site;
     $scope.template_data = {
         title: 'HELPDESK_CATEGORIES',
@@ -93,9 +93,14 @@ app.controller("ArticleCategoriesController", function ($scope,smModal,$rootScop
 
         itemWithId.remove().then(function () {
             $scope.data = _.without($scope.data, itemWithId);
-            $state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+            $state.transitionTo( $state.current, $state.params, {
+                reload: true, inherit: false, location: false
+            } );
+            // $timeout(function(){
+            //     $state.transitionTo( $state.current, $state.params, {
+            //     reload: true, inherit: false, location: false
+            // } );
+            // } , 50)
         });
     };
 });

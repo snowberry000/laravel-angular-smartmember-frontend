@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('NotesController', function ($scope, $rootScope, $localStorage, Restangular , $stateParams, $state) {
+app.controller('NotesController', function ($scope, $rootScope, $localStorage, Restangular, $timeout , $stateParams, $state) {
     $site=$rootScope.site;
     $scope.template_data = {
         title: 'LESSON_NOTES',
@@ -96,9 +96,11 @@ app.controller('NotesController', function ($scope, $rootScope, $localStorage, R
 
             itemWithId.remove().then(function () {
                 $scope.data = _.without($scope.data, itemWithId);
-                $state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+                $timeout(function(){
+                $state.transitionTo( $state.current, $state.params, {
+                reload: true, inherit: false, location: false
+            } );
+            } , 50)
             });
     };
 });

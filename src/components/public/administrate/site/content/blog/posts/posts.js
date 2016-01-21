@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "PostsController", function( $scope, $rootScope, $localStorage, $state, $stateParams,  $filter, Restangular, toastr )
+app.controller( "PostsController", function( $scope, $rootScope, $localStorage, $state, $timeout, $stateParams,  $filter, Restangular, toastr )
 {
 	$scope.template_data = {
 		title: 'BLOG_POSTS',
@@ -109,9 +109,14 @@ app.controller( "PostsController", function( $scope, $rootScope, $localStorage, 
 			itemWithId.remove().then( function()
 			{
 				$scope.data = _.without( $scope.data, itemWithId );
-				$state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+				// $timeout(function(){
+				// 				$state.transitionTo( $state.current, $state.params, {
+				// 				reload: true, inherit: false, location: false
+				// 			} );
+				// 			} , 50)
+			$state.transitionTo( $state.current, $state.params, {
+								reload: true, inherit: false, location: false
+							} );
 			} );
 	};
 } );
