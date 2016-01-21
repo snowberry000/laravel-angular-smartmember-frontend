@@ -154,7 +154,8 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
     $scope.template_data = {
         title: 'Livecast',
         cancel_route: 'public.administrate.site.content.livecasts',
-        success_route: 'public.administrate.site.content.livecasts'
+        success_route: 'public.administrate.site.content.livecasts',
+        transcript: false
     }
 
     $scope.strip_tags = function(input, allowed) {

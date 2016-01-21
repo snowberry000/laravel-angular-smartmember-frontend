@@ -112,7 +112,7 @@ app.controller("BridgePagesController", function ($scope, $localStorage, $state,
             Restangular.all('bridgePage').post(clonedBridgePage).then(function (page) {
                 $scope.data.shift(page);
                 toastr.success("Bridge page has been cloned!");
-                $state.go("public.administrate.site.pages.bridge-page" , {"id" : page.id});
+                $state.go("public.app.admin.bridge-page" , {"id" : page.id});
             });
         });
     }
