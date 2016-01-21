@@ -44,7 +44,8 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
                     '<strong>Ready to login?</strong> Below you\'ll find your login details and a link to get started.' +
                 '</p>' +
                 '<hr style="border:none;border-bottom:1px solid #ececec;margin:1.5rem 0;width:100%">' +
-                '%login_details%';
+                '%login_details% <br>' + 
+                '%login_button%';
 		} )
 		Restangular.all( 'sharedKey/associatedKey' ).customGET().then( function( data )
 		{
