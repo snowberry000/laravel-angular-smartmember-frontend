@@ -70,6 +70,7 @@ app.controller('unsubscribeController', function ($location,notify,$state,$scope
 
       $scope.unsubscribe = function()
       {
+        $rootScope.site = $scope.site;
         $ids=[];
         for(var i=0;i<$scope.emailLists.length;i++)
         {
