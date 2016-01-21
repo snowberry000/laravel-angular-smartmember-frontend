@@ -85,19 +85,24 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		var options = $rootScope.last_site_state.state ? null : { reload: true };
 
 		console.log( 'closing the admin state', go_state, params, options );
-
-		$state.go( go_state, params, options );
+		if(go_state)
+			$state.go( go_state, params, options );
 	};
 
 	$rootScope.CloseExtraState = function()
 	{
-		var go_state = $rootScope.last_base_state.state;
+		var go_state = $rootScope.last_base_state.state ;
 		var params = $rootScope.last_base_state.params || null;
 		var options = $rootScope.last_base_state.state ? null : { reload: true };
 
 		console.log( 'closing the extra state', go_state, params, options );
-
-		$state.go( go_state, params, options );
+		if(go_state)
+			$state.go( go_state, params, options );
+		else
+		{
+			window.location.href = "http://"+$location.host();
+		}
+			
 	};
 
 	$rootScope.SiteStateExists = function()

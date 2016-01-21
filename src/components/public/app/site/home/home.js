@@ -35,7 +35,9 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
 		return $scope.cutString( string.replace(/(<([^>]+)>)/ig,""), 200 );
 	}
 
-	if( window.location.pathname == '/' && $rootScope.subdomain != "my" )
+    console.log('home page');
+    console.log(homepage_url);
+    if( (window.location.pathname == '/' || window.location.pathname.indexOf('/sign/')>=0)&& $rootScope.subdomain != "my" )
 	{
 		$homeState = 'public.app.site.lessons';
 
