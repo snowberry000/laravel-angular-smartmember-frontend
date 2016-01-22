@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.membership.passes", {
+		.state( "public.app.admin.members.passes", {
 			url: "/passes",
-			templateUrl: "/templates/components/public/administrate/site/membership/passes/passes.html",
+			templateUrl: "/templates/components/public/app/admin/members/passes/passes.html",
 			controller: "PassesController"
 		} )
 } );
@@ -16,7 +16,7 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 		title: 'PASSES',
 		description: 'Grant members access to your site\'s protected content.',
 		singular: 'pass',
-		edit_route: 'public.administrate.site.membership.pass',
+		edit_route: 'public.app.admin.members.pass',
 		api_object: 'siteRole/passes'
 	}
 	$scope.site = $site = $rootScope.site;

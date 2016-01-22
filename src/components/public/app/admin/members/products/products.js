@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.membership.products", {
+		.state( "public.app.admin.members.products", {
 			url: "/products",
-			templateUrl: "/templates/components/public/administrate/site/membership/products/products.html",
+			templateUrl: "/templates/components/public/app/admin/members/products/products.html",
 			controller: "ProductsController"
 		} )
 } );
@@ -27,7 +27,7 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 		title: 'PRODUCTS',
 		description: 'Access Levels are how you protect your course content & downloads - as well as offer customers a specific item to purchase such as a bronze, silver, or gold membership level.',
 		singular: 'product',
-		edit_route: 'public.administrate.site.membership.product',
+		edit_route: 'public.app.admin.members.product',
 		api_object: 'accessLevel'
 	}
 

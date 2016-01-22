@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.membership.pass",{
+		.state("public.app.admin.members.pass",{
 			url: "/pass/:id?",
-			templateUrl: "/templates/components/public/administrate/site/membership/pass/pass.html",
+			templateUrl: "/templates/components/public/app/admin/members/pass/pass.html",
 			controller: "PassController"
 		})
 }); 
@@ -96,7 +96,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 
 		$scope.update = function(){
 			$scope.access_pass.put().then(function(response){
-				smModal.Show("public.administrate.site.membership.passes");
+				smModal.Show("public.app.admin.members.passes");
 	            toastr.success("Changes saved!");
 			})
 		}
@@ -104,7 +104,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 		$scope.create = function(){
 			Restangular.service("siteRole").post($scope.access_pass).then(function(response){
 	            toastr.success("Access pass created!");
-	            smModal.Show("public.administrate.site.membership.passes");
+	            smModal.Show("public.app.admin.members.passes");
 			});
 		}
 		$scope.resolve();

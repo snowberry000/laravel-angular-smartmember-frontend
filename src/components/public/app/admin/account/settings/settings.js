@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.account.settings",{
+		.state("public.app.admin.account.settings",{
 			url: "/settings",
-			templateUrl: "/templates/components/public/administrate/account/settings/settings.html",
+			templateUrl: "/templates/components/public/app/admin/account/settings/settings.html",
 			controller: "AccountController"
 		})
 }); 

@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.membership.product",{
+		.state("public.app.admin.members.product",{
 			url: "/product/:id?",
-			templateUrl: "/templates/components/public/administrate/site/membership/product/product.html",
+			templateUrl: "/templates/components/public/app/admin/members/product/product.html",
 			controller: "ProductController"
 		})
 }); 
@@ -157,7 +157,7 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 					$rootScope.access_levels[i] = response;
 			};
             toastr.success("Product level updated!");
-			smModal.Show("public.administrate.site.membership.products");
+			smModal.Show("public.app.admin.members.products");
 		})
 	}
 
@@ -167,28 +167,30 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 			//$scope.access_levels.push(response);
 			$rootScope.access_levels.push(response);
             toastr.success("Product level created!");
-            smModal.Show("public.administrate.site.membership.products");
+            smModal.Show("public.app.admin.members.products");
 		});
 	}
 
 	$scope.exists = function(id){
-		if (_.findWhere($scope.access_level.grants,{grant_id: id})){
+		if ( $scope.access_level && _.findWhere($scope.access_level.grants,{grant_id: id})){
 			return true;
 		}
 	}
 
 	$scope.exists_share = function(id) {
-		if (_.findWhere($scope.access_level.shared_grants,{grant_id: id})){
+		if ( $scope.access_level && _.findWhere($scope.access_level.shared_grants,{grant_id: id})){
 			return true;
 		}
 	}
 
     $scope.paymentMethodExists = function(id){
         var $return = false;
-        angular.forEach( $scope.access_level.payment_methods, function( value, key ) {
-            if( value.payment_method_id == id )
-                $return = true;
-        });
+        if( $scope.access_level ) {
+            angular.forEach($scope.access_level.payment_methods, function (value, key) {
+                if (value.payment_method_id == id)
+                    $return = true;
+            });
+        }
 
         return $return;
     }

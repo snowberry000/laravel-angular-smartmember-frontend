@@ -210,7 +210,6 @@
 							</div>
 						</div>
 
-
 					</div>
 
 				</div>
@@ -219,7 +218,7 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div ng-if="!$state.includes('public.my')" class="ui black deny button close">
+		<div ng-if="!$state.includes('public.my')" class="ui black deny button" ng-click="CloseAdminState()">
 			Close
 		</div>
 	</div>
