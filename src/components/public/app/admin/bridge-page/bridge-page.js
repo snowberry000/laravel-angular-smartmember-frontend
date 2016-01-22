@@ -8,62 +8,74 @@ app.config( function( $stateProvider, $stickyStateProvider )
 			templateUrl: "/templates/components/public/app/admin/bridge-page/bridge-page.html",
 			controller: "BridgePageController",
 			resolve: {
-				$templates: function(Restangular, $stateParams)
-				{
-					return Restangular.all( 'bridgeTemplate' ).customGET( 'getlist' );
-				},
-				$emailLists: function(Restangular, $stateParams)
-				{
-					return Restangular.all( 'emailList' ).customGET();
-				},
-				$page: function(Restangular, $stateParams)
-				{
-					if( $stateParams.id )
-					{
-						return Restangular.one( 'bridgePage', $stateParams.id ).get();
-					}
-					else
-					{
-						return { site_id: $site.id, access_level_type: 4 , permalink : $scope.randomPermalink() };
-					}
-				}
+
 			}
 		} )
 
 	//$stickyStateProvider.enableDebug(true);
 } );
 
-app.controller( "BridgePageController", function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce, $templates,$emailLists, $page)
+app.controller( "BridgePageController", function( $scope, $localStorage, smModal, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce)
 {
 	$site = $rootScope.site;
-	$scope.loading = true;
-	$scope.templates = $templates;
-	$scope.emailLists = $emailLists.items;
-	$scope.bridgepage = $page;
-
+	$scope.loading = true
+	smSidebar.Show( '.top_bp_sidebar_contents', 'bridgepage-editor-controls.html' );
+	smSidebar.Show( '.left_bp_sidebar_contents', 'bridgepage-editor.html' );
 
 	$scope.randomPermalink = function(length) {
-	    if( length == undefined )
-	        length = 6;
+		if( length == undefined )
+			length = 6;
 
-	    var characters = "abcdefghijklmnopqrstuwxyz0123456789".split('');
-	    var permalink = [];
-	    var length_of_characters = characters.length;
+		var characters = "abcdefghijklmnopqrstuwxyz0123456789".split('');
+		var permalink = [];
+		var length_of_characters = characters.length;
 
-	    for( var i = 0; i < length; i++ )
-	    {
-	        var n = Math.floor( Math.random() * length_of_characters );
-	        permalink.push( characters[ n ] );
-	    }
+		for( var i = 0; i < length; i++ )
+		{
+			var n = Math.floor( Math.random() * length_of_characters );
+			permalink.push( characters[ n ] );
+		}
 
-	    return permalink.join('');
+		return permalink.join('');
 	}
+
+	$templates = Restangular.all( 'bridgeTemplate' ).customGET( 'getlist' ).then( function( response )
+	{
+		$scope.templates = response;
+	} )
+	$emailLists = Restangular.all( 'emailList' ).customGET().then( function( response )
+	{
+		$scope.emailLists = response.items;
+	} )
+
+	if( $stateParams.id )
+	{
+		$page = Restangular.one( 'bridgePage', $stateParams.id ).get().then( function( response )
+		{
+			$scope.bridgepage = response;
+		} )
+	}
+	else
+	{
+		$scope.bridgepage = $page = { site_id: $site.id, access_level_type: 4 , permalink : $scope.randomPermalink() }
+	}
+	$dependencies = [ $templates, $emailLists ];
+	if( $stateParams.id )
+	{
+		$dependencies.push( $page );
+	}
+
+	$q.all( $dependencies ).then( function( response )
+	{
+		$scope.initialize()
+	} )
+
 
 	$scope.loadDefaultValue = function()
 	{
 		switch( $scope.template.id )
 		{
-            case 5:
+			case 5:
 				$scope.bridgepage.swapspot.logo = 'https://s3.amazonaws.com/smpub/bp/beyondbasick.png';
 				$scope.bridgepage.swapspot.headline = 'Get This Free Time Turner Today 2!';
 				$scope.bridgepage.swapspot.ad = 'https://s3.amazonaws.com/smpub/bp/harrypotter.jpg';
@@ -82,7 +94,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.privacy_text = 'Privacy Policy';
 				$scope.bridgepage.swapspot.copyright = 'Copyright © 2016. All Rights Reserved.';
 				break;
-            case 4:
+			case 4:
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
 				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
 				$scope.bridgepage.swapspot.open_link_new_tab = '_blank';
@@ -96,7 +108,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
 				break;
-            case 6:
+			case 6:
 				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
 				$scope.bridgepage.swapspot.optin_heading = 'Enter your best name & email';
@@ -113,7 +125,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.enable_video = 'none';
 				$scope.bridgepage.swapspot.emailListId = $emailLists[ 0 ];
 				break;
-            case 7:
+			case 7:
 				$scope.bridgepage.swapspot.background_url = 'https://s3.amazonaws.com/smpub/bp/trans-webinar.jpg';
 				$scope.bridgepage.swapspot.tagline_text_color = '#565656';
 				$scope.bridgepage.swapspot.headline_text_color = '#39a0e1';
@@ -194,17 +206,17 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 			$scope.bridgepage.swapspot.optin_action = $sce.trustAsResourceUrl( $scope.bridgepage.swapspot.optin_action );
 			$scope.bridgepage.swapspot.emailListId = _.findWhere( $scope.emailLists, { id: parseInt( $scope.bridgepage.swapspot.sm_list_id ) } ) ||  _.findWhere( $scope.emailLists, { id: $scope.bridgepage.swapspot.sm_list_id + '' } );
 
-            if( $scope.bridgepage.swapspot.access_levels ) {
-                var old_level_ids = $scope.bridgepage.swapspot.access_levels.split(',');
-                $scope.bridgepage.swapspot.access_levels = [];
+			if( $scope.bridgepage.swapspot.access_levels ) {
+				var old_level_ids = $scope.bridgepage.swapspot.access_levels.split(',');
+				$scope.bridgepage.swapspot.access_levels = [];
 
-                angular.forEach( old_level_ids, function(value){
-                    var new_level = _.findWhere( $scope.access_levels, {id: parseInt( value )}) || _.findWhere( $scope.access_levels, {id: value + ''});
+				angular.forEach( old_level_ids, function(value){
+					var new_level = _.findWhere( $scope.access_levels, {id: parseInt( value )}) || _.findWhere( $scope.access_levels, {id: value + ''});
 
-                    if( new_level )
-                        $scope.bridgepage.swapspot.access_levels.push( new_level );
-                });
-            }
+					if( new_level )
+						$scope.bridgepage.swapspot.access_levels.push( new_level );
+				});
+			}
 		}
 		else
 		{
@@ -226,14 +238,8 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		}
 
 		$scope.loading = false;
-		console.log('we show sidebar here');
-		smSidebar.Show( '.top_bp_sidebar_contents', 'bridgepage-editor-controls.html' );
-		smSidebar.Show( '.left_bp_sidebar_contents', 'bridgepage-editor.html' );
+
 	}
-
-	$scope.initialize();
-
-
 
 	$scope.range = function( min, max, step )
 	{
@@ -339,9 +345,9 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 
 	$scope.close = function()
 	{
-        $state.go('public.app.home', {reload: true});
-        smSidebar.Close();
-        smModal.Show('public.administrate.site.pages.bridge-pages');
+		$state.go('public.app.home');
+		smSidebar.DestroyBPSidebar();
+		smModal.Show('public.administrate.site.pages.bridge-pages');
 	}
 
 	$scope.save = function( cloned )
@@ -391,22 +397,22 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 				$scope.bridgepage.swapspot.sm_list_id = $scope.bridgepage.swapspot.emailListId.id;
 			}
 
-            if ( $scope.bridgepage.swapspot.access_levels != undefined)
-            {
-                var level_ids = [];
+			if ( $scope.bridgepage.swapspot.access_levels != undefined)
+			{
+				var level_ids = [];
 
-                angular.forEach( $scope.bridgepage.swapspot.access_levels, function(value){
-                    level_ids.push( value.id );
-                });
+				angular.forEach( $scope.bridgepage.swapspot.access_levels, function(value){
+					level_ids.push( value.id );
+				});
 
-                level_ids = level_ids.join(',');
+				level_ids = level_ids.join(',');
 
-                $scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="access_levels" value="' + level_ids + '">';
-                $scope.bridgepage.swapspot.access_levels = level_ids;
-            }
+				$scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="access_levels" value="' + level_ids + '">';
+				$scope.bridgepage.swapspot.access_levels = level_ids;
+			}
 
-            if( $scope.bridgepage.swapspot.redirect_url != undefined )
-			    $scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="redirect_url" value="' + $scope.bridgepage.swapspot.redirect_url + '">\n';
+			if( $scope.bridgepage.swapspot.redirect_url != undefined )
+				$scope.bridgepage.swapspot.option_hidden_fields += '<input type="hidden" name="redirect_url" value="' + $scope.bridgepage.swapspot.redirect_url + '">\n';
 
 		}
 
@@ -589,9 +595,9 @@ app.controller( 'bridgepageEngineController', function( $scope, $timeout , $loca
 
 	$scope.close = function()
 	{
-        $state.go('public.app.home', {reload: true});
-		smSidebar.Close();
-        smModal.Show('public.administrate.site.pages.bridge-pages');
+		$state.go('public.app.home');
+		smSidebar.DestroyBPSidebar();
+		smModal.Show('public.administrate.site.pages.bridge-pages');
 		$rootScope.viewport = '';
 	}
 
@@ -603,9 +609,9 @@ app.controller( 'bridgepageEngineController', function( $scope, $timeout , $loca
 		//window.location.href = '/';
 		$timeout(function(){
 			$state.transitionTo( $state.current, $stateParams, {
-			 	reload: true, inherit: false, location: false
-		    } );
+				reload: true, inherit: false, location: false
+			} );
 		} , 1000)
-		
+
 	} );
 } );
