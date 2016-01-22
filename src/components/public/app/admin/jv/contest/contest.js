@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.jv.contest", {
+		.state( "public.app.admin.jv.contest", {
 			url: "/contest/:id?",
-			templateUrl: "/templates/components/public/administrate/team/jv/contest/contest.html",
+			templateUrl: "/templates/components/public/app/admin/jv/contest/contest.html",
 			controller: "ContestController"
 		} )
 } );
@@ -170,7 +170,7 @@ app.controller( "ContestController", function( $scope, $filter, Upload, $localSt
 		$scope.contest.put().then( function( response )
 		{
 			toastr.success( "Changes saved!" );
-			smModal.Show( "public.administrate.team.jv.contests" );
+			$state.go('public.app.admin.jv.contests');
 		} );
 	}
 
@@ -189,7 +189,7 @@ app.controller( "ContestController", function( $scope, $filter, Upload, $localSt
 		Restangular.service( "affiliateContest" ).post( $scope.contest ).then( function( response )
 		{
 			toastr.success( "Changes saved!" );
-			smModal.Show( "public.administrate.team.jv.contests" );
+			$state.go('public.app.admin.jv.contests');
 		} );
 	}
 } );

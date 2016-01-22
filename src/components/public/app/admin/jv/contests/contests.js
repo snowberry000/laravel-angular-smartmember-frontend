@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.jv.contests", {
+		.state( "public.app.admin.jv.contests", {
 			url: "/contests",
-			templateUrl: "/templates/components/public/administrate/team/jv/contests/contests.html",
+			templateUrl: "/templates/components/public/app/admin/jv/contests/contests.html",
 			controller: "affiliateContestsController",
 		} )
 } );
@@ -17,7 +17,7 @@ app.controller( "affiliateContestsController", function( $scope, $rootScope, $lo
 		title: 'CONTESTS',
 		description: 'Allow affiliates to compete with one another promoting your Product(s).',
 		singular: 'contest',
-		edit_route: 'public.administrate.team.jv.contest',
+		edit_route: 'public.app.admin.jv.contest',
 		api_object: 'affiliateContest'
 	}
 
