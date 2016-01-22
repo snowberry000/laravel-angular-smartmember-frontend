@@ -318,6 +318,8 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 			case 'months':
 				$scope.bridgepage.swapspot.cta_delay = $scope.bridgepage.swapspot.duration2 * 3600 * 24 * 30 * 1000;
 				break;
+            default:
+                $scope.bridgepage.swapspot.cta_delay = 0;
 		}
 	}
 
