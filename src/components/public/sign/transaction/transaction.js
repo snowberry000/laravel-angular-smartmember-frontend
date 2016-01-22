@@ -11,7 +11,9 @@ app.config( function( $stateProvider )
 
 app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http )
 {
-	$scope.account = {};
+    console.log('here we goes');
+    $scope.account = {};
+    $scope.loading = true;
 
 	var $_GET = $localStorage.transaction_params;
     $rootScope.last_base_state.state = $localStorage.after_transaction_state;
@@ -20,10 +22,11 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
     delete $localStorage.after_transaction_state;
     delete $localStorage.after_transaction_params;
 
-	Restangular.all( '' ).customGET( 'user/transactionAccount/' + $_GET[ 'cbreceipt' ] ).then( function( response )
-	{
-		$scope.account = response;
-	} );
+    Restangular.all( '' ).customGET( 'user/transactionAccount/' + $_GET[ 'cbreceipt' ] ).then( function( response )
+    {
+        $scope.account = response;
+        $scope.loading = false;
+    } );
 
 	$scope.account.password = '';
 	$scope.account.create_new_account = false;
@@ -55,77 +58,89 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
 			{
 				$scope.postAuth( response );
 
-				$rootScope.modal_popup_template = false;
-				delete $rootScope.$_GET[ 'cbreceipt' ];
+                $rootScope.modal_popup_template = false;
+                delete $rootScope.$_GET[ 'cbreceipt' ];
 
-				$rootScope.CloseExtraState();
-			},
-			function( response )
-			{
-				if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
-				{
-					$scope.email_taken = true;
-					$scope.verification_sent = true;
-					$scope.verification_failed = false;
-				}
-				else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
-				{
-					$scope.email_taken = true;
-					$scope.verification_sent = false;
-					$scope.verification_failed = true;
-				}
-			} );
-	}
+                if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
+                    location.href = 'http://my.smartmember.' + $rootScope.app.env;
+                } else {
+                    $rootScope.CloseExtraState();
+                }
+            },
+            function( response )
+            {
+                if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
+                {
+                    $scope.email_taken = true;
+                    $scope.verification_sent = true;
+                    $scope.verification_failed = false;
+                }
+                else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
+                {
+                    $scope.email_taken = true;
+                    $scope.verification_sent = false;
+                    $scope.verification_failed = true;
+                }
+            } );
+    }
 
-	$scope.sendVerificationCode = function()
-	{
-		Restangular.all( 'user/sendVerificationCode' ).customPOST( $scope.account ).then( function( response )
-		{
-			$scope.verification_sent = true;
-			$scope.account.verification_code = '';
-		} );
-	}
+    $scope.sendVerificationCode = function()
+    {
+        Restangular.all( 'user/sendVerificationCode' ).customPOST( $scope.account ).then( function( response )
+        {
+            $scope.verification_sent = true;
+            $scope.account.verification_code = '';
+        } );
+    }
 
-	$scope.associateAccount = function()
-	{
-		$scope.account.transaction = $_GET[ 'cbreceipt' ];
-		Restangular.all( 'user/associateTransactionAccount' ).customPOST( $scope.account ).then( function( response )
-		{
-			$scope.postAuth( response );
+    $scope.associateAccount = function()
+    {
+        $scope.account.transaction = $_GET[ 'cbreceipt' ];
+        Restangular.all( 'user/associateTransactionAccount' ).customPOST( $scope.account ).then( function( response )
+        {
+            $scope.postAuth( response );
 
-			$rootScope.modal_popup_template = false;
-			delete $rootScope.$_GET[ 'cbreceipt' ];
+            $rootScope.modal_popup_template = false;
+            delete $rootScope.$_GET['cbreceipt'];
 
-			$rootScope.CloseExtraState();
-		} );
-	}
+            if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
+                location.href = 'http://my.smartmember.' + $rootScope.app.env;
+            } else {
+                $rootScope.CloseExtraState();
+            }
+        } );
+    }
 
-	$scope.associateNewAccount = function()
-	{
-		$scope.account.transaction = $_GET[ 'cbreceipt' ];
-		Restangular.all( 'user/registerTransactionAccount' ).customPOST( $scope.account ).then( function( response )
-			{
-				$scope.postAuth( response );
+    $scope.associateNewAccount = function()
+    {
+        $scope.account.transaction = $_GET[ 'cbreceipt' ];
+        Restangular.all( 'user/registerTransactionAccount' ).customPOST( $scope.account ).then( function( response )
+        {
+            $scope.postAuth( response );
 
-				$rootScope.modal_popup_template = false;
-				delete $rootScope.$_GET[ 'cbreceipt' ];
+            $rootScope.modal_popup_template = false;
+            delete $rootScope.$_GET['cbreceipt'];
 
-				$rootScope.CloseExtraState();
-			},
-			function( response )
-			{
-				if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
-				{
-					$scope.email_taken = true;
-					$scope.verification_sent = true;
-					$scope.verification_failed = false;
-				}
-				else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
-				{
-					$scope.email_taken = true;
-					$scope.verification_sent = false;
-					$scope.verification_failed = true;
-				}
-			} );
-	}
+            if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
+                location.href = 'http://my.smartmember.' + $rootScope.app.env;
+            } else {
+                $rootScope.CloseExtraState();
+            }
+        },
+        function( response )
+        {
+            if( response && response.data && response.data.message && response.data.message == 'User email already exists' )
+            {
+                $scope.email_taken = true;
+                $scope.verification_sent = true;
+                $scope.verification_failed = false;
+            }
+            else if( response && response.data && response.data.message && response.data.message == 'Verification code invalid' )
+            {
+                $scope.email_taken = true;
+                $scope.verification_sent = false;
+                $scope.verification_failed = true;
+            }
+        } );
+    }
 } );

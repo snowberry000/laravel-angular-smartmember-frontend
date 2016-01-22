@@ -13,6 +13,8 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 				var post = attr.restangular;
 				var model = attr.ngModel;
 				var awskey = attr.ngAwskey;
+				var media_item_id = attr.mediaItemId;
+                
 				var allow_multiple = attr.allowmultiple ? attr.allowmultiple : true;
 				scope.privacy = attr.privacy ? attr.privacy : false;
 				var hideLink = attr.hidelink ? attr.hidelink : false;
@@ -53,6 +55,12 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 									var parsed_model = $parse( model );
 									parsed_model.assign( scope, item.file );
 									ctrl.$setViewValue( item.file );
+								}
+                                if( media_item_id )
+								{
+									var parsed_media_item_id = $parse( media_item_id );
+                                    parsed_media_item_id.assign( scope, item.media_item_id );
+									ctrl.$setViewValue( item.media_item_id );
 								}
 								if( awskey && item.aws_key !== undefined )
 								{
@@ -199,6 +207,10 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
 					{
 						returnObject.aws_key = data.aws_key;
 					}
+                    if( data.media_item_id !== undefined )
+                    {
+                        returnObject.media_item_id = data.media_item_id;
+                    }
 					console.log(returnObject);
 					close( returnObject );
 					console.log($stateParams);

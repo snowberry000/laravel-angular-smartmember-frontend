@@ -91,9 +91,9 @@ app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $l
             });
         } else {
             Restangular.all('get').customGET('download/'+download.id).then(function(response){
-                if( ( response.aws_key != undefined && response.aws_key != '' ) || ( response.my_url != undefined && response.my_url != '' ) )
+                if( ( response.aws_key != undefined && response.aws_key != '' ) || ( response.my_url != undefined && response.my_url != '' ) ) {
                     location.href = $scope.app.apiUrl + '/utility/download?' + ( response.aws_key != undefined ? 'aws_key=' + response.aws_key : 'file=' + response.my_url );
-                else{
+                } else {
                     toastr.error("Something went wrong, your file cannot be downloaded at this time");
                 }
             })
