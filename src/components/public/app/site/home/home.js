@@ -22,7 +22,7 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
         }
 	} );
 
-    if( !homepage_url || homepage_url == 'home' )
+    if( !homepage_url || homepage_url == 'home' || homepage_url == '/' )
         homepage_url = 'lessons';
 
 	$scope.cutString = function(s, n){

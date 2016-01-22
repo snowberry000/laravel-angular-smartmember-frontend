@@ -284,7 +284,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 			if( toState.url == '/admin' )
 			{
 				e.preventDefault();
-				$state.go( 'admin.account.memberships' )
+				$state.go( 'admin.account.memberships' );
 				return;
 			}
 			else
