@@ -38,6 +38,17 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( 'hide' );
 	};
 
+	self.DestroyBPSidebar = function(the_sidebar)
+	{
+		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( 'hide' );
+		$('.ui.sidebar.left_bp_sidebar_contents').each(function() {
+			$(this).remove();
+		})
+		$('.ui.sidebar.top_bp_sidebar_contents').each(function() {
+			$(this).remove();
+		})
+	}
+
 	self.Init = function( the_sidebar )
 	{
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar('toggle');

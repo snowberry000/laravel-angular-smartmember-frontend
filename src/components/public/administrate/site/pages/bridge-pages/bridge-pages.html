@@ -31,7 +31,7 @@
 						</a>
 						<div class="extra">
 							<div class="ui right floated buttons">
-								<div class="ui button" ng-click="smModal.Close();$state.go('public.app.admin.bridge-page',{id: next_item.id},{reload:true});">
+								<div class="ui button" ui-sref="public.app.admin.bridge-page({id: next_item.id })" ng-click="smModal.Close();">
 									Edit
 								</div>
 								<div class="ui floating dropdown icon button" sui-dropdown>
