@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.team.jv",{
+		.state("public.app.admin.jv",{
 			url: "/jv",
-			templateUrl: "/templates/components/public/administrate/team/jv/jv.html",
+			templateUrl: "/templates/components/public/app/admin/jv/jv.html",
 			controller: "JvController"
 		})
 }); 

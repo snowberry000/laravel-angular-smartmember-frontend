@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.app.admin.appearance.banners", {
+		.state( "public.administrate.site.appearance.banners", {
 			url: "/banners",
-			templateUrl: "/templates/components/public/app/admin/appearance/banners/banners.html",
+			templateUrl: "/templates/components/public/administrate/site/appearance/banners/banners.html",
 			controller: "BannersController"
 		} )
 } );

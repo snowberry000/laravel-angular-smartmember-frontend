@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.team.jv.affiliate",{
+		.state("public.app.admin.jv.affiliate",{
 			url: "/affiliate/:id?",
-			templateUrl: "/templates/components/public/administrate/team/jv/affiliate/affiliate.html",
+			templateUrl: "/templates/components/public/app/admin/jv/affiliate/affiliate.html",
 			controller: "AffiliateController"
 		})
 }); 
@@ -34,7 +34,8 @@ app.controller("AffiliateController", function ($scope, $localStorage,$statePara
 	$scope.update = function(){
 	    $scope.affiliate.put().then(function(response){
 	        toastr.success("Changes saved!");
-	        smModal.Show("public.administrate.team.jv.affiliates");
+	        $state.go("public.app.admin.jv.affiliates");
+	        // smModal.Show("public.app.admin.jv.affiliates");
 	        
 	    });
 	}
@@ -43,7 +44,8 @@ app.controller("AffiliateController", function ($scope, $localStorage,$statePara
 	    $scope.affiliate.company_id=$site.company_id;
 	    Restangular.service("affiliate").post($scope.affiliate).then(function(response){
 	        toastr.success("Created!");
-	        smModal.Show("public.administrate.team.jv.affiliates");
+	        $state.go("public.app.admin.jv.affiliates");
+	        // smModal.Show("public.app.admin.jv.affiliates");
 	    });
 	}
 });

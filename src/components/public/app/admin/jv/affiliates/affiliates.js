@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.jv.affiliates", {
+		.state( "public.app.admin.jv.affiliates", {
 			url: "/affiliates",
-			templateUrl: "/templates/components/public/administrate/team/jv/affiliates/affiliates.html",
+			templateUrl: "/templates/components/public/app/admin/jv/affiliates/affiliates.html",
 			controller: "AffiliatesController"
 		} )
 } );
@@ -19,7 +19,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 		title: 'AFFILIATES',
 		description: 'These are your "external promoters" - the people selling your Product(s).',
 		singular: 'affiliate',
-		edit_route: 'public.administrate.team.jv.affiliate',
+		edit_route: 'public.app.admin.jv.affiliate',
 		api_object: 'affiliate'
 	}
 
