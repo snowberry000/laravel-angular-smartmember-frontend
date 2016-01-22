@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.import",{
+		.state("public.app.admin.import",{
 			url: "/import",
-			templateUrl: "/templates/components/public/administrate/site/content/import/import.html",
+			templateUrl: "/templates/components/public/app/admin/import/import.html",
 			controller: "ImportController",
             resolve: {
                 $videosAdded: function(Restangular){
