@@ -506,7 +506,7 @@
             var delta = target - 1000;
             if (delta >= 0) {
                 $('input[name="cta_timestamp"]').val(delta);
-                $('.cta_button').hide();
+                $('.cta_button:not(.preview)').hide();
             } else {
                 $('.cta_button').show();
             }
@@ -583,7 +583,7 @@
 
                                 <div id="fade-box" class="role-element leadstyle-container fadein" data-fadein="10">
 
-                                    <a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" target="{{bridgepage.swapspot.open_link_new_tab}}">
+                                    <a ng-href="{{bridgepage.swapspot.ctaurl}}" class="cta_button" ng-class="{preview: true}" target="{{bridgepage.swapspot.open_link_new_tab}}">
                                         <span class="maintext">{{bridgepage.swapspot.button}}</span>
                                         <span class="subtext">{{bridgepage.swapspot.button2}}</span>
                                     </a>
