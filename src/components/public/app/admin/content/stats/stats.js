@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.app.admin.stats",{
+		.state("public.app.admin.content.stats",{
 			url: "/stats",
-			templateUrl: "/templates/components/public/app/admin/stats/stats.html",
+			templateUrl: "/templates/components/public/app/admin/content/stats/stats.html",
 			controller: "SiteStatsController",
 		    resolve : {
 			    summary : function (Restangular) {
