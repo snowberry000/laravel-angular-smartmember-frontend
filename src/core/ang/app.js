@@ -131,7 +131,7 @@ app.run( function( $rootScope, $localStorage, editableThemes,ipCookie, smModal, 
 		"rootDomain": rootDomain,
 		"appUrl": sub ? "http://" + sub + "." + domain : "http://" + domain,
 		"env": env,
-        "rootEnv": apiURL.split('.').pop(),
+		"rootEnv": apiURL.split('.').pop(),
 		"stripe_pk": 'pk_live_tdjHKO92mUyjNu9fWuMGNEQj',
 		"domain": domain,
 		"subdomain": sub
