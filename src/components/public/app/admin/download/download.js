@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.download",{
+		.state("public.app.admin.download",{
 			url: "/download/:id?",
-			templateUrl: "/templates/components/public/administrate/site/content/download/download.html",
+			templateUrl: "/templates/components/public/app/admin/download/download.html",
 			controller: "DownloadController"
 		})
 }); 
@@ -25,8 +25,8 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                 $download=response;
                 $scope.init();
             });
-        else if($stateParams.clone){
-            Restangular.one('download', $stateParams.clone).get().then(function(response){
+        else if($location.search().clone){
+            Restangular.one('download', $location.search().clone).get().then(function(response){
                 $download=response;
                 $scope.init();
             });
@@ -41,7 +41,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
         if(!$download.id){
             $download.site_id = $scope.site.id;
         }
-        if($stateParams.clone){
+        if($location.search().clone){
             delete $download.id;
             delete $download.access;
             delete $download.author_id;
@@ -83,7 +83,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                 changed = false;
             else
                 changed = true;
-            if (download != oldDownload && changed && !$scope.download.id && !$stateParams.clone) {
+            if (download != oldDownload && changed && !$scope.download.id && !$location.search().clone) {
                   if (timeout) {
                     $timeout.cancel(timeout)
                   }
@@ -145,7 +145,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             delete $scope.download.user_count;
             delete $scope.download.site;
             $scope.download.put().then(function(response){
-                smModal.Show("public.administrate.site.content.downloads");
+                $state.go("public.app.admin.downloads");
                 toastr.success("Download has been saved");
                 $state.transitionTo($state.current, $state.params, {
                   reload: true, inherit: false, location: false
@@ -157,7 +157,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                 if(draft)
                     Restangular.one('draft' , draft.id).remove();
                 $scope.download = download;
-                smModal.Show("public.administrate.site.content.downloads");
+                $state.go("public.app.admin.downloads");
                 toastr.success("Download has been saved!");
                 $state.transitionTo($state.current, $state.params, { 
                   reload: true, inherit: false, location: false

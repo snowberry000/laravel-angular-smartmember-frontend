@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.content.downloads", {
+		.state( "public.app.admin.downloads", {
 			url: "/downloads",
-			templateUrl: "/templates/components/public/administrate/site/content/downloads/downloads.html",
+			templateUrl: "/templates/components/public/app/admin/downloads/downloads.html",
 			controller: "DownloadsController"
 		} )
 } );
@@ -16,7 +16,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $t
 		title: 'DOWNLOADS',
 		description: 'Provided downloadable photos, files, media, and more',
 		singular: 'download',
-		edit_route: 'public.administrate.site.content.download',
+		edit_route: 'public.app.admin.download',
 		api_object: 'download'
 	}
 	$scope.site = $site = $rootScope.site;
