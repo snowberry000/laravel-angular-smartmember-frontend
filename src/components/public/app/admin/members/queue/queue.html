@@ -63,11 +63,11 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="smModal.Show('public.administrate.site.membership.members')" class="ui deny button close">
-			Back
-		</a>
-		<div class="ui black deny button close">
-			Close
-		</div>
+        <div class="ui black deny button" ng-click="CloseAdminState()">
+            Close
+        </div>
+        <div class="ui deny button" ui-sref="public.app.admin.members.list">
+            Back
+        </div>
 	</div>
 </div>

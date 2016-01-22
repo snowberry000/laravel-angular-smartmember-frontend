@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.membership.queue", {
+		.state( "public.app.admin.members.queue", {
 			url: "/queue",
-			templateUrl: "/templates/components/public/administrate/site/membership/queue/queue.html",
+			templateUrl: "/templates/components/public/app/admin/members/queue/queue.html",
 			controller: "ImportQueueController"
 		} )
 } );

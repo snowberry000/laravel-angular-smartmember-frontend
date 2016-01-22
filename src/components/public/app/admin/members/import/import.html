@@ -50,9 +50,12 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button close">
+		<div class="ui black deny button" ng-click="CloseAdminState()">
 			Close
 		</div>
+        <div class="ui deny button" ui-sref="public.app.admin.members.list">
+            Back
+        </div>
 		<a busy ng-click="save()" class="ui right labeled icon green button">
 			Save changes
 			<i class="check icon"></i>

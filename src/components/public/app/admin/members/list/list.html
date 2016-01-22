@@ -123,18 +123,18 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="smModal.Show('public.administrate.site.membership.queue')" class="ui left floated left labeled icon button">
+		<a ui-sref="public.app.admin.members.queue" class="ui left floated left labeled icon button">
 			Import History <span ng-if="active_count && active_count > 0">({{active_count}} job processing)</span>
 			<i class="eye icon"></i>
 		</a>
-		<div class="ui black deny button close">
+		<div class="ui black deny button" ng-click="CloseAdminState()">
 			Close
 		</div>
 		<a href="{{apiURL}}/siteRole/getCSV?access_token={{$storage.user.access_token}}" target="_blank" class="ui right labeled icon button">
 			Export
 			<i class="download icon"></i>
 		</a>
-		<a ng-click="smModal.Show('public.administrate.site.membership.import')" class="ui right labeled icon green button">
+		<a ui-sref="public.app.admin.members.import" class="ui right labeled icon green button">
 			Add / Import
 			<i class="plus icon"></i>
 		</a>

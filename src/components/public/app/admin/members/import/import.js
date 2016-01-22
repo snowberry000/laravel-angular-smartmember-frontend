@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.membership.import",{
+		.state("public.app.admin.members.import",{
 			url: "/import",
-			templateUrl: "/templates/components/public/administrate/site/membership/import/import.html",
+			templateUrl: "/templates/components/public/app/admin/members/import/import.html",
 			controller: "MembersImportController"
 		})
 }); 
@@ -25,7 +25,7 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 	$scope.save = function() {
 	    Restangular.one("siteRole").customPOST($scope.members, 'import').then(function(response) {
 	        toastr.success("Import was successful");
-	        smModal.Show('public.administrate.site.membership.queue');
+	        $state.go('public.app.admin.members.queue');
 	    });
 	}
 
