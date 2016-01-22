@@ -499,12 +499,27 @@
         }
     }
 
+    function pureCountDown() {
+        var cta_timestamp = $('input[name="cta_timestamp"]').val();
+        if (cta_timestamp) {
+            var target = Number(cta_timestamp);
+            var delta = target - 1000;
+            if (delta >= 0) {
+                $('input[name="cta_timestamp"]').val(delta);
+                $('.cta_button').hide();
+            } else {
+                $('.cta_button').show();
+            }
+        }
+    }
+
     window.setInterval(function() {
         showTimer();
     }, 1000);
 
     setInterval(function() {
         updateCountdowns();
+        pureCountDown();
     }, 1000);
 </script>
 <div class="page_container">
@@ -520,6 +535,7 @@
                         </div>
                         <input type="hidden" name="enable_timer" value="{{bridgepage.swapspot.enable_timer}}">
                         <input type="hidden" name="enable_popup" value="{{bridgepage.swapspot.enable_popup}}">
+                        <input type="hidden" name="cta_timestamp" value="{{bridgepage.swapspot.cta_delay}}">
                         <div class="row">
                             <div class="col-md-{{bridgepage.swapspot.enable_timer ? '8' : '12'}} headline_wrapper">
                                 <div class="headline_container">

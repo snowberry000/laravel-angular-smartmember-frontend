@@ -302,6 +302,25 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smModal
 		}
 	}
 
+	$scope.toTimeStampDelay = function()
+	{
+		switch( $scope.bridgepage.swapspot.interval2 )
+		{
+			case 'minutes':
+				$scope.bridgepage.swapspot.cta_delay = $scope.bridgepage.swapspot.duration2 * 60 * 1000;
+				break;
+			case 'hours':
+				$scope.bridgepage.swapspot.cta_delay = $scope.bridgepage.swapspot.duration2 * 3600 * 1000;
+				break;
+			case 'days':
+				$scope.bridgepage.swapspot.cta_delay = $scope.bridgepage.swapspot.duration2 * 3600 * 24 * 1000;
+				break;
+			case 'months':
+				$scope.bridgepage.swapspot.cta_delay = $scope.bridgepage.swapspot.duration2 * 3600 * 24 * 30 * 1000;
+				break;
+		}
+	}
+
 	$scope.onBlurTitle = function( $event )
 	{
 		if( !$scope.bridgepage.permalink )
