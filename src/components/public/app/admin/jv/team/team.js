@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.jv.team", {
+		.state( "public.app.admin.jv.team", {
 			url: "/team/:id?",
-			templateUrl: "/templates/components/public/administrate/team/jv/team/team.html",
+			templateUrl: "/templates/components/public/app/admin/jv/team/team.html",
 			controller: "AffiliateTeamController"
 		} )
 } );
@@ -94,7 +94,7 @@ app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, 
 		{
 			toastr.success( "Team created!" );
 
-			smModal.Show( "public.administrate.team.jv.teams" );
+			$state.go( "public.app.admin.jv.teams" );
 		} );
 	}
 
@@ -121,7 +121,7 @@ app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, 
 		{
 			toastr.success( "Team saved!" );
 
-			smModal.Show( "public.administrate.team.jv.teams" );
+			$state.go( "public.app.admin.jv.teams" );
 		} );
 	}
 } );

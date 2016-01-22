@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.jv.teams", {
+		.state( "public.app.admin.jv.teams", {
 			url: "/teams",
-			templateUrl: "/templates/components/public/administrate/team/jv/teams/teams.html",
+			templateUrl: "/templates/components/public/app/admin/jv/teams/teams.html",
 			controller: "AffiliateTeamsController"
 		} )
 } );
@@ -18,7 +18,7 @@ app.controller( "AffiliateTeamsController", function( $scope, $rootScope, $local
 		title: 'AFFILIATE_TEAMS',
 		description: 'Group affiliates together into "teams" for displaying on leaderboards.',
 		singular: 'affiliate team',
-		edit_route: 'public.administrate.team.jv.team',
+		edit_route: 'public.app.admin.jv.team',
 		api_object: 'affiliateTeam'
 	}
 
