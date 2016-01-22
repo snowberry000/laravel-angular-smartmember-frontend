@@ -324,13 +324,13 @@ app.controller( 'LessonsController', function( $scope, smModal, $rootScope, $loc
 
 	$scope.addModule = function()
 	{
-		smModal.Show( 'public.administrate.site.content.syllabus.module', { close: true }, null, $scope.done );
+		smModal.Show( 'public.app.admin.module', { close: true }, null, $scope.done );
 		$scope.syllabus.current_action = 'add_module';
 	}
 
 	$scope.editModule = function( module )
 	{
-		smModal.Show( 'public.administrate.site.content.syllabus.module', {
+		smModal.Show( 'public.app.admin..module', {
 			id: module.id,
 			close: true
 		}, null, $scope.done );

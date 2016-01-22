@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.content.syllabus.modules", {
+		.state( "public.app.admin.modules", {
 			url: "/modules",
-			templateUrl: "/templates/components/public/administrate/site/content/syllabus/modules/modules.html",
+			templateUrl: "/templates/components/public/app/admin/modules/modules.html",
 			controller: "ModulesController"
 		} )
 } );
@@ -17,7 +17,7 @@ app.controller( "ModulesController", function( $scope, $rootScope, $localStorage
 		title: 'MODULES',
 		description: 'Modules let you group together lessons - think "sections" or "chapters".',
 		singular: 'module',
-		edit_route: 'public.administrate.site.content.syllabus.module',
+		edit_route: 'public.app.admin.module',
 		api_object: 'module'
 	}
 

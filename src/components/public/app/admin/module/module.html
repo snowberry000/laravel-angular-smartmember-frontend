@@ -26,12 +26,16 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div ng-click="smModal.Show('public.administrate.site.content.syllabus.modules')" class="ui black deny button close">
-			Back
-		</div>
+		<a ng-if="!close" ui-sref="public.app.admin.modules" class="ui black button">
+			Cancel
+		</a>
+		<a ng-if="close" class="ui black deny button close">
+			Cancel
+		</a>
 		<a busy ng-click="save()" class="ui right labeled icon green button">
 			Save changes
 			<i class="check icon"></i>
 		</a>
 	</div>
+
 </div>

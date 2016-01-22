@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.syllabus.notes",{
+		.state("public.app.admin.notes",{
 			url: "/notes",
-			templateUrl: "/templates/components/public/administrate/site/content/syllabus/notes/notes.html",
+			templateUrl: "/templates/components/public/app/admin/notes/notes.html",
 			controller: "NotesController"
 		})
 }); 
@@ -15,7 +15,7 @@ app.controller('NotesController', function ($scope, $rootScope, $localStorage, R
         title: 'LESSON_NOTES',
         description: 'These are the notes your members have taken on the lessons they\'ve watched & read',
         singular: 'note',
-        edit_route: 'public.administrate.site.content.syllabus.note',
+        edit_route: 'public.app.admin.note',
         api_object: 'userNote'
     }
 
