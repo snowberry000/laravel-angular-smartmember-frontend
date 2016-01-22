@@ -23,7 +23,7 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
 		title: 'BLOG_POSTS',
 		description: 'Posts are the informational material of your site that go in the blog.',
 		singular: 'post',
-		edit_route: 'public.administrate.site.content.blog.post',
+		edit_route: 'public.app.admin.post',
 		api_object: 'post'
 	}
 	$scope.paginate = function()

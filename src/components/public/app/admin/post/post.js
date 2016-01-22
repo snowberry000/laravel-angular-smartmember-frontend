@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.content.blog.post", {
+		.state( "public.app.admin.post", {
 			url: "/post/:id?",
-			templateUrl: "/templates/components/public/administrate/site/content/blog/post/post.html",
+			templateUrl: "/templates/components/public/app/admin/post/post.html",
 			controller: "PostController"
 		} )
 } );
@@ -133,8 +133,8 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 
 	$scope.template_data = {
 		title: 'Post',
-		cancel_route: 'public.administrate.site.content.blog.posts',
-		success_route: 'public.administrate.site.content.blog.posts',
+		cancel_route: 'public.app.admin.posts',
+		success_route: 'public.app.admin.posts',
 		transcript: false,
 		access_choice: true
 	}
@@ -171,7 +171,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		{
 
 			$scope.next_item.put().then(function(response){
-				smModal.Show("public.administrate.site.content.blog.posts");
+				smModal.Show("public.app.admin.posts");
 				toastr.success( "Your post has been updated!" );
 			})
 		}
@@ -186,7 +186,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 }
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
-                smModal.Show("public.administrate.site.content.blog.posts");
+                smModal.Show("public.app.admin.posts");
 			} );
 		}
 	}
@@ -215,7 +215,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		{
 
 			$scope.next_item.put().then(function(response){
-				smModal.Show("public.administrate.site.content.blog.posts");
+				smModal.Show("public.app.admin.posts");
 				toastr.success( "Your post has been updated!" );
 				$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
@@ -234,7 +234,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 }
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
-				smModal.Show("public.administrate.site.content.blog.posts" );
+				smModal.Show("public.app.admin.posts" );
 				$state.transitionTo($state.current, $state.params, { 
           reload: true, inherit: false, location: false
         });
