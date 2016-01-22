@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.pages.custom-page",{
+		.state("public.app.admin.custom-page",{
 			url: "/custom-page/:id?",
-			templateUrl: "/templates/components/public/administrate/site/pages/custom-page/custom-page.html",
+			templateUrl: "/templates/components/public/app/admin/custom-page/custom-page.html",
 			controller: "CustomPageController",
 			resolve: {
                 $next_item: function( Restangular, $site, $stateParams, $location )
@@ -25,7 +25,7 @@ app.config(function($stateProvider){
 app.controller("CustomPageController", function ($scope, $rootScope, smModal , $localStorage, $location , $timeout ,$state, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.template_data = {
         title: 'Pages',
-        cancel_route: 'public.administrate.pages.pages'
+        cancel_route: 'public.app.admin.custom-pages'
     }
     $site = $rootScope.site;
     $user = $rootScope.user;
@@ -37,7 +37,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         }
         else
         {
-            smModal.Show('public.administrate.site.pages.custom-pages');
+            $state.go('public.app.admin.custom-pages');
         }
     }
     $scope.initialize = function(){
@@ -46,7 +46,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
             $scope.next_item.site_id = $rootScope.site.id;
         }
 
-        if($stateParams.clone){
+        if($location.search().clone){
             delete $scope.next_item.id;
             delete $scope.next_item.access;
             delete $scope.next_item.site;
@@ -82,9 +82,9 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
 
     if( $stateParams.id )
         Restangular.one( 'customPage', $stateParams.id ).get().then(function(response){$scope.next_item = $next_item = response ; console.log($next_item);$scope.initialize()})
-    else if( $stateParams.clone )
+    else if( $location.search().clone )
     {
-        Restangular.one( 'customPage', $stateParams.clone ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
+        Restangular.one( 'customPage', $location.search().clone ).get().then(function(response){$scope.next_item = $next_item = response ; $scope.initialize()})
     }
     else
     {
@@ -147,7 +147,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
             $scope.next_item.access_level_id = 0;
         if ($scope.next_item.id) {
             $scope.next_item.put().then(function(response){
-                smModal.Show("public.administrate.site.pages.custom-pages");
+                $state.go("public.app.admin.custom-pages");
                 toastr.success("Page has been updated!");
             })
         }
@@ -156,7 +156,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
                 if(draft)
                     Restangular.one('draft' , draft.id).remove();
                 $scope.next_item = page;
-                smModal.Show("public.administrate.site.pages.custom-pages");
+                $state.go("public.app.admin.custom-pages");
                 toastr.success("Custom page has been saved!");
             });
         }
