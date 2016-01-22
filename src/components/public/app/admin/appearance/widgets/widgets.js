@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.appearance.widgets", {
+		.state( "public.app.admin.appearance.widgets", {
 			url: "/widgets",
-			templateUrl: "/templates/components/public/administrate/site/appearance/widgets/widgets.html",
+			templateUrl: "/templates/components/public/app/admin/appearance/widgets/widgets.html",
 			controller: "WidgetsController"
 		} )
 } );
