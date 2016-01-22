@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.livecast",{
+		.state("public.app.admin.livecast",{
 			url: "/livecast/:id?",
-			templateUrl: "/templates/components/public/administrate/site/content/livecast/livecast.html",
+			templateUrl: "/templates/components/public/app/admin/livecast/livecast.html",
 			controller: "LivecastController"
 		})
 }); 
@@ -20,7 +20,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             $scope.next_item.site_id = $scope.site.id;
         }
 
-        if($stateParams.clone){
+        if($location.search().clone){
             delete $scope.next_item.id;
             delete $scope.next_item.access;
             delete $scope.next_item.author_id;
@@ -143,8 +143,8 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
     if ( $stateParams.id ) {
         $next_item = Restangular.one('livecast', $stateParams.id).get().then(function(response){$scope.next_item = response , $scope.initialize()});
     }
-    else if($stateParams.clone){
-        $next_item = Restangular.one('livecast', $stateParams.clone).get().then(function(response){$scope.next_item = response , $scope.initialize()});
+    else if($location.search().clone){
+        $next_item = Restangular.one('livecast', $location.search().clone).get().then(function(response){$scope.next_item = response , $scope.initialize()});
     }
     else{
         $scope.next_item = {access_level_type : 4, access_level_id: 0};
@@ -153,8 +153,8 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
 
     $scope.template_data = {
         title: 'Livecast',
-        cancel_route: 'public.administrate.site.content.livecasts',
-        success_route: 'public.administrate.site.content.livecasts',
+        cancel_route: 'public.app.admin.livecasts',
+        success_route: 'public.app.admin.livecasts',
         transcript: false
     }
 
@@ -221,22 +221,22 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             $scope.next_item.access_level_id = 0;
         if($scope.next_item.id){
             $scope.next_item.put().then(function(){
-                smModal.Show('public.administrate.site.content.livecasts');
+                $state.go('public.app.admin.livecasts');
                 toastr.success("Livecast updated!");
-                $state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+                // $state.transitionTo($state.current, $state.params, { 
+                //   reload: true, inherit: false, location: false
+                // });
             });
         }
         else{
             Restangular.all('livecast').post($scope.next_item).then(function(response){
                 if(draft)
                     Restangular.one('draft' , draft.id).remove();
-                smModal.Show('public.administrate.site.content.livecasts');
+                $state.go('public.app.admin.livecasts');
                 toastr.success("Livecast Created!");
-                $state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+                // $state.transitionTo($state.current, $state.params, { 
+                //   reload: true, inherit: false, location: false
+                // });
 
             })
         }
@@ -261,7 +261,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
         }
     }
     //disabling for now because this isn't the draft feature we wanted
-    if( false && !$stateParams.id && !$stateParams.clone)
+    if( false && !$stateParams.id && !$location.search().clone)
     Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'livecasts.content'}).then(function(response){
         if(response.length){
             draft = response[0];
@@ -292,7 +292,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             changed = false;
         else
             changed = true;
-        if (livecast != oldLivecast && changed && !$scope.next_item.id && !$stateParams.clone) {
+        if (livecast != oldLivecast && changed && !$scope.next_item.id && !$$location.search().clone) {
               if (timeout) {
                 $timeout.cancel(timeout)
               }
