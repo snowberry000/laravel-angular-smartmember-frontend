@@ -3,14 +3,14 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.content.syllabus.module", {
+		.state( "public.app.admin.module", {
 			url: "/module/:id?",
-			templateUrl: "/templates/components/public/administrate/site/content/syllabus/module/module.html",
+			templateUrl: "/templates/components/public/app/admin/module/module.html",
 			controller: "ModuleController"
         } )
 } );
 
-app.controller( "ModuleController", function( $scope, smModal, close , $rootScope, $localStorage, $state, $stateParams,  Restangular, toastr )
+app.controller( "ModuleController", function( $scope, smModal , $rootScope, $localStorage, $state, $stateParams,  Restangular, toastr )
 {
 
 	$scope.init=function(){
@@ -55,7 +55,7 @@ app.controller( "ModuleController", function( $scope, smModal, close , $rootScop
 		if( $scope.module.id )
 		{
 			$scope.module.put().then(function(response){
-				smModal.Show('public.administrate.site.content.syllabus.modules');
+				$state.go('public.app.admin.modules');
 				toastr.success( "Module has been updated!" );
 			})
 			if($stateParams.close){
@@ -73,7 +73,7 @@ app.controller( "ModuleController", function( $scope, smModal, close , $rootScop
 					return;
 				}
 				toastr.success( "Module has been saved" );
-				smModal.Show('public.administrate.site.content.syllabus.modules');
+				$state.go('public.app.admin.modules');
 			} );
 		}
 	}
