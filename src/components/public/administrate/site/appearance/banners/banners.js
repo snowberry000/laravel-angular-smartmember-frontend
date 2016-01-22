@@ -18,8 +18,7 @@ app.controller( "BannersController", function( $scope, $rootScope, $state, $http
 	{
 		Restangular.all( 'siteAds' ).getList( { site_id: $site.id, custom_ad: false } ).then( function( response )
 		{
-			$ads = response;
-			$scope.ads = $ads;
+			$scope.ads = response;
 		} );
 	}
 	$scope.currentPage = 1;
@@ -39,27 +38,14 @@ app.controller( "BannersController", function( $scope, $rootScope, $state, $http
 
 	$scope.deleteResource = function( id )
 	{
-		var itemWithId = _.find( $scope.ads, function( next_item )
-		{
-			return next_item.id === parseInt(id);
-		} );
+		var itemWithId = _.findWhere( $scope.ads, {id: parseInt( id ) } ) || _.findWhere( $scope.ads, {id: id + '' } );
 
-		// itemWithId.remove().then( function()
-		// {
-		// 	$scope.data[ $scope.pagination.current_page ] = _.without( $scope.data[ $scope.pagination.current_page ], itemWithId );
-		// } );
-		itemWithId.remove().then( function( response )
-		{
-			for( var i = 0; i < $scope.ads.length; i++ )
-			{
-				if( $scope.ads[ i ].id == itemWithId.id )
-				{
-					$scope.ads.splice( i, 1 );
-					break;
-				}
-			}
-			toastr.success( "Ad removed!" );
-		} );
+        if( itemWithId ) {
+            itemWithId.remove().then(function (response) {
+                $scope.ads = _.without($scope.ads, itemWithId);
+                toastr.success("Ad removed!");
+            });
+        }
 	};
 
 	// $scope.delete = function( $ad )
