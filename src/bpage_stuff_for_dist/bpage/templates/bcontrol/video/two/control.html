@@ -180,17 +180,19 @@
             <h4 >CTA Button Delay</h4>
 
             <select ng-model="bridgepage.swapspot.duration2" ng-change="toTimeStampDelay()"
-                    class="  pull-left" style="width:75px;">
+                    class="  pull-left" style="width:75px;margin-right:5px;">
                 <option ng-repeat="n in range(1,30)" ng-selected="n==bridgepage.swapspot.duration2" value="{{n}}">{{n}}</option>
             </select>
 
             <select ng-model="bridgepage.swapspot.interval2"
-                    class="  pull-left" style="margin-left:5px;width: 120px;" ng-change="toTimeStampDelay()">
+                    class="" style="width: 120px;" ng-change="toTimeStampDelay()">
                 <option value="minutes">Minutes</option>
                 <option value="hours">Hours</option>
                 <option value="days">Days</option>
                 <option value="months">Months</option>
             </select>
+            <br />
+            <p>Note it won't hide during preview</p>
         </div>
         <div class="hr-line-dashed"></div>
         <div class="field">
