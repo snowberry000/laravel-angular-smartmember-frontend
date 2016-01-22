@@ -12,7 +12,16 @@ app.directive( 'smDelete', function()
 							return true;
 						},
 						onHidden: function() {
-							$('.small.delete.modal').not(':first').remove();
+							$('.small.delete.modal').each(function(i) {
+								if (i > 0)
+									$(this).remove();
+							})
+						},
+						onShow: function() {
+							$('.small.delete.modal').each(function(i) {
+								if (i > 0)
+									$(this).remove();
+							})
 						}
 					})
 					.modal('show');
