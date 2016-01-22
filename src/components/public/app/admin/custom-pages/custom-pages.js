@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.pages.custom-pages",{
+		.state("public.app.admin.custom-pages",{
 			url: "/custom-pages",
-			templateUrl: "/templates/components/public/administrate/site/pages/custom-pages/custom-pages.html",
+			templateUrl: "/templates/components/public/app/admin/custom-pages/custom-pages.html",
 			controller: "CustomPagesController"
 		})
 }); 
@@ -14,7 +14,7 @@ app.controller("CustomPagesController", function ($scope, $localStorage, $rootSc
         title: 'PAGES',
         description: 'Create pages to fill your site with content for your members to read / watch / hear.',
         singular: 'page',
-        edit_route: 'public.administrate.site.pages.custom-page',
+        edit_route: 'public.app.admin.custom-page',
         api_object: 'customPage'
     }
 

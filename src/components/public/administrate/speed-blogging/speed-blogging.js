@@ -27,7 +27,7 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
             description: 'Post'
         },
         {
-            route: 'public.administrate.site.pages.custom-page',
+            route: 'public.app.admin.custom-page',
             icon: 'file text',
             description: 'Page'
         }
