@@ -97,7 +97,9 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 		console.log( 'closing the extra state', go_state, params, options );
 		if(go_state)
+		{
 			$state.go( go_state, params, options );
+		}	
 		else
 		{
 			window.location.href = "http://"+$location.host();

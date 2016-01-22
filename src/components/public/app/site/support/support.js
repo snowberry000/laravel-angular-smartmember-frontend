@@ -10,6 +10,7 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('PublicSupportController', function ($scope,$site,$rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr ) {
+    // alert('called');
     $rootScope.page_title = $rootScope.site.name+' - Support';
     $scope.init = function(){
         Restangular.all('supportCategory').getList({public_view:true}).then(function(response){

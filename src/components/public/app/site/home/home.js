@@ -39,6 +39,7 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
     console.log(homepage_url);
     if( (window.location.pathname == '/' || window.location.pathname.indexOf('/sign/')>=0)&& $rootScope.subdomain != "my" )
 	{
+        // alert("came in");
 		$homeState = 'public.app.site.lessons';
 
 		if( homepage_url )
@@ -101,34 +102,42 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
                     switch( response.type )
                     {
                         case "lessons":
-                            $state.go( 'public.app.site.lesson', { permalink: homepage_url }, { location: false } );
+                        //alert('else'+homepage_url);
+                            $timeout(function(){$state.go( 'public.app.site.lesson', { permalink: homepage_url }, { location: false } );},50);
+                            // $state.go( 'public.app.site.lesson', { permalink: homepage_url }, { location: false } );
                             break;
                         case "custom_pages":
-                            $state.go( 'public.app.site.page', { permalink: homepage_url }, { location: false } );
+                            $timeout(function(){$state.go( 'public.app.site.page', { permalink: homepage_url }, { location: false } );},50);
+                            // $state.go( 'public.app.site.page', { permalink: homepage_url }, { location: false } );
                             break;
                         case "download_center":
-                            $state.go( 'public.app.site.download', { permalink: homepage_url }, { location: false } );
+                            $timeout(function(){$state.go( 'public.app.site.download', { permalink: homepage_url }, { location: false } );},50);
+                            // $state.go( 'public.app.site.download', { permalink: homepage_url }, { location: false } );
                             break;
                         case "livecasts":
-                            $state.go( 'public.app.site.livecast', { permalink: homepage_url }, { location: false } );
+                            $timeout(function(){$state.go( 'public.app.site.livecast', { permalink: homepage_url }, { location: false } );},50);
+                            // $state.go( 'public.app.site.livecast', { permalink: homepage_url }, { location: false } );
                             break;
                         case "posts":
-                            $state.go( 'public.app.site.post', { permalink: homepage_url }, { location: false } );
+                            $timeout(function(){$state.go( 'public.app.site.post', { permalink: homepage_url }, { location: false } );},50);
                             break;
                         case "support_articles":
-                            $state.go( 'public.app.site.support-article', { permalink: homepage_url }, { location: false } );
+                            $timeout(function(){$state.go( 'public.app.site.support-article', { permalink: homepage_url }, { location: false } );},50);
                             break;
                         case "bridge_bpages":
-                            $state.go( 'bridgepage', { permalink: homepage_url }, { location: false } );
+                            $timeout(function(){$state.go( 'bridgepage', { permalink: homepage_url }, { location: false } );},50);
+                            
                             break;
                         case "forum_topics":
-                            $state.go("public.app.site.forum-topic",{permalink: homepage_url}, {location: false});
+                            $timeout(function(){$state.go("public.app.site.forum-topic",{permalink: homepage_url}, {location: false});},50);
+                            
                             break;
                         case "forum_categories":
-                            $state.go("public.app.site.forum-category",{permalink: homepage_url}, {location: false});
+                             $timeout(function(){$state.go("public.app.site.forum-category",{permalink: homepage_url}, {location: false});},50);
+                            
                             break;
                         case 'affcontests':
-                            $state.go( 'public.app.site.affiliateContest', { permalink: homepage_url }, { location: false } );
+                            $timeout(function(){$state.go( 'public.app.site.affiliateContest', { permalink: homepage_url }, { location: false } );},50);
                             break;
                         case 'smart_links':
                             location.href = response.redirect_url;
@@ -136,19 +145,23 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
                     }
                     return;
                 } );
+            return;
             }
 		}
 
         if( $homeState == 'public.app.site.home2' )
             $homeState = 'public.app.site.lessons';
 
-        if( typeof $params == 'undefined' )
+        if(  !$params )
         {
-            $state.go( $homeState, {}, { location: false } );
+             $timeout(function(){$state.go( $homeState, {}, { location: false } );},50);
+
+            
         }
         else
         {
-            $state.go( $homeState, $params, { location: false } );
+            $timeout(function(){$state.go( $homeState, $params , { location: false } );},50);
+            // $state.go( $homeState, $params, { location: false } );
         }
 	}
     else

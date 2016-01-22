@@ -143,7 +143,10 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 					//location.reload(true);
 					console.log( 'current state', $state.current.name );
 					
-					$rootScope.CloseExtraState();
+					//$rootScope.CloseExtraState();
+					console.log('last base state');
+					$rootScope.last_base_state.state = {};
+					console.log($rootScope.last_base_state.state);
 					$state.transitionTo('public.app.site.home', {}, { reload: true, inherit: true, notify: true });
 
 					return;
