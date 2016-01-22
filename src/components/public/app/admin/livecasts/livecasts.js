@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.content.livecasts", {
+		.state( "public.app.admin.livecasts", {
 			url: "/livecasts",
-			templateUrl: "/templates/components/public/administrate/site/content/livecasts/livecasts.html",
+			templateUrl: "/templates/components/public/app/admin/livecasts/livecasts.html",
 			controller: "LivecastsController"
 		} )
 } );
@@ -16,7 +16,7 @@ app.controller( "LivecastsController", function( $scope, $stateParams,$state,$ro
 		title: 'LIVECASTS',
 		description: 'Embed live hangout & webinar code or display past recordings',
 		singular: 'livecast',
-		edit_route: 'public.administrate.site.content.livecast',
+		edit_route: 'public.app.admin.livecast',
 		api_object: 'livecast'
 	}
 	$scope.site = $site = $rootScope.site;

@@ -35,7 +35,7 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-click="smModal.Show(template_data.cancel_route)" class="ui black button">
+		<a ui-sref="{{template_data.cancel_route}}" class="ui black button">
 			Cancel
 		</a>
 		<a ng-click="save()" class="ui right labeled green icon button" ng-disabled="!next_item.title">
