@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.content.blog.posts", {
+		.state( "public.app.admin.posts", {
 			url: "/posts",
-			templateUrl: "/templates/components/public/administrate/site/content/blog/posts/posts.html",
+			templateUrl: "/templates/components/public/app/admin/posts/posts.html",
 			controller: "PostsController"
 		} )
 } );
@@ -16,7 +16,7 @@ app.controller( "PostsController", function( $scope, $rootScope, $localStorage, 
 		title: 'BLOG_POSTS',
 		description: 'Posts are the informational material of your site that go in the blog.',
 		singular: 'post',
-		edit_route: 'public.administrate.site.content.blog.post',
+		edit_route: 'public.app.admin.post',
 		api_object: 'post'
 	}
 	$scope.site = $site = $rootScope.site;

@@ -22,7 +22,7 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
             description: 'Lesson'
         },
         {
-            route: 'public.administrate.site.content.blog.post',
+            route: 'public.app.admin.post',
             icon: 'rss',
             description: 'Post'
         },
