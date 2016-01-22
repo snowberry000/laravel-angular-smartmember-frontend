@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.helpdesk.articles",{
+		.state("public.app.admin.helpdesk.articles",{
 			url: "/articles",
-			templateUrl: "/templates/components/public/administrate/site/content/helpdesk/articles/articles.html",
+			templateUrl: "/templates/components/public/app/admin/helpdesk/articles/articles.html",
 			controller: "ArticlesController"
 		})
 }); 
@@ -16,7 +16,7 @@ app.controller("ArticlesController", function ($scope,$rootScope, $localStorage,
         title: 'HELPDESK_ARTICLES',
         description: 'Create a knowledgebase for your members to help answer their most frequently asked questions.',
         singular: 'helpdesk article',
-        edit_route: 'public.administrate.site.content.helpdesk.article',
+        edit_route: 'public.app.admin.helpdesk.article',
         api_object: 'supportArticle'
     }
 

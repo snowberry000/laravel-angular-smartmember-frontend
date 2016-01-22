@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.helpdesk.article",{
+		.state("public.app.admin.helpdesk.article",{
 			url: "/article/:id?",
-			templateUrl: "/templates/components/public/administrate/site/content/helpdesk/article/article.html",
+			templateUrl: "/templates/components/public/app/admin/helpdesk/article/article.html",
 			controller: "ArticleController"
 		})
 }); 
@@ -138,10 +138,8 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
         if($scope.article.id){
             $scope.article.put().then(function(response){
                 toastr.success("Support article edited successfully!");
-                smModal.Show("public.administrate.site.content.helpdesk.articles");
-                $state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+                $state.go("public.app.admin.helpdesk.articles");
+               
             })
         }
         else{
@@ -149,10 +147,8 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
                 if(draft)
                     Restangular.one('draft' , draft.id).remove();
                 toastr.success("Support article added successfully!");
-                smModal.Show("public.administrate.site.content.helpdesk.articles");
-                $state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+                $state.go("public.app.admin.helpdesk.articles");
+                
             })
         }
     }

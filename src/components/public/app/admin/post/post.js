@@ -171,7 +171,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		{
 
 			$scope.next_item.put().then(function(response){
-				smModal.Show("public.app.admin.posts");
+				$state.go("public.app.admin.posts");
 				toastr.success( "Your post has been updated!" );
 			})
 		}
@@ -186,7 +186,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 }
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
-                smModal.Show("public.app.admin.posts");
+                $state.go("public.app.admin.posts");
 			} );
 		}
 	}
@@ -217,9 +217,9 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 			$scope.next_item.put().then(function(response){
 				smModal.Show("public.app.admin.posts");
 				toastr.success( "Your post has been updated!" );
-				$state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+				// $state.transitionTo($state.current, $state.params, { 
+    //       reload: true, inherit: false, location: false
+    //     });
 			})
 		}
 		else
@@ -235,9 +235,9 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
 				smModal.Show("public.app.admin.posts" );
-				$state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+				// $state.transitionTo($state.current, $state.params, { 
+    //       reload: true, inherit: false, location: false
+    //     });
 			} );
 		}
 	}

@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.helpdesk.organizer",{
+		.state("public.app.admin.helpdesk.organizer",{
 			url: "/organizer",
-			templateUrl: "/templates/components/public/administrate/site/content/helpdesk/organizer/organizer.html",
+			templateUrl: "/templates/components/public/app/admin/helpdesk/organizer/organizer.html",
 			controller: "OrganizerController"
 		})
 }); 

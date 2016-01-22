@@ -55,7 +55,7 @@
 
                                             </div>
                                             <div class="col-md-2">
-                                                <a  ng-click="smModal.Show('public.administrate.site.content.helpdesk.article',{id: article.id})" ><i class="fa fa-pencil"></i></a>
+                                                <a  ui-sref="public.app.admin.helpdesk.article({id: article.id})" ><i class="fa fa-pencil"></i></a>
                                                 <a class="delete_lesson" data-bypass="true" ng-click="deleteArticle(article , category)"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </div>
@@ -78,6 +78,8 @@
     </div>
     <div class="actions">
         <button type="button" class="ui right labeled icon button" ng-click="saveSupport()">Save Changes</button>
-        <a class="ui black deny button close">Close</a>
+        <a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
+            Close
+        </a>
     </div>
 </div>
