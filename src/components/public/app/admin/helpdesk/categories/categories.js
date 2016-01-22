@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.helpdesk.categories",{
+		.state("public.app.admin.helpdesk.categories",{
 			url: "/categories",
-			templateUrl: "/templates/components/public/administrate/site/content/helpdesk/categories/categories.html",
+			templateUrl: "/templates/components/public/app/admin/helpdesk/categories/categories.html",
 			controller: "ArticleCategoriesController"
 		})
 }); 
@@ -15,7 +15,7 @@ app.controller("ArticleCategoriesController", function ($scope,smModal,$rootScop
         title: 'HELPDESK_CATEGORIES',
         description: 'Group helpdesk articles together into categories to help organize your knowledgebase.',
         singular: 'helpdesk category',
-        edit_route: 'public.administrate.site.content.helpdesk.category',
+        edit_route: 'public.app.admin.helpdesk.category',
         api_object: 'supportCategory'
     }
 

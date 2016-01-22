@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.helpdesk.category",{
+		.state("public.app.admin.helpdesk.category",{
 			url: "/category/:id",
-			templateUrl: "/templates/components/public/administrate/site/content/helpdesk/category/category.html",
+			templateUrl: "/templates/components/public/app/admin/helpdesk/category/category.html",
 			controller: "CategoryController"
 		})
 }); 
@@ -43,19 +43,13 @@ app.controller("CategoryController", function ($scope,$rootScope,smModal, $local
         if($scope.category.id){
             $scope.category.put().then(function(response){
             	toastr.success("Support category edited successfully!");
-            	smModal.Show("public.administrate.site.content.helpdesk.categories");
-            	$state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+            	$state.go("public.app.admin.helpdesk.categories");
             })
         }
         else{
             Restangular.all('supportCategory').post($scope.category).then(function(response){
                 toastr.success("Support category added successfully!");
-                smModal.Show("public.administrate.site.content.helpdesk.categories");
-                $state.transitionTo($state.current, $state.params, { 
-          reload: true, inherit: false, location: false
-        });
+                $state.go("public.app.admin.helpdesk.categories");
             })
         }
     }
