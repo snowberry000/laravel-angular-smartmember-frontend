@@ -150,7 +150,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                 $state.transitionTo($state.current, $state.params, {
                   reload: true, inherit: false, location: false
                 });
-            })   
+            });
         }
         else {
             Restangular.all('download').post($scope.download).then(function (download) {
