@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.team.jv.stats", {
+		.state( "public.app.admin.jv.stats", {
 			url: "/stats",
-			templateUrl: "/templates/components/public/administrate/team/jv/stats/stats.html",
+			templateUrl: "/templates/components/public/app/admin/jv/stats/stats.html",
 			controller: "AffiliateStatsController",
 			// resolve: {
 			// 	loadPlugin: function( $ocLazyLoad )
@@ -20,7 +20,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AffiliateStatsController", function( $scope, $rootScope, $state, Restangular , smModal)
+app.controller( "AffiliateStatsController", function( $scope, $localStorage,$rootScope, $state, Restangular , smModal)
 {
 	$user = $rootScope.user;
 	$summary = Restangular.all( 'affiliate' ).customGET( 'summary' ).then(function(response){$scope.summary = response ; $summary = response; $scope.init()});
@@ -28,9 +28,11 @@ app.controller( "AffiliateStatsController", function( $scope, $rootScope, $state
 
 	$scope.hasAccess = function( role )
 	{
-		if( typeof role == 'undefined' )
+		if( !role )
 		{
 			role = $user.role;
+			console.log('asdasd');
+			console.log( $user);
 		}
 
 		for( var i = role.length - 1; i >= 0; i-- )
@@ -65,7 +67,7 @@ app.controller( "AffiliateStatsController", function( $scope, $rootScope, $state
 		console.log( access )
 		if( !access )
 		{
-			smModal.Show( 'public.administrate.account.memberships' );
+			$state.go( 'public.administrate.account.memberships' );
 		}
 	}
 

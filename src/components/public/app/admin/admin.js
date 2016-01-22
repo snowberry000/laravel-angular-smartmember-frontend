@@ -13,13 +13,16 @@ app.config(function($stateProvider){
 				}
 			},
 			resolve: {
-
+				$user: function( Restangular, $localStorage )
+				{
+					return Restangular.one( 'user', $localStorage.user.id ).get();
+				}
 
 			}
 		})
 }); 
 
-app.controller("AppAdminController", function ( $scope ) {
-
+app.controller("AppAdminController", function ( $scope,$user,$rootScope ) {
+$rootScope.user =$user;
 
 });
