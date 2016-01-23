@@ -114,7 +114,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 
         Restangular.all('event').post({
             event_name: 'login',
-            'login-url': location.pathname,
+            'login-url': location.href,
             'referring-url': document.referrer
         });
 
