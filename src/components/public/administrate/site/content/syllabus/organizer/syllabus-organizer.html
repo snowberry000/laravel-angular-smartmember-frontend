@@ -11,6 +11,14 @@
 
             <div class="ui attached segment">
                 <button class="ui button" ng-click="addModule()">Add new module</button>
+                <button class="ui button" ng-click="selectAllModules()">Select All Modules</button>
+                <button class="ui button" ng-click="selectAllLessons()">Select All Lessons</button>
+                <button ng-if="anythingChecked('modules')" class="ui button" ng-click="unselectAllModules()">Unselect All Modules</button>
+                <button ng-if="anythingChecked('lessons')" class="ui button" ng-click="unselectAllLessons()">Unselect All Lessons</button>
+                <div class="ui segment" ng-if="anythingChecked()">
+                    <strong>Bulk Actions</strong>
+                    <button class="ui button" sm-delete="selected" delete-function="bulkDelete">Delete</button>
+                </div>
             </div>
 
             <div class="ui section divider"></div>
@@ -24,9 +32,13 @@
                     <div class="ui segment">
                         <div class="tiny ui buttons" style="float:right;">
                             <button class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
-                            <button class="ui red button" ng-if="module.id || module.new" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
+                            <button class="ui red button" ng-if="module.id" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
+                            <button class="ui red button" ng-if="module.new" ng-click="removeNewModule( module )"><i class="align trash icon"></i></button>
                         </div>
                         <p>
+                            <div ng-if="module.id || module.new" class="ui checkbox" ng-model="module.checked" sui-checkbox>
+                                <input type="checkbox" tabindex="0" class="hidden">
+                            </div>
                             <a ng-if="module.id || module.new" href="#" editable-text="module.title" onaftersave="saveModuleTitle(module)">{{module.title || 'Empty'}}</a>
                             <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle(module)">{{options['default_module_title'] || 'Default'}}</a>
                         </p>
@@ -35,9 +47,13 @@
                         <div class="ui segment lesson_item" data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">
                             <div class="tiny ui buttons" style="float:right;">
                                 <button class="ui blue button" ng-click="editLesson(lesson)"><i class="align edit icon"></i></button>
-                                <button class="ui red button" sm-delete="{{next_item.id}}" delete-function="deleteLesson"><i class="align trash icon"></i></button>
+                                <button ng-if="next_item.id" class="ui red button" sm-delete="{{next_item.id}}" delete-function="deleteLesson"><i class="align trash icon"></i></button>
+                                <button ng-if="!next_item.id" class="ui red button" ng-click="removeNewLesson( next_item, module )"><i class="align trash icon"></i></button>
                             </div>
                             <p>
+                                <div class="ui checkbox" ng-model="next_item.checked" sui-checkbox>
+                                    <input type="checkbox" tabindex="0" class="hidden">
+                                </div>
                                 <a href="#" editable-text="next_item.title" onaftersave="saveLessonTitle(next_item)">{{next_item.title || "Empty"}}</a>
                             </p>
                         </div>

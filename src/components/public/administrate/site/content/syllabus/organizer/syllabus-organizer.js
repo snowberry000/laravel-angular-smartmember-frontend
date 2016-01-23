@@ -307,6 +307,60 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 
 	};
 
+    $scope.removeNewLesson = function( lesson, module ) {
+        module.lessons = _.without( module.lessons, lesson );
+    }
+
+    $scope.removeNewModule = function( module ) {
+        $scope.modules = _.without( $scope.modules, module );
+    }
+
+    $scope.selectAllModules = function() {
+        angular.forEach( $scope.modules, function( value ) {
+            value.checked = true;
+        } );
+    }
+
+    $scope.selectAllLessons = function() {
+        angular.forEach( $scope.modules, function( value ) {
+            angular.forEach( value.lessons, function( value2 ) {
+                value2.checked = true;
+            } )
+        } );
+    }
+
+    $scope.unselectAllModules = function() {
+        angular.forEach( $scope.modules, function( value ) {
+            value.checked = false;
+        } );
+    }
+
+    $scope.unselectAllLessons = function() {
+        angular.forEach( $scope.modules, function( value ) {
+            angular.forEach( value.lessons, function( value2 ) {
+                value2.checked = false;
+            } )
+        } );
+    }
+
+    $scope.anythingChecked = function( type ) {
+        var checked = false;
+
+        angular.forEach( $scope.modules, function( value ) {
+            if( value.checked && ( !type || type == 'modules' ) )
+                checked = true;
+
+            if( !checked && ( !type || type == 'lessons' ) ) {
+                angular.forEach(value.lessons, function (value2) {
+                    if( value2.checked )
+                        checked = true;
+                });
+            }
+        } );
+
+        return checked;
+    }
+
 	$scope.deleteModule = function( module_id )
 	{
         var moduleWithId = _.findWhere( $scope.modules, { id: parseInt( module_id ) } ) || _.findWhere( $scope.modules, { id: module_id + '' } );
@@ -327,6 +381,27 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
             $scope.saveSyllabus();
         } );
 	};
+
+    $scope.bulkDelete = function() {
+        angular.forEach( $scope.modules, function(value) {
+            angular.forEach( value.lessons, function( value2 ) {
+                if( value2.checked ) {
+                    if( value2.id )
+                        $scope.deleteLesson(value2.id);
+                    else
+                        $scope.removeNewLesson( value2, value );
+                }
+            } );
+
+            if( value.checked ) {
+
+                if( value.id )
+                    $scope.deleteModule(value.id);
+                else
+                    $scope.removeNewModule( value );
+            }
+        } );
+    }
 
     $scope.ConsoleLogIt = function(something) {
         console.log('incoming data: ', something );
