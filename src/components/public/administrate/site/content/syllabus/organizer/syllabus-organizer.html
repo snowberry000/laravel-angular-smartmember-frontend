@@ -24,7 +24,7 @@
                     <div class="ui segment">
                         <div class="tiny ui buttons" style="float:right;">
                             <button class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
-                            <button class="ui red button" ng-if="module.id || module.new" ng-click="deleteModule(module)" ><i class="align trash icon"></i></button>
+                            <button class="ui red button" ng-if="module.id || module.new" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
                         </div>
                         <p>
                             <a ng-if="module.id || module.new" href="#" editable-text="module.title" onaftersave="saveModuleTitle(module)">{{module.title || 'Empty'}}</a>
@@ -35,7 +35,7 @@
                         <div class="ui segment lesson_item" data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">
                             <div class="tiny ui buttons" style="float:right;">
                                 <button class="ui blue button" ng-click="editLesson(lesson)"><i class="align edit icon"></i></button>
-                                <button class="ui red button" ng-click="deleteLesson(lesson)"><i class="align trash icon"></i></button>
+                                <button class="ui red button" sm-delete="{{next_item.id}}" delete-function="deleteLesson"><i class="align trash icon"></i></button>
                             </div>
                             <p>
                                 <a href="#" editable-text="next_item.title" onaftersave="saveLessonTitle(next_item)">{{next_item.title || "Empty"}}</a>

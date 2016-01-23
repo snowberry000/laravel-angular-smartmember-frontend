@@ -292,65 +292,40 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 		return lesson;
 	}
 
-	$scope.deleteResource = function( lesson_item, module )
+	$scope.deleteLesson = function( lesson_id )
 	{
-		lesson_item = JSON.parse( lesson_item );
-		if( !lesson_item.id )
+        Restangular.one( "lesson", lesson_id ).remove().then( function()
 		{
-            if( module )
-
-            {
-                module.lessons = _.without( module.lessons, lesson_item );
-            }
-            else
-                $scope.unassigned_lessons = _.without( $scope.unassigned_lessons, lesson_item );
-            return;
-        }
-
-        Restangular.one( "lesson", lesson_item.id ).remove().then( function()
-		{
-			if( module )
-				module.lessons = _.without( module.lessons, lesson_item );
-			else
-				$scope.unassigned_lessons = _.without( $scope.unassigned_lessons, lesson_item );
+            angular.forEach( $scope.modules, function( value ) {
+                angular.forEach( value.lessons, function( value2 ) {
+                    if( value2.id == lesson_id ) {
+                        value.lessons = _.without(value.lessons, value2);
+                    }
+                } );
+            } );
 		} );
 
 	};
 
 	$scope.deleteModule = function( module_id )
 	{
+        var moduleWithId = _.findWhere( $scope.modules, { id: parseInt( module_id ) } ) || _.findWhere( $scope.modules, { id: module_id + '' } );
 
-		var modalInstance = $modal.open( {
-			templateUrl: '/templates/modals/deleteConfirm.html',
-			controller: "modalController",
-			scope: $scope,
-			resolve: {
-				id: function()
-				{
-					return module_id
-				}
-			}
+        var lessons = moduleWithId.lessons;
 
-		} );
-		modalInstance.result.then( function()
-		{
-			var moduleWithId = _.find( $scope.modules, function( module )
-			{
-				return module.id === module_id;
-			} );
-			var lessons = moduleWithId.lessons;
-			//console.log(lessons);
+        Restangular.one( "module", moduleWithId.id ).remove().then( function()
+        {
+            $scope.modules = _.without( $scope.modules, moduleWithId );
 
-			Restangular.one( "module", moduleWithId.id ).remove().then( function()
-			{
-				$scope.modules = _.without( $scope.modules, moduleWithId );
-				//$scope.init();
-				angular.forEach( lessons, function( value, key )
-				{
-					$scope.unassigned_lessons.push( value );
-				} )
-			} );
-		} )
+            var defaultModule = _.findWhere( $scope.modules, { id: 0 } ) || _.findWhere( $scope.modules, { id: '0' } );
+
+            angular.forEach( lessons, function( value, key )
+            {
+                defaultModule.lessons.push( value );
+            } );
+
+            $scope.saveSyllabus();
+        } );
 	};
 
     $scope.ConsoleLogIt = function(something) {
