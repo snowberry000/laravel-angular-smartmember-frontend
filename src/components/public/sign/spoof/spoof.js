@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller( 'SpoofController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
+app.controller( 'SpoofController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http, smEvent )
 {
     var auth = Restangular.all( 'auth' );
     var authorized_user = {};
@@ -18,6 +18,10 @@ app.controller( 'SpoofController', function( $rootScope, $scope, toastr, ipCooki
         authorized_user = $localStorage.user;
     }
 
+    smEvent.Log( 'login-spoof', {
+        'request-url': location.href,
+        'spoofed-email': $stateParams.email
+    } );
 
     auth.customPOST( { user: authorized_user, email: $stateParams.email }, "spoof" ).then( function( response )
     {
