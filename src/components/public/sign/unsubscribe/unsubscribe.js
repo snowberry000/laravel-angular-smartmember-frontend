@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('unsubscribeController', function ($location,notify,$state,$scope, $rootScope, $localStorage, Restangular, smModal) {
+app.controller('unsubscribeController', function ($location,notify,$state,$scope, $rootScope, $localStorage, Restangular, smModal, smEvent) {
 
     if( $localStorage.unsubscribe_parameters ) {
         $rootScope.$_GET = $localStorage.unsubscribe_parameters;
@@ -61,6 +61,10 @@ app.controller('unsubscribeController', function ($location,notify,$state,$scope
     $scope.site_id = $rootScope.$_GET['network_id'];
     $scope.job_id = $rootScope.$_GET['job_id'];
     $scope.list_type = $rootScope.$_GET['list_type'];
+
+    if( !$scope.list_type )
+        $scope.list_type = 'segment';
+
     $rootScope.is_admin=true;
     $scope.emailLists=[];
     $scope.reason="";
@@ -78,6 +82,15 @@ app.controller('unsubscribeController', function ($location,notify,$state,$scope
         $params = {"hash":$scope.hash, "job_id": $scope.job_id, "reason":$scope.reason,
                    "site_id":$scope.site_id, "list_type" : $scope.list_type, 'lists': $ids,
                    "email_address": $scope.email_address};
+
+          smEvent.Log( 'unsubscribed', {
+              'email': $scope.email_address,
+              'request-url': location.href,
+              'referring-url': document.referrer,
+              'reason': $scope.reason,
+              'list-type': $scope.list_type,
+              'lists': $ids
+          } );
 
         Restangular.one('emailSubscriber').post('unsubscribe',$params).then(function(response){
             smModal.Show("public.sign.unsubscribed");
