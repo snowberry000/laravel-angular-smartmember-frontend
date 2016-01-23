@@ -112,6 +112,12 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 		}
 		$rootScope.first_login_view = true;
 
+        Restangular.all('event').post({
+            event_name: 'login',
+            'login-url': location.pathname,
+            'referring-url': document.referrer
+        });
+
 		Restangular.one( 'user', $localStorage.user.id ).get().then( function( response )
 		{
 			if( false )// || $scope.isAgentOrGreater( response ) )
