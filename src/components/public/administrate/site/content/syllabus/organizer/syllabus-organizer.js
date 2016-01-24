@@ -29,6 +29,14 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	$site = $rootScope.site;
 	$user = $rootScope.user;
 	$scope.options = {};
+
+    $scope.access_level_choices = [
+        { value: 0, name: 'Draft (admin-only)' },
+        { value: 1, name: 'Members' },
+        { value: 2, name: 'Locked' },
+        { value: 3, name: 'Visitors' }
+    ];
+
 	$scope.open1 = function( next_item )
 	{
 		var modalInstance = $modal.open( {
@@ -76,28 +84,6 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 		{
 			next_item = $scope.accessLevel( next_item );
 		} )
-	};
-
-	$scope.open2 = function( module_item )
-	{
-		$scope.module_item = module_item;
-		var modalInstance = $modal.open( {
-			size: 'lg',
-			templateUrl: 'templates/modals/moduleModal.html',
-			controller: "modalController",
-			scope: $scope,
-			resolve: {
-				module_item: function()
-				{
-					return module_item;
-				}
-			}
-		} );
-
-		modalInstance.result.then( function()
-		{
-		} )
-
 	};
 
 	$scope.loading = true;
@@ -272,6 +258,32 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 		item = $scope.accessLevel( item )
 	}
 
+    $scope.showAccessLevel = function( lesson )
+    {
+        if( lesson.access_level_id )
+        {
+            var access_level = _.findWhere( $scope.access_levels, {id: parseInt( lesson.access_level_id ) } ) || _.findWhere( $scope.access_levels, {id: lesson.access_level_id + '' } );
+
+            if( access_level )
+                return access_level.name;
+        }
+
+        return "All Members";
+    }
+
+    $scope.showAccessLevelType = function( lesson )
+    {
+        if( lesson.access_level_type )
+        {
+            var access_type = _.findWhere( $scope.access_level_choices, { value: parseInt( lesson.access_level_type ) } ) || _.findWhere( $scope.access_level_choices, { value: lesson.access_level_type + '' } );
+
+            if( access_type )
+                return access_type.name;
+        }
+
+        return "Visitors";
+    }
+
 	$scope.accessLevel = function( lesson )
 	{
 		switch( lesson.access_level_type )
@@ -341,6 +353,29 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
                 value2.checked = false;
             } )
         } );
+    }
+
+    $scope.selectLessonsInModule = function(module) {
+        angular.forEach( module.lessons, function( value ) {
+            value.checked = true;
+        } );
+    }
+
+    $scope.unselectLessonsInModule = function(module) {
+        angular.forEach( module.lessons, function( value ) {
+            value.checked = false;
+        } );
+    }
+
+    $scope.lessonSelectedInModule = function(module) {
+        var checked = false;
+
+        angular.forEach( module.lessons, function( value ) {
+            if( value.checked )
+                checked = true;
+        } );
+
+        return checked;
     }
 
     $scope.anythingChecked = function( type ) {
@@ -458,6 +493,22 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
                 next_item = $scope.accessLevel( next_item );
 
                 next_item.id = response.id;
+            } );
+        }
+    }
+
+    $scope.saveLessonAccessLevel = function(next_item) {
+        var les = {
+            'access_level_id': next_item.access_level_type != 2 && next_item.access_level_type != '2' ? 0 : next_item.access_level_id,
+            'access_level_type': next_item.access_level_type,
+            id: next_item.id
+        };
+
+        if( next_item.id )
+        {
+            Restangular.all('lesson').customPUT( les, next_item.id ).then( function()
+            {
+                toastr.success( "Lesson has been saved" );
             } );
         }
     }

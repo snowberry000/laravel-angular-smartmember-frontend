@@ -1,4 +1,55 @@
-<div class="ui modal"><i class="close icon"></i>
+<div class="ui modal">
+    <i class="close icon"></i>
+    <style>
+        .item-wrapper a{
+            /* make the link always show up */
+            display: inline !important;
+        }
+
+        .item-wrapper{
+            /* make absolutely positioned children constrained to this box*/
+            position: relative;
+        }
+
+        .item-wrapper form {
+            background: #FFF;
+            border: 1px solid #AAA;
+            border-radius: 5px;
+            display: inline-block;
+            left: 50%;
+
+            /* half the width */
+            margin-left: -110px;
+            padding: 7px;
+            position: absolute;
+            top: -55px;
+            z-index: 101;
+        }
+
+        .item-wrapper form:before{
+            content:"";
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #AAA;
+            position:absolute;
+            bottom:-10px;
+            left:100px;
+        }
+
+        .item-wrapper form:after{
+            content:"";
+            width:0;
+            height:0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-top: 9px solid #FFF;
+            position:absolute;
+            bottom:-9px;
+            left:101px;
+        }
+    </style>
     <div class="header">
         <i class="student icon"></i>
         Lesson organizer
@@ -31,7 +82,9 @@
                 <div class="ui segments module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
                     <div class="ui segment">
                         <div class="tiny ui buttons" style="float:right;">
-                            <button class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
+                            <button ng-if="!module.new" class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
+                            <button ng-if="module.lessons.length > 0" class="ui blue button" ng-click="selectLessonsInModule( module )">Select Lessons</button>
+                            <button ng-if="module.lessons.length > 0 && lessonSelectedInModule( module )" class="ui orange button" ng-click="unselectLessonsInModule( module )">Unselect Lessons</button>
                             <button class="ui red button" ng-if="module.id" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
                             <button class="ui red button" ng-if="module.new" ng-click="removeNewModule( module )"><i class="align trash icon"></i></button>
                         </div>
@@ -45,17 +98,37 @@
                     </div>
                     <div class="ui segments connectLessons" ui-sortable="LessonSortableOptions">
                         <div class="ui segment lesson_item" data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">
-                            <div class="tiny ui buttons" style="float:right;">
-                                <button class="ui blue button" ng-click="editLesson(lesson)"><i class="align edit icon"></i></button>
-                                <button ng-if="next_item.id" class="ui red button" sm-delete="{{next_item.id}}" delete-function="deleteLesson"><i class="align trash icon"></i></button>
-                                <button ng-if="!next_item.id" class="ui red button" ng-click="removeNewLesson( next_item, module )"><i class="align trash icon"></i></button>
-                            </div>
-                            <p>
-                                <div class="ui checkbox" ng-model="next_item.checked" sui-checkbox>
-                                    <input type="checkbox" tabindex="0" class="hidden">
+                            <div class="ui grid">
+                                <div class="four wide column">
+                                    <div class="ui checkbox" ng-model="next_item.checked" sui-checkbox>
+                                        <input type="checkbox" tabindex="0" class="hidden">
+                                    </div>
+                                    <a href="#" editable-text="next_item.title" onaftersave="saveLessonTitle(next_item)">{{next_item.title || "Empty"}}</a>
                                 </div>
-                                <a href="#" editable-text="next_item.title" onaftersave="saveLessonTitle(next_item)">{{next_item.title || "Empty"}}</a>
-                            </p>
+                                <div class="four wide column">
+                                    <span class='item-wrapper'>
+                                        <a href="#" editable-select="next_item.access_level_type" e-ng-options="a.value as a.name for a in access_level_choices" onaftersave="saveLessonAccessLevel(next_item)">
+                                            {{ showAccessLevelType( next_item ) }}
+                                        </a>
+                                    </span>
+                                    <br />
+                                    <span class='item-wrapper' ng-if="next_item.access_level_type == 2">
+                                        <a href="#" editable-select="next_item.access_level_id" e-ng-options="a.id as a.name for a in access_levels" onaftersave="saveLessonAccessLevel(next_item)">
+                                            {{ showAccessLevel( next_item ) }}
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="four wide column">
+
+                                </div>
+                                <div class="four wide column">
+                                    <div class="tiny ui buttons" style="float:right;">
+                                        <button class="ui blue button" ng-click="editLesson(lesson)"><i class="align edit icon"></i></button>
+                                        <button ng-if="next_item.id" class="ui red button" sm-delete="{{next_item.id}}" delete-function="deleteLesson"><i class="align trash icon"></i></button>
+                                        <button ng-if="!next_item.id" class="ui red button" ng-click="removeNewLesson( next_item, module )"><i class="align trash icon"></i></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
