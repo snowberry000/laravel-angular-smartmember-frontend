@@ -112,7 +112,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 		}
 		$rootScope.first_login_view = true;
 
-        smEvent.Log( 'login', {
+        smEvent.Log( 'logged-in', {
             'login-url': location.href,
             'referring-url': document.referrer
         });
