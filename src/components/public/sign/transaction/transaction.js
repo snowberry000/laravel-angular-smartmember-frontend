@@ -51,7 +51,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             {
                 $scope.postAuth( response );
 
-                smEvent.Log( 'initial-account-setup', {
+                smEvent.Log( 'connected-to-a-jvzoo-receipt', {
                     'request-url': location.href,
                     'cbreceipt': $_GET['cbreceipt']
                 } );
@@ -62,7 +62,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
                 if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                     location.href = 'http://my.smartmember.' + $rootScope.app.env;
 
-                    smEvent.Log( 'redirected-from-sm-to-my', {
+                    smEvent.Log( 'landed-on-my-setup-site', {
                         'request-url': location.href
                     } );
                 } else {
@@ -114,7 +114,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                 location.href = 'http://my.smartmember.' + $rootScope.app.env;
 
-                smEvent.Log( 'redirected-from-sm-to-my', {
+                smEvent.Log( 'landed-on-my-setup-site', {
                     'request-url': location.href
                 } );
             } else {
@@ -137,7 +137,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                 location.href = 'http://my.smartmember.' + $rootScope.app.env;
 
-                smEvent.Log( 'redirected-from-sm-to-my', {
+                smEvent.Log( 'landed-on-my-setup-site', {
                     'request-url': location.href
                 } );
             } else {
