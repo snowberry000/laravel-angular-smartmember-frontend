@@ -408,7 +408,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		{
 			$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
 
-            smEvent.Log( 'transaction-access-logged-in-user', {
+            smEvent.Log( 'transaction-associated-for-logged-in-user', {
                 'request-url': location.href
             } );
 
@@ -419,7 +419,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
                 } else {
                     location.href = 'http://my.smartmember.' + $rootScope.app.env;
 
-                    smEvent.Log( 'redirect-from-sm-to-my', {
+                    smEvent.Log( 'redirected-from-sm-to-my', {
                         'request-url': location.href
                     } );
                 }

@@ -62,7 +62,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
                 if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                     location.href = 'http://my.smartmember.' + $rootScope.app.env;
 
-                    smEvent.Log( 'redirect-from-sm-to-my', {
+                    smEvent.Log( 'redirected-from-sm-to-my', {
                         'request-url': location.href
                     } );
                 } else {
@@ -114,7 +114,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                 location.href = 'http://my.smartmember.' + $rootScope.app.env;
 
-                smEvent.Log( 'redirect-from-sm-to-my', {
+                smEvent.Log( 'redirected-from-sm-to-my', {
                     'request-url': location.href
                 } );
             } else {
@@ -137,7 +137,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                 location.href = 'http://my.smartmember.' + $rootScope.app.env;
 
-                smEvent.Log( 'redirect-from-sm-to-my', {
+                smEvent.Log( 'redirected-from-sm-to-my', {
                     'request-url': location.href
                 } );
             } else {

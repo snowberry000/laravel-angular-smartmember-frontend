@@ -51,7 +51,7 @@ app.controller('ResetController', function ($rootScope, smModal, $scope, $localS
 	}
 
 	$scope.forgot = function(reset_email){
-        smEvent.Log( 'reset_password_request', {
+        smEvent.Log( 'requested-password-reset', {
             'request-url': location.href
         } );
 

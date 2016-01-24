@@ -65,7 +65,7 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
         });
     }
 
-    smEvent.Log( 'speed-blogging-post-incoming', $rootScope.$_GET );
+    smEvent.Log( 'created-content-from-sb', $rootScope.$_GET );
 
     angular.forEach( $rootScope.$_GET, function( value, key )
     {
