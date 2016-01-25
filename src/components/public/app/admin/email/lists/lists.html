@@ -1,0 +1,103 @@
+
+<div class="ui modal"><i class="close icon"></i>
+	<div class="content">
+		<div class="row">
+			<div class="col-lg-12">
+
+				<div class="ibox-content clear_box page-heading">
+					<div class="p-xs">
+						<div class="row">
+							<div class="col-md-9">
+								<div class="pull-left m-r-md">
+									<i class="fa fa-envelope-o text-branded mid-icon"></i>
+								</div>
+								<h2 class="ui header">{{ 'EMAIL_LISTS' | translate }}</h2>
+								<span>Organize your subscribers into segments for stronger email results.</span>
+							</div>
+							<!-- <div class="col-md-3 text-right">
+								<a ng-click="smModal.Show('public.administrate.team.email.list')" class="btn btn-brand m-t-md btn-large">
+									<i class="fa fa-plus"></i>
+									Create email list
+								</a>
+								<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+									<i class="fa fa-question"></i>
+								</button>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox">
+					<div class="ibox-content">
+						
+						<div ng-if='loading' class="sk-spinner sk-spinner-three-bounce">
+					        <div class="sk-bounce1"></div>
+					        <div class="sk-bounce2"></div>
+					        <div class="sk-bounce3"></div>
+					    </div>
+
+						<table class="ui fixed single line celled stackable table" data-page-size="4" ng-if="emailLists.length > 0" foonice>
+							<thead>
+								<tr>
+									<th data-toggle="true">Name</th>
+									<th data-hide="phone">Subscribers</th>
+									<th data-hide="all">Date</th>
+									<th class="text-right" data-hide="phone" data-sort-ignore="true">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr dir-paginate="next_item in emailLists | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+									<td class="responsive_table_item">
+										{{next_item.name}}
+										<small ng-if="next_item.segment_query"><b><i>filter:</i></b> {{next_item.segment_query}}</small>
+									</td>
+									<td style="width: 100px;">
+										{{next_item.total_subscribers | number}}
+									</td>
+									<td style="width: 160px;">
+										{{moment.utc(next_item.created_at).fromNow()}}
+									</td>
+									<td class="text-right" style="width: 185px;">
+										<div class="btn-group">
+											<a ui-sref="public.app.admin.email.list({id: next_item.id})" class="btn btn-brand btn-outline btn-xs">
+												<i class="fa fa-pencil"></i>
+												Edit
+											</a>
+											<a ng-if="next_item.list_type!='segment'" ui-sref="public.app.admin.email.import({id: next_item.id})" class="btn btn-primary btn-outline btn-xs">
+												<i class="fa fa-group"></i>
+												Import
+											</a>
+											<button ng-if="next_item.list_type!='segment'" class="btn btn-danger btn-outline btn-xs" sm-delete={{next_item.id}}>
+												Delete
+												<i class="fa fa-trash"></i>
+											</button>
+										</div>
+									</td>
+								</tr>
+
+							</tbody>
+							
+						</table>
+						<div class="text-right"  ng-if="!loading">
+							<dir-pagination-controls max-size="5"></dir-pagination-controls>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="actions">
+	    <a ui-sref="public.app.admin.email.list" class="ui right labeled icon button">
+	        Create Email List
+	        <i class="fa fa-plus"></i>
+	    </a>
+	    <div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
+	        Close
+	    </div>
+	</div>
+</div>

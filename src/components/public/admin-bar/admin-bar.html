@@ -84,14 +84,14 @@
 				<i class="envelope icon"></i>
 			</button>
 			<div class="menu">
-				<a class="item" ng-click="smModal.Show('public.administrate.team.email.emails')">{{ 'EMAILS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.administrate.team.email.lists')">{{ 'LISTS' | translate }}</a>
+				<a class="item" ui-sref="public.app.admin.email.emails">{{ 'EMAILS' | translate }}</a>
+				<a class="item" ui-sref="public.app.admin.email.lists">{{ 'LISTS' | translate }}</a>
 				<a class="item" ng-if="false" ng-click="smModal.Show('public.administrate.team.email.groups')">{{ 'GROUPS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.administrate.team.email.subscribers')">{{ 'SUBSCRIBERS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.administrate.team.email.autoresponders')">{{ 'AUTORESPONDERS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.administrate.team.email.forms')">{{ 'OPTIN_FORM' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.administrate.team.email.settings')">{{ 'SETTINGS' | translate }}</a>
-				<a class="item" ng-click="smModal.Show('public.administrate.team.email.queue')">{{ 'QUEUE' | translate }}</a>
+				<a class="item" ui-sref="public.app.admin.email.subscribers">{{ 'SUBSCRIBERS' | translate }}</a>
+				<a class="item" ui-sref="public.app.admin.email.autoresponders">{{ 'AUTORESPONDERS' | translate }}</a>
+				<a class="item" ui-sref="public.app.admin.email.forms">{{ 'OPTIN_FORM' | translate }}</a>
+				<a class="item" ui-sref="public.app.admin.email.settings">{{ 'SETTINGS' | translate }}</a>
+				<a class="item" ui-sref="public.app.admin.email.queue">{{ 'QUEUE' | translate }}</a>
 			</div>
 		</div>
 	</div>
