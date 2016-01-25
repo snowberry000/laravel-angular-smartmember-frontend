@@ -130,7 +130,6 @@
                                 <div class="four wide column">
                                     <label>Access: </label>
                                     <span class='item-wrapper'>
-                                        <pre>{{next_item.access_level_type}}</pre>
                                         <a href="#" editable-select="next_item.access_level_type" e-ng-options="a.id as a.name for a in access_level_choices" onaftersave="saveLessonAccessLevel(next_item)">
                                             {{ showAccessLevelType( next_item ) }}
                                         </a>
