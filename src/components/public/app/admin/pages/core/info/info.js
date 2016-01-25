@@ -12,9 +12,9 @@ app.config(function($stateProvider){
 app.controller("SalesPageController", function ($scope, $rootScope, smModal , $localStorage, $location , $stateParams,  Restangular, toastr, $state) {
 	$scope.sales_options = {};
 	$site = $rootScope.site;
-	Restangular.all( "siteMetaData" ).customGETLIST( "getOptions", [ 'sales_page_outro', 'sales_page_content', 'sales_page_enabled', 'sales_page_embed','narrow_style' ] ).then(function(response){
+	Restangular.all( "siteMetaData" ).customGETLIST( "getOptions", [ 'sales_page_outro', 'sales_page_content', 'sales_page_enabled', 'sales_page_embed','narrow_style' , 'show_syllabus'] ).then(function(response){
 		$.each(response , function (key, data) {
-			if (data.key == 'sales_page_enabled' || data.key == 'narrow_style'){
+			if (data.key == 'sales_page_enabled' || data.key == 'narrow_style' || data.key == 'show_syllabus'){
 				$scope.sales_options[data.key] = parseInt(data.value);
 			} else{
 				$scope.sales_options[data.key] = data.value;
