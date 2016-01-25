@@ -28,9 +28,11 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
             {
                 if ($site.capabilities.indexOf('manage_content') == -1)
                 {
-                    $state.go('public.app.blog');
+                    view_content = true;
                 }
             }
+            if( !view_content )
+            	$state.go('public.app.blog');
         }
         Restangular.all('').customGET('comment?target_id='+$scope.post.id+'&type='+4).then(function(comments){
            $scope.post.comments = _.toArray(comments.comments)
