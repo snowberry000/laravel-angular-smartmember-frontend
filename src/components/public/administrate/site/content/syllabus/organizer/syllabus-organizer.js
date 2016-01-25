@@ -61,10 +61,10 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
     }
 
     $scope.access_level_choices = [
-        { value: 0, name: 'Draft (admin-only)' },
-        { value: 1, name: 'Members' },
-        { value: 2, name: 'Locked' },
-        { value: 3, name: 'Visitors' }
+        { id: 4, name: 'Draft (admin-only)' },
+		{ id: 3, name: 'Members' },
+		{ id: 2, name: 'Locked' },
+		{ id: 1, name: 'Visitors' },
     ];
 
     $scope.getSelectedLessons = function() {
@@ -426,7 +426,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
     {
         if( lesson.access_level_type )
         {
-            var access_type = _.findWhere( $scope.access_level_choices, { value: parseInt( lesson.access_level_type ) } ) || _.findWhere( $scope.access_level_choices, { value: lesson.access_level_type + '' } );
+            var access_type = _.findWhere( $scope.access_level_choices, { id: parseInt( lesson.access_level_type ) } ) || _.findWhere( $scope.access_level_choices, { id: lesson.access_level_type + '' } );
 
             if( access_type )
                 return access_type.name;
