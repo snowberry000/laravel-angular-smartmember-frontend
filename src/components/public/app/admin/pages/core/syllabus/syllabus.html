@@ -1,0 +1,70 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="student icon"></i>
+		Syllabus Settings
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui  message">
+				<p>This page lists your site's lessons and modules in an organized "education" style format.</p>
+			</div>
+
+			<h3 class="ui horizontal divider header">
+				<i class="setting icon"></i>
+				Settings
+			</h3>
+
+			<div class="ui segment form">
+
+				<div class="field">
+					<label>Default Lesson View</label>
+
+					<div class="radio">
+						<label><input type="radio" ng-model='site.syllabus_format' value='list'>List View</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" ng-model='site.syllabus_format' value='thumbnail'>Thumbnail view</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div >
+						<div class="col-sm-12">
+
+							<span class="help-block m-b-none">
+							</span>
+						</div>
+					</div>
+					<div class="field">
+						<label>Welcome content</label>
+						<textarea froala ng-model="site.welcome_content"></textarea>
+						<div class="ui compact info message">
+							<p>Embed a video/content here to show at the top of your Syllabus for logged-in members of your site</p>
+						</div>
+					</div>
+					<div>
+						<label>Show view toggle buttons to visitors?</label>
+						<div class="radio">
+							<label><input type="radio" ng-model='site.show_syllabus_toggle' value='1'>Show</label>
+						</div>
+						<div class="radio">
+							<label><input type="radio" ng-model='site.show_syllabus_toggle' value='0'>Hide</label>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="actions">
+		<div ui-sref="public.app.admin.pages.core.list" class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
+		<button busy ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="check icon"></i>
+		</button>
+	</div>
+</div>

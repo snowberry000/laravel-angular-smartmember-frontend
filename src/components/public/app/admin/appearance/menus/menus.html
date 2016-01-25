@@ -1,0 +1,88 @@
+<div class="ui modal"><i class="close icon"></i>
+
+	<div class="header">
+		<i class="paragraph icon"></i>
+		Site Menu
+	</div>
+	<div class="content" style="
+    overflow: auto; min-width: 100%;">
+		<div class="description" style="
+    display: table; min-width: 100%;
+   ">
+			<div class="ui ignored info message">
+				<p>
+					Edit your site's menu / navigation buttons. {{menuType}}
+				</p>
+			</div>
+			<div class="ui styled fluid accordion" sui-accordion>
+				<div class="{{menuType == 'footer' ? '' : 'active' }} title">
+					<i class="dropdown icon"></i>
+					Header Navigation Menu
+				</div>
+				<div class="{{menuType == 'footer' ? '' : 'active' }} content">
+
+					<p>Add navigation items to the top of your site</p>
+
+					<div class="ui right labeled left icon input">
+						<i class="list layout icon"></i>
+						<input type="text" placeholder="Enter label text" ng-model="newItem.label">
+						<a class="ui tag label" ng-click="addMenuItem()">
+							Add Menu Item
+						</a>
+					</div>
+
+					<div class="ui divider"></div>
+
+					<div class="ui labeled icon menu" ui-sortable="sortableOptions" ng-model="menu_items">
+						<a ng-click="open(next_item, 'main')" class="menu_item item" ng-repeat="next_item in menu_items" data-component="{{next_item}}">
+							<i ng-if="next_item.icon" class="{{next_item.icon}} icon"></i>
+							<img ng-if="next_item.featured_image" class="ui mini image m-b-xs" src="{{next_item.featured_image}}">
+							<img ng-if="!next_item.icon && !next_item.featured_image" class="ui mini image m-b-xs" src="/images/image.png">
+							{{next_item.label}}
+						</a>
+					</div>
+
+				</div>
+				<div class="title {{menuType == 'footer' ? 'active' : '' }}">
+					<i class="dropdown icon"></i>
+					Footer Navigation Menu
+				</div>
+				<div class="content {{menuType == 'footer' ? 'active' : '' }}">
+
+					<p>Add navigation items to the bottom of your site</p>
+
+					<div class="ui right labeled left icon input">
+						<i class="list layout icon"></i>
+						<input type="text" placeholder="Enter label text" ng-model="newFooterItem.label">
+						<a class="ui tag label" ng-click="addFooterMenuItem()">
+							Add Menu Item
+						</a>
+					</div>
+
+					<div class="ui divider"></div>
+
+					<div class="ui labeled icon menu" ui-sortable="sortableOptions" ng-model="footer_menu_items">
+						<a ng-click="open(next_item, 'footer')" class="footer_menu_item item" ng-repeat="next_item in footer_menu_items" data-component="{{next_item}}">
+							<i ng-if="next_item.icon" class="{{next_item.icon}} icon"></i>
+							<img ng-if="next_item.featured_image" class="ui mini image m-b-xs" src="{{next_item.featured_image}}">
+							<img ng-if="!next_item.icon && !next_item.featured_image" class="ui mini image m-b-xs" src="/images/image.png">
+							{{next_item.label}}
+						</a>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ng-if="wizard_mode" ng-click="save()" class="ui right labeled icon button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</a>
+		<div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
+			Close
+		</div>
+	</div>
+</div>
