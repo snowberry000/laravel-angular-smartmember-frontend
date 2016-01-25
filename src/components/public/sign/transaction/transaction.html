@@ -63,11 +63,11 @@
     <div class="content" ng-if="account.last_logged_in && !account.create_new_account && !loading">
         <div class="description">
 
-            <div class="ui two column middle aligned very relaxed stackable grid">
+            <div class="ui two column middle aligned very relaxed stackable grid container relative_container">
                 <div class="column">
 
                     <form class="ui form" ng-submit="associateAccount()">
-                        <h3>You probably already have an active account at one of the many Smartmember sites. Please Login or click  Forgot Password to retrieve your password</h3>
+                        <h3>You already have an active account at one of the many Smartmember sites. Please Login or click  Forgot Password to retrieve your password</h3>
                         <div class="field">
                             <label>Email</label>
                             <div class="ui left icon input">
@@ -111,7 +111,7 @@
     <div class="content" ng-if="account.last_logged_in && account.create_new_account && !loading">
         <div class="description">
 
-            <div class="ui two column middle aligned very relaxed stackable grid">
+            <div class="ui two column middle aligned very relaxed stackable grid container relative_container">
                 <div class="center aligned column">
                     <a href="#" ng-click="account.create_new_account = false" class="close ui big green labeled icon button">
                         <i class="fa fa-user icon"></i>
