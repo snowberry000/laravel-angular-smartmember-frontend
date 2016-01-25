@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.team.app_configurations.facebook_group",{
+		.state("public.app.admin.apps.app_configurations.facebook_group",{
 			url: "/facebook_group/:add_group?",
-			templateUrl: "/templates/components/public/administrate/team/app_configurations/facebook_group/facebook_group.html",
+			templateUrl: "/templates/components/public/app/admin/apps/app_configurations/facebook_group/facebook_group.html",
 			controller: "FacebookGroupController"
 		})
 }); 

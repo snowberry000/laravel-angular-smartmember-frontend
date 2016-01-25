@@ -96,7 +96,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 
 		$scope.update = function(){
 			$scope.access_pass.put().then(function(response){
-				smModal.Show("public.app.admin.members.passes");
+				$state.go("public.app.admin.members.passes");
 	            toastr.success("Changes saved!");
 			})
 		}
@@ -104,7 +104,7 @@ app.controller("PassController", function ($scope,smModal, $q, $stateParams, $ro
 		$scope.create = function(){
 			Restangular.service("siteRole").post($scope.access_pass).then(function(response){
 	            toastr.success("Access pass created!");
-	            smModal.Show("public.app.admin.members.passes");
+	            $state.go("public.app.admin.members.passes");
 			});
 		}
 		$scope.resolve();

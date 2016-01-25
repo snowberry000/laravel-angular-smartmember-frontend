@@ -2,9 +2,9 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.appearance.banner",{
+		.state("public.app.admin.appearance.banner",{
 			url: "/banner/:id?",
-			templateUrl: "/templates/components/public/administrate/site/appearance/banner/banner.html",
+			templateUrl: "/templates/components/public/app/admin/appearance/banner/banner.html",
 			controller: "BannerController"
 		})
 }); 
@@ -66,7 +66,7 @@ app.controller("BannerController", function ($scope, $rootScope, $state, $http,$
 	            console.log(response);
 	            $scope.ad = response;
 	            toastr.success("Banner saved!");
-                smModal.Show('publicapp.admin.appearance.banners');
+                $state.go('public.app.admin.appearance.banners');
 	        });
 	    }
 	}

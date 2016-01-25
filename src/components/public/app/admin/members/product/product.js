@@ -157,7 +157,7 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 					$rootScope.access_levels[i] = response;
 			};
             toastr.success("Product level updated!");
-			smModal.Show("public.app.admin.members.products");
+			$state.go("public.app.admin.members.products");
 		})
 	}
 
@@ -167,7 +167,7 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 			//$scope.access_levels.push(response);
 			$rootScope.access_levels.push(response);
             toastr.success("Product level created!");
-            smModal.Show("public.app.admin.members.products");
+            $state.go("public.app.admin.members.products");
 		});
 	}
 

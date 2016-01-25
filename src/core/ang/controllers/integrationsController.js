@@ -68,7 +68,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 	$scope.cancel = function()
 	{
-		smModal.Show( "public.administrate.team.app_configurations." + ($scope.integration_id ? 'list' : 'available') );
+		$state.go( "public.app.admin.apps.app_configurations." + ($scope.integration_id ? 'list' : 'available') );
 	}
 
 	$scope.initapp_configurations = function()
@@ -628,7 +628,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 					}
 					break;
 				default:
-					smModal.Show( "public.administrate.team.app_configurations.list" );
+					$state.go( "public.app.admin.apps.app_configurations.list");
 			}
 		}
 		else if( $stateParams.integration == 'vimeo' && $rootScope.vimeo_redirect_url )
@@ -638,7 +638,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		}
 		else
 		{
-			smModal.Show( "public.administrate.team.app_configurations.list" );
+			$state.go( "public.app.admin.apps.app_configurations.list" );
 		}
 
 		$state.transitionTo($state.current , $stateParams , {
@@ -735,7 +735,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			Restangular.one( 'appConfiguration', integration_id ).remove().then( function()
 			{
 				toastr.success( "Integration was removed" );
-				smModal.Show( "public.administrate.team.app_configurations.list" );
+				$state.go( "public.app.admin.apps.app_configurations.list" );
 			} );
 		} );
 	}

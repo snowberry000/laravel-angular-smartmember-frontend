@@ -7,10 +7,10 @@
 				<a ui-sref="public.administrate.team.dashboard">{{ 'HOME' | translate }}</a>
 			</li>
 			<li ng-if="!integration_id">
-				<a ui-sref="public.administrate.team.app_configurations.available">Available app_configurations</a>
+				<a ui-sref="public.app.admin.apps.app_configurations.available">Available app_configurations</a>
 			</li>
 			<li ng-if="integration_id">
-				<a ui-sref="public.administrate.team.app_configurations.list">My app_configurations</a>
+				<a ui-sref="public.app.admin.apps.app_configurations.list">My app_configurations</a>
 			</li>
 			<li ng-if="current_integration.site">
 				site: {{current_integration.site.name}}
