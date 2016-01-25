@@ -90,13 +90,13 @@
                 <div class="ui loader"></div>
             </div>
 
-            <div ng-if="!loading" class="connectModulePanels"  ui-sortable="ModuleSortableOptions">
+            <div ng-if="!loading" class="connectModulePanels"  ui-sortable="ModuleSortableOptions" ng-model="modules">
                 <div class="ui segments module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
                     <div class="ui segment">
                         <div class="tiny ui buttons" style="float:right;">
                             <button ng-if="!module.new" class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
-                            <button ng-if="module.lessons.length > 0" class="ui blue button" ng-click="selectLessonsInModule( module )">Select Lessons</button>
-                            <button ng-if="module.lessons.length > 0 && lessonSelectedInModule( module )" class="ui orange button" ng-click="unselectLessonsInModule( module )">Unselect Lessons</button>
+                            <button class="ui blue button" ng-click="selectLessonsInModule( module )">Select Lessons</button>
+                            <button ng-if="lessonSelectedInModule( module )" class="ui orange button" ng-click="unselectLessonsInModule( module )">Unselect Lessons</button>
                             <button class="ui red button" ng-if="module.id" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
                             <button class="ui red button" ng-if="module.new" ng-click="removeNewModule( module )"><i class="align trash icon"></i></button>
                         </div>
@@ -108,7 +108,7 @@
                             <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle(module)">{{options['default_module_title'] || 'Default'}}</a>
                         </p>
                     </div>
-                    <div class="ui segments connectLessons" ui-sortable="LessonSortableOptions">
+                    <div class="ui segments connectLessons" ui-sortable="LessonSortableOptions" ng-model="module.lessons">
                         <div class="ui segment lesson_item" data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">
                             <div class="ui grid">
                                 <div class="four wide column">

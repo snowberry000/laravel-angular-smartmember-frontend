@@ -120,6 +120,8 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
                     lesson.access_level_type = $scope.bulk_edit.access_level_type;
                     lesson.access_level_id = $scope.bulk_edit.access_level_id;
                 } );
+
+                toastr.success( "Selected lessons have all been updated!" );
             } )
         }
     }
@@ -156,6 +158,8 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 
                     $scope.modules = _.without( $scope.modules, module );
                 } );
+
+                toastr.success( "Selected items have been deleted!" );
             } );
         }
     }
@@ -618,24 +622,18 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	{
 		$scope.toggle_lessons = true;
 		var lessons = [];
-		//alert("called");
-		$.each( $( ".module_item" ), function( key, module )
-		{
-			$upLessons = $( module ).find( ".lesson_item" );
-			if( $upLessons.length == 0 )
-			{
-				lessons.push( {
-					"module": $( module ).data( "id" ), "lesson": null
-				} );
-			}
-			$.each( $upLessons, function( key, lesson )
-			{
-				if( $( lesson ).data( "id" ) )
-					lessons.push( {
-						"module": $( module ).data( "id" ), "lesson": $( lesson ).data( "id" )
-					} );
-			} );
-		} );
+
+        angular.forEach( $scope.modules, function( module ) {
+            if( module.lessons.length == 0 )
+                lessons.push( {module: module.id, lesson: null} );
+            else
+            {
+                angular.forEach( module.lessons, function( lesson ) {
+                    lessons.push( {module: module.id, lesson: lesson.id} );
+                });
+            }
+        } );
+
 		module.customPOST( lessons, "syllabusSave" ).then( function( data )
 		{
 			toastr.success( "Course Content saved" );
@@ -822,206 +820,4 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	}
 
 	$scope.init();
-} );
-
-app.controller( 'LessonEditModalInstanceCtrl', function( $scope, $rootScope, $localStorage, $timeout, $state, next_item, access_level_types, access_levels, $location, $stateParams, $site, $modalInstance, $user, $filter, Restangular, toastr, $modules, Upload )
-{
-	$scope.template_data = {
-		title: 'Lesson',
-		use_cancel_method: true
-	}
-
-	$scope.access_level_types = access_level_types;
-	$scope.access_levels = access_levels;
-
-	$scope.original_item = angular.copy( next_item );
-
-	var interval;
-	var draft;
-	var changed;
-	$scope.func = function()
-	{
-		var modalInstance = $modal.open( {
-			templateUrl: 'templates/modals/moduleCreator.html',
-			controller: "modalController",
-			scope: $scope
-		} );
-		modalInstance.result.then( function()
-		{
-			alert( "result called" );
-		} )
-	}
-
-	if( $location.search().clone )
-	{
-		delete next_item.id;
-		delete next_item.author_id;
-		delete next_item.access;
-	}
-
-
-	if( $modules.length > 0 )
-		$scope.modules = $modules.items;
-	else
-		$scope.modules = null;
-	$scope.newModule = {};
-
-	$scope.next_item = next_item;
-
-	$scope.next_item.dripfeed_settings = next_item.dripfeed || {};
-	if( $scope.next_item.published_date )
-	{
-		$scope.next_item.published_date = new Date( moment( $scope.next_item.published_date ).format( 'l' ) );
-	}
-	else
-	{
-		$scope.next_item.published_date = new Date();
-		$scope.next_item.published_date.setSeconds( 0 );
-		$scope.next_item.published_date.setMilliseconds( 0 );
-	}
-	if( $scope.next_item.end_published_date )
-		$scope.next_item.end_published_date = new Date( moment( $scope.next_item.end_published_date ).format( 'l' ) );
-	else
-		$scope.next_item.end_published_date = null;
-
-	$scope.next_item.discussion_settings = next_item.discussion_settings || {};
-	$scope.next_item.id ? $scope.page_title = 'Edit lesson' : $scope.page_title = 'Create lesson';
-	$scope.next_item.transcript_content_public == 1 ? $scope.next_item.transcript_content_public = true : $scope.next_item.transcript_content_public = false;
-	$scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
-	$scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
-
-	if( $scope.next_item.access_level_type == 3 )
-		$scope.next_item.access_level_type = 2;
-
-	var seo = {};
-	if( next_item.seo_settings )
-	{
-		$.each( next_item.seo_settings, function( key, data )
-		{
-			seo[ data.meta_key ] = data.meta_value;
-
-		} );
-	}
-	$scope.next_item.seo_settings = seo;
-	$scope.range = function( min, max, step )
-	{
-		step = step || 1;
-		var input = [];
-		for( var i = min; i <= max; i += step ) input.push( i );
-		return input;
-	};
-
-	$scope.changeModule = function( $mod )
-	{
-		for( var i = 0; i < $modules.items.length; i++ )
-		{
-			if( $modules.items[ i ].title == $mod )
-			{
-				$scope.next_item.module_id = $modules.items[ i ].id;
-				break;
-			}
-		}
-	}
-
-	$scope.setPermalink = function( $event )
-	{
-		if( !$scope.next_item.permalink )
-			$scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title ).toLowerCase();
-		$scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
-	}
-
-	$scope.setPermalink();
-
-	$scope.onBlurSlug = function( $event )
-	{
-		if( $scope.next_item.permalink )
-			$scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.permalink );
-	}
-
-	$scope.saveModule = function( $model )
-	{
-		Restangular.all( 'module' ).post( $model ).then( function( module )
-		{
-			if( $scope.modules )
-				$scope.modules.push( module );
-			else
-			{
-				$scope.modules = [];
-				$scope.modules.push( module );
-			}
-			toastr.success( "Module has been saved" );
-			$scope.isOpen = false;
-		} );
-	}
-	$scope.getFileName = function( $url )
-	{
-		if( $url )
-		{
-			str = $url.split( "/" );
-			if( str )
-			{
-				str = str[ str.length - 1 ];
-				tkns = str.split( "." )
-				if( tkns.length > 0 )
-					tkns.splice( 0, 1 );
-
-				return tkns.join( '.' );
-			}
-		}
-	}
-
-	$scope.save = function()
-	{
-		delete $scope.next_item.prev_lesson;
-		delete $scope.next_item.next_lesson;
-		delete $scope.next_item.total_lessons;
-		delete $scope.next_item.access_level;
-		delete $scope.next_item.current_index;
-		delete $scope.next_item.module;
-		delete $scope.next_item.site;
-		delete $scope.next_item.isOpen;
-		delete $scope.next_item.isDripFeed;
-
-
-		$scope.next_item.title = $scope.next_item.title.trim();
-
-		if( $scope.next_item.permalink == '' )
-			this.setPermalink( null );
-
-		$scope.next_item.permalink = $scope.next_item.permalink.trim();
-		$callback = "";
-
-		if( $scope.next_item.access_level_type == 2 && $scope.next_item.access_level_id == 0 )
-			$scope.next_item.access_level_type = 3;
-
-		if( $scope.next_item.access_level_type != 2 )
-			$scope.next_item.access_level_id = 0;
-		if( $scope.next_item.id )
-		{
-			$callback = Restangular.all( 'lesson' ).customPUT( $scope.next_item, $scope.next_item.id );
-		}
-		else
-		{
-			$callback = Restangular.all( 'lesson' ).post( $scope.next_item );
-		}
-
-		$callback.then( function( lesson )
-		{
-			$scope.next_item = lesson;
-			toastr.success( "Lesson has been saved" );
-
-		} )
-
-		$modalInstance.close();
-	}
-
-	$scope.cancel = function()
-	{
-		angular.forEach( $scope.next_item, function( value, key )
-		{
-			$scope.next_item[ key ] = $scope.original_item[ key ];
-		} );
-		$modalInstance.dismiss( 'cancel' );
-	};
-
 } );
