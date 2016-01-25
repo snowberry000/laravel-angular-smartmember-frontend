@@ -33,6 +33,7 @@ app.controller( 'siteSettingsWizardController', function( $scope, $rootScope, $f
 		{
 			toastr.success( "Sales page saved" );
 			$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+			$scope.cancel();
 		} );
 	}
 } );
@@ -96,6 +97,7 @@ app.controller( 'sendgridWizardController', function( $rootScope, $scope, $http,
 			{
 				toastr.success( "App configuration updated!" );
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 			} );
 		}
 		else
@@ -105,6 +107,7 @@ app.controller( 'sendgridWizardController', function( $rootScope, $scope, $http,
 				toastr.success( "App configuration added!" );
 				$scope.current_integration.id = response.id;
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 			} );
 		}
 	}
@@ -170,6 +173,7 @@ app.controller( 'paypalWizardController', function( $rootScope, $scope, $http, $
 			{
 				toastr.success( "App configuration updated!" );
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 			} );
 		}
 		else
@@ -179,6 +183,7 @@ app.controller( 'paypalWizardController', function( $rootScope, $scope, $http, $
 				toastr.success( "App configuration added!" );
 				$scope.current_integration.id = response.id;
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 			} );
 		}
 	}
@@ -218,6 +223,7 @@ app.controller( 'menuWizardController', function( $rootScope, $scope, $http, $fi
 				if( ($scope.menu_items && $scope.menu_items.length) || ($scope.footer_menu_items && $scope.footer_menu_items.length) )
 				{
 					$rootScope.parent_wizard.next( id, $scope.$parent );
+					$scope.cancel();
 				}
 			} );
 		}
@@ -602,6 +608,7 @@ app.controller( 'accessWizardController', function( $rootScope, $scope, $http, $
 		{
 			toastr.success( "Access level created!" );
 			$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+			$scope.cancel();
 		} );
 	}
 
@@ -800,6 +807,7 @@ app.controller( 'postWizardController', function( $scope, $rootScope, $filter, $
 				$scope.next_item = post;
 				toastr.success( "Post has been saved!" );
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 
 			} );
 		}
@@ -821,6 +829,7 @@ app.controller( 'postWizardController', function( $scope, $rootScope, $filter, $
 			$scope.next_item = post;
 			toastr.success( "Post has been saved" );
 			$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+			$scope.cancel();
 		} );
 	}
 
@@ -1172,6 +1181,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 				toastr.success( "Lesson has been saved" );
 				$scope.saving = false;
 				$rootScope.parent_wizard.next( 2, $scope.current_node );
+				$scope.cancel();
 			} )
 		}
 		else
@@ -1179,6 +1189,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 			toastr.success( "Lesson has been saved" );
 			$scope.saving = false;
 			$rootScope.parent_wizard.next( 2, $scope.current_node );
+			$scope.cancel();
 		}
 	}
 
@@ -1229,6 +1240,7 @@ app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filte
 			$rootScope.options.site_logo = $scope.site_options.site_logo;
 			$rootScope.parent_wizard.next( 0, $scope.current_node );
 			$scope.saving = false;
+			$scope.cancel();
 		} );
 	}
 	$scope.cancel = function()
@@ -1279,6 +1291,7 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 			} );
 		}
 		$rootScope.parent_wizard.next( 1, $scope.current_node );
+		$scope.cancel();
 	}
 
 	$scope.add = function()
@@ -1369,6 +1382,7 @@ app.controller( 'lockContentWizardController', function( $scope, $rootScope, $fi
 			$scope.current_node.extras = { "access_level": response.id };
 			$rootScope.access_level_hash = response.hash;
 			$rootScope.parent_wizard.next( 3, $scope.current_node );
+			$scope.cancel();
 		} );
 
 	}
@@ -1410,6 +1424,7 @@ app.controller( 'inviteMembersWizardController', function( $scope, $rootScope, $
 		Restangular.one("siteRole").customPOST($scope.members, 'import').then(function(response) {
 		    toastr.success("Import was successful");
 			$rootScope.parent_wizard.next( 4, $scope.current_node );
+			$scope.cancel();
 		} );
 	}
 
