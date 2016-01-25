@@ -1,4 +1,4 @@
-app.directive( 'suiPopup', function( smModal )
+app.directive( 'suiPopup', function( smModal , $state)
 {
 	return {
 		restrict: 'A',
@@ -32,11 +32,11 @@ app.directive( 'suiPopup', function( smModal )
 						if( attributes.stateattributes )
 						{
 							//console.log( "attributes.stateattributes", attributes.stateattributes );
-							smModal.Show( attributes.state, JSON.parse(attributes.stateattributes) );
+							$state.go( attributes.state, JSON.parse(attributes.stateattributes) );
 						}
 						else
 						{
-							smModal.Show( attributes.state );
+							$state.go( attributes.state );
 						}
 
 						$( this ).off( event );

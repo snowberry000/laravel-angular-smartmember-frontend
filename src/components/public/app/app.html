@@ -33,7 +33,7 @@
 
 				<a sm-class="'ui ' + meta_data.logo_size + (meta_data.logo_border == '1' ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="/{{options.logo_url}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''}}">
 					<h1 ng-hide="options.site_logo" class="headline_text_color">{{site.name}}</h1>
-					<img ng-show="options.site_logo" sui-popup data-edit="{{site.is_admin ? true : false}}" data-state="public.administrate.site.appearance.settings" ng-src="{{options.site_logo}}" class="m-t-sm m-b-sm">
+					<img ng-show="options.site_logo" sui-popup data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.appearance.settings" ng-src="{{options.site_logo}}" class="m-t-sm m-b-sm">
 				</a>
 			</div>
 			<div class="middle aligned column mobile hidden tablet hidden" ng-if="meta_data.logo_position != 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/site/common/top-nav.html'"></div>
@@ -76,7 +76,7 @@
 		close
 		<i class="sidebar icon"></i>
 	</a>
-	<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.administrate.site.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | orderBy:'sort_order'" ng-click="selectedElement($index);smSidebar.Close();">
+	<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | orderBy:'sort_order'" ng-click="selectedElement($index);smSidebar.Close();">
 		<i sm-class="'icon navigation_icon_color fa ' + ( menu_item.icon || 'fa-home' )" ng-if="!menu_item.custom_icon &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
 		<i sm-class="'icon navigation_icon_color fa ' + menu_item.custom_icon" ng-if="menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') != -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
 		<img style="width:auto;" sm-class="'icon navigation_icon_color '" ng-if="menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') == -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)" src="{{menu_item.custom_icon}}"/>
