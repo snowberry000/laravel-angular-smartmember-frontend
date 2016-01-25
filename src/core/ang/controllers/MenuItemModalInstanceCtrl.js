@@ -88,7 +88,10 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
         //     })
         // }
         else{
-            Restangular.all(selected_url).customGET('',{site_id: item.site_id , 'bypass_paging' : true}).then(function(response){
+            var params = {site_id: item.site_id};
+            if(selected_url != 'post')
+                params.bypass_paging = true;
+            Restangular.all(selected_url).customGET('' , params).then(function(response){
                 if(response.route == 'customPage')
                     response.route = 'page';
                 if(response.route == 'supportArticle')
