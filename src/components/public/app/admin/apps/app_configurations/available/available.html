@@ -11,7 +11,7 @@
 			</div>
 
 			<div class="ui divided link items">
-				<a class="item" ng-repeat="integration in availableapp_configurations | filter: search" ng-click="smModal.Show('public.administrate.team.integration.configure',{integration: integration.id});">
+				<a class="item" ng-repeat="integration in availableapp_configurations | filter: search" ui-sref="public.app.admin.apps.integration.configure({integration: integration.id})">
 					<div class="ui tiny image">
 						<img src="{{integration.logo}}">
 					</div>
@@ -27,8 +27,8 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button close">
+		<a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
 			Close
-		</div>
+		</a>
 	</div>
 </div>

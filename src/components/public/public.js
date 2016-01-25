@@ -155,7 +155,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			else if( $localStorage.open_stripe_modal && $rootScope.site && $rootScope.site.is_admin )
 			{
 				$localStorage.open_stripe_modal = null;
-				smModal.Show( 'public.administrate.team.app_configurations.list', { modal_options: { duration: 0 } } );
+				$state.go( 'public.app.admin.apps.app_configurations.list', { modal_options: { duration: 0 } } );
 				// $timeout(function(){
 				// 	smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }});
 				// 	$localStorage.open_stripe_modal = null;
@@ -164,7 +164,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			else if( $localStorage.open_vimeo_modal && $rootScope.site && $rootScope.site.is_admin )
 			{
 				$localStorage.open_vimeo_modal = null;
-				smModal.Show( 'public.administrate.team.app_configurations.list', { modal_options: { duration: 0 } } );
+				$state.go( 'public.app.admin.apps.app_configurations.list', { modal_options: { duration: 0 } } );
 				// $timeout(function(){
 				// 	smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }} );
 				// 	$localStorage.open_vimeo_modal = null;

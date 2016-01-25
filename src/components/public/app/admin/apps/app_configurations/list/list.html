@@ -44,7 +44,7 @@
 								<div class="col-md-12">
 									<div class="well m-t-sm">
 
-										<a ng-click="smModal.Show('public.administrate.team.integration.configure',{integration: integration.type,id: integration_instance.id })">
+										<a ui-sref="public.app.admin.apps.integration.configure({integration: integration.type,id: integration_instance.id })">
 											Integration added for
 											<span ng-if="integration_instance.site">
 												site <strong>{{integration_instance.site.name}}</strong>
@@ -83,8 +83,8 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button close">
+		<a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
 			Close
-		</div>
+		</a>
 	</div>
 </div>

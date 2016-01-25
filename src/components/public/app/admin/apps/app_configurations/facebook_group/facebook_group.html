@@ -1,4 +1,4 @@
-<div ng-include="'templates/components/public/administrate/team/app_configurations/common/single-heading.html'"></div>
+<div ng-include="'templates/components/public/app/admin/apps/app_configurations/common/single-heading.html'"></div>
 
 <div class="ibox">
 	<div class="ibox-content">
@@ -53,7 +53,7 @@
 
 				<div class="col-sm-9">
 					<button class="btn btn-brand" type="submit" ng-disabled="!current_integration.username || !current_integration.password">Save changes</button>
-					<a ui-sref="public.administrate.team.app_configurations.{{integration_id ? 'list' : 'available'}}" class="btn btn-white">cancel</a>
+					<a ui-sref="public.app.admin.apps.app_configurations.{{integration_id ? 'list' : 'available'}}" class="btn btn-white">cancel</a>
 				</div>
 			</div>
 

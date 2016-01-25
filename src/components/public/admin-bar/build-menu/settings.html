@@ -12,9 +12,9 @@
 	<div class="item" sm-access="manage_apps" if-not="hide">
 		<div class="header">Apps</div>
 		<div class="menu">
-			<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.available')">Add new app</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.list')">Installed apps</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.team.app_configurations.connections')">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
+			<a class="item" ui-sref="public.app.admin.apps.app_configurations.available">Add new app</a>
+			<a class="item" ui-sref="public.app.admin.apps.app_configurations.list">Installed apps</a>
+			<a class="item" ui-sref="public.app.admin.apps.app_configurations.connections">{{ 'CONNECTED_ACCOUNTS' | translate }}</a>
 		</div>
 	</div>
 </div>
