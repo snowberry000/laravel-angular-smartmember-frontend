@@ -30,12 +30,135 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	$user = $rootScope.user;
 	$scope.options = {};
 
+    $scope.bulk_edit_access = false;
+    $scope.bulk_edit = {
+        access_level_type: 1,
+        access_level_id: 0
+    }
+
     $scope.access_level_choices = [
         { value: 0, name: 'Draft (admin-only)' },
         { value: 1, name: 'Members' },
         { value: 2, name: 'Locked' },
         { value: 3, name: 'Visitors' }
     ];
+
+    $scope.getSelectedLessons = function() {
+        var lesson_ids = [];
+
+        angular.forEach( $scope.modules, function( value ) {
+            angular.forEach( value.lessons, function( value2 ) {
+                if( value2.checked == true )
+                    lesson_ids.push( value2.id );
+            } )
+        } );
+
+        return lesson_ids;
+    }
+
+    $scope.getSelectedModules = function() {
+        var module_ids = [];
+
+        angular.forEach( $scope.modules, function( value ) {
+            if( value.checked == true ) {
+                module_ids.push( value.id );
+            }
+        } );
+
+        return module_ids;
+    }
+
+    $scope.updateSelectedLessons = function( call_back ) {
+        angular.forEach( $scope.modules, function( value ) {
+            angular.forEach( value.lessons, function( value2 ) {
+                if( value2.checked == true ) {
+                    call_back( value2 );
+                }
+            } )
+        } );
+    }
+
+    $scope.updateSelectedModules = function( call_back ) {
+        angular.forEach( $scope.modules, function( value ) {
+            if( value.checked == true ) {
+                call_back( value );
+            }
+        } );
+    }
+
+    $scope.toggleBulkAccessEdit = function() {
+        if( $scope.bulk_edit_access )
+        {
+            $scope.bulk_edit_access = false;
+            $scope.bulk_edit = {
+                access_level_type: 1,
+                access_level_id: 0
+            }
+        }
+        else
+        {
+            $scope.bulk_edit_access = true;
+        }
+    }
+
+    $scope.bulkUpdateAccess = function(){
+        if( $scope.bulk_edit.access_level_type != 2 )
+            $scope.bulk_edit.access_level_id = 0;
+
+        var lesson_ids = $scope.getSelectedLessons();
+
+        var data = {
+            lesson_ids: lesson_ids,
+            access_level_type: $scope.bulk_edit.access_level_type,
+            access_level_id: $scope.bulk_edit.access_level_id
+        }
+
+        if( lesson_ids.length > 0 )
+        {
+            Restangular.all('lesson/bulkUpdateAccess').post( data).then( function( response ) {
+                $scope.updateSelectedLessons( function( lesson ) {
+                    lesson.access_level_type = $scope.bulk_edit.access_level_type;
+                    lesson.access_level_id = $scope.bulk_edit.access_level_id;
+                } );
+            } )
+        }
+    }
+
+    $scope.bulkDelete = function() {
+        var module_ids = $scope.getSelectedModules();
+        var lesson_ids = $scope.getSelectedLessons();
+
+        if( module_ids.length > 0 || lesson_ids.length > 0 )
+        {
+            Restangular.all('lesson/bulkDelete').post( {module_ids: module_ids, lesson_ids: lesson_ids }).then( function( response ) {
+                $scope.updateSelectedLessons( function( lesson ) {
+                    var module = _.findWhere( $scope.modules, { id: parseInt( lesson.id ) } ) || _.findWhere( $scope.modules, { id: lesson.id + '' } );
+
+                    if( module )
+                    {
+                        module.lessons = _.without( module.lessons, lesson );
+                    }
+                    else
+                    {
+                        var defaultModule = _.findWhere( $scope.modules, { id: 0 } ) || _.findWhere( $scope.modules, { id: '0' } );
+
+                        defaultModule.lessons = _.without( defaultModule.lessons, lesson );
+                    }
+                } );
+
+                $scope.updateSelectedModules( function( module ) {
+                    var defaultModule = _.findWhere( $scope.modules, { id: 0 } ) || _.findWhere( $scope.modules, { id: '0' } );
+
+                    angular.forEach( module.lessons, function( value, key )
+                    {
+                        defaultModule.lessons.push( value );
+                    } );
+
+                    $scope.modules = _.without( $scope.modules, module );
+                } );
+            } );
+        }
+    }
 
 	$scope.open1 = function( next_item )
 	{
@@ -316,7 +439,6 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
                 } );
             } );
 		} );
-
 	};
 
     $scope.removeNewLesson = function( lesson, module ) {
@@ -416,27 +538,6 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
             $scope.saveSyllabus();
         } );
 	};
-
-    $scope.bulkDelete = function() {
-        angular.forEach( $scope.modules, function(value) {
-            angular.forEach( value.lessons, function( value2 ) {
-                if( value2.checked ) {
-                    if( value2.id )
-                        $scope.deleteLesson(value2.id);
-                    else
-                        $scope.removeNewLesson( value2, value );
-                }
-            } );
-
-            if( value.checked ) {
-
-                if( value.id )
-                    $scope.deleteModule(value.id);
-                else
-                    $scope.removeNewModule( value );
-            }
-        } );
-    }
 
     $scope.ConsoleLogIt = function(something) {
         console.log('incoming data: ', something );

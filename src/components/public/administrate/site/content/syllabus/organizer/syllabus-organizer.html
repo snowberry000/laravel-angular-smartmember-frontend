@@ -68,7 +68,19 @@
                 <button ng-if="anythingChecked('lessons')" class="ui button" ng-click="unselectAllLessons()">Unselect All Lessons</button>
                 <div class="ui segment" ng-if="anythingChecked()">
                     <strong>Bulk Actions</strong>
-                    <button class="ui button" sm-delete="selected" delete-function="bulkDelete">Delete</button>
+                    <button class="ui red button" sm-delete="selected" delete-function="bulkDelete">Delete</button>
+                    <button class="ui {{$parent.bulk_edit_access ? 'orange' : 'green'}} button" ng-if="anythingChecked('lessons')" ng-click="toggleBulkAccessEdit()">{{$parent.bulk_edit_access ? 'Close' : 'Change Access'}}</button>
+                    <div class="ui form segment" ng-if="bulk_edit_access">
+                        <h4>Update access for selected lessons</h4>
+                        <strong>Access</strong>
+                        <select ng-model="bulk_edit.access_level_type" ng-options="a.value as a.name for a in access_level_choices">
+                        </select>
+                        <br />
+                        <strong ng-if="bulk_edit.access_level_type == 2">Access Level</strong>
+                        <select ng-if="bulk_edit.access_level_type == 2" ng-model="bulk_edit.access_level_id" ng-options="a.id as a.name for a in access_levels" style="margin-bottom:10px;">
+                        </select>
+                        <button class="ui green button" ng-click="bulkUpdateAccess()">Save</button>
+                    </div>
                 </div>
             </div>
 
@@ -106,12 +118,14 @@
                                     <a href="#" editable-text="next_item.title" onaftersave="saveLessonTitle(next_item)">{{next_item.title || "Empty"}}</a>
                                 </div>
                                 <div class="four wide column">
+                                    <label>Access: </label>
                                     <span class='item-wrapper'>
                                         <a href="#" editable-select="next_item.access_level_type" e-ng-options="a.value as a.name for a in access_level_choices" onaftersave="saveLessonAccessLevel(next_item)">
                                             {{ showAccessLevelType( next_item ) }}
                                         </a>
                                     </span>
                                     <br />
+                                    <label ng-if="next_item.access_level_type == 2">Access Level: </label>
                                     <span class='item-wrapper' ng-if="next_item.access_level_type == 2">
                                         <a href="#" editable-select="next_item.access_level_id" e-ng-options="a.id as a.name for a in access_levels" onaftersave="saveLessonAccessLevel(next_item)">
                                             {{ showAccessLevel( next_item ) }}
