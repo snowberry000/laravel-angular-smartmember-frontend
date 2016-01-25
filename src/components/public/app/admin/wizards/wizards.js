@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.wizards", {
+		.state( "public.app.admin.wizards", {
 			url: "/wizard",
-			templateUrl: "/templates/components/public/administrate/wizards/wizards.html",
+			templateUrl: "/templates/components/public/app/admin/wizards/wizards.html",
 			controller: "WizardsController",
 			resolve: {
 				$wizards: function( Wizards )
@@ -44,6 +44,6 @@ app.controller( 'WizardsController', function( $scope, $rootScope, $location, $s
 
 	$scope.open = function( wizard )
 	{
-		$state.go( 'public.administrate.wizard', { 'id': wizard.slug } );
+		$state.go( 'public.app.admin.wizard', { 'id': wizard.slug } );
 	}
 } );

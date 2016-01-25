@@ -35,7 +35,7 @@ app.controller( "MyController", function( $scope, toastr, $window, $rootScope, $
 
 				if( $rootScope.user.sm_access && !$rootScope.user.setup_wizard_complete )
 				{
-					$state.go( 'public.administrate.wizard', { id: 'account_wizard'} );
+					$state.go( 'public.app.admin.wizard', { id: 'account_wizard'} );
 					console.log( "Lets do the setup wizard!" );
 				}
 				else

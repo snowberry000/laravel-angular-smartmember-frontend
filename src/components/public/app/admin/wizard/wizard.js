@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.wizard", {
+		.state( "public.app.admin.wizard", {
 			url: "/wizard/:id",
-			templateUrl: "/templates/components/public/administrate/wizard/wizard.html",
+			templateUrl: "/templates/components/public/app/admin/wizard/wizard.html",
 			controller: "WizardController"
 		} )
 } );
@@ -116,14 +116,14 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				}
 			}
 		}
-		smModal.Refresh();
+		
 
 	} );
 
 	$scope.cancel = function( node )
 	{
 		console.log( "cancel node: ", node, $rootScope.wizard_server, $scope );
-		smModal.Show( 'public.administrate.wizard', { id: $scope.static_wizard.slug } );
+		$state.go( 'public.app.admin.wizard', { id: $scope.static_wizard.slug } );
 		if( node )
 		{
 			//node.HideBox( node );
@@ -133,7 +133,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	$scope.back = function()
 	{
 		//$state.go( 'public.administrate.wizards' );
-		smModal.Show( 'public.administrate.wizard', { id: 'site_launch_wizard' } );
+		$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
 		return;
 	}
 
@@ -193,7 +193,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		{
 			Restangular.all( "wizard" ).customPUT( params, $rootScope.wizard_server.id ).then( function( response )
 			{
-				smModal.Show( 'public.administrate.wizard', { id: 'site_launch_wizard' } );
+				$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
 				$rootScope.wizard_server = response;
 				/*if(response && response.options)
 				 $rootScope.wizard_server.options = JSON.parse(response.options);*/
@@ -212,10 +212,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				{
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
-				$state.transitionTo('public.app.site.lessons', $stateParams, {
-
-				  reload: true, inherit: false, location: false
-				});
+				
 			} )
 		}
 		else
@@ -231,7 +228,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 					$scope.wizard_server.is_completed = true;
 				}
 				$rootScope.site.wizard_step++;
-				smModal.Show( 'public.administrate.wizard', { id: 'site_launch_wizard' } );
+				$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
 				var first_incomplete_step = _.findWhere( $rootScope.wizard, { completed: false } );
 
 				if( first_incomplete_step )
@@ -239,9 +236,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
 
-				$state.transitionTo('public.app.site.lessons', $stateParams, {
-				  reload: true, inherit: false, location: false
-				});
+				
 			} );
 		}
 	}
