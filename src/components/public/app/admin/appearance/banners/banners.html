@@ -38,7 +38,7 @@
 								Delete
 								<i class="fa fa-trash"></i>
 							</button>
-							<button class="ui right floated small button" ng-click="smModal.Show('public.administrate.site.appearance.banner', {id: ad.id})">
+							<button class="ui right floated small button" ui-sref="public.app.admin.appearance.banner( {id: ad.id})">
 								Edit
 							</button>
 						</div>
@@ -49,10 +49,10 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button close">
+		<a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
 			Close
-		</div>
-		<a ng-click="smModal.Show('public.administrate.site.appearance.banner', {modal_options:{closable:false}})" class="ui right labeled icon button">
+		</a>
+		<a ui-sref="public.app.admin.appearance.banner" class="ui right labeled icon button">
 			Create new banner
 			<i class="plus icon"></i>
 		</a>
