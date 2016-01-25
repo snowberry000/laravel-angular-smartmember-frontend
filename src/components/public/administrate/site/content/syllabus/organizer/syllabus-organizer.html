@@ -1,101 +1,171 @@
-<div class="ui modal"><i class="close icon"></i>
-	<div class="content" >
-		<div class="row animated fadeInRight">
-			<div class="col-lg-12">
+<div class="ui modal">
+    <i class="close icon"></i>
+    <style>
+        .item-wrapper a{
+            /* make the link always show up */
+            display: inline !important;
+        }
 
-				<div class="ibox-content page-heading clear_box">
-					<div class="p-xs">
-						<div class="row">
-							<div class="col-md-9">
-								<div class="pull-left m-r-md">
-									<i class="fa fa-globe text-branded mid-icon"></i>
-								</div>
-								<h2 class="ui header">Lesson organizer</h2>
-								<span>Add new lessons, modules, and re-order them with this organization tool</span>
-							</div>
-							<div class="col-md-3 text-right">
-								<button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
-									<i class="fa fa-question"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
+        .item-wrapper{
+            /* make absolutely positioned children constrained to this box*/
+            position: relative;
+        }
 
-			</div>
-		</div>
+        .item-wrapper form {
+            background: #FFF;
+            border: 1px solid #AAA;
+            border-radius: 5px;
+            display: inline-block;
+            left: 50%;
 
-		<div class="row">
-	        <div class="col-lg-9" ng-if="loading">
-	            <div class="sk-spinner sk-spinner-three-bounce">
-	                <div class="sk-bounce1"></div>
-	                <div class="sk-bounce2"></div>
-	                <div class="sk-bounce3"></div>
-	            </div>
-	        </div>
-			<div ng-if="!loading" class="col-lg-9 connectModulePanels" ui-sortable="ModuleSortableOptions">
-				<div class="ibox module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
-					<div class="ibox-title">
-						<h5 class="ui header">{{module.id ? module.title : options['default_module_title'] ? options['default_module_title']: 'Default'}}</h5>
-						
-						<div ibox-tools class="pull-right">
-							
-						</div>
-						<a href="#" ng-if="module.id" style="margin-right:15px;" class="pull-right btn btn-xs btn-white" ng-click="open2(module)">Edit</a>
-						<a href="#" ng-if="!module.id" style="margin-right:15px;" class="pull-right btn btn-xs btn-white" ng-click="open2(module)">Edit</a>
+            /* half the width */
+            margin-left: -110px;
+            padding: 7px;
+            position: absolute;
+            top: -55px;
+            z-index: 101;
+        }
 
-					</div>
+        .item-wrapper form:before{
+            content:"";
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #AAA;
+            position:absolute;
+            bottom:-10px;
+            left:100px;
+        }
 
-					<div class="ibox-content">
+        .item-wrapper form:after{
+            content:"";
+            width:0;
+            height:0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-top: 9px solid #FFF;
+            position:absolute;
+            bottom:-9px;
+            left:101px;
+        }
+    </style>
+    <div class="header">
+        <i class="student icon"></i>
+        Lesson organizer
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="ui message">
+                <p>Add new lessons, modules, and re-order them with this organization tool</p>
+            </div>
 
-						<div class="input-group">
-							<input type="text" placeholder="Your lesson title" class="input form-control" ng-init="module.pending_lesson = ''" ng-model="module.pending_lesson">
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-white" ng-click="addLesson(module.id ? module.id : 0, module.pending_lesson)">
-									<i class="fa fa-plus"></i> Add lesson
-								</button>
-							</span>
-						</div>
-						<ul ui-sortable="false" class=" agile-list connectLessons">
-							<li data-ng-repeat="next_item in module.lessons" ng-class="{1:'info-element',2:'success-element', 3:'warning-element', 4:'danger-element', '':'success-element'}[next_item.access_level_type]" class="lesson_item" data-id="{{next_item.id}}">
+            <div class="ui attached segment">
+                <button class="ui button" ng-click="addModule()">Add new module</button>
+                <button ng-if="anythingChecked('modules')" class="ui button" ng-click="unselectAllModules()">Unselect All Modules</button>
+                <button ng-if="anythingChecked('lessons')" class="ui button" ng-click="unselectAllLessons()">Unselect All Lessons</button>
+                <div class="ui segment" ng-if="anythingChecked()">
+                    <strong>Bulk Actions</strong>
+                    <button class="ui red button" sm-delete="selected" delete-function="bulkDelete">Delete</button>
+                    <button class="ui {{$parent.bulk_edit_access ? 'orange' : 'green'}} button" ng-if="anythingChecked('lessons')" ng-click="toggleBulkAccessEdit()">{{$parent.bulk_edit_access ? 'Close' : 'Change Access'}}</button>
+                    <div class="ui form segment" ng-if="bulk_edit_access">
+                        <h4>Update access for selected lessons</h4>
+                        <strong>Access</strong>
+                        <select ng-model="bulk_edit.access_level_type" ng-options="a.value as a.name for a in access_level_choices">
+                        </select>
+                        <br />
+                        <strong ng-if="bulk_edit.access_level_type == 2">Access Level</strong>
+                        <select ng-if="bulk_edit.access_level_type == 2" ng-model="bulk_edit.access_level_id" ng-options="a.id as a.name for a in access_levels" style="margin-bottom:10px;">
+                        </select>
+                        <button class="ui green button" ng-click="bulkUpdateAccess()">Save</button>
+                    </div>
+                </div>
+            </div>
 
-								<div class="row">
-									<div class="col-sm-3" ng-show="next_item.featured_image">
-										<img src="{{next_item.featured_image}}" class="img-responsive">
-									</div>
-									<div class="col-sm-{{next_item.featured_image ? '9' : '12'}}">
-										{{next_item.title}}
+            <div class="ui section divider"></div>
 
-										<div class="agile-detail">
-											<button class="pull-right btn btn-danger btn-outline btn-xs" sm-delete="{{next_item}}">Delete <i class="fa fa-trash"></i></button>
-											<a href="#" class="pull-right btn btn-xs btn-white" ng-click="open1(next_item)">Edit</a>
-											<i class="fa fa-clock-o"></i> {{next_item.access}}
-										</div>
-									</div>
-								</div>
+            <div class="ui active inverted dimmer" ng-if="loading">
+                <div class="ui loader"></div>
+            </div>
 
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="ibox">
-					<div class="ibox-title">
-						<h5 class="ui header">Add new module</h5>
-					</div>
-					<div class="ibox-content">
+            <div ng-if="!loading" class="ui checkbox" ng-model="all_modules_selected" ng-click="toggleModuleSelection( all_modules_selected )" style="margin-bottom: 20px;" sui-checkbox>
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label>Modules</label>
+            </div>
 
-						<button class="btn btn-lg btn-block btn-brand" ng-click="addModule()">Add new module</button>
-					</div>
-				</div>
-			</div>
+            <div ng-if="!loading" class="ui checkbox" ng-model="all_lessons_selected" ng-click="toggleLessonSelection( all_lessons_selected )" style="margin-bottom: 20px;margin-left:15px;" sui-checkbox>
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label>Lessons</label>
+            </div>
 
-		</div>
-	</div>
-	<div class="actions">
-	    <div class="ui black deny button close">
-	        Close
-	    </div>
-	</div>
+            <div ng-if="!loading" class="connectModulePanels"  ui-sortable="ModuleSortableOptions" ng-model="modules">
+                <div class="ui segments module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
+                    <div class="ui segment">
+                        <div class="tiny ui buttons" style="float:right;">
+                            <button ng-if="!module.new" class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
+                            <button class="ui red button" ng-if="module.id" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
+                            <button class="ui red button" ng-if="module.new" ng-click="removeNewModule( module )"><i class="align trash icon"></i></button>
+                        </div>
+                        <p>
+                            <div ng-if="module.id || module.new" class="ui checkbox" ng-model="module.checked" sui-checkbox>
+                                <input type="checkbox" tabindex="0" class="hidden">
+                            </div>
+                            <a ng-if="module.id || module.new" href="#" editable-text="module.title" onaftersave="saveModuleTitle(module)">{{module.title || 'Empty'}}</a>
+                            <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle(module)">{{options['default_module_title'] || 'Default'}}</a>
+                        </p>
+                    </div>
+                    <div class="ui checkbox" ng-model="lessons_selected" ng-click="toggleLessonsSelected( lessons_selected, module )" style="margin-bottom: -10px;margin-left:30px;" sui-checkbox>
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Select All</label>
+                    </div>
+                    <div class="ui segments connectLessons" ui-sortable="LessonSortableOptions" ng-model="module.lessons">
+                        <div class="ui segment lesson_item" data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">
+                            <div class="ui grid">
+                                <div class="four wide column">
+                                    <div class="ui checkbox" ng-model="next_item.checked" sui-checkbox>
+                                        <input type="checkbox" tabindex="0" class="hidden">
+                                    </div>
+                                    <a href="#" editable-text="next_item.title" onaftersave="saveLessonTitle(next_item)">{{next_item.title || "Empty"}}</a>
+                                </div>
+                                <div class="four wide column">
+                                    <label>Access: </label>
+                                    <span class='item-wrapper'>
+                                        <a href="#" editable-select="next_item.access_level_type" e-ng-options="a.id as a.name for a in access_level_choices" onaftersave="saveLessonAccessLevel(next_item)">
+                                            {{ showAccessLevelType( next_item ) }}
+                                        </a>
+                                    </span>
+                                    <br />
+                                    <label ng-if="next_item.access_level_type == 2">Access Level: </label>
+                                    <span class='item-wrapper' ng-if="next_item.access_level_type == 2">
+                                        <a href="#" editable-select="next_item.access_level_id" e-ng-options="a.id as a.name for a in access_levels" onaftersave="saveLessonAccessLevel(next_item)">
+                                            {{ showAccessLevel( next_item ) }}
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="four wide column">
+
+                                </div>
+                                <div class="four wide column">
+                                    <div class="tiny ui buttons" style="float:right;">
+                                        <button class="ui blue button" ng-click="smModal.Show( 'public.administrate.site.content.syllabus.lesson', {id : next_item.id, syllabus_creator: true})"><i class="align edit icon"></i></button>
+                                        <button ng-if="next_item.id" class="ui red button" sm-delete="{{next_item.id}}" delete-function="deleteLesson"><i class="align trash icon"></i></button>
+                                        <button ng-if="!next_item.id" class="ui red button" ng-click="removeNewLesson( next_item, module )"><i class="align trash icon"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button close">
+            Close
+        </div>
+        <a ng-click="smModal.Show(template_data.edit_route, {modal_options:{closable:false}})" class="ui right labeled icon green button">
+            Create new {{template_data.singular}}
+            <i class="plus icon"></i>
+        </a>
+    </div>
 </div>

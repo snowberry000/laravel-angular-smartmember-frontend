@@ -8,7 +8,10 @@ app.directive( 'smDelete', function()
 					.modal({
 						allowMultiple: true,
 						onApprove: function(){
-							scope.deleteResource(attributes.smDelete);
+                            if( attributes.deleteFunction && typeof scope[ attributes.deleteFunction ] == 'function' )
+                                scope[ attributes.deleteFunction ]( attributes.smDelete );
+                            else
+							    scope.deleteResource(attributes.smDelete);
 							return true;
 						},
 						onHidden: function() {

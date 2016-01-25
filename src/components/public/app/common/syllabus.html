@@ -27,7 +27,7 @@
 					</button>
 				</div>
 
-				<button busy class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="toggleEditMode()" ng-class="{thumbnail:'active'}[site.syllabus_format]">
+				<button busy class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.administrate.site.content.syllabus.organizer')" ng-class="{thumbnail:'active'}[site.syllabus_format]">
 					<i class="edit icon"></i>
 				</button>
 			</div>
@@ -36,87 +36,7 @@
 	<div class="ui attached segment" ng-show="query">
 		<h3 class="ui header">Search results for "{{query}}"</h3>
 	</div>
-	<div class="ui attached segment" ng-if="syllabus.edit_mode">
-		<a class="ui button" ng-click="addLesson()">Add Lesson</a>
-		<a class="ui button" ng-click="addModule()">Add Module</a>
-	</div>
-	<div class="col-lg-9 connectModulePanels" ng-if="syllabus.edit_mode"  ui-sortable="ModuleSortableOptions">
-		<div class="ui attached segment section_background_color module_item" data-id="{{module.id}}" ng-repeat="(key, module) in modules" ng-if="(!query || ( module.lessons | filter: query).length > 0)" data-id="{{module.id}}">
-			<div class="ibox-title">
-				<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" >
-					
-					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
-				</a>
-				<a ng-if="!module.id && syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'">
-					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
-				</a>
-				<a name="module{{key}}" ng-if="!syllabus.edit_mode" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" >
-					
-					({{module.lessons.length}}) {{module.id ? module.title : ( $parent.options.default_module_title || 'Default' ) }}
-				</a>
-				<button style="float:right;" class="ui module_label_background_color module_label_text_color left label" ng-click="toggleModule(module)"><i class="fa {{module.hide_module ? 'fa-plus' : 'fa-minus'}}" style="margin-right:4px"></i>
-				</button>
-			</div>
-			<div class="connectLessons ui very relaxed divided ordered list" ng-show="!module.hide_module" ng-if="site.syllabus_format == 'list'" ui-sortable="LessonSortableOptions">
-				<div style="height: 1px;"></div>
-				<div class="lesson_item item" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'" data-id="{{lesson.id}}">
-					<div class="right floated content">
-						<div class="ui label" ng-show="lesson.dripfeed_note">{{lesson.dripfeed_note}}</div>
-						<div class="ui label" ng-if="syllabus.edit_mode" onaftersave="saveLesson(lesson)" editable-text="lesson.note"  ng-show="lesson.note">{{lesson.note}}</div>
-						<div class="ui label" ng-if="!syllabus.edit_mode" ng-show="lesson.note">{{lesson.note}}</div>
-						<span class="ui label right floated" style="cursor:pointer;" ng-if="syllabus.edit_mode" ng-click="editLesson(lesson)">Edit</span>
-					</div>
-
-					<i class="large lock middle aligned icon" style='display: none' sm-access="view_restricted_content" if-not="show" level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}"></i>
-					<i class="large circle thin middle aligned icon" sm-access="view_restricted_content" if-not="hide" level="{{lesson.access_level_id}}" type="{{lesson.access_level_type}}" ng-show="!lesson.user_note.complete" ng-click='toggleComplete(lesson)'></i>
-					<i ng-click='toggleComplete(lesson)' class="large green checkmark box middle aligned icon" ng-show="lesson.user_note.complete"></i>
-					
-					<div class="content">
-						<a class="header" ng-if="syllabus.edit_mode" onaftersave="saveLesson(lesson)" editable-text="lesson.title" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
-						<a class="header" ng-if="!syllabus.edit_mode" ng-href="/{{lesson.permalink}}">{{lesson.title}}</a>
-						<div ng-if="!syllabus.edit_mode" class="description">{{lesson.access}}
-						
-						</div>
-						<a ng-if="syllabus.edit_mode" onaftersave="saveAccessLevel(lesson)" editable-select="lesson.access_level_type" e-ng-options="al_type.id as al_type.name for al_type in access_level_types">{{lesson.access}}</a>
-						<a ng-if="syllabus.edit_mode && lesson.access_level_type == 2" onaftersave="saveLesson(lesson)" editable-select="lesson.access_level_id" e-ng-options="access_level.id as access_level.name for access_level in access_levels">{{ lesson.access_level.name || 'Change access id'}}</a>
-					</div>
-				</div>
-			</div>
-			<div class="ui three cards syllabus_cards stackable m-t-xs" ng-show="!module.hide_module" ng-if="site.syllabus_format == 'thumbnail'">
-				<a ng-href="/{{ lesson.permalink }}" class="card" ng-repeat="lesson in module.lessons | filter: query | orderBy :'sort_order'">
-					<div class="blurring dimmable image">
-						<div class="ui dimmer">
-							<div class="content">
-								<div class="center">
-									<div class="ui inverted button">View</div>
-								</div>
-							</div>
-						</div>
-						<img src="{{lesson.featured_image ? lesson.featured_image : '/images/image.png'}}">
-					</div>
-					<div class="content">
-						<div class="header">{{lesson.title}}</div>
-						<div class="meta">
-							{{lesson.note}}
-						</div>
-						<div class="description">
-							{{lesson.description | cut:true:70:' ...'}}
-						</div>
-					</div>
-					<div class="extra content">
-						<span class="right floated">
-							<i class="fa {{lesson.user_note.complete ? 'fa-check-circle-o' : 'fa-circle-thin'}} pull-right" style="{{lesson.user_note.complete ? 'color: rgb(0, 119, 0);' : ''}}"></i>
-						</span>
-						<span>
-							<i class="icon fa fa-lock"></i>
-							{{lesson.access}}
-						</span>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-9 connectModulePanels" ng-if="!syllabus.edit_mode" >
+	<div class="col-lg-9 connectModulePanels">
 		<div class="ui attached segment section_background_color module_item" data-id="{{module.id}}" ng-repeat="(key, module) in modules" ng-if="(!query || ( module.lessons | filter: query).length > 0)" data-id="{{module.id}}">
 			<div class="ibox-title">
 				<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" ng-click="toggleModule(module)">
