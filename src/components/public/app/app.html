@@ -20,9 +20,6 @@
 				<div class="ui buttons {{meta_data.navigation_location == 'top fixed' && !isLoggedIn() ? 'more_margin_button2' : ''}}" ng-show="isLoggedIn() && ( !meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' ) )">
 					<button busy class="ui button join_button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">Join</button>
 				</div>
-	
-
-
 			</div>
 		</div>
 		<div class="row">
@@ -67,7 +64,7 @@
 	</div>
 </div>
 
-<div class="ui wide sidebar vertical menu left left_app_sidebar_contents  navigation_background_color">
+<div class="ui wide sidebar vertical menu left left_app_sidebar_contents  navigation_background_color labeled icon menu">
 	<a class="ui icon button item navigation_text_color" ng-click="smSidebar.Close();">
 		close
 		<i class="sidebar icon"></i>
@@ -75,7 +72,7 @@
 	<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.administrate.site.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | orderBy:'sort_order'" ng-click="selectedElement($index);smSidebar.Close();">
 		<i sm-class="'icon navigation_icon_color fa ' + ( menu_item.icon || 'fa-home' )" ng-if="!menu_item.custom_icon &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
 		<i sm-class="'icon navigation_icon_color fa ' + menu_item.custom_icon" ng-if="menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') != -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
-		<img style="width:auto;" sm-class="'icon navigation_icon_color '" ng-if="menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') == -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)" src="{{menu_item.custom_icon}}"/>
+		<img style="width:auto;" sm-class="'icon navigation_icon_color ' + meta_data.icon_size" ng-if="menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') == -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)" src="{{menu_item.custom_icon}}"/>
 		{{ menu_item.label }}
 	</a>
 </div>
