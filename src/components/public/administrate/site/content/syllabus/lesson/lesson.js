@@ -82,6 +82,12 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 			success_route: 'public.administrate.site.content.syllabus.lessons'
 		}
 
+        if( $stateParams.syllabus_creator )
+        {
+            $scope.template_data.cancel_route = 'public.administrate.site.content.syllabus.organizer';
+            $scope.template_data.success_route = 'public.administrate.site.content.syllabus.organizer';
+        }
+
 			if( $stateParams.clone )
 			{
 				delete $next_item.id;
