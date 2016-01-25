@@ -62,8 +62,6 @@
 
             <div class="ui attached segment">
                 <button class="ui button" ng-click="addModule()">Add new module</button>
-                <button class="ui button" ng-click="selectAllModules()">Select All Modules</button>
-                <button class="ui button" ng-click="selectAllLessons()">Select All Lessons</button>
                 <button ng-if="anythingChecked('modules')" class="ui button" ng-click="unselectAllModules()">Unselect All Modules</button>
                 <button ng-if="anythingChecked('lessons')" class="ui button" ng-click="unselectAllLessons()">Unselect All Lessons</button>
                 <div class="ui segment" ng-if="anythingChecked()">
@@ -90,13 +88,21 @@
                 <div class="ui loader"></div>
             </div>
 
+            <div ng-if="!loading" class="ui checkbox" ng-model="all_modules_selected" ng-click="toggleModuleSelection( all_modules_selected )" style="margin-bottom: 20px;" sui-checkbox>
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label>Modules</label>
+            </div>
+
+            <div ng-if="!loading" class="ui checkbox" ng-model="all_lessons_selected" ng-click="toggleLessonSelection( all_lessons_selected )" style="margin-bottom: 20px;margin-left:15px;" sui-checkbox>
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label>Lessons</label>
+            </div>
+
             <div ng-if="!loading" class="connectModulePanels"  ui-sortable="ModuleSortableOptions" ng-model="modules">
                 <div class="ui segments module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
                     <div class="ui segment">
                         <div class="tiny ui buttons" style="float:right;">
                             <button ng-if="!module.new" class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
-                            <button class="ui blue button" ng-click="selectLessonsInModule( module )">Select Lessons</button>
-                            <button ng-if="lessonSelectedInModule( module )" class="ui orange button" ng-click="unselectLessonsInModule( module )">Unselect Lessons</button>
                             <button class="ui red button" ng-if="module.id" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
                             <button class="ui red button" ng-if="module.new" ng-click="removeNewModule( module )"><i class="align trash icon"></i></button>
                         </div>
@@ -107,6 +113,10 @@
                             <a ng-if="module.id || module.new" href="#" editable-text="module.title" onaftersave="saveModuleTitle(module)">{{module.title || 'Empty'}}</a>
                             <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle(module)">{{options['default_module_title'] || 'Default'}}</a>
                         </p>
+                    </div>
+                    <div class="ui checkbox" ng-model="lessons_selected" ng-click="toggleLessonsSelected( lessons_selected, module )" style="margin-bottom: -10px;margin-left:30px;" sui-checkbox>
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Select All</label>
                     </div>
                     <div class="ui segments connectLessons" ui-sortable="LessonSortableOptions" ng-model="module.lessons">
                         <div class="ui segment lesson_item" data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">
@@ -137,7 +147,7 @@
                                 </div>
                                 <div class="four wide column">
                                     <div class="tiny ui buttons" style="float:right;">
-                                        <button class="ui blue button" ng-click="editLesson(lesson)"><i class="align edit icon"></i></button>
+                                        <button class="ui blue button" ng-click="smModal.Show( 'public.administrate.site.content.syllabus.lesson', {id : next_item.id, modal_options: {allowMultiple: true} })"><i class="align edit icon"></i></button>
                                         <button ng-if="next_item.id" class="ui red button" sm-delete="{{next_item.id}}" delete-function="deleteLesson"><i class="align trash icon"></i></button>
                                         <button ng-if="!next_item.id" class="ui red button" ng-click="removeNewLesson( next_item, module )"><i class="align trash icon"></i></button>
                                     </div>

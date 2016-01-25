@@ -24,16 +24,40 @@ app.config( function( $stateProvider )
 			}
 		} )
 } );
-app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $localStorage, $location, $stateParams, Restangular, toastr, $filter )
+app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $localStorage, $location, $stateParams, Restangular, toastr, $filter, smModal )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
 	$scope.options = {};
 
+    $scope.all_modules_selected = 0;
+    $scope.all_lessons_selected = 0;
+
     $scope.bulk_edit_access = false;
     $scope.bulk_edit = {
         access_level_type: 1,
         access_level_id: 0
+    }
+
+    $scope.toggleModuleSelection = function( select ) {
+        if( select )
+            $scope.selectAllModules();
+        else
+            $scope.unselectAllModules();
+    }
+
+    $scope.toggleLessonSelection = function( select ) {
+        if( select )
+            $scope.selectAllLessons();
+        else
+            $scope.unselectAllLessons();
+    }
+
+    $scope.toggleLessonsSelected = function( select, module ) {
+        if( select )
+            $scope.selectLessonsInModule( module );
+        else
+            $scope.unselectLessonsInModule( module );
     }
 
     $scope.access_level_choices = [
