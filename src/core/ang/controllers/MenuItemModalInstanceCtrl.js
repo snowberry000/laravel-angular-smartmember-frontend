@@ -1,4 +1,4 @@
-app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParams, $rootScope, Restangular, toastr) {
+app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParams,$state, $rootScope, Restangular, toastr) {
     $site=$rootScope.site;
     var menu=$rootScope.menuType;
     var next_item=null;
@@ -47,14 +47,14 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
             Restangular.one('siteMenuItem', id)
                 .remove()
                 .then(function(response){
-                    smModal.Show('public.administrate.site.appearance.menus')
+                    $state.go('public.app.admin.appearance.menus')
                 });
         }
         else{
             Restangular.one('siteFooterMenuItem', id)
                 .remove()
                 .then(function(response){
-                    smModal.Show('public.administrate.site.appearance.menus');
+                    $state.go('public.app.admin.appearance.menus');
                 });
         }
     }
@@ -121,7 +121,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
                 $scope.next_item['url'] = $scope.editing_item.url;
             }
 
-            smModal.Show('public.administrate.site.appearance.menus');
+            $state.go('public.app.admin.appearance.menus');
         });
     };
 });
