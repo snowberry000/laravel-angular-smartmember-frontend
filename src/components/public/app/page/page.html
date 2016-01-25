@@ -25,7 +25,10 @@
 		<img class="ui fluid image" ng-src="{{page.featured_image}}" ng-if="page.featured_image && page.always_show_featured_image">
 
 		<div ng-if="!page.access">
-			<a class="ui fluid image" ng-href="{{page.access_level.information_url || '/sign/in/'}}">
+			<a class="ui fluid image" ng-if="page.access_level.information_url" ng-href="{{page.access_level.information_url}}">
+				<img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+			</a>
+			<a class="ui fluid image" ng-click="smModal.Show('public.sign.in')" ng-if="!page.access_level.information_url">
 				<img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
 			</a>
 		</div>
