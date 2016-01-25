@@ -36,6 +36,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	$rootScope.sites_loaded = false;
 	$rootScope.sites = {};
 
+	$scope.launch_time_left = 1453795200000;
+
 	$scope.current_hostname = location.hostname;
 
 	$rootScope.access_level_types = [
