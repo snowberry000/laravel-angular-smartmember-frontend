@@ -94,9 +94,9 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 			//smModal.Close( 'public.administrate.site.appearance.settings' );
 			$scope.site_options.isOpen = false;
 			$localStorage.homepage_url = $scope.site_options.homepage_url;
-			// $state.transitionTo($state.current, $state.params, { 
-			//   reload: true, inherit: false, location: false
-			// });
+			$state.transitionTo($state.current, $state.params, { 
+			  reload: true, inherit: false, location: false
+			});
 		} );
 	}
 
