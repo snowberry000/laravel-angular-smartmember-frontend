@@ -10,7 +10,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     $scope.resolve = function () {
         if( $stateParams.id )
         {
-            if(menu!='footer')
+            if($state.current.name == 'public.app.admin.appearance.menu')
                 next_item = _.find($site.menu_items, function(item){ return item.id == $stateParams.id; });
             else
                 next_item = _.find($site.footer_menu_items, function(item){ return item.id == $stateParams.id; });
@@ -109,7 +109,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
 
         var menuType = "siteMenuItem";
 
-        if( menu == 'footer' )
+        if( $state.current.name == 'public.app.admin.appearance.footerMenuItem' )
             menuType = "siteFooterMenuItem";
         Restangular.all(menuType).customPUT($scope.editing_item, $scope.editing_item.id).then(function () {
             toastr.success("Success! Menu Item saved!");
