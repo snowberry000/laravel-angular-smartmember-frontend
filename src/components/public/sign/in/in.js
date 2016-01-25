@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http , close )
+app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http , close, smEvent )
 {
 
 	$rootScope.page_title = "Smart member";
@@ -111,6 +111,11 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 			$localStorage.cbreceipt = false;
 		}
 		$rootScope.first_login_view = true;
+
+        smEvent.Log( 'logged-in', {
+            'login-url': location.href,
+            'referring-url': document.referrer
+        });
 
 		Restangular.one( 'user', $localStorage.user.id ).get().then( function( response )
 		{

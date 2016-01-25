@@ -26,7 +26,7 @@ app.config( function( $stateProvider, paginationTemplateProvider )
 
 } );
 
-app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, User, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload )
+app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, User, smSidebar, $timeout, $localStorage, $location, Restangular, $stateParams, $state, $http, toastr, $window, Upload, smEvent )
 {
 	$rootScope.user_loading = false;
 	$rootScope.user_loaded = false;
@@ -407,12 +407,22 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		else
 		{
 			$http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
+
+            smEvent.Log( 'transaction-associated-for-logged-in-user', {
+                'request-url': location.href
+            } );
+
 			Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
 			{
-                if( location.href.indexOf( 'sm.smartmember.' ) == -1 )
-				    location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
-                else
+                if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
+                    location.href = location.href.substr(0, location.href.indexOf('?'));
+                } else {
                     location.href = 'http://my.smartmember.' + $rootScope.app.env;
+
+                    smEvent.Log( 'landed-on-my-setup-site', {
+                        'request-url': location.href
+                    } );
+                }
 			} );
 		}
 	}

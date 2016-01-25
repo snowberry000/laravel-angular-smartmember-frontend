@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$localStorage,  Restangular, $http, notify,Facebook) {
+app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$localStorage,  Restangular, $http, notify,Facebook, smEvent) {
     $scope.available_facebook_groups = [];
     $scope.facebook_groups = [];
     $scope.joined_facebook_groups = [];
@@ -93,12 +93,20 @@ app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$
                     if (response.added == true) {
                         swal('Congratulations, you have joined our Facebook Group!', 'You can access the group at any time by clicking the Facebook icon on the right side of the members area.');
                         user_options.fb_group_joined = group.remote_id;
+                        smEvent.Log('joined-fb-group', {
+                            'facebook-group-id': group_id
+                        });
                         Restangular.all('user').customPOST({user_options: user_options, user_id: $localStorage.user.id}, "saveFacebookGroupOption").then(function(response){
                             $scope.joined_facebook_groups = response;
                         });
                     } else {
                         if (response.error_code == 4001){
                             user_options.fb_group_joined = group.remote_id;
+
+                            smEvent.Log('already-joined-fb-group', {
+                                'facebook-group-id': group_id
+                            })
+
                             Restangular.all('user').customPOST({user_options: user_options, user_id: $localStorage.user.id}, "saveFacebookGroupOption").then(function(response){
                                 swal("You are already a member of this group");
                                 $scope.joined_facebook_groups = response;

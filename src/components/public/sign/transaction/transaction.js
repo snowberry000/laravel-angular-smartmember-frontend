@@ -8,7 +8,7 @@ app.config(function($stateProvider){
 		})
 });
 
-app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http, smModal )
+app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http, smModal, smEvent )
 {
     console.log('here we goes');
     $scope.account = {};
@@ -51,11 +51,20 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
             {
                 $scope.postAuth( response );
 
+                smEvent.Log( 'connected-to-a-jvzoo-receipt', {
+                    'request-url': location.href,
+                    'cbreceipt': $_GET['cbreceipt']
+                } );
+
                 $rootScope.modal_popup_template = false;
                 delete $rootScope.$_GET['cbreceipt'];
 
                 if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                     location.href = 'http://my.smartmember.' + $rootScope.app.env;
+
+                    smEvent.Log( 'landed-on-my-setup-site', {
+                        'request-url': location.href
+                    } );
                 } else {
                     $state.go($state.current, $stateParams, {reload: true});
                     smModal.Close();
@@ -94,11 +103,20 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
         {
             $scope.postAuth( response );
 
+            smEvent.Log( 'account-setup', {
+                'request-url': location.href,
+                'cbreceipt': $_GET['cbreceipt']
+            } );
+
             $rootScope.modal_popup_template = false;
             delete $rootScope.$_GET['cbreceipt'];
 
             if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                 location.href = 'http://my.smartmember.' + $rootScope.app.env;
+
+                smEvent.Log( 'landed-on-my-setup-site', {
+                    'request-url': location.href
+                } );
             } else {
                 $state.go($state.current, $stateParams, {reload: true});
                 smModal.Close();
@@ -118,6 +136,10 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
 
             if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                 location.href = 'http://my.smartmember.' + $rootScope.app.env;
+
+                smEvent.Log( 'landed-on-my-setup-site', {
+                    'request-url': location.href
+                } );
             } else {
                 $state.go($state.current, $stateParams, {reload: true});
                 smModal.Close();

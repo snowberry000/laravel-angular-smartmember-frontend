@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 });
 
-app.controller('ResetController', function ($rootScope, smModal, $scope, $localStorage,$stateParams, $location, Restangular, $state, $http,toastr) {
+app.controller('ResetController', function ($rootScope, smModal, $scope, $localStorage,$stateParams, $location, Restangular, $state, $http,toastr, smEvent ) {
 	var auth = Restangular.all('auth');
 	$rootScope.is_admin = true;
 	$rootScope.page_title = "Smartmember - Password Reset";
@@ -43,6 +43,7 @@ app.controller('ResetController', function ($rootScope, smModal, $scope, $localS
 				toastr.error("The email you specified does not exist");
 			} else {
 				$scope.message = data.message;
+
 				smModal.Show('public.sign.in');
 			}
 
@@ -50,6 +51,10 @@ app.controller('ResetController', function ($rootScope, smModal, $scope, $localS
 	}
 
 	$scope.forgot = function(reset_email){
+        smEvent.Log( 'requested-password-reset', {
+            'request-url': location.href
+        } );
+
 		auth.customPOST({email :$scope.data.reset_email} , 'forgot').then(function(data){
 			if (data.message  && data.message == "no such email found") {
 				toastr.error("The email you specified does not exist");
