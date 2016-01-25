@@ -84,7 +84,7 @@
 										<a class="item" ng-if="isAgent(next_item) && !isAdmin(next_item) && !isOwner(next_item)" ng-click="toggleAgent(next_item);next_item.access_level_selection=false">
 											Revoke Agent Status
 										</a>
-										<a ng-if="!isOwner(next_item)" class="item" sm-delete="{{next_item.id}}">
+										<a ng-if="!isOwner(next_item)" class="item" sm-delete="{{next_item.user_id}}">
 											<i class="delete icon"></i>
 											Delete
 										</a>

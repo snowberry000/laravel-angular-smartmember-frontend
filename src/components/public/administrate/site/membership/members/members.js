@@ -375,10 +375,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.deleteResource = function( id )
 	{
-		var itemWithId = _.find($scope.data, function (next_item) {
-			return next_item.id == id;
-		});
-		itemWithId.remove().then( function()
+        var itemWithId = _.find($scope.data, function (next_item) {
+            return next_item.id == id;
+        });
+
+		Restangular.all('siteRole/removeUserFromCurrentSite').post({user_id: itemWithId.user_id}).then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
 			var this_site = _.findWhere($rootScope.sites , {id : itemWithId.site_id});
