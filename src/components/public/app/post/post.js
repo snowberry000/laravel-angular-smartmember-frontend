@@ -26,7 +26,7 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
             var view_content = false;
             if ($site && $site.capabilities)
             {
-                if ($site.capabilities.indexOf('manage_content') == -1)
+                if ($site.capabilities.indexOf('manage_content') != -1)
                 {
                     view_content = true;
                 }
