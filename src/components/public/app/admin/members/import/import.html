@@ -50,9 +50,9 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button" ng-click="CloseAdminState()">
+		<a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
 			Close
-		</div>
+		</a>
         <div class="ui deny button" ui-sref="public.app.admin.members.list">
             Back
         </div>

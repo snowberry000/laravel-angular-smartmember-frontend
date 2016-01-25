@@ -92,9 +92,9 @@
 		</div>
 	</div>
 	<div class="actions">
-        <div class="ui black deny button" ng-click="CloseAdminState()">
-            Close
-        </div>
+        <a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
+			Close
+		</a>
 		<a ui-sref="{{template_data.edit_route}}" class="ui right labeled icon green button">
 			Create new access level
 			<i class="plus icon"></i>
