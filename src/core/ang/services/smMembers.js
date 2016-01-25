@@ -52,6 +52,17 @@ app.factory( 'smMembers', [ 'Restangular', function( Restangular )
             } );
 
             return Restangular.all('customAttribute/set').post( data );
+        },
+        IncrementResponseAttribute: function( attribute, response ) {
+            if( response[ attribute ] || parseInt( response[ attribute ] ) === 0 )
+            {
+                var count = parseInt( response[ attribute ] ) + 1;
+
+                var data = {};
+                data[ attribute ] = count;
+
+                this.Update( data );
+            }
         }
     }
 } ] );

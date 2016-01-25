@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootScope, $state, smModal, $localStorage, $location, Restangular, $filter )
+app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootScope, $state, smModal, $localStorage, $location, Restangular, $filter, smMembers )
 {
 	if( $stateParams.id )
 	{
@@ -63,6 +63,7 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootS
 	{
 		Restangular.service( "site" ).post( $scope.site ).then( function( response )
 		{
+            smMembers.IncrementResponseAttribute( 'sites_created', response );
 
 			toastr.success( "Site Created!" );
 

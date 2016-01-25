@@ -20,7 +20,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close, $rootScope, $localStorage, $timeout, $state, $location, $stateParams,  $filter, Restangular, toastr, Upload )
+app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close, $rootScope, $localStorage, $timeout, $state, $location, $stateParams,  $filter, Restangular, toastr, Upload, smMembers )
 {
 	$site = $rootScope.site;
 	$user = $rootScope.user;
@@ -405,6 +405,7 @@ app.controller( "SyllabusLessonController", function( $scope,smModal, $q, close,
 
 		$callback.then( function( lesson )
 		{
+            smMembers.IncrementResponseAttribute( 'lessons_created', lesson );
 
             if( draft )
             {
