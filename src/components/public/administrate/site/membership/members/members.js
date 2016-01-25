@@ -375,9 +375,9 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.deleteResource = function( id )
 	{
-        var itemWithId = _.find($scope.data, function (next_item) {
-            return next_item.id == id;
-        });
+        console.log('here is the id: ', id );
+        var itemWithId = _.findWhere( $scope.data, {id: parseInt( id ) } ) || _.findWhere( $scope.data, {id: id + '' } );
+        console.log( 'here is the item: ', itemWithId );
 
 		Restangular.all('siteRole/removeUserFromCurrentSite').post({user_id: itemWithId.user_id}).then( function()
 		{
