@@ -24,17 +24,13 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
         if( $scope.post.access_level_type == 4 )
         {
             var view_content = false;
-            if ($site && $site.attributes)
+            if ($site && $site.capabilities)
             {
-                for (var i = 0; i < $site.capabilities.length; i++) {
-                    if ($site.capabilities[i] == 'manage_content')
-                    {
-                        view_content = true;
-                    }
+                if ($site.capabilities.indexOf('manage_content') == -1)
+                {
+                    $state.go('public.app.blog');
                 }
             }
-            if (!view_content)
-                $state.go('public.app.blog');
         }
         Restangular.all('').customGET('comment?target_id='+$scope.post.id+'&type='+4).then(function(comments){
            $scope.post.comments = _.toArray(comments.comments)
