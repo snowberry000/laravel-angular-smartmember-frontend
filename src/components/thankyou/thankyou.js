@@ -30,7 +30,7 @@ app.config(function($stateProvider){
         })
 }); 
 
-app.controller('ThankyouController', function ($scope, $site, $access_levels,$rootScope) {
+app.controller('ThankyouController', function ($scope, $http, Restangular, $site, $access_levels,$rootScope, $localStorage, smModal, smEvent) {
     $scope.site = $site;
     $rootScope.page_title = 'Thank you!';
 
@@ -76,6 +76,50 @@ app.controller('ThankyouController', function ($scope, $site, $access_levels,$ro
         if (typeof $scope.options.facebook_conversion_pixel != 'undefined') {
             window._fbq = window._fbq || [];
             window._fbq.push(['track', $scope.options.facebook_conversion_pixel, {'content_name': $scope.access_level.name || $site.name, 'value': $scope.access_level.price || 0, 'currency': 'USD'}]);
+        }
+    }
+
+    var getUrlVars = function()
+    {
+        var vars = {};
+        var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
+        {
+            vars[ key ] = decodeURIComponent( value );
+        } );
+        return vars;
+    }
+
+    $rootScope.$_GET = getUrlVars();
+
+    if( $rootScope.$_GET[ 'cbreceipt' ] )
+    {
+        if( !$localStorage.user )
+        {
+            smModal.Show( 'public.sign.transaction' );
+            // $timeout( function(){
+            //     smModal.Show( 'public.sign.transaction' );
+            // }, 50);
+        }
+        else
+        {
+            $http.defaults.headers.common[ 'Authorization' ] = "Basic " + $localStorage.user.access_token;
+
+            smEvent.Log( 'transaction-associated-for-logged-in-user', {
+                'request-url': location.href
+            } );
+
+            Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
+            {
+                if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
+                    location.href = 'http://' + location.hostname;
+                } else {
+                    location.href = 'http://my.smartmember.' + $rootScope.app.env;
+
+                    smEvent.Log( 'landed-on-my-setup-site', {
+                        'request-url': location.href
+                    } );
+                }
+            } );
         }
     }
 });

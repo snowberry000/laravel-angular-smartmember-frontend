@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, $stateParams, $location, Restangular, $state, $http, toastr )
+app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, $stateParams, $location, Restangular, $state, $http, toastr, smEvent )
 {
 	var auth = Restangular.all( 'auth' );
 	$rootScope.is_admin = true;
@@ -59,6 +59,9 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
 
 	$scope.forgot = function( reset_email )
 	{
+		smEvent.Log( 'requested-password-reset', {
+		    'request-url': location.href
+		} );
 		auth.customPOST( { email: $scope.data.reset_email }, 'forgot' ).then( function( data )
 		{
 			if( data.message && data.message == "no such email found" )

@@ -8,7 +8,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SpeedBloggingController", function ($scope, $rootScope, close, smModal, $localStorage, $filter) {
+app.controller("SpeedBloggingController", function ($scope, $rootScope, close, smModal, $localStorage, $filter, smEvent) {
 
     if( $localStorage.speed_blogging_parameters ) {
         $rootScope.$_GET = $localStorage.speed_blogging_parameters;
@@ -64,6 +64,8 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
             }
         });
     }
+
+    smEvent.Log( 'created-content-from-sb', $rootScope.$_GET );
 
     angular.forEach( $rootScope.$_GET, function( value, key )
     {

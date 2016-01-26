@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicDownloadController', function ($scope, $rootScope ,$localStorage, $state, $stateParams,  Restangular, toastr, $filter) {
+app.controller('PublicDownloadController', function ($scope, $rootScope ,$localStorage, $state, $stateParams,  Restangular, toastr, $filter, $window) {
 
 // alert("asd")
     $download={};
