@@ -264,5 +264,17 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 
 	}
 
+	$scope.deleteResource = function(id){
+		var itemWithId = _.find( $scope.keys, function( next_item )
+		{
+			return next_item.id === parseInt(id);
+		} );
+		Restangular.one('accessLevelShareKey' , itemWithId.id).remove().then( function( response )
+		{
+			$scope.keys = _.without($scope.keys , itemWithId);
+			$scope.key = '';
+		} );
+	}
+
 	$scope.resolve();
 });
