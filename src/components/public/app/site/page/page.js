@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicPageController', function ($scope, $localStorage,$rootScope, $state, $stateParams,  $filter, Restangular, toastr) {
+app.controller('PublicPageController', function ($scope, $localStorage,$rootScope, $state, $stateParams,  $filter, Restangular, toastr,smModal) {
     
     $scope.comment = '';
     $scope.child_comment = '';
@@ -104,6 +104,13 @@ app.controller('PublicPageController', function ($scope, $localStorage,$rootScop
 
     $scope.TriggerEmbeds = function() {
         $('.ui.embed').embed();
+    }
+
+    $scope.showNoAccessLogin = function() {
+        if (!$localStorage.user || !$localStorage.user.access_token)
+        {
+            smModal.Show('public.sign.in');
+        }
     }
 
 });
