@@ -29,12 +29,12 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 			}
 			else
 			{
-				$state.go( "public.app.home" );
+				$state.go( "public.app.site.home" );
 			}
 		}
 		else
 		{
-			$state.go( "public.app.home" );
+			$state.go( "public.app.site.home" );
 		}
 	} );
 
@@ -65,22 +65,22 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 					switch( response.type )
 					{
 						case "lessons":
-							$state.go( 'public.app.lesson', { permalink: parts[ 1 ] }, { location: false } );
+							$state.go( 'public.app.site.lesson', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "custom_pages":
-							$state.go( 'public.app.page', { permalink: parts[ 1 ] }, { location: false } );
+							$state.go( 'public.app.site.page', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "download_center":
-							$state.go( 'public.app.download', { permalink: parts[ 1 ] }, { location: false } );
+							$state.go( 'public.app.site.download', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "livecasts":
-							$state.go( 'public.app.livecast', { permalink: parts[ 1 ] }, { location: false } );
+							$state.go( 'public.app.site.livecast', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "posts":
-							$state.go( 'public.app.post', { permalink: parts[ 1 ] }, { location: false } );
+							$state.go( 'public.app.site.post', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "support_articles":
-							$state.go( 'public.app.support-article', { permalink: parts[ 1 ] }, { location: false } );
+							$state.go( 'public.app.site.support-article', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "bridge_bpages":
 							
@@ -89,13 +89,13 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 							$state.go( 'bridgepage', { permalink: parts[ 1 ] }, { location: false } );
 							break;
 						case "forum_topics":
-							$state.go("public.app.forum-topic",{permalink: parts[1]}, {location: false});
+							$state.go("public.app.site.forum-topic",{permalink: parts[1]}, {location: false});
 							break;
 						case "forum_categories":
-							$state.go("public.app.forum-category",{permalink: parts[1]}, {location: false});
+							$state.go("public.app.site.forum-category",{permalink: parts[1]}, {location: false});
 							break;
                         case 'affcontests':
-                            $state.go( 'public.app.affiliateContest', { permalink: parts[1] }, { location: false } );
+                            $state.go( 'public.app.site.affiliateContest', { permalink: parts[1] }, { location: false } );
                             break;
                         case 'smart_links':
                             location.href = response.redirect_url;

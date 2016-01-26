@@ -21,8 +21,7 @@ app.config( function( $stateProvider, paginationTemplateProvider )
 			}
 		} );
 
-	paginationTemplateProvider.setPath('/templates/core/html/pagination.html');
-	paginationTemplateProvider.setPath('/templates/core/html/pagination.html');
+	paginationTemplateProvider.setPath( '/templates/core/html/pagination.html' );
 
 } );
 
@@ -47,8 +46,76 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		{ id: 1, name: 'Visitors' },
 	];
 
+	$rootScope.last_base_state = {};
+	$rootScope.last_site_state = {};
+
 	$scope.current_site_domain = window.location.host;
 	$rootScope.active_theme_option_section = 'layout';
+
+
+	$rootScope.$on( "$stateChangeStart", function( evt, toState, toStateParams, fromState, fromStateParams )
+	{
+		//console.log( 'stateChangeStart', toState, fromState )
+
+		if( !(fromState.name.indexOf( 'public.app.admin' ) > -1) && (toState.name.indexOf( 'public.app.admin' ) > -1) )
+		{
+			$rootScope.last_site_state = {
+				state: fromState,
+				params: fromStateParams
+			};
+
+			console.log( 'last_site_state', $rootScope.last_site_state )
+			//$state.go( $scope.stateBehindModal.state, $scope.stateBehindModal.params );
+		}
+
+		if( !(fromState.name.indexOf( 'public.sign' ) > -1) && (toState.name.indexOf( 'public.sign' ) > -1) )
+		{
+			$rootScope.last_base_state = {
+				state: fromState,
+				params: fromStateParams
+			};
+
+			console.log( 'last_base_state', $rootScope.last_base_state )
+			//$state.go( $scope.stateBehindModal.state, $scope.stateBehindModal.params );
+		}
+
+		$('.ui.popup').popup( 'hide all' );
+	} );
+
+	$rootScope.CloseAdminState = function()
+	{
+		var go_state = $rootScope.last_site_state.state || (!$scope.isSitelessPage() ? 'public.app.site.home' : '');
+		var params = $rootScope.last_site_state.params || null;
+		var options = $rootScope.last_site_state.state ? null : { reload: true };
+
+		console.log( 'closing the admin state', go_state, params, options );
+		if(go_state)
+			$state.go( go_state, params, options );
+	};
+
+	$rootScope.CloseExtraState = function()
+	{
+		var go_state = $rootScope.last_base_state.state ;
+		var params = $rootScope.last_base_state.params || null;
+		var options = $rootScope.last_base_state.state ? null : { reload: true };
+
+		console.log( 'closing the extra state', go_state, params, options );
+		if(go_state)
+		{
+			$state.go( go_state, params, options );
+		}	
+		else
+		{
+			window.location.href = "http://"+$location.host();
+		}
+			
+	};
+
+	$rootScope.SiteStateExists = function()
+	{
+		return true;
+		return $rootScope.last_site_state.state;
+	}
 
 	$scope.LogOut = function()
 	{
@@ -56,13 +123,14 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 
 	$scope.GetAdminBarInclude = function()
-	{	
-		var state = $state.current.name.split('.');
-		if(state.length >= 3){
-			state = state[2];
+	{
+		var state = $state.current.name.split( '.' );
+		if( state.length >= 3 )
+		{
+			state = state[ 3 ];
 		}
 
-		if( $scope.isLoggedIn() && state != 'public,wallboard' && (true || $rootScope.app.subdomain != 'sm' || $rootScope.site.is_admin == true))
+		if( $scope.isLoggedIn() && state != 'wallboard' && (true || $rootScope.app.subdomain != 'sm' || $rootScope.site.is_admin == true) )
 		{
 			return 'templates/components/public/admin-bar/admin-bar.html';
 		}
@@ -72,25 +140,35 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.$watch( 'user_loaded', function( new_value, old_value )
 	{
-		console.log( 'user changed to ', new_value, ' from ', old_value );
+		//console.log( 'user changed to ', new_value, ' from ', old_value );
 		if( new_value && $rootScope.user && $rootScope.user.id )
 		{
 			$rootScope.sites_loading = true;
 
-			if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
+			if( $localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin )
+			{
 				$localStorage.open_sites_wizard_modal = null;
-				smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard' , modal_options : {duration : 0 }} );
+				$state.go( 'public.app.admin.wizard', {
+					id: 'site_launch_wizard',
+					modal_options: { duration: 0 }
+				} );
 				// $timeout(function(){
 				// 	smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard' , modal_options : {duration : 0 }} );
 				// } , 50)
-			}else if($localStorage.open_stripe_modal && $rootScope.site && $rootScope.site.is_admin){
-				smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }});
+			}
+			else if( $localStorage.open_stripe_modal && $rootScope.site && $rootScope.site.is_admin )
+			{
+				$localStorage.open_stripe_modal = null;
+				$state.go( 'public.app.admin.apps.app_configurations.list', { modal_options: { duration: 0 } } );
 				// $timeout(function(){
 				// 	smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }});
 				// 	$localStorage.open_stripe_modal = null;
 				// } , 50)
-			}else if($localStorage.open_vimeo_modal && $rootScope.site && $rootScope.site.is_admin){
-				smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }} );
+			}
+			else if( $localStorage.open_vimeo_modal && $rootScope.site && $rootScope.site.is_admin )
+			{
+				$localStorage.open_vimeo_modal = null;
+				$state.go( 'public.app.admin.apps.app_configurations.list', { modal_options: { duration: 0 } } );
 				// $timeout(function(){
 				// 	smModal.Show( 'public.administrate.team.app_configurations.list' , { modal_options : {duration : 0 }} );
 				// 	$localStorage.open_vimeo_modal = null;
@@ -102,8 +180,10 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				$grouped_sites = response;
 				$sites_copy = response;
 				$sites = [];
-				$sites_copy = _.groupBy( $sites_copy, function(item){
-					switch(item.role){
+				$sites_copy = _.groupBy( $sites_copy, function( item )
+				{
+					switch( item.role )
+					{
 						case 'owner':
 							return 0;
 						case 'admin':
@@ -115,35 +195,54 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 						case 'member':
 							return 4;
 					}
-				});
-		
-				angular.forEach($sites_copy , function(value , key){
-					for (var i = 0; i < value.length ; i++) {
-                        if( !value[i].subdomain )
-                            continue;
+				} );
 
-						if(value[i].subdomain == 'likastic')
-							console.log('')
-						var exists = _.findWhere($sites , {id : value[i].id});
-						if(!exists){
-                            if( value[i].total_revenue )
-                                value[i].total_revenue = parseInt( value[i].total_revenue );
-                            if( value[i].total_lessons )
-                                value[i].total_lessons = parseInt( value[i].total_lessons );
-                            if( value[i].total_members )
-                                value[i].total_members = parseInt( value[i].total_members );
-
-							$sites.push(value[i]);
+				angular.forEach( $sites_copy, function( value, key )
+				{
+					for( var i = 0; i < value.length; i++ )
+					{
+						if( !value[ i ].subdomain )
+						{
+							continue;
 						}
-						else if(exists.subdomain == 'likastic'){
-							console.log(exists);
-						}
-					};
-				});
 
-				if($localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin){
+						if( value[ i ].subdomain == 'likastic' )
+						{
+							console.log( '' )
+						}
+						var exists = _.findWhere( $sites, { id: value[ i ].id } );
+						if( !exists )
+						{
+							if( value[ i ].total_revenue )
+							{
+								value[ i ].total_revenue = parseInt( value[ i ].total_revenue );
+							}
+							if( value[ i ].total_lessons )
+							{
+								value[ i ].total_lessons = parseInt( value[ i ].total_lessons );
+							}
+							if( value[ i ].total_members )
+							{
+								value[ i ].total_members = parseInt( value[ i ].total_members );
+							}
+
+							$sites.push( value[ i ] );
+						}
+						else if( exists.subdomain == 'likastic' )
+						{
+							console.log( exists );
+						}
+					}
+					;
+				} );
+
+				if( $localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin )
+				{
 					$localStorage.open_sites_wizard_modal = null;
-					smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard' , modal_options : {duration : 0 }} );
+					$state.go( 'public.app.admin.wizard', {
+						id: 'site_launch_wizard',
+						modal_options: { duration: 0 }
+					} );
 					// $timeout(function(){
 					// 	smModal.Show( 'public.administrate.wizard', {id: 'site_launch_wizard' , modal_options : {duration : 0 }} );
 					// } , 50)
@@ -152,7 +251,9 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				angular.forEach( $sites, function( site, key )
 				{
 					if( !site )
+					{
 						return;
+					}
 					site.data = {};
 					angular.forEach( site.meta_data, function( data, key )
 					{
@@ -217,14 +318,15 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.isSitelessPage = function( specific_site )
 	{
-		var parts = $scope.current_hostname.split( '.' );
-
+		var parts = location.hostname.split( '.' );
 		var subdomain = parts.shift();
 		var domain = parts.shift();
 		var tld = parts.shift();
 
 		if( domain != 'smartmember' || tld == 'io' )
+		{
 			return false;
+		}
 
 		if( specific_site )
 		{
@@ -401,10 +503,12 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	{
 		if( !$localStorage.user )
 		{
-			smModal.Show( 'public.sign.transaction' );
-            // $timeout( function(){
-            //     smModal.Show( 'public.sign.transaction' );
-            // }, 50);
+            $localStorage.transaction_params = $rootScope.$_GET;
+            $localStorage.after_transaction_state = $state.current.name;
+            $localStorage.after_transaction_params = $stateParams;
+            $localStorage.after_transaction_params.permalink = location.href.substr( location.href.lastIndexOf('/') + 1, location.href.indexOf('?') - location.href.lastIndexOf('/') - 1 );
+
+			location.href = $state.href( 'public.sign.transaction' );
 		}
 		else
 		{
@@ -416,69 +520,68 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 			Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
 			{
-                if( location.href.indexOf( 'sm.smartmember.' ) == -1 ) {
-                    location.href = location.href.substr(0, location.href.indexOf('?'));
-                } else {
-                    location.href = 'http://my.smartmember.' + $rootScope.app.env;
-
-                    smEvent.Log( 'landed-on-my-setup-site', {
-                        'request-url': location.href
-                    } );
-                }
+				if( location.href.indexOf( 'sm.smartmember.' ) == -1 )
+				{
+					location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
+				}
+				else
+				{
+					location.href = 'http://my.smartmember.' + $rootScope.app.env;
+					smEvent.Log( 'landed-on-my-setup-site', {
+					    'request-url': location.href
+					} );
+				}
 			} );
 		}
 	}
 	else if( $localStorage.open_signup_modal )
 	{
-		smModal.Show( 'public.sign.up' ,{ modal_options : {duration : 0 }} );
+        location.href = $state.href( 'public.sign.up' );
 		// $timeout(function(){
 		// 	smModal.Show( 'public.sign.up' ,{ modal_options : {duration : 0 }} );
 		// } , 50)
 		$localStorage.open_signup_modal = null;
 	}
-    else if ( $localStorage.open_signin_modal )
+	else if( $localStorage.open_signin_modal )
 	{
-		smModal.Show('public.sign.in' , { modal_options : {duration : 0 }});
+        location.href = $state.href( 'public.sign.in' );
 		// $timeout(function(){
 		// 	smModal.Show('public.sign.in' , { modal_options : {duration : 0 }});
 		// } , 50)
 		$localStorage.open_signin_modal = null;
 	}
-    else if ( $localStorage.open_forgot_modal )
-    {
-    	smModal.Show('public.sign.forgot' , { modal_options : {duration : 0 }});
-    	// $timeout(function(){
-    	// 	smModal.Show('public.sign.forgot' , { modal_options : {duration : 0 }});
-    	// } , 50)
-        $localStorage.open_forgot_modal = null;
-    }
-    else if ( $localStorage.open_reset_modal )
-    {
-    	smModal.Show('public.sign.reset' , { modal_options : {duration : 0 }});
-        // if( !$localStorage.user ){
-        // 	$timeout(function(){
-        // 		smModal.Show('public.sign.reset' , { modal_options : {duration : 0 }});
-        // 	} , 50)
-        // }
-        $localStorage.open_reset_modal = null;
-    }
-    else if ( $localStorage.open_unsubscribe_modal )
-    {
-    	smModal.Show('public.sign.unsubscribe');
-        // $timeout(function(){
-        //     smModal.Show('public.sign.unsubscribe');
-        // }, 50);
-        // $localStorage.open_unsubscribe_modal = null;
-    }
-    else if ( $localStorage.open_speedblogging_modal )
-    {
-    	smModal.Show('public.administrate.speed-blogging');
-        // $timeout(function(){
-        //     smModal.Show('public.administrate.speed-blogging');
-        // }, 50);
-        $localStorage.open_speedblogging_modal = null;
-    }
-
+	else if( $localStorage.open_forgot_modal )
+	{
+        location.href = $state.href( 'public.sign.forgot' );
+		// $timeout(function(){
+		// 	smModal.Show('public.sign.forgot' , { modal_options : {duration : 0 }});
+		// } , 50)
+		$localStorage.open_forgot_modal = null;
+	}
+	else if( $localStorage.open_reset_modal )
+	{
+        location.href = $state.href( 'public.sign.reset' );
+		// if( !$localStorage.user ){
+		// 	$timeout(function(){
+		// 		smModal.Show('public.sign.reset' , { modal_options : {duration : 0 }});
+		// 	} , 50)
+		// }
+		$localStorage.open_reset_modal = null;
+	}
+	else if( $localStorage.open_unsubscribe_modal )
+	{
+        $localStorage.unsubscribe_parameters = $rootScope.$_GET;
+        location.href = $state.href( 'public.sign.unsubscribe' );
+		$localStorage.open_unsubscribe_modal = null;
+	}
+	else if( $localStorage.open_speedblogging_modal )
+	{
+		smModal.Show( 'public.administrate.speed-blogging' );
+		// $timeout(function(){
+		//     smModal.Show('public.administrate.speed-blogging');
+		// }, 50);
+		$localStorage.open_speedblogging_modal = null;
+	}
 
 	$scope.cancelThemeSelection = function()
 	{

@@ -1,0 +1,36 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="content">
+		<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+		    <div class="sk-bounce1"></div>
+		    <div class="sk-bounce2"></div>
+		    <div class="sk-bounce3"></div>
+		</div>
+		<div class="row" ng-if="!loading">
+			<div class="col-md-5">
+				<h2 class="ui header">Add New</h2>
+				<p>Select a {{integration.sites_only ? 'site' : 'site or team'}} for this integration.</p>
+			</div>
+			<div class="col-md-7">
+
+				<select class="form-control m-b-md m-t-xl" ng-model="$parent.chosen_entity">
+					<option value="0" ng-selected="chosen_entity == 0">Choose a {{integration.sites_only ? 'site' : 'site or team'}}...</option>
+					<!--<optgroup label="Teams" ng-if="!integration.sites_only">
+						<option value="team" ng-selected="chosen_entity == 'team'">{{company.name}}</option>
+					</optgroup>-->
+					<optgroup label="Sites">
+						<option ng-repeat="site in sites" value="{{site.id}}" ng-selected="site.id == chosen_entity" >{{(site.domain ? site.domain : site.subdomain+'.'+app.rootDomain)}}</option>
+					</optgroup>
+				</select>
+				<a ng-click="$parent.chosen_entity == 0 ? '' : addIntegration($parent.chosen_entity)" ng-disabled="$parent.chosen_entity == 0" class="ui right labeled icon button" >
+					Add {{integration.short_name || integration.name}} Integration
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="actions">
+	    <div class="ui black deny button close" ui-sref="public.app.admin.apps.app_configurations.available">
+	        Cancel
+	    </div>
+	</div>
+	
+</div>

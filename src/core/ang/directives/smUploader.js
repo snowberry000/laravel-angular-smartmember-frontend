@@ -71,11 +71,10 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 								}
 							}
 
-							$timeout( function()
-							{
-								smModal.Refresh();
-							}, 1000 );
-
+							// $timeout( function()
+							// {
+							// 	smModal.Refresh();
+							// }, 1000 );
 
 							if( rest )
 							{
@@ -213,11 +212,14 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
                         returnObject.media_item_id = data.media_item_id;
                     }
 					console.log(returnObject);
-
 					close( returnObject );
 					console.log($stateParams);
+
 					if($stateParams.closeOnModalCompletion == 'true')
 						smModal.Close();
+					// $('.ui.modal.small.upload').modal('hide');
+					$( '.ui.modal.upload' ).modal( 'hide' );
+
 
 				} ).error( function( data, status, headers, config )
 			{

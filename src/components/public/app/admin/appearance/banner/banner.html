@@ -1,0 +1,47 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="picture icon"></i>
+		{{ ad.id ? 'Edit existing' : 'Add a new' }} banner
+	</div>
+	<div class="content" style="min-height : 450px !important">
+		<div class="description">
+
+			<div class="ui form">
+				<div class="field">
+					<label>Destination Url</label>
+					<input type="text" ng-model="ad.banner_url">
+				</div>
+				<div class="inline field">
+					<label>Upload image / logo</label>
+					<button type="button" class="ui button" sm-uploader="site_logo" ng-model="ad.banner_image_url">
+						<i class="upload icon"></i>
+						Choose File
+					</button>
+					<button ng-if="ad.banner_image_url" class="ui left labeled icon button" ng-click="ad.banner_image_url = ''">
+						Clear
+						<i class="remove icon"></i>
+					</button>
+				</div>
+				<div ng-if="ad.banner_image_url" class="field">
+					<img class="ui large image" ng-src="{{ad.banner_image_url}}" style="max-width:100%;">
+				</div>
+				<div class="field">
+					<div class="ui checkbox" ng-model="ad.open_in_new_tab" sui-checkbox>
+						<input type="checkbox" tabindex="0" class="hidden">
+						<label>Open link in new tab</label>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ui-sref="public.app.admin.appearance.banners" class="ui black button">
+			Cancel
+		</a>
+		<a busy ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</a>
+	</div>
+</div>

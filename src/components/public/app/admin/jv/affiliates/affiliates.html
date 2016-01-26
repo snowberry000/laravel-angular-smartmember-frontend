@@ -1,0 +1,122 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="rocket icon"></i>
+		{{ template_data.title | translate }}
+	</div>
+	<div class="content">
+		<div class="description">
+			<div class="ui message">
+				<p>{{template_data.description}}</p>
+			</div>
+
+			<div class="ui section divider"></div>
+
+			<div class="ui icon input">
+				<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+				<i class="search icon"></i>
+			</div>
+
+			<div class="inline fields">
+				<label for="fruit">Sort By:</label>
+				<div class="field">
+					<div class="ui radio checkbox">
+						<input type="radio" ng-model='order_by' value='created_at' ng-click='sort_by_changed()'>
+						<label>Most Recent</label>
+					</div>
+				</div>
+				<div class="field">
+					<div class="ui radio checkbox">
+						<input type="radio" ng-model='order_by' value='past_sales' ng-click='sort_by_changed()'>
+						<label>Past Sales</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
+				<thead>
+					<tr>
+						<th data-toggle="true">Name</th>
+						<th data-hide="phone">Email</th>
+						<th data-hide="phone,tablet">Product</th>
+						<th data-hide="phone">Past Sales</th>
+						<th data-hide="all">Country</th>
+						<th data-hide="all">Note</th>
+						<th data-hide="all">Featured Image</th>
+						<th data-hide="all">Date</th>
+						<th class="text-right">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+						<td class="responsive_table_item">
+							{{next_item.user_name}}
+						</td>
+						<td>
+							{{next_item.user_email}}
+						</td>
+						<td>
+							{{next_item.product_name}}
+						</td>
+						<td>
+							{{next_item.past_sales}}
+						</td>
+						<td>
+							{{next_item.user_country}}
+						</td>
+						<td>
+							{{next_item.user_note}}
+						</td>
+						<td>
+							{{next_item.featured_image}}
+						</td>
+						<td>
+							{{moment.utc(next_item.created_at).fromNow()}}
+						</td>
+						<td class="text-right">
+							<div class="ui buttons">
+								<div class="ui button" ui-sref="{{template_data.edit_route}}({id: {{next_item.id}} })">
+									Edit
+								</div>
+								<div class="ui floating dropdown icon button" sui-dropdown>
+									<i class="dropdown icon"></i>
+									<div class="menu">
+										<a class="item" sm-delete="{{next_item.id}}">
+											<i class="delete icon"></i>
+											Delete
+										</a>
+									</div>
+								</div>
+							</div>
+
+						</td>
+					</tr>
+
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="4">
+							<div class="ui pointing label">
+								{{pagination.total_count}} items
+							</div>
+							<dir-pagination-controls max-size="5"></dir-pagination-controls>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
+			Close
+		</div>
+		<a ui-sref="{{template_data.edit_route}}({modal_options:{closable:false}})" class="ui right labeled icon green button">
+			Create new {{template_data.singular}}
+			<i class="plus icon"></i>
+		</a>
+	</div>
+</div>

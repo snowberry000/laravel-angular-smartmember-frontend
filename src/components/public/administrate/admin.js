@@ -4,7 +4,7 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.administrate", {
-			url: "/admin",
+			url: "/administrate",
 			templateUrl: "/templates/components/public/administrate/admin.html",
 			controller: "AdminController",
 			resolve: {

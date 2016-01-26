@@ -1,0 +1,175 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="ibox-content">
+		<div class="field">
+			<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
+		</div>
+		<div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+			<div class="sk-bounce1"></div>
+			<div class="sk-bounce2"></div>
+			<div class="sk-bounce3"></div>
+		</div>
+
+		<div ng-if="!loading && tickets.length==0">
+			<p class="alert alert-info">No tickets found</p>
+		</div>
+
+		<div class="row" ng-if="!loading">
+			<div class="col-md-12 no_margin no_padding">
+				<label class="col-md-3">
+					Filter tickets by:
+				</label>
+				<span dropdown class="dropdown col-md-2" ng-if="!search.selectDate">
+					<a href="#" id="date-dropdown" dropdown-toggle>Date</a>
+					<ul class="dropdown-menu" aria-labelledby="date-dropdown">
+						<li ng-click="search.date='true';search.displayDate='Today';search.startDate=moment().format('L');search.endDate=moment().add(1,'days').format('L');filterSearch();">
+							<a href>Today</a>
+						</li>
+						<li  ng-click="search.date='true';search.displayDate='Yesterday';search.startDate=moment().subtract(1,'days').format('L');search.endDate=moment().add(1,'days').format('L');filterSearch();">
+							<a href>Yesterday</a>
+						</li>
+						<li ng-click="search.date='true';search.displayDate='Last 7 days';search.startDate=moment().subtract(7,'days').format('L');search.endDate=moment().add(1,'days').format('L');filterSearch();">
+							<a href>Last 7 days</a>
+						</li>
+						<li ng-click="search.date='true';search.displayDate='Last 30 Days';search.startDate=moment().subtract(30,'days').format('L');search.endDate=moment().add(1,'days').format('L');filterSearch();">
+							<a href>Last 30 days</a>
+						</li>
+						<li ng-click="search.selectDate=true; search.displayDate='Custom Date'">
+							<a href>Custom Dates</a>
+						</li>
+					</ul>
+				</span>
+				<span class="col-md-8" ng-if="search.selectDate==true">
+					<span class="col-md-5">from
+					<input type="date" ng-model="startDate" class="form-control"  value="" /></span>
+					<span class="col-md-5" >to
+					<input type="date" ng-model="endDate" class="form-control"  value="" /></span>
+					<br>
+					<input typr="button" class="btn btn-primary col-md-2" value="submit" ng-click="search.date='true';search.startDate=moment(startDate).format('L');search.endDate=moment(endDate).add(1,'days').format('L');filterSearch();search.selectDate=false;"/>
+				</span>
+				<span dropdown class="dropdown col-md-2" ng-if="!search.selectDate">
+					<a href="#" id="assignee-dropdown" dropdown-toggle>Assignee</a>
+					<ul class="dropdown-menu" style="width:270px;" aria-labelledby="assignee-dropdown">
+						<li ng-repeat="ticket_user in ticket_users" ng-click="$parent.search.assignee=ticket_user.id;filterSearch();search.showAssigneeName=ticket_user.user_name">
+							<a href>
+								<div class="row">
+									<div class="avatar col-md-3" style="height:100%;">
+										<img ng-if="!ticket_user.image" src="//cdn.livechatinc.com/s3/default/avatars/ab5b0666feffd67600206cd519fd77ea.jpg" width="35" height="40">
+										<img ng-if="ticket_user.image" src="{{ticket_user.image}}" width="35" height="40">
+									</div>
+									<div class="col-md-9 no_padding no_margin">
+										<span class="col-md-12 no_padding no_margin">{{ticket_user.user_name}}</span>
+										<span class="col-md-12 no_padding no_margin">{{ticket_user.email}}</span>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li ng-click="search.assignee=0;filterSearch();">
+							<a href>
+								<div class="row">
+									<div class="col-md-12 no_margin">
+										<span class="col-md-12 no_padding no_margin" style="font-size:larger; text-align:center; padding-top:10px;">View All</span>
+									</div>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</span>
+				<span dropdown class="dropdown col-md-2" ng-if="!search.selectDate">
+			<a href="#" id="sites-dropdown" dropdown-toggle>Site</a>
+			<ul class="dropdown-menu" aria-labelledby="assignment-dropdown">
+				<li ng-click="search.site_id = site.id;filterSearch();" ng-repeat="site in sites">
+					<a href>{{site.name}}</a>
+				</li>
+			</ul>
+		</span>
+			</div>
+			<div class="col-md-12 no_margin no_padding">
+				<label class="col-md-3">
+					ON Filters:
+				</label>
+		<span class="col-md-8">
+			<span ng-if="search.assignment!='false'&&search.assignment!='true'&&search.date!='true'&&search.assignee==0&&search.site_id==0">no filters selected</span>
+			<span ng-if="search.assignment=='false'" class="tag label label-info">Unassigned<i class="fa fa-times" ng-click="search.assignment='all';filterSearch();" style="cursor: pointer;padding-left:5px;"></i></span>
+			<span ng-if="search.assignment=='true'" class="tag label label-info">Assigned<i class="fa fa-times" ng-click="search.assignment='all';filterSearch();" style="cursor: pointer;padding-left:5px;"></i></span>
+			<span ng-if="search.date=='true'" class="tag label label-info">{{search.displayDate}}<i class="fa fa-times" ng-click="search.date='false';filterSearch();" style="cursor: pointer;padding-left:5px;"></i></span>
+			<span  ng-if="search.assignee!=0" class="tag label label-info">{{search.showAssigneeName}}<i class="fa fa-times" ng-click="search.assignee=0;filterSearch();" style="cursor: pointer;padding-left:5px;"></i></span>
+            <span  ng-if="search.site_id!=0" class="tag label label-info">{{_.findWhere(sites,{id: search.site_id}).name}}<i class="fa fa-times" ng-click="search.site_id=0;filterSearch();" style="cursor: pointer;padding-left:5px;"></i></span>
+		</span>
+			</div>
+		</div>
+
+		<hr ng-if="!loading">
+		<table class="ui fixed single line celled stackable table" data-page-size="6" ng-if="tickets[pagination.currentPage].length > 0 && !loading" foonice>
+			<thead>
+				<tr>
+					<th data-hide="phone,tablet">Status</th>
+					<th data-toggle="true">Ticket</th>
+					<th data-hide="phone,tablet">Customer</th>
+					<th data-hide="phone">Assignee</th>
+					<th data-hide="all">Customer Email</th>
+					<th data-hide="all">Site</th>
+					<th data-hide="phone">Activity</th>
+					<th data-hide="all">Date Created</th>
+					<th class="text-right" data-hide="phone,tablet" data-sort-ignore="true">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="next_item in tickets[pagination.currentPage] | orderBy : customSort : 'true'">
+					<td style="width: 80px;">
+						<span class="label m-r-sm" ng-class="{open:'label-danger',pending:'label-warning', solved:'label-success', spam:'label-plain'}[next_item.status]">
+							{{next_item.status}}
+						</span>
+					</td>
+					<td class="responsive_table_item">
+						{{next_item.subject}}
+						<small class="block">{{excerpt(next_item.message)}}</small>
+					</td>
+					<td style="width: 180px;">
+						<strong>{{next_item.user_name}}</strong>
+					</td>
+					<td style="width: 160px;">
+						<span ng-if="next_item.sm_tech" style="color:rgb(181, 82, 82);">SM Tech</span>
+						<span ng-hide="next_item.sm_tech">{{next_item.agent.first_name}} {{next_item.agent.last_name}}</span>
+					</td>
+					<td>
+						{{next_item.user_email}}
+					</td>
+					<td>
+						{{siteUrl(next_item)}}
+					</td>
+					<td style="width: 110px;">
+
+						<span ng-show="next_item.last_replied_at==null">
+							{{moment.utc(next_item.created_at).fromNow()}}
+						</span>
+						<span ng-hide="next_item.last_replied_at==null">
+							{{moment.utc(next_item.last_replied_at).fromNow()}}
+						</span>
+
+					</td>
+					<td style="width: 140px;">
+						{{moment.utc(next_item.created_at).fromNow()}}
+					</td>
+					<td class="text-right" style="width: 100px;">
+						<div class="btn-group">
+							<a ui-sref="public.app.admin.support.ticket({id: next_item.id})" class="btn btn-brand m-t-xs btn-outline btn-md">
+								<i class="fa fa-pencil"></i>
+								Reply
+							</a>
+						</div>
+					</td>
+
+				</tr>
+
+			</tbody>
+		</table>
+		<span ng-if="pagination.total_count > 0">{{pagination.total_count}} tickets found</span>
+		<span ng-if="pagination.total_count == 0">No tickets found</span>
+		<div class="text-right" ng-if="!loading && tickets[pagination.currentPage].length > 0">
+			<pagination total-items="pagination.total_count" max-size="5" items-per-page="25" ng-model="pagination.currentPage" class="pagination-sm pull-right" boundary-links="true" ng-change="paginate()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+		</div>
+	</div>
+</div>
+
+
+

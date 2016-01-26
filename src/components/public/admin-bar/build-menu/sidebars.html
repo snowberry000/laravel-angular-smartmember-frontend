@@ -2,17 +2,17 @@
 	<div class="item" sm-access="edit_theme_options" if-not="hide">
 		<div class="header">Sidebars</div>
 		<div class="menu">
-			<a class="item" ng-click="smModal.Show('public.administrate.site.appearance.widgets')">{{ 'WIDGETS' | translate }}</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.appearance.banners')">{{ 'BANNERS' | translate }}</a>
+			<a class="item" ui-sref="public.app.admin.appearance.widgets">{{ 'WIDGETS' | translate }}</a>
+			<a class="item" ui-sref="public.app.admin.appearance.banners">{{ 'BANNERS' | translate }}</a>
 		</div>
 	</div>
 	<div class="item" sm-access="manage_affiliates" if-not="hide">
 		<div class="header">Affiliates</div>
 		<div class="menu">
-			<a class="item" ng-click="smModal.Show('public.administrate.team.jv.affiliates')">{{ 'AFFILIATES' | translate }}</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.team.jv.teams')">{{ 'AFFILIATE_TEAMS' | translate }}</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.team.jv.contests')">{{ 'CONTESTS' | translate }}</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.team.jv.stats')">{{ 'STATS' | translate }}</a>
+			<a class="item" ui-sref="public.app.admin.jv.affiliates">{{ 'AFFILIATES' | translate }}</a>
+			<a class="item" ui-sref="public.app.admin.jv.teams">{{ 'AFFILIATE_TEAMS' | translate }}</a>
+			<a class="item" ui-sref="public.app.admin.jv.contests">{{ 'CONTESTS' | translate }}</a>
+			<a class="item" ui-sref="public.app.admin.jv.stats">{{ 'STATS' | translate }}</a>
 		</div>
 	</div>
 </div>
