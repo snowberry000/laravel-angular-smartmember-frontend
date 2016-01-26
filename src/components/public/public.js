@@ -560,7 +560,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	}
 	else if( $localStorage.open_reset_modal )
 	{
-        location.href = $state.href( 'public.sign.reset' );
+		var hash = $rootScope.$_GET['reset_hash'];
+        location.href = $state.href( 'public.sign.reset',{hash: hash} );
 		// if( !$localStorage.user ){
 		// 	$timeout(function(){
 		// 		smModal.Show('public.sign.reset' , { modal_options : {duration : 0 }});
