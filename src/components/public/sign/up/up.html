@@ -29,7 +29,7 @@
 						<div class="field">
 							<label>Password</label>
 							<div class="ui left icon input">
-								<input type="password" name="password" ng-model="user.password">
+								<input type="password" name="password" ng-model="user.password" pattern=".{6,}" required title="minimum 6 characters">
 								<i class="fa fa-lock icon"></i>
 							</div>
 						</div>
