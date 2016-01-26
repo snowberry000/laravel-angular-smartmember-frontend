@@ -12,6 +12,7 @@ app.config(function($stateProvider){
 app.controller("EmailSubscriberController", function ($scope,$q, smModal,$localStorage,$rootScope, $stateParams ,Restangular, toastr, $state) {
 	
 	$site = $rootScope.site;
+	$scope.cancelRoute = "public.app.admin.email.subscribers";
 	if ($stateParams.id){
 		$emailSubscriber = Restangular.one('emailSubscriber', $stateParams.id).get().then(function(response){$scope.emailsubscriber = response})
 	}else{
