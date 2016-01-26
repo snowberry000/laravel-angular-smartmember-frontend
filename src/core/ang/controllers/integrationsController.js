@@ -641,9 +641,11 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			$state.go( "public.app.admin.apps.app_configurations.list" );
 		}
 
+        /*
 		$state.transitionTo($state.current , $stateParams , {
 			reload : true , inherit : false , location : false
 		});
+		*/
 	}
 
 	$scope.enableIntegration = function( integration_id )
