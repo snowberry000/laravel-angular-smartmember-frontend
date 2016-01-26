@@ -1,11 +1,13 @@
-var app = angular.module("app");
+var app = angular.module( "app" );
 
-app.config(function($stateProvider){
+app.config( function( $stateProvider )
+{
 	$stateProvider
-		.state("public.sign.unsubscribe",{
+		.state( "public.sign.unsubscribe", {
 			url: "/unsubscribe",
 			templateUrl: "/templates/components/public/sign/unsubscribe/unsubscribe.html",
 			controller: "unsubscribeController"
+
 		})
 }); 
 
@@ -14,6 +16,18 @@ app.controller('unsubscribeController', function ($location,notify,$state,$scope
     if( $localStorage.unsubscribe_parameters ) {
         $rootScope.$_GET = $localStorage.unsubscribe_parameters;
         delete $localStorage.unsubscribe_parameters;
+    } else {
+        var getUrlVars = function()
+        {
+            var vars = {};
+            var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
+            {
+                vars[ key ] = decodeURIComponent( value );
+            } );
+            return vars;
+        }
+
+        $rootScope.$_GET = getUrlVars();
     }
 
     delete $localStorage.open_unsubscribe_modal;
@@ -72,6 +86,7 @@ app.controller('unsubscribeController', function ($location,notify,$state,$scope
 
       $scope.unsubscribe = function()
       {
+        $rootScope.site = $scope.site;
         $ids=[];
         for(var i=0;i<$scope.emailLists.length;i++)
         {
@@ -83,18 +98,19 @@ app.controller('unsubscribeController', function ($location,notify,$state,$scope
                    "site_id":$scope.site_id, "list_type" : $scope.list_type, 'lists': $ids,
                    "email_address": $scope.email_address};
 
-          smEvent.Log( 'unsubscribed', {
+        smEvent.Log( 'unsubscribed', {
               'email': $scope.email_address,
               'request-url': location.href,
               'referring-url': document.referrer,
               'reason': $scope.reason,
               'list-type': $scope.list_type,
               'lists': $ids
-          } );
+        } );
+		Restangular.one( 'emailSubscriber' ).post( 'unsubscribe', $params ).then( function( response )
+		{
+			$state.go( "public.sign.unsubscribed" );
+		} );
+	}
+          
 
-        Restangular.one('emailSubscriber').post('unsubscribe',$params).then(function(response){
-            smModal.Show("public.sign.unsubscribed");
-        });
-      }
-
-});
+} );

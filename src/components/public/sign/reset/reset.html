@@ -24,7 +24,7 @@
                         <div class="field">
                             <label>Confirm Password</label>
                             <div class="ui left icon input">
-                                <input type="password" placeholder="Confirm Password">
+                                <input type="password" placeholder="Confirm Password" pattern=".{6,}" required title="minimum 6 characters are required">
                                 <i class="fa fa-lock icon"></i>
                             </div>
                         </div>
@@ -38,21 +38,21 @@
         </div>
     </div>
     <div class="actions">
-        <a class="ui labeled icon button" ng-click="smModal.Show('public.sign.in')">
+        <div ng-click="CloseExtraState()" class="ui black button">
+            Close
+        </div>
+        <a class="ui labeled icon button" ui-sref="public.sign.in">
             Login
             <i class="user icon"></i>
         </a>
-        <a class="ui labeled icon button" ng-hide="site_options.hide_sign_up_button" ng-click="smModal.Show('public.sign.up')">
+        <a class="ui labeled icon button" ng-hide="site_options.hide_sign_up_button" ui-sref="public.sign.up">
             Sign Up
             <i class="edit icon"></i>
         </a>
-        <a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button">
+        <a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
             Need help?
             <i class="life ring icon"></i>
         </a>
-        <div ng-if="!$state.includes('public.my')" class="close ui black button">
-            Close
-        </div>
     </div>
 </div>
 

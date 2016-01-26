@@ -4,19 +4,27 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app", {
-			templateUrl: 'templates/components/public/app/app.html',
-			controller: "AppController",
+			sticky: true,
+			abstract: true,
+			views: {
+				'base': {
+					templateUrl: '/templates/components/public/app/app.html',
+					controller: "AppController"
+				},
+				'extra': {
+					template: ""
+				}
+			},
 			resolve: {
 				$site: function( Restangular )
 				{
 					return Restangular.one( 'site', 'details' ).get();
 				},
-
 			}
 		} )
 } );
 
-app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
+app.controller( "AppController", function( $scope, $state, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
 	$rootScope.site = $site;
 
@@ -25,26 +33,25 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 	if( intercom )
 	{
 		//we are disabling support for now, we'll probably add some integration settings in the future to allow this
-		if( $localStorage.user && $localStorage.user.id && $localStorage.user.sm_user )
+		if( false && $localStorage.user && $localStorage.user.id )
 		{
 			var intercomData = {
 				app_id: intercom.username,
 				name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
 				email: $localStorage.user.email,
-				setup_wizard_complete: $localStorage.user.setup_wizard_complete,
 				created_at: moment( $localStorage.user.created_at ).unix()
 			};
 			window.Intercom( 'boot', intercomData );
 		}
 		else
 		{
-			console.log( 'we should be trying to boot up:::', intercom.username );
+			//console.log( 'we should be trying to boot up:::', intercom.username );
 			window.Intercom( 'boot', { app_id: intercom.username } );
 		}
+
 	}
 
-	console.log( intercom );
-
+	//console.log( intercom );
 
 	$rootScope.page_title = $site.name;
 	//$rootScope.page_title = 'chanbged title';
@@ -71,7 +78,6 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			$rootScope.access_levels = response;
 		} )
 	}
-
 
 	$scope.ShouldSuiHandleEmbed = function( embed_code )
 	{
@@ -103,7 +109,9 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			}
 
 			if( domain.indexOf( 'vimeo.com' ) > -1 )
+			{
 				return true;
+			}
 		}
 
 		return false;
@@ -157,7 +165,9 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			if( value.type == 'banner' )
 			{
 				if( value.banner != undefined )
+				{
 					$scope.bannerView( value.banner.id );
+				}
 			}
 		} );
 		$rootScope.site.configured_app = [];
@@ -349,4 +359,4 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 	$scope.initPublicSite();
 	$scope.resolve();
 
-} );
+});

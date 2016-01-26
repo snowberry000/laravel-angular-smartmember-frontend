@@ -6,3 +6,10 @@ app.directive('clockPicker', function () {
         }
     };
 });
+
+angular.module('ui.bootstrap.tabs', [])
+
+.controller('TabsetController', ['$scope', function TabsetCtrl($scope) {
+
+}])
+

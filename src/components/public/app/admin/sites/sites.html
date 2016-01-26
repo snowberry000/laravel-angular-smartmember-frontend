@@ -1,0 +1,118 @@
+<div class="ui large modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="globe icon"></i>
+		My Sites
+
+		<div class="ui right floated floating labeled icon dropdown small button" sui-dropdown>
+			<i class="filter icon"></i>
+			<span class="text">Filter</span>
+			<div class="menu">
+				<div class="header">
+					Search sites
+				</div>
+				<div class="ui left icon input">
+					<i class="search icon"></i>
+					<input type="text" placeholder="Search..." ng-model="site_query" ng-change="paginate()">
+				</div>
+				<div class="header">
+					<i class="tags icon"></i>
+					Filter by role
+				</div>
+				<div class="divider"></div>
+				<div class="item" ng-click="filterBy('admin')">
+					<span class="description">{{siteCounters.admin}} sites</span>
+					<span class="text">Admin</span>
+				</div>
+				<div class="item" ng-click="filterBy('editor')">
+					<span class="description">{{siteCounters.editor}} sites</span>
+					<span class="text">Editor</span>
+				</div>
+				<div class="item" ng-click="filterBy('support')">
+					<span class="description">{{siteCounters.support}} sites</span>
+					<span class="text">Support</span>
+				</div>
+				<div class="item" ng-click="filterBy('member')">
+					<span class="description">{{siteCounters.member}} sites</span>
+					<span class="text">Member</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="description relative">
+
+			<div class="ui active inverted dimmer" ng-if="sites_loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<div class="ui ignored info message">
+				<p>These are all the sites you've created, joined, or managing.</p>
+			</div>
+
+			<div class="ui four doubling stackable link site cards" ng-if="sites_loaded" trigger="paginate()" ng-init="paginate()">
+				<!-- <a ng-href="//{{site.domain ? site.domain :  site.subdomain + '.' + app.rootDomain }}" class="card" ng-repeat="site in sites | orderBy:['-total_revenue','-total_members','-total_lessons'] | filter : $parent.query"> -->
+				<a class="card" ng-href="//{{site.domain ? site.domain :  site.subdomain + '.smartmember.' + app.rootEnv }}" dir-paginate="site in sites_to_show | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+					<div class="image flex_center" style="background: {{(site.data.site_logo ? site.data.site_top_background_color : '#FFF') || ''}}">
+						<img class="ui centered middle aligned image" src="{{site.logo || '/images/white-image.png'}}">
+						<div class="ui top right attached label">
+							{{site.role}}
+							<label ng-if ="site.role!='owner'" ng-click="promptRemoveMe($event,site)" title="Remove me from this site">
+								<i class="icon delete m-n"></i>
+							</label>
+							<label ng-if="site.role=='owner' && site.subdomain != app.subdomain" ng-click="deleteResource($event,site)" title="Delete this site">
+								<i class="icon trash m-n"></i>
+							</label>
+						</div>
+					</div>
+					<div class="content">
+						<div class="header">
+							{{site.name}}
+						</div>
+						<div class="meta ellipsis">
+							{{site.domain ? site.domain : site.subdomain + '.' + 'smartmember.com' }}
+						</div>
+					</div>
+					<div class="extra content">
+
+						<div class="ui {{site.total_revenue >= 10 ? 'three' : 'two'}} normal statistics">
+							<div class="statistic" ng-if="(site.role=='admin' || site.role=='owner' || site.role=='editor')" title="Site members">
+								<div class="value">
+									<i class="users grey icon"></i> {{site.total_members}}
+								</div>
+							</div>
+							<div ng-if="site.total_revenue >= 10 && (site.role=='admin' || site.role=='owner')" class="statistic" title="Site revenue">
+								<div class="value">
+									{{site.total_revenue | currency:"$":0}}
+								</div>
+							</div>
+							<div class="statistic" title="Site lessons">
+								<div class="value">
+									{{site.total_lessons}} <i class="graduation grey icon"></i>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div ng-if="site.role=='admin' || site.role=='owner' || site.role=='editor'" class="ui bottom attached indicating progress" data-value="{{site.progress}}" data-total="5" sui-progress title="Setup wizard progress">
+						<div class="bar"></div>
+					</div>
+				</a>
+			</div>
+			<div class="text-right"  ng-if="pagination.total_count > 25">
+				<dir-pagination-controls max-size="5"></dir-pagination-controls>
+			</div>
+			<!-- <div class="text-right" ng-if='!loading'>
+				<pagination total-items="adminPagination.total_count" max-size="5" items-per-page="25" ng-model="adminPagination.current_page" class="pagination-sm" boundary-links="true" ng-change="loadMore()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+			</div> -->
+		</div>
+	</div>
+	<div class="actions">
+		<div ng-if="!isSitelessPage('my')" class="ui black button" ng-click="CloseAdminState()">
+			Close
+		</div>
+		<a ng-if="site.is_customer || ( isSitelessPage('my') && user.sm_access )" ui-sref="public.app.admin.site" class="ui right labeled icon green button">
+			Create new Site
+			<i class="plus icon"></i>
+		</a>
+	</div>
+</div>

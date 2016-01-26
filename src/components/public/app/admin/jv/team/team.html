@@ -1,0 +1,44 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="rocket icon"></i>
+		{{ module.id ? 'Update' : 'Add' | translate }} an affiliate team
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<div class="ui message">
+				<p>Group your affiliates together into teams for the sake of leaderboards display and stat reporting.</p>
+			</div>
+
+			<div class="ui section divider"></div>
+
+			<div class="ui form">
+
+				<div class="inline field">
+					<label>Team Name</label>
+					<input type="text" ng-model="affiliate_team.name">
+				</div>
+				<div class="eight wide field team_members_parent">
+					<label>Choose Team Members</label>
+					<select multiple="multiple" class="ui search dropdown" ng-model="affiliate_team.members" sui-dropdown>
+						<option ng-repeat="affiliate in affiliates" value="{{affiliate.id}}">{{affiliate.user_name}}</option>
+					</select>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ui-sref= "public.app.admin.jv.teams" class="ui black button">
+			Cancel
+		</a>
+		<a busy ng-click="save()" class="ui right labeled green icon button">
+			Save changes
+			<i class="check icon"></i>
+		</a>
+	</div>
+</div>

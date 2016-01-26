@@ -71,14 +71,14 @@ gulp.task( 'js', function()
 	return true;
 } );
 
-gulp.task( 'tests', function()
-{
+//gulp.task( 'tests', function()
+//{
 	//gulp.src(["src/**/*.e2e.js","!src/tests/*","!src/tests/**"])
-//			.pipe( concat( 'e2e.tests.js' ) )
-			//.pipe( gulp.dest( 'src/tests' ) );
-//
+	//		.pipe( concat( 'e2e.tests.js' ) )
+	//		.pipe( gulp.dest( 'src/tests' ) );
+
 	//return true;
-} );
+//} );
 
 
 gulp.task( 'inject', function()
@@ -115,6 +115,10 @@ gulp.task( 'templates', function()
 		.pipe( replace( "/core", "/tpl" ) )
 		.pipe( gulp.dest( 'dist/templates' ) );
 } );
+
+gulp.task( 'test-e2e', shell.task([
+	'protractor src/tests/e2e.conf.js'
+]));
 
 
 gulp.task( 'watch', function()
@@ -190,10 +194,10 @@ gulp.task( 'replace_vendor', function()
 		.pipe( replace( '<script src="js/vendor.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/vendor.min.js"></script>' ) )
 		.pipe( replace( '<script src="js/main.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/main.min.js"></script>' ) )
 		.pipe( replace( '<link rel="stylesheet" href="css/vendor.min.css">', '<link rel="stylesheet" href="https://smpub.s3.amazonaws.com/cdn/vendor.min.css">' ) )
-		//.pipe( replace( '<script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>', '<script src="//my.smartmember.com/bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>' ) )
-		//.pipe( replace( '<script src="bower/slimScroll/jquery.slimscroll.min.js"></script>', '<script src="//my.smartmember.com/bower/slimScroll/jquery.slimscroll.min.js"></script>' ) )
-		//.pipe( replace( '<link rel="stylesheet" href="bower/footable/css/footable.core.css">', '<link rel="stylesheet" href="//my.smartmember.com/bower/footable/css/footable.core.css">' ) )
-		//.pipe( replace( '<link rel="stylesheet" href="css/main.min.css">', '<link rel="stylesheet" href="//my.smartmember.com/css/main.min.css">' ) )
+		.pipe( replace( '<script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>', '<script src="//my.smartmember.com/bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>' ) )
+		.pipe( replace( '<script src="bower/slimScroll/jquery.slimscroll.min.js"></script>', '<script src="//my.smartmember.com/bower/slimScroll/jquery.slimscroll.min.js"></script>' ) )
+		.pipe( replace( '<link rel="stylesheet" href="bower/footable/css/footable.core.css">', '<link rel="stylesheet" href="//my.smartmember.com/bower/footable/css/footable.core.css">' ) )
+		.pipe( replace( '<link rel="stylesheet" href="css/main.min.css">', '<link rel="stylesheet" href="//my.smartmember.com/css/main.min.css">' ) )
 		.pipe( gulp.dest( paths.dist + '/' ) );
 } );
 
@@ -233,9 +237,9 @@ gulp.task( 'php', function()
 		.pipe( gulp.dest( 'dist/php/' ) );
 } );
 
-gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ,'json', 'tests'] );
-gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' ,'json', 'tests', 'watch'] );
-gulp.task( 'test', [ 'tests', 'test-e2e'] );
+gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ,'json'] );
+gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' ,'json', 'watch'] );
+gulp.task( 'test', [ 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
 {

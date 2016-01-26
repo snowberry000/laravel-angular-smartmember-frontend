@@ -17,17 +17,17 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, close, s
 
     $scope.content_types = [
         {
-            route: 'public.administrate.site.content.syllabus.lesson',
+            route: 'public.app.admin.lesson',
             icon: 'student',
             description: 'Lesson'
         },
         {
-            route: 'public.administrate.site.content.blog.post',
+            route: 'public.app.admin.post',
             icon: 'rss',
             description: 'Post'
         },
         {
-            route: 'public.administrate.site.pages.custom-page',
+            route: 'public.app.admin.custom-page',
             icon: 'file text',
             description: 'Page'
         }

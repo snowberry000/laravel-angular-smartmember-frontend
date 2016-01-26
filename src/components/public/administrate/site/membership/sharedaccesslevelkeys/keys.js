@@ -92,7 +92,7 @@ app.controller( "ShareAccessLevelKeysController", function( $scope, $localStorag
 
 	$scope.delete = function( id )
 	{
-		smModal.Show('public.app.delete' , {route : 'accessLevel' , id : id} , null , $scope.afterDelete);
+		smModal.Show('public.app.site.delete' , {route : 'accessLevel' , id : id} , null , $scope.afterDelete);
 		/*
 		var modalInstance = $modal.open( {
 			templateUrl: 'templates/modals/deleteConfirm.html',

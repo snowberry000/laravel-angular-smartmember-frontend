@@ -1,0 +1,65 @@
+<!-- <div class="ui modal"><i class="close icon"></i>
+	<div class="row animated fadeInRight">
+		<div class="col-lg-12">
+			<div class="ibox-content page-heading clear_box">
+				<div class="p-xs">
+					<div class="row">
+						<div class="col-md-{{integration_id ? '8' : '12'}}">
+							<div class="pull-left m-r-md">
+								<img src="{{integration.logo}}" width="66" height="66">
+							</div>
+							<h2 class="ui header">{{integration.name}}</h2>
+							<span>{{integration.description}}</span>
+						</div>
+						<div class="col-md-4 text-right" ng-if="integration_id">
+							<a class="btn btn-white btn-sm m-t-md" ng-click="enableIntegration(integration_id)" ng-if="show_disabled">
+								Enable
+							</a>
+							<a class="btn btn-white btn-sm m-t-md" ng-click="disableIntegration(integration_id)" ng-hide="show_disabled">
+								Disable
+							</a>
+							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="removeIntegration(integration_id)">
+								Remove
+							</a>
+							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="promptDefault(integration_id)" ng-hide="is_default">
+								Set as Default
+							</a>
+							<a class="btn btn-white btn-outline btn-sm m-t-md m-l-s" ng-click="removeDefault(integration_id)" ng-if="is_default">
+								Unset as Default
+							</a>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="ibox" ng-if="show_disabled">
+				<div class="ibox-content">
+
+					<div class="alert alert_warning">
+						<i class="ts_icon ts_icon_warning"></i>
+						<strong>This integration has been disabled.</strong><br>
+						<span ng-if="integration.id == 'facebook_group'">
+							It will not be available to use for access levels until it has been re-enabled.
+						</span>
+						<span ng-if="integration.id == 'paypal'">
+							It will not be able to be used as a payment method until it has been re-enabled.
+						</span>
+						<span ng-if="integration.id == 'sendgrid'">
+							It will not be able to be used for sending e-mail until it has been re-enabled.
+						</span>
+						<span ng-if="integration.id == 'stripe'">
+							It will not be able to be used as a payment method until it has been re-enabled.
+						</span>
+						<span ng-if="integration.id == 'vimeo'">
+							It will not be able to be used to import content until it has been re-enabled.
+						</span>
+					</div>
+
+				</div>
+			</div>
+			<ui-view></ui-view>
+		</div>
+	</div>
+</div> -->
+<ui-view></ui-view>

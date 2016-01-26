@@ -12,6 +12,7 @@ app.directive( 'smDelete', function()
                                 scope[ attributes.deleteFunction ]( attributes.smDelete );
                             else
 							    scope.deleteResource(attributes.smDelete);
+							$(".small.delete.modal").modal('hide');
 							return true;
 						},
 						onHidden: function() {
