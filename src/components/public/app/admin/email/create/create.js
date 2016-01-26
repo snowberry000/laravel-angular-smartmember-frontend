@@ -30,7 +30,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
         $email = Restangular.one('email', $stateParams.id).get().then(function(response){$scope.email = response});
     }
     else
-        $scope.email = {company_id: $site.company_id};    
+        $scope.email = {};
     $emailSettings = Restangular.all('emailSetting').customGET('settings').then(function(response){
         $scope.emailSettings = response;
     })
@@ -290,7 +290,7 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
     }
 
     $scope.editSegment = function(segment){
-        $state.go('public.app.admin.email.segmentIntro',{segment: segment, modal_options: { allowMultiple: true }});
+        smModal.Show('public.app.admin.email.segmentIntro',{segment: segment, modal_options: { allowMultiple: true }});
     }
 
     $scope.save = function() {
@@ -502,12 +502,21 @@ app.controller('segmentIntroController', function ($scope, $state,  $stateParams
         angular.forEach( $scope.original_segment, function( value, key ){
             $scope.segment[key] = value;
         });
+    }
 
-        close( $scope.segment );
+    $scope.changed = function() {
+        var changed = false;
+
+        angular.forEach( $scope.original_segment, function( value, key ){
+            if( value != $scope.segment[key] )
+                changed = true;
+        });
+
+        return changed;
     }
 
     $scope.save = function(){
-        close( $scope.segment );
+
     }
 });
 
