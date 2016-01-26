@@ -100,7 +100,7 @@ app.controller("EmailsController", function ($scope,smModal,$rootScope, $localSt
 				if($state.current.name.split('.')[1]=='smartmail'){
 				    console.log(access)
 				    if(!access ){
-				    	smModal.Show('public.administrate.account.memberships');
+				    	$state.go('public.administrate.account.memberships');
 				    }
 				}
 				$scope.loading = false;
