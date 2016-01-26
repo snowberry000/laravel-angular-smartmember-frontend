@@ -65,8 +65,9 @@ ErrorDocument 404 /pricing
 <ifModule mod_rewrite.c>
         RewriteEngine On
         RewriteCond %{HTTP_HOST} ^sm.smartmember\.com [NC]
+        RewriteCond %{REQUEST_URI} ^/$
         RewriteCond %{QUERY_STRING} ^cbreceipt=(.*)$
-        RewriteRule ^/$ http://sm.smartmember.com/thank-you?%{QUERY_STRING} [R=301,L]
+        RewriteRule ^(.*)$ http://sm.smartmember.com/thank-you?%{QUERY_STRING} [R=301,L]
 </ifModule>
 
 <ifModule mod_rewrite.c>
