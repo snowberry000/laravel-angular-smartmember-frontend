@@ -34,8 +34,11 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
 			$scope.inprocess_register = true;
 		}
 	}
-
-	if( $rootScope.$_GET[ 'reset_hash' ] )
+    if( $stateParams.hash )
+    {
+        $scope.hash = $stateParams.hash;
+    }
+    else if( !$scope.hash && $rootScope.$_GET[ 'reset_hash' ] )
 	{
 		$scope.hash = $rootScope.$_GET[ 'reset_hash' ];
 	}
@@ -75,11 +78,6 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
 				$scope.message = data.message;
 			}
 		} );
-	}
-
-	$scope.init = function()
-	{
-		$scope.hash = $stateParams.hash;
 	}
 
 } );
