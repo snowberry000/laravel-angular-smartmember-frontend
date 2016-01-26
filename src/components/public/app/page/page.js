@@ -23,6 +23,25 @@ app.controller('PublicPageController', function ($scope, $localStorage,$rootScop
         $scope.page = $page;
         $scope.next_item = $scope.page;
         $rootScope.page_title = $page.title || $rootScope.page_title;
+
+        if( $rootScope.site.subdomain == 'sm' ) {
+            (function () {
+                var articleId = fyre.conv.load.makeArticleId(null);
+                fyre.conv.load({}, [{
+                    el: 'livefyre-comments',
+                    network: "livefyre.com",
+                    siteId: "380511",
+                    articleId: articleId,
+                    signed: false,
+                    collectionMeta: {
+                        articleId: articleId,
+                        url: fyre.conv.load.makeCollectionUrl(),
+                    }
+                }], function () {
+                });
+            }());
+        }
+
         Restangular.all('').customGET('comment?target_id='+$scope.page.id+'&type='+1).then(function(comments){
            $scope.page.comments = _.toArray(comments.comments);
         });
