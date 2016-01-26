@@ -13,12 +13,12 @@
 					Update username
 				</div>
 				<div class="content active">
-					<div class="ui form">
+					<form class="ui form" ng-submit="saveUsername()">
 						<div class="field">
 							<label class="col-sm-3 control-label">Username</label>
 
 							<div class="col-sm-9">
-								<input type="text" class="form-control" ng-model="user.username">
+								<input pattern=".{1,}" required type="text" class="form-control" ng-model="user.username">
 								<span class="help-block m-b-none">
 									Usernames must be lowercase and cannot contain spaces. Most people choose to
 									use their first name, last name, nickname, or some combination of those with initials.
@@ -29,10 +29,10 @@
 
 						<div class="field">
 							<div class="col-sm-4 col-sm-offset-3">
-								<button class="btn btn-primary" ng-click="saveUsername()">Update username</button>
+								<button class="btn btn-primary submit" type="submit">Update username</button>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 				<div class="title">
 					<i class="dropdown icon"></i>
@@ -69,7 +69,7 @@
 				</div>
 				<div class="content">
 
-					<div class="ui form">
+					<form class="ui form" ng-submit="savePassword(current_password , newpassword)">
 
 						<div class="field">
 							<label class="col-sm-3 control-label">Current Password</label>
@@ -88,18 +88,18 @@
 							<label class="col-sm-3 control-label">New Password</label>
 
 							<div class="col-sm-9">
-								<input type="password" class="form-control" ng-model="newpassword">
+								<input pattern=".{6,}" required type="password" class="form-control" ng-model="newpassword">
 							</div>
 						</div>
 						<div class="hr-line-dashed"></div>
 
 						<div class="field">
 							<div class="col-sm-4 col-sm-offset-3">
-								<button class="btn btn-primary" ng-click="savePassword(current_password , newpassword)">Save password</button>
+								<button class="btn btn-primary" type="submit" ng-click="">Save password</button>
 							</div>
 						</div>
 
-					</div>
+					</form>
 
 				</div>
 				<div class="title">
