@@ -264,5 +264,13 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 
 	}
 
+	$scope.deleteACShareKey = function(key){
+		Restangular.one('accessLevelShareKey' , key.id).remove().then( function( response )
+		{
+			$scope.keys = _.without($scope.keys , key);
+			$scope.key = '';
+		} );
+	}
+
 	$scope.resolve();
 });
