@@ -42,7 +42,7 @@
 						</td>
 						<td class="text-right">
 							<div class="ui buttons">
-								<div class="ui button" ng-click="smModal.Show(template_data.edit_route,{id: next_item.id })">
+								<div class="ui button" ui-sref="public.app.admin.members.notice({id : next_item.id})">
 									Edit
 								</div>
 								<div class="ui floating dropdown icon button" sui-dropdown>
@@ -52,7 +52,7 @@
 											<i class="eye icon"></i>
 											View
 										</a>
-										<a class="item" ng-click="smModal.Show( template_data.edit_route , {clone : next_item.id})">
+										<a class="item" ng-href="/admin/members/notice/?clone={{next_item.id}}">
 											<i class="copy icon"></i>
 											Copy
 										</a>
@@ -83,10 +83,10 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button close">
+		<div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
 			Close
 		</div>
-		<a ng-click="smModal.Show('public.administrate.site.membership.notice', {modal_options:{closable:false}})" class="ui right labeled icon green button">
+		<a ui-sref="public.app.admin.members.notice" class="ui right labeled icon green button">
 			Create new {{template_data.singular}}
 			<i class="plus icon"></i>
 		</a>

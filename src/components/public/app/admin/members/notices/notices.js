@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.administrate.site.membership.notices", {
+		.state( "public.app.admin.members.notices", {
 			url: "/notices",
-			templateUrl: "/templates/components/public/administrate/site/membership/notices/notices.html",
+			templateUrl: "/templates/components/public/app/admin/members/notices/notices.html",
 			controller: "NoticesController"
 		} )
 } );
@@ -16,7 +16,7 @@ app.controller( "NoticesController", function( $scope, $state, $rootScope, $loca
 		title: 'SITE NOTICES',
 		description: 'Toastr your members of new things',
 		singular: 'site notice',
-		edit_route: 'public.administrate.site.membership.notice',
+		edit_route: 'public.app.admin.members.notice',
 		api_object: 'siteNotice'
 	}
 	$scope.site = $site = $rootScope.site;
