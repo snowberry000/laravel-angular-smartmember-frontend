@@ -16,7 +16,6 @@ app.controller("AddTopicController", function ($scope,$rootScope, Restangular, $
 		console.log($rootScope.category);
 
 		$scope.topic.category_id = $rootScope.category.id;
-		$scope.topic.site_id = $rootScope.category.id;
 		$scope.topic.permalink = $filter('urlify')($scope.topic.title);
 		Restangular.service( 'forumTopic' )	
 			.post( $scope.topic )
