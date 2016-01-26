@@ -1,0 +1,37 @@
+<div class="ui modal"><i class="close icon"></i>
+
+	<div class="header">
+		<i class="write icon"></i>
+		{{ category.id ? 'Update' : 'Add' | translate }} a category
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui message">
+				<p>Categories help organize and categorize your help desk / support articles.</p>
+			</div>
+
+			<div class="ui section divider"></div>
+
+			<div class="ui form">
+
+				<div class="field">
+					<label>Category name</label>
+
+					<input type="text" ng-model="category.title">
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div ui-sref="public.app.admin.helpdesk.categories" class="ui black deny button close">
+			Back
+		</div>
+		<a busy ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="check icon"></i>
+		</a>
+	</div>
+</div>

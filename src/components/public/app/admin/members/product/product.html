@@ -1,0 +1,451 @@
+<div class="ui long modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="configure icon"></i>
+		Access Level
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui segment form">
+				<div class="inline field">
+					<label>Access Level Name</label>
+					<input type="text" ng-model="access_level.name">
+				</div>
+			</div>
+
+			<div class="ui styled fluid accordion" sui-accordion>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					Advanced Settings
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<div class="field">
+							<label>Sales Page Url</label>
+							<a ng-model="access_level" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{
+								access_level.information_url|| 'Select url' }}
+							</a>
+							<span class="help-block m-b-none">
+								This is the url to the sales page, or wherever you want users to go when they try to access something they don't have access too.
+								They will be told they don't have accessed and asked to click a link to this Url to get access.
+							</span>
+						</div>
+						<div class="field">
+							<label>Redirect Url</label>
+							<input type="text" name="redirect_url"
+								   class="form-control input-lg editable editable-click"
+								   ng-model="access_level.redirect_url"/>
+							<span class="help-block m-b-none">
+								This is the url users will be redirected to after they purchase the product and are granted the access they need for the product.
+							</span>
+						</div>
+
+						<div class="field">
+							<label>Granted Access Levels</label>
+
+							<select multiple="multiple" class="ui fluid dropdown" ng-model="access_level.grants" style="height: 150px;">
+								<optgroup label="Site Access Levels">
+									<option ng-selected="exists(al.id)" ng-repeat="al in access_levels" value={{al.id}}>{{al.name}}</option>
+								</optgroup>
+								<optgroup label="Shared Access Levels">
+									<option ng-selected="exists_share(al.access_level.id)" ng-repeat="al in shared_access_levels" value={{al.access_level.id}}>{{al.access_level.name}}</option>
+								</optgroup>
+							</select>
+							<span class="help-block m-b-none">
+								Select any other Access Levels you want owners of this Access Level to get access to.
+								<br>
+								aka. if this is your "Gold" level, select Bronze and Silver.
+								<strong>Hold down Ctrl key to select multiple access levels</strong>
+							</span>
+						</div>
+					</div>
+				</div>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					Facebook Group Integration
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<div class="field">
+							<label>Facebook Group</label>
+							<select data-ng-options="group.remote_id as group.name for group in facebook_groups" class='form-control input-lg' ng-model="access_level.facebook_group_id" placeholder='Select Access Permission'>
+							</select>
+							<button ng-hide="!access_level.facebook_group_id || access_level.facebook_group_id == '' || access_level.facebook_group_id == '0'" type="button" class="btn" ng-click="access_level.facebook_group_id=''">Remove Group</button>
+							<span class="help-block m-b-none">
+								Select a facebook group that own and new members to this product level will automatically get invitation to join the group.
+							</span>
+						</div>
+
+					</div>
+				</div>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					JVZoo Integration
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<div class="field">
+							<label>Product ID</label>
+							<input type="text" name="jvzoo_product_id" class="form-control input-lg"
+								   ng-model="access_level.product_id">
+							<span class="help-block m-b-none">
+								This is the product ID in JVZoo. If you want this product level given to customers
+								who purchase a particular product through JVZoo, find it via your JVZoo dashboard
+								and set it here.
+							</span>
+						</div>
+						<div class="field">
+							<label>Buy Button</label>
+							<textarea name="jvzoo_button" ng-model="access_level.jvzoo_button"></textarea>
+							<span class="help-block m-b-none">
+								This is a buy button from JVZoo. You can have this show up on the checkout page.
+							</span>
+						</div>
+
+					</div>
+				</div>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					Webinar Integration
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<div class="field">
+							<label>GoToWebinar Webinar URL</label>
+							<input type="text" class="form-control input-lg" ng-model="access_level.webinar_url">
+							<span class="help-block m-b-none">
+								Optionally enter in the url of a Go To Webinar registration page. Anytime a member is granted this Access Level, they'll be signed up for your webinar! Make sure to setup your webinar to ONLY require first name, last name and email OR registration will fail.
+							</span>
+						</div>
+
+					</div>
+				</div>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					ClickBank Settings
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<div class="field">
+							<label>Product ID</label>
+							<input type="text" name="cb_product_id" class="form-control input-lg"
+								   ng-model="access_level.cb_product_id">
+							<span class="help-block m-b-none">
+								This is the product ID in ClickBank. If you want this product level given to customers
+								who purchase a particular product through ClickBank, find it via your ClickBank dashboard
+								and set it here.
+							</span>
+						</div>
+
+					</div>
+				</div>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					WSO Settings
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<div class="field">
+							<label>Product ID</label>
+							<input type="text" name="wso_product_id" class="form-control input-lg"
+								   ng-model="access_level.wso_product_id">
+							<span class="help-block m-b-none">
+								This is the product ID in WarriorPlus. If you want this product level given to customers
+								who purchase a particular product through WarriorPlus, find it via your WarriorPlus dashboard
+								and set it here.
+							</span>
+						</div>
+
+					</div>
+				</div>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					Zaxaa Settings
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<h4 class="ui header">Product ID</h4>
+						<div class="field">
+							<div class="col-sm-12">
+								<input type="text" name="zaxaa_product_id" class="form-control input-lg"
+									   ng-model="access_level.zaxaa_product_id">
+								<span class="help-block m-b-none">
+									This is the product ID in Zaxaa. If you want this product level given to customers
+									who purchase a particular product through Zaxaa, find it via your Zaxaa dashboard
+									and set it here.
+								</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					Payment Settings
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<h4 class="ui header">Payment Type</h4>
+						<div class="field">
+							<div class="col-sm-12">
+								<select name="payment_type" class="form-control input-lg" ng-model="access_level.payment_interval">
+									<option value="one_time">One Time</option>
+									<option value="bi_weekly">Bi-Weekly</option>
+									<option value="weekly">Weekly</option>
+									<option value="monthly">Monthly</option>
+									<option value="annually">Annual</option>
+								</select>
+							</div>
+						</div>
+						<h4 ng-if="access_level.payment_interval == 'one_time'">Expiration Period</h4>
+						<div ng-if="access_level.payment_interval == 'one_time'" class="field">
+
+							<div class="col-sm-12">
+								<input type="number" min="0" name="redirect_url"
+									   class="form-control input-lg editable editable-click"
+									   ng-model="access_level.expiration_period"/>
+								<span class="help-block m-b-none">
+									This is the default expiration period (in months) for each access pass granted, leave blank or set to 0 to not have a default expiration period.
+								</span>
+							</div>
+						</div>
+						<h4 class="ui header">Price</h4>
+						<div class="field">
+							<div class="col-sm-12">
+								<div class="input-group m-b">
+									<div class="input-group-btn" uib-dropdown>
+										<style>button.dropdown-toggle:hover {
+											border-
+										}</style>
+										<button type="button" class="btn btn-lg btn-default" uib-dropdown-toggle style="font-size: 14px;font-weight: 400;line-height: 1;color: #555555;text-align: center;background-color: #eeeeee;border: 1px solid #cccccc; color: #555555 !important;height: 50px;padding: 10px 16px;font-size: 18px;line-height: 1.3333333;border-radius: 6px 0 0 6px !important;">
+											<span dynamic="_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label" class="fr-view"></span>
+											<span class="caret" style="margin-left:5px;border-top-color: #333333 !important;"></span>
+										</button>
+										<ul class="uib-dropdown-menu">
+											<li ng-repeat="currency in currencies">
+												<a ng-click="access_level.currency = currency.id">
+													<span dynamic="currency.label" class="fr-view"></span>
+												</a>
+											</li>
+										</ul>
+									</div><!-- /btn-group -->
+									<input type="text" style="margin-bottom:0;" name="stripe_price" class="form-control input-lg" ng-model="access_level.price">
+								</div>
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="field">
+							<label>
+
+								<h4 class="help-block m-b-none">
+									<input type="checkbox" ng-model="access_level.enable_trial"
+										   ng-checked="access_level.trial_amount && access_level.trial_amount != ''"
+										   ng-disabled="access_level.payment_interval == 'one_time'">
+									Enable Product Trial (only available for
+									recurring payment)
+								</h4>
+							</label>
+						</div>
+						<div ng-hide="access_level.payment_interval == 'one_time'"
+							 ng-if="access_level.enable_trial || access_level.trial_amount != null">
+							<h4 class="ui header">Trial Duration</h4>
+							<div class="field">
+								<div class="col-sm-6">
+									<input type="text" name="redirect_url" placeholder="Duration"
+										   class="form-control input-lg"
+										   ng-model="access_level.trial_duration"/>
+								</div>
+								<div class="col-sm-6">
+									<select class="form-control input-lg" ng-model="access_level.trial_interval">
+										<option value=""></option>
+										<option value="day">Day(s)</option>
+										<option value="week">Week(s)</option>
+										<option value="month">Month(s)</option>
+									</select>
+								</div>
+							</div>
+							<h4 class="ui header">Trial Price</h4>
+
+							<div class="field">
+								<div class="col-sm-12">
+									<div class="input-group m-b">
+										<div class="input-group-btn" uib-dropdown>
+											<style>button.dropdown-toggle:hover {
+												border-
+											}</style>
+											<button type="button" class="btn btn-lg btn-default" uib-dropdown-toggle style="font-size: 14px;font-weight: 400;line-height: 1;color: #555555;text-align: center;background-color: #eeeeee;border: 1px solid #cccccc; color: #555555 !important;height: 50px;padding: 10px 16px;font-size: 18px;line-height: 1.3333333;border-radius: 6px 0 0 6px !important;">
+												<span dynamic="_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label" class="fr-view"></span>
+												<span class="caret" style="margin-left:5px;border-top-color: #333333 !important;"></span>
+											</button>
+											<ul class="uib-dropdown-menu">
+												<li ng-repeat="currency in currencies">
+													<a ng-click="access_level.currency = currency.id">
+														<span dynamic="currency.label" class="fr-view"></span>
+													</a>
+												</li>
+											</ul>
+										</div><!-- /btn-group -->
+										<input type="text" style="margin-bottom:0;" name="stripe_price" class="form-control input-lg" ng-model="access_level.trial_amount">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<h4 ng-if="access_level.payment_interval!='one_time'">Stripe Plan ID</h4>
+						<div class="field" ng-if="access_level.payment_interval!='one_time'">
+							<div class="col-sm-11">
+								<input type="text" name="stripe_plan_id" class="form-control input-lg"
+									   ng-model="access_level.stripe_plan_id">
+								<span class="help-block m-b-none">
+									If you provide a Stripe Plan ID, this purchase will be considered a recurring purchase.
+								</span>
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<h4 class="ui header">Payment Methods</h4>
+						<div class="field">
+							<div class="col-sm-12">
+								<select multiple ng-model="access_level.payment_methods" class="form-control used_payment_methods">
+									<option ng-selected="paymentMethodExists(p.id) || !access_level.id" ng-repeat="p in payment_method_types | filter:validPaymentMethod" value={{p.id}}>{{p.name}}</option>
+								</select>
+								<span class="help-block m-b-none">
+									Select the payment methods you want users to be able to use on the checkout page.
+									<br>
+									Note that you can only select methods you have already set up, go to
+									<a href="/admin/app_configurations/all">app_configurations</a>
+									to set up these methods.
+									<br>
+									The JVZoo checkout button will only show up if you have a JVZoo buy button set above.
+								</span>
+							</div>
+						</div>
+						<span ng-if="payment_app_configurations.stripe.length > 1">
+							<div class="hr-line-dashed"></div>
+							<h4 class="ui header">Which Stripe Integration should be used?</h4>
+							<div class="field">
+								<div class="col-sm-12">
+									<select class="form-control" ng-model="access_level.stripe_integration" ng-change="changeAccount()">
+										<option value="0" ng-selected="!access_level.stripe_integration">Use default integration</option>
+										<optgroup label="Stripe app_configurations">
+											<option ng-repeat="stripe_integration in payment_app_configurations.stripe" ng-selected="stripe_integration.id == access_level.stripe_integration" value="{{stripe_integration.id}}">{{stripe_integration.account.name ? stripe_integration.account.name : stripe_integration.account.username}}</option>
+										</optgroup>
+									</select>
+									<span class="help-block m-b-none" ng-hide="access_level.payment_interval == 'one_time'">
+										Note that the Stripe Plan ID you choose must be set up on the Stripe account you are choosing to use for this checkout page.
+									</span>
+								</div>
+							</div>
+						</span>
+						<span ng-if="payment_app_configurations.paypal.length > 1">
+							<div class="hr-line-dashed"></div>
+							<h4 class="ui header">Which Paypal Integration should be used?</h4>
+							<div class="field">
+								<div class="col-sm-12">
+									<select class="form-control" ng-model="access_level.paypal_integration">
+										<option value="0" ng-selected="!access_level.paypal_integration">Use default integration</option>
+										<optgroup label="Paypal app_configurations">
+											<option ng-repeat="paypal_integration in payment_app_configurations.paypal" ng-selected="paypal_integration.id == access_level.paypal_integration" value="{{paypal_integration.id}}">{{paypal_integration.remote_id}}</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+						</span>
+						<div class="hr-line-dashed"></div>
+						<div class="field">
+							<div class="col-sm-12">
+								<h4 class="help-block m-b-none">
+									<input type="checkbox" ng-model="access_level.hide_unowned_content" ng-checked="access_level.hide_unowned_content==1" ng-true-value="1" ng-false-value="0" name="name">
+									Hide content from users who don't have this product level
+								</h4>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<h3 class="ui attached header title">
+					<i class="dropdown icon"></i>
+					Access Level Share Key
+				</h3>
+				<div class="ui attached segment content">
+					<div class="ui form">
+
+						<h4>Create a New Key</h4>
+						<div class="form-group">
+							<div class="col-sm-8">
+								<input type="text" class="form-control input-lg" ng-model="key">
+							</div>
+							<div class="col-sm-4">
+								<div class="ui black deny button close" ng-click="generateACShareKey()">
+									Generate New Key
+								</div>
+							</div>
+							<span class="help-block m-b-none">
+								Press the button to create a new shared access level key
+							</span>
+						</div>
+
+						<h4>Generated Key</h4>
+						<div class="form-group">
+							<table class="ui fixed single line celled stackable table" data-page-size="15">
+								<thead>
+									<tr>
+										<th style="width: 294px;">Key</th>
+										<th>Claimed site name</th>
+										<th>Claimed site URL</th>
+										<th>Date</th>
+										<th class="text-right" data-sort-ignore="true">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="next_item in keys">
+										<td>
+											{{next_item.key}}
+										</td>
+										<td>
+											{{next_item.destination_site.name}}
+										</td>
+										<td>
+											{{next_item.destination_site.subdomain ? next_item.destination_site.subdomain + '.smartmember.com' : ''}}
+										</td>
+										<td>
+											{{moment.utc(next_item.created_at).fromNow()}}
+										</td>
+										<td class="text-right">
+											<button class="btn btn-danger btn-outline btn-sm ng-scope" sm-delete="{{next_item.id}}">
+												Delete
+												<i class="fa fa-trash"></i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div ui-sref="public.app.admin.members.products" class="ui black deny button close">
+			Cancel
+		</div>
+		<button ng-click="save()" class="ui right labeled icon button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</button>
+	</div>
+</div>

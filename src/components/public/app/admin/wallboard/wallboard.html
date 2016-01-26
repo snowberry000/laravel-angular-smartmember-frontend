@@ -1,0 +1,99 @@
+
+<div class="ui grid finance wallboard logged_in">
+    <div class="eight wide column">
+        <div class="ui green inverted segment">
+            <div class="ui huge inverted statistic">
+                <div class="value">
+                    {{wallboard.number_of_sales}}
+                </div>
+                <div class="label">
+                    sales
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <div class="ui green inverted segment">
+            <div class="ui huge inverted statistic">
+                <div class="value">
+                    {{wallboard.total_sales | currency:"$":0}}
+                </div>
+                <div class="label">
+                    $ total
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <div class="ui inverted segment">
+            <div class="ui large blue inverted statistic">
+                <div class="value">
+                    {{wallboard.number_of_today_sales}}
+                </div>
+                <div class="label">
+                    today sales
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <div class="ui inverted segment">
+            <div class="ui large green inverted statistic">
+                <div class="value">
+                    {{wallboard.total_today_sales | currency:"$":0}}
+                </div>
+                <div class="label">
+                    today $
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <div class="ui inverted segment">
+            <div class="ui large blue inverted statistic">
+                <div class="value">
+                    {{wallboard.number_of_yesterday_sales}}
+                </div>
+                <div class="label">
+                    yesterday sales
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <div class="ui inverted segment">
+            <div class="ui large green inverted statistic">
+                <div class="value">
+                    {{wallboard.total_yesterday_sales | currency:"$":0}}
+                </div>
+                <div class="label">
+                    yesterday $
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <div class="ui inverted segment">
+            <div class="ui large grey inverted statistic">
+                <div class="value">
+                    {{wallboard.number_of_refunds}}
+                </div>
+                <div class="label">
+                    refunds
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <div class="ui inverted segment">
+            <div class="ui large red inverted statistic">
+                <div class="value">
+                    {{wallboard.total_refunds | currency:"$":0}}
+                </div>
+                <div class="label">
+                    refund $
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

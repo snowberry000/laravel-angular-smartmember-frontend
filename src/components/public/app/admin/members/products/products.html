@@ -1,0 +1,103 @@
+<div class="ui modal"><i class="close icon"></i>
+	<i class="close icon"></i>
+
+	<div class="header">
+		<i class="lock icon"></i>
+		Access Levels
+	</div>
+	<div class="content">
+		<div class="description">
+			<p>{{template_data.description}}</p>
+
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<div class="field" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
+						<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+					</div>
+
+					<table class="ui fixed single line celled stackable table" data-page-size="15" ng-if="data.length > 0 && !loading" foonice>
+						<thead>
+							<tr>
+								<th data-toggle="true">Name</th>
+								<th data-hide="phone">Secret Access Url</th>
+								<th data-hide="phone">Purchase Url</th>
+								<th data-hide="tablet">Date</th>
+								<th class="text-right" data-hide="phone,tablet" data-sort-ignore="true">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+								<td>
+									{{next_item.name}}
+								</td>
+								<td>
+									<div class="ui action input" ng-init="init()">
+										<input ng-if="site.domain" type="text" value="http://{{site.domain}}/access/{{next_item.hash}}">
+										<input ng-if="!site.domain" type="text" value="http://{{site.subdomain}}.{{app.domain}}/access/{{next_item.hash}}">
+										<button class="ui icon button" ng-click="promptRefreshHash(next_item)" title="Refresh hash">
+											<i class="refresh icon"></i>
+										</button>
+                                        <button class="ui green right icon button copy-button" data-clipboard-action="copy" title="Copy Url" data-text="http://{{site.subdomain}}.{{app.domain}}/access/{{next_item.hash}}" ng-click="copied()">
+                                            <i class="copy icon"></i>
+                                        </button>
+									</div>
+								</td>
+								<td>
+									<div class="ui action input" ng-if="site.domain"  ng-init="init()">
+										<input type="text" value="http://{{site.domain}}/checkout/{{next_item.id}}">
+										<a href="http://{{site.domain}}/checkout/{{next_item.id}}" target="_blank" class="ui icon button">
+											<i class="external link icon"></i>
+										</a>
+                                        <button class="ui green right icon button copy-button" data-clipboard-action="copy" title="Copy Url" data-text="http://{{site.domain}}/checkout/{{next_item.id}}" ng-click="copied()">
+                                            <i class="copy icon"></i>
+                                        </button>
+									</div>
+									<div class="ui action input" ng-if="!site.domain"  ng-init="init()">
+										<input type="text" value="http://{{site.subdomain}}.{{app.domain}}/checkout/{{next_item.id}}">
+										<a href="http://{{site.subdomain}}.{{app.domain}}/checkout/{{next_item.id}}" target="_blank" class="ui icon button">
+											<i class="external link icon"></i>
+										</a>
+                                        <button class="ui green right icon button copy-button" data-clipboard-action="copy" title="Copy Url" data-text="http://{{site.subdomain}}.{{app.domain}}/checkout/{{next_item.id}}" ng-click="copied()">
+                                            <i class="copy icon"></i>
+                                        </button>
+									</div>
+								</td>
+								<td>
+									{{moment.utc(next_item.created_at).fromNow()}}
+								</td>
+								<td class="text-right">
+									<a ui-sref="{{template_data.edit_route}}({id: next_item.id })" class="ui button">
+										Edit
+									</a>
+									<button class="ui button" sm-delete={{next_item.id}}>
+										Delete
+									</button>
+								</td>
+							</tr>
+
+						</tbody>
+						<tfoot>
+							<tr>
+							</tr>
+						</tfoot>
+					</table>
+
+					<div class="text-right"  ng-if="!loading">
+					<dir-pagination-controls max-size="5"></dir-pagination-controls>
+				</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+        <a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
+			Close
+		</a>
+		<a ui-sref="{{template_data.edit_route}}" class="ui right labeled icon green button">
+			Create new access level
+			<i class="plus icon"></i>
+		</a>
+	</div>
+</div>

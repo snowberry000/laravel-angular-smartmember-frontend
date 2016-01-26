@@ -82,7 +82,7 @@ ErrorDocument 404 /pricing
 
 <ifModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^admin http://%{HTTP_HOST}/ [L]
+    #RewriteRule ^admin http://%{HTTP_HOST}/ [L]
     RewriteRule ^lesson/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^download/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^page/(.*)$ http://%{HTTP_HOST}/$1 [L]
@@ -92,10 +92,10 @@ ErrorDocument 404 /pricing
     RewriteRule ^forum-category/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^forum-topic/(.*)$ http://%{HTTP_HOST}/$1 [L]
     RewriteRule ^support-ticket/create(.*)$ http://%{HTTP_HOST}/support-ticket [L]
-    RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST}/?signin [L]
-    RewriteRule ^sign/up(.*)$ http://%{HTTP_HOST}/?signup [L]
-    RewriteRule ^sign/forgot(.*)$ http://%{HTTP_HOST}/?forgot [L]
-    RewriteRule ^sign/unsubscribe(.*)$ http://%{HTTP_HOST}/?unsubscribe&%{QUERY_STRING} [L]
+    #RewriteRule ^sign/in(.*)$ http://%{HTTP_HOST}/?signin [L]
+    #RewriteRule ^sign/up(.*)$ http://%{HTTP_HOST}/?signup [L]
+    #RewriteRule ^sign/forgot(.*)$ http://%{HTTP_HOST}/?forgot [L]
+    #RewriteRule ^sign/unsubscribe(.*)$ http://%{HTTP_HOST}/?unsubscribe&%{QUERY_STRING} [L]
 </ifModule>
 
 <ifModule mod_rewrite.c>
@@ -111,4 +111,4 @@ ErrorDocument 404 /pricing
 
 
 
-#Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Origin "*"

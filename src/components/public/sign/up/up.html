@@ -29,7 +29,7 @@
 						<div class="field">
 							<label>Password</label>
 							<div class="ui left icon input">
-								<input type="password" name="password" ng-model="user.password">
+								<input type="password" name="password" ng-model="user.password" pattern=".{6,}" required title="minimum 6 characters">
 								<i class="fa fa-lock icon"></i>
 							</div>
 						</div>
@@ -54,7 +54,7 @@
 					Or
 				</div>
 				<div class="center aligned column">
-					<a ng-click="smModal.Show('public.sign.in')" class="ui big green labeled icon button">
+					<a ui-sref="public.sign.in" class="ui big green labeled icon button">
 						<i class="user icon"></i>
 						Login
 					</a>
@@ -64,13 +64,13 @@
 		</div>
 	</div>
 	<div class="actions">
+		<div ng-click="CloseExtraState()" class="ui black button">
+			Close
+		</div>
 		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button" ng-click="CloseModal();">
 			Need help?
 			<i class="life ring icon"></i>
 		</a>
-		<div ng-if="!$state.includes('public.my')" class="close ui black deny button">
-			Close
-		</div>
 	</div>
 
 </div>

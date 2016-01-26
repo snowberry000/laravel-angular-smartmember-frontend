@@ -1,0 +1,54 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="paragraph icon"></i>
+		{{ page_title | translate }}
+	</div>
+	<div class="content">
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui text loader">Loading</div>
+		</div>
+		<div class="description">
+
+			<div class="ui top attached tabular menu" sui-tabs>
+				<a class="item active" data-tab="one">Main Content</a>
+				<a class="item" data-tab="extra">Lesson Fields</a>
+				<a class="item" data-tab="two">Media</a>
+				<a class="item" data-tab="three">Scheduling</a>
+				<a class="item" data-tab="four">Commenting</a>
+				<a class="item" data-tab="five">Social Sharing</a>
+			</div>
+			<div class="ui bottom attached tab segment active" data-tab="one">
+				<div ng-include="'templates/components/public/administrate/site/content/common/content-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="extra">
+				<div ng-include="'templates/components/public/app/admin/lesson/edit-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="two">
+				<div ng-include="'templates/components/public/administrate/site/content/common/media-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="three">
+				<div ng-include="'templates/components/public/administrate/site/content/common/scheduling-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="four">
+				<div ng-include="'templates/components/public/administrate/site/content/common/commenting-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="five">
+				<div ng-include="'templates/components/public/administrate/site/content/common/social-sharing-options.html'"></div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a  ng-click="cancel()" class="ui black button">
+			Cancel
+		</a>
+		<a busy ng-click="saveAsDraft()" class="ui right labeled icon button" ng-if="next_item.access_level_type!=1">
+			Save as Draft
+			<i class="save icon"></i>
+		</a>
+		<a busy ng-click="save()" class="ui right labeled green icon button" ng-disabled="!next_item.title">
+			Publish
+			<i class="check icon"></i>
+		</a>
+	</div>
+</div>

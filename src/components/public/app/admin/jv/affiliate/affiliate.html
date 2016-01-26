@@ -1,0 +1,89 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="rocket icon"></i>
+		{{ page_title | translate }}
+	</div>
+	<div class="content">
+		<div class="description">
+			
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+			
+			<div class="ui form">
+				
+				<div class="field">
+					<label>Request ID</label>
+					<input type="text" ng-model="affiliate.affiliate_request_id">
+				</div>
+				
+				<div class="field">
+					<label>User ID</label>
+					<input type="text" ng-model="affiliate.user_id">
+				</div>
+				
+				<div class="field">
+					<label>Name</label>
+					<input type="text" ng-model="affiliate.user_name">
+				</div>
+				
+				<div class="field">
+					<label>Email</label>
+					<input type="text" ng-model="affiliate.user_email">
+				</div>
+				
+				<div class="field">
+					<label>Country</label>
+					<input type="text" ng-model="affiliate.user_country">
+				</div>
+				
+				<div class="field">
+					<label>User Note</label>
+					<input type="text" ng-model="affiliate.user_note">
+				</div>
+				
+				<div class="field">
+					<label>Past Sales</label>
+					<input type="text" ng-model="affiliate.past_sales">
+				</div>
+				
+				<div class="field">
+					<label>Product</label>
+					<input type="text" ng-model="affiliate.product_name">
+				</div>
+
+				<div class="inline field">
+
+					<label>Upload image / photo</label>
+					<button type="button" class="ui button" sm-uploader="featured_image" ng-model="affiliate.featured_image">
+						<i class="upload icon"></i>
+						Choose File
+					</button>
+				</div>
+				<div class="field">
+					<img class="ui fluid image" ng-src="{{affiliate.featured_image}}" ng-show="affiliate.featured_image">
+				</div>
+				<button class="ui left labeled icon button" ng-if="affiliate.featured_image" ng-click="affiliate.featured_image=''">
+					Clear
+					<i class="remove icon"></i>
+				</button>
+				
+				<div class="field">
+					<label>Admin Notes</label>
+					<input type="text" ng-model="affiliate.admin_note">
+				</div>
+			
+			</div>
+		
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui black deny button" ui-sref="public.app.admin.jv.affiliates">
+			Cancel
+		</div>
+		<button ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="check icon"></i>
+		</button>
+	</div>
+</div>
