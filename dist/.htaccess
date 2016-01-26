@@ -70,11 +70,21 @@ ErrorDocument 404 /pricing
         RewriteRule ^(.*)$ http://sm.smartmember.com/thank-you?%{QUERY_STRING} [R=301,L]
 </ifModule>
 
+
+<ifModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{HTTP_HOST} ^sm.smartmember\.com [NC]
+        RewriteCond %{REQUEST_URI} ^/$
+        RewriteCond %{QUERY_STRING} (^|&)reset_hash=(.*)$
+        RewriteRule ^(.*)$ http://my.smartmember.com/?%{QUERY_STRING} [R=301,L]
+</ifModule>
+
 <ifModule mod_rewrite.c>
         RewriteEngine On
         RewriteCond %{HTTP_HOST} ^training.smartmember\.com$ [NC]
         RewriteRule (.*) http://help.smartmember.com [R=301,L]
 </ifModule>
+
 <ifModule mod_rewrite.c>
         RewriteEngine On
         RewriteCond %{HTTP_HOST} ^3c.smartmember\.com$ [NC]
