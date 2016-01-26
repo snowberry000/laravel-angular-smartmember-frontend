@@ -15,7 +15,7 @@ app.directive( 'smAccess', function()
                         //Check if user has appropriate access level
                         if (!scope.site.is_admin && attributes.smAccess == "view_restricted_content") {
                             for (var j = 0; j < scope.site.current_access_levels.length; j++) {
-                                if (scope.site.current_access_levels[i] == attributes.level) {
+                                if (parseInt(scope.site.current_access_levels[j]) == attributes.level) {
                                     return;
                                 }
                             };
