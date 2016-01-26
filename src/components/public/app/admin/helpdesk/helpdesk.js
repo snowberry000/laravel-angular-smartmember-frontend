@@ -2,13 +2,13 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.content.helpdesk",{
+		.state("public.app.admin.helpdesk",{
 			url: "/helpdesk",
 			templateUrl: "/templates/components/public/app/admin/helpdesk/helpdesk.html",
-			controller: "HelpdeskController"
+			controller: "SiteHelpdeskController"
 		})
 }); 
 
-app.controller("HelpdeskController", function ($scope) {
-
+app.controller("SiteHelpdeskController", function ($scope) {
+// alert('asd');
 });
