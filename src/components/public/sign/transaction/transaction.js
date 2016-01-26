@@ -16,8 +16,26 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
     $scope.loading = true;
 
 	var $_GET = $localStorage.transaction_params;
-    $rootScope.last_base_state.state = $localStorage.after_transaction_state;
-    $rootScope.last_base_state.params = $localStorage.after_transaction_params;
+
+    var getUrlVars = function()
+    {
+        var vars = {};
+        var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
+        {
+            vars[ key ] = decodeURIComponent( value );
+        } );
+        return vars;
+    }
+
+    if( !$_GET || !$_GET['cbreceipt'] )
+    {
+        $_GET = getUrlVars();
+    }
+
+    if( $rootScope.last_base_state ) {
+        $rootScope.last_base_state.state = $localStorage.after_transaction_state;
+        $rootScope.last_base_state.params = $localStorage.after_transaction_params;
+    }
     delete $localStorage.transaction_params;
     delete $localStorage.after_transaction_state;
     delete $localStorage.after_transaction_params;
