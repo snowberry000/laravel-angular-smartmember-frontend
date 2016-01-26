@@ -46,7 +46,7 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div class="text-right"  ng-if="!loading">
+			<div class="text-right"  ng-if="!loading && pagination.total_count > 25">
 				<dir-pagination-controls max-size="5"></dir-pagination-controls>
 			</div>
 

@@ -70,7 +70,7 @@ app.controller("AutorespondersController", function ($scope,smModal,$filter, $lo
 	    Restangular.all('').customGET( $scope.template_data.api_object + '?p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then(function(data){
 	        $scope.pagination.total_count = data.total_count;
 
-	        $scope.data[ $scope.pagination.current_page ] = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+	        $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 
 	        $scope.loading = false;
 	    } , function(error){

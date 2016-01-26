@@ -75,7 +75,9 @@
 							<div class="ui pointing label">
 								{{pagination.total_count}} items
 							</div>
-							<dir-pagination-controls max-size="5"></dir-pagination-controls>
+							<div ng-if="!loading && pagination.total_count > 25">
+								<dir-pagination-controls max-size="5"></dir-pagination-controls>
+							</div>
 						</th>
 					</tr>
 				</tfoot>
@@ -84,7 +86,7 @@
 		</div>
 	</div>
 	<div class="actions">
-		<div class="ui black deny button close">
+		<div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button">
 			Close
 		</div>
 		<a ui-sref="public.app.admin.email.export" class="ui right labeled icon button">
