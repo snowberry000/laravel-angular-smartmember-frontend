@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'PublicLessonController', function( $scope, $rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr )
+app.controller( 'PublicLessonController', function( $scope, $rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr,smModal )
 {
 	$scope.loading = true;
 	$scope.comment = '';
@@ -314,6 +314,13 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 					toastr.error( "Note has been saved and marked incomplete" );
 				}
 			} );
+		}
+	}
+
+	$scope.showNoAccessLogin = function() {
+		if (!$localStorage.user || !$localStorage.user.access_token)
+		{
+			smModal.Show('public.sign.in');
 		}
 	}
 } );

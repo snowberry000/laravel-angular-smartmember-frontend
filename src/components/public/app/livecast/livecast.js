@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stateParams,$localStorage,Restangular){
+app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stateParams,$localStorage,Restangular,smModal){
 
     $scope.comment = '';
     $scope.child_comment = '';
@@ -79,6 +79,13 @@ app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stat
     $scope.replyPermission = function(){
         if($scope.commentPermission());
         return ($scope.next_item.discussion_settings.show_comments && !$scope.next_item.discussion_settings.close_to_new_comments && $scope.next_item.discussion_settings.allow_replies );
+    }
+
+    $scope.showNoAccessLogin = function() {
+        if (!$localStorage.user || !$localStorage.user.access_token)
+        {
+            smModal.Show('public.sign.in');
+        }
     }
 
 });
