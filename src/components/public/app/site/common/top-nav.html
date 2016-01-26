@@ -1,3 +1,14 @@
+<div class="ui basic center aligned segment" ng-if="site.subdomain == 'sm'" style="background-color: #EBF730;">
+	<h1 class="ui header headline_text_color" style="font-size: 4em; color:#414141!important;">
+		Closes in
+		<timer end-time="launch_time_left" interval="1000">
+			<span style="color:#F02A2B;">{{hours}} hour{{hoursS}}</span>,
+			<span style="color:#F02A2B;">{{minutes}} minute{{minutesS}}</span>,
+			<span style="color:#F02A2B;">{{seconds}} second{{secondsS}}</span>.
+		</timer>
+	</h1>
+</div>
+
 <div sm-class="'ui labeled navigation_background_color ' + (meta_data.icon_position == 'top' || meta_data.icon_position == 'bottom' ? ' icon ' : '') + meta_data.navigation_style + ' ' + meta_data.navigation_location + ' pointing menu large stackable'">
 
 	<div resize sm-class="(options.menu_items.length | numbertoword) + ( (meta_data.navigation_location != 'left fixed' && meta_data.navigation_location != 'right fixed') ? (IsMobile() ? ' ui buttons' : '') : '')" ng-if="options.menu_items">
@@ -16,3 +27,5 @@
 	</div>
 
 </div>
+
+

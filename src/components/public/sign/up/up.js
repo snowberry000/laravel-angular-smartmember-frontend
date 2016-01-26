@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
+app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http , smEvent)
 {
 
 	var auth = Restangular.all( 'auth' );
@@ -71,6 +71,12 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 			auth.customPOST( user, "register" ).then( function( response )
 				{
 					$scope.postAuth( response );
+
+                    smEvent.Log( 'registered', {
+                        'request-url': location.href,
+                        'referring-url': document.referrer
+                    } );
+
 					if( $rootScope.redirectedFromLoginMessage )
 					{
 						$rootScope.redirectedFromLoginMessage = false;

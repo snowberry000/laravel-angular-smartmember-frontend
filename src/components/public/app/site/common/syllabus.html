@@ -27,7 +27,7 @@
 					</button>
 				</div>
 
-				<button busy class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="toggleEditMode()" ng-class="{thumbnail:'active'}[site.syllabus_format]">
+				<button busy class="ui icon button" sm-access="manage_content" if-not="hide" ng-click="smModal.Show('public.administrate.site.content.syllabus.organizer')" ng-class="{thumbnail:'active'}[site.syllabus_format]">
 					<i class="edit icon"></i>
 				</button>
 			</div>
@@ -117,6 +117,7 @@
 		</div>
 	</div>
 	<div class="col-lg-9 connectModulePanels" ng-if="!syllabus.edit_mode" >
+
 		<div class="ui attached segment section_background_color module_item" data-id="{{module.id}}" ng-repeat="(key, module) in modules" ng-if="(!query || ( module.lessons | filter: query).length > 0)" data-id="{{module.id}}">
 			<div class="ibox-title">
 				<a ng-if="syllabus.edit_mode && module.id" editable-text="module.title" sm-class="'ui module_label_background_color module_label_text_color ' + meta_data.module_label_position + ' ' + meta_data.module_label_style + ' label'" onaftersave="saveModule(module)" ng-click="toggleModule(module)">

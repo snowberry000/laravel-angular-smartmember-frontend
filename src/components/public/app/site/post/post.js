@@ -14,7 +14,7 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
     $scope.child_comment = '';
     $scope.user = $localStorage.user;
     $scope.loading=true;
-
+    $site = $rootScope.site;
     Restangular.one('postByPermalink', $stateParams.permalink).get().then(function(response){
         $post=response;
         $scope.loading=false;
@@ -22,7 +22,19 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
         $scope.next_item = $scope.post;
         $rootScope.page_title = $post.title || $rootScope.page_title;
         if( $scope.post.access_level_type == 4 )
-            $state.go('public.app.site.blog');
+        {
+            var view_content = false;
+            if ($site && $site.capabilities)
+            {
+                if ($site.capabilities.indexOf('manage_content') != -1)
+                {
+                    view_content = true;
+                }
+            }
+            if( !view_content )
+            	$state.go('public.app.site.blog');
+        }
+
         Restangular.all('').customGET('comment?target_id='+$scope.post.id+'&type='+4).then(function(comments){
            $scope.post.comments = _.toArray(comments.comments)
         });
