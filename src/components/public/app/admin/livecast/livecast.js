@@ -209,8 +209,14 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
 
     $scope.save = function()
     {
-        if( $scope.next_item.permalink == '' )
+        if( $scope.next_item.permalink == '' ){
             this.onBlurTitle(null);
+        }
+
+        if( $scope.next_item.permalink == '' || !$scope.next_item.permalink){
+            toastr.error("Please enter valid permalink");
+            return;
+        }
 
         delete $scope.next_item.access_level;
 

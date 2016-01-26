@@ -198,6 +198,11 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
             this.onBlurTitle( null );
         }
 
+        if( $scope.next_item.permalink == '' || !$scope.next_item.permalink){
+            toastr.error("Please enter valid permalink");
+            return;
+        }
+
         delete $scope.next_item.most_used_categories;
 		delete $scope.next_item.most_used_tags;
 		delete $scope.next_item.access_level;

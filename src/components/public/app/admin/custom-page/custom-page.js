@@ -138,6 +138,11 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         if( $scope.next_item.permalink == '' )
             this.onBlurTitle(null);
 
+        if( $scope.next_item.permalink == '' || !$scope.next_item.permalink){
+            toastr.error("Please enter valid permalink");
+            return;
+        }
+
         $scope.next_item.site_id = $site.id;
 
         if( $scope.next_item.access_level_type == 2 && $scope.next_item.access_level_id == 0 )

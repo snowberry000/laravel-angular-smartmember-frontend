@@ -134,6 +134,10 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
          if( $scope.download.permalink == '' )
              this.onBlurTitle(null);
 
+         if( $scope.download.permalink == '' || !$scope.download.permalink){
+             toastr.error("Please enter valid permalink");
+             return;
+         }
          if( $scope.download.access_level_type == 2 && $scope.download.access_level_id == 0 )
              $scope.download.access_level_type = 3;
 
