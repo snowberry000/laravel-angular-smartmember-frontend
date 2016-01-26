@@ -40,6 +40,12 @@ app.controller("CategoryController", function ($scope,$rootScope,smModal, $local
 
 
     $scope.save = function(){
+    	if(!$scope.category.title)
+    	{
+    		toastr.success("Categoiry title can not be empty");
+    		return;
+    	}
+
         if($scope.category.id){
             $scope.category.put().then(function(response){
             	toastr.success("Support category edited successfully!");
