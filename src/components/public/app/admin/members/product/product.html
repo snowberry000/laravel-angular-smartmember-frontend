@@ -419,7 +419,7 @@
 											{{moment.utc(next_item.created_at).fromNow()}}
 										</td>
 										<td class="text-right">
-											<button class="btn btn-danger btn-outline btn-sm ng-scope" ng-click="deleteACShareKey(next_item)">
+											<button class="btn btn-danger btn-outline btn-sm ng-scope" sm-delete="{{next_item.id}}">
 												Delete
 												<i class="fa fa-trash"></i>
 											</button>
