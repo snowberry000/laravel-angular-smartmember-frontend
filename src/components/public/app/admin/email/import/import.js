@@ -7,15 +7,15 @@ app.config(function($stateProvider){
 			templateUrl: "/templates/components/public/app/admin/email/import/import.html",
 			controller: "EmailISubscribermportController",
 			resolve: {
-				emailListId: function(Restangular, $stateParams, $site){
-					return Restangular.one('emailList',$stateParams.id).get({list_type: 'user'});
-				},
-				emailLists: function(Restangular , $site){
-					return Restangular.all('emailList').getList({list_type: 'user'});
-				},
-				$site: function($site){
-					return $site;
-				}
+				// emailListId: function(Restangular, $stateParams, $site){
+				// 	return Restangular.one('emailList',$stateParams.id).get({list_type: 'user'});
+				// },
+				// emailLists: function(Restangular , $site){
+				// 	return Restangular.all('emailList').getList({list_type: 'user'});
+				// },
+				// $site: function($site){
+				// 	return $site;
+				// }
 
 			}
 		})
