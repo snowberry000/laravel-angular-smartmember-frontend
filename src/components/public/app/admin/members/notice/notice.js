@@ -2,17 +2,17 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.site.membership.notice",{
+		.state("public.app.admin.members.notice",{
 			url: "/notice/:id?",
-			templateUrl: "/templates/components/public/administrate/site/membership/notice/notice.html",
+			templateUrl: "/templates/components/public/app/admin/members/notice/notice.html",
 			controller: "NoticeController"
 		})
 }); 
 
-app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$state,smModal, $localStorage ,  Restangular, toastr, Upload) {
+app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$state,smModal, $location ,$localStorage ,  Restangular, toastr, Upload) {
 	
 	$scope.init = function(){
-		if($notification.id || $stateParams.clone)
+		if($notification.id || $location.search().clone)
 		{
 		    $scope.site_notice = $notification;
 		    $scope.site_notice.sdate = new Date(moment.utc($scope.site_notice.start_date));
@@ -37,9 +37,9 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 			$scope.init();
 		});
 	}
-	else if( $stateParams.clone )
+	else if( $location.search().clone )
 	{
-		Restangular.one( 'siteNotice', $stateParams.clone ).get().then(function(response){
+		Restangular.one( 'siteNotice', $location.search().clone ).get().then(function(response){
 			$notification=response;
 			delete $notification.id;
 			delete $notification.created_at;
@@ -82,14 +82,14 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 	    if ($scope.site_notice.id) {
 	        $scope.site_notice.put().then(function(response){
 	        	toastr.success("Site notice has been saved");
-	        	smModal.Show('public.administrate.site.membership.notices');
+	        	$state.go('public.app.admin.members.notices')
 	        })
 	    }
 	    else {
 	        Restangular.all('siteNotice').post($scope.site_notice).then(function (site_notice) {
 	            $scope.site_notice = site_notice;
 	            toastr.success("Site notice has been saved");
-	            smModal.Show('public.administrate.site.membership.notices');
+	            $state.go('public.app.admin.members.notices')
 	        });
 	    }
 	    
