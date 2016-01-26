@@ -89,7 +89,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 			success_route: 'public.app.admin.lessons'
 		}
 
-		if( $stateParams.syllabus_creator )
+		if( $location.search().organizer )
         {
             $scope.template_data.cancel_route = 'public.app.admin.organizer';
             $scope.template_data.success_route = 'public.app.admin.organizer';
