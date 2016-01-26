@@ -511,7 +511,7 @@ app.controller('segmentIntroController', function ($scope, $state,  $stateParams
     }
 });
 
-app.controller('previewEmailController', function ($scope, $state, Restangular, $stateParams, close) {
+app.controller('previewEmailController', function ($scope, $state, Restangular, $stateParams, close, toastr, smModal) {
     $scope.recipient_type = $stateParams.recipient_type;
     $scope.email = $stateParams.email;
     $scope.chosen_segments = $stateParams.chosen_segments;
@@ -546,9 +546,5 @@ app.controller('previewEmailController', function ($scope, $state, Restangular, 
             toastr.warning("Please fill in the email you want to send preview to");
             return;
         }
-    }
-
-    $scope.cancel = function(){
-        close();
     }
 });
