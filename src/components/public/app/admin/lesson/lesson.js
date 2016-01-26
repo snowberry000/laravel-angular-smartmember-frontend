@@ -76,8 +76,16 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 
 	}
 
+	$scope.cancel = function (){
+		if( $location.search().organizer)
+			$state.go('public.app.admin.organizer');
+		else
+			$state.go('public.app.admin.lessons');
+	}
+
 	$scope.init = function()
 	{
+		$scope.refrer = $location.search().organizer;
 		if( !$next_item.id )
 		{
 			$next_item.site_id = $rootScope.site.id;

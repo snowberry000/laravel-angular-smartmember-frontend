@@ -39,10 +39,7 @@
 		</div>
 	</div>
 	<div class="actions">
-		<a ng-if="!close" ui-sref="{{template_data.cancel_route}}" class="ui black button">
-			Cancel
-		</a>
-		<a ng-if="close" class="ui black deny button close">
+		<a  ng-click="cancel()" class="ui black button">
 			Cancel
 		</a>
 		<a busy ng-click="saveAsDraft()" class="ui right labeled icon button" ng-if="next_item.access_level_type!=1">
