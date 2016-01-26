@@ -22,6 +22,10 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootS
 	$scope.save = function()
 	{
 		$scope.saving = true;
+		if($scope.site && !($scope.site.subdomain || $scope.site.domain)){
+			toastr.error('Please enter a domain or a subdomain');
+			return;
+		}
 		if( $scope.site.id )
 		{
 			$scope.update();
