@@ -120,7 +120,7 @@ emailLists=Restangular.all( '' ).customGET('emailList?list_type=user&bypass_pagi
             toastr.success("Changes Saved!");
             if($scope.sendIter==$scope.emailSubscribers.length-1)
             {
-                $state.go("public.app.admin.email.subscribers");
+                $state.go("public.app.admin.email.lists");
             }
         })
     }
@@ -138,7 +138,7 @@ emailLists=Restangular.all( '' ).customGET('emailList?list_type=user&bypass_pagi
             {
                 console.log("i am printing subscribers count "+$scope.sendIter);
                 toastr.success($scope.totalAdded+" Subscribers Added!");
-                $state.go("public.app.admin.email.subscribers");
+                $state.go("public.app.admin.email.lists");
             }
         });
     }
