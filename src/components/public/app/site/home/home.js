@@ -144,6 +144,9 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
                             break;
                     }
                     return;
+                },
+                function( response ) {
+                    $timeout(function(){$state.go( 'public.app.site.lessons', {}, { location: false } );},50);
                 } );
             return;
             }
