@@ -48,14 +48,14 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
             Restangular.one('siteMenuItem', id)
                 .remove()
                 .then(function(response){
-                    $state.go('public.app.admin.appearance.menus')
+                    $state.go('public.app.admin.appearance.menus',{reloadHome : true})
                 });
         }
         else{
             Restangular.one('siteFooterMenuItem', id)
                 .remove()
                 .then(function(response){
-                    $state.go('public.app.admin.appearance.menus');
+                    $state.go('public.app.admin.appearance.menus',{reloadHome : true});
                 });
         }
     }
