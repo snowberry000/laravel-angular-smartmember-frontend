@@ -125,7 +125,7 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 	$scope.promptRefreshHash = function( access_level ) {
 		swal( {
 			title: "Are you sure you want to refresh the hash?",
-			text: 'Resetting this hash will make the previous instant access URL for ' + access_level.name,
+			text: 'Resetting this hash will make the previous instant access URL for the access level "' + access_level.name + '" invalid.',
 			type: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#DD6B55",
