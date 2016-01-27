@@ -11,8 +11,8 @@
 
 				<div class="col-sm-10">
 
-					<ul class="criteria-list col-md-12 m-t-xs">
-						<li title="" original-title="" style="position: relative;">
+					<ul class="criteria-list col-md-12 m-t-xs" style="list-style-type:none" >
+						<li title="" original-title="" style="position: relative;margin:8px;">
 							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('email_list_selector')" ng-init="email_list_selector=false">
 								<div class="criteria-wrap"><span class="fieldLabel">Email Lists:</span> {{queueEmailData.emailLists.indexOf(true) != -1 ? 'Selected':'All'}}</div>
 							</button>
@@ -56,7 +56,7 @@
 								</div>
 							</div>
 						</li>
-						<li title="" original-title="">
+						<li title="" original-title="" style="margin:8px;">
 							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('site_members_selector')" ng-init="site_members_selector=false">
 								<div class="criteria-wrap"><span class="fieldLabel">Members:</span> {{queueEmailData.siteMembers.indexOf(true) != -1 ? 'Selected':'All'}}</div>
 							</button>
@@ -98,7 +98,7 @@
 								</div>
 							</div>
 						</li>
-						<li title="" original-title="">
+						<li title="" original-title="" style="margin:8px;">
 							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('access_levels_selector')" ng-init="access_levels_selector=false">
 								<div class="criteria-wrap"><span class="fieldLabel">Access Levels:</span> {{queueEmailData.accessLevels.indexOf(true) != -1 ? 'Selected':'All'}}</div>
 							</button>
@@ -139,7 +139,7 @@
 								</div>
 							</div>
 						</li>
-						<li title="" original-title="">
+						<li title="" original-title="" style="margin:8px;">
 							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('ownership_type_selector')" ng-init="ownership_type_selector=false">
 								<div class="criteria-wrap"><span class="fieldLabel">Ownership Type:</span> {{queueEmailData.ownershipTypes.owned == true || queueEmailData.ownershipTypes.refunded == true ? 'Selected':'None'}}</div>
 							</button>
@@ -175,7 +175,7 @@
 								</div>
 							</div>
 						</li>
-						<li title="" original-title="" ng-if="isSuperAdmin">
+						<li title="" original-title="" style="margin:8px;" ng-if="isSuperAdmin">
 							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('sm_user_selector')" ng-init="$parent.sm_user_selector=false">
 								<div class="criteria-wrap"><span class="fieldLabel">SM Users:</span> {{queueEmailData.smUsers.primaryOwners == true || queueEmailData.smUsers.owners == true ? 'Selected':'None'}}</div>
 							</button>

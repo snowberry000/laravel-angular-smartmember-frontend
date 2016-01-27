@@ -33,7 +33,7 @@ app.controller("EmailSubscriberExportController", function ($scope,$q,  $localSt
 
     $scope.resolve = function(){
         $emailLists = Restangular.all('emailList/sendMailLists').getList().then(function(response){$scope.emailLists = response ; });
-        $sites = Restangular.one('supportTicket').customGET('sites').then(function(response){$scope.sites = response.sites})
+        $sites = Restangular.one('supportTicket').customGET('sites').then(function(response){$scope.sites = response})
         $emails = Restangular.all('email').getList().then(function(response){$scope.emails = response;})
         $accessLevels = Restangular.all('accessLevel/sendMailAccessLevels').getList().then(function(response){$scope.accessLevels = response;})
         $superAdmin = Restangular.one('user').customGET('isSuperAdmin').then(function(response){$scope.isSuperAdmin = response.isSuperAdmin;})
