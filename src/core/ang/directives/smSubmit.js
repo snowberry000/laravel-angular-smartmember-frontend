@@ -22,7 +22,7 @@ app.directive( 'smForm', function()
 				if( !$( formElement ).form('is valid') ) {
 					event.stopImmediatePropagation();
 					event.preventDefault();
-
+					return false;
 					// do whatever you need to scroll here
 				}
 				if(attributes.smForm){

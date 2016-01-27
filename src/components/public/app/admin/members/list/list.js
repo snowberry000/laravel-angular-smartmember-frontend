@@ -327,12 +327,16 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			{
 				toastr.success( "Access pass created!" );
 				member.new_access_pass_saving = false;
+				var access_pass = _.findWhere($scope.access_levels , {id : parseInt(member.new_access_level)});
 				member.new_access_level = 0;
-				if( !member.access_level )
-				{
-					member.access_level = [];
+				
+				if(access_pass && member.access_level.indexOf(access_pass.name) < 0){
+					if( member.access_level )
+					{
+						member.access_level = member.access_level + ','
+					}
+					member.access_level = member.access_level + access_pass.name ;
 				}
-				member.access_level.push( member.new_access_pass );
 				member.access_level_selection = false;
 			} );
 		}

@@ -8,7 +8,7 @@
             <div class="ui two column middle aligned very relaxed stackable centered grid container">
                 <div class="column">
 
-                    <form class="ui form" ng-submit="reset(data.new_password)" ng-if="hash">
+                    <form class="ui form" ng-submit="reset(data.new_password , data.confirm_password)" ng-if="hash">
 
                         <input type="hidden" name="password_reset_hash">
 
@@ -17,14 +17,14 @@
                         <div class="field">
                             <label>New Password</label>
                             <div class="ui left icon input">
-                                <input type="password" placeholder="New Password" ng-model="data.new_password">
+                                <input type="password" placeholder="New Password" ng-model="data.new_password" pattern=".{6,}" required title="minimum 6 characters are required">
                                 <i class="fa fa-lock icon"></i>
                             </div>
                         </div>
                         <div class="field">
                             <label>Confirm Password</label>
                             <div class="ui left icon input">
-                                <input type="password" placeholder="Confirm Password" pattern=".{6,}" required title="minimum 6 characters are required">
+                                <input type="password" ng-model="data.confirm_password" placeholder="Confirm Password" pattern=".{6,}" required title="minimum 6 characters are required">
                                 <i class="fa fa-lock icon"></i>
                             </div>
                         </div>

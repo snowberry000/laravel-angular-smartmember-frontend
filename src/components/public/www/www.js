@@ -15,6 +15,6 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("WwwController", function ($scope) {
+app.controller("WwwController", function ($scope,$location) {
 
 });

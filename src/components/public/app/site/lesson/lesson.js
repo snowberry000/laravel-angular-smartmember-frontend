@@ -320,7 +320,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 	$scope.showNoAccessLogin = function() {
 		if (!$localStorage.user || !$localStorage.user.access_token)
 		{
-			smModal.Show('public.sign.in');
+			$state.go('public.sign.in');
 		}
 	}
 } );

@@ -140,7 +140,8 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 				}
 				else if( $rootScope.isSitelessPage('www') )
 				{
-					$state.go( 'public.www', null, {reload:true});
+					//$state.go( 'public.www.home', null, {reload:true});
+					window.location.href = 'http://'+$location.host();
 				}
 				else
 				{
