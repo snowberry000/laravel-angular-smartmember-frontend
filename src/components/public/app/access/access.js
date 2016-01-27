@@ -3,7 +3,7 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.app.access", {
+		.state( "public.app.site.access", {
 			url: "/access/:hash",
 			controller: "AccessController"
 		} )
@@ -39,7 +39,6 @@ app.controller( 'AccessController', function( $scope, $rootScope, $location, not
 			// They aren't logged in, so lets pop it up and let those controllers handle what to do with this hash
 			$localStorage.access_pass_redirect = true;
 			$state.go('public.sign.up');
-			console.log( "Showing sign up" );
 		}
 	}
 } );
