@@ -90,7 +90,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 
 					toastr.success( "Registered!" );
 
-					$state.go('public.app.home');
+					$state.transitionTo('public.app.site.home', {}, { reload: true, inherit: true, notify: true });
 
 				},
 				function( response )
