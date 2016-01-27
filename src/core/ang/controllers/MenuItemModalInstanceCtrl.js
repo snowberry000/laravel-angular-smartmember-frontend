@@ -43,7 +43,8 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     }
 
     $scope.deleteResource = function(id){
-        if(typeof $scope.editing_item.custom_icon != 'undefined'){
+        // alert($state.current.name);
+        if($state.current.name == 'public.app.admin.appearance.menu'){
             Restangular.one('siteMenuItem', id)
                 .remove()
                 .then(function(response){
