@@ -330,7 +330,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				var access_pass = _.findWhere($scope.access_levels , {id : parseInt(member.new_access_level)});
 				member.new_access_level = 0;
 				
-				if(access_pass && member.access_level && member.access_level.indexOf(access_pass.name) < 0){
+				if(access_pass && member.access_level.indexOf(access_pass.name) < 0){
 					if( member.access_level )
 					{
 						member.access_level = member.access_level + ','
