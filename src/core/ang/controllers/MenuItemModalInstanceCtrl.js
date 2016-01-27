@@ -75,18 +75,18 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
             $scope.show_next = show_next;
             item.isOpen = false;
         }
-        // else if(selected_url == 'download'){
-        //     Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-        //         var downloads = response;
-        //         downloads.forEach(function(entity){
-        //             entity.url = entity.permalink;
-        //         })
-        //         console.log(downloads)
-        //         $scope.show_next = true;
-        //         $scope.loaded_items = downloads;
+        else if(selected_url == 'post'){
+            Restangular.all('').customGET('post',{site_id: item.site_id}).then(function(response){
+                var downloads = response;
+                downloads.forEach(function(entity){
+                    entity.url = entity.permalink;
+                })
+                console.log(downloads)
+                $scope.show_next = true;
+                $scope.loaded_items = downloads;
 
-        //     })
-        // }
+            })
+        }
         else{
             var params = {site_id: item.site_id};
             if(selected_url != 'post')
