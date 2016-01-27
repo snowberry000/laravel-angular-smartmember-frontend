@@ -43,8 +43,13 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
 		$scope.hash = $rootScope.$_GET[ 'reset_hash' ];
 	}
 
-	$scope.reset = function( password )
+	$scope.reset = function( password , confirm_password)
 	{
+		if(password != confirm_password){
+			toastr.error('Passwords do not match');
+			return;
+		}
+		
 		auth.customPOST( { reset_token: $scope.hash, password: password }, 'reset' ).then( function( data )
 		{
 			if( data.message && data.message == "no such email found" )
