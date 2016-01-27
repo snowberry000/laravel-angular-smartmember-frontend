@@ -7,6 +7,9 @@ app.config( function( $stateProvider )
 			url: "/menus",
 			templateUrl: "/templates/components/public/app/admin/appearance/menus/menus.html",
 			controller: "MenusController",
+			params : {
+				reloadHome : false
+			}
 			// resolve: {
 			// 	loadPlugin: function ($ocLazyLoad) {
 			// 		return $ocLazyLoad.load([
@@ -29,6 +32,11 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 	$scope.sales_option = {};
 	$site = $rootScope.site;
 	$menus = null;
+
+	if($stateParams.reloadHome)
+	{
+		$state.go($state.current, {reloadHome : false}, {reload: true});
+	}
 
 	$scope.resolve = function()
 	{
