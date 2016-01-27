@@ -31,9 +31,9 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 $scope.init();
             } );
         }
-        else if( $stateParams.clone )
+        else if( $location.search().clone )
         {
-            Restangular.one( 'post', $stateParams.clone ).get().then( function( response )
+            Restangular.one( 'post', $location.search().clone ).get().then( function( response )
             {
                 $next_item = response;
                 $scope.next_item = $next_item;
@@ -57,7 +57,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		}
 		$scope.next_item.id ? $scope.page_title = 'Edit post' : $scope.page_title = 'Create post';
 		$scope.next_item.discussion_settings = $next_item.discussion_settings || {};
-		if( $stateParams.clone )
+		if( $location.search().clone )
 		{
 			delete $next_item.id;
 			delete $next_item.access;
@@ -119,7 +119,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
             {
                 changed = true;
             }
-            if( post != oldPost && changed && !$scope.next_item.id && !$stateParams.clone )
+            if( post != oldPost && changed && !$scope.next_item.id && !$location.search().clone )
 			{
 				if( timeout )
 				{
@@ -220,7 +220,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		{
 
 			$scope.next_item.put().then(function(response){
-				smModal.Show("public.app.admin.posts");
+				$state.go("public.app.admin.posts");
 				toastr.success( "Your post has been updated!" );
 				// $state.transitionTo($state.current, $state.params, { 
     //       reload: true, inherit: false, location: false
@@ -239,7 +239,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 }
                 $scope.next_item = post;
                 toastr.success( "Post has been saved" );
-				smModal.Show("public.app.admin.posts" );
+				$state.go("public.app.admin.posts" );
 				// $state.transitionTo($state.current, $state.params, { 
     //       reload: true, inherit: false, location: false
     //     });
