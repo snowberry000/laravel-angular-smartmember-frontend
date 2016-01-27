@@ -109,7 +109,7 @@ app.controller('PublicPageController', function ($scope, $localStorage,$rootScop
     $scope.showNoAccessLogin = function() {
         if (!$localStorage.user || !$localStorage.user.access_token)
         {
-            smModal.Show('public.sign.in');
+            $state.go('public.sign.in');
         }
     }
 

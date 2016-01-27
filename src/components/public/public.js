@@ -100,15 +100,26 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		var options = $rootScope.last_base_state.state ? null : { reload: true };
 
 		console.log( 'closing the extra state', go_state, params, options );
+
 		if(go_state)
 		{
-			$state.go( go_state, params, options );
+			if(($location.path().indexOf('/sign/') > -1) && (go_state.name.indexOf('www') > -1))
+			{
+				window.location.href = "http://"+$location.host();
+			}
+			else
+				$state.go( go_state, params, options );
 		}	
 		else
 		{
 			window.location.href = "http://"+$location.host();
 		}
 			
+	};
+
+	$rootScope.CloseSignState = function()
+	{
+		window.location.href = "http://"+$location.host();	
 	};
 
 	$rootScope.SiteStateExists = function()
