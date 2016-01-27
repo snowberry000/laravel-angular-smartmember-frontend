@@ -11,7 +11,9 @@ app.config(function($stateProvider){
 
 app.controller('PublicSupportTicketController', function ($scope,$site,Upload,$rootScope, $localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
     $scope.ticket = {};
-    $rootScope.page_title=$rootScope.site.name+' - Leave a Support Ticket';
+    $rootScope.page_title = $rootScope.site.name+' - Leave a Support Ticket';
+    if(!$rootScope.site.name)
+        $rootScope.page_title = 'Leave a Support Ticket'
     $scope.init = function(){
         $scope.ticket.type = $stateParams.type || 'normal';
         $scope.ticket.company_id = $site.company_id;
