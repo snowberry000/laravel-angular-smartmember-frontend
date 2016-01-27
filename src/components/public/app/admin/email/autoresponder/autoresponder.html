@@ -1,7 +1,9 @@
 <div class="ui modal"><i class="close icon"></i>
+    <div class="header">
+        <i class="mail icon"></i>
+        Autoresponders
+    </div>
     <div class="content">
-        <i class="close icon"></i>
-        <h1 class="ui header"><i class="ts_icon ts_icon_pencil clear_blue"></i> Autoresponders</h1>
         <div class="card clearfix content_post">
             <div id="post_col" class="col span_1_of_1">
                 <form method="post" class="ui form" ng-submit="save()">
@@ -38,9 +40,9 @@
                                         </div>
                                         <div class="panel panel-success">
                                         <div class="panel-heading">
-                                            <div class="row">
-                                                <div class="col-md-7">Email</div>
-                                                <div class="col-md-5">Delay to send after previous email</div>
+                                            <div class="row ui grid">
+                                                <div class="four wide column">Email</div>
+                                                <div class="six wide column">Delay to send after previous email</div>
                                             </div>
                                         </div>
 
@@ -48,11 +50,11 @@
                                         <ul class="list-group" style="margin-left:0px;" data-as-sortable="dragControlListeners" data-ng-model="autoResponder.emails" >
                                             
                                             <li style="margin-top:5px;border:none;" class="list-group-item email_item" data-as-sortable-item data-component="{{email}}" data-id="{{email.id}}" ng-repeat="email in autoResponder.emails">
-                                                <div class="row" data-as-sortable-item-handle>
-                                                    <div class="col-md-7">
+                                                <div class="row ui grid divided" data-as-sortable-item-handle>
+                                                    <div class="four wide column">
                                                         {{email.subject}}
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="six wide column">
                                                         <select ng-model="email.delay"
                                                                 class="form-control pull-left" style="width:75px;">
                                                                 <option ng-repeat="n in range(0,30)" ng-selected="n==email.delay" value="{{n}}">{{n}}</option>
@@ -66,15 +68,16 @@
                                                         </select>
 
                                                     </div>
-                                                    <div class="col-md-1">
-                                                        <span class="pull-right glyphicon glyphicon-trash" style="cursor:pointer;" ng-click="removeEmail(email.email_id)"></span>
+                                                    <div class="one wide column">
+                                                        <i class="trash icon" ng-click="removeEmail(email.email_id)"></i>
+                                                        <!-- <span class="pull-right glyphicon glyphicon-trash" style="cursor:pointer;" ng-click="removeEmail(email.email_id)"></span> -->
                                                     </div>
                                                 </div>
+                                                <br>
                                             </li>
                                         </ul>
                                         </div>
                                         </div>
-
                                         <h3 class="ui header">Email lists</h3>
                                         <div class="panel panel-success">
                                             <div class="panel-heading">
