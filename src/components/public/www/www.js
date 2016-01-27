@@ -16,12 +16,5 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("WwwController", function ($scope,$location) {
-	$scope.loginPopup = function () {
-		window.location.href = "http://"+$location.host()+"/sign/in/";
-	}
-
-	$scope.signupPopup = function () {
-		window.location.href = "http://"+$location.host()+"/sign/up/";
-	}
 
 });
