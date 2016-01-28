@@ -143,6 +143,10 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 					//$state.go( 'public.www.home', null, {reload:true});
 					window.location.href = 'http://'+$location.host();
 				}
+                else if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
+                {
+                    window.location.href = 'http://' + 'my.smartmember.' + $rootScope.app.rootEnv;
+                }
 				else
 				{
 					$rootScope.modal_popup_template = false;
