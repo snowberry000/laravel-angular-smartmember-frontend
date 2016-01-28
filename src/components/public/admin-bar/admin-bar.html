@@ -24,7 +24,8 @@
 			<a class="item" ui-sref="public.www.home">Site Directory</a>
 			<a class="item" style="display:none;">Report Bugs</a>
 			<a class="item" ng-if="app.subdomain != 'my'" ui-sref="public.app.site.support-tickets">Support Tickets</a>
-			<a class="item" ng-if="app.subdomain == 'my'" ui-sref="public.app.site.support-ticket">Support Ticket</a>
+			<a class="item" ng-if="app.subdomain == 'my'"
+			   href="http://help.smartmember.{{app.env}}/support-ticket">Support Ticket</a>
 			<a class="item" ng-href="http://help.smartmember.com" ng-if="user.sm_access">SM Help Center</a>
 
 			<a class="item" ng-click="LogOut()">Log out</a>
