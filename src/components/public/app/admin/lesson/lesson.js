@@ -366,6 +366,11 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		}
 	}
 
+	$scope.saveAsDraft = function(){
+		$scope.next_item.access_level_type = 4;
+		$scope.save();
+	}
+
 	$scope.save = function()
 	{
 		delete $scope.next_item.prev_lesson;
