@@ -1,0 +1,100 @@
+<div class="ui modal"><i class="close icon"></i>
+    <div class="ui active inverted dimmer" ng-if="loading">
+        <div class="ui loader"></div>
+    </div>
+    <div class="header" ng-if="!loading">
+        <i class="mail icon"></i>
+        {{email_job.email.subject}} - {{moment.utc(email_job.send_at).format('MMMM Do YYYY, h:mm:ss a')}}
+    </div>
+    <div class="content" ng-if="!loading">
+        <div class="description">
+            <div class="ui four statistics" style="margin-bottom: 15px;">
+                <div class="statistic">
+                    <div class="value">
+                        {{numberWithCommas( email_job.unique_open_count && email_job.unique_open_count > 1 ? email_job.unique_open_count : email_job.open_count )}}
+                    </div>
+                    <div class="label">
+                        Opens
+                    </div>
+                </div>
+                <div class="statistic">
+                    <div class="value">
+                        {{numberWithCommas( email_job.unique_click_count && email_job.unique_click_count > 1 ? email_job.unique_click_count : email_job.click_count )}}
+                    </div>
+                    <div class="label">
+                        Clicks
+                    </div>
+                </div>
+                <div class="statistic">
+                    <div class="value">
+                        {{numberWithCommas( email_job.unsubscriber_count )}}
+                    </div>
+                    <div class="label">
+                        Unsubscribes
+                    </div>
+                </div>
+                <div class="statistic">
+                    <div class="value">
+                        {{numberWithCommas( email_job.sent_count )}}
+                    </div>
+                    <div class="label">
+                        Sent
+                    </div>
+                </div>
+            </div>
+            <div class="ui message">
+                All stats are for unique recipients.  These stats are new and are not available for older e-mail jobs.
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <table class="ui fixed single line celled stackable table" data-page-size="3" ng-if="email_job.email.recipients.length > 0 && !loading" foonice>
+                                <thead>
+                                <tr>
+                                    <th data-toggle="false">Segment</th>
+                                    <th data-hide="phone">Opens</th>
+                                    <th data-hide="phone">Clicks</th>
+                                    <th data-hide="phone">Sent</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="next_item in email_job.email.recipients">
+                                    <td class="responsive_table_item">
+                                        <span ng-if="next_item.segment_type == 'site'">Members of: <br /></span>
+                                        <span ng-if="next_item.segment_type == 'level'">Owners of: <br /></span>
+                                        <span ng-if="next_item.segment_type == 'list'">Subscribers of: <br /></span>
+                                        {{next_item.name}}
+                                    </td>
+                                    <td>
+                                        {{next_item.unique_opens}} ({{uniqueOpenPercentage( next_item )}})
+                                    </td>
+                                    <td>
+                                        {{next_item.unique_clicks}} ({{uniqueClickPercentage( next_item )}})
+                                    </td>
+                                    <td>
+                                        {{next_item.total_recipients}}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <!-- <div class="text-right"  ng-if="!loading && pagination.total_count > 0">
+                                <dir-pagination-controls max-size="5"></dir-pagination-controls>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button close" ui-sref="public.app.admin.email.queue">
+            Back
+        </div>
+        <div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
+            Close
+        </div>
+    </div>
+</div>

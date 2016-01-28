@@ -53,7 +53,7 @@
 										{{next_item.email.subject}}
 									</td>
 									<td style="width: 230px;">
-										<small ng-show="next_item.sendgrid_account_check" >Please Click <a target="_self" ui-sref="public.app.admin.apps.integration.choose({'integration' : 'sendgrid'})" >Here</a> to Configure Sendgrid first</small>
+										<small ng-show="next_item.sendgrid_account_check" >Please Click <a target="_self" ui-sref="public.app.admin.apps.integration.configure({'integration' : 'sendgrid'})" >Here</a> to Configure Sendgrid first</small>
 										<small ng-show="next_item.sendgrid_setting_check">Please click <a ui-sref="public.app.admin.email.settings">here</a> to set up your email settings first</small>
 										<span ng-show="!next_item.sendgrid_account_check && !next_item.sendgrid_setting_check">
 											{{next_item.status}}
@@ -63,21 +63,24 @@
 										</span>
 									</td>
 									<td style="width: 80px;">
-										{{next_item.sent_count}}
+										{{numberWithCommas( next_item.sent_count )}}
 									</td>
 									<td style="width: 80px;">
-										{{next_item.open_count}}
+										{{numberWithCommas( next_item.open_count )}}
 									</td>
 									<td style="width: 80px;">
-										{{next_item.click_count}}
+										{{numberWithCommas( next_item.click_count )}}
 									</td>
 									<td style="width: 145px;">
-										{{next_item.unsubscriber_count}}
+										{{numberWithCommas( next_item.unsubscriber_count )}}
 									</td>
 									<td style="width: 160px;">
 										{{moment.utc(next_item.created_at).fromNow()}}
 									</td>
 									<td class="text-right" style="width: 160px;">
+                                        <a ui-sref="public.app.admin.email.queue-item({id: next_item.id})" class="ui button">
+                                            View Detailed Stats
+                                        </a>
 										<div class="btn-group" ng-show="next_item.admin_tools">
 											<button ng-click="editJob(next_item)" class="btn btn-brand btn-outline btn-xs">
 												Edit
