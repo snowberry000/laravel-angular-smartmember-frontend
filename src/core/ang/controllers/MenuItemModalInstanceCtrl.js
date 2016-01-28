@@ -66,7 +66,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
 
     $scope.selectUrl = function(item , selected_url , show_next){
 
-        var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
+        var api_resources = ['module', 'lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
         if(!selected_url)
             return;
         if(api_resources.indexOf(selected_url)<0)
@@ -98,7 +98,10 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
                 if(response.route == 'supportArticle')
                     response.route = 'support-article';
                 response.items.forEach(function(entity){
-                    entity.url = entity.permalink;
+                    if (selected_url == 'module')
+                        entity.url = 'module/' + entity.id;
+                    else
+                        entity.url = entity.permalink;
                 })
                 $scope.show_next = true;
                 $scope.loaded_items = response.items;
