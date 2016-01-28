@@ -583,14 +583,20 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
         }
         else if( module.new )
         {
-            delete module.new;
-            Restangular.all('module').customPOST( module ).then( function( response )
+        	$postModule=angular.copy(module);
+            delete $postModule.new;
+            $scope.moduleSaveTitle=true;
+
+            Restangular.all('module').customPOST( $postModule ).then( function( response )
             {
+            	$scope.moduleSaveTitle=false;
+            	delete module.new;
+            	module.id = response.id;
                 module.isDripFeed = false;
                 module.lessons = [];
                 $scope.$broadcast( 'dataloaded' );
                 toastr.success( "Success! New module is added!" );
-                module.id = response.id;
+                
             } );
         }
         else
@@ -604,7 +610,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 
     $scope.saveLessonTitle = function(next_item) {
         var les = { 'title': next_item.title, id: next_item.id };
-
+        $scope.lessonSaveTitle=true;
         if( next_item.id )
         {
             Restangular.all('lesson').customPUT( les, next_item.id ).then( function()
@@ -614,8 +620,10 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
         }
         else
         {
+        	$scope.lessonSaveTitle=true;
             Restangular.all('lesson').customPOST( next_item ).then( function( response )
             {
+            	$scope.lessonSaveTitle=false;
                 toastr.success( "Success! New lesson is added" );
                 next_item.isOpen = false;
                 next_item.isDripFeed = false;

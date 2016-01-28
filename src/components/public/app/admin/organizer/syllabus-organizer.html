@@ -104,7 +104,7 @@
                         <div class="tiny ui buttons" style="float:right;">
                             <button ng-if="!module.new" class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
                             <button class="ui red button" ng-if="module.id" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
-                            <button class="ui red button" ng-if="module.new" ng-click="removeNewModule( module )"><i class="align trash icon"></i></button>
+                            <button class="ui red button" ng-if="module.new && ! moduleSaveTitle" ng-click="removeNewModule( module )"><i class="align trash icon"></i></button>
                         </div>
                         <p>
                             <div ng-if="module.id || module.new" class="ui checkbox" ng-model="module.checked" sui-checkbox>
@@ -149,7 +149,7 @@
                                     <div class="tiny ui buttons" style="float:right;">
                                         <a class="ui blue button" ng-href="/admin/lesson/{{next_item.id}}?organizer"><i class="align edit icon"></i></a>
                                         <button ng-if="next_item.id" class="ui red button" sm-delete="{{next_item.id}}" delete-function="deleteLesson"><i class="align trash icon"></i></button>
-                                        <button ng-if="!next_item.id" class="ui red button" ng-click="removeNewLesson( next_item, module )"><i class="align trash icon"></i></button>
+                                        <button ng-if="!next_item.id && !lessonSaveTitle" class="ui red button" ng-click="removeNewLesson( next_item, module )"><i class="align trash icon"></i></button>
                                     </div>
                                 </div>
                             </div>
