@@ -17,6 +17,11 @@ app.controller('InfoController', function ($scope, $rootScope,$location, $localS
 	$scope.salesPage=window.location.hash.substr(1);
 	$scope.loading=true;
 
+	$scope.toggleModule = function( $module )
+	{
+		$module.hide_module = !$module.hide_module;
+	}
+
 	if( $scope.isLoggedIn() && $scope.salesPage!='preview' )
 	    $state.go('public.app.site.lessons',{},{location:false});
 	else
@@ -29,6 +34,15 @@ app.controller('InfoController', function ($scope, $rootScope,$location, $localS
 		        return $mod.lessons.length==0;
 		    });
 		    $.each($scope.modules, function (key, data) {
+		    	$default_syllabus_closed = _.find( $scope.site.meta_data, function( obj )
+		    	{
+		    		return obj.key == 'default_syllabus_closed';
+		    	} );
+		    	if( $default_syllabus_closed )
+		    	{
+		    		data.hide_module = $default_syllabus_closed.value == '1' ? true : false;
+		    	}
+		    	
 		        $.each(data.lessons, function (key, data) {
 		            $scope.lesson_count++;
 		            data.showCounter=$scope.lesson_count;
