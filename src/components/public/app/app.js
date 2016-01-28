@@ -28,7 +28,14 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 {
 	$rootScope.site = $site;
 
-	var intercom = _.findWhere( $scope.site.app_configuration, { type: 'intercom' } );
+    var intercom;
+
+    if( location.href.indexOf( '://my.smartmember.') == -1 )
+	    intercom = _.findWhere( $scope.site.app_configuration, { type: 'intercom' } );
+    else {
+        console.log( 'we are running here, I swear!!!');
+        intercom = {type: 'intercom', username: 'd0qzbbdk'};
+    }
 
 	if( intercom )
 	{
@@ -45,7 +52,7 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 		}
 		else
 		{
-			//console.log( 'we should be trying to boot up:::', intercom.username );
+			console.log( 'we should be trying to boot up:::', intercom.username );
 			window.Intercom( 'boot', { app_id: intercom.username } );
 		}
 
