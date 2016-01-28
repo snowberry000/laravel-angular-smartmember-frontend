@@ -1,0 +1,51 @@
+<div class="ui modal"><i class="close icon"></i>
+    <div class="header">
+        <i class="mail icon"></i>
+        Viewing Stats for {{email_job.email.subject}} sent on {{email_job.send_at}}
+    </div>
+    <div class="content">
+        <div class="description">
+            <p>Description stuff here I guess...</p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div ng-if="loading" class="sk-spinner sk-spinner-three-bounce">
+                                <div class="sk-bounce1"></div>
+                                <div class="sk-bounce2"></div>
+                                <div class="sk-bounce3"></div>
+                            </div>
+                            <table class="ui fixed single line celled stackable table" data-page-size="3" ng-if="data.length > 0 && !loading" foonice>
+                                <thead>
+                                <tr>
+                                    <th data-toggle="false">Segment</th>
+                                    <th data-hide="phone">Opens (unique/total)</th>
+                                    <th data-hide="phone">Clicks (unique/total)</th>
+                                    <th data-hide="phone">Unsubscribes</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+                                    <td class="responsive_table_item">
+                                        {{next_item.email.subject}}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <!-- <div class="text-right"  ng-if="!loading && pagination.total_count > 0">
+                                <dir-pagination-controls max-size="5"></dir-pagination-controls>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
+            Close
+        </div>
+    </div>
+</div>
