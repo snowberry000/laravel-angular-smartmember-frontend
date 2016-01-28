@@ -52,9 +52,11 @@
 					</div>
 					<div class="extra content">
 						<span>
-							<i class="icon fa fa-lock"></i>
+							<i class="fa fa-lock icon" style='display: none' sm-access="view_restricted_content" if-not="show" level="{{download.access_level_id}}" type="{{download.access_level_type}}"></i>
+							<!-- <i class="icon fa fa-lock"></i> -->
 							{{download.access}}
 						</span>
+
 						<span class="right floated" ng-if="download.history_count[0].count && options.hide_download_count == '0'" title="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times." alt="This has been downloaded {{download.history_count[0].count}} times. You have downloaded it {{download.user_count}} times.">
 							{{download.history_count[0].count}} {{options.downloads_text ? options.downloads_text : 'downloads'}}
 						</span>
