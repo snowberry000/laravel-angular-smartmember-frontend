@@ -65,6 +65,11 @@
 						<input type="text" ng-blur="selectUrl(model , model.url , false)" ng-hide="selected_url" ng-model="editing_item.url" class="form-control"/>
 					</div>
 				</div>
+				<div class="inline field">
+					<label>Open in new tab</label>
+					<input type="checkbox" ng-model="editing_item.open_in_new_tab"
+						   class="ui checkbox" sui-checkbox>
+				</div>
 			</div>
 		</div>
 	</div>

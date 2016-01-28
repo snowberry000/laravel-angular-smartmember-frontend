@@ -90,7 +90,14 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 
 					toastr.success( "Registered!" );
 
-					$state.transitionTo('public.app.site.home', {}, { reload: true, inherit: true, notify: true });
+                    if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
+                    {
+                        window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
+                    }
+                    else
+                    {
+                        $state.transitionTo('public.app.site.home', {}, {reload: true, inherit: true, notify: true});
+                    }
 
 				},
 				function( response )
@@ -164,7 +171,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		{
 			$localStorage.cbreceipt = false;
 		}
-		if( $rootScope.app.subdomain == 'sm' )
+        if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
 		{
 			window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
 		}
