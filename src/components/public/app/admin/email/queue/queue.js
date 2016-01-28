@@ -29,6 +29,10 @@ app.controller( "EmailQueueController", function( $scope,smModal,$rootScope, $lo
 		total_count: 0
 	};
 
+    $scope.numberWithCommas = function(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
