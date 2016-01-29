@@ -193,7 +193,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		else
 			new_role = 'member';
 		Restangular.all('siteRole').customPUT({type : new_role} , member.id).then(function(response){
-			//member = response;
+
 			for( var i = 0; i < $scope.data.length; i++ )
 			{
 				if( $scope.data[ i ].id == response.id )
@@ -202,60 +202,6 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				}
 			}
 		})
-
-		/*if( typeof member.type != 'undefined' )
-		{
-			var p_owner = _.findWhere( member.type, { role_type: 1 } );
-			var owner = _.findWhere( member.type, { role_type: 2 } );
-			var manager = _.findWhere( member.type, { role_type: 3 } );
-
-			if( p_owner || owner || manager )
-			{
-				return;
-			}
-
-			var role = _.filter( member.type, function( type )
-			{
-				return type.role_type == 2 || type.role_type == 3 || type.role_type == 4 || type.role_type == 6;
-			} )
-
-			if( role[ 0 ].role_type == 4 )
-			{
-				role[ 0 ].role_type = 6;
-			}
-			else if( role[ 0 ].role_type == 6 )
-			{
-				role[ 0 ].role_type = 4;
-			}
-
-			if( role[ 0 ].role_type < 6 )
-			{
-				if( !member.isTeamMember )
-				{
-					$scope.addToTeam( member );
-				}
-			}
-
-			Restangular.all( 'userRole' ).customPUT( { role_type: role[ 0 ].role_type }, role[ 0 ].id ).then( function( response )
-			{
-				members.getList( { id: member.id } ).then( function( response )
-				{
-					if( response.length < 1 )
-					{
-						return;
-					}
-
-					for( var i = 0; i < $scope.members.length; i++ )
-					{
-						if( $scope.data[ $scope.pagination.current_page ][ i ].id == response[ 0 ].id )
-						{
-							$scope.data[ $scope.pagination.current_page ][ i ] = response[ 0 ];
-						}
-					}
-					;
-				} );
-			} );
-		}*/
 	}
 
 	$scope.addToTeam = function( member )
@@ -268,25 +214,6 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAgent = function( member )
 	{
-		/*var agent = _.findWhere( member.type, { role_type: 5 } );
-		if( agent )
-		{
-			Restangular.one( 'userRole', agent.id ).remove().then( function( response )
-			{
-				member.type = _.without( member.type, agent );
-			} )
-		}
-		else
-		{
-			Restangular.all( 'userRole' ).post( { role_type: 5, role_id: member.id } ).then( function( response )
-			{
-				member.type.push( response );
-				if( !member.isTeamMember )
-				{
-					$scope.addToTeam( member );
-				}
-			} )
-		}*/
 		var new_role = member.type;
 		if(member.type.indexOf('member') >= 0)
 		{
@@ -345,43 +272,21 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.isOwner = function( member )
 	{
 		return member.type.indexOf('owner') >= 0;
-		/*var p_owner = _.findWhere( member.type, { role_type: 1 } ) || _.findWhere( member.type, { role_type: "1" } );
-		var owner = _.findWhere( member.type, { role_type: 2 } ) || _.findWhere( member.type, { role_type: "2" } );
-		var manager = _.findWhere( member.type, { role_type: 3 } ) || _.findWhere( member.type, { role_type: "3" } );
-		if( p_owner || owner || manager )
-		{
-			return true;
-		}
-		return false;*/
 	}
 
 	$scope.isAgent = function( member )
 	{
 		return member.type.indexOf('support') >= 0 || member.type.indexOf('admin') >= 0 || member.type.indexOf('owner') >= 0;
-		/*var agent = _.findWhere( member.type, { role_type: 5 } ) || _.findWhere( member.type, { role_type: "5" } );
-		if( agent )
-		{
-			return true;
-		}
-		return false;*/
 	}
 
 	$scope.isAdmin = function( member )
 	{
 		return member.type.indexOf('admin') >= 0 || member.type.indexOf('owner') >= 0;
-		/*var admin = _.findWhere( member.type, { role_type: 4 } ) || _.findWhere( member.type, { role_type: "4" } );
-		if( admin )
-		{
-			return true;
-		}
-		return false;*/
 	}
 
 	$scope.deleteResource = function( id )
 	{
-        console.log('here is the id: ', id );
         var itemWithId = _.findWhere( $scope.data, {id: parseInt( id ) } ) || _.findWhere( $scope.data, {id: id + '' } );
-        console.log( 'here is the item: ', itemWithId );
 
 		Restangular.all('siteRole/removeUserFromCurrentSite').post({user_id: itemWithId.user_id}).then( function()
 		{
