@@ -28,6 +28,8 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 {
 	$rootScope.site = $site;
 
+	console.log($site);
+
     var intercom;
 
     if( location.href.indexOf( '://my.smartmember.') == -1 ) {
@@ -46,6 +48,22 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
     } else {
         intercom = {type: 'intercom', username: 'd0qzbbdk', meta: { enable_support: 1 } };
     }
+
+
+    //If User is SM Customer and doesn't have Intercom configuration, then brute force these settings:
+    if ($site.is_customer && !_.findWhere($scope.site.app_configuration, {type: 'intercom'}) && $localStorage.user && $localStorage.user.id) {
+    	var intercomData = {
+		    app_id: "d0qzbbdk",
+		    name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
+			email: $localStorage.user.email,
+			created_at: moment( $localStorage.user.created_at ).unix()
+		};
+    	window.intercomSettings = intercomData;
+		window.Intercom( 'boot', intercomData);
+		intercom = false;
+    }
+
+
 
 	if( intercom )
 	{
