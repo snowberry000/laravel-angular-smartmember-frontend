@@ -30,17 +30,25 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 
     var intercom;
 
-    if( location.href.indexOf( '://my.smartmember.') == -1 )
-	    intercom = _.findWhere( $scope.site.app_configuration, { type: 'intercom' } );
-    else {
-        console.log( 'we are running here, I swear!!!');
-        intercom = {type: 'intercom', username: 'd0qzbbdk'};
+    if( location.href.indexOf( '://my.smartmember.') == -1 ) {
+        intercom = _.findWhere($scope.site.app_configuration, {type: 'intercom'});
+
+        intercom.meta = {};
+
+        if( intercom.meta_data )
+        {
+            angular.forEach( intercom.meta_data, function( value ) {
+                intercom.meta[ value.key ] = value.value;
+            } );
+        }
+
+    } else {
+        intercom = {type: 'intercom', username: 'd0qzbbdk', meta: { enable_support: 1 } };
     }
 
 	if( intercom )
 	{
-		//we are disabling support for now, we'll probably add some integration settings in the future to allow this
-		if( false && $localStorage.user && $localStorage.user.id )
+		if( $localStorage.user && $localStorage.user.id && intercom.meta && intercom.meta.enable_support && intercom.meta.enable_support != '0' )
 		{
 			var intercomData = {
 				app_id: intercom.username,
@@ -48,11 +56,11 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 				email: $localStorage.user.email,
 				created_at: moment( $localStorage.user.created_at ).unix()
 			};
+
 			window.Intercom( 'boot', intercomData );
 		}
 		else
 		{
-			console.log( 'we should be trying to boot up:::', intercom.username );
 			window.Intercom( 'boot', { app_id: intercom.username } );
 		}
 

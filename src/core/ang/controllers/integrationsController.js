@@ -233,12 +233,22 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			{
 				$current_integration = response;
 				$scope.current_integration = $current_integration;
+
+                $scope.current_integration.additional_options = {};
+
+                if( $scope.current_integration.meta_data )
+                {
+                    angular.forEach( $scope.current_integration.meta_data, function( value ) {
+                        $scope.current_integration.additional_options[ value.key ] = value.value;
+                    } );
+                }
 			} );
 		}
 		else
 		{
 			$current_integration = { type: $stateParams.integration };
 			$scope.current_integration = $current_integration;
+            $scope.current_integration.additional_options = {};
 		}
 
 
@@ -590,7 +600,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			access_token: typeof $scope.current_integration.access_token != 'undefined' ? $scope.current_integration.access_token : null,
 			remote_id: typeof $scope.current_integration.remote_id != 'undefined' ? $scope.current_integration.remote_id : null,
 			disabled: typeof $scope.current_integration.disabled != 'undefined' && $scope.current_integration.disabled != null ? $scope.current_integration.disabled : 0,
-			default: typeof $scope.current_integration.default != 'undefined' && $scope.current_integration.default != null ? $scope.current_integration.default : 0
+			default: typeof $scope.current_integration.default != 'undefined' && $scope.current_integration.default != null ? $scope.current_integration.default : 0,
+            additional_options: typeof $scope.current_integration.additional_options != 'undefined' && $scope.current_integration.additional_options ? $scope.current_integration.additional_options : {}
 		};
 
 		if($scope.current_integration.connected_account_id && data.type == 'vimeo'){
