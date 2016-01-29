@@ -7,7 +7,7 @@
 			<h2 class="ui center aligned icon header headline_text_color">
 				<i class="circular student {{options.cap_icon ? options.cap_icon : 'student'}} icon"></i>
 
-				<div class="content">
+				<div class="content" ng-if="!loading">
 					{{lesson.module.id ? lesson.module.title : ( options.default_module_title || 'Default' )}}
 				</div>
 			</h2>
