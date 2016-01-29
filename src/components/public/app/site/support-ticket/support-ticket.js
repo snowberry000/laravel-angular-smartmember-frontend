@@ -67,6 +67,7 @@ app.controller('PublicSupportTicketController', function ($scope,$site,Upload,$r
         if( message_verified == true ) {
             Restangular.all('supportTicket').post($scope.ticket).then(function (response) {
                 toastr.success("Your ticket has been created.");
+                $rootScope.site.unread_support_ticket+=1;
                 $scope.ticket_submitted = true;
             })
         }

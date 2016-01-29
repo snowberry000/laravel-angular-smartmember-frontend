@@ -312,7 +312,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 				'send_email': $scope.send_email
 			} ).then( function( response )
 			{
-				if(response.status == "solved")
+				if(response.status == "solved" || response.status == "pending" || response.status == "spam")
 					$rootScope.site.unread_support_ticket-=1;
 				toastr.success( "Ticket status changed!" );
 
