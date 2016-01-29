@@ -17,6 +17,13 @@
 					<input type="text" ng-model="current_integration.username">
 				</div>
 
+                <div class="field">
+                    <div class="ui checkbox" ng-model="current_integration.additional_options.enable_support" sui-checkbox>
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Enable Support (only enable if Support is one of your Intercom products, otherwise it will only use Acquire)</label>
+                    </div>
+                </div>
+
 			</div>
 	</div>
 
