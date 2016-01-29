@@ -33,13 +33,14 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
     if( location.href.indexOf( '://my.smartmember.') == -1 ) {
         intercom = _.findWhere($scope.site.app_configuration, {type: 'intercom'});
 
-        intercom.meta = {};
+        if( intercom ) {
+            intercom.meta = {};
 
-        if( intercom.meta_data )
-        {
-            angular.forEach( intercom.meta_data, function( value ) {
-                intercom.meta[ value.key ] = value.value;
-            } );
+            if (intercom.meta_data) {
+                angular.forEach(intercom.meta_data, function (value) {
+                    intercom.meta[value.key] = value.value;
+                });
+            }
         }
 
     } else {
