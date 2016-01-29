@@ -19,25 +19,6 @@ app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $l
         $downloads= response ? response.items : [];
         $scope.loading=false;
         $scope.downloads = $downloads;
-        if ($scope.downloads && $scope.downloads.length > 0)
-        {
-            angular.forEach($scope.downloads, function(value, key) {
-                switch(value.access_level_type){
-                    case 1:
-                        value.access = 'Public';
-                        break;
-                    case 2:
-                        value.access = 'Members';
-                        break;
-                    case 3:
-                        value.access = 'Members';
-                        break;
-                    case 4:
-                        value.access = 'Draft (private)';
-                        break;
-                }
-            });
-        }
         $scope.chunkedData = $scope.chunk($scope.downloads, 4);
         $scope.currentDownload = 1;
     });
@@ -55,7 +36,32 @@ app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $l
         }
     }
 
-    
+    $scope.accessLabel = function( access_level_type, access_level_id ) {
+        switch( parseInt( access_level_type ) )
+        {
+            case 1:
+                return 'Public';
+                break;
+            case 2:
+                if( !access_level_id )
+                    return 'Members';
+
+                var access_level = _.findWhere( $scope.access_levels, {id: parseInt( access_level_id ) } ) || _.findWhere( $scope.access_levels, {id: access_level_id + '' } );
+
+                if( access_level )
+                    return access_level.name;
+                else
+                    return 'Members';
+                break;
+            case 3:
+                return 'Members';
+                break;
+            case 4:
+                return 'Draft (admin-only)';
+                break;
+        }
+    }
+
     $scope.loadMore = function(){
         $scope.disable = true;
         Restangular.all('').customGET('download',{p:++$scope.currentDownload}).then(function (downloads) {
