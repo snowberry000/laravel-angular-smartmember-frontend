@@ -74,6 +74,9 @@
 							<div class="ui divided selection list segment_container" ui-sortable="currentSortableOptions" class="sortable-list connectList" ng-model="segments">
 								<a ng-click="selectSegment(segment)" class="item {{segment_classes[ segment.type ]}}-element segment_item" ng-repeat="segment in segments" style="{{showAvailableSegment(segment) ? '':'display:none;'}}">
 									<div class="ui horizontal label">{{formatNumber( segment.count )}}</div>
+                                    <span class="ui horizontal blue label" ng-if="segment.type == 'list'">LIST</span>
+                                    <span class="ui horizontal yellow label" ng-if="segment.type == 'level'">LEVEL</span>
+                                    <span class="ui horizontal red label" ng-if="segment.type == 'site'">SITE</span>
 									{{segment.name}}
 								</a>
 							</div>
@@ -110,7 +113,10 @@
 							<div class="ui divided selection list segment_container" ui-sortable="currentSortableOptions" class="sortable-list connectList" ng-model="chosen_segments">
 								<div class="link item {{segment_classes[ segment.type ]}}-element segment_item" ng-repeat="segment in chosen_segments" style="{{showChosenSegment(segment) ? '':'display:none;'}}">
 									<div class="ui horizontal label">{{formatNumber( ( counts.segments[ segment.type + '_' + segment.target_id ].count ? counts.segments[ segment.type + '_' + segment.target_id ].count : segment.count ) - counts.segments[ segment.type + '_' + segment.target_id ].duplicates )}}</div>
-									{{segment.name}}
+                                    <span class="ui horizontal blue label" ng-if="segment.type == 'list'">LIST</span>
+                                    <span class="ui horizontal yellow label" ng-if="segment.type == 'level'">LEVEL</span>
+                                    <span class="ui horizontal red label" ng-if="segment.type == 'site'">SITE</span>
+                                    {{segment.name}}
 
 									<div class="ui circular right floated icons">
 										<i class="delete icon" ng-click="removeSegment(segment)"></i>
