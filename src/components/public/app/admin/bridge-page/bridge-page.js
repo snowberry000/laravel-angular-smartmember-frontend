@@ -95,6 +95,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 				$scope.bridgepage.swapspot.term_text = 'Terms & Conditions';
 				$scope.bridgepage.swapspot.privacy_text = 'Privacy Policy';
 				$scope.bridgepage.swapspot.copyright = 'Copyright © 2016. All Rights Reserved.';
+				$scope.bridgepage.swapspot.headline_font_size = 48;
 				break;
 			case 4:
 				$scope.bridgepage.swapspot.headline = 'Enter your Hard-hitting Headline here to engage your audience';
@@ -109,6 +110,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 				$scope.bridgepage.swapspot.button_background_color = '#fe861d';
 				$scope.bridgepage.swapspot.term_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
+				$scope.bridgepage.swapspot.headline_font_size = 48;
 				break;
 			case 6:
 				$scope.bridgepage.swapspot.tagline = 'Put any tagline you want up here';
@@ -126,6 +128,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 				$scope.bridgepage.swapspot.privacy_text_color = '#ffffff';
 				$scope.bridgepage.swapspot.enable_video = 'none';
 				$scope.bridgepage.swapspot.emailListId = $emailLists[ 0 ];
+				$scope.bridgepage.swapspot.headline_font_size = 48;
 				break;
 			case 7:
 				$scope.bridgepage.swapspot.background_url = 'https://s3.amazonaws.com/smpub/bp/trans-webinar.jpg';
@@ -150,6 +153,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 				$scope.bridgepage.swapspot.button = 'Get It Now';
 				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
 				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
+				$scope.bridgepage.swapspot.headline_font_size = 48;
 				break;
 		}
 	}
