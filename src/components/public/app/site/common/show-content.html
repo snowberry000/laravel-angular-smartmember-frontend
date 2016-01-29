@@ -111,20 +111,20 @@
 						<div class="metadata">
 							<span class="date">{{moment.utc( reply.created_at ).fromNow()}}</span>
 						</div>
-						<div ng-if="!reply.edit" class="text">
+						<div ng-if="!reply.edit && user.id" class="text">
 							{{reply.body}}
 						</div>
 						<div ng-if="reply.edit" class="text">
 							<p editable-text="reply.body" onaftersave="editReply(reply)" >{{reply.body}}</p>
 						</div>
 						<div class="actions">
-							<a class="reply" ng-if="site.is_admin" ng-init="reply.edit = false" ng-click="reply.edit = !reply.edit">Edit</a>
+							<a class="reply" ng-if="site.is_admin && user.id" ng-init="reply.edit = false" ng-click="reply.edit = !reply.edit">Edit</a>
 							<a class="reply" ng-if="site.is_admin || reply.user_id == user.id" ng-click="deleteReply(reply , comment)">Delete</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="reply_comment_area" ng-if="show_reply_div">
+			<div class="reply_comment_area" ng-if="show_reply_div && user.id">
 				<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
 					<div class="field">
 						<textarea ng-model="new_reply"></textarea>
@@ -135,18 +135,19 @@
 				</div>
 			</div>
 		</div>
+		<div ng-if="user.id">
+			<h4 class="ui horizontal divider header" ng-if="(!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
+				<i class="plus icon"></i>
+				Add Comment
+			</h4>
 
-		<h4 class="ui horizontal divider header" ng-if="(!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
-			<i class="plus icon"></i>
-			Add Comment
-		</h4>
-
-		<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
-			<div class="field">
-				<textarea ng-model="new_comment"></textarea>
-			</div>
-			<div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment)">
-				<i class="check icon"></i> Submit
+			<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
+				<div class="field">
+					<textarea ng-model="new_comment"></textarea>
+				</div>
+				<div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment)">
+					<i class="check icon"></i> Submit
+				</div>
 			</div>
 		</div>
 	</div>
