@@ -58,6 +58,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			{ type: 'paypal', app_configurations: [] },
 			{ type: 'clickbank', app_configurations: [] },
 			{ type: 'intercom', app_configurations: [] },
+			{ type: 'youzign', app_configurations: [] }
 		];
 
 		angular.forEach( $scope.configured_app_configurations, function( value, key )
@@ -365,6 +366,15 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			long_description: '<p><a href="http://www.infusionsoft.com" target="_blank">InfusionSoft</a> allows you to accept payments from the InfusionSoft affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
 		},
 		{
+			id: 'youzign',
+			name: 'YouZign',
+			short_name: 'YouZign',
+			sites_only: true,
+			description: 'Allow you to import your designs from Youzign into SmartMember',
+			logo: '/images/app_configurations/youzign.png',
+			long_description: '<p><a href="http://www.youzign.com" target="_blank">Youzign</a> allows you to quickly create graphics for your SmartMember sites. Once connected, it will allow you to imports your design from Youzign</p>'
+		},
+		{
 			id: 'paypal',
 			name: 'Paypal',
 			description: 'Allow your customers to buy your Products with Paypal.',
@@ -636,6 +646,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 					if( $scope.current_integration.type == 'sendgrid' )
 					{
 						toastr.error( "Sendgrid username and/or password is incorrect!" );
+					} else if ($scope.current_integration.type == 'youzign') {
+						toastr.error ("Invalid crentials. Please check your key again");
 					}
 					break;
 				default:
