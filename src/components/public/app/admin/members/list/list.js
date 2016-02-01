@@ -52,7 +52,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	{
 		var $params = { p: $scope.pagination.current_page, site_id: $site.id };
 
-		if (search)
+		if( search )
 		{
 			$scope.pagination.current_page = 1;
 		}
