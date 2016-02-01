@@ -16,9 +16,10 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 
 	$scope.site_options = {};
 	$site = $rootScope.site;
-	$scope.emailList={company_id: $site.company_id};
+	$scope.emailList = { account_id: $localStorage.user.id };
 	$scope.site_options.isOpen = false;
-	$scope.site_options.redirect_url = '';
+	$scope.site_options.redirect_url = $scope.app.appUrl;
+	$scope.site_options.access_levels = [];
 	$scope.url = $scope.app.apiUrl + '/optin';
 	$scope.myForm = '';
 	$scope.show_name_input = 1;
@@ -38,18 +39,14 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 	{
 		$scope.emailLists = Restangular.restangularizeCollection( null, data.items, 'emailList' );
 		$scope.emailListId = data.items[ 0 ];
+        $scope.setForm();
 	} );
 
-	$sites = Restangular.one( 'supportTicket' ).customGET( 'sites' ).then( function( response )
-	{
-		console.log( response );
-		$scope.sites = response;
-	} )
-
-	$q.all( [ $emailList, $sites ] ).then( function( res )
+	$q.all( [ $emailList ] ).then( function( res )
 	{
 		$scope.loading = false;
 	} )
+
 	$scope.copied = function()
 	{
 		toastr.success( "Link copied" );
@@ -57,9 +54,11 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 	$scope.toogleListCreate = function () {
 		$scope.showCreateList=!$scope.showCreateList;
 	}
+
 	$scope.setForm = function()
 	{
-		var site_id = $scope.site_id ? $scope.site_id.id : undefined;
+		var site_id = $site.id;
+
 		if( $scope.turn_optin && site_id == undefined )
 		{
 			toastr.warning( "Please choose which site you want to turn optins to members" );
@@ -67,26 +66,39 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 		}
 		//swapping out the redirect url to just be a text box for now since this is at the team level, we don't know what site this is for
 		//var redirect_url = $scope.site_options.redirect_url.indexOf( 'http://' ) == -1 && $scope.site_options.redirect_url.indexOf( 'https://' ) == -1 ? 'http://' + ( $scope.app.domain == $scope.app.rootDomain ? $scope.app.subdomain + '.' + $scope.app.domain : $scope.app.domain ) + '/' + $scope.site_options.redirect_url : $scope.site_options.redirect_url;
-		$scope.myForm = '<form action="' + $scope.url + '" method="post">' +
-			'<input type="hidden" name="list" value="' + $scope.emailListId.id + '">' +
-			'<input type="hidden" name="team" value="' + $scope.emailListId.company_id + '">' +
-			'<input type="hidden" name="redirect_url" value="' + $scope.site_options.redirect_url + '">';
+		$scope.myForm = '<form action="' + $scope.url + '" method="post">' + "\n" +
+			"\t" + '<input type="hidden" name="list" value="' + $scope.emailListId.id + '">' + "\n" +
+            "\t" + '<input type="hidden" name="account_id" value="' + $scope.emailListId.account_id + '">' + "\n" +
+            "\t" + '<input type="hidden" name="redirect_url" value="' + $scope.site_options.redirect_url + '">' + "\n";
 		if( $scope.show_name_input )
 		{
-			$scope.myForm += '<input name="name" type="text" placeholder="Your Name">';
+			$scope.myForm += "\t" + '<input name="name" type="text" placeholder="Your Name">' + "\n";
 		}
 		if( $scope.turn_optin )
 		{
-			$scope.myForm += '<input type="hidden" name="site_id" value="' + site_id + '">';
+			$scope.myForm += "\t" + '<input type="hidden" name="site_id" value="' + site_id + '">' + "\n";
+
+            if( $scope.site_options.access_levels && $scope.site_options.access_levels.length > 0 )
+            {
+                var access_levels = [];
+
+                angular.forEach( $scope.site_options.access_levels, function(value){
+                    access_levels.push( value.id );
+                });
+
+                if( access_levels && access_levels.length > 0 )
+                    $scope.myForm += "\t" + '<input type="hidden" name="access_levels" value="' + access_levels.join(',') + '">' + "\n";
+            }
 		}
-		$scope.myForm += '<input name="email" type="email" placeholder="Email address">' +
-			'<button type="submit">Subscribe</button><br>' +
+		$scope.myForm += "\t" + '<input name="email" type="email" placeholder="Email address">' + "\n" +
+			"\t" + '<button type="submit">Subscribe</button>' + "\n" +
+            "\t" + '<br>' + "\n" +
 			'</form>';
 	}
 
 	$scope.createList = function ($list) {
 		$scope.emailList.name = $list;
-		$scope.emailList.account_id = $site.user_id;
+		$scope.emailList.account_id = $localStorage.user.id;
 		$scope.emailList.list_type = 'user';
 		var list = angular.copy($scope.emailList);
 		Restangular.service( 'emailList' ).post(list )
@@ -94,8 +106,9 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 				{
 					$scope.emailListId = response;
 					$scope.emailLists.push( response );
-					$scope.emailList={company_id: $site.company_id};
 					$scope.toogleListCreate ();
+                    $scope.emailList.name = '';
+                    $scope.setForm();
 				} );
 	}
 
@@ -214,4 +227,13 @@ app.controller( "EmailFormsController", function( $scope, $rootScope, $localStor
 			//alert("result called");
 		} )
 	}
+
+    $scope.init = function()
+    {
+        var clipboard = new Clipboard( '.copy-button', {
+            text: function(trigger) {
+                return trigger.getAttribute('data-text');
+            }
+        } );
+    }
 } );
