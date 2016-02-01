@@ -311,9 +311,12 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 				'read': 1,
 				'send_email': $scope.send_email
 			} ).then( function( response )
-			{
-				if(response.status == "solved" || response.status == "pending" || response.status == "spam")
-					$rootScope.site.unread_support_ticket-=1;
+			{		
+				Restangular.all( '' ).customGET('ticketCount').then( function( data )
+				{
+					$rootScope.site.unread_support_ticket=data;
+				});
+
 				toastr.success( "Ticket status changed!" );
 
 				var action = {
