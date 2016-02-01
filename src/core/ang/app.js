@@ -210,8 +210,8 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	}
 	else if( location.href.indexOf( '?speedblogging' ) != -1 )
 	{
-        console.log('XXXXXXXXXX stuff be here...');
-        $state.go('public.app.admin.speed-blogging', {speed_blogging_parameters: $location.search()});
+        $localStorage.open_speedblogging_modal = true;
+        $rootScope.$_GET = $location.search();
 	}
 
 	Restangular.setBaseUrl( $rootScope.app.apiUrl );
