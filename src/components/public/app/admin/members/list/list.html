@@ -46,17 +46,17 @@
 				<tbody>
 					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 						<td>
-							{{next_item.user.first_name ? next_item.user.first_name + ' ' + next_item.user.last_name : next_item.user.email}}
-							<br ng-hide="next_item.user.first_name" />
-							<div ng-hide="!next_item.user.first_name">
-								{{next_item.user.email}}
+							{{next_item.first_name ? next_item.first_name + ' ' + next_item.last_name : next_item.email}}
+							<br ng-hide="next_item.first_name" />
+							<div ng-hide="!next_item.first_name">
+								{{next_item.email}}
 							</div>
 						</td>
 						<td>
-							{{next_item.access_level}}
+							{{accessLevelList( next_item )}}
 						</td>
 						<td>
-							{{next_item.type}}
+							{{highestRole( next_item )}}
 						</td>
 						<td>
 							{{moment.utc(next_item.created_at).fromNow()}}
