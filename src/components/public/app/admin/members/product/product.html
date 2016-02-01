@@ -59,6 +59,12 @@
 								<strong>Hold down Ctrl key to select multiple access levels</strong>
 							</span>
 						</div>
+                        <div class="field">
+                            <div class="ui checkbox" ng-model="access_level.hide_unowned_content" sui-checkbox>
+                                <input type="checkbox" tabindex="0" class="hidden">
+                                <label>Hide content from users who don't have this product level</label>
+                            </div>
+                        </div>
 					</div>
 				</div>
 				<h3 class="ui attached header title">
@@ -359,14 +365,6 @@
 							</div>
 						</span>
 						<div class="hr-line-dashed"></div>
-						<div class="field">
-							<div class="col-sm-12">
-								<h4 class="help-block m-b-none">
-									<input type="checkbox" ng-model="access_level.hide_unowned_content" ng-checked="access_level.hide_unowned_content==1" ng-true-value="1" ng-false-value="0" name="name">
-									Hide content from users who don't have this product level
-								</h4>
-							</div>
-						</div>
 
 					</div>
 				</div>
