@@ -29,6 +29,8 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
     }
     $site = $rootScope.site;
     $user = $rootScope.user;
+ 
+
     $scope.closeOnCancel=$stateParams.closeOnCancel;
     $scope.cancel = function(){
         if($scope.closeOnCancel)
@@ -41,6 +43,14 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
         }
     }
     $scope.initialize = function(){
+
+        if (!Modernizr.inputtypes.date) {
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          $('input[type="date"]').datepicker();
+        }
+
+
         if(!$scope.next_item.id)
         {
             $scope.next_item.site_id = $rootScope.site.id;

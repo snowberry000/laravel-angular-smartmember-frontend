@@ -9,11 +9,13 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("LivecastController", function ($scope,$http,$timeout , $rootScope  , smModal , Restangular,$state, $location, $stateParams , $filter, Upload, toastr) {
+app.controller("LivecastController", function ($scope,$http,$timeout , $rootScope ,$timeout , smModal , Restangular,$state, $location, $stateParams , $filter, Upload, toastr) {
 	var draft;
     var changed;
     $scope.site = $site = $rootScope.site;
     $user = $rootScope.user;
+
+    
 
     $scope.initialize = function(){
         if(!$scope.next_item.id){
@@ -25,6 +27,12 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
             delete $scope.next_item.access;
             delete $scope.next_item.author_id;
             delete $scope.next_item.site;
+        }
+
+        if (!Modernizr.inputtypes.date) {
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          $('input[type="date"]').datepicker();
         }
 
         //speed blogging stuff here

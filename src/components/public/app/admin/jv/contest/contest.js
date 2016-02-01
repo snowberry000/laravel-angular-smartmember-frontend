@@ -18,6 +18,13 @@ app.controller( "ContestController", function( $scope, $filter, Upload, $localSt
 
 	$scope.Init = function()
 	{
+		if (!Modernizr.inputtypes.date) {
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          $('input[type="date"]').datepicker();
+        }
+
+
 		if( !$scope.contest.type )
 		{
 			$scope.contest.type = "sales";

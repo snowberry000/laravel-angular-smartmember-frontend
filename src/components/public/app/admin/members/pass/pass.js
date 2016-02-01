@@ -11,6 +11,11 @@ app.config(function($stateProvider){
 
 app.controller("PassController", function ($scope,smModal, $q, $stateParams, $rootScope , $localStorage, Restangular, toastr, $state) {
 	$access_pass=null;
+	if (!Modernizr.inputtypes.date) {
+	  // no native support for <input type="date"> :(
+	  // maybe build one yourself with Dojo or jQueryUI
+	  $('input[type="date"]').datepicker();
+	}
 	$site = $rootScope.site;
 	role=null;
 		$scope.resolve = function(){

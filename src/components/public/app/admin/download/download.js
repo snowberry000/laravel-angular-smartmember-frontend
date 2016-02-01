@@ -14,7 +14,11 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
     var changed;
     var seo = {};
     $download=null;
-    
+    // if (!Modernizr.inputtypes.date) {
+    //   // no native support for <input type="date"> :(
+    //   // maybe build one yourself with Dojo or jQueryUI
+    //   $('input[type="date"]').datepicker();
+    // }
     var timeout = null;
     $scope.user = $user = $rootScope.user;
     $scope.site = $site = $rootScope.site;
@@ -41,6 +45,14 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
         if(!$download.id){
             $download.site_id = $scope.site.id;
         }
+
+        if (!Modernizr.inputtypes.date) {
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          $('input[type="date"]').datepicker();
+        }
+
+
         if($location.search().clone){
             delete $download.id;
             delete $download.access;
