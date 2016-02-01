@@ -182,6 +182,7 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
 
 	$scope.select = function(media){
 		close({file: media.source});
+		$( '.ui.modal.upload' ).modal( 'hide' );
 	}
 
 	$scope.upload = function( files )
