@@ -1,0 +1,84 @@
+<div class="ui modal"><i class="close icon"></i>
+    <div class="header">
+        <i class="configure icon"></i>
+        {{current_integration ? 'Configure' : 'Install'}} Youzign App
+    </div>
+    <div class="content">
+        <div class="description">
+
+            <h3 class="ui horizontal divider header">
+                <i class="magic icon"></i>
+                Setup Instructions
+            </h3>
+
+            <div class="ui ignored positive message">
+                <p>Follow these steps to install the {{integration.name}} app.</p>
+            </div>
+
+            <div class="ui styled fluid accordion" sui-accordion>
+                <h3 class="ui top attached header title active">
+                    <i class="dropdown icon"></i>
+                    Step 1
+                </h3>
+                <div class="ui attached segment content active">
+                    <p>Visit
+                        <a href="http://youzign.com" target="_blank">www.youzign.com <i class="fa fa-external-linkfa-sm"></i></a>
+                        to login or register an account.
+                    </p>
+                    <img class="ui medium bordered image" src="http://content.screencast.com/users/mike4905/folders/Jing/media/70978732-c661-424f-a09a-54b4a99131de/2016-01-29_1435.png">
+                </div>
+                <h3 class="ui attached header title">
+                    <i class="dropdown icon"></i>
+                    Step 2
+                </h3>
+                <div class="ui attached segment content">
+                    <p>Click the <strong>Profile</strong> menu button in the top navigation.</p>
+                    <img class="ui medium bordered image" src="http://content.screencast.com/users/mike4905/folders/Jing/media/85256548-e540-45a8-b8cf-82b767488e27/2016-01-29_1440.png">
+                </div>
+                <h3 class="ui attached header title">
+                    <i class="dropdown icon"></i>
+                    Step 3
+                </h3>
+                <div class="ui attached segment content">
+                    <p>Copy the <strong>Public Key and Token</strong> in your account.</p>
+                </div>
+            </div>
+
+
+            <h3 class="ui horizontal divider header">
+                <i class="setting icon"></i>
+                Settings
+            </h3>
+
+            <div class="ui segment form" ng-submit="saveIntegration()">
+                <div class="field">
+                    <label>YouZign Public Key</label>
+                    <input type="text" ng-model="current_integration.remote_id">
+
+                    <div class="ui ignored info message">
+                        <p>This is the public key from the profile page</p>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>YouZign Token</label>
+                    <input type="text" ng-model="current_integration.access_token">
+
+                    <div class="ui ignored info message">
+                        <p>This is the token from your profile page</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui black deny button close" ng-click="cancel()">
+            Back
+        </div>
+        <button ng-click="saveIntegration()" ng-disabled="!current_integration.remote_id" class="ui right labeled icon green button">
+            Save changes
+            <i class="checkmark icon"></i>
+        </button>
+    </div>
+</div>
+
