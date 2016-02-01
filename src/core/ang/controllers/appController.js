@@ -12,8 +12,9 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	$scope.options = {};
 	$scope.access_level_types = [
 		{ id: 4, name: 'Draft (admin-only)' },
-		{ id: 1, name: 'Visitors' },
-		{ id: 2, name: 'Members' }
+        { id: 3, name: 'Members' },
+        { id: 2, name: 'Locked' },
+        { id: 1, name: 'Visitors' },
 	];
 
 	$rootScope.payment_method_types = [
