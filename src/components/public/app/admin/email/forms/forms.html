@@ -38,7 +38,7 @@
                             <label class="col-sm-2 control-label">Redirect URL</label>
 
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="site_options.redirect_url">
+                                <input type="text" class="form-control" ng-model="site_options.redirect_url" ng-change="setForm()">
                                 <span class="help-block m-b-none">This is where a subscriber will be sent after opting-in.</span>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 <div class='row'>
                                     <div class='col-sm-8'>
                                         <select class="form-control n-m-b" id="" placeholder="Email List" ng-model="emailListId"
-                                                ng-options="emailList.name for emailList in emailLists">
+                                                ng-options="emailList.name for emailList in emailLists" ng-change="setForm()">
                                         </select>
                                     </div>
                                     <div class='col-sm-4 ' style="margin-top:10px;">
@@ -79,7 +79,7 @@
                             <div class="col-sm-11">
                                 <div>
                                     <label>
-                                        <input  type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="show_name_input">
+                                        <input  type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="show_name_input" ng-change="setForm()">
                                         Show name input field
                                     </label>
                                 </div>
@@ -95,7 +95,7 @@
                             <div class="col-sm-11">
                                 <div>
                                     <label>
-                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="turn_optin">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="turn_optin" ng-change="setForm()">
                                         Create account for leads
                                     </label>
                                 </div>
@@ -109,53 +109,33 @@
                         <div class="hr-line-dashed" ng-show="turn_optin"></div>
 
                         <div class="field" ng-show="turn_optin">
-                            <label class="col-sm-5 control-label">Leads become members of which site?</label>
-
-                            <div class="col-sm-7">
-                                <select class="form-control" id="site_id" placeholder="Choose Site"
-                                        ng-model="site_id"
-                                        ng-options="site.subdomain for site in sites">
-                                </select>
-                                <span class="help-block m-b-none">
-                                    Select which site you'd like leads to become members of
-                                </span>
+                            <label>Choose access levels you want to grant new members (optional):</label>
+                            <select multiple ng-model="site_options.access_levels" ng-options="access_level.name for access_level in access_levels" ng-change="setForm()">
+                            </select>
+                            <div class="ui info message">
+                                Choose any access levels you want to grant new users
                             </div>
                         </div>
 
                         <div class="hr-line-dashed"></div>
-
-                        <!-- <div class="field">
-                            <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-brand" type="" ng-click="setForm()">Create / Refresh form</button>
-                            </div>
-                        </div> -->
                     </form>
 
                 </div>
             </div>
         </div>
-        <div class="col-lg-4" ng-if="myForm">
-            <div class="ibox ">
-                <div class="ibox-title">
-                    <h5 class="ui header">Form embed code</h5>
-                </div>
-                <div class="ibox-content">
-
-                    <div class="field">
-                        <textarea ng-model="myForm" class="form-control" style="height:350px;"></textarea>
-                    </div>
-
-                </div>
-
+        <div class="ui form" ng-init="init()">
+            <div class="field">
+                <label>Form Embed Code</label>
+                <textarea ng-model="myForm"></textarea>
             </div>
+            <button class="ui right green labeled icon button copy-button" data-clipboard-action="copy" data-text="{{myForm}}">
+                <i class="copy icon"></i>
+                Copy
+            </button>
         </div>
     </div>
 </div>
 <div class="actions">
-    <a ng-click="setForm()" class="ui right labeled icon button">
-        Create / Refresh form
-        <i class="fa fa-plus"></i>
-    </a>
     <div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
         Close
     </div>
