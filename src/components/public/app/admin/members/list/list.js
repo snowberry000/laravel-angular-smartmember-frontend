@@ -177,23 +177,21 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAccess = function( member )
 	{
-		if(member.type.indexOf('owner') >= 0)
+		if( $scope.isOwner( member) )
 			return;
-		var new_role = member.type;
 
-		if(member.type.indexOf('admin') < 0)
-			new_role = 'admin';
-		else
-			new_role = 'member';
-		Restangular.all('siteRole').customPUT({type : new_role} , member.id).then(function(response){
+        var role;
+		if( $scope.isAdmin( member ) ) {
+            role = _.findWhere( member.role, {type: 'admin' } );
+            new_role = 'member';
+        }
+		else {
+            role = _.findWhere( member.role, {type: 'member' } );
+            new_role = 'admin';
+        }
 
-			for( var i = 0; i < $scope.data.length; i++ )
-			{
-				if( $scope.data[ i ].id == response.id )
-				{
-					$scope.data[ i ].type = response.type;
-				}
-			}
+		Restangular.all('siteRole').customPUT( {type : new_role} , role.id).then(function(response){
+            role.type = response.type;
 		})
 	}
 
@@ -207,23 +205,22 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAgent = function( member )
 	{
-		var new_role = member.type;
-		if(member.type.indexOf('member') >= 0)
-		{
-			new_role = 'support';
-		}
-		else if(member.type.indexOf('support') >= 0){
-			new_role = 'member'
-		}
-		Restangular.all( 'siteRole' ).customPUT( { type: new_role}, member.id ).then(function(response){
-			for( var i = 0; i < $scope.data.length; i++ )
-			{
-				if( $scope.data[ i ].id == response.id )
-				{
-					$scope.data[ i ].type = response.type;
-				}
-			}
-		})
+        if( $scope.isOwner( member) )
+            return;
+
+        var role;
+        if( $scope.isAdmin( member ) ) {
+            role = _.findWhere( member.role, {type: 'support' } );
+            new_role = 'member';
+        }
+        else {
+            role = _.findWhere( member.role, {type: 'member' } );
+            new_role = 'support';
+        }
+
+        Restangular.all('siteRole').customPUT( {type : new_role} , role.id).then(function(response){
+            role.type = response.type;
+        })
 
 	}
 
@@ -292,7 +289,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
         if( member.role != undefined && member.role.length > 0 )
         {
             angular.forEach( member.role, function(value) {
-                if( value == role )
+                if( value.type == role )
                     is_role = true;
             } );
         }
