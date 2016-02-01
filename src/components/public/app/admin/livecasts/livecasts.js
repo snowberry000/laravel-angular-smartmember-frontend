@@ -27,6 +27,12 @@ app.controller( "LivecastsController", function( $scope, $stateParams,$state,$ro
 		total_count: 0
 	};
 
+	if (!Modernizr.inputtypes.date) {
+      // no native support for <input type="date"> :(
+      // maybe build one yourself with Dojo or jQueryUI
+      $('input[type="date"]').datepicker();
+    }
+
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
