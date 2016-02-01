@@ -111,7 +111,7 @@
                                 <input type="checkbox" tabindex="0" class="hidden">
                             </div>
                             <a ng-if="module.id || module.new" href="#" editable-text="module.title" onaftersave="saveModuleTitle(module)">{{module.title || 'Empty'}}</a>
-                            <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle(module)">{{options['default_module_title'] || 'Default'}}</a>
+                            <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle({title:options['default_module_title']})">{{options['default_module_title'] || 'Default'}}</a>
                         </p>
                     </div>
                     <div class="ui checkbox" ng-model="lessons_selected" ng-click="toggleLessonsSelected( lessons_selected, module )" style="margin-bottom: -10px;margin-left:30px;" sui-checkbox>
