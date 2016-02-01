@@ -38,6 +38,13 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
     }
 
     $scope.init=function(){
+        if (!Modernizr.inputtypes.date) {
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          $('input[type="date"]').datepicker();
+        }
+
+
         if(!$article.id)
         {
             $article.company_id=$rootScope.site.company_id;

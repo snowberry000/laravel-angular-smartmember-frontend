@@ -20,6 +20,12 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 	$modules = null;
 	$scope.options = {};
 
+	// if (!Modernizr.inputtypes.date) {
+	//   // no native support for <input type="date"> :(
+	//   // maybe build one yourself with Dojo or jQueryUI
+	//   $('input[type="date"]').datepicker();
+	// }
+
 
 	var matches;
 	var interval;
@@ -85,6 +91,13 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 
 	$scope.init = function()
 	{
+		if (!Modernizr.inputtypes.date) {
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          $('input[type="date"]').datepicker();
+        }
+
+
 		$scope.refrer = $location.search().organizer;
 		if( !$next_item.id )
 		{

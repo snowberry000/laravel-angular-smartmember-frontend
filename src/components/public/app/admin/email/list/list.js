@@ -30,6 +30,12 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 	}
 
 	$scope.initialize = function () {
+		if (!Modernizr.inputtypes.date) {
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          $('input[type="date"]').datepicker();
+        }
+
 		$scope.dirty = {};
 		
 		if ($scope.emailList.segment_query)

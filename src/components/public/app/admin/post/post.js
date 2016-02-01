@@ -51,6 +51,12 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 
     $scope.init = function()
     {
+    	if (!Modernizr.inputtypes.date) {
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          $('input[type="date"]').datepicker();
+        }
+
         if( !$next_item.id )
         {
             $next_item.site_id = $scope.site.id;

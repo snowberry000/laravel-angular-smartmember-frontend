@@ -41,6 +41,7 @@ app.controller("EmailSubscriberController", function ($scope,$q, smModal,$localS
 	console.log($scope.emailsubscriber);
 
 	
+	
 
 	$scope.addInSubscribersList = function(){
 	    var $name_emailArr=[];
