@@ -20,7 +20,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		description: 'Members are users who have registered on your site, purchased a product, or been imported.',
 		singular: 'member',
 		edit_route: '',
-		api_object: 'siteRole'
+		api_object: 'user'
 	}
 
 	$scope.data = [];
@@ -52,41 +52,34 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	{
 		var $params = { p: $scope.pagination.current_page, site_id: $site.id };
 
-		if (search)
+		if( search )
 		{
 			$scope.pagination.current_page = 1;
 		}
 
-		if( true )
-		{
+        $scope.loading = true;
 
-			$scope.loading = true;
+        if( $scope.query )
+        {
+            $params.q = encodeURIComponent( $scope.query );
+        }
 
+        if( $scope.access_level )
+        {
+            $params.access_level = $scope.access_level;
 
+            if( $scope.access_level_status )
+            {
+                $params.access_level_status = $scope.access_level_status;
+            }
+        }
 
-			if( $scope.query )
-			{
-				$params.q = encodeURIComponent( $scope.query );
-			}
-
-			if( $scope.access_level )
-			{
-				$params.access_level = $scope.access_level;
-
-				if( $scope.access_level_status )
-				{
-					$params.access_level_status = $scope.access_level_status;
-				}
-			}
-
-			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.access_level_query ? '&access_level_id=' +  $scope.access_level_query : '' ) +  ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
-			{
-				$scope.loading = false;
-				$scope.pagination.total_count = data.total_count;
-				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );//data.items;
-				$scope.data = $scope.filterDuplicate($scope.data);
-			} );
-		}
+        Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + ( $scope.access_level_query ? '&access_level_id=' +  $scope.access_level_query : '' ) +  ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+        {
+            $scope.loading = false;
+            $scope.pagination.total_count = data.total_count;
+            $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+        } );
 	}
 
 	$scope.paginate();
@@ -163,13 +156,13 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.accessLevelList = function( next_item )
 	{
 		var access_level_list = [];
-		if( typeof next_item.access_level != 'undefined' )
+		if( typeof next_item.role != 'undefined' )
 		{
-			angular.forEach( next_item.access_level, function( value2, key2 )
+			angular.forEach( next_item.role, function( value2, key2 )
 			{
-				if( typeof value2.name != 'undefined' && value2.name != '' )
+				if( value2.access_level && typeof value2.access_level.name != 'undefined' && value2.access_level.name != '' )
 				{
-					access_level_list.push( value2.name );
+					access_level_list.push( value2.access_level.name );
 				}
 			} );
 		}
@@ -193,7 +186,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		else
 			new_role = 'member';
 		Restangular.all('siteRole').customPUT({type : new_role} , member.id).then(function(response){
-			//member = response;
+
 			for( var i = 0; i < $scope.data.length; i++ )
 			{
 				if( $scope.data[ i ].id == response.id )
@@ -202,65 +195,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				}
 			}
 		})
-
-		/*if( typeof member.type != 'undefined' )
-		{
-			var p_owner = _.findWhere( member.type, { role_type: 1 } );
-			var owner = _.findWhere( member.type, { role_type: 2 } );
-			var manager = _.findWhere( member.type, { role_type: 3 } );
-
-			if( p_owner || owner || manager )
-			{
-				return;
-			}
-
-			var role = _.filter( member.type, function( type )
-			{
-				return type.role_type == 2 || type.role_type == 3 || type.role_type == 4 || type.role_type == 6;
-			} )
-
-			if( role[ 0 ].role_type == 4 )
-			{
-				role[ 0 ].role_type = 6;
-			}
-			else if( role[ 0 ].role_type == 6 )
-			{
-				role[ 0 ].role_type = 4;
-			}
-
-			if( role[ 0 ].role_type < 6 )
-			{
-				if( !member.isTeamMember )
-				{
-					$scope.addToTeam( member );
-				}
-			}
-
-			Restangular.all( 'userRole' ).customPUT( { role_type: role[ 0 ].role_type }, role[ 0 ].id ).then( function( response )
-			{
-				members.getList( { id: member.id } ).then( function( response )
-				{
-					if( response.length < 1 )
-					{
-						return;
-					}
-
-					for( var i = 0; i < $scope.members.length; i++ )
-					{
-						if( $scope.data[ $scope.pagination.current_page ][ i ].id == response[ 0 ].id )
-						{
-							$scope.data[ $scope.pagination.current_page ][ i ] = response[ 0 ];
-						}
-					}
-					;
-				} );
-			} );
-		}*/
 	}
 
 	$scope.addToTeam = function( member )
 	{
-		Restangular.all( 'teamRole/addToTeam' ).post( { user_id: member.user.id } ).then( function( response )
+		Restangular.all( 'teamRole/addToTeam' ).post( { user_id: member.id } ).then( function( response )
 		{
 			member.isTeamMember = true;
 		} );
@@ -268,25 +207,6 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAgent = function( member )
 	{
-		/*var agent = _.findWhere( member.type, { role_type: 5 } );
-		if( agent )
-		{
-			Restangular.one( 'userRole', agent.id ).remove().then( function( response )
-			{
-				member.type = _.without( member.type, agent );
-			} )
-		}
-		else
-		{
-			Restangular.all( 'userRole' ).post( { role_type: 5, role_id: member.id } ).then( function( response )
-			{
-				member.type.push( response );
-				if( !member.isTeamMember )
-				{
-					$scope.addToTeam( member );
-				}
-			} )
-		}*/
 		var new_role = member.type;
 		if(member.type.indexOf('member') >= 0)
 		{
@@ -319,7 +239,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			member.new_access_pass_saving = true;
 			member.new_access_pass = {
 				access_level_id: member.new_access_level,
-				user_id: member.user_id,
+				user_id: member.id,
 				site_id: $site.id,
 				type : 'member'
 			}
@@ -330,12 +250,9 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				var access_pass = _.findWhere($scope.access_levels , {id : parseInt(member.new_access_level)});
 				member.new_access_level = 0;
 				
-				if(access_pass && member.access_level.indexOf(access_pass.name) < 0){
-					if( member.access_level )
-					{
-						member.access_level = member.access_level + ','
-					}
-					member.access_level = member.access_level + access_pass.name ;
+				if( access_pass ){
+                    member.new_access_pass.access_level = access_pass;
+					member.role.push(member.new_access_pass);
 				}
 				member.access_level_selection = false;
 			} );
@@ -344,46 +261,50 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.isOwner = function( member )
 	{
-		return member.type.indexOf('owner') >= 0;
-		/*var p_owner = _.findWhere( member.type, { role_type: 1 } ) || _.findWhere( member.type, { role_type: "1" } );
-		var owner = _.findWhere( member.type, { role_type: 2 } ) || _.findWhere( member.type, { role_type: "2" } );
-		var manager = _.findWhere( member.type, { role_type: 3 } ) || _.findWhere( member.type, { role_type: "3" } );
-		if( p_owner || owner || manager )
-		{
-			return true;
-		}
-		return false;*/
+		return $scope.is_role( member, 'owner' );
 	}
 
 	$scope.isAgent = function( member )
 	{
-		return member.type.indexOf('support') >= 0 || member.type.indexOf('admin') >= 0 || member.type.indexOf('owner') >= 0;
-		/*var agent = _.findWhere( member.type, { role_type: 5 } ) || _.findWhere( member.type, { role_type: "5" } );
-		if( agent )
-		{
-			return true;
-		}
-		return false;*/
+        return $scope.is_role( member, 'support' ) || $scope.is_role( member, 'admin' ) || $scope.is_role( member, 'owner' );
 	}
 
 	$scope.isAdmin = function( member )
 	{
-		return member.type.indexOf('admin') >= 0 || member.type.indexOf('owner') >= 0;
-		/*var admin = _.findWhere( member.type, { role_type: 4 } ) || _.findWhere( member.type, { role_type: "4" } );
-		if( admin )
-		{
-			return true;
-		}
-		return false;*/
+        return $scope.is_role( member, 'admin' ) || $scope.is_role( member, 'owner' );
 	}
+
+    $scope.highestRole = function( member )
+    {
+        if( $scope.is_role( member, 'owner' ) )
+            return 'owner';
+        else if( $scope.is_role( member, 'admin' ) )
+            return 'admin';
+        else if( $scope.is_role( member, 'support' ) )
+            return 'support';
+
+        return 'member';
+    }
+
+    $scope.is_role = function( member, role ) {
+        var is_role = false;
+
+        if( member.role != undefined && member.role.length > 0 )
+        {
+            angular.forEach( member.role, function(value) {
+                if( value == role )
+                    is_role = true;
+            } );
+        }
+
+        return is_role;
+    }
 
 	$scope.deleteResource = function( id )
 	{
-        console.log('here is the id: ', id );
         var itemWithId = _.findWhere( $scope.data, {id: parseInt( id ) } ) || _.findWhere( $scope.data, {id: id + '' } );
-        console.log( 'here is the item: ', itemWithId );
 
-		Restangular.all('siteRole/removeUserFromCurrentSite').post({user_id: itemWithId.user_id}).then( function()
+		Restangular.all('siteRole/removeUserFromCurrentSite').post({user_id: itemWithId.id}).then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
 			var this_site = _.findWhere($rootScope.sites , {id : itemWithId.site_id});
