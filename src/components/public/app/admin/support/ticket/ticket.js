@@ -359,8 +359,8 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 	$scope.assignToSMTech = function()
 	{
 		Restangular.one( 'supportTicket', $scope.ticket.id ).put( {
-			'site_id': 2056,
-			'agent_id': 2
+			'escalated_site_id': 2056,
+			'agent_id': 2,
 		} ).then( function( response )
 		{
 			$scope.ticket.agent_id = 2;
