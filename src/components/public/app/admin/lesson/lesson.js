@@ -401,7 +401,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 			$scope.next_item.access_level_type = 3;
 		}
 
-		if( $scope.next_item.access_level_type != 2 )
+		if( $scope.next_item.access_level_type != 2 && $scope.next_item.access_level_type != 3)
 		{
 			$scope.next_item.access_level_id = 0;
 		}
