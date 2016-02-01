@@ -3,9 +3,9 @@ var app = angular.module( "app" );
 app.config( function( $stateProvider )
 {
 	$stateProvider
-		.state( "public.app.admin.wallboard", {
+		.state( "wallboard", {
 			url: "/wallboard",
-			templateUrl: "/templates/components/public/app/admin/wallboard/wallboard.html",
+			templateUrl: "/templates/components/wallboard/wallboard.html",
 			controller: "WallboardController",
 
 		} )
