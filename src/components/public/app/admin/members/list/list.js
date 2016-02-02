@@ -162,12 +162,29 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			{
 				if( value2.access_level && typeof value2.access_level.name != 'undefined' && value2.access_level.name != '' )
 				{
-					access_level_list.push( value2.access_level.name );
+					if(access_level_list.indexOf(value2.access_level.name) < 0)
+						access_level_list.push( value2.access_level.name );
 				}
 			} );
 		}
 
 		return access_level_list.join( ', ' );
+	}
+
+	$scope.getaccessLevelList = function( next_item )
+	{
+		var access_level_list = [];
+		if( typeof next_item.role != 'undefined' )
+		{
+			angular.forEach( next_item.role, function( value2, key2 )
+			{
+				if( value2.access_level && typeof value2.access_level.name != 'undefined' && value2.access_level.name != '' )
+				{
+					access_level_list.push( value2.access_level.name );
+				}
+			} );
+		}
+		return access_level_list;
 	}
 
 	$scope.getCSV = function()
@@ -177,23 +194,21 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAccess = function( member )
 	{
-		if(member.type.indexOf('owner') >= 0)
+		if( $scope.isOwner( member) )
 			return;
-		var new_role = member.type;
 
-		if(member.type.indexOf('admin') < 0)
-			new_role = 'admin';
-		else
-			new_role = 'member';
-		Restangular.all('siteRole').customPUT({type : new_role} , member.id).then(function(response){
+        var role;
+		if( $scope.isAdmin( member ) ) {
+            role = _.findWhere( member.role, {type: 'admin' } );
+            new_role = 'member';
+        }
+		else {
+            role = _.findWhere( member.role, {type: 'member' } );
+            new_role = 'admin';
+        }
 
-			for( var i = 0; i < $scope.data.length; i++ )
-			{
-				if( $scope.data[ i ].id == response.id )
-				{
-					$scope.data[ i ].type = response.type;
-				}
-			}
+		Restangular.all('siteRole').customPUT( {type : new_role} , role.id).then(function(response){
+            role.type = response.type;
 		})
 	}
 
@@ -207,23 +222,22 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 	$scope.toggleAgent = function( member )
 	{
-		var new_role = member.type;
-		if(member.type.indexOf('member') >= 0)
-		{
-			new_role = 'support';
-		}
-		else if(member.type.indexOf('support') >= 0){
-			new_role = 'member'
-		}
-		Restangular.all( 'siteRole' ).customPUT( { type: new_role}, member.id ).then(function(response){
-			for( var i = 0; i < $scope.data.length; i++ )
-			{
-				if( $scope.data[ i ].id == response.id )
-				{
-					$scope.data[ i ].type = response.type;
-				}
-			}
-		})
+        if( $scope.isOwner( member) )
+            return;
+
+        var role;
+        if( $scope.isAdmin( member ) ) {
+            role = _.findWhere( member.role, {type: 'support' } );
+            new_role = 'member';
+        }
+        else {
+            role = _.findWhere( member.role, {type: 'member' } );
+            new_role = 'support';
+        }
+
+        Restangular.all('siteRole').customPUT( {type : new_role} , role.id).then(function(response){
+            role.type = response.type;
+        })
 
 	}
 
@@ -243,6 +257,25 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				site_id: $site.id,
 				type : 'member'
 			}
+
+			var temp = _.findWhere($scope.access_levels , {id : parseInt(member.new_access_level)});
+			//console.log($scope.access_levels);
+			
+			if(temp)
+			{
+
+				$accesses= $scope.getaccessLevelList(member);
+				$val =_.findWhere($accesses , temp.name);
+				if($val)
+				{
+					toastr.error("access level already exist");
+					return;
+				}
+					
+			}
+
+			
+
 			Restangular.service( "siteRole" ).post( member.new_access_pass ).then( function( response )
 			{
 				toastr.success( "Access pass created!" );
@@ -292,7 +325,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
         if( member.role != undefined && member.role.length > 0 )
         {
             angular.forEach( member.role, function(value) {
-                if( value == role )
+                if( value.type == role )
                     is_role = true;
             } );
         }
