@@ -162,7 +162,8 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			{
 				if( value2.access_level && typeof value2.access_level.name != 'undefined' && value2.access_level.name != '' )
 				{
-					access_level_list.push( value2.access_level.name );
+					if(access_level_list.indexOf(value2.access_level.name) < 0)
+						access_level_list.push( value2.access_level.name );
 				}
 			} );
 		}
