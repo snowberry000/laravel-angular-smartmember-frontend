@@ -154,11 +154,22 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 app.controller( 'modalMediaController', function( $scope, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
 {
 	console.log( $rootScope.subdomain == 'my');
+	$scope.media_files = [];
+	$scope.youzign_files = [];
 	if($localStorage.user && $localStorage.user.access_token && $rootScope.subdomain != 'my')
 		Restangular.service('media')
 			.getList()
 			.then(function(response){
-				$scope.media_files = response;
+				angular.forEach(response, function(item){
+					if (item.type == 'image')
+					{
+						$scope.media_files.push(item);
+					} else if (item.type == 'youzign')
+					{
+						$scope.youzign_files.push(item);
+					}
+				})
+
 			});
 	
 	$scope.loading = false;
