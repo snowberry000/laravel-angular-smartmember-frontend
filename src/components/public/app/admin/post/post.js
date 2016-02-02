@@ -55,6 +55,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
           $('input[type="date"]').datepicker();
+          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
         if( !$next_item.id )
