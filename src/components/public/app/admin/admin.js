@@ -15,7 +15,10 @@ app.config(function($stateProvider){
 			resolve: {
 				$user: function( Restangular, $localStorage )
 				{
-					return Restangular.one( 'user', $localStorage.user.id ).get();
+                    if( $localStorage.user && $localStorage.user.id )
+					    return Restangular.one( 'user', $localStorage.user.id ).get();
+                    else
+                        return Restangular.all('user').getList();//this is purely to get a 401 error
 				}
 
 			}
