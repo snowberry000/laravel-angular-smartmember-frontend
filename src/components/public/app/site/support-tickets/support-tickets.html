@@ -1,3 +1,4 @@
+
 <div class="row" style="margin-left: auto;margin-right: auto;" ng-init="init()">
     <div class="ui grid">
         <div class="twelve wide column" ng-if="loading">
@@ -15,7 +16,14 @@
                 </h1>
 
                 <p>Need help? <a href="/support-ticket">Submit a new ticket!</a></p>
-
+                <div style="margin:10px;" >Sort by: 
+                    <select ng-model="sortBy" ng-init="sortBy='id'" ng-change="sort(sortBy)">
+                        <option value="subject" >subject</option>
+                        <option value="status">status</option>
+                        <option value="replies">replies</option>
+                        <option value="id" >created at</option>
+                    </select>
+                </div>
                 <div class="table-responsive">
                     <table class="ui celled padded table">
                         <thead>
@@ -30,7 +38,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr role="row" class="odd" ng-repeat="ticket in tickets">
+                        <tr role="row" class="odd" ng-repeat="ticket in tickets" >
                             <td><a href="/support-ticket/{{ticket.id}}">{{ticket.id}}</td></a>
                             <td>{{ticket.status}}</td>
                             <td>{{ticket.subject}}</td>
