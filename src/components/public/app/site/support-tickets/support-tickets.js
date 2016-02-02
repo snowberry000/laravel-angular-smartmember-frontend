@@ -17,6 +17,16 @@ app.controller('PublicSupportTicketsController', function ($scope, $site,$rootSc
         $scope.loading=false;
         $tickets=response;
         $scope.tickets = $tickets;
+        $scope.sort('id');
     });
+
+    $scope.sort = function ($type){
+        // alert($type);
+        if($type == 'id')
+            $scope.tickets = $filter('orderBy')($scope.tickets, $type, true);
+        else
+            $scope.tickets = $filter('orderBy')($scope.tickets, $type, false);
+
+    }
     
 });
