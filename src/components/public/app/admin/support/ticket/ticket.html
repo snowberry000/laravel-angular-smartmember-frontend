@@ -10,6 +10,10 @@
 				<div class="twelve wide stretched column">
 					<div class="ui attached segment fr-view" dynamic="ticket.message">
 					</div>
+					<a data-bypass="true" target="_blank"
+					   class="file_download" ng-href="{{ticket.attachment}}">
+						{{ticket.attachment.split('/').pop()}}
+					</a>
 					<div ng-if="ticket.reply" class="ui attached segment" ng-repeat="next_item in ticket.reply">
 						<div class="reply-header">
 							{{next_item.user.first_name}} {{next_item.user.last_name}} replies from {{moment.utc(next_item.created_at).fromNow()}}:
