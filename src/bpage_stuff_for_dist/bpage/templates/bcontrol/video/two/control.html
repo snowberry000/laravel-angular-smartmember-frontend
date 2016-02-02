@@ -20,7 +20,7 @@
             <i class="remove icon"></i>
         </button>
     </div>
-
+    <div class="ui message">key: background_url</div>
 </div>
 
 <h3 class="ui top attached header title">
@@ -35,17 +35,20 @@
         <div class="inline field">
             <input type="text" name="tagline" ng-model="bridgepage.swapspot.tagline">
         </div>
+        <div class="ui message">key: tagline</div>
         <div class="field">
             <h4>Headline</h4>
 
                 <input type="text" name="headline" ng-model="bridgepage.swapspot.headline">
         </div>
+        <div class="ui message">key: headline</div>
         <div class="field">
             <h4>Headline Text Color</h4>
 
                 <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
                                       ng-model="bridgepage.swapspot.headline_text_color"></spectrum-colorpicker>
         </div>
+        <div class="ui message">key: headline_text_color</div>
     </div>
 </div>
 
@@ -176,6 +179,7 @@
 
                 <input type="text" name="ctaurl" class="   " ng-model="bridgepage.swapspot.ctaurl">
         </div>
+        <div class="ui message">key: ctaurl</div>
         <div class="field">
             <h4 >CTA Button Delay</h4>
 
@@ -200,6 +204,7 @@
                 <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
                                       ng-model="bridgepage.swapspot.button_text_color"></spectrum-colorpicker>
         </div>
+        <div class="ui message">key: button_text_color</div>
         <div class="hr-line-dashed"></div>
         <div class="field">
             <h4 >Button Background Color</h4>
@@ -207,12 +212,14 @@
                 <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
                                       ng-model="bridgepage.swapspot.button_background_color"></spectrum-colorpicker>
         </div>
+        <div class="ui message">key: button_background_color</div>
         <div class="hr-line-dashed"></div>
         <div class="field">
             <h4 >Button 1 Text</h4>
 
                 <input type="text" name="button" class="   " ng-model="bridgepage.swapspot.button">
         </div>
+        <div class="ui message">key: button</div>
         <div class="hr-line-dashed"></div>
         <div class="field">
             <h4 >Open in New Tab?</h4>
@@ -227,6 +234,7 @@
 
                 <input type="text" name="button2" class="   " ng-model="bridgepage.swapspot.button2">
         </div>
+        <div class="ui message">key: button2</div>
     </div>
     <div class="clearfix"></div>
 </div>
