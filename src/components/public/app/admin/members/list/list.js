@@ -170,6 +170,22 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		return access_level_list.join( ', ' );
 	}
 
+	$scope.getaccessLevelList = function( next_item )
+	{
+		var access_level_list = [];
+		if( typeof next_item.role != 'undefined' )
+		{
+			angular.forEach( next_item.role, function( value2, key2 )
+			{
+				if( value2.access_level && typeof value2.access_level.name != 'undefined' && value2.access_level.name != '' )
+				{
+					access_level_list.push( value2.access_level.name );
+				}
+			} );
+		}
+		return access_level_list;
+	}
+
 	$scope.getCSV = function()
 	{
 		Restangular.all( '' ).customGET( 'siteRole/getCSV', { site_id: $site.id } ).then();
@@ -240,6 +256,25 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				site_id: $site.id,
 				type : 'member'
 			}
+
+			var temp = _.findWhere($scope.access_levels , {id : parseInt(member.new_access_level)});
+			//console.log($scope.access_levels);
+			
+			if(temp)
+			{
+
+				$accesses= $scope.getaccessLevelList(member);
+				$val =_.findWhere($accesses , temp.name);
+				if($val)
+				{
+					toastr.error("access level already exist");
+					return;
+				}
+					
+			}
+
+			
+
 			Restangular.service( "siteRole" ).post( member.new_access_pass ).then( function( response )
 			{
 				toastr.success( "Access pass created!" );
