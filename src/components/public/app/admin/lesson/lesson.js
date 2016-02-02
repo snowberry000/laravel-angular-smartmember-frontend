@@ -95,6 +95,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
           $('input[type="date"]').datepicker();
+          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
 
@@ -418,6 +419,8 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		{
 			$scope.next_item.access_level_id = 0;
 		}
+
+		// return;
 		if( $scope.next_item.id )
 		{
 			$callback = $scope.next_item.put();
@@ -426,7 +429,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		{
 			$callback = Restangular.all( 'lesson' ).post( $scope.next_item );
 		}
-
+// return;
 		$callback.then( function( lesson )
 		{
 			if( draft )
@@ -436,6 +439,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 
 			$scope.next_item = lesson;
 			toastr.success( "Lesson has been saved" );
+			// return;
 			if( $stateParams.close )
 			{
 				//close( lesson );
