@@ -226,7 +226,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
             return;
 
         var role;
-        if( $scope.isAdmin( member ) ) {
+        if( $scope.is_role( member, 'support' ) ) {
             role = _.findWhere( member.role, {type: 'support' } );
             new_role = 'member';
         }
