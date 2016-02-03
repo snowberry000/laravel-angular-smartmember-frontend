@@ -196,7 +196,8 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
 				$rootScope.wizard_server = response;
 				// alert(response.is_completed);
-				$rootScope.site.wizard_completed.is_completed=response.is_completed;
+				if($rootScope.site && $rootScope.site.wizard_completed)
+					$rootScope.site.wizard_completed.is_completed=response.is_completed;
 				/*if(response && response.options)
 				 $rootScope.wizard_server.options = JSON.parse(response.options);*/
 				$rootScope.site.wizard_step++;
@@ -222,7 +223,8 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 			Restangular.all( "wizard" ).post( params ).then( function( response )
 			{
 				// alert(response.is_completed);
-				$rootScope.site.wizard_completed.is_completed=response.is_completed;
+				if($rootScope.site && $rootScope.site.wizard_completed)
+					$rootScope.site.wizard_completed.is_completed=response.is_completed;
 				if( !params.is_completed )
 				{
 					$rootScope.current_changed = current + 1;
