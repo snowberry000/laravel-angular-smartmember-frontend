@@ -221,7 +221,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		{
 			Restangular.all( "wizard" ).post( params ).then( function( response )
 			{
-				alert(response.is_completed);
+				// alert(response.is_completed);
 				$rootScope.site.wizard_completed.is_completed=response.is_completed;
 				if( !params.is_completed )
 				{
