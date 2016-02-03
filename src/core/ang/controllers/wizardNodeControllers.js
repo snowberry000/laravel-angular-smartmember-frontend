@@ -1381,6 +1381,7 @@ app.controller( 'lockContentWizardController', function( $scope, $rootScope, $fi
 		}, "lock" ).then( function( response )
 		{
 			toastr.success( "Content Locked" );
+			
 			$scope.current_node.extras = { "access_level": response.id };
 			$rootScope.access_level_hash = response.hash;
 			$rootScope.parent_wizard.next( 3, $scope.current_node );
