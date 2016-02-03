@@ -34,7 +34,7 @@ app.controller( "TicketCreatorController", function( $scope, $state, $localStora
 	Restangular.all( '' ).customGET( 'siteRole?type=support' ).then( function( response )
 	{
 		$scope.agents = response.items;
-		$scope.agents = _.uniq(myArray, 'user_id');
+		$scope.agents = _.uniq($scope.agents , 'user_id');
 	} );
 
 	
