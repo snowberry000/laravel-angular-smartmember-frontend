@@ -83,7 +83,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 					} );
 				}
 			} );
-			$scope.agents = _.uniq($scope.agents , 'user_id');
+			$scope.agents = _.uniq($scope.agents , 'id');
 
 
 
