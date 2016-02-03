@@ -2,10 +2,10 @@
 	<a class="item footer_text_color" ng-repeat="footer_menu_item in options.footer_menu_items | orderBy:'sort_order'" ng-href="{{footer_menu_item.url | parseurl}}">
 		{{footer_menu_item.label}}
 	</a>
-	<a class="item footer_text_color" ng-href="http://www.smartmember.com" ng-show="options.show_powered_by">
+	<a class="item footer_text_color" ng-href="http://www.smartmember.com" ng-show="false">
 		powered by Smart Member
 	</a>
-	<a class="item active footer_text_color" ng-show="options.show_copyright">
-		&copy;2015
+	<a class="item active footer_text_color" ng-show="options.show_copyright == 1 || options.show_copyright == '1'">
+		&copy; {{moment().format('YYYY')}} {{options.after_copyright}}
 	</a>
 </div>

@@ -1084,7 +1084,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 		if( !$scope.next_item.permalink  )
 		{
-			toastr.warning( 'Permalink is required!' );
+			toastr.warning( 'Title is required!' );
 			return;
 		}
 
@@ -1136,7 +1136,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		delete $scope.next_item.site;
 
 		if( !$scope.next_item.permalink ){
-			toastr.warning('Permailnk is required!');
+			toastr.warning('Title is required!');
 			return;
 		}
 
