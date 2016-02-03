@@ -3,6 +3,7 @@
 		<div class="ui top attached tabular menu" sui-tabs>
 			<a class="item active" data-tab="upload">Upload</a>
 			<a class="item" data-tab="media_files">Media Files</a>
+			<a class="item" data-tab="youzign">YouZign Files</a>
 		</div>
 	</div>
 	
@@ -37,6 +38,15 @@
 			<h4>Click on the media to select</h4>
 			<div class='ui grid'>
 				<div class='four wide column media-select' ng-repeat="media in media_files" >
+					<img ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
+				</div>
+			</div>
+		</div>
+
+		<div class="ui bottom attached tab segment no-border" data-tab="youzign">
+			<h4>Click on the media to select</h4>
+			<div class='ui grid'>
+				<div class='four wide column media-select' ng-repeat="media in youzign_files" >
 					<img ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
 				</div>
 			</div>
