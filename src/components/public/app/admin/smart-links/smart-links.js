@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 });
 
-app.controller( 'SmartLinksController', function( $scope, $state )
+app.controller( 'SmartLinksController', function( $scope, $rootScope, $state )
 {
     if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
         $state.go('public.app.site.home');
