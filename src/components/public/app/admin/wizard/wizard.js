@@ -128,6 +128,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		{
 			//node.HideBox( node );
 		}
+		smModal.hide($rootScope.current_modal.element);
 	}
 
 	$scope.back = function()
@@ -194,6 +195,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 			Restangular.all( "wizard" ).customPUT( params, $rootScope.wizard_server.id ).then( function( response )
 			{
 				$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
+				
 				$rootScope.wizard_server = response;
 				/*if(response && response.options)
 				 $rootScope.wizard_server.options = JSON.parse(response.options);*/
@@ -212,6 +214,8 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				{
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
+
+				smModal.hide($rootScope.current_modal.element);
 				
 			} )
 		}
@@ -236,7 +240,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
 
-				
+				smModal.hide($rootScope.current_modal.element);
 			} );
 		}
 	}
