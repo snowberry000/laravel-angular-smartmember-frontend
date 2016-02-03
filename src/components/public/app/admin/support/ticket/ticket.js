@@ -83,6 +83,9 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 					} );
 				}
 			} );
+			$scope.agents = _.uniq($scope.agents , 'user_id');
+
+
 
 			var isAgent = _.find( $scope.agents, { 'id': $user.id } ) || _.find( $scope.agents, { 'id': $user.id + '' } );
 			console.log( $scope.agents )
