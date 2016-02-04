@@ -173,9 +173,9 @@
 									<span class="text-danger" ng-if="account.verified !=1 && !account.claimed">Already Taken</span>
 								</td>
 								<td>
-									<span class="btn btn-sm btn-danger" ng-click="removeLinkedAccount(account)">Remove</span>
-									<span class="btn btn-sm btn-primary" ng-if="account.verified == 1" ng-click="togglePrimary(account)">Make Primary</span>
-									<span class="btn btn-sm btn-primary" ng-if="!account.claimed" ng-click="merge(account)">Claim & Merge</span>
+									<span class="ui button" ng-hide="inProgress==true || inProgress=='true'" ng-click="inProgress=true;removeLinkedAccount(account)">Remove</span>
+									<span class="ui button" ng-if="account.verified == 1" ng-click="togglePrimary(account)">Make Primary</span>
+									<span class="ui button" ng-if="!account.claimed" ng-click="merge(account)">Claim & Merge</span>
 								</td>
 							</tr>
 
