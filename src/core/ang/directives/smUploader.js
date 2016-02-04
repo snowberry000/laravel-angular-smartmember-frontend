@@ -19,7 +19,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 				scope.privacy = attr.privacy ? attr.privacy : false;
 				var hideLink = attr.hidelink ? attr.hidelink : false;
 				scope.testLink = 'https://testtest.com';
-
+				var hide_media = attr.ngAwskey ? true : false;
 				if( post )
 				{
 					var rest = Restangular.all( post );
@@ -29,7 +29,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 
 				ModalService.showModal(
 					{ templateUrl: 'templates/modals/newMediaItem.html', controller: 'modalMediaController', inputs: {
-					$stateParams: {"closeOnModalCompletion": closeOnModalCompletion }
+					$stateParams: {"closeOnModalCompletion": closeOnModalCompletion , "hide_media" : hide_media}
 				} }
 				).then( function( modal ){
 						modal.element
@@ -154,6 +154,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
 {
 	console.log( $rootScope.subdomain == 'my');
+	$scope.hide_media = $stateParams.hide_media;
 	$scope.media_files = [];
 	$scope.youzign_files = [];
 	if($localStorage.user && $localStorage.user.access_token && $rootScope.subdomain != 'my')

@@ -99,10 +99,10 @@
 			<label class="col-sm-2 control-label">Transcript SEO:</label>
 			<div class="col-sm-10">
 				<div>
-					<label>
-						<input icheck type="checkbox" ng-model="next_item.transcript_content_public" ng-false-value="false" ng-true-value="true" ng-checked="next_item.transcript_content_public == 1">
-						Check to show transcript publicly
-					</label>
+                    <div class="ui checkbox" ng-model="next_item.transcript_content_public" sui-checkbox>
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Check to show transcript publicly</label>
+                    </div>
 				</div>
 				<span class="help-block m-b-none">
 					This helps search engines rank your content, even if main content is Access Restricted to members

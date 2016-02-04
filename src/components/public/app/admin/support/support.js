@@ -12,4 +12,6 @@ app.config( function( $stateProvider )
 
 app.controller( "AdminSupportController", function( $scope, $rootScope, $localStorage, $state, Restangular, notify )
 {
+    if( !$rootScope.isSitelessPage() && ( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_support_tickets' ) == -1 ) )
+        $state.go('public.app.site.home');
 } );
