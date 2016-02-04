@@ -11,75 +11,81 @@
 
 			<div class="ui section divider"></div>
 
-			<div class="ui icon input">
-				<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-				<i class="search icon"></i>
-			</div>
+			<div ng-if="data.length>0">
+				
+				<div class="ui icon input">
+					<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+					<i class="search icon"></i>
+				</div>
 
-			<div class="ui active inverted dimmer" ng-if="loading">
-				<div class="ui loader"></div>
-			</div>
-
-			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
-				<thead>
-					<tr>
-						<th data-toggle="true">Title</th>
-						<th data-hide="all">Access</th>
-						<th data-hide="all">Created</th>
-						<th class="text-right">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr dir-paginate="next_item in data| filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
-						<td class="responsive_table_item">
-							{{next_item.title}}
-						</td>
-						<td style="width:125px;">
-							{{next_item.access_level.name}}
-						</td>
-						<td style="width: 160px;">
-							{{moment.utc(next_item.created_at).fromNow()}}
-						</td>
-						<td class="text-right">
-							<div class="ui buttons">
-								<div class="ui button" ui-sref="public.app.admin.download({id: next_item.id })">
-									Edit
-								</div>
-								<div class="ui floating dropdown icon button" sui-dropdown>
-									<i class="dropdown icon"></i>
-									<div class="menu">
-										<a class="item" href="/{{next_item.permalink}}" target="_blank">
-											<i class="eye icon"></i>
-											View
-										</a>
-										<a class="item" ng-href="/admin/download/?clone={{next_item.id}}">
-											<i class="copy icon"></i>
-											Copy
-										</a>
-										<a class="item" sm-delete="{{next_item.id}}">
-											<i class="delete icon"></i>
-											Delete
-										</a>
+				<div class="ui active inverted dimmer" ng-if="loading">
+					<div class="ui loader"></div>
+				</div>
+			 
+			
+				<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
+					<thead>
+						<tr>
+							<th data-toggle="true">Title</th>
+							<th data-hide="all">Access</th>
+							<th data-hide="all">Created</th>
+							<th class="text-right">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr dir-paginate="next_item in data| filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+							<td class="responsive_table_item">
+								{{next_item.title}}
+							</td>
+							<td style="width:125px;">
+								{{next_item.access_level.name}}
+							</td>
+							<td style="width: 160px;">
+								{{moment.utc(next_item.created_at).fromNow()}}
+							</td>
+							<td class="text-right">
+								<div class="ui buttons">
+									<div class="ui button" ui-sref="public.app.admin.download({id: next_item.id })">
+										Edit
+									</div>
+									<div class="ui floating dropdown icon button" sui-dropdown>
+										<i class="dropdown icon"></i>
+										<div class="menu">
+											<a class="item" href="/{{next_item.permalink}}" target="_blank">
+												<i class="eye icon"></i>
+												View
+											</a>
+											<a class="item" ng-href="/admin/download/?clone={{next_item.id}}">
+												<i class="copy icon"></i>
+												Copy
+											</a>
+											<a class="item" sm-delete="{{next_item.id}}">
+												<i class="delete icon"></i>
+												Delete
+											</a>
+										</div>
 									</div>
 								</div>
-							</div>
 
-						</td>
-					</tr>
+							</td>
+						</tr>
 
-				</tbody>
-				<tfoot>
-					<tr>
-						<th colspan="4">
-							<div class="ui pointing label">
-								{{pagination.total_count}} items
-							</div>
-							<dir-pagination-controls max-size="5"></dir-pagination-controls>
-						</th>
-					</tr>
-				</tfoot>
-			</table>
-
+					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="4">
+								<div class="ui pointing label">
+									{{pagination.total_count}} items
+								</div>
+								<dir-pagination-controls max-size="5"></dir-pagination-controls>
+							</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div ng-if="data.length==0">
+					<h4>No downloads to displays</h4>
+			</div>
 		</div>
 	</div>
 	<div class="actions">
