@@ -109,6 +109,15 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 		} );
 	}
 
+	$scope.getFileName =function($url) {
+ 		$url = decodeURI($url);
+ 		$str = $url.split('/');
+ 		if($str.length >=1)
+ 			return $str[$str.length-1];
+ 		else
+ 			return " ";
+ 	}
+
 
 	$scope.isImage = function( file )
 	{
@@ -284,6 +293,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 			{
 				$scope.send_email = $scope.change_ticket_status == $scope.ticket.status;
 				$scope.reply.send_email = $scope.send_email;
+				console.log($scope.reply);
 				Restangular.all( 'supportTicket' ).post( $scope.reply ).then( function( response )
 				{
 					toastr.success( "A reply has been created." );
