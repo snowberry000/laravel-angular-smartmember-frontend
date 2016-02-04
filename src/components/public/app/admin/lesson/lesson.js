@@ -14,6 +14,9 @@ app.config( function( $stateProvider )
 
 app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, smModal, $localStorage, $timeout, $state, $location, $stateParams, $filter, Restangular, toastr, Upload )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$site = $rootScope.site;
 	$user = $rootScope.user;
 	$next_item = null;

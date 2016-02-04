@@ -115,8 +115,7 @@
 			<i class="checkered flag icon"></i>
 		</button>
 	</a>
-
-	<div ng-if="!isSitelessPage() && site.wizard_step >= 5" class="ui category search item" sui-search>
+	<div ng-if="!isSitelessPage() && site.wizard_completed.is_completed" class="ui category search item" sui-search>
 		<div class="ui icon input">
 			<input class="prompt" type="text" placeholder="">
 			<i class="search icon"></i>

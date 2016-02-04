@@ -23,6 +23,9 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("CustomPageController", function ($scope, $rootScope, smModal , $localStorage, $location , $timeout ,$state, $stateParams,  $filter, Restangular, toastr, Upload) {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$scope.template_data = {
         title: 'Pages',
         cancel_route: 'public.app.admin.custom-pages'

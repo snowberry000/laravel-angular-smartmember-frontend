@@ -10,6 +10,10 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("BridgePagesController", function ($scope, $localStorage, $state, $rootScope ,$stateParams,  $filter, Restangular, toastr) {
+
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$scope.template_data = {
         title: 'BRIDGE PAGES',
         description: 'Bridge Pages are your "marketing" pages. They are stand-alone designed pages used to collect leads or inform visitors of something - like a product, service, update, video, you name it! They exist on their own url\'s and stand separate from your site\'s normal theme.',
