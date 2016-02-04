@@ -10,6 +10,9 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("DownloadController", function ($scope,smModal,$stateParams,Upload,$rootScope, $localStorage , $timeout , $location, $state,  Restangular, toastr, $filter) {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	var draft;
     var changed;
     var seo = {};
