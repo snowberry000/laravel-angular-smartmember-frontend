@@ -151,7 +151,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 	};
 } );
 
-app.controller( 'modalMediaController', function( $scope, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
+app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
 {
 	console.log( $rootScope.subdomain == 'my');
 	$scope.media_files = [];
@@ -172,6 +172,23 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
 
 			});
 	
+	$scope.getFileType =function($url) {
+		$str = $url.split('.');
+		if($str.length >=1)
+			return $str[$str.length-1];
+		else
+			return ' ';
+	}
+
+	$scope.getFileName =function($url) {
+		$url = decodeURI($url);
+		$str = $url.split('/');
+		if($str.length >=1)
+			return $str[$str.length-1];
+		else
+			return " ";
+	}
+
 	$scope.loading = false;
 	$scope.cancel = function()
 	{
@@ -202,9 +219,20 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
 		if( files )
 		{
 			console.log( files.name );
+			if(files.name.indexOf('.exe')>=0)
+			{
+				toastr.error("file cant be uploaded");
+				$( '.ui.modal.upload' ).modal( 'hide' );
+
+				return;
+				
+			}
+
 			$scope.loading = true;
 			//for (var i = 0; i < files.length; i++) {
 			var file = files;
+			//console.log('file');
+			//console.log(file);
 			Upload.upload( {
 					url: $scope.app.apiUrl + '/utility/upload' +  ( $scope.privacy ? '?private=' + $scope.privacy : '' ),
 					file: file
