@@ -12,6 +12,68 @@ app.config(function($stateProvider){
 app.controller("smartMailListController", function ($scope,smModal,$rootScope, $stateParams, $localStorage, Restangular, toastr, $state) {
 	$site=$rootScope.site;
 	emailList=null;
+
+	$scope.template_data = {
+		api_object: 'emailSubscriber'
+	}
+
+	$scope.data = [];
+
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
+
+	$scope.paginate = function(search)
+	{
+		if (search)
+		{
+			$scope.pagination.current_page = 1;
+		}
+
+		if( true )
+		{
+
+			$scope.loading = true;
+
+			var $params = { p: $scope.pagination.current_page };
+
+			if( $scope.query )
+			{
+				$params.q = encodeURIComponent( $scope.query );
+			}
+
+			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?emaillist_id=' + $stateParams.id + '&view=admin&p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+			{
+				$scope.loading = false;
+				$scope.pagination.total_count = data.total_count;
+				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+			} );
+		}
+	}
+
+	$scope.deleteResource = function( id )
+	{
+		var itemWithId = _.find( $scope.data, function( next_item )
+		{
+			return next_item.id === parseInt(id);
+		} );
+
+		itemWithId.remove().then( function()
+		{
+			$scope.data = _.without( $scope.data, itemWithId );
+		} );
+	};
+
 	$scope.resolve = function ()
 	{
 		if ($stateParams.id){
@@ -19,6 +81,7 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 				emailList=response;
 				$scope.emailList = emailList;
 				$scope.initialize();
+				$scope.paginate();
 			});
 		}
 		else
@@ -53,7 +116,8 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 		}
 	}
 
-	
+	$scope.resolve();
+
 	$scope.save = function(){
 	    $scope.emailList.segment_query = $scope.dirty.value;
 	    if ($scope.emailList.id){
@@ -297,5 +361,5 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 	    console.log("Attached");
 	}
 
-	$scope.resolve();
+
 });
