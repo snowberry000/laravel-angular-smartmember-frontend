@@ -12,6 +12,9 @@ app.config( function( $stateProvider )
 
 app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $timeout, $localStorage, $state, $stateParams, Restangular, toastr, $filter )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$scope.template_data = {
 		title: 'DOWNLOADS',
 		description: 'Provided downloadable photos, files, media, and more',

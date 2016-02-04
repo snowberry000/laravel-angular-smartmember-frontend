@@ -15,6 +15,10 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, toastr , $state) {
+
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	var lesson = Restangular.all("lesson");
     $scope.loading = true;
     $scope.videos = false;
