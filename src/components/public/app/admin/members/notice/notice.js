@@ -17,6 +17,7 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
           $('input[type="date"]').datepicker();
+          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
 

@@ -42,6 +42,9 @@
 				<div class="field">
 					{{getFileName(ticket.attachment)}}
 				</div>
+				<a href="" ng-if="ticket.attachment" ng-click="ticket.attachment='';">
+					<i class="fa fa-remove"></i> Remove
+				</a>
 			</div>
 
 		</div>

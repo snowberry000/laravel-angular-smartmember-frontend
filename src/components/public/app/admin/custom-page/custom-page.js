@@ -23,6 +23,9 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("CustomPageController", function ($scope, $rootScope, smModal , $localStorage, $location , $timeout ,$state, $stateParams,  $filter, Restangular, toastr, Upload) {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$scope.template_data = {
         title: 'Pages',
         cancel_route: 'public.app.admin.custom-pages'
@@ -48,6 +51,7 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
           $('input[type="date"]').datepicker();
+          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
 

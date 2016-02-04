@@ -54,7 +54,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 		}
 
 
-		Restangular.all( '' ).customGET( 'supportAgents' ).then( function( data )
+		Restangular.all( '' ).customGET( 'supportAgents', { site_id: $scope.ticket.site_id } ).then( function( data )
 		{
 			data=data.items;
 			angular.forEach( data, function( value )
@@ -83,6 +83,9 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 					} );
 				}
 			} );
+			$scope.agents = _.uniq($scope.agents , 'id');
+
+
 
 			var isAgent = _.find( $scope.agents, { 'id': $user.id } ) || _.find( $scope.agents, { 'id': $user.id + '' } );
 			console.log( $scope.agents )

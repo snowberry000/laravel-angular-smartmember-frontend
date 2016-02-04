@@ -128,6 +128,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		{
 			//node.HideBox( node );
 		}
+		smModal.hide($rootScope.current_modal.element);
 	}
 
 	$scope.back = function()
@@ -194,7 +195,11 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 			Restangular.all( "wizard" ).customPUT( params, $rootScope.wizard_server.id ).then( function( response )
 			{
 				$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
+				
 				$rootScope.wizard_server = response;
+				// alert(response.is_completed);
+				if($rootScope.site && $rootScope.site.wizard_completed)
+					$rootScope.site.wizard_completed.is_completed=response.is_completed;
 				/*if(response && response.options)
 				 $rootScope.wizard_server.options = JSON.parse(response.options);*/
 				$rootScope.site.wizard_step++;
@@ -212,6 +217,8 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				{
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
+
+				smModal.hide($rootScope.current_modal.element);
 				
 			} )
 		}
@@ -219,6 +226,9 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		{
 			Restangular.all( "wizard" ).post( params ).then( function( response )
 			{
+				// alert(response.is_completed);
+				if($rootScope.site && $rootScope.site.wizard_completed)
+					$rootScope.site.wizard_completed.is_completed=response.is_completed;
 				if( !params.is_completed )
 				{
 					$rootScope.current_changed = current + 1;
@@ -236,7 +246,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
 
-				
+				smModal.hide($rootScope.current_modal.element);
 			} );
 		}
 	}

@@ -1,4 +1,4 @@
-app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalService )
+app.factory( 'smModal', [ '$state', 'ModalService' , '$rootScope', function( $state, ModalService , $rootScope)
 {
 	return {
 		Show: function( state, params, state_data, cb )
@@ -39,7 +39,8 @@ app.factory( 'smModal', [ '$state', 'ModalService', function( $state, ModalServi
 			{
 				var parts = location.hostname.split( '.' );
 				var subdomain = parts.shift();
-
+				if($rootScope)
+					$rootScope.current_modal = modal;
 				var the_options = {
 					observeChanges: true,
 					duration: 100,

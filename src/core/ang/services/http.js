@@ -47,7 +47,7 @@ app.factory( 'httpInterceptor', function( $q, $rootScope, $injector, $location, 
 			{
                 delete $localStorage.user;
                 ipCookie.remove('user', {'domain' : $rootScope.app.domain, 'path' : '/'});
-				location.href = '/sign/in';
+				location.href = '/sign/in/';
 				return [];
 			}
 			else
