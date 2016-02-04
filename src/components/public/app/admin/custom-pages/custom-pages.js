@@ -10,6 +10,9 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("CustomPagesController", function ($scope, $localStorage, $rootScope, $state, $stateParams,  $filter, Restangular, toastr) {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$scope.template_data = {
         title: 'PAGES',
         description: 'Create pages to fill your site with content for your members to read / watch / hear.',
