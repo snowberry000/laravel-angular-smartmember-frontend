@@ -38,7 +38,10 @@
 			<h4>Click on the media to select</h4>
 			<div class='ui grid'>
 				<div class='four wide column media-select' ng-repeat="media in media_files" >
-					<img ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
+					<img  ng-if="getFileType(media.source) != 'pdf'" ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
+					<i ng-if="getFileType(media.source) == 'pdf'" class='ui fluid rounded image fa-5x fa fa-file-pdf-o'></i>
+					<!-- <i ng-if="getFileType(media.source) == 'rar' || getFileType(media.source) == 'zip'" class='ui fluid rounded image fa-5x fa fa-file-pdf-o'></i> -->
+					
 				</div>
 			</div>
 		</div>
