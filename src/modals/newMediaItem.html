@@ -37,8 +37,14 @@
 		<div class="ui bottom attached tab segment no-border" data-tab="media_files">
 			<h4>Click on the media to select</h4>
 			<div class='ui grid'>
-				<div class='four wide column media-select' ng-repeat="media in media_files" >
-					<img ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
+				<div class='four wide column media-select' style="text-align: center;" ng-repeat="media in media_files" >
+					<img  ng-if="getFileType(media.source) != 'pdf'" ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
+					<div ng-if="getFileType(media.source) == 'pdf'">
+					<i style="text-align: center;"  class='ui fluid rounded image fa-3x fa fa-file-pdf-o'></i>
+					{{getFileName(media.source)}}
+				</div>
+					<!-- <i ng-if="getFileType(media.source) == 'rar' || getFileType(media.source) == 'zip'" class='ui fluid rounded image fa-5x fa fa-file-pdf-o'></i> -->
+					
 				</div>
 			</div>
 		</div>
