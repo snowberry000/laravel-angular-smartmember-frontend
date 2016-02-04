@@ -10,24 +10,26 @@
 			</div>
 
 			<div class="ui section divider"></div>
-
-			<div class="ui icon input">
-				<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-				<i class="search icon"></i>
-			</div>
-
-			<div class="inline fields">
-				<label for="fruit">Sort By:</label>
-				<div class="field">
-					<div class="ui radio checkbox">
-						<input type="radio" ng-model='order_by' value='created_at' ng-click='sort_by_changed()'>
-						<label>Most Recent</label>
-					</div>
+			<div ng-show="data.length == 0 && !query">No affiliates created</div>
+			<div ng-show="data.length > 0 || query">
+				<div class="ui icon input">
+					<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+					<i class="search icon"></i>
 				</div>
-				<div class="field">
-					<div class="ui radio checkbox">
-						<input type="radio" ng-model='order_by' value='past_sales' ng-click='sort_by_changed()'>
-						<label>Past Sales</label>
+
+				<div class="inline fields">
+					<label for="fruit">Sort By:</label>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" ng-model='order_by' value='created_at' ng-click='sort_by_changed()'>
+							<label>Most Recent</label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" ng-model='order_by' value='past_sales' ng-click='sort_by_changed()'>
+							<label>Past Sales</label>
+						</div>
 					</div>
 				</div>
 			</div>

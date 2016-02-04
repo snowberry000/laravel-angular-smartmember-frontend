@@ -39,20 +39,22 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 	} );
 
 	$scope.sort_by_changed = function(){
-		$scope.search();
+		$scope.search(true);
 	}
 
 	$scope.paginate = function(search)
-	{
-
-		if (search)
+	{	console.log('paginate');
+		
+		var continueSearch = true;
+		if (search && ($scope.query.length<3 ))
 		{
-			$scope.pagination.current_page = 1;
+			continueSearch = false;
+			console.log('query length = '+$scope.query.length);
 		}
 
-		if( true )
+		if( continueSearch==true || $scope.query.length==0)
 		{
-
+			$scope.pagination.current_page = 1;
 			$scope.loading = true;
 
 			var $params = { p: $scope.pagination.current_page };
@@ -68,6 +70,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 				$scope.pagination.total_count = data.total_count;
 				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
+			console.log('query processed');
 		}
 	}
 
