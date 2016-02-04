@@ -1002,7 +1002,8 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 	$scope.setPermalink = function( $event )
 	{
-		if( !$scope.next_item.permalink )
+		$scope.reservedWords = ['admin' , 'my' , 'checkout' , 'service' , 'download-center' , 'blog' , 'page' ,'lesson' , 'lessons' , 'download' , 'sign' , 'support' , 'support-tickets' , 'support-ticket','thankyou', 'thank-you'];
+		if( !$scope.next_item.permalink || ($scope.reservedWords.indexOf($scope.next_item.permalink) >= 0) )
 		{
 			$scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title );
 		}
