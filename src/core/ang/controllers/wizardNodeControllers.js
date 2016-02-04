@@ -1002,7 +1002,8 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 	$scope.setPermalink = function( $event )
 	{
-		if( !$scope.next_item.permalink )
+		$scope.reservedWords = ['admin' , 'my' , 'checkout' , 'service' , 'download-center' , 'blog' , 'page' ,'lesson' , 'lessons' , 'download' , 'sign' , 'support' , 'support-tickets' , 'support-ticket','thankyou', 'thank-you'];
+		if( !$scope.next_item.permalink || ($scope.reservedWords.indexOf($scope.next_item.permalink) >= 0) )
 		{
 			$scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title );
 		}
@@ -1212,7 +1213,7 @@ app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filte
 	$scope.current_node = $scope.$parent;
 	$scope.site_options = {};
 
-	$scope.init = function( id, node )
+	$scope.init = function(  )
 	{
 		//if(!node.completed){
 		Restangular.all( "siteMetaData" ).customGETLIST( "getOptions", [ 'site_logo', 'logo_url' ] ).then( function( response )
@@ -1225,6 +1226,8 @@ app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filte
 		} );
 		//}
 	}
+
+	$scope.init();
 
 	$scope.save = function()
 	{
@@ -1379,6 +1382,7 @@ app.controller( 'lockContentWizardController', function( $scope, $rootScope, $fi
 		}, "lock" ).then( function( response )
 		{
 			toastr.success( "Content Locked" );
+			
 			$scope.current_node.extras = { "access_level": response.id };
 			$rootScope.access_level_hash = response.hash;
 			$rootScope.parent_wizard.next( 3, $scope.current_node );
