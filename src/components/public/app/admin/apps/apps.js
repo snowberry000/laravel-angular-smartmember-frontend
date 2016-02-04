@@ -13,6 +13,9 @@ app.config( function( $stateProvider )
 
 app.controller( "appsController", function( $scope, $rootScope, $localStorage, $state )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_apps' ) == -1 )
+        $state.go('public.app.site.home');
+
 	if( $rootScope.is_not_allowed )
 	{
 		//$state.go( 'public.administrate.team.dashboard' );
