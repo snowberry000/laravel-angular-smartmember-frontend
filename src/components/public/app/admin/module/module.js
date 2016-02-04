@@ -12,6 +12,8 @@ app.config( function( $stateProvider )
 
 app.controller( "ModuleController", function( $scope, smModal , $rootScope, $localStorage, $state, $stateParams,  Restangular, toastr )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
 
 	$scope.init=function(){
 		if( !$module.id )

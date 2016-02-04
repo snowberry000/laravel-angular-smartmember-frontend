@@ -12,6 +12,9 @@ app.config( function( $stateProvider )
 
 app.controller( "PostController", function( $scope, $localStorage, $stateParams, $rootScope, $timeout, $location,smModal ,$state,  $filter, Restangular, toastr, Upload )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$site = $rootScope.site;
 	$user = $rootScope.user;
 	$next_item = null;
