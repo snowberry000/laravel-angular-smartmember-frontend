@@ -68,7 +68,7 @@ app.controller("smartMailListController", function ($scope,smModal,$rootScope, $
 			return next_item.id === parseInt(id);
 		} );
 
-		itemWithId.remove().then( function()
+		Restangular.one( 'emailSubscriber/unsubscribeList' ).customPOST({subscriber: itemWithId, list_id: $stateParams.id}).then( function()
 		{
 			$scope.data = _.without( $scope.data, itemWithId );
 		} );
