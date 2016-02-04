@@ -12,9 +12,6 @@ app.config( function( $stateProvider )
 
 app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootScope, $state,$localStorage, $location, Restangular, $filter , smMembers)
 {
-    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
-        $state.go('public.app.site.home');
-
 	if( $stateParams.id )
 	{
 		Restangular.one( 'site', $stateParams.id ).then( function( response )

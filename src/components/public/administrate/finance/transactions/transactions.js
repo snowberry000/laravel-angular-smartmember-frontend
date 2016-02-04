@@ -39,7 +39,10 @@ app.controller( 'TransactionsController', function( $scope, $rootScope, $localSt
 	} );
 
 	$scope.paginate = function(search) {
-		if (search)
+		if (search && $scope.query.length<3){
+			return;
+		}
+		if (search && $scope.query.length)
 		{
 			$scope.pagination.current_page = 1;
 		}
