@@ -11,8 +11,8 @@
 
 			<div class="ui section divider"></div>
 
-			<div ng-if="data.length>0">
-				
+			<div ng-if="data.length>0 && !loading">
+
 				<div class="ui icon input">
 					<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 					<i class="search icon"></i>
@@ -83,8 +83,8 @@
 					</tfoot>
 				</table>
 			</div>
-			<div ng-if="data.length==0">
-					<h4>No downloads to displays</h4>
+			<div ng-if="data.length==0 && !loading">
+					No downloads to displays
 			</div>
 		</div>
 	</div>
