@@ -277,7 +277,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 				$scope.agentChange();
 			}
 
-			if( true )
+			if( (typeof $scope.reply.message != 'undefined' && $scope.reply.message != '') || ($scope.reply.attachment != '' && typeof $scope.reply.attachment != 'undefined')  )
 			{
 				$scope.send_email = $scope.change_ticket_status == $scope.ticket.status;
 				$scope.reply.send_email = $scope.send_email;
