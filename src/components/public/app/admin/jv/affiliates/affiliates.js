@@ -34,7 +34,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 	{
 		if( new_value != old_value )
 		{
-			$scope.paginate();
+			$scope.paginate(true);
 		}
 	} );
 

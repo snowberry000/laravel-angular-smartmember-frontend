@@ -10,13 +10,13 @@
 			</div>
 
 			<div class="ui section divider"></div>
-			<div ng-show="data.length == 0 && !query">No affiliates created</div>
+			<div ng-show="data.length == 0 && !query && !loading">No affiliates created</div>
 			<div ng-show="data.length > 0 || query">
 				<div class="ui icon input">
 					<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 					<i class="search icon"></i>
 				</div>
-				
+
 				<div class="inline fields">
 					<label for="fruit">Sort By:</label>
 					<div class="field">
@@ -108,9 +108,6 @@
 						</tr>
 					</tfoot>
 				</table>
-			</div>
-			<div ng-if="data.length==0 && !loading">
-				No affiliates created yet.
 			</div>
 		</div>
 	</div>

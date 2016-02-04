@@ -10,8 +10,10 @@
 			</div>
 
 			<div class="ui section divider"></div>
-
-			<div ng-if="data.length > 0 && !loading">
+			<div ng-show="data.length==0 && !loading && !query">
+				No modules created yet.
+			</div>
+			<div ng-show="data.length > 0 || query">
 				<div class="ui icon input">
 					<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 					<i class="search icon"></i>
@@ -69,9 +71,7 @@
 					</tfoot>
 				</table>
 			</div>
-			<div ng-if="data.length==0 && !loading">
-				No modules to display
-			</div>
+			
 		</div>
 	</div>
 <!-- 	<div class="actions">
