@@ -91,7 +91,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	        else
 	            $scope.autoResponder.emails.push({email_id:email.id, subject:email.subject, delay:0, unit:1});
 	    }
-
+		console.log($scope.autoResponder.emails);
 	}
 
 	$scope.removeEmail = function(email_id) {
@@ -154,9 +154,9 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 
 	$scope.save = function(){
 	    
-	    console.log($scope.autoResponder);
-	    $scope.autoResponder.emails=[];
-	    $.each($(".ui.modal.active .email_item"), function (key, email) {
+	console.log($scope.autoResponder);
+	$scope.autoResponder.emails=[];
+	$.each($(".ui.modals.active .email_item"), function (key, email) {
 	        $tempEmail=$(email).data("component");
 	        $tempEmail.sort_order=key;
 	        $scope.autoResponder.emails.push($tempEmail);
