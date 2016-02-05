@@ -619,6 +619,12 @@ app.controller( 'bridgepageEngineController', function( $scope, $timeout , $loca
 		$scope.show_options = !$scope.show_options;
 	}
 
+    $scope.toggleDesktopSidebar = function()
+	{
+		smSidebar.Toggle( '.left_bp_sidebar_contents' );
+		$scope.show_options = !$scope.show_options;
+	}
+
 	$scope.toggleViewPort = function( option )
 	{
 		if( $rootScope.viewport == option )
