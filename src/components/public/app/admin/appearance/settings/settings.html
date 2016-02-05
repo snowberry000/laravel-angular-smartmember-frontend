@@ -1,0 +1,638 @@
+<div class="ui scrolling modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="configure icon"></i>
+		General Settings
+	</div>
+	<div class="content">
+		<div class="description">
+			<p>Here you can update your site's basic settings</p>
+
+			<div class="ui styled fluid accordion" sui-accordion>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					General Settings
+				</div>
+				<div class="content">
+					<div class="ui form">
+
+						<div class="two fields">
+							<div class="eight wide field">
+								<label>1. Site name</label>
+								<input type="text" ng-model="site.name" placeholder="My Awesome Site" ng-blur="setSubdomain($event)" required>
+							</div>
+
+							<div class="eight wide field">
+								<label>2. Site URL / Subdomain</label>
+
+								<div class="ui right labeled input">
+									<div class="ui label">
+										http://
+									</div>
+									<input type="text" ng-model="site.subdomain" placeholder="mysite" required>
+									<div class="ui label">
+										smartmember.com
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="field">
+							<label>Domain Mapping</label>
+
+							<div class="ui right labeled input">
+								<div class="ui label">
+									http://
+								</div>
+								<input type="text" ng-model="site.domain" placeholder="www.mysite.com" required>
+							</div>
+
+							<div class="ui ignored info message">
+								<p>
+									For advanced users, if you'd like to map this site to it's own unique domain name instead of the
+									subdomain version provided above, enter it's domain here and read
+									<a href="http://help.smartmember.com/lesson/domain-mapping" target="_blank">these instructions</a>
+									to finish configuring it.
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Welcome E-mail
+                </div>
+                <div class="content">
+                    <div class="ui form">
+
+                        <p class="bold no_bottom_margin">Customize the welcome e-mail message</p>
+
+                        <div class="sixteen wide field">
+                            <label>Set the subject for welcome e-mails</label>
+                            <input type="text" ng-model="site_options.welcome_email_subject" />
+                            <div class="ui ignored info message">
+                                <p>
+                                    Add %site_name% anywhere you would like to see the site name.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="sixteen wide field">
+                            <label>Set the content for welcome e-mails</label>
+                            <textarea froala ng-model="site_options.welcome_email_content"></textarea>
+                            <div class="ui ignored info message">
+                                <p>
+                                    Add %login_details% where you would like the login details to show up in the e-mail message.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Hide Sign Up button
+                </div>
+                <div class="content">
+                    <div class="ui form">
+
+                        <p class="bold no_bottom_margin">Hide sign up button for users who aren't logged in?</p>
+
+                        <p class="no_bottom_margin">
+                            <label class="checkbox normal">
+                                <select ng-model="site_options.hide_sign_up_button">
+                                    <option value="0" ng-selected="!site_options.hide_sign_up_button || ( site_options.hide_sign_up_button != '1' && site_options.hide_sign_up_button == 1 )">Display</option>
+                                    <option value="1" ng-selected="site_options.hide_sign_up_button == 1 || site_options.hide_sign_up_button == '1'">Hide</option>
+                                </select>
+                                Hide the sign up button
+                            </label>
+                        </p>
+
+                    </div>
+                </div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Change logo
+				</div>
+				<div class="content">
+					<div class="ui form">
+
+						<div class="inline field">
+							<label>Upload image / logo</label>
+							<button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.site_logo">
+								<i class="upload icon"></i>
+								Choose File
+							</button>
+						</div>
+						<div class="field">
+							<img class="ui fluid image" ng-src="{{site_options.site_logo}}" ng-show="site_options.site_logo">
+						</div>
+
+						<button class="ui left labeled icon button" ng-if="site_options.site_logo" ng-click="site_options.site_logo=''">
+							Clear
+							<i class="remove icon"></i>
+						</button>
+
+						<div class="field" ng-show="false">
+							<label class="col-sm-3 control-label">Logo Max Height</label>
+
+							<div class="col-sm-9">
+								<input type="text" name="logo_max_height" class="form-control input-lg"
+									   ng-model="site_options.logo_max_height" placeholder="100px">
+								<span class="help-block m-b-none">
+									Set the custom height for your logo. Default is 100px
+								</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Change favicon
+				</div>
+				<div class="content">
+
+					<div class="ui form">
+
+						<div class="field">
+							<button type="button" class="btn btn-danger set_site_logo"
+									sm-uploader="site_logo" ng-model="site_options.favicon">Choose Image
+							</button>
+							<span class="help-block m-b-none">
+								This is your site favicon which appears on the left corner of the browser tab. It must be 16 x 16
+								.ico or .png file
+							</span>
+
+							<div class="width-100 text-center">
+								<img class="site_logo_preview img-responsive img-thumbnail"
+									 ng-src="{{site_options.favicon}}" ng-show="site_options.favicon"
+									 style="width:auto;"/>
+							</div>
+							<br/>
+
+							<div class="pull-right" ng-if="site_options.favicon">
+								<a class="btn btn-danger" ng-click="site_options.favicon=''"><i
+								 class="ace-icon fa fa-remove">Remove</i></a>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Change the sitewide "Access Restricted" image
+				</div>
+				<div class="content">
+
+					<div class="ui form">
+
+						<div class="field">
+							<button type="button" class="btn btn-danger" sm-uploader="access_deny_image"
+									ng-model="site_options.access_deny_image">
+								Choose Image
+							</button>
+							<span class="help-block m-b-none">
+								This image will appear when a user doesn't have the appropriate Access Level to view protected content
+							</span>
+
+							<div class="width-100 text-center">
+								<img class="access_deny_image_preview img-responsive img-thumbnail"
+									 ng-src="{{site_options.access_deny_image}}"
+									 ng-show="site_options.access_deny_image"
+									 style="width:auto;"/>
+							</div>
+							<input type="hidden" name="access_deny_image" class="form-control input-lg"
+								   ng-model="site_options.access_deny_image">
+							<br>
+
+							<div class="pull-right" ng-if="site_options.access_deny_image">
+								<a class="btn btn-danger" ng-click="site_options.access_deny_image=''"><i
+								 class="ace-icon fa fa-remove">Remove</i></a>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Choose "Future Content" behavior
+				</div>
+				<div class="content">
+
+					<div class="ui form">
+
+						<p class="bold no_bottom_margin">Display content availability publicly?</p>
+
+						<p>Sometimes you may want to show your users how soon the content will be available publicly in your syllabus if you
+							choose to drip feed it. Enable that settings here:
+						</p>
+
+						<p class="no_bottom_margin">
+							<label class="checkbox normal">
+								<input type="checkbox" id="" name="" ng-model="site_options.display_dripfeed_text">
+								Display content availability publicly
+							</label>
+						</p>
+
+					</div>
+				</div>
+
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Facebook Sharing Settings
+				</div>
+				<div class="content">
+
+					<div class="ui form">
+						<div>
+							<div class="row">
+								<div class="col-md-12 animated-panel fadeInDown"
+									 style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+									<div class="hpanel hbgblue">
+										<div class="panel-body">
+
+											<div class="row">
+												<div class="col-md-2 border-right animated-panel zoomIn"
+													 style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
+													<i class="pe-7s-display1 fa-5x" style="font-size:11em;"></i>
+												</div>
+												<div class="col-md-8 col-md-offset-1 animated-panel zoomIn"
+													 style="animation-delay: 0.4s; -webkit-animation-delay: 0.4s;">
+													<div class=" m-b-md">
+														<h3 class="ui header">Facebook Sharing Settings</h3>
+
+														<p>Choose how your site looks when you share it on Facebook.</p>
+													</div>
+												</div>
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 animated-panel zoomIn"
+									 style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
+									<div class="hpanel">
+										<div class="list-group" style="margin:0px;">
+										</div>
+										<div class="panel-body">
+
+											<form method="get" class="ui form save_form" ng-submit="saveFacebook()">
+												<div class="field">
+													<label class="col-sm-2 control-label">Site Title</label>
+
+													<div class="col-sm-10">
+														<input type="text" name="fb_share_title" class="form-control input-lg"
+															   ng-model="site_options.fb_share_title">
+														<span class="help-block m-b-none">
+															This is the title that will show up for your site when it is shared on Facebook.
+														</span>
+													</div>
+												</div>
+												<div class="hr-line-dashed"></div>
+												<div class="field">
+													<label class="col-sm-2 control-label">Site Description</label>
+													<div class="col-sm-10">
+														<textarea type="text" name="fb_share_description" class="form-control"
+																  ng-model="site_options.fb_share_description"></textarea>
+														<span class="help-block m-b-none">
+															This is the description that will be used for your site when it is shared on Facebook.
+														</span>
+													</div>
+												</div>
+												<div class="hr-line-dashed"></div>
+												<div class="field">
+													<label class="col-sm-2 control-label">Share Image</label>
+
+													<div class="col-sm-10">
+														<button type="button" class="btn btn-danger"
+																sm-uploader="fb_share_image" ng-model="site_options.fb_share_image">Choose
+															Image
+														</button>
+														<span class="help-block m-b-none">
+															This is the image that will be used by default when you share Urls to your site on Facebook. If set, individual lesson and page sharing settings will be used for those lessons and pages that have them.
+														</span>
+
+														<div class="width-100 text-center">
+															<img ng-show="site_options.fb_share_image" sm-uploader="fb_share_image" ng-model="site_options.fb_share_image"
+																 class="fb_share_image_preview img-responsive img-thumbnail"
+																 ng-src="{{site_options.fb_share_image}}"
+																 style="width:auto; cursor: pointer;"/>
+														</div>
+														<input type="hidden" name="fb_share_image" class="form-control input-lg"
+															   ng-model="site_options.fb_share_image">
+													</div>
+												</div>
+												<div class="hr-line-dashed"></div>
+												<!-- <div class="field">
+													<div class="col-sm-8 col-sm-offset-2">
+														<button class="btn btn-brand save_changes" type="submit">Save changes</button>
+													</div>
+												</div> -->
+											</form>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Ad Tracking Settings
+				</div>
+				<div class="content">
+
+					<div class="ui form">
+						<div id="post_col" class="col span_6_of_6" ng-init="init()">
+
+							<form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
+
+								<h2 class="ui header">Google Analytics Tracking ID (UA Code)</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="google_analytics_id" class="no_bottom_margin" ng-model="site_options.google_analytics_id"/>
+								</p>
+								<hr>
+								<h2 class="ui header">Facebook Pixel ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="facebook_conversion_pixel" class="no_bottom_margin" ng-model="site_options.facebook_conversion_pixel"/>
+								</p>
+								<hr>
+								<h2 class="ui header">Bing ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="bing_id" class="no_bottom_margin" ng-model="site_options.bing_id"/>
+								</p>
+								<hr>
+								<h2 class="ui header">Google Webmaster Verification ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="google_webmaster_tag" class="no_bottom_margin" ng-model="site_options.google_webmaster_tag"/>
+									<small>For example: O7Iba-qgK7C6MEywEoku4RkTXRbFKxvXHQpGdnuu***</small>
+								</p>
+								<hr>
+								<h2 class="ui header">Bing Webmaster Verification ID</h2>
+								<p class="small_bottom_margin">
+									<input type="text" name="bing_webmaster_tag" class="no_bottom_margin" ng-model="site_options.bing_webmaster_tag"/>
+									<small>For example: 0FC3FD705126161B0252E755A56</small>
+								</p>
+							</form>
+
+						</div>
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Access Level Share Keys (advanced)
+				</div>
+				<div class="content">
+
+					<div class="ui form">
+						<div id="" class="col span_6_of_6">
+
+							<h4 class="ui header">Add a New Key</h4>
+							<div class="field">
+								<div class="col-sm-8">
+									<input type="text" class="form-control input-lg" ng-model="key">
+								</div>
+								<div class="col-sm-4">
+									<div class="ui black deny button close" ng-click="saveNewKey()">
+										Add Key
+									</div>
+								</div>
+							</div>
+
+							<table class="ui fixed single line celled stackable table" data-page-size="15">
+								<thead>
+									<tr>
+										<th data-hide="title">Key</th>
+										<th data-hide="title">Original Site Name</th>
+										<th data-hide="title">Original Site URL</th>
+										<th data-hide="date">Date</th>
+										<th class="text-right" data-sort-ignore="true">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="next_item in keys">
+										<td>
+											{{next_item.key}}
+										</td>
+										<td>
+											{{next_item.originate_site.name}}
+										</td>
+										<td>
+											{{next_item.originate_site.subdomain}}.smartmember.com
+										</td>
+										<td>
+											{{moment.utc(next_item.created_at).fromNow()}}
+										</td>
+										<td class="text-right">
+											<!--<button class="btn btn-danger btn-outline btn-sm ng-scope" ng-click="delete(next_item.id)">
+												Delete
+												<i class="fa fa-trash"></i>
+											</button> -->
+
+										</td>
+									</tr>
+
+								</tbody>
+								<tfoot>
+									<tr>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Finance Settings
+				</div>
+				<div class="content">
+					<div class="card clearfix content_post">
+					    <div id="post_col" class="col span_6_of_6" ng-init="init()">
+
+					        <form ng-submit="save()" class="save_form" accept-encoding="UTF-8">
+
+					            <h2 class="ui header">Default Currency</h2>
+					            <p class="small_bottom_margin">
+					            <div class="field">
+					                <label class="col-sm-4 control-label">Currency</label>
+					                <div class="col-sm-8">
+					                    <select ng-model="site_options.currency" class="form-control input-lg">
+					                        <option value="USD">$ - US Dollar</option>
+					                        <option value="GBP">&pound; - British Pound</option>
+					                        <option value="EUR">&euro; - Euro</option>
+					                        <option value="CAD">$ - Canadian Dollar</option>
+					                        <option value="AUD">$ - Australian Dollar</option>
+					                        <option value="HKD">$ - Hong Kong Dollar</option>
+					                    </select>
+					                </div>
+					            </div>
+					            </p>
+					        </form>
+
+					    </div>
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Syllabus Settings
+				</div>
+				<div class="content" >
+					<div class="card clearfix content_post">
+					    <div id="post_col" class="col span_6_of_6" >
+					    	Adjust the visibility of the lessons should be open by default or hidden<br><br>
+					    	<input type="checkbox" ng-checked="site_options.default_syllabus_closed==true" ng-model="site_options.default_syllabus_closed" > Keep the lessons hidden by default<br>
+					    </div>
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Support Settings
+				</div>
+				<div class="content" >
+					<div class="card clearfix content_post">
+					    <h4 class="ui header">Default Support Email</h4>
+					    <div class="field">
+					    	<div class="col-sm-8">
+					    		<input type="text" class="form-control input-lg" ng-model="site_options.default_support_email">
+					    	</div>
+					    </div>
+					</div>
+					<div class="card clearfix content_post">
+					    <h4 class="ui header">Default Support Name</h4>
+					    <div class="field">
+					    	<div class="col-sm-8">
+					    		<input type="text" class="form-control input-lg" ng-model="site_options.default_support_name">
+					    	</div>
+					    </div>
+					</div>
+				</div>
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Site Notices Settings
+				</div>
+				<div class="content" >
+					<div class="card clearfix content_post">
+						<h4 class="ui header">Enable lesson notices</h4>
+						<div class="field">
+							<div class="col-sm-8">
+								<div class="ui checkbox" ng-model="site_options.enable_lesson_notices" sui-checkbox>
+									<input type="checkbox" tabindex="0" class="hidden">
+									<label>Enable</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card clearfix content_post">
+						<h4 class="ui header">Enable site notices</h4>
+						<div class="field">
+							<div class="col-sm-8">
+								<div class="ui checkbox" ng-model="site_options.enable_site_notices" sui-checkbox>
+									<input type="checkbox" tabindex="0" class="hidden">
+									<label>Enable</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Hide Smart Member Logo
+                </div>
+                <div class="content" >
+                    <div class="card clearfix content_post">
+                        <div class="field">
+                            <div class="col-sm-8">
+                                <div class="ui checkbox" ng-model="site_options.hide_sm_logo" sui-checkbox>
+                                    <input type="checkbox" tabindex="0" class="hidden">
+                                    <label>Hide</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Copyright Options
+                </div>
+                <div class="content" >
+                    <div class="ui form">
+                        <div class="field">
+                            <div class="ui checkbox" ng-model="site_options.show_copyright" sui-checkbox>
+                                <input type="checkbox" tabindex="0" class="hidden">
+                                <label>Show</label>
+                            </div>
+                        </div>
+                        <div class="field" ng-if="site_options.show_copyright == 1 || site_options.show_copyright == '1'">
+                            <label>Text to display after copyright (optional)</label>
+                            <input type="text" ng-model="site_options.after_copyright">
+                        </div>
+                    </div>
+                </div>
+
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Thank you Page Settings
+				</div>
+				<div class="content" >
+					<div class="card clearfix content_post" style="margin:10px"><input type="checkbox" ng-checked="site_options.thankyou_use_custom" ng-model="site_options.thankyou_use_custom"></input> Use Customized settings on Thank you page!</div>
+					<span  style="margin-left:10px">Disable default thank you page to see custom settings!</span>
+					<div class="card clearfix content_post" style="margin:10px" >
+					    <h4 class="ui header">Title</h4>
+					    <div class="field">
+					    	<div class="col-sm-8">
+					    		<input type="text" class="form-control input-lg" ng-model="site_options.thankyou_title">
+					    	</div>
+					    </div>
+					</div>
+					<div class="card clearfix content_post"  style="margin:10px">
+					    <h4 class="ui header">Content</h4>
+					    <div class="field">
+					    	<div class="col-sm-8">
+					    		<textarea froala ng-model="site_options.thankyou_content"></textarea>
+					    	</div>
+					    </div>
+					</div>
+					<div class="card clearfix content_post"  style="margin:10px">
+						<h4>Upload Thank you image</h4>
+						<button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.thankyou_image">
+							<i class="upload icon"></i>
+							Choose File
+						</button>
+						<button ng-if="site_options.thankyou_image" class="ui left labeled icon button" ng-click="site_options.thankyou_image = ''">
+							Clear
+							<i class="remove icon"></i>
+						</button>
+						<div ng-if="site_options.thankyou_image" style="margin:10px">
+							<img class="ui large image" ng-src="{{site_options.thankyou_image}}" style="max-width:100%;">
+						</div>
+						<span  style="margin-left:10px">Site logo will be displayed by default if no image is uploaded</span>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
+			Close
+		</div>
+		<a ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</a>
+	</div>
+</div>
+
+
+

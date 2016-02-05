@@ -1,0 +1,106 @@
+<div class="sixteen wide column" ng-if="!loading">
+	<div class="column">
+		<div class="ui compact segment basic">
+			<h2 class="ui header headline_text_color">
+				Ticket #{{ticket.id}}: {{ticket.subject}}
+			</h2>
+		</div>
+	</div>
+</div>
+<div class="twelve wide column">
+
+	<div class="ui piled segment section_background_color">
+
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui text loader">Loading</div>
+		</div>
+
+		<a class="ui red ribbon label">status: {{ticket.status}}</a>
+		<a class="ui tag label">created: {{moment(ticket.created_at).format('ll')}}</a>
+
+
+		<div class="ui comments" style="max-width:none;">
+			<div class="comment">
+				<a class="avatar">
+					<img src="{{ticket.user.profile_image ? ticket.user.profile_image : 'http://www.gravatar.com/avatar/' + ticket.user.email_hash + 'd=mm'}}">
+				</a>
+				<div class="content">
+					<a class="author">{{ticket.user.first_name || ticket.user.last_name ? ticket.user.first_name + ' ' + ticket.user.last_name : ticket.user.email}}</a>
+					<div class="metadata">
+						<div class="date">{{moment.utc(ticket.created_at).fromNow()}}</div>
+					</div>
+					<div class="text fr-view" dynamic="autop( linkify( ticket.message ) )">
+					</div>
+					<div class="actions" ng-if="ticket.attachment">
+						<a class="ui label" href="{{ticket.attachment}}" target="_blank">
+							{{ticket.attachment.split('/').pop()}}
+							<i class="fa fa-external-link icon"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="comment" ng-repeat="reply in ticket.reply">
+				<a class="avatar">
+					<img src="{{reply.user.profile_image ? reply.user.profile_image : 'http://www.gravatar.com/avatar/' + reply.user.email_hash + '?d=mm'}}">
+				</a>
+				<div class="content">
+					<a class="author">{{reply.user.first_name || reply.user.last_name ? reply.user.first_name + ' ' + reply.user.last_name : reply.user.email}}</a>
+					<div class="metadata">
+						<div class="date">{{moment.utc(reply.created_at).fromNow()}}</div>
+					</div>
+					<div class="text fr-view" dynamic="autop( linkify( reply.message ) )">
+					</div>
+
+					<div class="actions" ng-if="reply.attachment">
+						<a class="ui label" href="{{reply.attachment}}" target="_blank">
+							{{reply.attachment.split('/').pop()}}
+							<i class="fa fa-external-link icon"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<h4 class="ui horizontal divider header">
+				<i class="fa fa-edit icon"></i>
+				Add Reply
+			</h4>
+
+			<form class="ui reply form">
+				<div class="field">
+					<textarea froala ng-model="reply.message" placeholder="Type a message"></textarea>
+				</div>
+				<div class="field">
+					<a class="ui label" ng-href="reply.attachment" target="_blank" ng-show="reply.attachment">
+						{{reply.attachment.split('/').pop()}}
+						<i class="fa fa-external-link icon"></i>
+						<i class="red fa fa-times" ng-click="reply.attachment=''"></i>
+					</a>
+				</div>
+
+				<div class="ui grid">
+					<div class="row">
+						<div class="column">
+							<div class="ui primary labeled icon right floated button" ng-click="sendReply('solved')">
+								<i class="icon fa fa-check"></i> Submit & Mark Complete
+							</div>
+							<div class="ui primary labeled icon right floated button" ng-click="sendReply()">
+								<i class="icon fa fa-edit"></i> Submit
+							</div>
+							<div class="ui labeled icon button" sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment">
+								<i class="icon fa fa-paperclip"></i> Add attachment
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+
+</div>
+<div class="four wide column">
+
+	<div ng-include="'templates/components/public/app/site/common/sidebar.html'"></div>
+
+</div>

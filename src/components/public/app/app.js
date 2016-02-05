@@ -4,47 +4,88 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app", {
-			templateUrl: 'templates/components/public/app/app.html',
-			controller: "AppController",
+			sticky: true,
+			abstract: true,
+			views: {
+				'base': {
+					templateUrl: '/templates/components/public/app/app.html',
+					controller: "AppController"
+				},
+				'extra': {
+					template: ""
+				}
+			},
 			resolve: {
 				$site: function( Restangular )
 				{
 					return Restangular.one( 'site', 'details' ).get();
 				},
-
 			}
 		} )
 } );
 
-app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
+app.controller( "AppController", function( $scope, $state, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
 	$rootScope.site = $site;
 
-	var intercom = _.findWhere( $scope.site.app_configuration, { type: 'intercom' } );
+	console.log($site);
+
+    var intercom;
+
+    if( location.href.indexOf( '://my.smartmember.') == -1 ) {
+        intercom = _.findWhere($scope.site.app_configuration, {type: 'intercom'});
+
+        if( intercom ) {
+            intercom.meta = {};
+
+            if (intercom.meta_data) {
+                angular.forEach(intercom.meta_data, function (value) {
+                    intercom.meta[value.key] = value.value;
+                });
+            }
+        }
+
+    } else {
+        intercom = {type: 'intercom', username: 'd0qzbbdk', meta: { enable_support: 1 } };
+    }
+
+
+    //If User is SM Customer and doesn't have Intercom configuration, then brute force these settings:
+    if ($site.is_customer && !_.findWhere($scope.site.app_configuration, {type: 'intercom'}) && $localStorage.user && $localStorage.user.id) {
+    	var intercomData = {
+		    app_id: "d0qzbbdk",
+		    name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
+			email: $localStorage.user.email,
+			created_at: moment( $localStorage.user.created_at ).unix()
+		};
+    	window.intercomSettings = intercomData;
+		window.Intercom( 'boot', intercomData);
+		intercom = false;
+    }
+
+
 
 	if( intercom )
 	{
-		//we are disabling support for now, we'll probably add some integration settings in the future to allow this
-		if( $localStorage.user && $localStorage.user.id && $localStorage.user.sm_user )
+		if( $localStorage.user && $localStorage.user.id && intercom.meta && intercom.meta.enable_support && intercom.meta.enable_support != '0' )
 		{
 			var intercomData = {
 				app_id: intercom.username,
 				name: $localStorage.user.first_name + " " + $localStorage.user.last_name,
 				email: $localStorage.user.email,
-				setup_wizard_complete: $localStorage.user.setup_wizard_complete,
 				created_at: moment( $localStorage.user.created_at ).unix()
 			};
+
 			window.Intercom( 'boot', intercomData );
 		}
 		else
 		{
-			console.log( 'we should be trying to boot up:::', intercom.username );
 			window.Intercom( 'boot', { app_id: intercom.username } );
 		}
+
 	}
 
-	console.log( intercom );
-
+	//console.log( intercom );
 
 	$rootScope.page_title = $site.name;
 	//$rootScope.page_title = 'chanbged title';
@@ -71,7 +112,6 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			$rootScope.access_levels = response;
 		} )
 	}
-
 
 	$scope.ShouldSuiHandleEmbed = function( embed_code )
 	{
@@ -103,7 +143,9 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			}
 
 			if( domain.indexOf( 'vimeo.com' ) > -1 )
+			{
 				return true;
+			}
 		}
 
 		return false;
@@ -157,7 +199,9 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 			if( value.type == 'banner' )
 			{
 				if( value.banner != undefined )
+				{
 					$scope.bannerView( value.banner.id );
+				}
 			}
 		} );
 		$rootScope.site.configured_app = [];
@@ -349,4 +393,4 @@ app.controller( "AppController", function( $scope, $site, $rootScope, $filter, $
 	$scope.initPublicSite();
 	$scope.resolve();
 
-} );
+});

@@ -6,11 +6,14 @@ app.config( function( $stateProvider )
 		.state( "public.sign.in", {
 			url: "/in/:hash?",
 			templateUrl: "/templates/components/public/sign/in/in.html",
-			controller: 'InController'
+			controller: 'InController',
+			params : {
+				reset : 0
+			}
 		} )
 } );
 
-app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http , close, smEvent )
+app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http, smEvent)
 {
 
 	$rootScope.page_title = "Smart member";
@@ -63,6 +66,9 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 
 	}
 
+	console.log('resetFlag:');
+	console.log($stateParams.reset);
+
 	if( $stateParams.reset && $stateParams.reset == 1 )
 	{
 		$scope.reset_sent = 1;
@@ -88,9 +94,11 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 			{
 				$rootScope.redirectedFromLoginMessage = false;
 				window.location.href = $localStorage.accessed_url;
-			}else if($stateParams.close && $localStorage.add_user_to_site){
+			}
+			else if( $stateParams.close && $localStorage.add_user_to_site )
+			{
 				$scope.$storage.user = response;
-				close(response);
+				//close( response );
 			}
 		} );
 	};
@@ -126,21 +134,31 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 			}
 			else
 			{
-				if( $state.current.name == 'public.sign.in' || $state.current.name == 'public.sign.in2' )
+				if( $rootScope.isSitelessPage('my') )
 				{
-					// $state.transitionTo($state.current , $stateParams , {
-					//    reload: 'public.app' , inherit : false , location : false
-					// });
-					$state.go( 'public.app.home', {show_modal: false}, { reload: true,location:false } );
-					smModal.Close();
+					$state.go( 'public.my', null, {reload:true});
 				}
+				else if( $rootScope.isSitelessPage('www') )
+				{
+					//$state.go( 'public.www.home', null, {reload:true});
+					window.location.href = 'http://'+$location.host();
+				}
+                else if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
+                {
+                    window.location.href = 'http://' + 'my.smartmember.' + $rootScope.app.rootEnv;
+                }
 				else
 				{
 					$rootScope.modal_popup_template = false;
 					//location.reload(true);
-					console.log('current state', $state.current.name);
-					$state.go( $state.current, $stateParams, { reload: true, location:false } );
-					smModal.Close();
+					console.log( 'current state', $state.current.name );
+					
+					//$rootScope.CloseExtraState();
+					console.log('last base state');
+					$rootScope.last_base_state.state = {};
+					console.log($rootScope.last_base_state.state);
+					$state.transitionTo('public.app.site.home', {}, { reload: true, inherit: true, notify: true });
+
 					return;
 				}
 			}

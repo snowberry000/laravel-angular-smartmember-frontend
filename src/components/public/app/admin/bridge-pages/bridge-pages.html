@@ -1,0 +1,71 @@
+<div class="ui large modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="globe icon"></i>
+		My BridgePages
+	</div>
+	<div class="content">
+		<div class="description relative">
+
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<div class="ui ignored info message">
+				<p>Bridge Pages are your "marketing" pages. They are stand-alone designed pages used to collect
+					leads or inform visitors of something - like a product, service, update, video, you name it!
+					They exist on their own url's and stand separate from your site's normal theme.
+				</p>
+			</div>
+
+			<div class="ui section divider"></div>
+
+			<div class="ui divided items">
+				<div class="item" dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+					<div class="ui medium image">
+						<img src="{{next_item.featured_image || '/images/image.png'}}">
+					</div>
+					<div class="middle aligned content">
+						<a class="header" ng-href="/{{next_item.permalink}}" target="_blank">
+							{{next_item.permalink}}
+							<i class="external link icon"></i>
+						</a>
+						<div class="extra">
+							<div class="ui right floated buttons">
+								<div class="ui button" ui-sref="public.app.admin.bridge-page({id: next_item.id })" ng-click="smModal.Close();">
+									Edit
+								</div>
+								<div class="ui floating dropdown icon button" sui-dropdown>
+									<i class="dropdown icon"></i>
+
+									<div class="menu">
+										<a class="item" ng-click="cloneBridgePage(next_item.id)">
+											<i class="copy icon"></i>
+											Copy
+										</a>
+										<a class="item" sm-delete="{{next_item.id}}">
+											<i class="delete icon"></i>
+											Delete
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-right"  ng-if="!loading && pagination.total_count > 0">
+					<dir-pagination-controls max-size="5"></dir-pagination-controls>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ng-click="CloseAdminState()" class="ui black button">
+			Close
+		</a>
+		<a ui-sref="public.app.admin.bridge-page" class="ui right labeled icon green button">
+			Create new BridgePage
+			<i class="plus icon"></i>
+		</a>
+	</div>
+</div>

@@ -1,0 +1,83 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="configure icon"></i>
+		Connected accounts
+	</div>
+	<div class="content">
+		<div class="description">
+			<div class="ui message">
+				<p>Here you can view / remove any 3rd-party accounts you've connected.</p>
+				<p>If you remove an account below, any Apps installed using that connection will be disabled.</p>
+			</div>
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+			<div class="ui three cards">
+				<div class="card" ng-repeat="account in connected_accounts">
+					<div class="content">
+						<img class="right floated mini ui image" src="{{_.findWhere( availableapp_configurations, { id: account.type }).logo }}">
+						<div class="header">
+							{{_.findWhere(availableapp_configurations,{id: account.type}).name}}
+						</div>
+						<div class="meta">
+							{{account.name ? account.name : (account.username ? account.username : account.remote_id)}}
+						</div>
+						<div class="description">
+
+							<span ng-if="account.app_configurations && account.app_configurations.length > 0">
+									Used in {{account.app_configurations.length}} integration{{account.app_configurations.length > 1 ? 's' : ''}}
+								</span>
+								<span ng-if="!account.app_configurations || account.app_configurations.length == 0">
+									Not used in any app_configurations
+								</span>
+							&#8226; Connected {{moment.utc(account.created_at).fromNow()}}
+
+						</div>
+					</div>
+					<div class="extra content">
+						<div class="ui two buttons">
+							<div class="ui basic green button" ng-click="account.editing = !account.editing">{{account.editing ? 'Close' : 'Nickname'}}</div>
+							<div class="ui basic red button" ng-click="promptRemoveAccount(account)">Remove</div>
+						</div>
+					</div>
+					<div class="content" ng-if="account.editing">
+						<div class="description">
+
+							<div class="ui form">
+								<div class="field">
+									<label>Set a nickname to identify this account by</label>
+									<input type="text" class="form-control" placeholder="Name to identify account by" ng-model="account.name" />
+								</div>
+								<div class="field" ng-if="account.type == 'paypal'">
+									<label>Paypal e-mail address</label>
+									<input type="email" class="form-control" placeholder="Paypal e-mail address" ng-model="account.remote_id" />
+								</div>
+								<div class="field" ng-if="account.type == 'facebook_app'">
+									<label>Facebook App Id</label>
+									<input type="text" class="form-control" placeholder="Facebook App Id" ng-model="account.username" />
+									<label>Facebook App Secret Key</label>
+									<input class="form-control" type="password" ng-model="account.password" />
+								</div>
+								<div class="field" ng-if="account.type == 'sendgrid'">
+									<label>Sendgrid Username</label>
+									<input type="text" class="form-control" placeholder="Sendgrid Username" ng-model="account.username" />
+									<label>Sendgrid Password</label>
+									<input class="form-control" type="password" ng-model="account.password" />
+								</div>
+								<button class="ui button" type="button" ng-click="saveAccount(account)">Save</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="actions">
+		<a ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black button">
+			Close
+		</a>
+	</div>
+</div>
+

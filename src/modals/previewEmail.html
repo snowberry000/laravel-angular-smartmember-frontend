@@ -18,13 +18,13 @@
                 <div class="header">
                     Success!
                 </div>
-                <p>Successfully sent {{success_count}} test email{{success_count > 1 ? 's' : ''}} sent! <a href="#" ng-click="cancel()">Click here</a> to close.</a></p>
+                <p>Successfully sent {{success_count}} test email{{success_count > 1 ? 's' : ''}} sent!</p>
             </div>
         </div>
     </div>
     <div class="actions">
-        <div class="ui black deny button close" ng-click="cancel()">
-            Cancel
+        <div class="ui black deny button close">
+            Close
         </div>
         <button ng-click="sendPreview()" class="ui green right labeled icon button">
             Send Now

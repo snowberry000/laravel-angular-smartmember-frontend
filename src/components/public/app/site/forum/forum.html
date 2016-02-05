@@ -1,0 +1,13 @@
+<div class="sixteen wide column">
+
+
+
+	<ui-view ng-if="site.subdomain != 'help'"></ui-view>
+    <div ng-if="site.subdomain == 'help'">
+        <div class="ui info message">
+            <h3>Forum is temporarily hidden pending a reorganization; for support, <a ui-sref="public.app.site.support-ticket">submit a ticket here</a>.</h3>
+            <h5>All topics and replies with bug reports & issues are still being fixed.</h5>
+        </div>
+    </div>
+
+</div>

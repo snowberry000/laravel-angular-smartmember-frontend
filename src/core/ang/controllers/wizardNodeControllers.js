@@ -33,6 +33,7 @@ app.controller( 'siteSettingsWizardController', function( $scope, $rootScope, $f
 		{
 			toastr.success( "Sales page saved" );
 			$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+			$scope.cancel();
 		} );
 	}
 } );
@@ -96,6 +97,7 @@ app.controller( 'sendgridWizardController', function( $rootScope, $scope, $http,
 			{
 				toastr.success( "App configuration updated!" );
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 			} );
 		}
 		else
@@ -105,6 +107,7 @@ app.controller( 'sendgridWizardController', function( $rootScope, $scope, $http,
 				toastr.success( "App configuration added!" );
 				$scope.current_integration.id = response.id;
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 			} );
 		}
 	}
@@ -170,6 +173,7 @@ app.controller( 'paypalWizardController', function( $rootScope, $scope, $http, $
 			{
 				toastr.success( "App configuration updated!" );
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 			} );
 		}
 		else
@@ -179,6 +183,7 @@ app.controller( 'paypalWizardController', function( $rootScope, $scope, $http, $
 				toastr.success( "App configuration added!" );
 				$scope.current_integration.id = response.id;
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 			} );
 		}
 	}
@@ -218,6 +223,7 @@ app.controller( 'menuWizardController', function( $rootScope, $scope, $http, $fi
 				if( ($scope.menu_items && $scope.menu_items.length) || ($scope.footer_menu_items && $scope.footer_menu_items.length) )
 				{
 					$rootScope.parent_wizard.next( id, $scope.$parent );
+					$scope.cancel();
 				}
 			} );
 		}
@@ -602,6 +608,7 @@ app.controller( 'accessWizardController', function( $rootScope, $scope, $http, $
 		{
 			toastr.success( "Access level created!" );
 			$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+			$scope.cancel();
 		} );
 	}
 
@@ -800,6 +807,7 @@ app.controller( 'postWizardController', function( $scope, $rootScope, $filter, $
 				$scope.next_item = post;
 				toastr.success( "Post has been saved!" );
 				$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+				$scope.cancel();
 
 			} );
 		}
@@ -821,6 +829,7 @@ app.controller( 'postWizardController', function( $scope, $rootScope, $filter, $
 			$scope.next_item = post;
 			toastr.success( "Post has been saved" );
 			$rootScope.parent_wizard.next( $scope.current_node.id, $scope.current_node );
+			$scope.cancel();
 		} );
 	}
 
@@ -993,7 +1002,8 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 	$scope.setPermalink = function( $event )
 	{
-		if( !$scope.next_item.permalink )
+		$scope.reservedWords = ['admin' , 'my' , 'checkout' , 'service' , 'download-center' , 'blog' , 'page' ,'lesson' , 'lessons' , 'download' , 'sign' , 'support' , 'support-tickets' , 'support-ticket','thankyou', 'thank-you'];
+		if( !$scope.next_item.permalink || ($scope.reservedWords.indexOf($scope.next_item.permalink) >= 0) )
 		{
 			$scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title );
 		}
@@ -1075,7 +1085,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 		if( !$scope.next_item.permalink  )
 		{
-			toastr.warning( 'Permalink is required!' );
+			toastr.warning( 'Title is required!' );
 			return;
 		}
 
@@ -1127,7 +1137,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		delete $scope.next_item.site;
 
 		if( !$scope.next_item.permalink ){
-			toastr.warning('Permailnk is required!');
+			toastr.warning('Title is required!');
 			return;
 		}
 
@@ -1172,6 +1182,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 				toastr.success( "Lesson has been saved" );
 				$scope.saving = false;
 				$rootScope.parent_wizard.next( 2, $scope.current_node );
+				$scope.cancel();
 			} )
 		}
 		else
@@ -1179,6 +1190,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 			toastr.success( "Lesson has been saved" );
 			$scope.saving = false;
 			$rootScope.parent_wizard.next( 2, $scope.current_node );
+			$scope.cancel();
 		}
 	}
 
@@ -1201,7 +1213,7 @@ app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filte
 	$scope.current_node = $scope.$parent;
 	$scope.site_options = {};
 
-	$scope.init = function( id, node )
+	$scope.init = function(  )
 	{
 		//if(!node.completed){
 		Restangular.all( "siteMetaData" ).customGETLIST( "getOptions", [ 'site_logo', 'logo_url' ] ).then( function( response )
@@ -1214,6 +1226,8 @@ app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filte
 		} );
 		//}
 	}
+
+	$scope.init();
 
 	$scope.save = function()
 	{
@@ -1229,6 +1243,7 @@ app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filte
 			$rootScope.options.site_logo = $scope.site_options.site_logo;
 			$rootScope.parent_wizard.next( 0, $scope.current_node );
 			$scope.saving = false;
+			$scope.cancel();
 		} );
 	}
 	$scope.cancel = function()
@@ -1279,6 +1294,7 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 			} );
 		}
 		$rootScope.parent_wizard.next( 1, $scope.current_node );
+		$scope.cancel();
 	}
 
 	$scope.add = function()
@@ -1366,9 +1382,11 @@ app.controller( 'lockContentWizardController', function( $scope, $rootScope, $fi
 		}, "lock" ).then( function( response )
 		{
 			toastr.success( "Content Locked" );
+			
 			$scope.current_node.extras = { "access_level": response.id };
 			$rootScope.access_level_hash = response.hash;
 			$rootScope.parent_wizard.next( 3, $scope.current_node );
+			$scope.cancel();
 		} );
 
 	}
@@ -1410,6 +1428,7 @@ app.controller( 'inviteMembersWizardController', function( $scope, $rootScope, $
 		Restangular.one("siteRole").customPOST($scope.members, 'import').then(function(response) {
 		    toastr.success("Import was successful");
 			$rootScope.parent_wizard.next( 4, $scope.current_node );
+			$scope.cancel();
 		} );
 	}
 

@@ -1,4 +1,4 @@
-app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParams, $rootScope, Restangular, toastr) {
+app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParams,$state, $rootScope, Restangular, toastr) {
     $site=$rootScope.site;
     var menu=$rootScope.menuType;
     var next_item=null;
@@ -10,7 +10,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     $scope.resolve = function () {
         if( $stateParams.id )
         {
-            if(menu!='footer')
+            if($state.current.name == 'public.app.admin.appearance.menu')
                 next_item = _.find($site.menu_items, function(item){ return item.id == $stateParams.id; });
             else
                 next_item = _.find($site.footer_menu_items, function(item){ return item.id == $stateParams.id; });
@@ -43,18 +43,19 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
     }
 
     $scope.deleteResource = function(id){
-        if(typeof $scope.editing_item.custom_icon != 'undefined'){
+        // alert($state.current.name);
+        if($state.current.name == 'public.app.admin.appearance.menu'){
             Restangular.one('siteMenuItem', id)
                 .remove()
                 .then(function(response){
-                    smModal.Show('public.administrate.site.appearance.menus')
+                    $state.go('public.app.admin.appearance.menus',{reloadHome : true})
                 });
         }
         else{
             Restangular.one('siteFooterMenuItem', id)
                 .remove()
                 .then(function(response){
-                    smModal.Show('public.administrate.site.appearance.menus');
+                    $state.go('public.app.admin.appearance.menus',{reloadHome : true});
                 });
         }
     }
@@ -65,7 +66,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
 
     $scope.selectUrl = function(item , selected_url , show_next){
 
-        var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
+        var api_resources = ['module', 'lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
         if(!selected_url)
             return;
         if(api_resources.indexOf(selected_url)<0)
@@ -75,26 +76,32 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
             $scope.show_next = show_next;
             item.isOpen = false;
         }
-        // else if(selected_url == 'download'){
-        //     Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-        //         var downloads = response;
-        //         downloads.forEach(function(entity){
-        //             entity.url = entity.permalink;
-        //         })
-        //         console.log(downloads)
-        //         $scope.show_next = true;
-        //         $scope.loaded_items = downloads;
+        else if(selected_url == 'post'){
+            Restangular.all('').customGET('post',{site_id: item.site_id}).then(function(response){
+                var downloads = response;
+                downloads.forEach(function(entity){
+                    entity.url = entity.permalink;
+                })
+                console.log(downloads)
+                $scope.show_next = true;
+                $scope.loaded_items = downloads;
 
-        //     })
-        // }
+            })
+        }
         else{
-            Restangular.all(selected_url).customGET('',{site_id: item.site_id , 'bypass_paging' : true}).then(function(response){
+            var params = {site_id: item.site_id};
+            if(selected_url != 'post')
+                params.bypass_paging = true;
+            Restangular.all(selected_url).customGET('' , params).then(function(response){
                 if(response.route == 'customPage')
                     response.route = 'page';
                 if(response.route == 'supportArticle')
                     response.route = 'support-article';
                 response.items.forEach(function(entity){
-                    entity.url = entity.permalink;
+                    if (selected_url == 'module')
+                        entity.url = 'module/' + entity.id;
+                    else
+                        entity.url = entity.permalink;
                 })
                 $scope.show_next = true;
                 $scope.loaded_items = response.items;
@@ -109,7 +116,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
 
         var menuType = "siteMenuItem";
 
-        if( menu == 'footer' )
+        if( $state.current.name == 'public.app.admin.appearance.footerMenuItem' )
             menuType = "siteFooterMenuItem";
         Restangular.all(menuType).customPUT($scope.editing_item, $scope.editing_item.id).then(function () {
             toastr.success("Success! Menu Item saved!");
@@ -121,7 +128,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
                 $scope.next_item['url'] = $scope.editing_item.url;
             }
 
-            smModal.Show('public.administrate.site.appearance.menus');
+            $state.go('public.app.admin.appearance.menus');
         });
     };
 });

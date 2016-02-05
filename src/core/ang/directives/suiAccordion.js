@@ -10,7 +10,7 @@ app.directive( 'suiAccordion', ['smModal', '$timeout', function( smModal, $timeo
 				{
 					$timeout( function()
 					{
-						smModal.Refresh();
+						//smModal.Refresh();
 					}, 100 );
 				}
 			} );

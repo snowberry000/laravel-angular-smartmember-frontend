@@ -9,8 +9,10 @@ app.directive('dynamic', function ($compile) {
                 var $html = $('<p>').html(html);
                 $html.find('*').removeAttr('contenteditable');
                 $html.find('iframe').each(function () {
-                    $(this).wrap('<div class="video_container"></div>');
+                    if (!$(this).hasClass('no-responsive'))
+                        $(this).wrap('<div class="video_container"></div>');
                 });
+                $('video').bind('contextmenu',function() { return false; });
                 elem.html($html.html());
                 $compile(elem.contents())(scope);
             });

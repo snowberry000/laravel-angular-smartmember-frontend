@@ -2,47 +2,51 @@
 	<div class="item">
 		<div class="header">Content</div>
 		<div class="menu">
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.lessons')">
+			<a class="item" ui-sref="public.app.admin.lessons">
 				<i class="student icon"></i>
 				{{ 'LESSONS' | translate }}
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.syllabus.modules')">
+			<a class="item" ui-sref="public.app.admin.modules">
 				<i class="student icon"></i>
 				{{ 'MODULES' | translate }}
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.blog.posts')">
+			 <a class="item" ui-sref="public.app.admin.organizer">
+                <i class="student icon"></i>
+                {{ 'ORGANIZER' | translate }}
+            </a>
+			<a class="item" ui-sref="public.app.admin.posts">
 				<i class="paragraph icon"></i>
 				{{ 'POSTS' | translate }}
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.articles')">
+			<a class="item" ui-sref= 'public.app.admin.helpdesk.articles'>
 				<i class="life ring icon"></i>
 				Articles
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.helpdesk.categories')">
+			<a class="item" ui-sref="public.app.admin.helpdesk.categories">
 				<i class="life ring icon"></i>
 				Categories
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.downloads')">
+			<a class="item" ui-sref="public.app.admin.downloads">
 				<i class="download icon"></i>
 				{{ 'DOWNLOADS' | translate }}
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.livecasts')">
+			<a class="item" ui-sref="public.app.admin.livecasts">
 				<i class="microphone icon"></i>
 				{{ 'LIVECASTS' | translate }}
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.pages.custom-pages')">
+			<a class="item" ui-sref="public.app.admin.custom-pages">
 				<i class="file text icon"></i>
 				Pages
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.membership.notices')">
+			<a class="item" ui-sref="public.app.admin.members.notices">
 				<i class="announcement icon"></i>
 				Notices
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.import')">
+			<a class="item" ui-sref="public.app.admin.import">
 				<i class="upload icon"></i>
 				{{ 'IMPORT' | translate }}
 			</a>
-			<a class="item" ng-click="smModal.Show('public.administrate.site.content.stats')">
+			<a class="item" ui-sref="public.app.admin.content.stats">
 				<i class="bar chart icon"></i>
 				{{ 'STATS' | translate }}
 			</a>

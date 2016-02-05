@@ -18,6 +18,7 @@ app.value('froalaConfig', {
         "'Times New Roman',Times,serif": 'Times New Roman',
         'Verdana,Geneva,sans-serif': 'Verdana'
     },
+    htmlRemoveTags: ['style'],
     toolbarButtons: [
                         'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|', 
                         'color', '|', 

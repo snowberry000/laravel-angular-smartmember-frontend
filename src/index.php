@@ -24,6 +24,7 @@ $data = DetectAndPerformBridgePageThings();
 	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="css/vendor.min.css">
 	<link rel="stylesheet" href="bower/footable/css/footable.core.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 	<link rel="stylesheet" href="css/main.min.css">
 	<link rel="shortcut icon" href="{{options.favicon}}" type="image/x-icon">
 	<script>
@@ -56,7 +57,7 @@ $data = DetectAndPerformBridgePageThings();
 
 <div class="ui top sidebar top_sidebar_contents" ><ng-include src="top_sidebar_contents"></ng-include></div>
 <div class="ui sidebar left left_sidebar_contents" ><ng-include src="left_sidebar_contents"></ng-include></div>
-<div id="wrapper" class="pusher" ui-view></div>
+<div id="wrapper" class="pusher {{$state.includes('public.app.admin.bridge-page') ? 'extend_scroll' : ''}}" ui-view></div>
 
 <script src="js/vendor.min.js"></script>
 
@@ -68,6 +69,7 @@ $data = DetectAndPerformBridgePageThings();
 <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script> -->
 <!--<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script>-->
 <script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
+<script type="text/javascript" src="http://zor.livefyre.com/wjs/v3.0/javascripts/livefyre.js"></script>
 
 <script src="js/main.min.js"></script>
 </body>

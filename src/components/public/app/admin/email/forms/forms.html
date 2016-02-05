@@ -1,0 +1,145 @@
+
+<div class="ui modal"><i class="close icon"></i>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox-content clear_box page-heading">
+                <div class="p-xs">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="pull-left m-r-md">
+                                <i class="fa fa-envelope-o text-branded mid-icon"></i>
+                            </div>
+                            <h2 class="ui header">{{ 'OPTIN_FORM_GENERATOR' | translate }}</h2>
+                            <span>Use this form generator if you need embed code to submit subscribers / leads through a 3rd party service.</span>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <button disabled title="Tutorial coming soon!" class="btn btn-default m-t-md" type="button">
+                                <i class="fa fa-question"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5 class="ui header">Choose settings to generate form code</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <form method="get" class="ui form">
+                        <div class="field">
+                            <label class="col-sm-2 control-label">Redirect URL</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="site_options.redirect_url" ng-change="setForm()">
+                                <span class="help-block m-b-none">This is where a subscriber will be sent after opting-in.</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="field">
+                            <label class="col-sm-2 control-label">Email List</label>
+
+                            <div class="col-sm-10">
+                                <div class='row'>
+                                    <div class='col-sm-8'>
+                                        <select class="form-control n-m-b" id="" placeholder="Email List" ng-model="emailListId"
+                                                ng-options="emailList.name for emailList in emailLists" ng-change="setForm()">
+                                        </select>
+                                    </div>
+                                    <div class='col-sm-4 ' style="margin-top:10px;">
+                                        <a ng-click='toogleListCreate()' class="ui right labeled icon button"><small class='text-small'>Create New List</small></a>
+                                        <div ng-if="showCreateList">
+                                            <label class="col-sm-2 control-label">List Name</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" ng-model="emailList.name">
+                                                <span class="help-block m-b-none">Give your list a name so you & subscribers can recognize it</span><br>
+                                                <button ng-click="createList(emailList.name)">Add List</button>
+                                                <button ng-click="toogleListCreate()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <span class="help-block m-b-none">Choose an Email List for leads to go in.</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="field">
+                            <input type="hidden" value="false" name="close_to_new_comments"/>
+                            <label class="col-sm-1 control-label"></label>
+                            <div class="col-sm-11">
+                                <div>
+                                    <label>
+                                        <input  type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="show_name_input" ng-change="setForm()">
+                                        Show name input field
+                                    </label>
+                                </div>
+                                <span class="help-block m-b-none">If this is checked, your form will include a field asking for subscribers' names</span>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="field">
+                            <input type="hidden" value="false" name="close_to_new_comments"/>
+                            <label class="col-sm-1 control-label"></label>
+                            <div class="col-sm-11">
+                                <div>
+                                    <label>
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="turn_optin" ng-change="setForm()">
+                                        Create account for leads
+                                    </label>
+                                </div>
+                                <span class="help-block m-b-none">
+                                    If this is checked, leads submitted into your form will have accounts created & emailed to them for
+                                    your site (specified below)
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed" ng-show="turn_optin"></div>
+
+                        <div class="field" ng-show="turn_optin">
+                            <label>Choose access levels you want to grant new members (optional):</label>
+                            <select multiple ng-model="site_options.access_levels" ng-options="access_level.name for access_level in access_levels" ng-change="setForm()">
+                            </select>
+                            <div class="ui info message">
+                                Choose any access levels you want to grant new users
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="ui form" ng-init="init()">
+            <div class="field">
+                <label>Form Embed Code</label>
+                <textarea ng-model="myForm"></textarea>
+            </div>
+            <button class="ui right green labeled icon button copy-button" data-clipboard-action="copy" data-text="{{myForm}}">
+                <i class="copy icon"></i>
+                Copy
+            </button>
+        </div>
+    </div>
+</div>
+<div class="actions">
+    <div ng-click="CloseAdminState()" ng-show="SiteStateExists()" class="ui black deny button close">
+        Close
+    </div>
+</div>
+</div>
+
+

@@ -58,6 +58,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			{ type: 'paypal', app_configurations: [] },
 			{ type: 'clickbank', app_configurations: [] },
 			{ type: 'intercom', app_configurations: [] },
+			{ type: 'youzign', app_configurations: [] }
 		];
 
 		angular.forEach( $scope.configured_app_configurations, function( value, key )
@@ -68,7 +69,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 
 	$scope.cancel = function()
 	{
-		smModal.Show( "public.administrate.team.app_configurations." + ($scope.integration_id ? 'list' : 'available') );
+		$state.go( "public.app.admin.apps.app_configurations." + ($scope.integration_id ? 'list' : 'available') );
 	}
 
 	$scope.initapp_configurations = function()
@@ -233,12 +234,22 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			{
 				$current_integration = response;
 				$scope.current_integration = $current_integration;
+
+                $scope.current_integration.additional_options = {};
+
+                if( $scope.current_integration.meta_data )
+                {
+                    angular.forEach( $scope.current_integration.meta_data, function( value ) {
+                        $scope.current_integration.additional_options[ value.key ] = value.value;
+                    } );
+                }
 			} );
 		}
 		else
 		{
 			$current_integration = { type: $stateParams.integration };
 			$scope.current_integration = $current_integration;
+            $scope.current_integration.additional_options = {};
 		}
 
 
@@ -353,6 +364,15 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			description: 'Allow you to import customers into SmartMember',
 			logo: '/images/app_configurations/infusion.png',
 			long_description: '<p><a href="http://www.infusionsoft.com" target="_blank">InfusionSoft</a> allows you to accept payments from the InfusionSoft affiliate platform.</p><p>Once configured, this payment method will become an available option to enable on your Products.</p>'
+		},
+		{
+			id: 'youzign',
+			name: 'YouZign',
+			short_name: 'YouZign',
+			sites_only: true,
+			description: 'Allow you to import your designs from Youzign into SmartMember',
+			logo: '/images/app_configurations/youzign.png',
+			long_description: '<p><a href="http://www.youzign.com" target="_blank">Youzign</a> allows you to quickly create graphics for your SmartMember sites. Once connected, it will allow you to imports your design from Youzign</p>'
 		},
 		{
 			id: 'paypal',
@@ -590,7 +610,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			access_token: typeof $scope.current_integration.access_token != 'undefined' ? $scope.current_integration.access_token : null,
 			remote_id: typeof $scope.current_integration.remote_id != 'undefined' ? $scope.current_integration.remote_id : null,
 			disabled: typeof $scope.current_integration.disabled != 'undefined' && $scope.current_integration.disabled != null ? $scope.current_integration.disabled : 0,
-			default: typeof $scope.current_integration.default != 'undefined' && $scope.current_integration.default != null ? $scope.current_integration.default : 0
+			default: typeof $scope.current_integration.default != 'undefined' && $scope.current_integration.default != null ? $scope.current_integration.default : 0,
+            additional_options: typeof $scope.current_integration.additional_options != 'undefined' && $scope.current_integration.additional_options ? $scope.current_integration.additional_options : {}
 		};
 
 		if($scope.current_integration.connected_account_id && data.type == 'vimeo'){
@@ -625,10 +646,12 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 					if( $scope.current_integration.type == 'sendgrid' )
 					{
 						toastr.error( "Sendgrid username and/or password is incorrect!" );
+					} else if ($scope.current_integration.type == 'youzign') {
+						toastr.error ("Invalid crentials. Please check your key again");
 					}
 					break;
 				default:
-					smModal.Show( "public.administrate.team.app_configurations.list" );
+					$state.go( "public.app.admin.apps.app_configurations.list");
 			}
 		}
 		else if( $stateParams.integration == 'vimeo' && $rootScope.vimeo_redirect_url )
@@ -638,12 +661,14 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		}
 		else
 		{
-			smModal.Show( "public.administrate.team.app_configurations.list" );
+			$state.go( "public.app.admin.apps.app_configurations.list" );
 		}
 
+        /*
 		$state.transitionTo($state.current , $stateParams , {
 			reload : true , inherit : false , location : false
 		});
+		*/
 	}
 
 	$scope.enableIntegration = function( integration_id )
@@ -735,7 +760,7 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 			Restangular.one( 'appConfiguration', integration_id ).remove().then( function()
 			{
 				toastr.success( "Integration was removed" );
-				smModal.Show( "public.administrate.team.app_configurations.list" );
+				$state.go( "public.app.admin.apps.app_configurations.list" );
 			} );
 		} );
 	}

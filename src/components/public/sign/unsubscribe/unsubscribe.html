@@ -4,7 +4,7 @@
     </div>
     <div class="image content">
         <div class="ui medium image">
-            <img ng-show="options.site_logo" ng-src="{{options.site_logo}}">
+            <img ng-show="site.meta.site_logo" ng-src="{{site.meta.site_logo}}">
         </div>
         <div class="description">
 
@@ -18,11 +18,20 @@
                 <p ng-hide="emailLists.length == 0">Select the lists to unsubscribe</p>
 
                 <form class="save_form">
+
                     <p class=" small_bottom_margin">
+                        <label ng-if="site">
+                            <input type="checkbox" name="emailsList" ng-model="$parent.site_emails" ng-true-value="1" ng-false-value="0" ng-checked="site_emails == 1 || site_emails == '1'">
+                            E-mails sent to members of {{site.name ? site.name : 'http://' + site.subdomain + '.smartmember.com'}}
+                            <br />
+                            *doesn't include notification e-mails such as support ticket or purchase notifications
+                            <br>
+                        </label>
+
                         <label ng-repeat="emailList in emailLists">
-                            <input type="checkbox" name="emailsList"
-                                   ng-model="emailList.checked">
+                            <input type="checkbox" name="emailsList" ng-model="emailList.checked">
                             {{emailList.name}}
+                            <br>
                         </label>
                     </p>
 

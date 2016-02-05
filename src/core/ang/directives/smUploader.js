@@ -19,7 +19,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 				scope.privacy = attr.privacy ? attr.privacy : false;
 				var hideLink = attr.hidelink ? attr.hidelink : false;
 				scope.testLink = 'https://testtest.com';
-
+				var hide_media = attr.ngAwskey ? true : false;
 				if( post )
 				{
 					var rest = Restangular.all( post );
@@ -29,7 +29,7 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 
 				ModalService.showModal(
 					{ templateUrl: 'templates/modals/newMediaItem.html', controller: 'modalMediaController', inputs: {
-					$stateParams: {"closeOnModalCompletion": closeOnModalCompletion }
+					$stateParams: {"closeOnModalCompletion": closeOnModalCompletion , "hide_media" : hide_media}
 				} }
 				).then( function( modal ){
 						modal.element
@@ -71,11 +71,10 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 								}
 							}
 
-							$timeout( function()
-							{
-								smModal.Refresh();
-							}, 1000 );
-
+							// $timeout( function()
+							// {
+							// 	smModal.Refresh();
+							// }, 1000 );
 
 							if( rest )
 							{
@@ -152,16 +151,45 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 	};
 } );
 
-app.controller( 'modalMediaController', function( $scope, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
+app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
 {
 	console.log( $rootScope.subdomain == 'my');
+	$scope.hide_media = $stateParams.hide_media;
+	$scope.media_files = [];
+	$scope.youzign_files = [];
 	if($localStorage.user && $localStorage.user.access_token && $rootScope.subdomain != 'my')
 		Restangular.service('media')
 			.getList()
 			.then(function(response){
-				$scope.media_files = response;
+				angular.forEach(response, function(item){
+					if (item.type == 'image')
+					{
+						$scope.media_files.push(item);
+					} else if (item.type == 'youzign')
+					{
+						$scope.youzign_files.push(item);
+					}
+				})
+
 			});
 	
+	$scope.getFileType =function($url) {
+		$str = $url.split('.');
+		if($str.length >=1)
+			return $str[$str.length-1];
+		else
+			return ' ';
+	}
+
+	$scope.getFileName =function($url) {
+		$url = decodeURI($url);
+		$str = $url.split('/');
+		if($str.length >=1)
+			return $str[$str.length-1];
+		else
+			return " ";
+	}
+
 	$scope.loading = false;
 	$scope.cancel = function()
 	{
@@ -183,6 +211,7 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
 
 	$scope.select = function(media){
 		close({file: media.source});
+		$( '.ui.modal.upload' ).modal( 'hide' );
 	}
 
 	$scope.upload = function( files )
@@ -191,9 +220,20 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
 		if( files )
 		{
 			console.log( files.name );
+			if(files.name.indexOf('.exe')>=0)
+			{
+				toastr.error("file cant be uploaded");
+				$( '.ui.modal.upload' ).modal( 'hide' );
+
+				return;
+				
+			}
+
 			$scope.loading = true;
 			//for (var i = 0; i < files.length; i++) {
 			var file = files;
+			//console.log('file');
+			//console.log(file);
 			Upload.upload( {
 					url: $scope.app.apiUrl + '/utility/upload' +  ( $scope.privacy ? '?private=' + $scope.privacy : '' ),
 					file: file
@@ -213,11 +253,14 @@ app.controller( 'modalMediaController', function( $scope, $rootScope, $localStor
                         returnObject.media_item_id = data.media_item_id;
                     }
 					console.log(returnObject);
-
 					close( returnObject );
 					console.log($stateParams);
+
 					if($stateParams.closeOnModalCompletion == 'true')
 						smModal.Close();
+					// $('.ui.modal.small.upload').modal('hide');
+					$( '.ui.modal.upload' ).modal( 'hide' );
+
 
 				} ).error( function( data, status, headers, config )
 			{

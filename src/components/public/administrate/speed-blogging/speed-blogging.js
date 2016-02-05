@@ -2,32 +2,32 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.administrate.speed-blogging",{
+		.state("public.app.admin.speed-blogging",{
+            url: '/speed-blogging',
 			templateUrl: "/templates/components/public/administrate/speed-blogging/speed-blogging.html",
 			controller: "SpeedBloggingController"
 		})
 }); 
 
-app.controller("SpeedBloggingController", function ($scope, $rootScope, close, smModal, $localStorage, $filter, smEvent) {
+app.controller("SpeedBloggingController", function ($scope, $rootScope, smModal, $stateParams, $localStorage, $filter, smEvent) {
 
-    if( $localStorage.speed_blogging_parameters ) {
-        $rootScope.$_GET = $localStorage.speed_blogging_parameters;
-        delete $localStorage.speed_blogging_parameters;
+    if( $stateParams.speed_blogging_parameters ) {
+        $rootScope.$_GET = $stateParams.speed_blogging_parameters;
     }
 
     $scope.content_types = [
         {
-            route: 'public.administrate.site.content.syllabus.lesson',
+            route: 'public.app.admin.lesson',
             icon: 'student',
             description: 'Lesson'
         },
         {
-            route: 'public.administrate.site.content.blog.post',
+            route: 'public.app.admin.post',
             icon: 'rss',
             description: 'Post'
         },
         {
-            route: 'public.administrate.site.pages.custom-page',
+            route: 'public.app.admin.custom-page',
             icon: 'file text',
             description: 'Page'
         }

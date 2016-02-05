@@ -1,0 +1,39 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="configure icon"></i>
+		{{current_integration ? 'Configure' : 'Install'}} Intercom
+	</div>
+	<div class="content">
+			
+			<h3 class="ui horizontal divider header">
+				<i class="setting icon"></i>
+				Settings
+			</h3>
+
+			<div class="ui segment form" ng-submit="saveIntegration()">
+
+				<div class="field">
+					<label>Intercom App ID</label>
+					<input type="text" ng-model="current_integration.username">
+				</div>
+
+                <div class="field">
+                    <div class="ui checkbox" ng-model="current_integration.additional_options.enable_support" sui-checkbox>
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Enable Support (only enable if Support is one of your Intercom products, otherwise it will only use Acquire)</label>
+                    </div>
+                </div>
+
+			</div>
+	</div>
+
+	<div class="actions">
+		<div class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
+		<button ng-click="saveIntegration()" ng-disabled="(!current_integration.username)" class="ui right labeled icon green button">
+			Save changes
+			<i class="checkmark icon"></i>
+		</button>
+	</div>
+</div>

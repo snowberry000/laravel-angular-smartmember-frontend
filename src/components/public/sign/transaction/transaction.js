@@ -1,55 +1,80 @@
-var app = angular.module("app");
+var app = angular.module( "app" );
 
-app.config(function($stateProvider){
+app.config( function( $stateProvider )
+{
 	$stateProvider
-		.state("public.sign.transaction",{
+		.state( "public.sign.transaction", {
 			url: "/transaction",
 			templateUrl: "/templates/components/public/sign/transaction/transaction.html"
-		})
-});
+		} )
+} );
 
-app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http, smModal, smEvent )
+app.controller( 'transactionAccountSetupController', function( $rootScope, $scope, $stateParams, Restangular, $state, $localStorage, ipCookie, $http , smEvent)
 {
     console.log('here we goes');
     $scope.account = {};
     $scope.loading = true;
 
-    var $_GET = $rootScope.$_GET;
+	var $_GET = $localStorage.transaction_params;
 
-    Restangular.all('').customGET('user/transactionAccount/' + $_GET['cbreceipt']).then(function(response){
-        $scope.account = response;
-        $scope.loading = false;
-    });
-
-    $scope.account.password = '';
-    $scope.account.create_new_account = false;
-    $scope.email_taken = false;
-    $scope.verification_sent = false;
-    $scope.account.verification_code = '';
-
-    $scope.postAuth = function( response )
+    var getUrlVars = function()
     {
-        $scope.$storage.user = response;
-
-        $http.defaults.headers.common[ 'Authorization' ] = "Basic " + response.access_token;
-        ipCookie( 'user', JSON.stringify( response ), { 'domain': $scope.app.domain, 'path': '/' } );
-
-        if( $localStorage.hash )
+        var vars = {};
+        var parts = window.location.href.replace( /[?&]+([^=&]+)=([^&]*)/gi, function( m, key, value )
         {
-            $localStorage.hash = false;
-        }
-        if( $localStorage.cbreceipt )
-        {
-            $localStorage.cbreceipt = false;
-        }
-        $rootScope.first_login_view = true;
+            vars[ key ] = decodeURIComponent( value );
+        } );
+        return vars;
     }
 
-    $scope.saveAccount = function()
+    if( !$_GET || !$_GET['cbreceipt'] )
     {
-        Restangular.all( 'user/saveTransactionAccount' ).customPOST( $scope.account ).then( function( response )
-            {
-                $scope.postAuth( response );
+        $_GET = getUrlVars();
+    }
+
+    if( $rootScope.last_base_state ) {
+        $rootScope.last_base_state.state = $localStorage.after_transaction_state;
+        $rootScope.last_base_state.params = $localStorage.after_transaction_params;
+    }
+    delete $localStorage.transaction_params;
+    delete $localStorage.after_transaction_state;
+    delete $localStorage.after_transaction_params;
+
+    Restangular.all( '' ).customGET( 'user/transactionAccount/' + $_GET[ 'cbreceipt' ] ).then( function( response )
+    {
+        $scope.account = response;
+        $scope.loading = false;
+    } );
+
+	$scope.account.password = '';
+	$scope.account.create_new_account = false;
+	$scope.email_taken = false;
+	$scope.verification_sent = false;
+	$scope.account.verification_code = '';
+
+	$scope.postAuth = function( response )
+	{
+		$scope.$storage.user = response;
+
+		$http.defaults.headers.common[ 'Authorization' ] = "Basic " + response.access_token;
+		ipCookie( 'user', JSON.stringify( response ), { 'domain': $scope.app.domain, 'path': '/' } );
+
+		if( $localStorage.hash )
+		{
+			$localStorage.hash = false;
+		}
+		if( $localStorage.cbreceipt )
+		{
+			$localStorage.cbreceipt = false;
+		}
+		$rootScope.first_login_view = true;
+	}
+
+	$scope.saveAccount = function()
+	{
+		Restangular.all( 'user/saveTransactionAccount' ).customPOST( $scope.account ).then( function( response )
+			{
+				$scope.postAuth( response );
 
                 smEvent.Log( 'connected-to-a-jvzoo-receipt', {
                     'request-url': location.href,
@@ -57,7 +82,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
                 } );
 
                 $rootScope.modal_popup_template = false;
-                delete $rootScope.$_GET['cbreceipt'];
+                delete $rootScope.$_GET[ 'cbreceipt' ];
 
                 if( location.href.indexOf( 'sm.smartmember.' ) != -1 ) {
                     location.href = 'http://my.smartmember.' + $rootScope.app.env;
@@ -66,8 +91,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
                         'request-url': location.href
                     } );
                 } else {
-                    $state.go($state.current, $stateParams, {reload: true});
-                    smModal.Close();
+                    $rootScope.CloseExtraState();
                 }
             },
             function( response )
@@ -118,8 +142,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
                     'request-url': location.href
                 } );
             } else {
-                $state.go($state.current, $stateParams, {reload: true});
-                smModal.Close();
+                $rootScope.CloseExtraState();
             }
         } );
     }
@@ -141,8 +164,7 @@ app.controller( 'transactionAccountSetupController', function( $rootScope, $scop
                     'request-url': location.href
                 } );
             } else {
-                $state.go($state.current, $stateParams, {reload: true});
-                smModal.Close();
+                $rootScope.CloseExtraState();
             }
         },
         function( response )

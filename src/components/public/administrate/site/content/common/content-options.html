@@ -17,8 +17,8 @@
 		<div class="col-sm-10">
 			<textarea froala ng-model="next_item.content"></textarea>
 		</div>
-		<label>
-			<input type="checkbox" ng-model="next_item.show_content_publicly">
+		<label ng-if="false">
+			<input type="checkbox" ng-model="next_item.show_content_publicly" ng-true-value="1" ng-false-value="0">
 			Show content publicly (even when user is logged out)?
 		</label>
 	</div>
@@ -28,8 +28,9 @@
 			<select class="form-control" ng-model="next_item.access_level_type" data-ng-options="al_type.id as al_type.name for al_type in access_level_types">
 			</select>
 		</div>
-		<div class="col-md-5" ng-if="next_item.access_level_type==2">
-			<select class="form-control" ng-model="next_item.access_level_id">
+		<div class="col-md-5" ng-if="next_item.access_level_type==2 || next_item.access_level_type==3">
+
+			<select class="form-control" ng-model="next_item.access_level_id" ng-init="!next_item.access_level_id  ? next_item.access_level_id=0: next_item.access_level_id=next_item.access_level_id">
 				<optgroup label="Default">
 					<option value="0" ng-selected="!next_item.access_level_id">Logged-in Users</option>
 				</optgroup>

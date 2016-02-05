@@ -120,10 +120,13 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 			
 		})
 	}
+	$scope.inProgress=false;
 
 	$scope.removeLinkedAccount = function(account){
+		$scope.inProgress=true;
 		Restangular.one('linkedAccount' , account.id).remove().then(function(response){
 			console.log(response);
+			$scope.inProgress=false;
 			if (response && response.success == true)
 			{
 				toastr.success("Account successfully removed");

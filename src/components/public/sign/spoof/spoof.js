@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller( 'SpoofController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http, smEvent )
+app.controller( 'SpoofController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http, smModal, smEvent )
 {
     var auth = Restangular.all( 'auth' );
     var authorized_user = {};
@@ -48,7 +48,9 @@ app.controller( 'SpoofController', function( $rootScope, $scope, toastr, ipCooki
             {
                 $localStorage.cbreceipt = false;
             }
-            $state.go( 'public.administrate.account.memberships' );
+
+            $state.go( 'public.app.home' );
+            smModal.Show( 'public.administrate.team.sites' );
         }
     }
 } )
