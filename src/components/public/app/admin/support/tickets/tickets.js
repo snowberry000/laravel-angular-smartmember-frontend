@@ -116,9 +116,23 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 
 	$scope.showSite = function(site_id)
 	{
-		var site = _.findWhere($scope.available_sites, {id: site_id});
-		return site.domain ? site.domain : site.subdomain + '.smartmember.' + $rootScope.app.env
+		var site = _.findWhere($scope.available_sites, {id: parseInt( site_id )}) || _.findWhere($scope.available_sites, {id: site_id + ''});
+        if( site )
+		    return site.domain ? site.domain : site.subdomain + '.smartmember.' + $rootScope.app.env
 	}
+
+    $scope.openTicket = function( $event, next_item ) {
+        var href = $state.href( 'public.app.admin.support.ticket', {id: next_item.id} );
+
+        if( $event.ctrlKey )
+        {
+            window.open( href, '_blank' );
+        }
+        else
+        {
+            $state.go( 'public.app.admin.support.ticket', {id: next_item.id} );
+        }
+    }
 
 	$scope.$watch( 'type_to_fetch', function( new_value, old_value )
 	{
