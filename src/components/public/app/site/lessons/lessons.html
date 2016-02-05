@@ -10,7 +10,7 @@
 			<div class="primary statistic">
 				<div class="value header headline_text_color">
 					<i class="icon fa {{meta_data.cap_icon ? meta_data.cap_icon : 'fa-graduation-cap'}}"></i>
-					{{lesson_count}}
+					<span ng-hide="lesson_count == 0 || lesson_count == '0'">{{lesson_count}}</span>
 				</div>
 				<div class="primary label header headline_text_color">
 					{{meta_data.lesson_text ? meta_data.lesson_text : 'Lessons'}}
