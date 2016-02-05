@@ -35,6 +35,10 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
         })
     });
 
+    Restangular.all( '' ).customGET( 'supportAgents' ).then( function( data ) {
+        $scope.available_agents = data.items;
+    });
+
 	$scope.tickets = [];
 	$scope.type_to_fetch = 'open';
 
@@ -76,6 +80,8 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
         $site.id
     ];
 
+    $scope.agents = [];
+
 	$scope.FetchTickets = function()
 	{
 		$scope.requesting_data = true;
@@ -91,6 +97,10 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 
         if( $scope.sites && $scope.sites.length > 0 ) {
             search_parameters.sites = $scope.sites.join(',');
+        }
+
+        if( $scope.agents && $scope.agents.length > 0 ) {
+            search_parameters.agents = $scope.agents.join(',');
         }
 
 		Restangular.all( '' ).customGET( 'supportTicket', search_parameters ).then( function( response )
@@ -124,7 +134,7 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
     $scope.openTicket = function( $event, next_item ) {
         var href = $state.href( 'public.app.admin.support.ticket', {id: next_item.id} );
 
-        if( $event.ctrlKey )
+        if( $event.ctrlKey || $event.metaKey )
         {
             window.open( href, '_blank' );
         }
