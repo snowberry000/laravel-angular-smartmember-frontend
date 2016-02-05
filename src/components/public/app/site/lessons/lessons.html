@@ -8,7 +8,7 @@
 	<div class="ui segment basic">
 		<div class="ui one statistics">
 			<div class="primary statistic">
-				<div class="value header headline_text_color">
+				<div class="value header headline_text_color" ng-hide="lesson_count == 0 || lesson_count == '0'">
 					<i class="icon fa {{meta_data.cap_icon ? meta_data.cap_icon : 'fa-graduation-cap'}}"></i>
 					{{lesson_count}}
 				</div>
