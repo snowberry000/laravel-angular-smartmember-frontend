@@ -367,8 +367,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		},
 		{
 			id: 'youzign',
-			name: 'YouZign',
-			short_name: 'YouZign',
+			name: 'Youzign',
+			short_name: 'Youzign',
 			sites_only: true,
 			description: 'Allow you to import your designs from Youzign into SmartMember',
 			logo: '/images/app_configurations/youzign.png',
