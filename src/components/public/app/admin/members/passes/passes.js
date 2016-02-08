@@ -38,6 +38,10 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 
 	$scope.paginate = function(search)
 	{
+		if (search && $scope.query.length<3){
+			return;
+		}
+		
 		if (search)
 		{
 			$scope.pagination.current_page = 1;
