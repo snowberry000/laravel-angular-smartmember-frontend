@@ -61,6 +61,7 @@ app.controller( "PassesController", function( $scope, $q,$localStorage, $rootSco
 
 			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 			{
+				
 				$scope.loading = false;
 				$scope.pagination.total_count = data.total_count;
 				$scope.data = data.items;//Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
