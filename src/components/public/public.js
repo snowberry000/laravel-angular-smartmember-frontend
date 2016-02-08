@@ -299,7 +299,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				$rootScope.user_loading = false;
 				$rootScope.user_loaded = true;
 
-				if( $localStorage.verification_hash )
+				/*if( $localStorage.verification_hash )
 				{
 					Restangular.one( 'user/linkAccount' ).customPOST( { 'verification_hash': $localStorage.verification_hash } ).then( function( response )
 					{
@@ -310,7 +310,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 					} )
 
 					$localStorage.verification_hash = undefined;
-				}
+				}*/
 			} );
 		}
 		else
