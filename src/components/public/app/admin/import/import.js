@@ -105,6 +105,9 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 }
             }, function(response)
             {
+                if(response.status == 401){
+                    toastr.error('Your vimeo access token is invalid')
+                }
                 $scope.wait = false;
                 $scope.videos_to_show =response.data.data;
             //    $scope.paginateIt();
