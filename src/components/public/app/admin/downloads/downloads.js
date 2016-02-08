@@ -34,20 +34,21 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $t
 	{
 		if( new_value != old_value )
 		{
-			$scope.paginate();
+			$scope.paginate(true);
 		}
 	} );
 
 	$scope.paginate = function(search)
 	{
-		if (search)
+		var continueSearch = true;
+		if (search && $scope.query.length<3)
 		{
-			$scope.pagination.current_page = 1;
+			continueSearch = false;
 		}
 
-		if( true )
+		if(continueSearch || $scope.query.length==0)
 		{
-
+			$scope.pagination.current_page = 1;
 			$scope.loading = true;
 
 			var $params = { p: $scope.pagination.current_page, site_id: $site.id };

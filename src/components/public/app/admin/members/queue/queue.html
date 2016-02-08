@@ -2,6 +2,7 @@
 	<div class="header">
 		<i class="users icon"></i>
 		Your Member Imports
+		<div class="ui right floated button" ng-click="refreshState()"> Refresh	</div>
 	</div>
 	<div class="content">
 		<div class="description">
@@ -15,7 +16,6 @@
 			<div class="ui active inverted dimmer" ng-if="loading">
 				<div class="ui loader"></div>
 			</div>
-
 			<table class="ui celled striped padded structured table" ng-if="items.length > 0 && !loading" foonice>
 				<thead>
 					<tr>
@@ -26,6 +26,7 @@
 					</tr>
 				</thead>
 				<tbody>
+
 					<tr class="{{item.is_active ? 'warning' : 'positive'}}" dir-paginate="item in items | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 						<td>
 							{{item.total_count}}
