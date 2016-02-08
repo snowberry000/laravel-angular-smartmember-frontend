@@ -8,8 +8,7 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	$scope.$state = $state;
 	var options = Restangular.all( "siteMetaData" );
 	var page = Restangular.all( "site" );
-
-	$scope.options = {};
+	//$scope.options = {};
 	$scope.access_level_types = [
 		{ id: 4, name: 'Draft (admin-only)' },
         { id: 3, name: 'Members' },
