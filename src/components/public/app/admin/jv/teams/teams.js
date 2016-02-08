@@ -33,16 +33,19 @@ app.controller( "AffiliateTeamsController", function( $scope, $rootScope, $local
 	{
 		if( new_value != old_value )
 		{
-			$scope.paginate();
+			$scope.paginate(true);
 		}
 	} );
 
-	$scope.paginate = function()
+	$scope.paginate = function(search)
 	{
+		var continueSearch = true;
 
-		if( true )
+		if(search && $scope.query.length<3) {
+			continueSearch = false;
+		}
+		if(continueSearch || $scope.query.length==0)
 		{
-
 			$scope.loading = true;
 
 			var $params = { p: $scope.pagination.current_page };
