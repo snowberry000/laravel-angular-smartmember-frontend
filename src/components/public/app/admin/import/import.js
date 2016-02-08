@@ -28,6 +28,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     $scope.page = 1;
     $scope.wait = false;
     $scope.tags = [];
+    $scope.tags.push({tag : "None"});
       $scope.pagination = {
         current_page: 1,
         per_page: 50,
@@ -157,6 +158,8 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
             return;
         console.log(tag)
         console.log($scope.videos.data)
+        if(tag.tag == 'None')
+            return $scope.removeFilter();
         $scope.selectedTag = tag;
         for (var i = $scope.videos.data.length - 1; i >= 0; i--) {
             $scope.videos.data[i].hide = false;
@@ -165,6 +168,14 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 $scope.videos.data[i].hide = true;
             else
                 console.log(match)
+        };
+    }
+
+    $scope.removeFilter = function() {
+        
+        $scope.selectedTag = null;
+        for (var i = $scope.videos.data.length - 1; i >= 0; i--) {
+            $scope.videos.data[i].hide = false;
         };
     }
 
