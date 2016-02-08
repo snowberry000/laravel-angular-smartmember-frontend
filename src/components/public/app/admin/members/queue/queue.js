@@ -49,6 +49,9 @@ app.controller( "ImportQueueController", function( $scope,smModal,$rootScope, $l
 			$scope.loading = false;
 			$scope.pagination.total_count = data.total_count;
 			$scope.items = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+			$scope.items.sort(function(x,y) {
+				return (Date.parse(x.created_at) < Date.parse(y.created_at));
+			});
 		} );
 	}
 
@@ -69,6 +72,10 @@ app.controller( "ImportQueueController", function( $scope,smModal,$rootScope, $l
 			} );
 
 		} );
+	}
+
+	$scope.refreshState = function() {
+		$state.reload();
 	}
 
 } );
