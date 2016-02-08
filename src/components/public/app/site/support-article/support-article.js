@@ -22,6 +22,7 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
 		$scope.loading = false;
 		$scope.article = $article;
 		$scope.next_item = $scope.article;
+		$scope.next_item.content_type = 'helpdesk/article';
 		$scope.next_item.access = true;
 		$rootScope.page_title = $article.title || $rootScope.page_title;
 	} );

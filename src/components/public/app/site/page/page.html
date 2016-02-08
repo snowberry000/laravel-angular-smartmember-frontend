@@ -6,6 +6,7 @@
 ">
 			<h2 class="ui header headline_text_color">
 				{{page.title}}
+				<span ng-if="site.is_admin" class="pull-right"  style="font-size:12px;"><a href="/admin/custom-page/{{next_item.id}}">Edit</a></span>
 			</h2>
 		</div>
 	</div>

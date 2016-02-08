@@ -1,6 +1,7 @@
 
 <h2 class="ui top attached header section_background_color">
 	{{next_item.title}}
+	<span class="pull-right" ng-if="site.is_admin" style="font-size:12px;"><a href="/admin/{{next_item.content_type}}/{{next_item.id}}">Edit</a></span>
 </h2>
 <div class="ui attached clearing segment section_background_color" ng-if="loading || next_item.featured_image || next_item.embed_content || !next_item.access">
 
