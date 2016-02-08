@@ -9,9 +9,14 @@
 				<p>{{template_data.description}}</p>
 			</div>
 
-			<div class="ui icon input">
-				<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-				<i class="search icon"></i>
+			<div ng-show="data.length == 0 && !query && !loading">
+				No transaction record found.
+			</div>
+			<div ng-show="data.length > 0 && !query">
+				<div class="ui icon input">
+					<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+					<i class="search icon"></i>
+				</div>
 			</div>
 
 			<div class="ui active inverted dimmer" ng-if="loading">

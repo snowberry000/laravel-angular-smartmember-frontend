@@ -9,26 +9,31 @@
 				<p>{{template_data.description}}</p>
 			</div>
 
-			<div class="ui menu">
-				<div class="item">
-					<div class="ui icon input">
-						<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-						<i class="search icon"></i>
-					</div>
-				</div>
-				<div class="right menu">
+			<div ng-show="data.length ==0 && !loading && !query">
+				No members are added.
+			</div>
+			<div ng-show="data.length > 0 || query">
+				<div class="ui menu">
 					<div class="item">
-						<div class="ui input access_level_dropdown">
-							<select ng-model="access_level_query" ng-change="paginate(true)" sui-dropdown>
-								<option value="">Access Levels</option>
-								<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
-							</select>
-							<a class="ui black deny button" ng-hide="access_level_query == '' || access_level_query == undefined" ng-click="clearFilter();">Clear</a>
+						<div class="ui icon input">
+							<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+							<i class="search icon"></i>
+						</div>
+					</div>
+					<div class="right menu">
+						<div class="item">
+							<div class="ui input access_level_dropdown">
+								<select ng-model="access_level_query" ng-change="paginate(true)" sui-dropdown>
+									<option value="">Access Levels</option>
+									<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
+								</select>
+								<a class="ui black deny button" ng-hide="access_level_query == '' || access_level_query == undefined" ng-click="clearFilter();">Clear</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
+			</div>	
+				
 			<div class="ui active inverted dimmer" ng-if="loading">
 				<div class="ui loader"></div>
 			</div>

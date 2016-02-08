@@ -11,11 +11,15 @@
 
 			<div class="ui section divider"></div>
 
-			<div class="ui icon input">
-				<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-				<i class="search icon"></i>
+			<div ng-show="data.length == 0 && !query && !loading">
+				No lessons created.
 			</div>
-
+			<div ng-show="data.length > 0 || query">
+				<div class="ui icon input">
+					<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+					<i class="search icon"></i>
+				</div>
+			</div>
 			<div class="ui active inverted dimmer" ng-if="loading">
 				<div class="ui loader"></div>
 			</div>

@@ -52,6 +52,10 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	{
 		var $params = { p: $scope.pagination.current_page, site_id: $site.id };
 
+		if(search && ($scope.query.length < 3 && $scope.query.length != 0)) {
+			return;
+		}
+		
 		if( search )
 		{
 			$scope.pagination.current_page = 1;
