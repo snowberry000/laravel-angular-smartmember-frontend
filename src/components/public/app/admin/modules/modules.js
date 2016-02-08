@@ -37,32 +37,35 @@ app.controller( "ModulesController", function( $scope, $rootScope, $localStorage
 	{
 		if( new_value != old_value )
 		{
-			$scope.paginate();
+			$scope.paginate(true);
 		}
 	} );
 
 	$scope.paginate = function(search)
 	{
-		if (search)
+		var continueSearch = true;
+		if (search && $scope.query.length<3)
 		{
+			continueSearch = false;
+		}
+		if(continueSearch || $scope.query.length==0) {
 			$scope.pagination.current_page = 1;
+			$scope.loading = true;
+
+			var $params = { p: $scope.pagination.current_page, site_id: $rootScope.site.id };
+
+			if( $scope.query )
+			{
+				$params.q = encodeURIComponent( $scope.query );
+			}
+
+			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
+			{
+				$scope.loading = false;
+				$scope.pagination.total_count = data.total_count;
+				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+			} );
 		}
-
-		$scope.loading = true;
-
-		var $params = { p: $scope.pagination.current_page, site_id: $rootScope.site.id };
-
-		if( $scope.query )
-		{
-			$params.q = encodeURIComponent( $scope.query );
-		}
-
-		Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
-		{
-			$scope.loading = false;
-			$scope.pagination.total_count = data.total_count;
-			$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
-		} );
 	}
 
 	$scope.paginate();
