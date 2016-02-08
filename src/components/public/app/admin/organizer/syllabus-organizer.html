@@ -62,8 +62,6 @@
 
             <div class="ui attached segment">
                 <button class="ui button" ng-click="addModule()">Add new module</button>
-                <button ng-if="anythingChecked('modules')" class="ui button" ng-click="unselectAllModules()">Unselect All Modules</button>
-                <button ng-if="anythingChecked('lessons')" class="ui button" ng-click="unselectAllLessons()">Unselect All Lessons</button>
                 <div class="ui segment" ng-if="anythingChecked()">
                     <strong>Bulk Actions</strong>
                     <button class="ui red button" sm-delete="selected" delete-function="bulkDelete">Delete</button>
@@ -71,7 +69,7 @@
                     <div class="ui form segment" ng-if="bulk_edit_access">
                         <h4>Update access for selected lessons</h4>
                         <strong>Access</strong>
-                        <select ng-model="bulk_edit.access_level_type" ng-options="a.value as a.name for a in access_level_choices">
+                        <select ng-model="bulk_edit.access_level_type" ng-options="a.id as a.name for a in access_level_choices">
                         </select>
                         <br />
                         <strong ng-if="bulk_edit.access_level_type == 2">Access Level</strong>

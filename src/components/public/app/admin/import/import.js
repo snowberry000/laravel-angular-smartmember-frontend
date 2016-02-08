@@ -15,6 +15,10 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("ImportController", function ($scope, $rootScope, $http, Restangular, toastr , $state) {
+
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	var lesson = Restangular.all("lesson");
     $scope.loading = true;
     $scope.videos = false;
@@ -24,6 +28,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
     $scope.page = 1;
     $scope.wait = false;
     $scope.tags = [];
+    $scope.tags.push({tag : "None"});
       $scope.pagination = {
         current_page: 1,
         per_page: 50,
@@ -93,6 +98,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                     $scope.page++;
                     $scope.wait = false;
                     $scope.videos_to_show =response.data.data;
+
                     //$scope.paginateIt();
                 } else {
                     $scope.wait = false;
@@ -101,6 +107,9 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 }
             }, function(response)
             {
+                if(response.status == 401){
+                    toastr.error('Your vimeo access token is invalid')
+                }
                 $scope.wait = false;
                 $scope.videos_to_show =response.data.data;
             //    $scope.paginateIt();
@@ -145,8 +154,12 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
 
     $scope.filter = function(tag) {
+        if(!tag || !tag.tag)
+            return;
         console.log(tag)
         console.log($scope.videos.data)
+        if(tag.tag == 'None')
+            return $scope.removeFilter();
         $scope.selectedTag = tag;
         for (var i = $scope.videos.data.length - 1; i >= 0; i--) {
             $scope.videos.data[i].hide = false;
@@ -155,6 +168,14 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 $scope.videos.data[i].hide = true;
             else
                 console.log(match)
+        };
+    }
+
+    $scope.removeFilter = function() {
+        
+        $scope.selectedTag = null;
+        for (var i = $scope.videos.data.length - 1; i >= 0; i--) {
+            $scope.videos.data[i].hide = false;
         };
     }
 

@@ -12,6 +12,9 @@ app.config( function( $stateProvider )
 
 app.controller( "PostsController", function( $scope, $rootScope, $localStorage, $state, $timeout, $stateParams,  $filter, Restangular, toastr )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$scope.template_data = {
 		title: 'BLOG_POSTS',
 		description: 'Posts are the informational material of your site that go in the blog.',
