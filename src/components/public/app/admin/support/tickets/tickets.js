@@ -37,6 +37,8 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 
     Restangular.all( '' ).customGET( 'supportAgents' ).then( function( data ) {
         $scope.available_agents = data.items;
+
+        $scope.available_agents = _.uniq($scope.available_agents , 'user_id');
     });
 
 	$scope.tickets = [];

@@ -60,7 +60,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 			angular.forEach( data, function( value )
 			{
 				console.log(value);
-				if( typeof value.user != 'undefined' )
+				if( typeof value.user != 'undefined' && value.user)
 				{
 					var user_name = value.user.first_name + ' ' + value.user.last_name;
 					var name_bits = user_name.split( ' ' );
@@ -289,7 +289,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 				$scope.agentChange();
 			}
 
-			if( typeof $scope.reply.message != 'undefined' && $scope.reply.message != '' )
+			if( (typeof $scope.reply.message != 'undefined' && $scope.reply.message != '') || ($scope.reply.attachment != '' && typeof $scope.reply.attachment != 'undefined')  )
 			{
 				$scope.send_email = $scope.change_ticket_status == $scope.ticket.status;
 				$scope.reply.send_email = $scope.send_email;
