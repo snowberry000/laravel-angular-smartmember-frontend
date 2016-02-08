@@ -4,6 +4,11 @@
 		{{meta_data.syllabus_text ? meta_data.syllabus_text : 'SYLLABUS'}}
 	</h2>
 
+	<h2 class="ui center aligned header headline_text_color" ng-if="!isLoggedIn() || (salesPage=='preview')">
+		<i class="icon fa {{meta_data.cap_icon ? meta_data.cap_icon : 'fa-graduation-cap'}}"></i>
+		{{meta_data.syllabus_text ? meta_data.syllabus_text : 'SYLLABUS'}}
+	</h2>
+
 	<div ng-if="site.welcome_content && isLoggedIn()" class="fr-view" dynamic="site.welcome_content"></div>
 </div>
 
