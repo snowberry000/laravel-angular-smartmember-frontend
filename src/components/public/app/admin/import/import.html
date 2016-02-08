@@ -48,8 +48,8 @@
 					</div>
 					<div class="item">
 						<div class="ui input">
-							<select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag" ng-change="filter(tag.tag)" sui-dropdown>
-								<option value="">Tags</option>
+							<select data-ng-options="tag.tag for tag in tags" ng-model="selectedTag.tag" ng-change="filter(selectedTag.tag)" sui-dropdown>
+								<option ng-selected="!selectedTag" value="-1">Tags</option>
 							</select>
 						</div>
 					</div>
