@@ -97,6 +97,7 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                     $scope.page++;
                     $scope.wait = false;
                     $scope.videos_to_show =response.data.data;
+
                     //$scope.paginateIt();
                 } else {
                     $scope.wait = false;
@@ -152,6 +153,8 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
 
     $scope.filter = function(tag) {
+        if(!tag || !tag.tag)
+            return;
         console.log(tag)
         console.log($scope.videos.data)
         $scope.selectedTag = tag;
