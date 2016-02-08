@@ -60,7 +60,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 			angular.forEach( data, function( value )
 			{
 				console.log(value);
-				if( typeof value.user != 'undefined' )
+				if( typeof value.user != 'undefined' && value.user)
 				{
 					var user_name = value.user.first_name + ' ' + value.user.last_name;
 					var name_bits = user_name.split( ' ' );
