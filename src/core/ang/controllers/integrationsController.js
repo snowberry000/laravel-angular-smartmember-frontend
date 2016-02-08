@@ -80,9 +80,9 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		$scope.configured_app_configurations = $configured_app_configurations;
 		$scope.current_integration = $current_integration;
 		//prepare copy url
-		if( $scope.company && $scope.company.hash )
+		if( $scope.site && $scope.site.hash )
 		{
-			$scope.url = $scope.app.apiUrl + '/jvzoo/' + $scope.company.hash;
+			$scope.url = $scope.app.apiUrl + '/jvzoo/' + $scope.site.hash;
 		}
 		//automatic selection
 		$url = $location.host();

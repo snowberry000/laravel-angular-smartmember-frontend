@@ -48,8 +48,8 @@
 					</div>
 					<div class="item">
 						<div class="ui input">
-							<select data-ng-options="tag.tag for tag in tags" ng-model="tag.tag" ng-change="filter(tag.tag)" sui-dropdown>
-								<option value="">Tags</option>
+							<select data-ng-options="tag.tag for tag in tags" ng-model="selectedTag.tag" ng-change="filter(selectedTag.tag)" sui-dropdown>
+								<option ng-selected="!selectedTag" value="-1">Tags</option>
 							</select>
 						</div>
 					</div>
@@ -85,8 +85,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="text-right"  ng-if="!wait && pagination.total_count > 50">
-					<dir-pagination-controls max-size="5"></dir-pagination-controls>
+			<div class="text-right"  ng-if="!wait && pagination.total_count > 50 && !$parent.searchText">
+					<dir-pagination-controls max-size="5" ng-if="!$parent.searchText"></dir-pagination-controls>
 				</div>
 
 			<!-- <div class="text-right" ng-if="!wait">
