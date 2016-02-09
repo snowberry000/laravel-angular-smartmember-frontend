@@ -50,9 +50,12 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 								var li = {};
 								console.log( item )
 								li[ key ] = item.file;
+								//alert(item.file);
+
 								if( model )
 								{
 									var parsed_model = $parse( model );
+
 									parsed_model.assign( scope, item.file );
 									ctrl.$setViewValue( item.file );
 								}
@@ -153,25 +156,85 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 
 app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
 {
+
 	console.log( $rootScope.subdomain == 'my');
 	$scope.hide_media = $stateParams.hide_media;
 	$scope.media_files = [];
 	$scope.youzign_files = [];
-	if($localStorage.user && $localStorage.user.access_token && $rootScope.subdomain != 'my')
-		Restangular.service('media')
-			.getList()
-			.then(function(response){
-				angular.forEach(response, function(item){
-					if (item.type == 'image')
-					{
-						$scope.media_files.push(item);
-					} else if (item.type == 'youzign')
-					{
-						$scope.youzign_files.push(item);
-					}
-				})
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0
+	};
+	$scope.pagination_file = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0
+	};
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate();
+		}
+	} );
+	$scope.$watch( 'pagination_file.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			$scope.paginate_file();
+		}
+	} );
 
-			});
+	$scope.paginate = function(search)
+	{
+		if (search)
+		{
+			$scope.pagination.current_page = 1;
+		}
+
+		if( true )
+		{
+			$scope.loading = true;
+
+			var $params = { p: $scope.pagination.current_page };
+
+			Restangular.all( '' ).customGET( 'media' + '?p=' + $params.p + '&type=youzign' ).then( function( data )
+			{
+				$scope.loading = false;
+				$scope.pagination.total_count = data.total_count;
+				$scope.youzign_files = data.items;
+			} );
+		}
+	}
+
+	$scope.paginate_file = function(search)
+	{
+		if (search)
+		{
+			$scope.pagination_file.current_page = 1;
+		}
+
+		if( true )
+		{
+			$scope.loading = true;
+
+			var $params = { p: $scope.pagination_file.current_page };
+
+			Restangular.all( '' ).customGET( 'media' + '?p=' + $params.p + '&type=image' ).then( function( data )
+			{
+				$scope.loading = false;
+				$scope.pagination_file.total_count = data.total_count;
+				$scope.media_files = data.items;
+			} );
+		}
+	}
+
+	if($localStorage.user && $localStorage.user.access_token && $rootScope.subdomain != 'my')
+	{
+		$scope.paginate();
+		$scope.paginate_file();
+	}
 	
 	$scope.getFileType =function($url) {
 		$str = $url.split('.');
@@ -241,7 +304,8 @@ app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $lo
 				.success( function( data, status, headers, config )
 				{
 					var returnObject = {};
-
+					$rootScope.downloadLink = data.file_name;
+					// alert($rootScope.downloadLink);
 					returnObject.file = data.file_name;
 
 					if( data.aws_key !== undefined )

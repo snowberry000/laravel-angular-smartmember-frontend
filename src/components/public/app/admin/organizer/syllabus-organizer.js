@@ -67,7 +67,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
         { id: 4, name: 'Draft (admin-only)' },
 		{ id: 3, name: 'Members' },
 		{ id: 2, name: 'Locked' },
-		{ id: 1, name: 'Visitors' },
+		{ id: 1, name: 'Visitors' }
     ];
 
     $scope.getSelectedLessons = function() {

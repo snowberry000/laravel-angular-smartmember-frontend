@@ -71,5 +71,9 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope, $stat
 		} );
 	}
 
+	$scope.removeImage = function()
+	{
+		$scope.listing.pending_image = '';
+	}
 	$scope.resolve();
 } );

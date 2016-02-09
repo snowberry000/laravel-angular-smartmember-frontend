@@ -1,7 +1,7 @@
 
 
-app.filter('cut', function () {
-	return function (value, wordwise, max, tail) {
+app.filter('cut', function ($sce) {
+	return function (value, wordwise, max, tail, $sce) {
 		if (!value) return '';
 
 		max = parseInt(max, 10);
@@ -16,6 +16,7 @@ app.filter('cut', function () {
 			}
 		}
 		value = value.replace(/&apos;/gi, '\'').replace(/&amp;/gi, '\&').replace(/&quot;/gi,'\"').replace(/&nbsp;/gi,'').replace(/&rquo;/gi,'\'');
+		value = jQuery("<div/>").html(value).text();
 		return value + (tail || ' …');
 	};
 });

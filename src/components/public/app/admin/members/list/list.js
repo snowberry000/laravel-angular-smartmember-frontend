@@ -268,6 +268,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				$val =_.findWhere($accesses , temp.name);
 				if($val)
 				{
+					member.new_access_pass_saving = false
 					toastr.error("access level already exist");
 					return;
 				}

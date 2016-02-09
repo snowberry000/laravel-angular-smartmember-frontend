@@ -43,7 +43,7 @@ app.factory( 'httpInterceptor', function( $q, $rootScope, $injector, $location, 
 				window.location.href = 'http://training.' + $rootScope.app.rootDomain + '/domain-not-found';
 				return [];
 			}
-			if( rejection.status == 401 && !$localStorage.open_signin_modal )
+			if( rejection.status == 401 && !$localStorage.open_signin_modal && (rejection.config && rejection.config.url && rejection.config.url.indexOf('api.vimeo.com') < 0))
 			{
                 delete $localStorage.user;
                 ipCookie.remove('user', {'domain' : $rootScope.app.domain, 'path' : '/'});
