@@ -54,7 +54,6 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 		})
 	}
 
-
 	self.Init = function( the_sidebar )
 	{
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar('toggle');

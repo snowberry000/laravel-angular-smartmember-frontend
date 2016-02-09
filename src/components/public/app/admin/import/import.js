@@ -237,16 +237,21 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
                 $videosAdded.items.push({remote_id: $scope.videos.data[i].uri});
             }
         };
+        if(videosToAdd.length == 0)
+        {
+            toastr.error("All videos are already added as lessons");
+            return;
+        }
         lesson.customPOST(videosToAdd,'addAll').then(function(response){
             for (var i = 0; i < $scope.videos.data.length; i++) {
                 if(!$scope.videos.data[i].added && !$scope.videos.data[i].hide)
                     $scope.videos.data[i].added = true;
             };
             $scope.selectedTag = null;
-            toastr.success("All shown videos has been added");
-            $state.transitionTo($state.current , $state.params , {
-                reload : true , inherit : false , location : false
-            })
+            toastr.success("All shown videos have been added");
+            // $state.transitionTo($state.current , $state.params , {
+            //     reload : true , inherit : false , location : false
+            // })
         });
 
 

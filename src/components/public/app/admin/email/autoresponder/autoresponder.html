@@ -39,87 +39,89 @@
                                             </div>
                                         </div>
                                         <div class="panel panel-success">
-                                        <div class="panel-heading">
-                                            <div class="row ui grid">
-                                                <div class="four wide column">Email</div>
-                                                <div class="six wide column">Delay to send after previous email</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel-body">
-                                        <ul class="list-group" style="margin-left:0px;" data-as-sortable="dragControlListeners" data-ng-model="autoResponder.emails" >
-                                            
-                                            <li style="margin-top:5px;border:none;" class="list-group-item email_item" data-as-sortable-item data-component="{{email}}" data-id="{{email.id}}" ng-repeat="email in autoResponder.emails">
-                                                <div class="row ui grid divided" data-as-sortable-item-handle>
-                                                    <div class="four wide column">
-                                                        {{email.subject}}
-                                                    </div>
-                                                    <div class="six wide column">
-                                                        <select ng-model="email.delay"
-                                                                class="form-control pull-left" style="width:75px;">
-                                                                <option ng-repeat="n in range(0,30)" ng-selected="n==email.delay" value="{{n}}">{{n}}</option>
-                                                        </select>
-
-                                                        <select ng-model="email.unit"
-                                                                class="form-control pull-left" style="margin-left:5px;width: 120px;">
-                                                            <option value="1" selected>Hours</option>
-                                                            <option value="2">Days</option>
-                                                            <option value="3">Months</option>
-                                                        </select>
-
-                                                    </div>
-                                                    <div class="one wide column">
-                                                        <i class="trash icon" ng-click="removeEmail(email.email_id)"></i>
-                                                        <!-- <span class="pull-right glyphicon glyphicon-trash" style="cursor:pointer;" ng-click="removeEmail(email.email_id)"></span> -->
-                                                    </div>
-                                                </div>
-                                                <br>
-                                            </li>
-                                        </ul>
-                                        </div>
-                                        </div>
-                                        <h3 class="ui header">Email lists</h3>
-                                        <div class="panel panel-success">
                                             <div class="panel-heading">
-                                                <div class="row">
-                                                <label class="col-md-12 ">
-                                                    <div class="col-md-1"></div>
-                                                    <span class="col-md-2" style="text-align:center" >Name</span> 
-                                                    <span style="font-weight:bold;text-align:center;" class="col-md-4">Total subscribers</span>
-                                                </label>
+                                                <div class="row ui grid">
+                                                    <div class="four wide column">Email</div>
+                                                    <div class="six wide column">Delay to send after previous email</div>
                                                 </div>
                                             </div>
+
                                             <div class="panel-body">
-                                            <ul class="list-group col-md-12" style=" margin-left:0px; max-height: 450px;overflow-y: auto;" ng-repeat="list in emailLists">
-                                                <li class="list-group-item row" style="margin-left:2px;">
-                                                    <label class="col-md-12">
-                                                        <input class="col-md-1" type="checkbox" ng-model="autoResponder.lists[list.id]"/><span class="col-md-3" >{{list.name}}</span> 
-                                                        <small style="font-weight:bold;" class="col-md-7">{{list.total_subscribers}} subscribers</small>
-                                                    </label>
-                                                </li>
-                                            </ul>
+                                                <ul class="list-group" style="margin-left:0px;" data-as-sortable="dragControlListeners" ng-model="autoResponder.emails" >
+                                                    <li style="margin-top:5px;border:none;" class="list-group-item email_item" data-as-sortable-item data-component="{{email}}" data-id="{{email.id}}" ng-repeat="email in autoResponder.emails">
+                                                        <div class="row ui grid divided" data-as-sortable-item-handle>
+                                                            <div class="four wide column">
+                                                                {{email.subject}}
+                                                            </div>
+                                                            <div class="six wide column">
+                                                                <select ng-model="email.delay"
+                                                                        class="form-control pull-left" style="width:75px;">
+                                                                    <option ng-repeat="n in range(0,30)" ng-selected="n==email.delay" value="{{n}}">{{n}}</option>
+                                                                </select>
+
+                                                                <select ng-model="email.unit"
+                                                                        class="form-control pull-left" style="margin-left:5px;width: 120px;">
+                                                                    <option value="1" selected>Hours</option>
+                                                                    <option value="2">Days</option>
+                                                                    <option value="3">Months</option>
+                                                                </select>
+
+                                                            </div>
+                                                            <div class="one wide column">
+                                                                <i class="trash icon" ng-click="removeEmail(email.email_id)"></i>
+                                                                <!-- <span class="pull-right glyphicon glyphicon-trash" style="cursor:pointer;" ng-click="removeEmail(email.email_id)"></span> -->
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
+                                        <!--  <div class="field">
+                                             <div class="col-sm-8">
+                                             <button class="btn btn-brand" type="submit">Save changes</button>
+                                             <a class="ui black deny button close">Cancel</a>
 
-                           
-                                       <!--  <div class="field">
-                                            <div class="col-sm-8">
-                                            <button class="btn btn-brand" type="submit">Save changes</button>
-                                            <a class="ui black deny button close">Cancel</a>
-                                            
-                                            </div>
-                                        </div> -->
+                                             </div>
+                                         </div> -->
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-5 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
-                                <div class="hpanel">
+                            <div class="field">
+                                <label>Start responder when</label>
+                                <select class="form-control" ng-model="autoResponder.email_when"
+                                        data-ng-options="al_type.id as al_type.name for al_type in email_when_types">
+                                </select>
+                            </div>
 
-                                    <div class="panel-body">
-                                        
-                                    </div>
-                                </div>
+                            <div class="field" ng-if="autoResponder.email_when == 3">
+                                <label>Choose Email List</label>
+                                <select multiple="multiple" class="ui fluid dropdown" ng-model="autoResponder.lists"
+                                        style="height: 150px;">
+                                    <option ng-selected="exists(el.id,'el')" ng-repeat="el in emailLists" value={{el.id}}>{{el.name}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="field" ng-if="autoResponder.email_when == 1">
+                                <label>Choose Sites</label>
+                                <select multiple="multiple" class="ui fluid dropdown" ng-model="autoResponder.sites"
+                                        style="height: 150px;">
+                                    <option ng-selected="exists(sl.id,'sl')" ng-repeat="sl in siteLists" value={{sl.id}}>
+                                        {{sl.domain ? sl.domain : sl.subdomain + 'smartmember.com'}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="field" ng-if="autoResponder.email_when == 2">
+                                <label>Choose Access Levels</label>
+                                <select multiple="multiple" class="ui fluid dropdown" ng-model="autoResponder.access_levels"
+                                        style="height: 150px;">
+                                    <option ng-selected="exists(al.id,'al')" ng-repeat="al in access_levels" value={{al.id}}>
+                                        {{al.name}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>

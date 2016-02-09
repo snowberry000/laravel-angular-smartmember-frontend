@@ -137,7 +137,7 @@ font-weight: bold;
 
 		<div class="row" ng-if="bridgepage.swapspot.ad || bridgepage.swapspot.embed || bridgepage.swapspot.ctaurl || bridgepage.swapspot.button || bridgepage.swapspot.button2" style="margin-bottom: 30px;">
 			<div ng-if="bridgepage.swapspot.ad" class="col-md-4">
-				<a ng-href="{{bridgepage.swapspot.ad_url}}">
+				<a ng-href="{{bridgepage.swapspot.ad_url}}"  target="{{bridgepage.swapspot.open_ad_link_in_new_tab}}">
 					<img ng-src="{{bridgepage.swapspot.ad}}" class="img-responsive">
 				</a>
 			</div>
