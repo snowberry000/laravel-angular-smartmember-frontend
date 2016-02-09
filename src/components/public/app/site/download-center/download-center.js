@@ -13,7 +13,7 @@ app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $l
     
     $rootScope.page_title = $rootScope.site.name+' - Download Center';
     $scope.loading=true;
-    
+    $scope.site = $rootScope.site;
 
     Restangular.all('').customGET('download?bypass_paging=1').then(function(response){
         $downloads= response ? response.items : [];
@@ -90,6 +90,25 @@ app.controller('PublicDownloadCenterController', function ($scope,$rootScope, $l
     }
 
     $scope.updateStats = function(download){
+        if (download.access_level_type == 2)
+        {
+            var has_access = false
+            if ($scope.site.current_access_levels != undefined)
+            {
+                for (var j = 0; j < $scope.site.current_access_levels.length; j++) {
+                    if (parseInt($scope.site.current_access_levels[j]) == download.access_level_id) {
+                        has_access = true;
+                    }
+                };
+            }
+            if (!has_access)
+            {
+                var access_level = _.findWhere( $scope.access_levels, {id: parseInt( download.access_level_id ) } ) || _.findWhere( $scope.access_levels, {id: download.access_level_id + '' } );
+                if (access_level != undefined && access_level.information_url != '')
+                    window.location.href = access_level.information_url;
+            }
+        }
+
         if (download.download_link)
         {
             Restangular.all('get').customGET('download/'+download.id).then(function(response){
