@@ -178,10 +178,10 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		$scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
 		$scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
 
-		if( $scope.next_item.access_level_type == 3 )
-		{
-			$scope.next_item.access_level_type = 2;
-		}
+		// if( $scope.next_item.access_level_type == 3 )
+		// {
+		// 	$scope.next_item.access_level_type = 2;
+		// }
 
 
 		if( $next_item.seo_settings )
