@@ -7,7 +7,7 @@
 			<a class="item" sm-access="manage_access_levels" if-not="hide" ui-sref="public.app.admin.members.products">Access Levels</a>
 			<a class="item" sm-access="manage_access_levels" if-not="hide" ui-sref="public.app.admin.members.passes">{{ 'PASSES' | translate }}</a>
 			<a class="item" sm-access="manage_transactions" if-not="hide"  ui-sref="public.app.admin.members.transactions">{{ 'TRANSACTIONS' | translate }}</a>
-			<a ui-sref="public.app.admin.wallboard" target="_blank" class="item" sm-access="view_financial_stats" if-not="hide">{{ 'SALES_WALLBOARD' | translate }}</a>
+			<a ui-sref="wallboard" target="_blank" class="item" sm-access="view_financial_stats" if-not="hide">{{ 'SALES_WALLBOARD' | translate }}</a>
 			<a class="item" ng-if="false" ng-click="smModal.Show('public.administrate.site.membership.finance_settings')">{{ 'FINANCE_SETTINGS' | translate }}</a>
 			<a class="item" ui-sref="public.app.admin.notes">User notes</a>
 		</div>
