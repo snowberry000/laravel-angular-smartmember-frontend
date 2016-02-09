@@ -225,6 +225,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
     }
 
     $scope.downloadFile = function(media){
+        // alert(media.aws_key);
         location.href = $scope.app.apiUrl + '/utility/download?' + ( media.aws_key ? 'aws_key=' + media.aws_key : 'file=' + media.url );
     }
 
