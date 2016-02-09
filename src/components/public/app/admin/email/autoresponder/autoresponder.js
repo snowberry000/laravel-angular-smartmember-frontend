@@ -12,12 +12,26 @@ app.config(function($stateProvider){
 app.controller("AutoresponderController", function ($filter,smModal,$scope,$rootScope, $q ,$localStorage, Restangular,toastr,notify, $state, $stateParams) {
 	
 	$site = $rootScope.site;
+	$scope.email_when_types = [
+		{ id: 3, name: 'When someone subscribes to your email list' },
+		{ id: 1, name: 'When someone becomes your member' },
+		{ id: 2, name: 'When someone buys your product' },
+	];
 	$emails = Restangular.all('').customGET('email?bypass_paging=true').then(function(response){
 		$scope.emails = response.items;
 	});
 
+	$siteLists = Restangular.all('').customGET('user/sites?role=owner').then(function(response) {
+		$scope.siteLists = response;
+	});
+
 	$emailLists = Restangular.all('').customGET('emailList?bypass_paging=true').then(function(response){
 		$scope.emailLists = response.items;
+	});
+
+	$access_levels = Restangular.all( '' ).customGET( 'accessLevel' + '?view=admin&bypass_paging=1&site_id=' + $site.id ).then( function( data )
+	{
+		$scope.access_levels = data.items;
 	});
 
 	// $emails = Restangular.all('email').getList().then(function(response){$scope.emails = response});
@@ -31,7 +45,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 		$scope.autoResponder = {company_id: $site.company_id};
 	}
 	$scope.loading = true;
-	$q.all([$emails , $emailLists , $autoResponder]).then(function(res){
+	$q.all([$emails , $emailLists , $autoResponder, $siteLists, $access_levels]).then(function(res){
 		$scope.loading = false;
 		if (!$scope.autoResponder.id){
 		    $scope.autoResponder.emails = [];
@@ -53,6 +67,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 		    delete $scope.autoResponder.email_lists;
 		    $scope.autoResponder.emails=$filter('orderBy')($scope.autoResponder.emails, 'sort_order');
 		}
+		console.log('autoresponder emails series', $scope.autoResponder.emails);
 	})
 
 	$scope.emailId = false;
@@ -76,7 +91,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	        else
 	            $scope.autoResponder.emails.push({email_id:email.id, subject:email.subject, delay:0, unit:1});
 	    }
-
+		console.log($scope.autoResponder.emails);
 	}
 
 	$scope.removeEmail = function(email_id) {
@@ -104,12 +119,44 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	    return input;
 	};
 
+	$scope.exists = function(id, type){
+		switch (type) {
+			case 'el':
+				if ($scope.autoResponder.lists != undefined)
+				{
+					if (_.findWhere($scope.autoResponder.lists,{id: id})){
+						return true;
+					}
+				}
+
+				break;
+			case 'sl':
+				if ($scope.autoResponder.sites != undefined)
+				{
+					if (_.findWhere($scope.autoResponder.sites,{id: id})){
+						return true;
+					}
+				}
+
+				break;
+			case 'al':
+				if ($scope.autoResponder.access_levels != undefined)
+				{
+					if (_.findWhere($scope.autoResponder.access_levels,{id: id})){
+						return true;
+					}
+				}
+				break;
+		}
+
+	}
+
 
 	$scope.save = function(){
 	    
-	    console.log($scope.autoResponder);
-	    $scope.autoResponder.emails=[];
-	    $.each($(".email_item"), function (key, email) {
+	console.log($scope.autoResponder);
+	$scope.autoResponder.emails=[];
+	$.each($(".ui.modals.active .email_item"), function (key, email) {
 	        $tempEmail=$(email).data("component");
 	        $tempEmail.sort_order=key;
 	        $scope.autoResponder.emails.push($tempEmail);

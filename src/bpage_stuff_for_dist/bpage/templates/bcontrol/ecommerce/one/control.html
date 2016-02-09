@@ -68,6 +68,15 @@
 		<input type="text" ng-model="bridgepage.swapspot.ad_url">
 	</div>
 	<div class="ui message">key: ad_url</div>
+	<div class="field">
+		<h4>Open Ad in New Tab?</h4>
+
+		<div class="col-sm-10">
+			<input type="checkbox" name="open_ad_link_in_new_tab" class="form-control input-lg"
+				   ng-model="bridgepage.swapspot.open_ad_link_in_new_tab" ng-true-value="'_blank'"
+				   ng-false-value="'_self'">
+		</div>
+	</div>
 	<h4>Ad Image</h4>
 	<div class="inline field">
 		<label>Upload image</label>
