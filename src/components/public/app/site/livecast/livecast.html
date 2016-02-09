@@ -14,7 +14,7 @@
 		<div class="ui active inverted dimmer" ng-if="loading">
 			<div class="ui text loader">Loading</div>
 		</div>
-
+		<div ng-if="!loading">
 		<div class="ui embed" data-source="vimeo" data-url="{{next_item.embed_content | extractsrc}}" data-placeholder="{{next_item.featured_image}}" data-icon="right circle arrow" ng-if="next_item.embed_content && next_item.embed_content.indexOf('<iframe') != -1">
 			<div dynamic="next_item.embed_content" ng-if="next_item.embed_content" class="fr-view"></div>
 		</div>
@@ -46,10 +46,11 @@
 
 			<div class="row fr-view" dynamic="next_item.content"></div>
 
-			<div class="panel-footer comments_go_here" ng-show="next_item.discussion_settings.show_comments" style="margin-bottom:20px;">
+			<div class="panel-footer comments_go_here"  ng-show="next_item.discussion_settings.show_comments && next_item.access" style="margin-bottom:20px;">
 				<div ng-include="'templates/components/public/app/site/common/comments.html'"></div>
 			</div>
 
+		</div>
 		</div>
 
 	</div>
