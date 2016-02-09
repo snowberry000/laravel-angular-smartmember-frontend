@@ -45,12 +45,14 @@
 				</thead>
 				<tbody>
 					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+
 						<td>
 							{{next_item.first_name ? next_item.first_name + ' ' + next_item.last_name : next_item.email}}
 							<br ng-hide="next_item.first_name" />
 							<div ng-hide="!next_item.first_name">
 								{{next_item.email}}
 							</div>
+							{{next_item.new_access_pass_saving}}
 						</td>
 						<td>
 							{{accessLevelList( next_item )}}
