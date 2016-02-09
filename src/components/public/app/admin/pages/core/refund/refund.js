@@ -18,6 +18,12 @@ app.config(function($stateProvider){
 app.controller("RefundController", function ($scope, $localStorage, smModal , $rootScope, $state, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.refund = {};
     $site = $rootScope.site;
+
+    $scope.template_data = {
+        title: 'Refund Page Builder',
+        description: 'Build a page to show users why they shouldn\'t refund!'
+    }
+
     $scope.loading=true;
     Restangular.all('specialPage').getList({site_id:$site.id , type:'Refund Page'}).then(function(response){
         $refund=response;
