@@ -129,6 +129,9 @@
 												 ng-src="{{listing.pending_image}}"
 												 style="width:auto; cursor: pointer;"/>
 										</div>
+										<div class="text-center" ng-show="listing.pending_image">
+											<button type="button" ng-click="removeImage()">Remove</button>
+										</div>
 										<input type="hidden" name="fb_share_image" class="form-control input-lg"
 											   ng-model="settings.fb_share_image">
 									</div>
