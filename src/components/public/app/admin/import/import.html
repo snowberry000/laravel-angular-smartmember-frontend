@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<div class="item">
-						<div busy class="ui button" ng-click="addAll()">
+						<div busy class="ui button" ng-disabled="videos_to_show.length == 0" ng-click="addAll()">
 							<i class="plus icon"></i>
 							Add all as lessons
 						</div>
@@ -58,7 +58,7 @@
 
 			<div class="ui four doubling stackable link cards" ng-if="vimeo.access_token && videos_to_show.length > 0 && !wait">
 				<!-- <div class="card" ng-repeat="next_item in videos_to_show | filter:$parent.searchText" ng-if="!next_item.hide" ng-hide="next_item.added" ng-controller="VimeoVideoController"> -->
-				<div  class="card" ng-if="!next_item.hide" dir-paginate="next_item in videos_to_show | filter:$parent.searchText | itemsPerPage: pagination.per_page" ng-hide="next_item.added" ng-controller="VimeoVideoController" total-items="pagination.total_count"  current-page="pagination.current_page">
+				<div  class="card" ng-if="!next_item.hide" dir-paginate="next_item in videos_to_show | filter:$parent.searchText | itemsPerPage: pagination.per_page" ng-controller="VimeoVideoController" total-items="pagination.total_count"  current-page="pagination.current_page">
 
 					<div class="image flex_center" style="background:#000000;">
 						<img class="ui centered middle aligned image" src="{{next_item.pictures.sizes[1].link || '/images/white-image.png'}}">
@@ -72,9 +72,13 @@
 
 							<div class="text-center">
 								<div class="ui icon buttons">
-									<button busy class="ui button" ng-click="addLesson(next_item)" ng-disabled="next_item.added">
+									<button busy class="ui button" ng-click="addLesson(next_item)" ng-if="!next_item.added">
 										<i class="plus icon"></i>
-										{{next_item.added ? 'Added' : 'Add as lesson'}}
+										Add as lesson
+									</button>
+									<button busy class="ui button" ng-if="next_item.added">
+										<i class="plus icon"></i>
+										Added
 									</button>
 									<a ng-href="{{next_item.link}}" class="ui button" target="_blank">
 										<i class="external icon"></i>
