@@ -50,9 +50,12 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 								var li = {};
 								console.log( item )
 								li[ key ] = item.file;
+								//alert(item.file);
+
 								if( model )
 								{
 									var parsed_model = $parse( model );
+
 									parsed_model.assign( scope, item.file );
 									ctrl.$setViewValue( item.file );
 								}
@@ -301,7 +304,8 @@ app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $lo
 				.success( function( data, status, headers, config )
 				{
 					var returnObject = {};
-
+					$rootScope.downloadLink = data.file_name;
+					// alert($rootScope.downloadLink);
 					returnObject.file = data.file_name;
 
 					if( data.aws_key !== undefined )
