@@ -30,6 +30,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		$scope.loading = false;
 		$scope.lesson = $lesson;
 		$scope.next_item = $scope.lesson;
+		$scope.next_item.content_type = 'lesson';
 		$scope.userNote = { lesson_id: $lesson.id, site_id: $lesson.site_id };
 		$scope.lesson.new_reply = '';
 		$scope.lesson.new_comment = '';
