@@ -2,7 +2,7 @@
 <h2 class="ui top attached header section_background_color">
 	{{next_item.title}}
 </h2>
-<div class="ui attached clearing segment section_background_color" ng-if="loading || next_item.featured_image || next_item.embed_content || !next_item.access">
+<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="loading || next_item.featured_image || next_item.embed_content || !next_item.access">
 
 	<div class="ui active inverted dimmer" ng-if="loading">
 		<div class="ui text loader">Loading</div>
