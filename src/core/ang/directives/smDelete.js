@@ -25,8 +25,10 @@ app.directive( 'smDelete', function()
 							$('.small.delete.modal').each(function(i) {
 								if (i > 0)
 									$(this).remove();
-                                else
-                                    $(this).css('z-index','1000000');
+                                else {
+                                    $(this).css('z-index', '1000000');
+                                    $(this).closest('.ui.dimmer').css('z-index', '1000000');
+                                }
 							})
 						}
 					})
