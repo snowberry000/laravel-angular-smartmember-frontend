@@ -1,5 +1,5 @@
 <span ng-if="access_levels" ng-controller="FacebookGroupController">
-    <div class="ui segment" ng-if="( joined_facebook_groups || ( available_facebook_groups && available_facebook_groups.length > 0 ) )">
+    <div class="ui segment" ng-if="( joined_facebook_groups || ( available_facebook_groups && available_facebook_groups.length > 0 ) )" ng-hide="!isLoggedIn()">
         <h2 class="ui header text-center" ng-if='!joined_facebook_groups'>Join The Discussion</h2>
         <p ng-if='!joined_facebook_groups'>Join our private member-only facebook group discussion and connect with other
             members of this site.
