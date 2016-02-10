@@ -52,6 +52,13 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	{
 		var $params = { p: $scope.pagination.current_page, site_id: $site.id };
 
+		if(search && ($scope.query.length < 3 && $scope.query.length != 0)) {
+			return;
+		}
+		else if($scope.query && $scope.query.length < 3 && $scope.query.length != 0){
+			$scope.query='';
+		}
+		
 		if( search )
 		{
 			$scope.pagination.current_page = 1;
@@ -88,7 +95,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.clearFilter = function()
 	{
 		$scope.access_level_query = '';
-		$scope.paginate(true);
+		$scope.paginate();
 		$('.access_level_dropdown .text').empty();
 	}
 
@@ -268,6 +275,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				$val =_.findWhere($accesses , temp.name);
 				if($val)
 				{
+					member.new_access_pass_saving = false
 					toastr.error("access level already exist");
 					return;
 				}

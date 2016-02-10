@@ -319,8 +319,8 @@
 						<h4 class="ui header">Payment Methods</h4>
 						<div class="field">
 							<div class="col-sm-12">
-								<select multiple ng-model="access_level.payment_methods" class="form-control used_payment_methods">
-									<option ng-selected="paymentMethodExists(p.id) || !access_level.id" ng-repeat="p in payment_method_types | filter:validPaymentMethod" value={{p.id}}>{{p.name}}</option>
+								<select multiple ng-model="access_level.new_payment_methods" class="form-control used_payment_methods">
+									<option ng-selected="paymentMethodExists( p.id ) || !access_level.id" ng-repeat="p in payment_method_types | filter:validPaymentMethod" value={{p.id}}>{{p.name}}</option>
 								</select>
 								<span class="help-block m-b-none">
 									Select the payment methods you want users to be able to use on the checkout page.

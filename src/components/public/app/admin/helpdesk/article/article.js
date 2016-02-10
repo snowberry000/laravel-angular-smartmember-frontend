@@ -20,12 +20,14 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
 
     $scope.resolve =function(){
         if($stateParams.id)
+        {
             Restangular.one('supportArticle' , $stateParams.id).get().then(function(response){
                 $article = response;
                 $scope.init();
             });
-        else if($stateParams.clone){
-            Restangular.one('supportArticle', $stateParams.clone).get().then(function(response){
+        }
+        else if($location.search().clone){
+            Restangular.one('supportArticle', $location.search().clone).get().then(function(response){
                 $article = response;
                 $scope.init();
             });

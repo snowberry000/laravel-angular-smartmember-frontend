@@ -12,6 +12,7 @@ app.config(function($stateProvider){
 app.controller("ProductController", function ($scope, $q, $timeout, $stateParams,smModal, $localStorage, $rootScope,  Restangular,toastr,$state) {
 	
 	$site=$rootScope.site;
+
 	var paypal =null;
 	var stripe=null;
 	$access_level=null;
@@ -83,6 +84,12 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 	    $scope.default_currency = $currency.length > 0 ? $currency[0].value : 'USD';
 		$scope.access_level = $access_level;
 
+        $scope.access_level.new_payment_methods = [];
+
+        angular.forEach( $scope.access_level.payment_methods, function( value ) {
+            $scope.access_level.new_payment_methods.push( value.payment_method_id );
+        });
+
 	    $scope.payment_app_configurations = {stripe:[],paypal:[]};
 
 	    angular.forEach( $scope.site.configured_app, function(value,key){
@@ -129,6 +136,11 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 		delete $scope.access_level.type;
 		delete $scope.access_level.url;
         delete $scope.access_level.enable_trial;
+
+        $scope.access_level.payment_methods = $scope.access_level.new_payment_methods;
+
+        delete $scope.access_level.new_payment_methods;
+
 		if ($scope.access_level.id){
 			$scope.update();
 			return;
@@ -185,11 +197,12 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 
     $scope.paymentMethodExists = function(id){
         var $return = false;
+
         if( $scope.access_level ) {
-            angular.forEach($scope.access_level.payment_methods, function (value, key) {
-                if (value.payment_method_id == id)
-                    $return = true;
-            });
+            var payment_method = _.findWhere( $scope.access_level.payment_methods, {payment_method_id: parseInt( id ) } ) || _.findWhere( $scope.access_level.payment_methods, {payment_method_id: id + '' } );
+
+            if( payment_method )
+                $return = true;
         }
 
         return $return;

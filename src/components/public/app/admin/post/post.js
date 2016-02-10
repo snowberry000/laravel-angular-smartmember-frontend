@@ -82,7 +82,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 
 			} );
 		}
-
+		$scope.next_item.dripfeed_settings = $scope.next_item.dripfeed || {};
 	    if( $scope.next_item.end_published_date )
         {
             $scope.next_item.end_published_date = new Date( moment.utc( $scope.next_item.end_published_date ));
@@ -216,6 +216,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
         delete $scope.next_item.most_used_categories;
 		delete $scope.next_item.most_used_tags;
 		delete $scope.next_item.access_level;
+		delete $scope.next_item.dripfeed;
 		//$scope.next_item.access_level_type = 1;
         if( $scope.next_item.access_level_type == 2 && $scope.next_item.access_level_id == 0 )
         {
@@ -263,7 +264,8 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
         {
             $scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title ).toLowerCase();
         }
-        $scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
+        if(!$scope.next_item.seo_settings.fb_share_title)
+        	$scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
 	}
 	$scope.onBlurSlug = function( $event )
 	{
