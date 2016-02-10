@@ -37,8 +37,8 @@
 			<h4>Click on the media to select</h4>
 			<div class='ui grid' ng-if="mediaTab.status=='true'">
 				<div  class='four wide column media-select' style="text-align: center;" dir-paginate="media in media_files | itemsPerPage: pagination_file.per_page" total-items="pagination_file.total_count"  current-page="pagination_file.current_page" >
-					<img  ng-if="getFileType(media.source)" ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
-					<div ng-if="!getFileType(media.source)">
+					<img  ng-if="isImage(media.source)" ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
+					<div ng-if="!isImage(media.source)">
 					<i style="text-align: center;"  class='ui fluid rounded image fa-3x fa fa-file'></i>
 					{{getFileName(media.source)}}
 				</div>
