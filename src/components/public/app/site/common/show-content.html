@@ -2,7 +2,7 @@
 <h2 class="ui top attached header section_background_color">
 	{{next_item.title}}
 </h2>
-<div class="ui attached clearing segment section_background_color" ng-if="loading || next_item.featured_image || next_item.embed_content || !next_item.access">
+<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="loading || next_item.featured_image || next_item.embed_content || !next_item.access">
 
 	<div class="ui active inverted dimmer" ng-if="loading">
 		<div class="ui text loader">Loading</div>
@@ -96,7 +96,7 @@
 					<p editable-text="comment.body" onaftersave="editComment(comment)" >{{comment.body}}</p>
 				</div>
 				<div class="actions">
-					<a class="reply" ng-show="next_item.discussion_settings.allow_replies" ng-init="show_reply_div = false" ng-click="show_reply_div = !show_reply_div">Reply</a>
+					<a class="reply" ng-show="next_item.discussion_settings.allow_replies && user.access_token" ng-init="show_reply_div = false" ng-click="show_reply_div = !show_reply_div">Reply</a>
 					<a class="reply" ng-if="site.is_admin" ng-init="comment.edit = false" ng-click="comment.edit = !comment.edit">Edit</a>
 					<a class="reply" ng-if="site.is_admin || comment.user_id == user.id" ng-click="deleteComment(comment)">Delete</a>
 				</div>

@@ -10,6 +10,9 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("LivecastController", function ($scope,$http,$timeout , $rootScope ,$timeout , smModal , Restangular,$state, $location, $stateParams , $filter, Upload, toastr) {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	var draft;
     var changed;
     $scope.site = $site = $rootScope.site;
@@ -33,6 +36,7 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
           $('input[type="date"]').datepicker();
+          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
         //speed blogging stuff here
@@ -201,7 +205,8 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
     $scope.setPermalink = function ($event) {
         if(!$scope.next_item.permalink)
             $scope.next_item.permalink = $filter('urlify')($scope.next_item.title).toLowerCase();
-        $scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
+        if(!$scope.next_item.seo_settings.fb_share_title)
+            $scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
     }
 
     

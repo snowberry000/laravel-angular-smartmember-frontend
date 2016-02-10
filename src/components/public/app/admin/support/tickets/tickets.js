@@ -35,6 +35,12 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
         })
     });
 
+    Restangular.all( '' ).customGET( 'supportAgents' ).then( function( data ) {
+        $scope.available_agents = data.items;
+
+        $scope.available_agents = _.uniq($scope.available_agents , 'user_id');
+    });
+
 	$scope.tickets = [];
 	$scope.type_to_fetch = 'open';
 
@@ -76,6 +82,8 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
         $site.id
     ];
 
+    $scope.agents = [];
+
 	$scope.FetchTickets = function()
 	{
 		$scope.requesting_data = true;
@@ -91,6 +99,10 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 
         if( $scope.sites && $scope.sites.length > 0 ) {
             search_parameters.sites = $scope.sites.join(',');
+        }
+
+        if( $scope.agents && $scope.agents.length > 0 ) {
+            search_parameters.agents = $scope.agents.join(',');
         }
 
 		Restangular.all( '' ).customGET( 'supportTicket', search_parameters ).then( function( response )
@@ -116,9 +128,23 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 
 	$scope.showSite = function(site_id)
 	{
-		var site = _.findWhere($scope.available_sites, {id: site_id});
-		return site.domain ? site.domain : site.subdomain + '.smartmember.' + $rootScope.app.env
+		var site = _.findWhere($scope.available_sites, {id: parseInt( site_id )}) || _.findWhere($scope.available_sites, {id: site_id + ''});
+        if( site )
+		    return site.domain ? site.domain : site.subdomain + '.smartmember.' + $rootScope.app.env
 	}
+
+    $scope.openTicket = function( $event, next_item ) {
+        var href = $state.href( 'public.app.admin.support.ticket', {id: next_item.id} );
+
+        if( $event.ctrlKey || $event.metaKey )
+        {
+            window.open( href, '_blank' );
+        }
+        else
+        {
+            $state.go( 'public.app.admin.support.ticket', {id: next_item.id} );
+        }
+    }
 
 	$scope.$watch( 'type_to_fetch', function( new_value, old_value )
 	{

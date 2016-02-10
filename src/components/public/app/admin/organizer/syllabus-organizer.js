@@ -24,8 +24,11 @@ app.config( function( $stateProvider )
 			}
 		} )
 } );
-app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $localStorage, $location, $stateParams, Restangular, toastr, $filter, smModal )
+app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $localStorage, $location, $stateParams, Restangular, toastr, $filter, smModal, $state )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$site = $rootScope.site;
 	$user = $rootScope.user;
 	$scope.options = {};
@@ -64,7 +67,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
         { id: 4, name: 'Draft (admin-only)' },
 		{ id: 3, name: 'Members' },
 		{ id: 2, name: 'Locked' },
-		{ id: 1, name: 'Visitors' },
+		{ id: 1, name: 'Visitors' }
     ];
 
     $scope.getSelectedLessons = function() {

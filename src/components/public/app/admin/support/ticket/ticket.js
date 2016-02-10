@@ -54,13 +54,13 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 		}
 
 
-		Restangular.all( '' ).customGET( 'supportAgents' ).then( function( data )
+		Restangular.all( '' ).customGET( 'supportAgents', { site_id: $scope.ticket.site_id } ).then( function( data )
 		{
 			data=data.items;
 			angular.forEach( data, function( value )
 			{
 				console.log(value);
-				if( typeof value.user != 'undefined' )
+				if( typeof value.user != 'undefined' && value.user)
 				{
 					var user_name = value.user.first_name + ' ' + value.user.last_name;
 					var name_bits = user_name.split( ' ' );
@@ -83,6 +83,9 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 					} );
 				}
 			} );
+			$scope.agents = _.uniq($scope.agents , 'id');
+
+
 
 			var isAgent = _.find( $scope.agents, { 'id': $user.id } ) || _.find( $scope.agents, { 'id': $user.id + '' } );
 			console.log( $scope.agents )
@@ -105,6 +108,15 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 			}
 		} );
 	}
+
+	$scope.getFileName =function($url) {
+ 		$url = decodeURI($url);
+ 		$str = $url.split('/');
+ 		if($str.length >=1)
+ 			return $str[$str.length-1];
+ 		else
+ 			return " ";
+ 	}
 
 
 	$scope.isImage = function( file )
@@ -277,10 +289,11 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 				$scope.agentChange();
 			}
 
-			if( typeof $scope.reply.message != 'undefined' && $scope.reply.message != '' )
+			if( (typeof $scope.reply.message != 'undefined' && $scope.reply.message != '') || ($scope.reply.attachment != '' && typeof $scope.reply.attachment != 'undefined')  )
 			{
 				$scope.send_email = $scope.change_ticket_status == $scope.ticket.status;
 				$scope.reply.send_email = $scope.send_email;
+				console.log($scope.reply);
 				Restangular.all( 'supportTicket' ).post( $scope.reply ).then( function( response )
 				{
 					toastr.success( "A reply has been created." );

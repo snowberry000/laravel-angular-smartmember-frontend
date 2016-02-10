@@ -20,7 +20,7 @@
 			<i class="remove icon"></i>
 		</button>
 	</div>
-
+	<div class="ui message">key: background_url</div>
 </div>
 <h3 class="ui attached header title">
 	<i class="dropdown icon"></i>
@@ -36,6 +36,7 @@
 			Choose File
 		</button>
 	</div>
+
 	<div class="field" ng-if="bridgepage.swapspot.logo">
 		<img class="ui fluid image" ng-src="{{bridgepage.swapspot.logo}}">
 		<button class="ui left labeled tiny basic red icon button m-t-sm" ng-click="bridgepage.swapspot.logo=''">
@@ -43,18 +44,19 @@
 			<i class="remove icon"></i>
 		</button>
 	</div>
-
+	<div class="ui message">key: logo</div>
 	<h4>Headline</h4>
 	<div class="field">
 		<input type="text" ng-model="bridgepage.swapspot.headline">
 	</div>
+	<div class="ui message">key: headline</div>
 	<div class="field">
 		<h4>
 			Headline Text Color
 		</h4>
 		<spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.headline_text_color"></spectrum-colorpicker>
 	</div>
-
+	<div class="ui message">key: headline_text_color</div>
 </div>
 <h3 class="ui attached header title">
 	<i class="dropdown icon"></i>
@@ -65,7 +67,16 @@
 	<div class="field">
 		<input type="text" ng-model="bridgepage.swapspot.ad_url">
 	</div>
+	<div class="ui message">key: ad_url</div>
+	<div class="field">
+		<h4>Open Ad in New Tab?</h4>
 
+		<div class="col-sm-10">
+			<input type="checkbox" name="open_ad_link_in_new_tab" class="form-control input-lg"
+				   ng-model="bridgepage.swapspot.open_ad_link_in_new_tab" ng-true-value="'_blank'"
+				   ng-false-value="'_self'">
+		</div>
+	</div>
 	<h4>Ad Image</h4>
 	<div class="inline field">
 		<label>Upload image</label>
@@ -81,7 +92,7 @@
 			<i class="remove icon"></i>
 		</button>
 	</div>
-
+	<div class="ui message">key: ad</div>
 </div>
 <h3 class="ui attached header title">
 	<i class="dropdown icon"></i>
@@ -111,17 +122,17 @@
 			<input type="text" name="ctaurl" class="form-control input-lg" ng-model="bridgepage.swapspot.ctaurl">
 		</div>
 	</div>
-
+	<div class="ui message">key: ctaurl</div>
 	<div class="field">
 		<h4>Button Text Color</h4>
 		<spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.button_text_color"></spectrum-colorpicker>
 	</div>
-
+	<div class="ui message">key: button_text_color</div>
 	<div class="field">
 		<h4>Button Background Color</h4>
 		<spectrum-colorpicker options="app.colorpicker_options" ng-model="bridgepage.swapspot.button_background_color"></spectrum-colorpicker>
 	</div>
-
+	<div class="ui message">key: button_background_color</div>
 	<div class="field">
 		<h4>Button 1 Text</h4>
 
@@ -129,7 +140,7 @@
 			<input type="text" name="button" class="form-control input-lg" ng-model="bridgepage.swapspot.button">
 		</div>
 	</div>
-
+	<div class="ui message">key: button</div>
 	<div class="field">
 		<h4>Button 2 Text</h4>
 
@@ -137,7 +148,7 @@
 			<input type="text" name="button2" class="form-control input-lg" ng-model="bridgepage.swapspot.button2">
 		</div>
 	</div>
-
+	<div class="ui message">key: button2</div>
 	<div class="field">
 		<h4>Open in New Tab?</h4>
 

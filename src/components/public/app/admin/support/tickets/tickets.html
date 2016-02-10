@@ -76,6 +76,13 @@
 
                                 <div class="ui pointing label">Clear selection to show for all sites you have support access on</div>
                             </div>
+                            <div class="column field" ng-if="available_agents && available_agents.length > 0">
+                                <label>Agent filter:</label>
+                                <select class="ui multiple search selection dropdown" dropdown ng-change="searchTickets()" ng-model="$parent.agents" multiple>
+                                    <option value="0">Unassigned</option>
+                                    <option ng-repeat="agent in available_agents" value="{{agent.user.id}}" ng-selected="$parent.agents.indexOf( agent.id ) != -1">{{agent.user.first_name ? agent.user.first_name + ' ' + agent.user.last_name : agent.user.email}}</option>
+                                </select>
+                            </div>
                         </div>
 					</div>
 
@@ -91,7 +98,7 @@
 						</thead>
 						<tbody>
 							<!-- <tr ng-class="{open:'warning',pending:'positive', solved:'positive', spam:'disabled'}[next_item.status]" ng-click="smModal.Show('public.app.admin.support.ticket' , {id: next_item.id})" ng-repeat="next_item in tickets[pagination.currentPage] | orderBy : customSort : 'true'"> -->
-							<tr  ng-class="{open:'warning',pending:'positive', solved:'positive', spam:''}[next_item.status]" ui-sref="public.app.admin.support.ticket({id: next_item.id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page  " total-items="pagination.total_count"  current-page="pagination.current_page">
+							<tr style="cursor:pointer;" ng-class="{open:'warning',pending:'positive', solved:'positive', spam:''}[next_item.status]" ng-click="openTicket( $event, next_item )" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page  " total-items="pagination.total_count"  current-page="pagination.current_page">
 								<td>
 									<h4 class="ui image header">
 										<img src="{{next_item.profile_image || '/images/image.png'}}" class="ui mini rounded image">

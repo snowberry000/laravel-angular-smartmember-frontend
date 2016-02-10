@@ -14,6 +14,9 @@ app.config( function( $stateProvider )
 
 app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, smModal, $localStorage, $timeout, $state, $location, $stateParams, $filter, Restangular, toastr, Upload )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$site = $rootScope.site;
 	$user = $rootScope.user;
 	$next_item = null;
@@ -95,6 +98,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
           $('input[type="date"]').datepicker();
+          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
 
@@ -174,10 +178,10 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		$scope.next_item.access_level_type = parseInt( $scope.next_item.access_level_type );
 		$scope.next_item.access_level_id = parseInt( $scope.next_item.access_level_id );
 
-		if( $scope.next_item.access_level_type == 3 )
-		{
-			$scope.next_item.access_level_type = 2;
-		}
+		// if( $scope.next_item.access_level_type == 3 )
+		// {
+		// 	$scope.next_item.access_level_type = 2;
+		// }
 
 
 		if( $next_item.seo_settings )
@@ -328,7 +332,8 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		{
 			$scope.next_item.permalink = $filter( 'urlify' )( $scope.next_item.title ).toLowerCase();
 		}
-		$scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
+		if(!$scope.next_item.seo_settings.fb_share_title)
+			$scope.next_item.seo_settings.fb_share_title = $scope.next_item.title;
 	}
 
 
@@ -418,6 +423,8 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		{
 			$scope.next_item.access_level_id = 0;
 		}
+
+		// return;
 		if( $scope.next_item.id )
 		{
 			$callback = $scope.next_item.put();
@@ -426,7 +433,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		{
 			$callback = Restangular.all( 'lesson' ).post( $scope.next_item );
 		}
-
+// return;
 		$callback.then( function( lesson )
 		{
 			if( draft )
@@ -436,6 +443,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 
 			$scope.next_item = lesson;
 			toastr.success( "Lesson has been saved" );
+			// return;
 			if( $stateParams.close )
 			{
 				//close( lesson );

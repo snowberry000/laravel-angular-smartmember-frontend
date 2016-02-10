@@ -52,6 +52,13 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	{
 		var $params = { p: $scope.pagination.current_page, site_id: $site.id };
 
+		if(search && ($scope.query.length < 3 && $scope.query.length != 0)) {
+			return;
+		}
+		else if($scope.query && $scope.query.length < 3 && $scope.query.length != 0){
+			$scope.query='';
+		}
+		
 		if( search )
 		{
 			$scope.pagination.current_page = 1;
@@ -88,7 +95,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.clearFilter = function()
 	{
 		$scope.access_level_query = '';
-		$scope.paginate(true);
+		$scope.paginate();
 		$('.access_level_dropdown .text').empty();
 	}
 
@@ -162,12 +169,29 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 			{
 				if( value2.access_level && typeof value2.access_level.name != 'undefined' && value2.access_level.name != '' )
 				{
-					access_level_list.push( value2.access_level.name );
+					if(access_level_list.indexOf(value2.access_level.name) < 0)
+						access_level_list.push( value2.access_level.name );
 				}
 			} );
 		}
 
 		return access_level_list.join( ', ' );
+	}
+
+	$scope.getaccessLevelList = function( next_item )
+	{
+		var access_level_list = [];
+		if( typeof next_item.role != 'undefined' )
+		{
+			angular.forEach( next_item.role, function( value2, key2 )
+			{
+				if( value2.access_level && typeof value2.access_level.name != 'undefined' && value2.access_level.name != '' )
+				{
+					access_level_list.push( value2.access_level.name );
+				}
+			} );
+		}
+		return access_level_list;
 	}
 
 	$scope.getCSV = function()
@@ -209,7 +233,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
             return;
 
         var role;
-        if( $scope.isAdmin( member ) ) {
+        if( $scope.is_role( member, 'support' ) ) {
             role = _.findWhere( member.role, {type: 'support' } );
             new_role = 'member';
         }
@@ -240,6 +264,26 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 				site_id: $site.id,
 				type : 'member'
 			}
+
+			var temp = _.findWhere($scope.access_levels , {id : parseInt(member.new_access_level)});
+			//console.log($scope.access_levels);
+			
+			if(temp)
+			{
+
+				$accesses= $scope.getaccessLevelList(member);
+				$val =_.findWhere($accesses , temp.name);
+				if($val)
+				{
+					member.new_access_pass_saving = false
+					toastr.error("access level already exist");
+					return;
+				}
+					
+			}
+
+			
+
 			Restangular.service( "siteRole" ).post( member.new_access_pass ).then( function( response )
 			{
 				toastr.success( "Access pass created!" );

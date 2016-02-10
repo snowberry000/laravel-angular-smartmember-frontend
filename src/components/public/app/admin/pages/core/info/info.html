@@ -9,30 +9,24 @@
         <div>
             <h3 class="ui header">Sales Page Builder</h3>
             <p>Build a custom sales page to present to unregistered users to promote your product!</p>
-            <div class="hpanel">
+            <div class="hpanel ui form">
                 <div class="field row">
-                    <label>
-                        <div class="col-md-2">
-                            <input type="checkbox" name="show_sales_page" class=" input-lg pull-left" ng-model="sales_options.sales_page_enabled" ng-true-value="1" ng-false-value="0" />
-                        </div>
-                        <div class="col-md-10">
-                            <h4 class="text-left" style="line-height:50px; margin:0;">
-                                Enable Sales Page
-                            </h4>
-                        </div>
-                    </label>
+                    <div class="ui checkbox" ng-model="sales_options.sales_page_enabled" sui-checkbox>
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Enable Sales Page</label>
+                    </div>
                 </div>
                 <div class="field row">
-                    <label>
-                        <div class="col-md-2">
-                            <input type="checkbox" name="show_sales_page" class=" input-lg pull-left" ng-model="sales_options.narrow_style" ng-true-value="1" ng-false-value="0" />
-                        </div>
-                        <div class="col-md-10">
-                            <h4 class="text-left" style="line-height:50px; margin:0;">
-                                Enable Narrow style
-                            </h4>
-                        </div>
-                    </label>
+                    <div class="ui checkbox" ng-model="sales_options.narrow_style" sui-checkbox>
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Enable Narrow style</label>
+                    </div>
+                </div>
+                <div class="field row">
+                    <div class="ui checkbox" ng-model="sales_options.show_syllabus" sui-checkbox>
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>Show Syllabus in sales page</label>
+                    </div>
                 </div>
                 <div class="field row">
                     <div class="col-sm-12 ">
@@ -45,22 +39,11 @@
                         </span>
                     </div>
                 </div>
-                <div class="field row">
-                    <label>
-                        <div class="col-md-2">
-                            <input type="checkbox" name="show_syllabus" class=" input-lg pull-left" ng-model="sales_options.show_syllabus" ng-true-value="1" ng-false-value="0" />
-                        </div>
-                        <div class="col-md-10">
-                            <h4 class="text-left" style="line-height:50px; margin:0;">
-                                Show Syllabus in sales page
-                            </h4>
-                        </div>
-                    </label>
-                </div>
+
                 <div class="field row">
                     <label class="col-sm-12 control-label">Video / Embed Content</label>
                     <div class="col-sm-12">
-                        <textarea name="embed_content" class="form-control input-lg" ng-model="sales_options.sales_page_embed"></textarea>
+                        <textarea name="embed_content" class="" ng-model="sales_options.sales_page_embed"></textarea>
                         <span class="help-block m-b-none">
                         </span>
                     </div>

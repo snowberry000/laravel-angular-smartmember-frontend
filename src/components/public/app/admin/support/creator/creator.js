@@ -34,7 +34,11 @@ app.controller( "TicketCreatorController", function( $scope, $state, $localStora
 	Restangular.all( '' ).customGET( 'siteRole?type=support' ).then( function( response )
 	{
 		$scope.agents = response.items;
+		$scope.agents = _.uniq($scope.agents , 'user_id');
 	} );
+
+	
+	
 
 	Restangular.one( 'supportTicket' ).customGET( 'sites' ).then( function( response )
 	{
@@ -82,8 +86,21 @@ app.controller( "TicketCreatorController", function( $scope, $state, $localStora
 		} );
 	}
 
+	$scope.validateEmail = function (email) {
+	    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(email);
+	}
+
 	$scope.save = function()
 	{
+		// alert($scope.validateEmail($scope.ticket.user_email));
+		if(!$scope.ticket.user_email || !$scope.validateEmail($scope.ticket.user_email))
+		{
+			toastr.error('Email address required');
+			return;
+		}
+			
+
 		var ticket = angular.copy( $scope.ticket );
 
 		ticket.user_id = ticket.user_email.id;

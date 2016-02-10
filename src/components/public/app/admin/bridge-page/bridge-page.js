@@ -17,6 +17,12 @@ app.config( function( $stateProvider, $stickyStateProvider )
 
 app.controller( "BridgePageController", function( $scope, $localStorage, smSidebar, $q, $state, $stateParams, $filter, Restangular, toastr, Upload, $rootScope, $window, $sce )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 ) {
+        smSidebar.Close();
+        smSidebar.DestroyBPSidebar();
+        $state.go('public.app.site.home');
+    }
+
 	$site = $rootScope.site;
 	$scope.loading = true
 	smSidebar.Show( '.top_bp_sidebar_contents', 'bridgepage-editor-controls.html' );
@@ -608,6 +614,12 @@ app.controller( 'bridgepageEngineController', function( $scope, $timeout , $loca
 	$scope.show_options = false;
 
 	$scope.toggleSidebar = function()
+	{
+		smSidebar.mobileToggle( '.left_bp_sidebar_contents' );
+		$scope.show_options = !$scope.show_options;
+	}
+
+    $scope.toggleDesktopSidebar = function()
 	{
 		smSidebar.Toggle( '.left_bp_sidebar_contents' );
 		$scope.show_options = !$scope.show_options;

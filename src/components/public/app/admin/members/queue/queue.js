@@ -71,4 +71,8 @@ app.controller( "ImportQueueController", function( $scope,smModal,$rootScope, $l
 		} );
 	}
 
+	$scope.refreshState = function() {
+		$state.reload();
+	}
+
 } );

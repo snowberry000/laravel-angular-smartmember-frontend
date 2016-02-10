@@ -560,6 +560,25 @@
                     </div>
                 </div>
 
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Copyright Options
+                </div>
+                <div class="content" >
+                    <div class="ui form">
+                        <div class="field">
+                            <div class="ui checkbox" ng-model="site_options.show_copyright" sui-checkbox>
+                                <input type="checkbox" tabindex="0" class="hidden">
+                                <label>Show</label>
+                            </div>
+                        </div>
+                        <div class="field" ng-if="site_options.show_copyright == 1 || site_options.show_copyright == '1'">
+                            <label>Text to display after copyright (optional)</label>
+                            <input type="text" ng-model="site_options.after_copyright">
+                        </div>
+                    </div>
+                </div>
+
 				<div class="title">
 					<i class="dropdown icon"></i>
 					Thank you Page Settings

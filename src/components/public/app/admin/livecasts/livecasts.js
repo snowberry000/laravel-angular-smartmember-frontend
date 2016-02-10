@@ -12,6 +12,9 @@ app.config( function( $stateProvider )
 
 app.controller( "LivecastsController", function( $scope, $stateParams,$state,$rootScope,$timeout, $http, Restangular )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$scope.template_data = {
 		title: 'LIVECASTS',
 		description: 'Embed live hangout & webinar code or display past recordings',
@@ -31,6 +34,7 @@ app.controller( "LivecastsController", function( $scope, $stateParams,$state,$ro
       // no native support for <input type="date"> :(
       // maybe build one yourself with Dojo or jQueryUI
       $('input[type="date"]').datepicker();
+      $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
     }
 
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
