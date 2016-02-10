@@ -64,7 +64,6 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 		    delete $scope.autoResponder.emails;
 		    $scope.autoResponder.emails=$scope.tempAutoResponder.emails;
 		    $scope.autoResponder.lists=$scope.tempAutoResponder.lists;
-		    delete $scope.autoResponder.email_lists;
 		    $scope.autoResponder.emails=$filter('orderBy')($scope.autoResponder.emails, 'sort_order');
 		}
 		console.log('autoresponder emails series', $scope.autoResponder.emails);
@@ -122,9 +121,9 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	$scope.exists = function(id, type){
 		switch (type) {
 			case 'el':
-				if ($scope.autoResponder.lists != undefined)
+				if ($scope.autoResponder.email_lists != undefined)
 				{
-					if (_.findWhere($scope.autoResponder.lists,{id: id})){
+					if (_.findWhere($scope.autoResponder.email_lists,{id: id}) != undefined){
 						return true;
 					}
 				}
@@ -133,7 +132,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 			case 'sl':
 				if ($scope.autoResponder.sites != undefined)
 				{
-					if (_.findWhere($scope.autoResponder.sites,{id: id})){
+					if (_.findWhere($scope.autoResponder.sites,{id: id}) != undefined){
 						return true;
 					}
 				}
@@ -142,7 +141,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 			case 'al':
 				if ($scope.autoResponder.access_levels != undefined)
 				{
-					if (_.findWhere($scope.autoResponder.access_levels,{id: id})){
+					if (_.findWhere($scope.autoResponder.access_levels,{id: id}) != undefined){
 						return true;
 					}
 				}
