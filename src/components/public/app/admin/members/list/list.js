@@ -55,6 +55,9 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		if(search && ($scope.query.length < 3 && $scope.query.length != 0)) {
 			return;
 		}
+		else if($scope.query && $scope.query.length < 3 && $scope.query.length != 0){
+			$scope.query='';
+		}
 		
 		if( search )
 		{
