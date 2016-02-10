@@ -95,26 +95,26 @@ app.controller("FreebieController", function ($scope, $localStorage,$rootScope, 
           $scope.show_next=show_next;
           $scope.close();
       }
-      else if(selected_url == 'download'){
-        Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-            var downloads = response;
-            downloads.forEach(function(entity){
-                entity.url = entity.permalink;
+       else if(selected_url == 'post'){
+        Restangular.all(selected_url).customGET('',{site_id: $site.id,view: 'admin'}).then(function(response){
+            var posts = response.items;
+            response.items.forEach(function(entity){
+                entity.url =  entity.permalink;
             })
             $scope.show_next = true;
-            $scope.loaded_items = downloads;
+            $scope.loaded_items = {items : posts };
               
         })
       }
       else
       {
-        Restangular.all(selected_url).customGET('',{site_id: item.site_id}).then(function(response){
+        Restangular.all(selected_url).customGET('',{site_id: $site.id,bypass_paging: true}).then(function(response){
             if(response.route == 'customPage')
                 response.route = 'page';
             if(response.route == 'supportArticle')
                 response.route = 'support-article';
             response.items.forEach(function(entity){
-                entity.url = entity.permalink;
+                entity.url =  entity.permalink;
             })
             $scope.show_next = true;
             $scope.loaded_items = response;

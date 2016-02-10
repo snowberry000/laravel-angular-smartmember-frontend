@@ -32,11 +32,12 @@
 						</div>
 					</div>
 				</div>	
+			</div>
 				
 				<div class="ui active inverted dimmer" ng-if="loading">
 					<div class="ui loader"></div>
 				</div>
-			</div>
+			
 			
 			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
 				<thead>
@@ -49,7 +50,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+					<tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 
 						<td>
 							{{next_item.first_name ? next_item.first_name + ' ' + next_item.last_name : next_item.email}}

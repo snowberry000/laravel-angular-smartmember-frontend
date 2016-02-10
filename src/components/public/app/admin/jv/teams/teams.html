@@ -18,7 +18,8 @@
 					<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 					<i class="search icon"></i>
 				</div>
-
+			</div>
+			
 				<div class="ui active inverted dimmer" ng-if="loading">
 					<div class="ui loader"></div>
 				</div>
@@ -33,7 +34,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+						<tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 							<td class="responsive_table_item">
 								{{next_item.name}}
 							</td>
@@ -76,7 +77,7 @@
 						</tr>
 					</tfoot>
 				</table>
-			</div>
+			
 			
 		</div>
 	</div>
