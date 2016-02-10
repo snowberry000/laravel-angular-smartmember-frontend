@@ -9,10 +9,10 @@
 				<p>{{template_data.description}}</p>
 			</div>
 
-			<div ng-show="data.length ==0 && !loading && !query">
+			<div ng-show="data.length ==0 && !loading && !query && !access_level_query">
 				No members are added.
 			</div>
-			<div ng-show="data.length > 0 || query">
+			<div ng-show="data.length > 0 || query || access_level_query">
 				<div class="ui menu">
 					<div class="item">
 						<div class="ui icon input">
@@ -23,7 +23,7 @@
 					<div class="right menu">
 						<div class="item">
 							<div class="ui input access_level_dropdown">
-								<select ng-model="access_level_query" ng-change="paginate(true)" sui-dropdown>
+								<select ng-model="access_level_query" ng-change="paginate()" sui-dropdown>
 									<option value="">Access Levels</option>
 									<option ng-repeat="access_level in access_levels" value="{{access_level.id}}">{{access_level.name}}</option>
 								</select>
@@ -32,11 +32,12 @@
 						</div>
 					</div>
 				</div>	
+			</div>
 				
 				<div class="ui active inverted dimmer" ng-if="loading">
 					<div class="ui loader"></div>
 				</div>
-			</div>
+			
 			
 			<table class="ui celled striped padded structured table" ng-if="data.length > 0 && !loading" foonice>
 				<thead>
@@ -49,7 +50,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+					<tr dir-paginate="next_item in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 
 						<td>
 							{{next_item.first_name ? next_item.first_name + ' ' + next_item.last_name : next_item.email}}

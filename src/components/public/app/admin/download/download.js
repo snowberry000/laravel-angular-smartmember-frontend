@@ -48,6 +48,10 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
         if(!$download.id){
             $download.site_id = $scope.site.id;
         }
+        else{
+            if($download.media_item)
+                $rootScope.downloadLink=$download.media_item.url;
+        }
 
         if (!Modernizr.inputtypes.date) {
           // no native support for <input type="date"> :(
@@ -66,6 +70,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             delete $download.site;
         }
         $scope.download = $download;
+
         if ($scope.download.end_published_date)
             $scope.download.end_published_date = new Date(moment.utc($scope.download.end_published_date));
         else
@@ -148,6 +153,11 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
 
 
     $scope.save = function () {
+        if(!$scope.download.media_item_id && !$scope.download.download_link)
+        {
+            toastr.error("Please upload a file or provide a third party download link!");
+            return;
+        }
          if( $scope.download.permalink == '' )
              this.onBlurTitle(null);
 
