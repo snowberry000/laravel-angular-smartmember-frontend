@@ -153,9 +153,9 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
 
 
     $scope.save = function () {
-        if(!$scope.download.media_item_id)
+        if(!$scope.download.media_item_id && !$scope.download.download_link)
         {
-            toastr.error("Please upload a file!");
+            toastr.error("Please upload a file or provide a third party download link!");
             return;
         }
          if( $scope.download.permalink == '' )
