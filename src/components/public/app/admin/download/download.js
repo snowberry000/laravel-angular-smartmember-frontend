@@ -48,6 +48,9 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
         if(!$download.id){
             $download.site_id = $scope.site.id;
         }
+        else{
+            $rootScope.downloadLink=$download.media_item.url;
+        }
 
         if (!Modernizr.inputtypes.date) {
           // no native support for <input type="date"> :(
@@ -66,6 +69,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             delete $download.site;
         }
         $scope.download = $download;
+
         if ($scope.download.end_published_date)
             $scope.download.end_published_date = new Date(moment.utc($scope.download.end_published_date));
         else
