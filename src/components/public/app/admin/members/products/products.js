@@ -46,13 +46,17 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 		}
 	} );
 
-	$scope.paginate = function()
+	$scope.paginate = function(search)
 	{
+		if(search) {
+			$scope.pagination.current_page = 1;
+		}
+
+		$scope.loading = true;
+
+		
 		if( true )
 		{
-
-			$scope.loading = true;
-
 			var $params = { p: $scope.pagination.current_page, site_id: $site.id };
 
 			if( $scope.query )
@@ -62,8 +66,13 @@ app.controller( "ProductsController", function( $scope, $localStorage, smModal, 
 			Restangular.all( '' ).customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + $scope.query : '' ) ).then( function( data )
 			{
 				$scope.loading = false;
-				$scope.pagination.total_count = data.total_count;
-				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				if(!data) {
+					$scope.data = [];
+				}
+				else {
+					$scope.pagination.total_count = data.total_count;
+					$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+				}
 			} );
 		}
 	}
