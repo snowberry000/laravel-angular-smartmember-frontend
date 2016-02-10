@@ -11,7 +11,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "WallboardController", function($rootScope, $scope, Restangular )
+app.controller( "WallboardController", function($rootScope, $scope, Restangular, $state )
 {
 	$rootScope.is_wallboard = true;
 	$scope.wallboard = {};
@@ -20,6 +20,9 @@ app.controller( "WallboardController", function($rootScope, $scope, Restangular 
 		.then(function(response){
 			$site = response;
 			$rootScope.site = $site;
+
+            if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'view_financial_stats' ) == -1 )
+                $state.go('public.app.site.home');
 
 			if( !$site.is_admin )
 			{
