@@ -11,10 +11,19 @@
 
 			<div class="ibox float-e-margins">
 				<div class="ibox-content">
-					<div class="field" ng-if="pagination.total_count > 10 || query || pagination.current_page > 1">
-						<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="search()" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+
+					<div ng-show="data.length>0 || query">
+						<div class="ui icon input">
+							<input type="text" placeholder="Search" class="form-control" ng-model="$parent.query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+							<i class="search icon"></i>
+						</div>
 					</div>
-					<div ng-if="data.length > 0 && !loading">
+					<br>
+
+					<div class="ui active inverted dimmer" ng-if="loading">
+						<div class="ui loader"></div>
+					</div>
+					
 						<table class="ui fixed single line celled stackable table" data-page-size="15" ng-if="data.length > 0 && !loading" foonice>
 							<thead>
 								<tr>
@@ -81,8 +90,8 @@
 								</tr>
 							</tfoot>
 						</table>
-					</div>
-					<div ng-if="data.length==0 && !loading">
+					
+					<div ng-show="data.length==0 && !loading && !query">
 						No access levels created yet.
 					</div>
 
