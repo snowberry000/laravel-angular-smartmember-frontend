@@ -17,6 +17,13 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	$rootScope.page_title = "Smartmember";
 	$rootScope.is_admin = true;
 
+	if(!$rootScope.site)
+	{
+		Restangular.one( 'site', 'details' ).get().then(function(response){
+			$rootScope.site=response;
+		});
+	}
+
 	$scope.message = '';
 	$scope.site_logo = "http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/Smart-Member-Gray-Icon-Text-01.png";
 	$scope.action = 0;
