@@ -49,7 +49,8 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             $download.site_id = $scope.site.id;
         }
         else{
-            $rootScope.downloadLink=$download.media_item.url;
+            if($download.media_item)
+                $rootScope.downloadLink=$download.media_item.url;
         }
 
         if (!Modernizr.inputtypes.date) {
@@ -152,6 +153,11 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
 
 
     $scope.save = function () {
+        if(!$scope.download.media_item_id)
+        {
+            toastr.error("Please upload a file!");
+            return;
+        }
          if( $scope.download.permalink == '' )
              this.onBlurTitle(null);
 
