@@ -1,4 +1,4 @@
-<div class="ui">
+<div class="ui" >
     <a href class="pull-right" ng-click="close()">X</a>
     <div>
         <select class="form-control" ng-model="selected_url" ng-change="selectUrl(model ,selected_url , false)">
@@ -21,7 +21,9 @@
             <option value="bridgePage">Choose a bridgePage</option>
         </select>
     </div>
-    <select class="form-control" ng-model="model.url" ng-change="selectUrl(model , model.url , true)" ng-if="show_next">
+    <select class="form-control" ng-model="model.url" style="
+    max-width: 100%;
+" ng-change="selectUrl(model , model.url , true)" ng-if="show_next">
         <option ng-repeat="item in loaded_items.items" value="{{item.url}}">{{item.title}}
         </option>
     </select>
