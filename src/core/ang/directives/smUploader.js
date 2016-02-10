@@ -239,12 +239,20 @@ app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $lo
 		$scope.paginate_file();
 	}
 	
-	$scope.getFileType =function($url) {
+	$scope.isImage =function($url) {
 		$str = $url.split('.');
-		if($str.length >=1)
-			return $str[$str.length-1];
-		else
-			return ' ';
+		if($str.length >=1){
+			var ext = $str[$str.length-1];
+			var imageExts = ['jpg','jpeg','png','gif','JPG','JPEG','PNG','GIF'];
+			var result = imageExts.indexOf(ext);
+			if(result == -1){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			return false;
+		}		
 	}
 
 	$scope.getFileName =function($url) {
