@@ -92,7 +92,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.clearFilter = function()
 	{
 		$scope.access_level_query = '';
-		$scope.paginate(true);
+		$scope.paginate();
 		$('.access_level_dropdown .text').empty();
 	}
 
