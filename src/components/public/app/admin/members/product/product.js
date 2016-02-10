@@ -127,6 +127,10 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 
 		console.log("access levels: "+$scope.access_level);
 		$scope.access_level.isOpen = false;
+		if ($scope.access_level.trial_amount == 0 || $scope.access_level.trial_amount == '0')
+			$scope.access_level.enable_trial = false;
+		else
+			$scope.access_level.enable_trial = true;
 	}
 
     
