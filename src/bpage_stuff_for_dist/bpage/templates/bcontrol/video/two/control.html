@@ -60,8 +60,12 @@
 
     <div ng-show="timer">
         <div class="field">
-            <h4 >Enabled timer on this BP</h4>
-                <input type="checkbox" ng-model="bridgepage.swapspot.enable_timer" ng-checked="bridgepage.swapspot.enable_timer == 1" class="" ng-true-value="1" ng-false-value="0">
+            <h4 >Enable timer on this BP</h4>
+            <div class="ui checkbox" ng-model="bridgepage.swapspot.enable_timer" sui-checkbox truevalue="1" falsevalue="0">
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label>Enable timer</label>
+            </div>
+
         </div>
         <div class="field">
             <h4 >Timer Settings</h4>
