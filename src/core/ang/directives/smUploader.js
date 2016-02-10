@@ -35,6 +35,10 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 						modal.element
 						.modal({
 							allowMultiple: true,
+                            onShow: function(){
+                                $(this).css('z-index', '1000000');
+                                $(this).closest('.ui.dimmer').css('z-index', '1000000');
+                            },
 							onApprove: function(){
 								scope.deleteResource(attributes.smDelete);
 								return true;
@@ -74,11 +78,6 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 								}
 							}
 
-							// $timeout( function()
-							// {
-							// 	smModal.Refresh();
-							// }, 1000 );
-
 							if( rest )
 							{
 								rest.customPOST( li, "save" ).then( function()
@@ -88,65 +87,6 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 							}
 						} );
 				})
-
-				
-
-				// smModal.Show( null, { modal_options: { allowMultiple: true } , "closeOnModalCompletion": closeOnModalCompletion },
-				// 	{ templateUrl: 'templates/modals/newMediaItem.html', controller: 'modalMediaController' },
-				// 	function( item )
-				// 	{
-				// 		if( key )
-				// 		{
-				// 			var li = {};
-				// 			console.log( item )
-				// 			li[ key ] = item.file;
-				// 			if( model )
-				// 			{
-				// 				var parsed_model = $parse( model );
-				// 				parsed_model.assign( scope, item.file );
-				// 				ctrl.$setViewValue( item.file );
-				// 			}
-				// 			if( awskey && item.aws_key !== undefined )
-				// 			{
-
-				// 				var parsed_awskey = $parse( awskey );
-				// 				parsed_awskey.assign( scope, item.aws_key );
-				// 				ctrl.$setViewValue( item.aws_key );
-				// 			}
-				// 		}
-
-				// 		$timeout( function()
-				// 		{
-				// 			smModal.Refresh();
-				// 		}, 1000 );
-
-
-				// 		if( rest )
-				// 		{
-				// 			rest.customPOST( li, "save" ).then( function()
-				// 			{
-				// 				console.log( "Image is uploaded" );
-				// 			} );
-				// 		}
-				// 	}
-				// )
-
-				// $location.hash('site-logo-uploader');
-				    
-				// $anchorScroll();
-
-				// $timeout(function(){
-				// 	$window.history.back();
-				// } , 1000)
-				//$location.url = '';
-				/*$(".upload.modal")
-				 .modal('setting',{
-				 onApprove: function(){
-				 alert(attributes.smDelete);
-				 scope.deleteResource(attributes.smDelete)
-				 }
-				 })elem
-				 .modal('show');*/
 
 			} )
 
