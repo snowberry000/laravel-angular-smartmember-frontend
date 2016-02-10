@@ -166,19 +166,16 @@
 									{{account.linked_email}}
 								</td>
 								<td>
-									<span class="text-success" ng-if="account.verified==1">verified</span>
-											<span ng-if="account.verified != 1 && account.claimed">
-												<a href="#" ng-click="resendVerification(account.linked_email)">Resend Verification Email</a>
-											</span>
-									<span class="text-danger" ng-if="account.verified !=1 && !account.claimed">Already Taken</span>
+									<span class="text-success" ng-if="account.verified==1 || account.verified == '1'">verified</span>
+									<span ng-if="account.verified == 0 || account.verified == '0'">
+										<a href="#" ng-click="resendVerification(account.linked_email)">Resend Verification Email</a>
+									</span>
 								</td>
 								<td>
-									<span class="btn btn-sm btn-danger" ng-click="removeLinkedAccount(account)">Remove</span>
-									<span class="btn btn-sm btn-primary" ng-if="account.verified == 1" ng-click="togglePrimary(account)">Make Primary</span>
-									<span class="btn btn-sm btn-primary" ng-if="!account.claimed" ng-click="merge(account)">Claim & Merge</span>
+									<span class="ui button" ng-hide="inProgress==true || inProgress=='true'" ng-click="inProgress=true;removeLinkedAccount(account)">Remove</span>
+									<span class="ui button" ng-if="account.verified == 1 || account.verified == '1'" ng-click="togglePrimary(account)">Make Primary</span>
 								</td>
 							</tr>
-
 						</tbody>
 					</table>
 					<div class="ui form">
@@ -189,7 +186,7 @@
 						</p>
 						<div class="field">
 							<label class="col-sm-3 control-label">Add email address</label>
-
+							
 							<div class="col-sm-6">
 
 								<div ng-if="emailAdding" class="sk-spinner sk-spinner-three-bounce">
@@ -198,7 +195,7 @@
 									<div class="sk-bounce3"></div>
 								</div>
 
-								<input type="text" class="form-control" ng-model="user.newemail">
+								<input type="text" class="form-control" ng-model="user.newemail" ng-pattern="/^[_a-z0-9\+]+(\.[_a-z0-9\+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/">
 								<span class="help-block m-b-none">
 									Add extra emails you'd like associated with this account. You can merge accounts
 									by supplying their email addresses here and following the instructions presented.

@@ -13,7 +13,7 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 	$scope.user = $user = $rootScope.user;
 	$scope.full_name = $scope.user.first_name + ' ' + $scope.user.last_name;
 	$scope.full_name=$scope.full_name.trim();
-	$scope.emailAdding=false;
+	$scope.emailAdding=false; 
 
 	var user = Restangular.one('user' , $localStorage.user.id);
 	if ($location.search().verification_hash)
@@ -99,6 +99,8 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 
 	$scope.linkAccount = function(){
 		if (! $scope.user.newemail) return;
+
+		$scope.validEmail = true;
 		$scope.emailAdding=true;
 		Restangular.all('linkedAccount').customPOST({email : $scope.user.newemail, link: 1} , 'link').then(function(response){
 			$scope.emailAdding=false;
@@ -120,10 +122,13 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 			
 		})
 	}
+	$scope.inProgress=false;
 
 	$scope.removeLinkedAccount = function(account){
+		$scope.inProgress=true;
 		Restangular.one('linkedAccount' , account.id).remove().then(function(response){
 			console.log(response);
+			$scope.inProgress=false;
 			if (response && response.success == true)
 			{
 				toastr.success("Account successfully removed");
@@ -196,4 +201,5 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 			toastr.success("Your profile picture has been changed!");
 		})
 	}
+
 });

@@ -23,6 +23,13 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 		$rootScope.redirectedFromLoginMessage = true;
 	}
 
+	if(!$rootScope.site)
+	{
+		Restangular.one( 'site', 'details' ).get().then(function(response){
+			$rootScope.site=response;
+		});
+	}
+
 	$site = $rootScope.site;
     if( $rootScope.site ) {
         $site_options = $rootScope.site.meta_data;

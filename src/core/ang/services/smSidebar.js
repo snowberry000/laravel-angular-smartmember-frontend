@@ -33,6 +33,11 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( 'toggle' );
 	};
 
+    self.mobileToggle = function( the_sidebar )
+    {
+        $( the_sidebar ? the_sidebar : '.ui.sidebar' ).slideToggle();
+    }
+
 	self.Close = function( the_sidebar )
 	{
 		$( the_sidebar ? the_sidebar : '.ui.sidebar' ).sidebar( 'hide' );
@@ -48,7 +53,6 @@ app.factory( 'smSidebar', [ '$rootScope', function( $rootScope )
 			$(this).remove();
 		})
 	}
-
 
 	self.Init = function( the_sidebar )
 	{

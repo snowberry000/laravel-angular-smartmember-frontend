@@ -75,13 +75,13 @@
 
 <div class="right ui inverted app_shortcuts_container menu {{show_admin_mobile_top_nav || 'mobile hidden'}}">
 
-	<a class="item thin" ui-sref="public.app.admin.smart-links.list" ng-click="" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_content" if-not="hide" title="Smart Links" position="left center" sui-popup>
+	<a class="item thin" ui-sref="public.app.admin.smart-links.list" ng-click="" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_content" if-not="hide" title="Smart Links" position="bottom center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="linkify icon"></i>
 		</button>
 	</a>
 
-	<div class="item thin" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_email" if-not="hide" title="Email" position="left center" sui-popup>
+	<div class="item thin" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_email" if-not="hide" title="Email" position="bottom center" sui-popup>
 		<div class="ui dropdown" sui-dropdown>
 			<button class="ui inverted basic red icon button">
 				<i class="envelope icon"></i>
@@ -98,25 +98,24 @@
 			</div>
 		</div>
 	</div>
-	<a class="item thin" ui-sref="public.app.admin.support.tickets" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_support_tickets" if-not="hide" title="Support" position="left center" sui-popup>
+	<a class="item thin" ui-sref="public.app.admin.support.tickets" ng-if="!isSitelessPage() && $state.includes('public.app')" sm-access="manage_support_tickets" if-not="hide" title="Support" position="bottom center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="life ring icon"></i>
 
-			<div ng-if="site.unread_support_ticket" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
+			<div ng-if="site.unread_support_ticket>0" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
 		</button>
 	</a>
-	<a class="item thin" ui-sref="public.app.admin.bridge-pages" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage() && $state.includes('public.app')" title="Bridge Pages" position="left center" sui-popup>
+	<a class="item thin" ui-sref="public.app.admin.bridge-pages" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage() && $state.includes('public.app')" title="Bridge Pages" position="bottom center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="browser icon"></i>
 		</button>
 	</a>
-	<a class="item thin" href='https://chrome.google.com/webstore/detail/ngjjhojkdcaodebnplalpchjjgaecbpc?utm_source=chrome-app-launcher-info-dialog' target='_blank' ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Speed Blogging" position="left center" sui-popup>
+	<a class="item thin" href='https://chrome.google.com/webstore/detail/ngjjhojkdcaodebnplalpchjjgaecbpc?utm_source=chrome-app-launcher-info-dialog' target='_blank' ng-if="!isSitelessPage()" sm-access="manage_support_tickets" if-not="hide" title="Speed Blogging" position="bottom center" sui-popup>
 		<button class="ui inverted basic red icon button">
 			<i class="checkered flag icon"></i>
 		</button>
 	</a>
-
-	<div ng-if="!isSitelessPage() && site.wizard_step >= 5" class="ui category search item" sui-search>
+	<div ng-if="!isSitelessPage() && site.wizard_completed.is_completed" class="ui category search item" sui-search>
 		<div class="ui icon input">
 			<input class="prompt" type="text" placeholder="">
 			<i class="search icon"></i>

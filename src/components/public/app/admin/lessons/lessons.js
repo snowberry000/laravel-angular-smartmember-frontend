@@ -12,6 +12,9 @@ app.config( function( $stateProvider )
 
 app.controller( "AdminLessonsController", function( $scope, $rootScope, $localStorage,$timeout, $state, $stateParams, $filter, Restangular, toastr )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$site = $rootScope.site;
 	$scope.template_data = {
 		title: 'LESSONS',

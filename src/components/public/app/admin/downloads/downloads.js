@@ -12,6 +12,9 @@ app.config( function( $stateProvider )
 
 app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $timeout, $localStorage, $state, $stateParams, Restangular, toastr, $filter )
 {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	$scope.template_data = {
 		title: 'DOWNLOADS',
 		description: 'Provided downloadable photos, files, media, and more',
@@ -31,20 +34,21 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $t
 	{
 		if( new_value != old_value )
 		{
-			$scope.paginate();
+			$scope.paginate(true);
 		}
 	} );
 
 	$scope.paginate = function(search)
 	{
-		if (search)
+		var continueSearch = true;
+		if (search && $scope.query.length<3)
 		{
-			$scope.pagination.current_page = 1;
+			continueSearch = false;
 		}
 
-		if( true )
+		if(continueSearch || $scope.query.length==0)
 		{
-
+			$scope.pagination.current_page = 1;
 			$scope.loading = true;
 
 			var $params = { p: $scope.pagination.current_page, site_id: $site.id };

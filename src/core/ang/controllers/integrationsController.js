@@ -80,9 +80,9 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		$scope.configured_app_configurations = $configured_app_configurations;
 		$scope.current_integration = $current_integration;
 		//prepare copy url
-		if( $scope.company && $scope.company.hash )
+		if( $scope.site && $scope.site.hash )
 		{
-			$scope.url = $scope.app.apiUrl + '/jvzoo/' + $scope.company.hash;
+			$scope.url = $scope.app.apiUrl + '/jvzoo/' + $scope.site.hash;
 		}
 		//automatic selection
 		$url = $location.host();
@@ -367,8 +367,8 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		},
 		{
 			id: 'youzign',
-			name: 'YouZign',
-			short_name: 'YouZign',
+			name: 'Youzign',
+			short_name: 'Youzign',
 			sites_only: true,
 			description: 'Allow you to import your designs from Youzign into SmartMember',
 			logo: '/images/app_configurations/youzign.png',

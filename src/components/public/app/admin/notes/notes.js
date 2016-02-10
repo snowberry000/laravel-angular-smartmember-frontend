@@ -10,6 +10,10 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('NotesController', function ($scope, $rootScope, $localStorage, Restangular, $timeout , $stateParams, $state) {
+
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_members' ) == -1 )
+        $state.go('public.app.site.home');
+
     $site=$rootScope.site;
     $scope.template_data = {
         title: 'LESSON_NOTES',

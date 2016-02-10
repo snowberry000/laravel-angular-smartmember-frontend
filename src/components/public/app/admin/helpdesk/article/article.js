@@ -20,12 +20,14 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
 
     $scope.resolve =function(){
         if($stateParams.id)
+        {
             Restangular.one('supportArticle' , $stateParams.id).get().then(function(response){
                 $article = response;
                 $scope.init();
             });
-        else if($stateParams.clone){
-            Restangular.one('supportArticle', $stateParams.clone).get().then(function(response){
+        }
+        else if($location.search().clone){
+            Restangular.one('supportArticle', $location.search().clone).get().then(function(response){
                 $article = response;
                 $scope.init();
             });
@@ -42,6 +44,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
           $('input[type="date"]').datepicker();
+          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
 

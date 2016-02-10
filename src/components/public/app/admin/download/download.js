@@ -10,6 +10,9 @@ app.config(function($stateProvider){
 }); 
 
 app.controller("DownloadController", function ($scope,smModal,$stateParams,Upload,$rootScope, $localStorage , $timeout , $location, $state,  Restangular, toastr, $filter) {
+    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
+        $state.go('public.app.site.home');
+
 	var draft;
     var changed;
     var seo = {};
@@ -45,11 +48,15 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
         if(!$download.id){
             $download.site_id = $scope.site.id;
         }
+        else{
+            $rootScope.downloadLink=$download.media_item.url;
+        }
 
         if (!Modernizr.inputtypes.date) {
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
           $('input[type="date"]').datepicker();
+          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
 
@@ -62,6 +69,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             delete $download.site;
         }
         $scope.download = $download;
+
         if ($scope.download.end_published_date)
             $scope.download.end_published_date = new Date(moment.utc($scope.download.end_published_date));
         else
@@ -106,6 +114,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
 
 
     $scope.imageUpload = function(files){
+        alert("called");
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
@@ -220,7 +229,8 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
     }
 
     $scope.downloadFile = function(media){
-        location.href = $scope.app.apiUrl + '/utility/download?' + ( media.aws_key != undefined ? 'aws_key=' + media.aws_key : 'file=' + media.url );
+        // alert(media.aws_key);
+        location.href = $scope.app.apiUrl + '/utility/download?' + ( media.aws_key ? 'aws_key=' + media.aws_key : 'file=' + media.url );
     }
 
     $scope.resolve();

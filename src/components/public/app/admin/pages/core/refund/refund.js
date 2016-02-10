@@ -18,6 +18,12 @@ app.config(function($stateProvider){
 app.controller("RefundController", function ($scope, $localStorage, smModal , $rootScope, $state, $stateParams,  $filter, Restangular, toastr, Upload) {
 	$scope.refund = {};
     $site = $rootScope.site;
+
+    $scope.template_data = {
+        title: 'Refund Page Builder',
+        description: 'Build a page to show users why they shouldn\'t refund!'
+    }
+
     $scope.loading=true;
     Restangular.all('specialPage').getList({site_id:$site.id , type:'Refund Page'}).then(function(response){
         $refund=response;
@@ -63,20 +69,20 @@ app.controller("RefundController", function ($scope, $localStorage, smModal , $r
           $scope.show_next=show_next;
           $scope.close();
       }
-      else if(selected_url == 'download'){
-        Restangular.all('').customGET('download',{site_id: item.site_id}).then(function(response){
-            var downloads = response;
-            downloads.forEach(function(entity){
-                entity.url = entity.permalink;
+      else if(selected_url == 'post'){
+        Restangular.all(selected_url).customGET('',{site_id: $site.id,view: 'admin'}).then(function(response){
+            var posts = response.items;
+            response.items.forEach(function(entity){
+                entity.url =  entity.permalink;
             })
             $scope.show_next = true;
-            $scope.loaded_items = {items : downloads };
+            $scope.loaded_items = {items : posts };
               
         })
       }
       else
       {
-        Restangular.all(selected_url).customGET('',{site_id: item.site_id}).then(function(response){
+        Restangular.all(selected_url).customGET('',{site_id: $site.id,bypass_paging: true}).then(function(response){
             if(response.route == 'customPage')
                 response.route = 'page';
             if(response.route == 'supportArticle')
