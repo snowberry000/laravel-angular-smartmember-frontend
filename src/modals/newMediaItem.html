@@ -2,11 +2,10 @@
 	<div class="header no-border asd">
 		<div class="ui top attached tabular menu" sui-tabs>
 			<a class="item active" data-tab="upload">Upload</a>
-			<a class="item" ng-if="!hide_media" data-tab="media_files">Media Files</a>
-			<a class="item" data-tab="youzign">Youzign Files</a>
+			<a class="item" ng-if="!hide_media" ng-click="mediaTab.status='true';" data-tab="media_files">Media Files</a>
+			<a class="item" data-tab="youzign" ng-click="mediaTab.status='false';">Youzign Files</a>
 		</div>
 	</div>
-	
 	<div class='content'>
 		<div class="ui bottom attached tab segment no-border active" data-tab="upload">
 			<style>
@@ -34,10 +33,10 @@
 			</div>
 		</div>
 
-		<div class="ui bottom attached tab segment no-border" data-tab="media_files">
+		<div  class="ui bottom attached tab segment no-border" data-tab="media_files">
 			<h4>Click on the media to select</h4>
-			<div class='ui grid'>
-				<div class='four wide column media-select' style="text-align: center;" dir-paginate="media in media_files | itemsPerPage: pagination_file.per_page" total-items="pagination_file.total_count"  current-page="pagination_file.current_page" >
+			<div class='ui grid' ng-if="mediaTab.status=='true'">
+				<div  class='four wide column media-select' style="text-align: center;" dir-paginate="media in media_files | itemsPerPage: pagination_file.per_page" total-items="pagination_file.total_count"  current-page="pagination_file.current_page" >
 					<img  ng-if="getFileType(media.source) != 'pdf'" ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
 					<div ng-if="getFileType(media.source) == 'pdf'">
 					<i style="text-align: center;"  class='ui fluid rounded image fa-3x fa fa-file-pdf-o'></i>
@@ -47,19 +46,20 @@
 					
 				</div>
 			</div>
-			<div ng-if="!loading && pagination_file.total_count > 25">
+			<!-- {{!loading && pagination_file.total_count > 25  mediaTab.status=='true' }} -->
+			<div ng-if="!loading && pagination_file.total_count > 25 && mediaTab.status=='true' ">
 				<dir-pagination-controls max-size="5"></dir-pagination-controls>
 			</div>
 		</div>
 
-		<div class="ui bottom attached tab segment no-border" data-tab="youzign">
+		<div  class="ui bottom attached tab segment no-border" data-tab="youzign">
 			<h4>Click on the media to select</h4>
-			<div class='ui grid'>
-				<div class='four wide column media-select' dir-paginate="media in youzign_files | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page" >
+			<div class='ui grid' ng-if ="mediaTab.status=='false'">
+				<div  class='four wide column media-select' dir-paginate="media in youzign_files | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page" >
 					<img ng-click='select(media)' class='ui fluid rounded image'  ng-src='{{media.source}}'>
 				</div>
 			</div>
-			<div ng-if="!loading && pagination.total_count > 25">
+			<div ng-if="!loading && pagination.total_count > 25 && mediaTab.status=='false'">
 				<dir-pagination-controls max-size="5"></dir-pagination-controls>
 			</div>
 		</div>

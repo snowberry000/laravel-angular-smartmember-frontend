@@ -157,6 +157,9 @@ app.directive( 'smUploader', function( $localStorage, $parse, notify, Restangula
 app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $localStorage, $stateParams, Upload,smModal, close, Restangular )
 {
 
+	
+	$scope.mediaTab={status:'true'};
+
 	console.log( $rootScope.subdomain == 'my');
 	$scope.hide_media = $stateParams.hide_media;
 	$scope.media_files = [];
