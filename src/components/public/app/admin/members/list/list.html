@@ -9,10 +9,10 @@
 				<p>{{template_data.description}}</p>
 			</div>
 
-			<div ng-show="data.length ==0 && !loading && !query">
+			<div ng-show="data.length ==0 && !loading && !query && !access_level_query">
 				No members are added.
 			</div>
-			<div ng-show="data.length > 0 || query">
+			<div ng-show="data.length > 0 || query || access_level_query">
 				<div class="ui menu">
 					<div class="item">
 						<div class="ui icon input">
