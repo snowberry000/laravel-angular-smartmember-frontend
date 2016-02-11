@@ -44,6 +44,6 @@ app.controller( 'WizardsController', function( $scope, $rootScope, $location, $s
 
 	$scope.open = function( wizard )
 	{
-		$state.go( 'public.app.admin.wizard', { 'id': wizard.slug } );
+		$state.go( 'public.app.admin.wizard.list', { 'id': wizard.slug } );
 	}
 } );

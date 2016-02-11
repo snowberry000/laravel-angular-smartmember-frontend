@@ -1211,6 +1211,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 app.controller( 'siteLogoWizardController', function( $scope, $rootScope, $filter, $http, $localStorage, Restangular, toastr )
 {
+    console.log('are we even coming up?');
 	$scope.current_node = $scope.$parent;
 	$scope.site_options = {};
 
