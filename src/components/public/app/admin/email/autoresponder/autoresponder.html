@@ -97,7 +97,8 @@
 
                             <div class="field" ng-if="autoResponder.email_when == 3">
                                 <label>Choose Email List</label>
-                                <select multiple="multiple" class="ui fluid dropdown" ng-model="autoResponder.lists"
+                                <select multiple="multiple" class="ui fluid dropdown"
+                                        ng-model="autoResponder.post_lists"
                                         style="height: 150px;">
                                     <option ng-selected="exists(el.id,'el')" ng-repeat="el in emailLists" value={{el.id}}>{{el.name}}
                                     </option>
@@ -106,7 +107,8 @@
 
                             <div class="field" ng-if="autoResponder.email_when == 1">
                                 <label>Choose Sites</label>
-                                <select multiple="multiple" class="ui fluid dropdown" ng-model="autoResponder.sites"
+                                <select multiple="multiple" class="ui fluid dropdown"
+                                        ng-model="autoResponder.post_sites"
                                         style="height: 150px;">
                                     <option ng-selected="exists(sl.id,'sl')" ng-repeat="sl in siteLists" value={{sl.id}}>
                                         {{sl.domain ? sl.domain : sl.subdomain + 'smartmember.com'}}
@@ -116,9 +118,10 @@
 
                             <div class="field" ng-if="autoResponder.email_when == 2">
                                 <label>Choose Access Levels</label>
-                                <select multiple="multiple" class="ui fluid dropdown" ng-model="autoResponder.access_levels"
+                                <select multiple="multiple" class="ui fluid dropdown"
+                                        ng-model="autoResponder.post_access_levels"
                                         style="height: 150px;">
-                                    <option ng-selected="exists(al.id,'al')" ng-repeat="al in access_levels" value={{al.id}}>
+                                    <option ng-selected="exists(al.id,'al')" ng-repeat="al in accessLevelLists" value={{al.id}}>
                                         {{al.name}}
                                     </option>
                                 </select>

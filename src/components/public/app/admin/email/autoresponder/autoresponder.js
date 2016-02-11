@@ -31,7 +31,7 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 
 	$access_levels = Restangular.all( '' ).customGET( 'accessLevel' + '?view=admin&bypass_paging=1&site_id=' + $site.id ).then( function( data )
 	{
-		$scope.access_levels = data.items;
+		$scope.accessLevelLists = data.items;
 	});
 
 	// $emails = Restangular.all('email').getList().then(function(response){$scope.emails = response});
@@ -52,18 +52,13 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 		}
 		else
 		{
-		    $scope.tempAutoResponder={company_id:$site.company_id,emails:[],lists:{}};
+		    $scope.tempAutoResponder={company_id:$site.company_id,emails:[]};
 		    for(var i=0;i<$scope.autoResponder.emails.length;i++)
 		    {
 		        $scope.tempAutoResponder.emails.push({email_id:$scope.autoResponder.emails[i].id, subject:$scope.autoResponder.emails[i].subject, delay:$scope.autoResponder.emails[i].pivot.delay, unit:$scope.autoResponder.emails[i].pivot.unit,sort_order:$scope.autoResponder.emails[i].pivot.sort_order});
 		    }
-		    for(var i=0;i<$scope.autoResponder.email_lists.length;i++)
-		    {
-		        $scope.tempAutoResponder.lists[$scope.autoResponder.email_lists[i].id]=true;
-		    }
 		    delete $scope.autoResponder.emails;
 		    $scope.autoResponder.emails=$scope.tempAutoResponder.emails;
-		    $scope.autoResponder.lists=$scope.tempAutoResponder.lists;
 		    $scope.autoResponder.emails=$filter('orderBy')($scope.autoResponder.emails, 'sort_order');
 		}
 		console.log('autoresponder emails series', $scope.autoResponder.emails);
@@ -154,6 +149,9 @@ app.controller("AutoresponderController", function ($filter,smModal,$scope,$root
 	$scope.save = function(){
 	    
 	console.log($scope.autoResponder);
+	delete $scope.autoResponder.sites;
+	delete $scope.autoResponder.access_levels;
+	delete $scope.autoResponder.email_lists;
 	$scope.autoResponder.emails=[];
 	$.each($(".ui.modals.active .email_item"), function (key, email) {
 	        $tempEmail=$(email).data("component");
