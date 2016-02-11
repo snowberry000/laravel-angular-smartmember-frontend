@@ -25,8 +25,10 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
     var timeout = null;
     $scope.user = $user = $rootScope.user;
     $scope.site = $site = $rootScope.site;
+    $scope.loading = true;
 
     $scope.resolve =function (){
+
         if($stateParams.id)
             Restangular.one('download' , $stateParams.id).get().then(function(response){
                 $download=response;
@@ -42,9 +44,11 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
             $download={access_level_type: 4, access_level_id: 0};
             $scope.init();
         }
+        
     }
 
     $scope.init=function(){
+        $scope.loading = true;
         if(!$download.id){
             $download.site_id = $scope.site.id;
         }
@@ -111,6 +115,7 @@ app.controller("DownloadController", function ($scope,smModal,$stateParams,Uploa
                   timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
                 }
         } , true)
+        $scope.loading = false;
     }
 
 
