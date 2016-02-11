@@ -118,7 +118,7 @@
                     </div>
                     <div class="ui segments connectLessons" ui-sortable="LessonSortableOptions" ng-model="module.lessons">
                         <div class="ui segment lesson_item" data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">
-                            <div class="ui grid">
+                            <div class="ui stackable grid">
                                 <div class="four wide column">
                                     <div class="ui checkbox" ng-model="next_item.checked" sui-checkbox>
                                         <input type="checkbox" tabindex="0" class="hidden">

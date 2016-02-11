@@ -5,6 +5,9 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.app.admin.post", {
 			url: "/post/:id?",
+            params: {
+                speed_blogging: null
+            },
 			templateUrl: "/templates/components/public/app/admin/post/post.html",
 			controller: "PostController"
 		} )

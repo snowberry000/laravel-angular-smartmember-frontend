@@ -589,9 +589,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	else if( $localStorage.open_speedblogging_modal )
 	{
 		smModal.Show( 'public.app.admin.speed-blogging' );
-		// $timeout(function(){
-		//     smModal.Show('public.administrate.speed-blogging');
-		// }, 50);
+
 		$localStorage.open_speedblogging_modal = null;
 	}
 

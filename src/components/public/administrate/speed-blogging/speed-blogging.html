@@ -18,7 +18,7 @@
             </div>
 
             <div class="ui stackable three cards" ng-if="!loading">
-                <a class="ui card" ng-repeat="type in content_types" ng-click="smModal.Show( type.route,{speed_blogging: next_item})" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false">
+                <a class="ui card" ng-repeat="type in content_types" ng-click="goThere(type)" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false">
                     <div class="image text-center p-sm">
                         <i class="huge icons">
                             <i class="big green {{hoverIn ? 'loading sun' : 'thin circle'}} icon"></i>
