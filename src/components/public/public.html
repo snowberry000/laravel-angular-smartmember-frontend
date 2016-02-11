@@ -1,3 +1,3 @@
-<div class="ui top fixed inverted pointing stackable menu admin_bar" ng-include="GetAdminBarInclude()"></div>
+<div class="ui top fixed inverted pointing stackable menu admin_bar" style="z-index: 100 !important;" ng-include="GetAdminBarInclude()"></div>
 <ui-view name="base" ng-class="'ui ' + (meta_data.page_background_style == 'boxed' && !$state.includes('public.www') ? '' : 'fluid') + ' container the_main_container pusher'"></ui-view>
 <ui-view name="extra" class="ui centered grid container stackable extra_ui_view"></ui-view>
