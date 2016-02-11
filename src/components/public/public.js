@@ -159,7 +159,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 			if( $localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin )
 			{
 				$localStorage.open_sites_wizard_modal = null;
-				$state.go( 'public.app.admin.wizard', {
+				$state.go( 'public.app.admin.wizard.list', {
 					id: 'site_launch_wizard',
 					modal_options: { duration: 0 }
 				} );
@@ -250,7 +250,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				if( $localStorage.open_sites_wizard_modal && $rootScope.site && $rootScope.site.is_admin )
 				{
 					$localStorage.open_sites_wizard_modal = null;
-					$state.go( 'public.app.admin.wizard', {
+					$state.go( 'public.app.admin.wizard.list', {
 						id: 'site_launch_wizard',
 						modal_options: { duration: 0 }
 					} );

@@ -186,7 +186,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		{
 			if( $rootScope.isSitelessPage() )
 			{
-				$state.go('public.app.admin.wizard', {id: 'account_wizard'});
+				$state.go('public.app.admin.wizard.list', {id: 'account_wizard'});
 			}
 			else
 			{
