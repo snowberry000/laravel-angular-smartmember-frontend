@@ -14,7 +14,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $t
 {
     if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
         $state.go('public.app.site.home');
-
+    $scope.query = '';
 	$scope.template_data = {
 		title: 'DOWNLOADS',
 		description: 'Provided downloadable photos, files, media, and more',

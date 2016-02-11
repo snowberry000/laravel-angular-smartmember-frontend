@@ -207,6 +207,7 @@
 									<option value="bi_weekly">Bi-Weekly</option>
 									<option value="weekly">Weekly</option>
 									<option value="monthly">Monthly</option>
+									<option value="quarterly">Quarterly</option>
 									<option value="annually">Annual</option>
 								</select>
 							</div>
@@ -225,26 +226,19 @@
 						</div>
 						<h4 class="ui header">Price</h4>
 						<div class="field">
-							<div class="col-sm-12">
-								<div class="input-group m-b">
-									<div class="input-group-btn" uib-dropdown>
-										<style>button.dropdown-toggle:hover {
-											border-
-										}</style>
-										<button type="button" class="btn btn-lg btn-default" uib-dropdown-toggle style="font-size: 14px;font-weight: 400;line-height: 1;color: #555555;text-align: center;background-color: #eeeeee;border: 1px solid #cccccc; color: #555555 !important;height: 50px;padding: 10px 16px;font-size: 18px;line-height: 1.3333333;border-radius: 6px 0 0 6px !important;">
-											<span dynamic="_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label" class="fr-view"></span>
-											<span class="caret" style="margin-left:5px;border-top-color: #333333 !important;"></span>
-										</button>
-										<ul class="uib-dropdown-menu">
-											<li ng-repeat="currency in currencies">
-												<a ng-click="access_level.currency = currency.id">
-													<span dynamic="currency.label" class="fr-view"></span>
-												</a>
-											</li>
-										</ul>
-									</div><!-- /btn-group -->
-									<input type="text" style="margin-bottom:0;" name="stripe_price" class="form-control input-lg" ng-model="access_level.price">
+							<div class="ui left labeled input">
+								<div class="ui inline labeled icon dropdown button" sui-smart-dropdown ng-model="access_level.currency" label="{{_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label}}">
+									<i class="money icon"></i>
+									<span class="text">Currency</span>
+									<div class="menu">
+										<div class="item" ng-repeat="currency in currencies" data-value="{{currency.id}}">
+											<a>
+												<span dynamic="currency.label" class="fr-view"></span>
+											</a>
+										</div>
+									</div>
 								</div>
+								<input type="text" style="margin-bottom:0;" name="stripe_price" ng-model="access_level.price">
 							</div>
 						</div>
 						<div class="hr-line-dashed"></div>
@@ -253,23 +247,23 @@
 
 								<h4 class="help-block m-b-none">
 									<input type="checkbox" ng-model="access_level.enable_trial"
-										   ng-checked="access_level.trial_amount && access_level.trial_amount != ''"
+										   ng-checked="(access_level.trial_amount != 0 || access_level.trial_amount != '0')"
 										   ng-disabled="access_level.payment_interval == 'one_time'">
 									Enable Product Trial (only available for
 									recurring payment)
 								</h4>
 							</label>
 						</div>
-						<div ng-hide="access_level.payment_interval == 'one_time'"
+						<div ng-hide="access_level.payment_interval == 'one_time' || access_level.enable_trial == false"
 							 ng-if="access_level.enable_trial || access_level.trial_amount != null">
 							<h4 class="ui header">Trial Duration</h4>
-							<div class="field">
-								<div class="col-sm-6">
+							<div class="field ui grid">
+								<div class="eight wide column">
 									<input type="text" name="redirect_url" placeholder="Duration"
 										   class="form-control input-lg"
 										   ng-model="access_level.trial_duration"/>
 								</div>
-								<div class="col-sm-6">
+								<div class="eight wide column">
 									<select class="form-control input-lg" ng-model="access_level.trial_interval">
 										<option value=""></option>
 										<option value="day">Day(s)</option>
@@ -281,26 +275,8 @@
 							<h4 class="ui header">Trial Price</h4>
 
 							<div class="field">
-								<div class="col-sm-12">
-									<div class="input-group m-b">
-										<div class="input-group-btn" uib-dropdown>
-											<style>button.dropdown-toggle:hover {
-												border-
-											}</style>
-											<button type="button" class="btn btn-lg btn-default" uib-dropdown-toggle style="font-size: 14px;font-weight: 400;line-height: 1;color: #555555;text-align: center;background-color: #eeeeee;border: 1px solid #cccccc; color: #555555 !important;height: 50px;padding: 10px 16px;font-size: 18px;line-height: 1.3333333;border-radius: 6px 0 0 6px !important;">
-												<span dynamic="_.findWhere( currencies, {id: (access_level.currency ? access_level.currency : default_currency )} ).label" class="fr-view"></span>
-												<span class="caret" style="margin-left:5px;border-top-color: #333333 !important;"></span>
-											</button>
-											<ul class="uib-dropdown-menu">
-												<li ng-repeat="currency in currencies">
-													<a ng-click="access_level.currency = currency.id">
-														<span dynamic="currency.label" class="fr-view"></span>
-													</a>
-												</li>
-											</ul>
-										</div><!-- /btn-group -->
-										<input type="text" style="margin-bottom:0;" name="stripe_price" class="form-control input-lg" ng-model="access_level.trial_amount">
-									</div>
+								<div class="ui left labeled input">
+									<input type="text" style="margin-bottom:0;" name="stripe_price" ng-model="access_level.trial_amount">
 								</div>
 							</div>
 						</div>

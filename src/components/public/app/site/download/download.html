@@ -27,10 +27,13 @@
                         <timer countdown="download.timeLeft" interval="1000">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
                     </h3>
 
-					<div class="width-100 text-center">
+					<div class="width-100 text-center" ng-if="download.media_item || download.download_link">
 						<a href="#" data-bypass="true" class="ui button" ng-click="updateStats(download)">
 							{{download.download_button_text || 'Download'}}
 						</a>
+					</div>
+					<div class="width-100 text-center" ng-if="!download.media_item && !download.download_link">
+						no downloads available yet!
 					</div>
 
 				</div>
