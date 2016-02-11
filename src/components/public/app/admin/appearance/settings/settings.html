@@ -579,6 +579,20 @@
                     </div>
                 </div>
 
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Support Notifications
+                </div>
+                <div class="content" >
+                    <div class="ui form">
+                        <div class="field">
+                            <label>E-mail address </label>
+                            <input type="text" ng-model="site_options.support_email_address" ng-pattern="/^[_a-z0-9\+]+(\.[_a-z0-9\+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/">
+                            <div class="ui info message" ng-if="!site_options.support_email_address" style="display:block;">Please enter a valid e-mail address</div>
+                        </div>
+                    </div>
+                </div>
+
 				<div class="title">
 					<i class="dropdown icon"></i>
 					Thank you Page Settings
