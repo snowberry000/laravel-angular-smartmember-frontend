@@ -197,6 +197,13 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
             }
         }
         switch($scope.access_level.payment_interval){
+            case "quarterly":
+                params['cmd'] = '_xclick-subscriptions';
+                params['src'] = 1;
+                params['a3'] = $scope.access_level.price;
+                params['p3'] = 3;
+                params['t3'] = 'M';
+                break;
             case "monthly":
                 params['cmd'] = '_xclick-subscriptions';
                 params['src'] = 1;

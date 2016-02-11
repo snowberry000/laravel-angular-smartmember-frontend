@@ -5,6 +5,9 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.app.admin.lesson", {
 			url: "/lesson/:id?",
+            params: {
+                speed_blogging: null
+            },
 			templateUrl: "/templates/components/public/app/admin/lesson/lesson.html",
 			controller: "SyllabusLessonController",
 			resolve: {

@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SpeedBloggingController", function ($scope, $rootScope, smModal, $stateParams, $localStorage, $filter, smEvent) {
+app.controller("SpeedBloggingController", function ($scope, $rootScope, $state, smModal, $stateParams, $localStorage, $filter, smEvent) {
 
     if( $stateParams.speed_blogging_parameters ) {
         $rootScope.$_GET = $stateParams.speed_blogging_parameters;
@@ -166,5 +166,10 @@ app.controller("SpeedBloggingController", function ($scope, $rootScope, smModal,
     if( !$rootScope.$_GET['type'] || $rootScope.$_GET['type'] != 'embed' ) {
         $scope.loading = false;
         $scope.addSource();
+    }
+
+    $scope.goThere = function( type ) {
+        smModal.Close();
+        $state.go( type.route, {speed_blogging: $scope.next_item});
     }
 });
