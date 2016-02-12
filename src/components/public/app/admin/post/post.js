@@ -5,6 +5,9 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.app.admin.post", {
 			url: "/post/:id?",
+            params: {
+                speed_blogging: null
+            },
 			templateUrl: "/templates/components/public/app/admin/post/post.html",
 			controller: "PostController"
 		} )
@@ -57,6 +60,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
     	if (!Modernizr.inputtypes.date) {
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
+
             if($stateParams.id != ""){
                 $('.scheduled_date').datepicker();
                 $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
@@ -66,6 +70,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
                 },500);
             }
+
         }
 
         if( !$next_item.id )

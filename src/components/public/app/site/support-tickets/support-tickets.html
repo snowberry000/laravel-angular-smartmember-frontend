@@ -42,7 +42,7 @@
                             <td><a href="/support-ticket/{{ticket.id}}">{{ticket.id}}</td></a>
                             <td>{{ticket.status}}</td>
                             <td>{{ticket.subject}}</td>
-                            <td>{{ticket.message}}</td>
+                            <td>{{ticket.message | cut:true:200:' ...'}}</td>
                             <td>
                                 <a ng-if="ticket.attachment" class="" href="{{ticket.attachment}}" target="_blank">{{ticket.attachment.split('/').pop()}}</a>
                                 <p ng-if="!ticket.attachment">No attachment</p>
