@@ -1,24 +1,25 @@
 <div class="ui modal"><i class="close icon"></i>
+    <div class="header">
+        <i class="paragraph icon"></i>
+        {{page_title | translate}}
+    </div>
     <div class="content">
         <div class="row wrapper wrapper-content animated fadeInRight" style="padding-top:30px;">
         <div class="row">
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h2 class="ui header">Create New Site Notice</h2>
-                    </div>
+
                     <div class="hr-line-dashed" style="background-color:white; margin:0px;"></div>
                     <div class="ibox-content">
                         <div class="hpanel">
                             <div class="panel-body">
+                                <div class="ui form ng-scope">
                                 <form  novalidate>
                                     <div class="field row">
-                                        <label class="col-md-1">Title</label>
-                                        <div class="col-md-8">
-                                            <input type="text" name="title" class="form-control " ng-model="site_notice.title" >
-                                            <span class="help-block m-b-none">
-                                                Customers will see this name publicly
-                                            </span>
+                                        <label class="col-sm-2 control-label">Title:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="title" class="form-control ng-pristine ng-valid ng-touched" ng-model="site_notice.title" >
+                                            <span class="help-block m-b-none"> Customers will see this name publicly</span>
                                         </div>
                                     </div>
                                     <div class="field row">
@@ -44,14 +45,15 @@
                                     <div class="field row">
                                         <label class="col-md-2">Status</label>
                                         <div class="col-md-8">
-                                            <input ng-if="site_notice.on==true" type="button" class="btn btn-danger" value="Off" ng-click="site_notice.on=false"/>
-                                            <input ng-if="site_notice.on==false" class="btn btn-brand" value="On" ng-click="site_notice.on=true" type="button"/>
+                                            <input ng-if="site_notice.on==true" type="button" class="ui button btn btn-danger" value="Off" ng-click="site_notice.on=false"/>
+                                            <input ng-if="site_notice.on==false" class="ui button btn btn-brand" value="On" ng-click="site_notice.on=true" type="button"/>
                                             <span ng-if="site_notice.on==true"><small style="padding:3px;margin-left:10px;" class="btn btn-warning" ng-disabled="true">Currently it is On</small></span>
                                             <span ng-if="site_notice.on==false"><small style="padding:3px;margin-left:10px;" class="btn btn-warning" ng-disabled="true">Currently it is Off</small></span>
                                         </div>
                                     </div>
 
                                 </form>
+                            </div>
                             </div>
                         </div>
                     </div>

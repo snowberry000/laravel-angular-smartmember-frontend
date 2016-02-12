@@ -11,6 +11,7 @@ app.config(function($stateProvider){
 
 app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$state,smModal, $location ,$localStorage ,  Restangular, toastr, Upload) {
 	
+	$scope.page_title = "Create Site Notice";
 	$scope.init = function(){
 
 		if (!Modernizr.inputtypes.date) {
@@ -85,6 +86,10 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 	    }
 
 	    
+	    
+	    if($scope.site_notice.title && $scope.site_notice.title.trim().length>0 && $scope.site_notice.content)
+	    {
+
 	    delete $scope.site_notice.sdate;
 	    delete $scope.site_notice.edate;
 
@@ -100,7 +105,10 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 	            toastr.success("Site notice has been saved");
 	            $state.go('public.app.admin.members.notices')
 	        });
-	    }
+	    	}
+		}//
+		else
+			toastr.error("Note not saved. 'Title' or 'Content' cannot be empty or contain only spaces");
 	    
 	}
 
