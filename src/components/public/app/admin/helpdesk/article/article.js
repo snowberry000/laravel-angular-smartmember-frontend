@@ -101,14 +101,9 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
     $scope.saveCategory = function($name)
     {
         
-        if($name == undefined){
+        if(!$name || $name.trim().length <= 0){
             toastr.error("Category cannot be empty!");
             return;
-        }else{
-            if($name.trim().length <= 0){
-            toastr.error("Category cannot be empty!");    
-            return;
-            }
         }
         
         $cat = {title: $name, company_id:$rootScope.site.company_id, site_id:$rootScope.site.id }
