@@ -52,11 +52,31 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
             $scope.next_item = $next_item;
             $scope.init();
         }
-
     }
 
     $scope.init = function()
     {
+        $scope.next_item.chosen_categories = [];
+
+        if( !$scope.next_item.categories ) {
+            $scope.next_item.categories = [];
+        } else {
+            angular.forEach( $scope.next_item.categories, function( value ) {
+                $scope.next_item.chosen_categories.push( value.id );
+            } );
+        }
+
+        $scope.available_categories = [];
+        Restangular.all('category').getList().then(function( response ) {
+            if( response ) {
+                $scope.available_categories = response;
+
+                $timeout(function () {
+                    $('.ui.dropdown').dropdown();
+                });
+            }
+        } );
+
     	if (!Modernizr.inputtypes.date) {
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
@@ -158,8 +178,12 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		cancel_route: 'public.app.admin.posts',
 		success_route: 'public.app.admin.posts',
 		transcript: false,
-		access_choice: true
+		access_choice: true,
+        post_categories: true,
 	}
+
+    $scope.add_category = false;
+
 	$scope.site = $site = $rootScope.site;
 
 	$scope.range = function( min, max, step )
@@ -368,6 +392,35 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 			console.log( response );
 		} )
 	}
+
+    $scope.addCategory = function( new_category ) {
+        Restangular.all('category').post( new_category).then( function( response ) {
+            $scope.available_categories.push( response );
+
+            new_category.title = '';
+            new_category.permalink = '';
+
+            $timeout(function(){
+                $('.ui.dropdown').dropdown();
+            } );
+        } );
+    }
+
+    $scope.setCategoryPermalink = function( $event, new_category )
+    {
+        if( !new_category.permalink && new_category.title )
+        {
+            new_category.permalink = $filter( 'urlify' )( new_category.title ).toLowerCase();
+        }
+    }
+
+    $scope.onBlurCategorySlug = function( $event, new_category )
+    {
+        if( new_category.permalink )
+        {
+            new_category.permalink = $filter( 'urlify' )( new_category.permalink );
+        }
+    }
 
 	$scope.resolve();
 } );
