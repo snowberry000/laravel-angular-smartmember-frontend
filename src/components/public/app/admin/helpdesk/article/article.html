@@ -33,11 +33,12 @@
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
-							<div class="field" ng-if="available_articles.length != 0">
+							<div class="field" ng-if="available_articles && available_articles.length != 0">
 								<label class="col-sm-2 control-label">Parent Article</label>
 								<div class="col-sm-10">
 									<div class="col-md-8">
-										<select style="margin-bottom:10px;" type="text" name="category" class="ui dropdown" ng-model="article.parent_id" ng-options="article.id as article.title for article in available_articles | filter: article.id ? {id: '!' + article.id} : {}" >
+										<select style="margin-bottom:10px;" type="text" name="category" class="ui dropdown" ng-model="article.parent_id">
+                                            <option ng-repeat="parent_article in available_articles | filter: article.id ? {id: '!' + article.id} : {}" value="{{parent_article.id}}" ng-selected="parseInt( article.parent_id ) == parseInt( parent_article.id )">{{parent_article.title}}</option>
 										</select>
 									</div>
 								</div>

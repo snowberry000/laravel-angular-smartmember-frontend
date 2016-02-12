@@ -19,12 +19,6 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
     var timeout = null;
 
     $scope.resolve = function () {
-        $scope.available_articles = [];
-
-        Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $site.id ).customGET().then(function (response) {
-            $scope.available_articles = response.items;
-        });
-
         if ($stateParams.id) {
             Restangular.one('supportArticle', $stateParams.id).get().then(function (response) {
                 $article = response;
@@ -65,17 +59,12 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
         $scope.article = $article;
         $scope.article.id ? $scope.page_title = 'Edit article' : $scope.page_title = 'Create article';
 
-        if (false && !$stateParams.id && !$location.search().clone)
-            Restangular.all('draft').customGET('', {
-                site_id: $rootScope.site.id,
-                user_id: $user.id,
-                key: 'articles.content'
-            }).then(function (response) {
-                if (response.length) {
-                    draft = response[0]
-                    $scope.loadDraft()
-                }
-            });
+        $scope.available_articles = [];
+
+        Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $site.id ).customGET().then(function (response) {
+            $scope.available_articles = response.items;
+        });
+
         $scope.$watch('article', function (article, oldArticle) {
             if (typeof changed == "undefined")
                 changed = false;

@@ -1,0 +1,45 @@
+<h2 class="ui top attached header section_background_color">
+    {{next_item.title}}
+</h2>
+<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="loading || next_item.featured_image || next_item.embed_content">
+
+    <div class="ui active inverted dimmer" ng-if="loading">
+        <div class="ui text loader">Loading</div>
+    </div>
+
+    <div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image &&next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+
+    <div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !(next_item.featured_image &&next_item.always_show_featured_image)" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}"  sui-embed></div>
+
+    <div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content" class="fr-view">
+
+    </div>
+
+    <img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && (!next_item.embed_content && next_item.always_show_featured_image == 1)">
+
+    <div ng-if="!next_item.access && !loading">
+        <a class="ui fluid image" ng-if="next_item.access_level.information_url" ng-href="{{next_item.access_level.information_url}}">
+            <img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+        </a>
+        <a href="#" class="ui fluid image" ng-click="showNoAccessLogin()" ng-if="!next_item.access_level.information_url">
+            <img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+        </a>
+    </div>
+</div>
+
+<div class="ui attached clearing padded segment section_background_color text-left" ng-if="next_item.content">
+    <div dynamic="next_item.content" ng-if="next_item.content" class="fr-view"></div>
+</div>
+
+<div class="twelve wide column" ng-class="{'loader':loading}">
+    <div class="ui two cards">
+        <a class="ui card" ng-href="/{{article.permalink}}" ng-repeat="article in next_item.articles">
+            <div class="content">
+                <div class="header">{{article.title}}</div>
+            </div>
+            <div class="description" ng-if="article.content">
+                {{article.content | cut:true:70:' ...'}}
+            </div>
+        </a>
+    </div>
+</div>
