@@ -30,28 +30,41 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $t
 		total_count: 0
 	};
 
+	$scope.paginationChange = false;
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
 		{
-			$scope.paginate(true);
+			$scope.paginationChange = true;
+			if($scope.query)
+			{
+				$scope.paginate(true);
+			}
+			else
+			{
+				$scope.paginate();
+			}
 		}
 	} );
 
 	$scope.paginate = function(search)
 	{
-		if (search)
+		if (search && $scope.query.length<3 && $scope.query.length!=0 && $scope.paginationChange==false)
+		{	
+			return;
+		}
+		if(search && ($scope.query.length>=3 || $scope.query.length==0) && $scope.paginationChange==false)
 		{
-			if($scope.query.length < 3){
-				if($scope.query != ""){
-					return;
-				}
-			}
+			console.log('Pagination changed:'+$scope.paginationChange+',search:'+search);
+			$scope.pagination.current_page = 1;
+		}
+		if($scope.paginationChange==true && ((search && $scope.query.length<3 && $scope.query.length!=0)))
+		{	
+			$scope.query = '';
 		}
 
 		if(true)
 		{
-			$scope.pagination.current_page = 1;
 			$scope.loading = true;
 
 			var $params = { p: $scope.pagination.current_page, site_id: $site.id };
@@ -75,6 +88,7 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $t
 					$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 				}
 			} );
+			$scope.paginationChange = false;
 		}
 	}
 
