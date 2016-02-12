@@ -29,22 +29,40 @@ app.controller( "AffiliateTeamsController", function( $scope, $rootScope, $local
 		total_count: 0
 	};
 
+	$scope.paginationChange = false;
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
 		{
-			$scope.paginate(true);
+			$scope.paginationChange = true;
+			if($scope.query)
+			{
+				$scope.paginate(true);
+			}
+			else
+			{
+				$scope.paginate();
+			}
 		}
 	} );
 
 	$scope.paginate = function(search)
 	{
-		var continueSearch = true;
-
-		if(search && $scope.query.length<3) {
-			continueSearch = false;
+		if (search && $scope.query.length<3 && $scope.query.length!=0 && $scope.paginationChange==false)
+		{	
+			return;
 		}
-		if(continueSearch || $scope.query.length==0)
+		if(search && ($scope.query.length>=3 || $scope.query.length==0) && $scope.paginationChange==false)
+		{
+			console.log('Pagination changed:'+$scope.paginationChange+',search:'+search);
+			$scope.pagination.current_page = 1;
+		}
+		if($scope.paginationChange==true && ((search && $scope.query.length<3 && $scope.query.length!=0)))
+		{	
+			$scope.query = '';
+		}
+
+		if(true)
 		{
 			$scope.loading = true;
 
@@ -61,6 +79,7 @@ app.controller( "AffiliateTeamsController", function( $scope, $rootScope, $local
 				$scope.pagination.total_count = data.total_count;
 				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
+			$scope.paginationChange = false;
 		}
 	}
 
