@@ -40,13 +40,16 @@ app.controller( "DownloadsController", function( $scope, $rootScope, smModal, $t
 
 	$scope.paginate = function(search)
 	{
-		var continueSearch = true;
-		if (search && $scope.query.length<3)
+		if (search)
 		{
-			continueSearch = false;
+			if($scope.query.length < 3){
+				if($scope.query != ""){
+					return;
+				}
+			}
 		}
 
-		if(continueSearch || $scope.query.length==0)
+		if(true)
 		{
 			$scope.pagination.current_page = 1;
 			$scope.loading = true;
