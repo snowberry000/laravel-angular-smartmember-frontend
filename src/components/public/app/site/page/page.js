@@ -70,6 +70,7 @@ app.controller('PublicPageController', function ($scope, $localStorage,$rootScop
     }
 
     $scope.saveReply = function(comment , body){
+        
         if(!$scope.user){
             toastr.error("Sorry , you must be logged in to comment");
             return;
