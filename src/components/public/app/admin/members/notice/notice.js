@@ -86,10 +86,12 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 	    }
 
 	    
-	    delete $scope.site_notice.sdate;
-	    delete $scope.site_notice.edate;
+	    
 	    if($scope.site_notice.title && $scope.site_notice.title.trim().length>0 && $scope.site_notice.content)
 	    {
+
+	    delete $scope.site_notice.sdate;
+	    delete $scope.site_notice.edate;
 
 	    if ($scope.site_notice.id) {
 	        $scope.site_notice.put().then(function(response){
