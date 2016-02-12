@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("LivecastController", function ($scope,$http,$timeout , $rootScope ,$timeout , smModal , Restangular,$state, $location, $stateParams , $filter, Upload, toastr) {
+app.controller("LivecastController", function ($scope,$http,$timeout , $rootScope , smModal , Restangular,$state, $location, $stateParams , $filter, Upload, toastr) {
     if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_content' ) == -1 )
         $state.go('public.app.site.home');
 
@@ -33,10 +33,19 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
         }
 
         if (!Modernizr.inputtypes.date) {
+
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
-          $('input[type="date"]').datepicker();
-          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+            if($stateParams.id != ""){
+                $('.scheduled_date').datepicker();
+                $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
+            }else{
+                setTimeout(function(){
+                $('.scheduled_date').datepicker();
+                $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
+                },500);
+            }
+
         }
 
         //speed blogging stuff here

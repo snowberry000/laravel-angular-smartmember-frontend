@@ -8,6 +8,36 @@ app.config( function( $stateProvider )
 			templateUrl: "/templates/components/public/app/admin/wizard/wizard.html",
 			controller: "WizardController"
 		} )
+        .state( "public.app.admin.wizard.list", {
+            url: "/list",
+            templateUrl: "/templates/components/public/app/admin/wizard/list.html",
+            controller: "WizardController"
+        } )
+        .state( "public.app.admin.wizard.site_logo", {
+            url: "/site_logo",
+            templateUrl: "/templates/components/public/app/admin/wizard/nodes/upload_site_logo.html",
+            controller: "siteLogoWizardController"
+        } )
+        .state( "public.app.admin.wizard.create_site_modules", {
+            url: "/create_site_modules",
+            templateUrl: "/templates/components/public/app/admin/wizard/nodes/create_site_modules.html",
+            controller: "modulesWizardController"
+        } )
+        .state( "public.app.admin.wizard.create_site_lessons", {
+            url: "/create_site_lessons",
+            templateUrl: "/templates/components/public/app/admin/wizard/nodes/lesson_creation.html",
+            controller: "lessonWizardController"
+        } )
+        .state( "public.app.admin.wizard.lock_site_content", {
+            url: "/lock_site_content",
+            templateUrl: "/templates/components/public/app/admin/wizard/nodes/lock_site_content.html",
+            controller: "lockContentWizardController"
+        } )
+        .state( "public.app.admin.wizard.invite_members", {
+            url: "/invite_members",
+            templateUrl: "/templates/components/public/app/admin/wizard/nodes/invite_members.html",
+            controller: "inviteMembersWizardController"
+        } )
 } );
 
 app.controller( 'WizardController', function( $scope, smModal, $stateParams, $rootScope, $location, Wizards, $state, $filter, $http, $localStorage, Restangular, Nodes, toastr )
@@ -123,18 +153,17 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 	$scope.cancel = function( node )
 	{
 		console.log( "cancel node: ", node, $rootScope.wizard_server, $scope );
-		$state.go( 'public.app.admin.wizard', { id: $scope.static_wizard.slug } );
+		$state.go( 'public.app.admin.wizard.list', { id: $scope.static_wizard.slug } );
 		if( node )
 		{
 			//node.HideBox( node );
 		}
-		smModal.hide($rootScope.current_modal.element);
 	}
 
 	$scope.back = function()
 	{
 		//$state.go( 'public.administrate.wizards' );
-		$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
+		$state.go( 'public.app.admin.wizard.list', { id: 'site_launch_wizard' } );
 		return;
 	}
 
@@ -194,7 +223,7 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 		{
 			Restangular.all( "wizard" ).customPUT( params, $rootScope.wizard_server.id ).then( function( response )
 			{
-				$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
+				$state.go( 'public.app.admin.wizard.list', { id: 'site_launch_wizard' } );
 				
 				$rootScope.wizard_server = response;
 				// alert(response.is_completed);
@@ -217,8 +246,6 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 				{
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
-
-				smModal.hide($rootScope.current_modal.element);
 				
 			} )
 		}
@@ -238,16 +265,28 @@ app.controller( 'WizardController', function( $scope, smModal, $stateParams, $ro
 					$scope.wizard_server.is_completed = true;
 				}
 				$rootScope.site.wizard_step++;
-				$state.go( 'public.app.admin.wizard', { id: 'site_launch_wizard' } );
+				$state.go( 'public.app.admin.wizard.list', { id: 'site_launch_wizard' } );
 				var first_incomplete_step = _.findWhere( $rootScope.wizard, { completed: false } );
 
 				if( first_incomplete_step )
 				{
 					$rootScope.current_changed = $rootScope.wizard.indexOf( first_incomplete_step );
 				}
-
-				smModal.hide($rootScope.current_modal.element);
 			} );
 		}
 	}
+
+    $scope.nodeClickAction = function( node ) {
+        var direct_link_nodes = [
+            'create_new_site',
+            'upload_site_logo'
+        ];
+
+        /*
+        if( direct_link_nodes.indexOf( node.slug ) == -1 )
+            smModal.Show('',{} , {'templateUrl' : node.template , 'controller' : node.controller});
+        else
+        */
+            $state.go( node.state );
+    }
 } );

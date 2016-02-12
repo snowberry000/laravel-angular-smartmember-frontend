@@ -1,12 +1,23 @@
+.public.app.admin body {
+  overflow:hidden;
+}
+
 .admin_ui_view .ui.modal {
   position: relative !important;
   display:block;
-  margin-top: 7em;
+  margin-top: 2vh;
   top:0px;
+}
+
+
+.admin_ui_view {
+  z-index: 99999;
 }
 
 .admin_ui_view>.ui.dimmer {
   background-color: rgba(0,0,0,.30);
+  position: fixed;
+  padding: 0px;
 }
 
 .admin_ui_view .ui.modal>.close.icon {

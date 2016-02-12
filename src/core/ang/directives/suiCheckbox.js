@@ -8,11 +8,17 @@ app.directive( 'suiCheckbox', [ '$http', '$localStorage', function( $http, $loca
 			var options = {
 				onChecked: function()
 				{
-					ngModel.$setViewValue( true );
+					if (attributes.truevalue != undefined)
+						ngModel.$setViewValue(attributes.truevalue);
+					else
+						ngModel.$setViewValue( true );
 				},
 				onUnchecked: function()
 				{
-					ngModel.$setViewValue( false );
+					if (attributes.falsevalue != undefined)
+						ngModel.$setViewValue(attributes.falsevalue);
+					else
+						ngModel.$setViewValue( false );
 				},
 			};
 
@@ -20,7 +26,15 @@ app.directive( 'suiCheckbox', [ '$http', '$localStorage', function( $http, $loca
 
 			ngModel.$render = function()
 			{
-				if( typeof ngModel.$viewValue !== "undefined" )
+				if( typeof ngModel.$viewValue !== "undefined" && attributes.truevalue != undefined )
+				{
+					if (ngModel.$viewValue == attributes.truevalue)
+					{
+						$( next_item ).checkbox( 'check' );
+					} else {
+						$( next_item ).checkbox( 'uncheck' );
+					}
+				} else if (typeof ngModel.$viewValue !== "undefined")
 				{
 					if( ngModel.$viewValue )
 					{

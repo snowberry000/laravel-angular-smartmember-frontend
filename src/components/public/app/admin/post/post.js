@@ -5,6 +5,9 @@ app.config( function( $stateProvider )
 	$stateProvider
 		.state( "public.app.admin.post", {
 			url: "/post/:id?",
+            params: {
+                speed_blogging: null
+            },
 			templateUrl: "/templates/components/public/app/admin/post/post.html",
 			controller: "PostController"
 		} )
@@ -57,8 +60,17 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
     	if (!Modernizr.inputtypes.date) {
           // no native support for <input type="date"> :(
           // maybe build one yourself with Dojo or jQueryUI
-          $('input[type="date"]').datepicker();
-          $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+
+            if($stateParams.id != ""){
+                $('.scheduled_date').datepicker();
+                $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
+            }else{
+                setTimeout(function(){
+                $('.scheduled_date').datepicker();
+                $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
+                },500);
+            }
+
         }
 
         if( !$next_item.id )
@@ -167,6 +179,10 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
         if( $scope.next_item.permalink == '' )
         {
             this.onBlurTitle( null );
+        }
+        if( $scope.next_item.permalink == '' || !$scope.next_item.permalink){
+            toastr.error("Please enter valid permalink");
+            return;
         }
 
         console.log( $scope.next_item.categories );

@@ -52,7 +52,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
         {
             $article.company_id=$rootScope.site.company_id;
         }
-        if($stateParams.clone){
+        if($location.search().clone){
             delete $article.id;
             delete $article.access;
             delete $article.author_id;
@@ -64,7 +64,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
             $scope.categories = response;
         });
 
-        if(false && !$stateParams.id && !$stateParams.clone)
+        if(false && !$stateParams.id && !$location.search().clone)
         Restangular.all('draft').customGET('', {site_id : $rootScope.site.id , user_id : $user.id , key : 'articles.content'}).then(function(response){
             if(response.length){
                 draft = response[0]
@@ -76,7 +76,7 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
                 changed = false;
             else
                 changed = true;
-            if (article != oldArticle && changed && !$scope.article.id && !$stateParams.clone) {
+            if (article != oldArticle && changed && !$scope.article.id && !$location.search().clone) {
                   if (timeout) {
                     $timeout.cancel(timeout)
                   }

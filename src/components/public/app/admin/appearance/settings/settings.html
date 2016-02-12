@@ -1,4 +1,4 @@
-<div class="ui scrolling modal"><i class="close icon"></i>
+<div class="ui modal"><i class="close icon"></i>
 	<div class="header">
 		<i class="configure icon"></i>
 		General Settings
@@ -494,28 +494,6 @@
 				</div>
 				<div class="title">
 					<i class="dropdown icon"></i>
-					Support Settings
-				</div>
-				<div class="content" >
-					<div class="card clearfix content_post">
-					    <h4 class="ui header">Default Support Email</h4>
-					    <div class="field">
-					    	<div class="col-sm-8">
-					    		<input type="text" class="form-control input-lg" ng-model="site_options.default_support_email">
-					    	</div>
-					    </div>
-					</div>
-					<div class="card clearfix content_post">
-					    <h4 class="ui header">Default Support Name</h4>
-					    <div class="field">
-					    	<div class="col-sm-8">
-					    		<input type="text" class="form-control input-lg" ng-model="site_options.default_support_name">
-					    	</div>
-					    </div>
-					</div>
-				</div>
-				<div class="title">
-					<i class="dropdown icon"></i>
 					Site Notices Settings
 				</div>
 				<div class="content" >
@@ -575,6 +553,20 @@
                         <div class="field" ng-if="site_options.show_copyright == 1 || site_options.show_copyright == '1'">
                             <label>Text to display after copyright (optional)</label>
                             <input type="text" ng-model="site_options.after_copyright">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Support Notifications
+                </div>
+                <div class="content" >
+                    <div class="ui form">
+                        <div class="field">
+                            <label>E-mail address </label>
+                            <input type="text" ng-model="site_options.support_email_address" ng-pattern="/^[_a-z0-9\+]+(\.[_a-z0-9\+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/">
+                            <div class="ui info message" ng-if="!site_options.support_email_address" style="display:block;">Please enter a valid e-mail address</div>
                         </div>
                     </div>
                 </div>

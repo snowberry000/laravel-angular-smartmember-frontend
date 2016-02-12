@@ -1,6 +1,9 @@
 <div class="ui modal" style="height:600px"><i class="close icon"></i>
     <div class="content" style="height:530px;max-height:550px">
         <div class="row">
+             <div class="ui active inverted dimmer" ng-if="loading">
+                <div class="ui loader"></div>
+            </div>
             <input class="isAgentOrGreaterCheck" value="{{isAgentOrGreaterCheck}}" type="hidden" />
             <div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
                 <div class="hpanel">
@@ -37,7 +40,7 @@
                                 <label class="col-sm-2 control-label">Download File</label>
                                 <div class="col-sm-10">
                                     <button type="button" class="ui button"
-                                            hidelink="true" sm-uploader="media_item.url" privacy="true" media-item-id="download.media_item_id" ng-awskey="download.media_item.aws_key" ng-model="download.media_item.url">Upload File
+                                            hidelink="true" sm-uploader="media_item.url" privacy="true" media-item-id="download.media_item_id" ng-awskey="download.media_item.aws_key" ng-model="download.media_item.url" ng-disabled="download.download_link">Upload File
                                     </button>
                                     <!-- <a ng-show="download.media_item.url && download.id" data-bypass="true" target="_blank"
                                        class="btn btn-brand file_download" ng-click="downloadFile(download.media_item)">Download
@@ -61,7 +64,7 @@
                                 <label class="col-sm-2 control-label">3rd-party Download Link</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="download_link" class="form-control input-lg"
-                                           ng-model="download.download_link">
+                                           ng-model="download.download_link" ng-disabled="download.media_item.url">
 									<span class="help-block m-b-none">
 										If you want to specify a link to the download instead of a file, please enter it here
 									</span>
@@ -94,7 +97,7 @@
                             <div class="field">
                                 <label class="col-sm-2 control-label">Who should have access to this?</label>
                                 <div class="col-sm-10">
-                                    <select data-ng-options="al_type.id as al_type.name for al_type in access_level_types" class='form-control input-lg' ng-model="download.access_level_type"
+                                    <select  data-ng-options="al_type.id as al_type.name for al_type in access_level_types" class='form-control input-lg' ng-model="download.access_level_type"
                                             placeholder='Select Access Permission'>
                                         
                                     </select>

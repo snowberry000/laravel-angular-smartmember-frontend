@@ -30,19 +30,36 @@ app.controller('NotesController', function ($scope, $rootScope, $localStorage, R
         total_count: 0
     };
 
+    $scope.paginationChange = false;
     $scope.$watch( 'pagination.current_page', function( new_value, old_value )
     {
         if( new_value != old_value )
         {
-            $scope.paginate();
+            $scope.paginationChange = true;
+            if($scope.query)
+            {
+                $scope.paginate(true);
+            }
+            else
+            {
+                $scope.paginate();
+            }
         }
     } );
 
     $scope.paginate = function(search){
 
-        if (search)
+        if (search && $scope.query.length<3 && $scope.query.length!=0 && $scope.paginationChange==false)
+        {   
+            return;
+        }
+        if(search && ($scope.query.length>=3 || $scope.query.length==0) && $scope.paginationChange==false)
         {
             $scope.pagination.current_page = 1;
+        }
+        if($scope.paginationChange==true && ((search && $scope.query.length<3 && $scope.query.length!=0)))
+        {   
+            $scope.query = '';
         }
 
         if( true ) {
@@ -60,6 +77,7 @@ app.controller('NotesController', function ($scope, $rootScope, $localStorage, R
                 $scope.pagination.total_count = data.total_count;
                 $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
             });
+            $scope.paginationChange = false;
         }
     }
 

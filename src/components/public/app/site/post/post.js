@@ -42,6 +42,12 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
     })
 
     $scope.saveComment = function(body){
+
+         if(!body || body.trim().length <= 0){
+            toastr.error( "Sorry , comment cannot be empty!" );
+            return;
+        }
+
         Restangular.all('comment').post({target_id:$scope.post.id , type:4 ,body:body , public:$scope.post.discussion_settings.public_comments}).then(function(comment){
             $scope.post.comments.push(comment);
             toastr.success("Your comment is added!");
@@ -54,6 +60,12 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
     }
 
     $scope.saveReply = function(comment , body){
+
+         if(!body || body.trim().length <= 0){
+            toastr.error( "Sorry , comment cannot be empty!" );
+            return;
+        }
+
         Restangular.all('comment').post({target_id:$scope.post.id , type:4 , parent_id : comment.id ,body:body , public:$scope.post.discussion_settings.public_comments}).then(function(reply){
             comment.reply.push(reply);
             toastr.success("Your reply is added!");

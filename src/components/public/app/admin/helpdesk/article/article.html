@@ -38,7 +38,7 @@
 
 								<div class="col-sm-10" ng-if="categories.length!=0">
 									<div class="col-md-8">
-										<select type="text" name="category" class="form-control input-lg" ng-model="article.category_id" ng-options="category.id as category.title for category in categories" >
+										<select style="margin-bottom:10px;" type="text" name="category" class="ui dropdown" ng-model="article.category_id" ng-options="category.id as category.title for category in categories" >
 										</select>
 									</div>
 									<a class="btn btn_outline float_right col-md-4" ng-click="article.createCategory='true'">

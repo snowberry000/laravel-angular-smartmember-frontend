@@ -97,7 +97,7 @@
 				</div>
 				<div class="actions">
 					<a class="reply" ng-show="next_item.discussion_settings.allow_replies && user.access_token" ng-init="show_reply_div = false" ng-click="show_reply_div = !show_reply_div">Reply</a>
-					<a class="reply" ng-if="site.is_admin" ng-init="comment.edit = false" ng-click="comment.edit = !comment.edit">Edit</a>
+					<a class="reply" ng-if="site.is_admin || comment.user_id == user.id" ng-init="comment.edit = false" ng-click="comment.edit = !comment.edit">Edit</a>
 					<a class="reply" ng-if="site.is_admin || comment.user_id == user.id" ng-click="deleteComment(comment)">Delete</a>
 				</div>
 			</div>
@@ -118,7 +118,7 @@
 							<p editable-text="reply.body" onaftersave="editReply(reply)" >{{reply.body}}</p>
 						</div>
 						<div class="actions">
-							<a class="reply" ng-if="site.is_admin && user.id" ng-init="reply.edit = false" ng-click="reply.edit = !reply.edit">Edit</a>
+							<a class="reply" ng-if="site.is_admin || reply.user_id == user.id" ng-init="reply.edit = false" ng-click="reply.edit = !reply.edit">Edit</a>
 							<a class="reply" ng-if="site.is_admin || reply.user_id == user.id" ng-click="deleteReply(reply , comment)">Delete</a>
 						</div>
 					</div>
