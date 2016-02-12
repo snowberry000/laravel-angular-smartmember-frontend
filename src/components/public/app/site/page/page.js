@@ -62,13 +62,14 @@ app.controller('PublicPageController', function ($scope, $localStorage,$rootScop
     }
 
     $scope.saveReply = function(comment , body){
+        
         if(!$scope.user){
             toastr.error("Sorry , you must be logged in to comment");
             return;
         }
         Restangular.all('comment').post({target_id:$scope.page.id , type:1 , parent_id : comment.id ,body:body , public:$scope.page.discussion_settings.public_comments}).then(function(reply){
             comment.reply.push(reply);
-            toastr.error("Your reply is added!");
+            toastr.success("Your reply is added!");
 
         })
     }
