@@ -19,7 +19,13 @@ app.controller("ArticleController", function ($scope,$rootScope, Upload, $locati
     var timeout = null;
 
     $scope.resolve =function(){
-        if($stateParams.id)
+        $scope.available_articles = [];
+
+        Restangular.all('supportArticle').getList({parent_id: 0, bypass_paging: true}).then(function(response){
+            $scope.available_articles = response.items;
+        });
+
+        if( $stateParams.id )
         {
             Restangular.one('supportArticle' , $stateParams.id).get().then(function(response){
                 $article = response;
