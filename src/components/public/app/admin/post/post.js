@@ -28,17 +28,6 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 
 	$scope.resolve = function()
 	{
-        $scope.available_categories = [];
-        Restangular.all('category').getList().then(function( response ) {
-            if( response ) {
-                $scope.available_categories = response;
-
-                $timeout(function () {
-                    $('.ui.dropdown').dropdown();
-                });
-            }
-        } );
-
         if( $stateParams.id )
         {
             Restangular.one( 'post', $stateParams.id ).get().then( function( response )
@@ -76,6 +65,17 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
                 $scope.next_item.chosen_categories.push( value.id );
             } );
         }
+
+        $scope.available_categories = [];
+        Restangular.all('category').getList().then(function( response ) {
+            if( response ) {
+                $scope.available_categories = response;
+
+                $timeout(function () {
+                    $('.ui.dropdown').dropdown();
+                });
+            }
+        } );
 
     	if (!Modernizr.inputtypes.date) {
           // no native support for <input type="date"> :(

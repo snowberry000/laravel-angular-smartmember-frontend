@@ -66,7 +66,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
 
     $scope.selectUrl = function(item , selected_url , show_next){
 
-        var api_resources = ['module', 'lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
+        var api_resources = ['module', 'lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage', 'category'];
         if(!selected_url)
             return;
         if(api_resources.indexOf(selected_url)<0)
@@ -92,19 +92,31 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
             var params = {site_id: item.site_id};
             if(selected_url != 'post')
                 params.bypass_paging = true;
+
             Restangular.all(selected_url).customGET('' , params).then(function(response){
                 if(response.route == 'customPage')
                     response.route = 'page';
                 if(response.route == 'supportArticle')
                     response.route = 'support-article';
-                response.items.forEach(function(entity){
-                    if (selected_url == 'module')
-                        entity.url = 'module/' + entity.id;
-                    else
+
+                if( response.items ) {
+                    response.items.forEach(function (entity) {
+                        if (selected_url == 'module')
+                            entity.url = 'module/' + entity.id;
+                        else
+                            entity.url = entity.permalink;
+                    })
+
+                    $scope.loaded_items = response.items;
+                } else {
+                    console.log( 'we have stuff: ', response );
+                    response.forEach(function (entity) {
                         entity.url = entity.permalink;
-                })
+                    })
+
+                    $scope.loaded_items = response;
+                }
                 $scope.show_next = true;
-                $scope.loaded_items = response.items;
 
             })
         }

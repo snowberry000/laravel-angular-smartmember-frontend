@@ -14,11 +14,11 @@
 	</div>
     <div class="field" ng-if="template_data.post_categories">
         <label class="col-sm-2 control-label">Categories:</label>
-        <select class="ui multiple search selection dropdown" dropdown ng-model="next_item.chosen_categories" multiple ng-if="available_categories && available_categories.length > 0">
-            <option ng-repeat="category in available_categories" value="{{category.id}}" ng-selected="$parent.next_item.chosen_categories.indexOf( id ) != -1">{{category.title}}</option>
+        <select class="ui multiple search selection dropdown" dropdown ng-model="$parent.next_item.chosen_categories" multiple ng-if="available_categories && available_categories.length > 0">
+            <option ng-repeat="category in available_categories" value="{{category.id}}" ng-selected="$parent.next_item.chosen_categories.indexOf( category.id ) > -1">{{category.title}}</option>
         </select>
-        <button class="mini ui green button" ng-click="$parent.add_category=true" ng-if="!add_category">Add</button>
-        <button class="mini ui red button" ng-click="$parent.add_category=false" ng-if="add_category">Cancel</button>
+        <button class="mini ui green button" ng-click="$parent.add_category=true" ng-if="!add_category" style="margin-top: 10px;">Add</button>
+        <button class="mini ui red button" ng-click="$parent.add_category=false" ng-if="add_category" style="margin-top: 10px;">Cancel</button>
         <div class="ui segment" ng-if="add_category">
             <div class="field">
                 <label>Name</label>
