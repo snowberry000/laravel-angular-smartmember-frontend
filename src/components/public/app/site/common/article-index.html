@@ -31,14 +31,14 @@
     <div dynamic="next_item.content" ng-if="next_item.content" class="fr-view"></div>
 </div>
 
-<div class="twelve wide column" ng-class="{'loader':loading}">
-    <div class="ui two cards">
-        <a class="ui card" ng-href="/{{article.permalink}}" ng-repeat="article in next_item.articles">
+<div class="ui grid" style="margin-top:15px;">
+    <div class="eight wide column" ng-repeat="article in next_item.articles">
+        <a class="" href="/{{article.permalink}}" style="padding-bottom: 25px;margin-bottom: 30px;border-bottom: 1px #b7bbc4 dotted; display:block;">
             <div class="content">
-                <div class="header">{{article.title}}</div>
+                <div class="header" style=" color: #328ece; font-size: 14px;font-weight: bold;text-transform: uppercase; font-family: Helvetica, Arial, sans-serif;padding-bottom: 8px; min-height:52px;">{{article.title}}</div>
             </div>
-            <div class="description" ng-if="article.content">
-                {{article.content | cut:true:70:' ...'}}
+            <div class="description" style="margin: 0;color: #86939c;line-height: 26px;font-family: Helvetica, Arial, sans-serif;font-size: 16px; min-height: 52px;">
+                {{article.content | cut:true:200:' ...'}}
             </div>
         </a>
     </div>

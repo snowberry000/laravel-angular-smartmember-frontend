@@ -1,5 +1,5 @@
 <div class="ui modal"><i class="close icon"></i>
-	<div class="content" style="max-height:550px">
+	<div class="content">
 		<div class="row">
 			<div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
 				<div class="hpanel">
@@ -38,6 +38,7 @@
 								<div class="col-sm-10">
 									<div class="col-md-8">
 										<select style="margin-bottom:10px;" type="text" name="category" class="ui dropdown" ng-model="article.parent_id">
+                                            <option value="0">No parent</option>
                                             <option ng-repeat="parent_article in available_articles | filter: article.id ? {id: '!' + article.id} : {}" value="{{parent_article.id}}" ng-selected="parseInt( article.parent_id ) == parseInt( parent_article.id )">{{parent_article.title}}</option>
 										</select>
 									</div>
