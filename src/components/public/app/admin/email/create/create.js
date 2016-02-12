@@ -26,6 +26,15 @@ app.config(function($stateProvider){
 app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeout, $localStorage, Restangular, $state, $stateParams, smModal ) {
     $sendgridapp_configurations = Restangular.all('appConfiguration/getSendgridIntegrations').getList().then(function(response){$scope.sendgridapp_configurations = response});
     $scope.canceler = false;
+
+    if (!Modernizr.inputtypes.date) {
+      // no native support for <input type="date"> :(
+      // maybe build one yourself with Dojo or jQueryUI
+      $('input[type="date"]').datepicker();
+      $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+     
+    }
+
     if ( $stateParams.id ) {
         $email = Restangular.one('email', $stateParams.id).get().then(function(response){$scope.email = response});
     }
