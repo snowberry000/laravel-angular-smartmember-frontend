@@ -33,10 +33,19 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
         }
 
         if (!Modernizr.inputtypes.date) {
-           setTimeout(function(){
-            $('.scheduled_date').datepicker();
-            $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
-          },500);
+
+          // no native support for <input type="date"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+            if($stateParams.id != ""){
+                $('.scheduled_date').datepicker();
+                $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
+            }else{
+                setTimeout(function(){
+                $('.scheduled_date').datepicker();
+                $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
+                },500);
+            }
+
         }
 
         //speed blogging stuff here
