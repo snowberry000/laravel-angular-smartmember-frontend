@@ -38,11 +38,11 @@ app.controller("LivecastController", function ($scope,$http,$timeout , $rootScop
           // maybe build one yourself with Dojo or jQueryUI
             if($stateParams.id != ""){
                 $('.scheduled_date').datepicker();
-                $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
+                //$('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
             }else{
                 setTimeout(function(){
                 $('.scheduled_date').datepicker();
-                $('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
+                //$('.scheduled_date').datepicker("option", "dateFormat", 'yy-mm-dd');
                 },500);
             }
 
