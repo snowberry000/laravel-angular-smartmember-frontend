@@ -109,7 +109,6 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
 
                     $scope.loaded_items = response.items;
                 } else {
-                    console.log( 'we have stuff: ', response );
                     response.forEach(function (entity) {
                         entity.url = entity.permalink;
                     })
