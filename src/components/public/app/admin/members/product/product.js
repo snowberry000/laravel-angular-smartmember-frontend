@@ -127,6 +127,10 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 
 		console.log("access levels: "+$scope.access_level);
 		$scope.access_level.isOpen = false;
+		if ($scope.access_level.trial_amount == 0 || $scope.access_level.trial_amount == '0')
+			$scope.access_level.enable_trial = false;
+		else
+			$scope.access_level.enable_trial = true;
 	}
 
     
@@ -218,8 +222,13 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
     }
 
 	$scope.selectUrl = function(item , selected_url , show_next){
-	
-	  var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
+		
+	    var api_resources = ['lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage'];
+		if(selected_url=="")
+		{
+			$scope.show_next = false;
+		}
+
 	  if(!selected_url)
 	      return;
 	  if(api_resources.indexOf(selected_url)<0)
@@ -227,11 +236,11 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 	      $scope.access_level.information_url = selected_url;
 	      $scope.close();
 	      $scope.access_level.isOpen = false;
-
+	      $scope.show_next = show_next;
 	  }
 	  else if(selected_url == 'download'){
-	    Restangular.all('').customGET('download',{}).then(function(response){
-	        var downloads = response;
+	    Restangular.all('').customGET('download',{site_id: $site.id,bypass_paging: true}).then(function(response){
+	        var downloads = response.items;
 	        downloads.forEach(function(entity){
 	            entity.url = entity.permalink;
 	        })
@@ -240,9 +249,20 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 	          
 	    })
 	  }
+	  else if(selected_url == 'post') {
+	  	Restangular.all(selected_url).customGET('',{}).then(function(response){
+	  		var posts = response;
+	  		posts.forEach(function(entity){
+	  			entity.url = entity.permalink;
+	  		})
+
+	  		$scope.show_next = true;
+	  		$scope.loaded_items = {items : posts};
+	  	})	
+	  }
 	  else
 	  {
-	    Restangular.all(selected_url).customGET('',{}).then(function(response){
+	    Restangular.all(selected_url).customGET('',{site_id: $site.id,bypass_paging: true}).then(function(response){
 	        if(response.route == 'customPage')
 	            response.route = 'page';
 	        if(response.route == 'supportArticle')

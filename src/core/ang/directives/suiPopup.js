@@ -9,7 +9,7 @@ app.directive( 'suiPopup', function( smModal , $state)
 				position: attributes.position || 'right center',
 				//popup: '.special.popup',
 				html: (attributes.edit == true || attributes.edit == 'true') ? '<button class="ui tiny red button edit-admin">edit</button>' : '',
-				target: attributes.target && attributes.target != '_blank' ? attributes.target : false,
+				target: attributes.target && attributes.target != '_blank' && attributes.target != '_self' ? attributes.target : false,
 				popup: attributes.popup || false,
 				exclusive: true,
 				preserve: false,

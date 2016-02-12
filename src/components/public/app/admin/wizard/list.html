@@ -1,0 +1,40 @@
+<div class="ui modal"><i class="close icon"></i>
+    <div class="header">
+        <i class="magic icon"></i>
+        {{ static_wizard.name }}
+    </div>
+    <div class="content">
+        <div class="description">
+
+            <div class="ui active inverted dimmer" ng-if="!wizard_loaded">
+                <div class="ui loader"></div>
+            </div>
+
+            <div class="ui message">
+                <p>{{static_wizard.description}}</p>
+            </div>
+
+            <div class="ui section divider"></div>
+
+            <div class="ui stackable four cards">
+                <a ng-if="!linkToNode( node )" class="ui card {{node.slug}}" ng-if="node.completed || node.enabled" ng-repeat="(key,node) in wizard" id="{{ $index }}" data-enabled="{{node.enabled}}" ng-click="nodeClickAction( node )" ng-mouseover="hoverIn=true" ng-mouseleave="hoverIn=false" wizardnode>
+                    <div class="image text-center p-sm">
+                        <i class="huge icons">
+                            <i class="big {{node.completed ? 'green' : 'red'}} {{hoverIn ? 'loading sun' : (node.completed ? 'thin circle' : 'square outline')}} icon"></i>
+                            <i class="{{node.completed ? 'green' : 'red'}} {{ node.icon }} icon"></i>
+                        </i>
+                    </div>
+                    <div class="extra">
+                        {{ ::node.heading }}
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <div class="actions">
+        <a ng-click="CloseAdminState()" ng-if="!$state.includes('public.my')" ng-show="SiteStateExists()" class="ui black button">
+            Close
+        </a>
+    </div>
+</div>

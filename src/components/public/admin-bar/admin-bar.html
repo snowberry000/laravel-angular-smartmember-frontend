@@ -38,7 +38,7 @@
 			Back to Site
 		</a>
 	</div>
-	<a class="ui item {{show_admin_mobile_top_nav || 'mobile hidden'}} wizard_container" title="Setup your account with a step-by-step tour guide" ui-sref="public.app.admin.wizard({id : 'account_wizard'})" ng-if="isSitelessPage('my') && $state.includes('public.my') && user.sm_access">
+	<a class="ui item {{show_admin_mobile_top_nav || 'mobile hidden'}} wizard_container" title="Setup your account with a step-by-step tour guide" ui-sref="public.app.admin.wizard.list({id : 'account_wizard'})" ng-if="isSitelessPage('my') && $state.includes('public.my') && user.sm_access">
 		<div class="ui indicating inverted progress m-b-none" style="width: 100%;" data-value="0" data-total="1" data-type="wizard" sui-account-progress>
 			<div class="bar">
 				<div class="progress">{{site.wizard_step}}</div>
@@ -47,7 +47,7 @@
 		</div>
 	</a>
 
-	<a class="ui item {{show_admin_mobile_top_nav || 'mobile hidden'}} wizard_container" sm-access="manage_content" if-not="hide" title="Setup your site with a step-by-step tour guide" ui-sref="public.app.admin.wizard ({id : 'site_launch_wizard'})" ng-if="!isSitelessPage() && $state.includes('public.app') && site.wizard_step < 5">
+	<a class="ui item {{show_admin_mobile_top_nav || 'mobile hidden'}} wizard_container" sm-access="manage_content" if-not="hide" title="Setup your site with a step-by-step tour guide" ui-sref="public.app.admin.wizard.list({id : 'site_launch_wizard'})" ng-if="!isSitelessPage() && $state.includes('public.app') && site.wizard_step < 5">
 		<div class="ui indicating inverted progress m-b-none" style="width: 100%;" data-value="{{site.wizard_step}}" data-total="5" data-type="wizard" sui-progress>
 			<div class="bar">
 				<div class="progress">{{site.wizard_step}} of 5 steps</div>

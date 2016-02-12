@@ -4,6 +4,9 @@ app.config(function($stateProvider){
 	$stateProvider
 		.state("public.app.admin.custom-page",{
 			url: "/custom-page/:id?",
+            params: {
+                speed_blogging: null
+            },
 			templateUrl: "/templates/components/public/app/admin/custom-page/custom-page.html",
 			controller: "CustomPageController",
 			resolve: {

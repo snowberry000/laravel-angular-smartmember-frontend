@@ -20,7 +20,7 @@
 			<div class="field" style="margin-top:20px;">
 
 			</div>
-			<div class="ui icon input">
+			<div class="ui icon input" ng-show="emailList.id">
 				<input type="text" placeholder="Search..." ng-model="query" ng-change="paginate(true)" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 				<i class="search icon"></i>
 			</div>

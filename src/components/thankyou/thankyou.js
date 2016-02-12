@@ -45,6 +45,8 @@ app.controller('ThankyouController', function ($scope, $http, Restangular, $site
         return(false);
     }
 
+    $scope.options = [];
+
     $.each($site.meta_data, function (key, data) {
         $scope.options[data.key] = data.value;
     });
