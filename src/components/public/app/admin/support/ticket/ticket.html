@@ -46,7 +46,7 @@
 								<i class="fa fa-paperclip"></i>
 								Add attachment
 							</a>
-							<a ng-show="reply.attachment" href="reply.attachment" target="_blank" style="cursor:pointer;" class="attachment_container float_left">
+							<a ng-show="reply.attachment" href="{{reply.attachment}}" target="_blank" style="cursor:pointer;" class="attachment_container float_left">
 								<i class="fa fa-paperclip"></i> {{reply.attachment.split('/').pop()}}
 							</a>
 							<a ng-show="reply.attachment" ng-click="reply.attachment=''" class="attachment_container float_left" style="cursor:pointer;color:#ff0000;font-size:18px;font-weight:bold; margin-left: 5px;">&times;</a>
@@ -431,7 +431,7 @@
 													<i class="fa fa-paperclip"></i>
 													Add attachment
 												</a>
-												<a ng-show="reply.attachment" href="reply.attachment" target="_blank" style="cursor:pointer;" class="attachment_container float_left"><i class="fa fa-paperclip"></i> {{reply.attachment.split('/').pop()}}</a>
+												<a ng-show="reply.attachment" href="{{reply.attachment}}" target="_blank" style="cursor:pointer;" class="attachment_container float_left"><i class="fa fa-paperclip"></i> {{reply.attachment.split('/').pop()}}</a>
 												<a ng-show="reply.attachment" ng-click="reply.attachment=''" class="attachment_container float_left" style="cursor:pointer;color:#ff0000;font-size:18px;font-weight:bold; margin-left: 5px;">&times;</a>
 
 												<div class="clearfix"></div>

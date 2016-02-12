@@ -87,6 +87,8 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 	    
 	    delete $scope.site_notice.sdate;
 	    delete $scope.site_notice.edate;
+	    if($scope.site_notice.title && $scope.site_notice.title.trim().length>0 && $scope.site_notice.content)
+	    {
 
 	    if ($scope.site_notice.id) {
 	        $scope.site_notice.put().then(function(response){
@@ -100,7 +102,10 @@ app.controller("NoticeController", function ($scope,$rootScope,$stateParams,$sta
 	            toastr.success("Site notice has been saved");
 	            $state.go('public.app.admin.members.notices')
 	        });
-	    }
+	    	}
+		}//
+		else
+			toastr.error("Note not saved. 'Title' or 'Content' cannot be empty or contain only spaces");
 	    
 	}
 

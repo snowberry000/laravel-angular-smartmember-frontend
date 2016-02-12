@@ -30,11 +30,20 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 		total_count: 0
 	};
 
+	$scope.paginationChange = false;
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
 		{
-			$scope.paginate(true);
+			$scope.paginationChange = true;
+			if($scope.query)
+			{
+				$scope.paginate(true);
+			}
+			else
+			{
+				$scope.paginate();
+			}
 		}
 	} );
 
@@ -43,24 +52,32 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 	}
 
 	$scope.paginate = function(search)
-	{	console.log('paginate');
+	{	
 		
-		var continueSearch = true;
-		if (search && ($scope.query.length<3 ))
+		if (search && $scope.query.length<3 && $scope.query.length!=0 && $scope.paginationChange==false)
+		{	
+			return;
+		}
+		if(search && ($scope.query.length>=3 || $scope.query.length==0) && $scope.paginationChange==false)
 		{
-			continueSearch = false;
-			console.log('query length = '+$scope.query.length);
+			console.log('Pagination changed:'+$scope.paginationChange+',search:'+search);
+			$scope.pagination.current_page = 1;
+		}
+		if($scope.paginationChange==true && ((search && $scope.query.length<3 && $scope.query.length!=0)))
+		{	
+			$scope.query = '';
 		}
 
-		if( continueSearch==true || $scope.query.length==0)
+		if( true)
 		{
-			$scope.pagination.current_page = 1;
+			// $scope.pagination.current_page = 1;
 			$scope.loading = true;
 
 			var $params = { p: $scope.pagination.current_page };
 
 			if( $scope.query )
 			{
+				console.log($scope.query);
 				$params.q = encodeURIComponent( $scope.query );
 			}
 
@@ -71,6 +88,7 @@ app.controller( "AffiliatesController", function( $scope, $rootScope, $localStor
 				$scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
 			} );
 			console.log('query processed');
+			$scope.paginationChange = false;
 		}
 	}
 
