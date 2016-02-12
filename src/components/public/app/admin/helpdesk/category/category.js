@@ -42,7 +42,7 @@ app.controller("CategoryController", function ($scope,$rootScope,smModal, $local
     $scope.save = function(){
     	if(!$scope.category.title)
     	{
-    		toastr.success("Categoiry title can not be empty");
+    		toastr.error("Categoiry title can not be empty");
     		return;
     	}
 
