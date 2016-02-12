@@ -133,6 +133,12 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 			toastr.error( "Sorry , you must be logged in to comment!" );
 			return;
 		}
+
+		if(!body || body.trim().length <= 0){
+			toastr.error( "Sorry , comment cannot be empty!" );
+			return;
+		}
+
 		Restangular.all( 'comment' ).post( {
 			target_id: $scope.lesson.id,
 			type: 2,
@@ -172,6 +178,12 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 			toastr.error( "Sorry , you are not authorized to remove this comment" );
 			return;
 		}
+
+		if(!comment || comment.trim().length <= 0){
+			toastr.error( "Sorry , comment cannot be empty!" );
+			return;
+		}
+
 		Restangular.all( 'comment').customPUT({body : comment.body} , comment.id).then( function( response )
 		{
 			comment.edit = false;
@@ -199,6 +211,12 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 			toastr.error( "Sorry , you are not authorized to remove this reply" );
 			return;
 		}
+
+		if(!reply || reply.trim().length <= 0){
+			toastr.error( "Sorry , comment cannot be empty!" );
+			return;
+		}
+
 		Restangular.all( 'comment').customPUT({body : reply.body} , reply.id).then( function( response )
 		{
 			reply.edit = false;
@@ -212,6 +230,12 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 			toastr.error( "Sorry , you must be logged in to comment" );
 			return;
 		}
+
+		if(!body || body.trim().length <= 0){
+			toastr.error( "Sorry , comment cannot be empty!" );
+			return;
+		}
+		
 		Restangular.all( 'comment' ).post( {
 			target_id: $scope.lesson.id,
 			type: 2,

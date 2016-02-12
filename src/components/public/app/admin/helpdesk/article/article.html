@@ -38,7 +38,7 @@
 
 								<div class="col-sm-10" ng-if="categories.length!=0">
 									<div class="col-md-8">
-										<select sui-dropdown type="text" name="category" class="form-control input-lg" ng-model="article.category_id" ng-options="category.id as category.title for category in categories" >
+										<select style="margin-bottom:10px;" type="text" name="category" class="ui dropdown" ng-model="article.category_id" ng-options="category.id as category.title for category in categories" >
 										</select>
 									</div>
 									<a class="btn btn_outline float_right col-md-4" ng-click="article.createCategory='true'">
@@ -57,8 +57,8 @@
 										Category Name:
 									</label>
 									<input style="margin:4px;" type="text" ng-model="newCategoryName" placeholder="Category name"></input>
-									<button ng-click="saveCategory(newCategoryName)">Create</button>
-									<button ng-click="canceCategoryCreation()">Cancel</button>
+									<button class="ui button" ng-click="saveCategory(newCategoryName)">Create</button>
+									<button class="ui button" ng-click="canceCategoryCreation()">Cancel</button>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -85,7 +85,7 @@
 							<div class="field">
                                 <label class="col-sm-2 control-label">Featured Image</label>
                                 <div class="col-sm-10">
-                                    <button type="button"
+                                    <button class="ui button" type="button"
                                             sm-uploader="featured_image" ng-model="article.featured_image">Choose Featured Image</button>
                                     <div class="width-100 set_featured_image">
                                         <img class="featured_image_preview img-responsive img-thumbnail" ng-src="{{article.featured_image}}" ng-show="article.featured_image" style="width:auto;" />
