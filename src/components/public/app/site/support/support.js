@@ -19,26 +19,36 @@ app.controller('PublicSupportController', function ($scope,$site,$rootScope, $lo
 
     $scope.article = $scope.next_item;
 
+    $scope.loading = true;
+    $scope.searching = false;
+
+    $scope.search = function( query ) {
+        $scope.query = query;
+        if( !query )
+        {
+            $scope.searching = false;
+        }
+        else
+        {
+            $scope.searching = true;
+            $scope.loading = true;
+
+            Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
+                $scope.search_results = response.items;
+                $scope.loading = false;
+            });
+        }
+    }
+
     $scope.init = function(){
         Restangular.all('supportArticle?bypass_paging=true&view=admin&parent_id=0&site_id=' + $site.id ).customGET().then(function (response) {
              $scope.next_item.articles = response.items;
             $scope.article = $scope.next_item;
+            $scope.loading = false;
         });
     }
 
     $scope.init();
-
-    $scope.search = function(){
-        $scope.searchResults = [];
-        for (var i =  0 ; i < $scope.categories.length ; i++) {
-            var category = $scope.categories[i];
-            for (var j = 0 ; j < category.articles.length; j++) {
-                var article = category.articles[j];
-                if(article.content.indexOf($scope.searchquery) > -1 || article.title.indexOf($scope.searchquery) > -1)
-                    $scope.searchResults.push(article);
-            };
-        };
-    }
 
     $scope.showFormat = function(format){
         $localStorage.helpdesk_format = format;

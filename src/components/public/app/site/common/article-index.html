@@ -1,7 +1,20 @@
-<h2 class="ui top attached header section_background_color">
+<div class="ui top attached section_background_color" ng-if="next_item.breadcrumb" style="margin-bottom:0;">
+    <span dynamic="breadCrumbParent( next_item )"></span>
+</div>
+<div class="ui top attached section_background_color">
+    <div class="ui form">
+        <div class="form">
+            <input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" style="color:#000;rgba(0, 0, 0, 0.4);" />
+        </div>
+    </div>
+</div>
+<h2 class="ui top attached header section_background_color" style="{{next_item.breadcrumb ? 'margin-top: 5px;' : ''}}" ng-if="!searching">
     {{next_item.title}}
 </h2>
-<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="loading || next_item.featured_image || next_item.embed_content">
+<h2 class="ui top attached header section_background_color" style="{{next_item.breadcrumb ? 'margin-top: 5px;' : ''}}" ng-if="searching">
+    Search results for "{{query}}"
+</h2>
+<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="!searching && ( loading || next_item.featured_image || next_item.embed_content )">
 
     <div class="ui active inverted dimmer" ng-if="loading">
         <div class="ui text loader">Loading</div>
@@ -27,11 +40,11 @@
     </div>
 </div>
 
-<div class="ui attached clearing padded segment section_background_color text-left" ng-if="next_item.content">
+<div class="ui attached clearing padded segment section_background_color text-left" ng-if="next_item.content && !searching">
     <div dynamic="next_item.content" ng-if="next_item.content" class="fr-view"></div>
 </div>
 
-<div class="ui grid" style="margin-top:15px;">
+<div class="ui grid" style="margin-top:15px;" ng-if="!searching">
     <div class="eight wide column" ng-repeat="article in next_item.articles">
         <a class="" href="/{{article.permalink}}" style="padding-bottom: 25px;margin-bottom: 30px;border-bottom: 1px #b7bbc4 dotted; display:block;">
             <div class="content">
@@ -41,5 +54,24 @@
                 {{article.content | cut:true:200:' ...'}}
             </div>
         </a>
+    </div>
+</div>
+
+<div class="ui grid" style="margin-top:15px;" ng-if="searching">
+    <div class="ui active inverted dimmer" ng-if="loading">
+        <div class="ui text loader">Loading</div>
+    </div>
+    <div class="twelve wide column" ng-repeat="article in search_results" style="margin-left: auto; margin-right: auto;">
+        <a class="" href="/{{article.permalink}}" style="padding-bottom: 25px;margin-bottom: 30px;border-bottom: 1px #b7bbc4 dotted; display:block;">
+            <div class="content">
+                <div class="header" style=" color: #328ece; font-size: 14px;font-weight: bold;text-transform: uppercase; font-family: Helvetica, Arial, sans-serif;padding-bottom: 8px;">{{article.title}}</div>
+            </div>
+            <div class="description" style="margin: 0;color: #86939c;line-height: 26px;font-family: Helvetica, Arial, sans-serif;font-size: 16px;">
+                {{article.content | cut:true:200:' ...'}}
+            </div>
+        </a>
+    </div>
+    <div class="ui info message twelve wide column" ng-if="!search_results || search_results.length == 0" style="margin-left: auto; margin-right: auto;">
+        No articles matched your query.
     </div>
 </div>
