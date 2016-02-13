@@ -4,7 +4,7 @@
 <div class="ui top attached section_background_color">
     <div class="ui form">
         <div class="form">
-            <input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" style="color:#000;rgba(0, 0, 0, 0.4);" />
+            <input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" class="support-article-search" />
         </div>
     </div>
 </div>
@@ -44,34 +44,34 @@
     <div dynamic="next_item.content" ng-if="next_item.content" class="fr-view"></div>
 </div>
 
-<div class="ui grid" style="margin-top:15px;" ng-if="!searching">
+<div class="ui grid support-articles" ng-if="!searching">
     <div class="eight wide column" ng-repeat="article in next_item.articles">
-        <a class="" href="/{{article.permalink}}" style="padding-bottom: 25px;margin-bottom: 30px;border-bottom: 1px #b7bbc4 dotted; display:block;">
+        <a class="" href="/{{article.permalink}}">
             <div class="content">
-                <div class="header" style=" color: #328ece; font-size: 14px;font-weight: bold;text-transform: uppercase; font-family: Helvetica, Arial, sans-serif;padding-bottom: 8px; min-height:52px;">{{article.title}}</div>
+                <div class="header">{{article.title}}</div>
             </div>
-            <div class="description" style="margin: 0;color: #86939c;line-height: 26px;font-family: Helvetica, Arial, sans-serif;font-size: 16px; min-height: 52px;">
+            <div class="description" style="">
                 {{article.content | cut:true:200:' ...'}}
             </div>
         </a>
     </div>
 </div>
 
-<div class="ui grid" style="margin-top:15px;" ng-if="searching">
+<div class="ui grid support-articles" ng-if="searching">
     <div class="ui active inverted dimmer" ng-if="loading">
         <div class="ui text loader">Loading</div>
     </div>
-    <div class="twelve wide column" ng-repeat="article in search_results" style="margin-left: auto; margin-right: auto;">
-        <a class="" href="/{{article.permalink}}" style="padding-bottom: 25px;margin-bottom: 30px;border-bottom: 1px #b7bbc4 dotted; display:block;">
+    <div class="twelve wide column" ng-repeat="article in search_results">
+        <a class="" href="/{{article.permalink}}">
             <div class="content">
-                <div class="header" style=" color: #328ece; font-size: 14px;font-weight: bold;text-transform: uppercase; font-family: Helvetica, Arial, sans-serif;padding-bottom: 8px;">{{article.title}}</div>
+                <div class="header">{{article.title}}</div>
             </div>
-            <div class="description" style="margin: 0;color: #86939c;line-height: 26px;font-family: Helvetica, Arial, sans-serif;font-size: 16px;">
+            <div class="description">
                 {{article.content | cut:true:200:' ...'}}
             </div>
         </a>
     </div>
-    <div class="ui info message twelve wide column" ng-if="!search_results || search_results.length == 0" style="margin-left: auto; margin-right: auto;">
+    <div class="ui info message twelve wide column no-results" ng-if="!search_results || search_results.length == 0">
         No articles matched your query.
     </div>
 </div>
