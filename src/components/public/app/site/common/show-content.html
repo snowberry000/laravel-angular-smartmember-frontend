@@ -1,5 +1,7 @@
-
-<h2 class="ui top attached header section_background_color">
+<div class="ui top attached section_background_color" ng-if="next_item.breadcrumb" style="margin-bottom:0;">
+    <span dynamic="breadCrumbParent( next_item )"></span>
+</div>
+<h2 class="ui top attached header section_background_color" style="{{next_item.breadcrumb ? 'margin-top: 5px;' : ''}}">
 	{{next_item.title}}
 </h2>
 <div class="ui attached clearing segment section_background_color" ng-if="next_item.categories && next_item.categories.length > 0">
