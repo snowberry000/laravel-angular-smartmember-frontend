@@ -107,13 +107,20 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
         if (!Modernizr.inputtypes.time) {
           // no native support for <input type="time"> :(
           // maybe build one yourself with Dojo or jQueryUI
-          setTimeout(function(){
-          		$('.scheduled_time').first().val(moment.utc().format('hh:mm a'));
-          		$('.scheduled_time').prop('type','text');
+          if(!$stateParams.id || $stateParams.id == ""){ 
+          	// Lesson Add Mode
+          	setTimeout(function(){
+          		$('.scheduled_time').first().val(moment().format('hh:mm a'));
           		$('.scheduled_time').timepicker({
 				timeFormat: 'hh:mm tt'
 				});
           	},500);
+          }else{
+          	// Lesson Edit Mode
+          	$('.scheduled_time').timepicker({
+			timeFormat: 'hh:mm tt'
+			});
+          }
         }
 
 		$scope.refrer = $location.search().organizer;
