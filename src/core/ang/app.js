@@ -339,5 +339,3 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 } );
 
 
-
-
