@@ -24,7 +24,7 @@
 			</div>
 
 			<div class="ui form" ng-hide="!lesson.access || !isLoggedIn()">
-				<a class="ui blue right ribbon label m-b-xs">Notes</a>
+				<a class="ui blue {{meta_data.sidebar_position == 'left' ? 'left' : 'right'}} ribbon label m-b-xs">Notes</a>
 				<div class="field">
 					<textarea ng-model="userNote.note"></textarea>
 				</div>
