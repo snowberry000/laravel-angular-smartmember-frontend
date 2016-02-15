@@ -1,0 +1,11 @@
+<div ng-controller="SocialshareChosenBannerController" class="ui form">
+	<div class="field">
+		<img class="ui medium image" src="{{chosen_widget.banner.banner_image_url}}" style="max-width:100%;">
+	</div>
+	<div class="inline field">
+		<label>Social Share</label>
+		<select class="ui dropdown" ng-model="chosen_widget.target_id" ng-change="updateBanner()">
+			<option ng-selected="banner.id == chosen_widget.target_id" ng-repeat="banner in $parent.banners" value="{{banner.id}}">{{banner.banner_url}}</option>
+		</select>
+	</div>
+</div>
