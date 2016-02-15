@@ -1,5 +1,12 @@
 
+
+
 <div class="ui basic segment">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
+
 	<h1 class="ui center aligned header headline_text_color">
 		{{next_item.title}}
 
@@ -12,13 +19,7 @@
     <label>Categories: </label>
     <a href="/{{category.permalink}}" ng-repeat="category in next_item.categories">{{category.title + ( $index < $parent.next_item.categories.length - 1 ? ', ' : '')}}</a>
 </div>
-<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="loading || next_item.featured_image || next_item.embed_content || !next_item.access">
-
-	<div class="ui active inverted dimmer" ng-if="loading">
-		<div class="ui text loader">Loading</div>
-	</div>
-
-
+<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="!loading && (next_item.featured_image || next_item.embed_content || !next_item.access)">
 
 	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image &&next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
 
@@ -65,7 +66,7 @@
 		</span>
 	</div>
 </div>
-<div class="ui attached clearing padded segment section_background_color text-left">
+<div class="ui attached clearing padded segment section_background_color text-left" ng-if="(next_item.showTranscript) || (next_item.content && (next_item.show_content_publicly || next_item.access)) || (next_item.description)">
 
 	<div ng-show="next_item.showTranscript" class="transcript_stuff" style="padding: 15px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px; border-radius: 4px; display: block;">
 		<h4 class="text-left">Transcript:</h4>
