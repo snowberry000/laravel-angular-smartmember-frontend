@@ -54,30 +54,36 @@ app.controller( "AdminPostCategoryController", function( $scope, smModal , $root
 
 	$scope.save = function()
 	{
-		if( $scope.category.id )
+		if($scope.category.permalink)
 		{
-			$scope.category.put().then(function(response){
-				$state.go('public.app.admin.post-categories');
-				toastr.success( "Category has been updated!" );
-			})
-			if($stateParams.close){
-				close( $scope.category );
-				return;
+			if( $scope.category.id )
+			{
+				$scope.category.put().then(function(response){
+					$state.go('public.app.admin.post-categories');
+					toastr.success( "Category has been updated!" );
+				})
+				if($stateParams.close){
+					close( $scope.category );
+					return;
+				}
+			}
+			else
+			{
+				Restangular.all( 'category' ).post( $scope.category ).then( function( module )
+				{
+					$scope.category = module;
+					if($stateParams.close){
+						close(module);
+						return;
+					}
+					toastr.success( "Category has been saved" );
+					$state.go('public.app.admin.post-categories');
+				} );
 			}
 		}
 		else
-		{
-			Restangular.all( 'category' ).post( $scope.category ).then( function( module )
-			{
-				$scope.category = module;
-				if($stateParams.close){
-					close(module);
-					return;
-				}
-				toastr.success( "Category has been saved" );
-				$state.go('public.app.admin.post-categories');
-			} );
-		}
+			toastr.error("Permalink must be specified.");
+			
 	}
 
     $scope.setCategoryPermalink = function( $event )
