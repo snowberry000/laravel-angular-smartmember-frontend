@@ -402,6 +402,11 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		delete $scope.next_item.module;
 		delete $scope.next_item.site;
 
+		if( $scope.next_item.title == '' || !$scope.next_item.title){
+			toastr.error("Please enter lesson title");
+			return;
+		}
+
 		if( $scope.next_item.permalink == '' || !$scope.next_item.permalink){
 		    toastr.error("Please enter valid permalink");
 		    return;
