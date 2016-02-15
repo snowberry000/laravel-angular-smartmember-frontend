@@ -104,6 +104,24 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
           $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
+        if (!Modernizr.inputtypes.time) {
+          // no native support for <input type="time"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          if(!$stateParams.id || $stateParams.id == ""){ 
+          	// Lesson Add Mode
+          	setTimeout(function(){
+          		$('.scheduled_time').first().val(moment().format('hh:mm a'));
+          		$('.scheduled_time').timepicker({
+				timeFormat: 'hh:mm tt'
+				});
+          	},500);
+          }else{
+          	// Lesson Edit Mode
+          	$('.scheduled_time').timepicker({
+			timeFormat: 'hh:mm tt'
+			});
+          }
+        }
 
 		$scope.refrer = $location.search().organizer;
 		if( !$next_item.id )

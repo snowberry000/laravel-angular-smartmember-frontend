@@ -372,14 +372,24 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 	$scope.assignToSMTech = function()
 	{
 		Restangular.one( 'supportTicket', $scope.ticket.id ).put( {
-			'escalated_site_id': 2056,
-			'agent_id': 2,
+			'escalated_site_id': 2056
 		} ).then( function( response )
 		{
-			$scope.ticket.agent_id = 2;
-			$scope.ticket.side_id = 2056;
+            $scope.ticket.escalated_site_id = 2056;
 			$scope.ticket.sm_tech = true;
 			toastr.success( "Ticket assigned to SM Tech team" );
+		} )
+	}
+
+    $scope.assignToSMMarketing = function()
+	{
+		Restangular.one( 'supportTicket', $scope.ticket.id ).put( {
+			'escalated_site_id': 6325
+		} ).then( function( response )
+		{
+            $scope.ticket.escalated_site_id = 6325;
+			$scope.ticket.sm_marketing = true;
+			toastr.success( "Ticket assigned to SM Marketing team" );
 		} )
 	}
 
