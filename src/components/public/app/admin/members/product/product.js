@@ -250,16 +250,16 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
 	          
 	    })
 	  }
-	  else if(selected_url == 'post') {
-	  	Restangular.all(selected_url).customGET('',{}).then(function(response){
-	  		var posts = response;
-	  		posts.forEach(function(entity){
-	  			entity.url = entity.permalink;
-	  		})
-
-	  		$scope.show_next = true;
-	  		$scope.loaded_items = {items : posts};
-	  	})	
+	  else if(selected_url == 'post'){
+        Restangular.all(selected_url).customGET('',{site_id: $site.id,view: 'admin'}).then(function(response){
+            var posts = response.items;
+            response.items.forEach(function(entity){
+                entity.url =  entity.permalink;
+            })
+            $scope.show_next = true;
+            $scope.loaded_items = {items : posts };
+              
+        })	
 	  }
 	  else
 	  {
