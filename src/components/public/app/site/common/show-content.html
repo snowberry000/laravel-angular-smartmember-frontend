@@ -1,11 +1,13 @@
 
-<h2 class="ui top attached center aligned header section_background_color" style="{{next_item.breadcrumb ? 'margin-top: 5px;' : ''}}">
-	{{next_item.title}}
+<div class="ui basic segment">
+	<h1 class="ui center aligned header headline_text_color">
+		{{next_item.title}}
 
-	<div class="ui fitted clearing hidden divider" ng-if="next_item.breadcrumb"></div>
-	<div class="ui breadcrumb" ng-if="next_item.breadcrumb" dynamic="breadCrumbParent( next_item )">
-	</div>
-</h2>
+		<div class="ui fitted clearing hidden divider" ng-if="next_item.breadcrumb"></div>
+		<div class="ui breadcrumb" ng-if="next_item.breadcrumb" dynamic="breadCrumbParent( next_item )">
+		</div>
+	</h1>
+</div>
 <div class="ui attached clearing segment section_background_color" ng-if="next_item.categories && next_item.categories.length > 0">
     <label>Categories: </label>
     <a href="/{{category.permalink}}" ng-repeat="category in next_item.categories">{{category.title + ( $index < $parent.next_item.categories.length - 1 ? ', ' : '')}}</a>
