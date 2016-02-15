@@ -14,7 +14,25 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
 {
 	//$scope.page = $page;
 	$scope.loading = true;
+    $scope.searching = false;
 
+    $scope.search = function( query ) {
+        $scope.query = query;
+        if( !query )
+        {
+            $scope.searching = false;
+        }
+        else
+        {
+            $scope.searching = true;
+            $scope.loading = true;
+
+            Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
+                $scope.search_results = response.items;
+                $scope.loading = false;
+            });
+        }
+    }
 
 	Restangular.one( 'articleByPermalink', $stateParams.permalink ).get().then( function( response )
 	{
@@ -24,6 +42,21 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
 		$scope.next_item = $scope.article;
 		$scope.next_item.content_type = 'helpdesk.article';
 		$scope.next_item.access = true;
+		$scope.next_item.breadcrumb = true;
 		$rootScope.page_title = $article.title || $rootScope.page_title;
 	} );
+
+    $scope.breadCrumbParent = function( next_item ) {
+        var final_link = '';
+
+        if( next_item.parent_id ) {
+            parent = next_item.parent;
+
+            for (; parent != undefined; parent = parent.parent) {
+                final_link = ' <span class="divider">/</span> ' + '<a class="section" href="/' + parent.permalink + '">' + parent.title + '</a>' + final_link;
+            }
+        }
+
+        return '<div class="ui breadcrumb"></div><a class="section" href="/support">Support</a>' + final_link + ' <span class="divider">/</span> <div class="active section" style="display:inline;">' + next_item.title + "</div></div>";
+    }
 } );
