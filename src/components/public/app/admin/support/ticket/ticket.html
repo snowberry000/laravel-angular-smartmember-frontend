@@ -142,7 +142,7 @@
 							<div class="header">Status</div>
 							<div class="ui red label">{{ticket.status}}</div>
 						</div>
-						<div class="item" ng-if="ticket.site_id != 2056 && ticket.site_id != '2056' && ticket.escalated_site_id != 2056 && ticket.escalated_site_id != '2056' && !ticket.sm_tech">
+						<div class="item" ng-if="ticket.escalated_site_id != 2056 && ticket.escalated_site_id != '2056' && !ticket.sm_tech">
 							<div class="content">
 								<button class="ui button" ng-click="assignToSMTech()">Re-assign to SM Corporate Tech Team</button>
 							</div>
