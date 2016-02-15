@@ -1,8 +1,10 @@
-<div class="ui top attached section_background_color" ng-if="next_item.breadcrumb" style="margin-bottom:0;">
-    <span dynamic="breadCrumbParent( next_item )"></span>
-</div>
-<h2 class="ui top attached header section_background_color" style="{{next_item.breadcrumb ? 'margin-top: 5px;' : ''}}">
+
+<h2 class="ui top attached center aligned header section_background_color" style="{{next_item.breadcrumb ? 'margin-top: 5px;' : ''}}">
 	{{next_item.title}}
+
+	<div class="ui fitted clearing hidden divider" ng-if="next_item.breadcrumb"></div>
+	<div class="ui breadcrumb" ng-if="next_item.breadcrumb" dynamic="breadCrumbParent( next_item )">
+	</div>
 </h2>
 <div class="ui attached clearing segment section_background_color" ng-if="next_item.categories && next_item.categories.length > 0">
     <label>Categories: </label>
@@ -13,6 +15,8 @@
 	<div class="ui active inverted dimmer" ng-if="loading">
 		<div class="ui text loader">Loading</div>
 	</div>
+
+
 
 	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image &&next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
 
