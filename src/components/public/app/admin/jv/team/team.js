@@ -68,12 +68,18 @@ app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, 
 
 	$scope.save = function()
 	{
-		if( $scope.affiliate_team.id )
+		if($scope.affiliate_team.name || $scope.affiliate_team.name='')
 		{
-			$scope.update();
-			return;
+			if( $scope.affiliate_team.id )
+			{
+				$scope.update();
+				return;
+			}
+			$scope.create();
 		}
-		$scope.create();
+		else
+			toastr.error("Team Name cannot be empty");
+		
 	}
 
 	$scope.ifAlreadyExists = function( affiliate )

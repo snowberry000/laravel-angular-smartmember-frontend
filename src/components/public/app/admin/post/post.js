@@ -21,6 +21,7 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 	$site = $rootScope.site;
 	$user = $rootScope.user;
 	$next_item = null;
+	$scope.new_category={};
 	var draft;
 	var changed;
 	var seo = {};
@@ -394,16 +395,21 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 	}
 
     $scope.addCategory = function( new_category ) {
-        Restangular.all('category').post( new_category).then( function( response ) {
-            $scope.available_categories.push( response );
+	       if(new_category.permalink)
+	       {
+	       	 Restangular.all('category').post( new_category).then( function( response ) {
+	            $scope.available_categories.push( response );
 
-            new_category.title = '';
-            new_category.permalink = '';
+	            new_category.title = '';
+	            new_category.permalink = '';
 
-            $timeout(function(){
-                $('.ui.dropdown').dropdown();
-            } );
-        } );
+	            $timeout(function(){
+	                $('.ui.dropdown').dropdown();
+	            } );
+	        } );
+	       }
+	       else
+	       	toastr.error("Permalink must be specified.");
     }
 
     $scope.setCategoryPermalink = function( $event, new_category )
