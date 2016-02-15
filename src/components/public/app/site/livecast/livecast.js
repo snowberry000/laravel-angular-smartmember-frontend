@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stateParams,$localStorage,Restangular,smModal){
+app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stateParams,$localStorage,Restangular,smModal,toastr){
 
     $scope.comment = '';
     $scope.child_comment = '';
@@ -35,6 +35,12 @@ app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stat
             toastr.error("Sorry , you must be logged in to comment");
             return;
         }
+
+        if(!body || body.trim().length <= 0){
+            toastr.error( "Sorry , comment cannot be empty!" );
+            return;
+        }
+
         Restangular.all('comment').post({target_id:$scope.next_item.id , type:5 ,body:body , public:$scope.next_item.discussion_settings.public_comments}).then(function(comment){
             $scope.next_item.comments.push(comment);
             toastr.success("Your comment is added!");
@@ -47,6 +53,12 @@ app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stat
             toastr.error("Sorry , you must be logged in to comment");
             return;
         }
+
+        if(!body || body.trim().length <= 0){
+            toastr.error( "Sorry , comment cannot be empty!" );
+            return;
+        }
+
         Restangular.all('comment').post({target_id:$scope.next_item.id , type:5 , parent_id : comment.id ,body:body , public:$scope.next_item.discussion_settings.public_comments}).then(function(reply){
             comment.reply.push(reply);
         })

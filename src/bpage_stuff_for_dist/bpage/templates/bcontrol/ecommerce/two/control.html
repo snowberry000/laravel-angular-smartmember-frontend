@@ -1,0 +1,146 @@
+<h3 class="ui top attached header title">
+    <i class="dropdown icon"></i>
+    General Settings
+</h3>
+<div class="ui attached segment content">
+
+    <h4>Background Image</h4>
+
+    <div class="inline field">
+        <h4>Upload image</h4>
+        <button type="button" class="ui button" sm-uploader="background_url" ng-model="bridgepage.swapspot.background_url" data-allowMultiple="false">
+            <i class="upload icon"></i>
+            Choose File
+        </button>
+    </div>
+    <div class="field" ng-if="bridgepage.swapspot.background_url">
+        <img class="ui fluid image" ng-src="{{bridgepage.swapspot.background_url}}">
+        <button class="ui left labeled tiny basic red icon button m-t-sm" ng-click="bridgepage.swapspot.background_url=''">
+            Clear
+            <i class="remove icon"></i>
+        </button>
+    </div>
+    <div class="ui message">key: background_url</div>
+    <div class="hr-line-dashed"></div>
+    <div class="field">
+        <h4>Border Color</h4>
+
+        <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+                              ng-model="bridgepage.swapspot.border_color"></spectrum-colorpicker>
+    </div>
+
+</div>
+
+<h3 class="ui top attached header title">
+    <i class="dropdown icon"></i>
+    Content
+</h3>
+<div class="ui attached segment content">
+    <div>
+        <div class="field">
+            <h4 >Content HTML</h4>
+            <textarea froala name="content" wrap="virtual" ng-model="bridgepage.swapspot.footer_custom_html" editable="editable" editor='editor' on-image-upload="imageUpload(files , 'content')"><p></p></textarea>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<h3 class="ui top attached header title">
+    <i class="dropdown icon"></i>
+	Footer
+</h3>
+<div class="ui attached segment content">
+
+    <div>
+        <h4>Logo</h4>
+        <div class="inline field">
+            <label>Upload image</label>
+            <button type="button" class="ui button" sm-uploader="logo" ng-model="bridgepage.swapspot.logo" data-allowMultiple="false">
+                <i class="upload icon"></i>
+                Choose File
+            </button>
+        </div>
+
+        <div class="field" ng-if="bridgepage.swapspot.logo">
+            <img class="ui fluid image" ng-src="{{bridgepage.swapspot.logo}}">
+            <button class="ui left labeled tiny basic red icon button m-t-sm" ng-click="bridgepage.swapspot.logo=''">
+                Clear
+                <i class="remove icon"></i>
+            </button>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Term URL</h4>
+
+                <input type="text" name="term_url" class="   "
+                       ng-model="bridgepage.swapspot.term_url">
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Term Text</h4>
+
+                <input type="text" name="term_text" class="   "
+                       ng-model="bridgepage.swapspot.term_text">
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Term Text Color</h4>
+
+                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+                                      ng-model="bridgepage.swapspot.term_text_color"></spectrum-colorpicker>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Open in New Tab?</h4>
+
+                <input type="checkbox" name="open_term_link_in_new_tab" class=""
+                       ng-model="bridgepage.swapspot.open_term_link_in_new_tab" ng-true-value="'_blank'"
+                       ng-false-value="'_self'">
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Privacy URL</h4>
+
+                <input type="text" name="privacy_url" class="   "
+                       ng-model="bridgepage.swapspot.privacy_url">
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Privacy Text</h4>
+
+                <input type="text" name="privacy_text" class="   "
+                       ng-model="bridgepage.swapspot.privacy_text">
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Privacy Text Color</h4>
+
+                <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
+                                      ng-model="bridgepage.swapspot.privacy_text_color"></spectrum-colorpicker>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Open in New Tab?</h4>
+
+                <input type="checkbox" name="open_privacy_link_in_new_tab" class=""
+                       ng-model="bridgepage.swapspot.open_privacy_link_in_new_tab" ng-true-value="'_blank'"
+                       ng-false-value="'_self'">
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="field">
+            <h4 >Copyright Text</h4>
+
+                <input type="text" name="copyright" class="   "
+                       ng-model="bridgepage.swapspot.copyright">
+        </div>
+
+        <div class="hr-line-dashed"></div>
+
+
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+
+

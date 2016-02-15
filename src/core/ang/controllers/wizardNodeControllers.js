@@ -598,6 +598,7 @@ app.controller( 'accessWizardController', function( $rootScope, $scope, $http, $
 		{ id: 'CAD', label: '$ - CAD' },
 		{ id: 'AUD', label: '$ - AUD' },
 		{ id: 'HKD', label: '$ - HKD' },
+		{ id: 'TWD', label: '$ - TWD' },
 		{ id: 'EUR', label: '&euro; - EUR' },
 		{ id: 'GBP', label: '&pound; - GBP' }
 	];

@@ -102,14 +102,18 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 
 		$scope.validEmail = true;
 		$scope.emailAdding=true;
-		Restangular.all('linkedAccount').customPOST({email : $scope.user.newemail, link: 1} , 'link').then(function(response){
-			$scope.emailAdding=false;
-			var email=_.find($scope.user.linked_accounts,function(value){
+
+
+		var email=_.find($scope.user.linked_accounts,function(value){
 				 return value.linked_email==$scope.user.newemail;
 			});
-			if(!email && $scope.user.newemail!= $scope.user.email)
-			{
-
+		if(email || $scope.user.newemail== $scope.user.email)
+		{
+			toastr.error('Email already exists');
+			return;
+		}
+		Restangular.all('linkedAccount').customPOST({email : $scope.user.newemail, link: 1} , 'link').then(function(response){
+			$scope.emailAdding=false;
 			if (response.status && response.status == 'OK' )
 			{
                 toastr.success("Email successfully added");
@@ -124,14 +128,7 @@ app.controller('AccountController', function ($scope,$rootScope, $state, $locati
 				else{
 					toastr.error("Something went wrong while linking the requested account");
 				}
-			}
-		}//
-		else 
-		{
-			toastr.error("Account already exists");
-		}
-
-			
+			}			
 		})
 	}
 

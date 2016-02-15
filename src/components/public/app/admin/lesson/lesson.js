@@ -104,6 +104,24 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
           $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
+        if (!Modernizr.inputtypes.time) {
+          // no native support for <input type="time"> :(
+          // maybe build one yourself with Dojo or jQueryUI
+          if(!$stateParams.id || $stateParams.id == ""){ 
+          	// Lesson Add Mode
+          	setTimeout(function(){
+          		$('.scheduled_time').first().val(moment().format('hh:mm a'));
+          		$('.scheduled_time').timepicker({
+				timeFormat: 'hh:mm tt'
+				});
+          	},500);
+          }else{
+          	// Lesson Edit Mode
+          	$('.scheduled_time').timepicker({
+			timeFormat: 'hh:mm tt'
+			});
+          }
+        }
 
 		$scope.refrer = $location.search().organizer;
 		if( !$next_item.id )
@@ -401,6 +419,11 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		delete $scope.next_item.current_index;
 		delete $scope.next_item.module;
 		delete $scope.next_item.site;
+
+		if( $scope.next_item.title == '' || !$scope.next_item.title){
+			toastr.error("Please enter lesson title");
+			return;
+		}
 
 		if( $scope.next_item.permalink == '' || !$scope.next_item.permalink){
 		    toastr.error("Please enter valid permalink");

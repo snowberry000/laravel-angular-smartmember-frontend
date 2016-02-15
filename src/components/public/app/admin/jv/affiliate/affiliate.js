@@ -24,11 +24,27 @@ app.controller("AffiliateController", function ($scope, $localStorage,$statePara
 	
 	$scope.save = function(){
 	    console.log($scope.affiliate);
-	    if ($scope.affiliate.id){
-	        $scope.update();
-	        return;
-	    }
-	    $scope.create();
+	    if(!$scope.affiliate.user_id || !($scope.affiliate.user_id.toString().trim().length>0) ||isNaN($scope.affiliate.user_id.toString().trim()))
+	    {
+			    toastr.error("User ID cannot be empty or contain only spaces and must be a number.");
+		}
+		else if (!$scope.affiliate.affiliate_request_id || !($scope.affiliate.affiliate_request_id.toString().trim().length>0) || isNaN($scope.affiliate.affiliate_request_id.toString().trim()))
+		{
+			toastr.error("Request ID cannot be empty or contain only spaces and must be a number.");
+		}
+		else if(!$scope.affiliate.user_email)
+		{
+			toastr.error("Email is empty or invalid");
+		}
+		else{
+			if ($scope.affiliate.id){
+			        $scope.update();
+			        return;
+			    }
+			    $scope.create();
+		}
+
+			
 	}
 
 	$scope.update = function(){

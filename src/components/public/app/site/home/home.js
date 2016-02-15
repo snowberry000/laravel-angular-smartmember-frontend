@@ -126,21 +126,21 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
                             break;
                         case "bridge_bpages":
                             $timeout(function(){$state.go( 'bridgepage', { permalink: homepage_url }, { location: false } );},50);
-                            
                             break;
                         case "forum_topics":
                             $timeout(function(){$state.go("public.app.site.forum-topic",{permalink: homepage_url}, {location: false});},50);
-                            
                             break;
                         case "forum_categories":
                              $timeout(function(){$state.go("public.app.site.forum-category",{permalink: homepage_url}, {location: false});},50);
-                            
                             break;
                         case 'affcontests':
                             $timeout(function(){$state.go( 'public.app.site.affiliateContest', { permalink: homepage_url }, { location: false } );},50);
                             break;
                         case 'smart_links':
                             location.href = response.redirect_url;
+                            break;
+                        case 'categories':
+                            $timeout(function(){$state.go( 'public.app.site.post-category', { permalink: homepage_url }, { location: false } );},50);
                             break;
                     }
                     return;
