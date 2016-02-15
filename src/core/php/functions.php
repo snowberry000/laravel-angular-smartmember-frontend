@@ -199,7 +199,7 @@ function PrintUserTrackingScript( $data, $type = 'google_analytic_id' )
 			<?php
 			break;
 		case 'google_webmaster_tag':
-			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'bing_webmaster_tag' ) )
+			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'google_webmaster_tag' ) )
 				$code = $data->data->google_webmaster_tag;
 			if( !empty( $code ) ) :
 				?>

@@ -100,6 +100,9 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
                         case 'smart_links':
                             location.href = response.redirect_url;
                             break;
+                        case 'categories':
+                            $state.go( 'public.app.site.post-category', { permalink: parts[1] }, { location: false } );
+                            break;
 					}
 				} );
 			}
