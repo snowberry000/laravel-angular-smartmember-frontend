@@ -68,7 +68,7 @@ app.controller( "AffiliateTeamController", function( $scope, $q, $localStorage, 
 
 	$scope.save = function()
 	{
-		if($scope.affiliate_team.name || $scope.affiliate_team.name='')
+		if( $scope.affiliate_team.name || $scope.affiliate_team.name == '' )
 		{
 			if( $scope.affiliate_team.id )
 			{
