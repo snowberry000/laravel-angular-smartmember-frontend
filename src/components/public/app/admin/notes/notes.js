@@ -44,7 +44,7 @@ app.controller('NotesController', function ($scope, $rootScope, $localStorage, R
         {
             $scope.pagination.current_page = 1;
 
-            if($scope.query.length  <= 3){
+            if($scope.query.length  < 3){
                 if($scope.query != ""){
                     return;
                 }
