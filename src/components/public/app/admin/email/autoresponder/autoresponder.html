@@ -111,7 +111,7 @@
                                         ng-model="autoResponder.post_sites"
                                         style="height: 150px;">
                                     <option ng-selected="exists(sl.id,'sl')" ng-repeat="sl in siteLists" value={{sl.id}}>
-                                        {{sl.domain ? sl.domain : sl.subdomain + 'smartmember.com'}}
+                                        {{sl.domain ? sl.domain : sl.subdomain + '.smartmember.com'}}
                                     </option>
                                 </select>
                             </div>
