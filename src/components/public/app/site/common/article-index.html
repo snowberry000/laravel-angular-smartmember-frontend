@@ -1,6 +1,3 @@
-<div class="ui top attached section_background_color" ng-if="next_item.breadcrumb" style="margin-bottom:0;">
-	<span dynamic="breadCrumbParent( next_item )"></span>
-</div>
 
 <div class="ui basic segment">
 
@@ -48,6 +45,11 @@
 </div>
 
 <div class="ui padded segment section_background_color support-articles" ng-if="!searching">
+
+	<div class="ui basic segment center aligned p-none" ng-if="next_item.breadcrumb">
+		<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
+	</div>
+
 	<div class="ui two column grid">
 		<div class="column" ng-repeat="article in next_item.articles">
 			<a class="" href="/{{article.permalink}}">
