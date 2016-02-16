@@ -263,7 +263,7 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
                 description = $filter( 'cut' )( next_item.content );
 
             if( !media && next_item.featured_image )
-                description = next_item.featured_image;
+                media = next_item.featured_image;
 
             $rootScope.setSocialShare( text, description, media );
         }
