@@ -1,5 +1,77 @@
 <div ng-controller="SocialshareDisplayBannerController">
-    <a data-id="{{display_widget.banner.id}}" target="{{display_widget.banner.open_in_new_tab ? '_blank' : '_self'}}" ng-if="display_widget.banner.banner_image_url" class="ui fluid image" data-bypass="true" href="{{display_widget.banner.banner_url}}" ng-click="bannerClick(display_widget.banner)">
-        <img ng-if="display_widget.banner.banner_image_url" ng-src="{{display_widget.banner.banner_image_url}}">
-    </a>
+        <div class="overlay text-center" style="padding-bottom: 5px;">
+            <div class="ui vertical labeled icon menu">
+                <a class="item"
+                   ng-if="typeChosen( 'twitter' )"
+                   socialshare
+                   socialshare-provider="twitter"
+                   socialshare-text="{{social_share.text}}"
+                   socialshare-via="{{display_widget.meta.twitter_user ? display_widget.meta.twitter_user : ''}}"
+                   socialshare-hashtags="{{display_widget.meta.twitter_hashtags ? display_widget.meta.twitter_hashtags : ''}}"
+                   socialshare-url="">
+                    <i class="twitter icon"></i>
+                    Twitter
+                </a>
+                <a class="item"
+                   ng-if="typeChosen( 'facebook' )"
+                   socialshare
+                   socialshare-provider="facebook"
+                   socialshare-text="{{social_share.text}}"
+                   socialshare-description="{{social_share.description}}"
+                   socialshare-media="{{social_share.media}}"
+                   socialshare-url="">
+                    <i class="facebook icon"></i>
+                    Facebook
+                </a>
+                <a class="item"
+                   ng-if="typeChosen( 'google' )"
+                   socialshare
+                   socialshare-provider="google+"
+                   socialshare-url="">
+                    <i class="google plus icon"></i>
+                    Google+
+                </a>
+                <a class="item"
+                   ng-if="typeChosen( 'pinterest' )"
+                   socialshare
+                   socialshare-provider="pinterest"
+                   socialshare-media="{{social_share.media}}"
+                   socialshare-text="{{social_share.text}}"
+                   socialshare-url="">
+                    <i class="pinterest icon"></i>
+                    Pinterest
+                </a>
+                <a class="item"
+                   ng-if="typeChosen( 'linkedin' )"
+                   socialshare
+                   socialshare-provider="linkedin"
+                   socialshare-text="{{social_share.text}}"
+                   socialshare-description="{{social_share.description}}"
+                   socialshare-source=""
+                   socialshare-url="{{display_widget.meta.linkedin_source ? display_widget.meta.linkedin_source : false}}">
+                    <i class="linkedin icon"></i>
+                    LinkedIn
+                </a>
+                <a class="item"
+                   ng-if="typeChosen( 'reddit' )"
+                   socialshare
+                   socialshare-provider="reddit"
+                   socialshare-text="{{social_share.text}}"
+                   socialshare-subreddit="{{display_widget.meta.subreddit ? display_widget.meta.subreddit : false}}"
+                   socialshare-url="">
+                    <i class="reddit icon"></i>
+                    Reddit
+                </a>
+                <a class="item"
+                   ng-if="typeChosen( 'linkedin' )"
+                   socialshare
+                   socialshare-text="{{social_share.text}}"
+                   socialshare-url=""
+                   socialshare-media="{{social_share.media}}"
+                   socialshare-provider="tumblr">
+                    <i class="tumblr icon"></i>
+                    Tumblr
+                </a>
+            </div>
+        </div>
 </div>
