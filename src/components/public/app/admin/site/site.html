@@ -57,7 +57,7 @@
 				<div class="field">
 					<label class="col-sm-4 control-label"></label>
 					<div class="col-sm-8">
-						<a class="" ng-click="show_advance_options = !show_advance_options">toggle advanced options</a>
+						<a href="#" class="" ng-click="show_advance_options = !show_advance_options">toggle advanced options</a>
 					</div>
 				</div>
 
@@ -102,8 +102,8 @@
 							</span>
 						</div>
 						<div class="col-sm-2">
-							<a ng-if="!current_clone_site.domain && site.clone_id!=0" href="http://{{current_clone_site.subdomain}}.{{app.domain}}" target="_blank" class="btn">Preview</a>
-							<a ng-if="current_clone_site.domain && site.clone_id!=0" href="http://{{current_clone_site.domain}}" target="_blank" class="btn">Preview</a>
+							<a href="#" ng-if="!current_clone_site.domain && site.clone_id!=0" href="http://{{current_clone_site.subdomain}}.{{app.domain}}" target="_blank" class="btn">Preview</a>
+							<a href="#" ng-if="current_clone_site.domain && site.clone_id!=0" href="http://{{current_clone_site.domain}}" target="_blank" class="btn">Preview</a>
 						</div>
 					</div>
 				</div>

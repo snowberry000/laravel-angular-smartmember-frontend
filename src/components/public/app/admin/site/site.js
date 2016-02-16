@@ -51,10 +51,10 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootS
 	$scope.site = {};
 	$scope.changeSite = function( id )
 	{
-		$scope.current_clone_site = _.find( $scope.clone_sites, { id: id } );
+		$scope.current_clone_site = _.findWhere( $scope.clone_sites, { id: parseInt(id) } );
 		if ($scope.current_clone_site == undefined)
 		{
-			$scope.current_clone_site = _.find( $scope.clone_sites_dfy, { id: id } );
+			$scope.current_clone_site = _.findWhere( $scope.clone_sites_dfy, { id:  parseInt(id) } );
 		}
 	}
 	$scope.update = function()
