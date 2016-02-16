@@ -31,6 +31,8 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 			var filteredEmails = [];
 			var memberEmails = [];
 
+			//console.log(emails);
+
 			var result = Restangular.all( '' ).customGET( 'user').then(function(data) {	// get added members list
 				for(var i=0; i< data.items.length; i++)
 				{
@@ -50,7 +52,7 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 			});
 
 			$q.all([result]).then(function() {
-				//console.log(filteredEmails);
+				//console.log('filterd emails'+filteredEmails);
 				if(filteredEmails.length>0)		// if all emails are already present
 				{	
 					$scope.members.emails = filteredEmails.join('\n');
@@ -86,7 +88,7 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 		var emails = $scope.members.emails.split('\n');
 		for(var i=0; i<emails.length; i++)
 		{	
-			emails = emails[i].trim();
+			emails[i] = emails[i].trim();
 			if(_.where(filteredEmails, emails[i]).length==0)
 			{
 				filteredEmails.push(emails[i]);
