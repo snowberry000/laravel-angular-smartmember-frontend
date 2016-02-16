@@ -33,8 +33,11 @@
 						</div>
 					</div>
 
-					<div class="ui compact info message">
+					<div ng-show="access_levels.length>0" class="ui compact info message">
 						<p>Choose which access levels the member will be given</p>
+					</div>
+					<div ng-show="access_levels.length==0" class="ui compact info message">
+						<p>No access level created</p>
 					</div>
 				</div>
 
