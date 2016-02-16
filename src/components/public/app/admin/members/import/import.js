@@ -85,7 +85,8 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 		var filteredEmails = [];
 		var emails = $scope.members.emails.split('\n');
 		for(var i=0; i<emails.length; i++)
-		{
+		{	
+			emails = emails[i].trim();
 			if(_.where(filteredEmails, emails[i]).length==0)
 			{
 				filteredEmails.push(emails[i]);
