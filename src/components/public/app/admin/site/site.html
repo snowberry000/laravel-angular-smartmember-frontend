@@ -83,13 +83,20 @@
 						</div>
 					</div>
 
-					<div class="field" ng-if="!site.id && clone_sites.length > 1" ng-hide="0">
+					<div class="field" ng-if="!site.id && clone_sites.length > 0" ng-hide="0">
 						<label class="col-sm-4 control-label">Clone an existing site
 							<small>(optional)</small>
 						</label>
 
 						<div class="col-sm-6">
-							<select class="form-control m-b" ng-model="site.clone_id" data-ng-options="clone_site.id as clone_site.name for clone_site in clone_sites" ng-change="changeSite(site.clone_id)"></select>
+							<select class="form-control m-b" ng-model="site.clone_id" ng-change="changeSite(site.clone_id)">
+								<optgroup label="My sites">
+									<option ng-repeat="clone_site in clone_sites" value="{{clone_site.id}}">{{clone_site.name}}</option>
+								</optgroup>
+								<optgroup label="Done For You">
+									<option ng-repeat="clone_site in clone_sites_dfy" value="{{clone_site.id}}">{{clone_site.name}}</option>
+								</optgroup>
+							</select>
 							<span class="help-block m-b-none">
 								If you'd like to make a copy of an existing site on this Team, select it from the dropdown above. All settings and content will be copied over into your new site.
 							</span>
@@ -100,7 +107,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="hr-line-dashed" ng-if="!site.id && clone_sites.length > 1"></div>
+				<div class="hr-line-dashed" ng-if="!site.id && clone_sites.length > 0"></div>
 
 			</div>
 
