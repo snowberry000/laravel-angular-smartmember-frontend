@@ -1,10 +1,8 @@
 <div class="ui form">
 
 	<div class="field">
-		<div class="ui checkbox">
-			<input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
-				   ng-model="next_item.discussion_settings.show_comments"
-				   ng-checked="next_item.discussion_settings.show_comments">
+		<div class="ui checkbox" ng-model="next_item.discussion_settings.show_comments" truevalue="1" falsevalue="0" sui-checkbox>
+			<input type="checkbox" tabindex="0" class="hidden">
 			<label>
 				Display comments
 			</label>
@@ -14,10 +12,8 @@
 		</div>
 	</div>
 	<div class="field">
-		<div class="ui checkbox">
-			<input type="checkbox" ng-true-value="1" ng-false-value="0" name="close_to_new_comments"
-				   ng-model="next_item.discussion_settings.close_to_new_comments"
-				   ng-checked="next_item.discussion_settings.close_to_new_comments">
+		<div class="ui checkbox" ng-model="next_item.discussion_settings.close_to_new_comments" truevalue="1" falsevalue="0" sui-checkbox>
+			<input type="checkbox" tabindex="0" class="hidden">
 			<label>
 				Close to new comments
 			</label>
@@ -27,10 +23,8 @@
 		</div>
 	</div>
 	<div class="field">
-		<div class="ui checkbox">
-			<input type="checkbox" ng-true-value="1" ng-false-value="0" name="newest_comments_first"
-				   ng-model="next_item.discussion_settings.newest_comments_first"
-				   ng-checked="next_item.discussion_settings.newest_comments_first">
+		<div class="ui checkbox" ng-model="next_item.discussion_settings.newest_comments_first" truevalue="1" falsevalue="0" sui-checkbox>
+			<input type="checkbox" tabindex="0" class="hidden">
 			<label>
 				Newest at top
 			</label>
@@ -41,10 +35,8 @@
 		</div>
 	</div>
 	<div class="field">
-		<div class="ui checkbox">
-			<input type="checkbox" ng-true-value="1" ng-false-value="0" name="allow_replies_to_all_comments"
-				   ng-model="next_item.discussion_settings.allow_replies"
-				   ng-checked="next_item.discussion_settings.allow_replies">
+		<div class="ui checkbox" ng-model="next_item.discussion_settings.allow_replies" truevalue="1" falsevalue="0" sui-checkbox>
+			<input type="checkbox" tabindex="0" class="hidden">
 			<label>
 				Enable replies
 			</label>
@@ -56,10 +48,8 @@
 		</div>
 	</div>
 	<div class="field">
-		<div class="ui checkbox">
-			<input type="checkbox" ng-true-value="1" ng-false-value="0" name="publicize_all_comments"
-				   ng-model="next_item.discussion_settings.public_comments"
-				   ng-checked="next_item.discussion_settings.public_comments">
+		<div class="ui checkbox" ng-model="next_item.discussion_settings.public_comments" truevalue="1" falsevalue="0" sui-checkbox>
+			<input type="checkbox" tabindex="0" class="hidden">
 			<label>
 				Auto-approve comments
 			</label>
@@ -69,5 +59,4 @@
 			</div>
 		</div>
 	</div>
-
 </div>
