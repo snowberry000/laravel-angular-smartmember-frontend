@@ -10,9 +10,6 @@
 	<h1 class="ui center aligned header headline_text_color">
 		{{next_item.title}}
 
-		<div class="ui fitted clearing hidden divider" ng-if="next_item.breadcrumb"></div>
-		<div class="ui breadcrumb" ng-if="next_item.breadcrumb" dynamic="breadCrumbParent( next_item )">
-		</div>
 	</h1>
 </div>
 <div class="ui attached clearing segment section_background_color" ng-if="next_item.categories && next_item.categories.length > 0">
@@ -67,6 +64,8 @@
 	</div>
 </div>
 <div class="ui attached clearing padded segment section_background_color text-left" ng-if="(next_item.showTranscript) || (next_item.content && (next_item.show_content_publicly || next_item.access)) || (next_item.description)">
+
+	<div class="ui breadcrumb" ng-if="next_item.breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
 
 	<div ng-show="next_item.showTranscript" class="transcript_stuff" style="padding: 15px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px; border-radius: 4px; display: block;">
 		<h4 class="text-left">Transcript:</h4>
