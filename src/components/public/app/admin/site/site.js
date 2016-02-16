@@ -42,15 +42,20 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootS
 		}
 	}
 
-	Restangular.all( 'site' ).getList( { cloneable: 1 } ).then( function( response )
+	Restangular.all( '' ).customGET( 'site?cloneable=1' ).then( function( response )
 	{
-		$scope.clone_sites = response;
+		$scope.clone_sites = response.sites;
+		$scope.clone_sites_dfy = response.dfy_sites;
 	} );
 	//$scope.site = $rootScope.site;
 	$scope.site = {};
 	$scope.changeSite = function( id )
 	{
 		$scope.current_clone_site = _.find( $scope.clone_sites, { id: id } );
+		if ($scope.current_clone_site == undefined)
+		{
+			$scope.current_clone_site = _.find( $scope.clone_sites_dfy, { id: id } );
+		}
 	}
 	$scope.update = function()
 	{
