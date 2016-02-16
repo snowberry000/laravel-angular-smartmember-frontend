@@ -22,6 +22,7 @@ app.controller('PublicPageController', function ($scope, $localStorage,$rootScop
         $page=response;
         $scope.page = $page;
         $scope.next_item = $scope.page;
+        $rootScope.setSocialShareForContent( $scope.next_item );
         $rootScope.page_title = $page.title || $rootScope.page_title;
 
         if( $rootScope.site.subdomain == 'sm' ) {

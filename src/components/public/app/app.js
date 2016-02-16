@@ -204,6 +204,70 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 				}
 			}
 		} );
+
+        $rootScope.social_share = {
+            text: details.name,
+            media: $rootScope.options.logo,
+            description: ''
+        }
+
+        $rootScope.strip_tags = function(input, allowed) {
+            allowed = (((allowed || '') + '')
+                .toLowerCase()
+                .match(/<[a-z][a-z0-9]*>/g) || [])
+                .join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
+            var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
+                commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
+            return input.replace(commentsAndPhpTags, '')
+                .replace(tags, function($0, $1) {
+                    return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
+                });
+        }
+
+        $rootScope.setSocialShare = function( text, description, media ) {
+            if( text )
+                $rootScope.social_share.text = $rootScope.strip_tags( text );
+
+            if( description )
+                $rootScope.social_share.text = $rootScope.strip_tags( description );
+
+            if( media )
+                $rootScope.social_share.text = media;
+        }
+
+        $rootScope.setSocialShareForContent = function( next_item ) {
+
+            var text = null;
+            var description = null;
+            var media = null;
+
+            if( next_item.seo_settings )
+            {
+                angular.forEach( next_item.seo_settings, function( value ) {
+                    switch( value.meta_key )
+                    {
+                        case 'fb_share_title':
+                            text = value.meta_value;
+                            break;
+                        case 'fb_share_description':
+                            description = value.meta_value;
+                            break;
+                    }
+                } )
+            }
+
+            if( !text && next_item.title )
+                text = next_item.title;
+
+            if( !description && next_item.content )
+                description = $filter( 'cut' )( next_item.content );
+
+            if( !media && next_item.featured_image )
+                description = next_item.featured_image;
+
+            $rootScope.setSocialShare( text, description, media );
+        }
+
 		$rootScope.site.configured_app = [];
 		angular.forEach( details.app_configuration, function( value, key )
 		{
