@@ -40,6 +40,7 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
 		$scope.loading = false;
 		$scope.article = $article;
 		$scope.next_item = $scope.article;
+        $rootScope.setSocialShareForContent( $scope.next_item );
 		$scope.next_item.content_type = 'helpdesk.article';
 		$scope.next_item.access = true;
 		$scope.next_item.breadcrumb = true;
@@ -53,10 +54,10 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
             parent = next_item.parent;
 
             for (; parent != undefined; parent = parent.parent) {
-                final_link = ' <span class="divider">/</span> ' + '<a class="section" href="/' + parent.permalink + '">' + parent.title + '</a>' + final_link;
+                final_link = ' <i class="right angle icon divider"></i> ' + '<a class="section" href="/' + parent.permalink + '">' + parent.title + '</a>' + final_link;
             }
         }
 
-        return '<div class="ui breadcrumb"></div><a class="section" href="/support">Support</a>' + final_link + ' <span class="divider">/</span> <div class="active section" style="display:inline;">' + next_item.title + "</div></div>";
+        return '<a class="section" href="/support">Support</a>' + final_link + ' <i class="right angle icon divider"></i> <div class="active section">' + next_item.title + "</div>";
     }
 } );

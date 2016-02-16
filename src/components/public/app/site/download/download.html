@@ -1,10 +1,11 @@
-<div ng-if="loading" style="margin-bottom:40px;">
 
-    <h3 class="ui header">
-        Loading please wait . . .
-    </h3>
-</div>
-<div class="content" >
+<div class="twelve wide column ng-scope" style="text-align:center;">
+
+	<div ng-if="loading" style="margin-bottom:40px;">
+	    <h3 class="ui header">
+	        Loading please wait . . .
+	    </h3>
+	</div>
 
 	<div class="row">
 		<div ng-if="!loading" class="col-lg-8 zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
@@ -27,6 +28,17 @@
                         <timer countdown="download.timeLeft" interval="1000">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
                     </h3>
 
+                    <div class="panel-body" style="padding: 10px 20px; font-family: 'Open Sans';">
+						<div ng-if="download.featured_image && download.always_show_featured_image" class="video-container">
+						    <img ng-src="{{download.featured_image}}" class="img-responsive" />
+						</div>
+						<div>
+							<p style="line-height: 24px;font-weight: 600;">
+								{{download.description}}
+							</p>
+						</div>
+					</div>
+					
 					<div class="width-100 text-center" ng-if="download.media_item || download.download_link">
 						<a href="#" data-bypass="true" class="ui button" ng-click="updateStats(download)">
 							{{download.download_button_text || 'Download'}}
@@ -37,16 +49,7 @@
 					</div>
 
 				</div>
-				<div class="panel-body" style="padding: 10px 20px; font-family: 'Open Sans';">
-					<div ng-if="download.featured_image && download.always_show_featured_image" class="video-container">
-					    <img ng-src="{{download.featured_image}}" class="img-responsive" />
-					</div>
-					<div>
-						<p style="line-height: 24px;font-weight: 600;">
-							{{download.description}}
-						</p>
-					</div>
-				</div>
+				
 				<div class="panel-footer">
 
 				</div>
@@ -59,7 +62,7 @@
 				</div>
 			</div>
 		</div> -->
-		<div class="col-lg-4 animated-panel zoomIn pull-right"
+		<!-- <div class="col-lg-4 animated-panel zoomIn pull-right"
                  style="animation-delay: 0.3s; -webkit-animation-delay: 0.3s;">
             <div class="hpanel">
                 <div class="panel-body" style="padding:15px;">
@@ -79,6 +82,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+
 	</div>
+</div>
+<div class="four wide column">
+	<div class="ng-scope"  ng-include="'templates/components/public/app/site/common/sidebar.html'"></div>
 </div>

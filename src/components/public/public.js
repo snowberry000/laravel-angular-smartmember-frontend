@@ -101,11 +101,11 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 		console.log( 'closing the extra state', go_state, params, options );
 
-		if(go_state)
+		if( go_state )
 		{
-			if(($location.path().indexOf('/sign/') > -1) && (go_state.name.indexOf('www') > -1))
+			if( ( $location.path().indexOf('/sign/') > -1) && ( !go_state.name || go_state.name.indexOf('www') > -1 ) )
 			{
-				window.location.href = "http://"+$location.host();
+				window.location.href = "http://" + $location.host();
 			}
 			else
 				$state.go( go_state, params, options );

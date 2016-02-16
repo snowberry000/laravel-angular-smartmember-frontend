@@ -53,10 +53,18 @@ app.controller('NotesController', function ($scope, $rootScope, $localStorage, R
         {   
             return;
         }
+
         if(search && ($scope.query.length>=3 || $scope.query.length==0) && $scope.paginationChange==false)
         {
             $scope.pagination.current_page = 1;
+
+            if($scope.query.length  < 3) {
+                if($scope.query != ""){
+                    return;
+                }
+            }
         }
+
         if($scope.paginationChange==true && ((search && $scope.query.length<3 && $scope.query.length!=0)))
         {   
             $scope.query = '';

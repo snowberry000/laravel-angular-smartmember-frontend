@@ -95,6 +95,7 @@
 					</h3>
 
 					<h5 ng-if="ticket.sm_tech" style="color:rgb(181, 82, 82);">*Submitted to SM Tech Team*</h5>
+					<h5 ng-if="ticket.sm_marketing" style="color:rgb(181, 82, 82);">*Submitted to SM Marketing*</h5>
 
 					<div class="ui very relaxed large divided list">
 						<div class="item">
@@ -141,9 +142,14 @@
 							<div class="header">Status</div>
 							<div class="ui red label">{{ticket.status}}</div>
 						</div>
-						<div class="item">
+						<div class="item" ng-if="ticket.escalated_site_id != 2056 && ticket.escalated_site_id != '2056' && !ticket.sm_tech">
 							<div class="content">
 								<button class="ui button" ng-click="assignToSMTech()">Re-assign to SM Corporate Tech Team</button>
+							</div>
+						</div>
+                        <div class="item" ng-if="user.sm_support && ticket.site_id != 6325 && ticket.site_id != '6325' && ticket.escalated_site_id != 6325 && ticket.escalated_site_id != '6325' && !ticket.sm_marketing">
+							<div class="content">
+								<button class="ui button" ng-click="assignToSMMarketing()">Assign to IMB</button>
 							</div>
 						</div>
 
@@ -474,6 +480,7 @@
 
 					<div id="channel_actions_div">
 						<h5 ng-if="ticket.sm_tech" style="color:rgb(181, 82, 82);">*Submitted to SM Tech Team*</h5>
+						<h5 ng-if="ticket.sm_marketing" style="color:rgb(181, 82, 82);">*Submitted to SM Marketing Team*</h5>
 						<h5 class="ui header">Details</h5>
 
 						<p>

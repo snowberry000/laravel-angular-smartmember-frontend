@@ -206,6 +206,14 @@ function PrintUserTrackingScript( $data, $type = 'google_analytic_id' )
 				<meta name="google-site-verification" content="<?php echo $code; ?>">
 			<?php endif;
 			break;
+		case 'active_campaign_id':
+			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'active_campaign_id' ) )
+				$code = $data->data->active_campaign_id;
+			if( !empty( $code ) ) :
+				?>
+				trackcmp.src = '//trackcmp.net/visit?actid=O<?php echo $code; ?>&e='+encodeURIComponent(trackcmp_email)+'&r='+encodeURIComponent(document.referrer)+'&u='+encodeURIComponent(window.location.href);
+			<?php endif;
+			break;
 		default:
 			break;
 	}

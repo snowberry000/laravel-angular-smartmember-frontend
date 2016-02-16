@@ -19,6 +19,7 @@ app.controller('PublicDownloadController', function ($scope, $rootScope ,$localS
         $scope.loading=false;
         $scope.download = $download;
         $rootScope.page_title = $download.title || $rootScope.page_title;
+        $rootScope.setSocialShareForContent( $scope.download );
     });
 
     $scope.updateStats = function(){ 

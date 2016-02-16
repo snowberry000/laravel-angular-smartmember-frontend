@@ -70,14 +70,11 @@
 					<h3 class="ui header">Site Description</h3>
 					<div dynamic="site_listing.description" class="fr-view"></div>
 
-					
-
 					<h3 class="ui header" ng-if="site_listing.sites.length > 0">Other Sites</h3>
 
 					<div class="ui three doubling stackable link site cards" ng-if="site_listing.sites.length > 0">
 						<a site-card class="card" ng-repeat="next_item in site_listing.sites" ui-sref="public.www.site({permalink: next_item.permalink || next_item.site_id})"></a>
 					</div>
-
 				</div>
 				<div class="five wide column">
 					<div class="overlay">
