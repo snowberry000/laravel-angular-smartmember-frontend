@@ -104,24 +104,26 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
           $('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
         }
 
-        if (!Modernizr.inputtypes.time) {
-          // no native support for <input type="time"> :(
-          // maybe build one yourself with Dojo or jQueryUI
-          if(!$stateParams.id || $stateParams.id == ""){ 
-          	// Lesson Add Mode
+        // Timepicker Settings in Create and Edit Lessons
+
+        $scope.start_published_time = moment($next_item.published_date).format('hh:mm a');
+       	$scope.end_published_time = moment($next_item.end_published_date).format('hh:mm a');
+
+        if(!$stateParams.id || $stateParams.id == ""){ 
+          	// Create Lesson Mode
           	setTimeout(function(){
-          		$('.scheduled_time').first().val(moment().format('hh:mm a'));
           		$('.scheduled_time').timepicker({
 				timeFormat: 'hh:mm tt'
 				});
-          	},500);
+          	},1000);
           }else{
-          	// Lesson Edit Mode
+          	// Edit LessonMode
           	$('.scheduled_time').timepicker({
 			timeFormat: 'hh:mm tt'
 			});
           }
-        }
+
+         // 
 
 		$scope.refrer = $location.search().organizer;
 		if( !$next_item.id )
@@ -419,6 +421,14 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		delete $scope.next_item.current_index;
 		delete $scope.next_item.module;
 		delete $scope.next_item.site;
+
+		// Merge Starting Date And Time - Create JS Date Object
+		var start_date = moment($scope.next_item.published_date).format('YYYY-MM-DD')+' '+moment($('#start_published_time').datetimepicker('getDate')).format('HH:mm');
+		// Merge Ending Date And Time - Create JS Date Object
+		var end_date = moment($scope.next_item.end_published_date).format('YYYY-MM-DD')+' '+moment($('#end_published_time').datetimepicker('getDate')).format('HH:mm');
+		// Update $scope.next_item.published_date and $scope.next_item.end_published_date
+		$scope.next_item.published_date = start_date;
+		$scope.next_item.end_published_date = end_date;
 
 		if( $scope.next_item.title == '' || !$scope.next_item.title){
 			toastr.error("Please enter lesson title");
