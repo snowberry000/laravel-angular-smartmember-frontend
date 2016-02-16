@@ -27,6 +27,12 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
 
 	$scope.init = function()
 	{
+        $scope.loading_locations = true;
+        Restangular.all( 'widget/locationOptions' ).customGET().then( function ( response ) {
+            $scope.available_locations = response;
+            $scope.loading_locations = false;
+        } );
+
 		Restangular.all( 'widget' ).getList( { site_id: $site.id, sidebar_id: $scope.sidebar_id } ).then( function( response )
 		{
             $scope.loading = false;
