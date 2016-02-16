@@ -80,6 +80,12 @@
 
 	<p ng-if="next_item.description">{{next_item.description}}</p>
 
+    <div ng-if="next_item.articles && next_item.articles.length > 0 && next_item.display != 'article-index'" class="ui basic segment p-none" ng-repeat="next_item2 in next_item.articles">
+        <h2 class="ui header">{{next_item2.title}}</h2>
+
+        <div dynamic="next_item2.content"></div>
+    </div>
+
 </div>
 <h3 class="ui attached header" ng-if="next_item.discussion_settings.show_comments">
 	Comments
