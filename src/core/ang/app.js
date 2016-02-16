@@ -334,6 +334,11 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 			type: 'banner',
 			display_name: 'Banner',
 			description: 'Choose one of your banners to display.'
+		},
+		{
+			type: 'socialshare',
+			display_name: 'Social Share',
+			description: 'Add social sharing buttons.'
 		}
 	];
 } );

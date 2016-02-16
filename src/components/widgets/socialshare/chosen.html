@@ -1,0 +1,27 @@
+<div ng-controller="SocialshareChosenBannerController" class="ui form">
+	<div class="field">
+        <label>Social Share Buttons to Show</label>
+        <select class="ui dropdown" multiple ng-model="chosen_types" ng-change="update_chosen_types()">
+            <option ng-repeat="type in available_types" ng-selected="chosen_types.indexOf( type.type ) != -1" value="{{type.type}}">{{type.label}}</option>
+        </select>
+    </div>
+    <h3 ng-if="typeChosen('twitter')">Twitter</h3>
+    <div class="field" ng-if="typeChosen('twitter')">
+        <label>Username to share via (optional)</label>
+        <input type="text" ng-model="chosen_widget.meta.twitter_user" ng-change="parseTwitterUsername()" placeholder="ex. username" />
+    </div>
+    <div class="field" ng-if="typeChosen('twitter')">
+        <label>Comma-separated list of hashtags to use when sharing (optional)</label>
+        <input type="text" ng-model="chosen_widget.meta.twitter_hashtags" placeholder="ex. hash,tag,hashtag" />
+    </div>
+    <h3 ng-if="typeChosen('reddit')">Reddit</h3>
+    <div class="field" ng-if="typeChosen('reddit')">
+        <label>Set Subreddit to be used when sharing (optional)</label>
+        <input type="text" ng-model="chosen_widget.meta.subreddit" placeholder="ex. technology" />
+    </div>
+    <h3 ng-if="typeChosen('linkedin')">LinkedIn</h3>
+    <div class="field" ng-if="typeChosen('linkedin')">
+        <label>Set the source to be used (optional)</label>
+        <input type="text" ng-model="chosen_widget.meta.linkedin_source" placeholder="Set the source" />
+    </div>
+</div>

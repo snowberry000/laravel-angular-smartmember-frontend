@@ -62,6 +62,7 @@ app.factory( 'smModal', [ '$state', 'ModalService' , '$rootScope', function( $st
 
 				the_options.onVisible = function()
 				{
+                    modal.element.closest('.ui.dimmer').css( 'z-index', 999999 );
 					modal.element.addClass( 'smooth_changes' );
 					$('.ui.popup').popup( 'hide all' );
 				};
