@@ -28,6 +28,17 @@
                         <timer countdown="download.timeLeft" interval="1000">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>
                     </h3>
 
+                    <div class="panel-body" style="padding: 10px 20px; font-family: 'Open Sans';">
+						<div ng-if="download.featured_image && download.always_show_featured_image" class="video-container">
+						    <img ng-src="{{download.featured_image}}" class="img-responsive" />
+						</div>
+						<div>
+							<p style="line-height: 24px;font-weight: 600;">
+								{{download.description}}
+							</p>
+						</div>
+					</div>
+					
 					<div class="width-100 text-center" ng-if="download.media_item || download.download_link">
 						<a href="#" data-bypass="true" class="ui button" ng-click="updateStats(download)">
 							{{download.download_button_text || 'Download'}}
@@ -38,16 +49,7 @@
 					</div>
 
 				</div>
-				<div class="panel-body" style="padding: 10px 20px; font-family: 'Open Sans';">
-					<div ng-if="download.featured_image && download.always_show_featured_image" class="video-container">
-					    <img ng-src="{{download.featured_image}}" class="img-responsive" />
-					</div>
-					<div>
-						<p style="line-height: 24px;font-weight: 600;">
-							{{download.description}}
-						</p>
-					</div>
-				</div>
+				
 				<div class="panel-footer">
 
 				</div>

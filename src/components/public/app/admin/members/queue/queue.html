@@ -61,7 +61,7 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div ng-if="items.length == 0">
+			<div ng-show="items.length == 0 && !loading">
 				<p>No members imported yet</p>
 			</div>
 

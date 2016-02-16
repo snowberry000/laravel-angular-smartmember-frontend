@@ -23,6 +23,8 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 	}
 
 	$scope.save = function() {
+		$scope.members.emails = filterDuplicates().join('\n');
+		// console.log($scope.members.emails);
 	    Restangular.one("siteRole").customPOST($scope.members, 'import').then(function(response) {
 	        toastr.success("Import was successful");
 	        $state.go('public.app.admin.members.queue');
@@ -30,4 +32,17 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 	}
 
 	$scope.resolve();
+
+	function filterDuplicates() {
+		var filteredEmails = [];
+		var emails = $scope.members.emails.split('\n');
+		for(var i=0; i<emails.length; i++)
+		{
+			if(_.where(filteredEmails, emails[i]).length==0)
+			{
+				filteredEmails.push(emails[i]);
+			}
+		}
+		return filteredEmails;
+	}
 });
