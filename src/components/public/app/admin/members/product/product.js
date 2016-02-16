@@ -158,6 +158,7 @@ app.controller("ProductController", function ($scope, $q, $timeout, $stateParams
         {id: 'AUD',label: '$ - AUD'},
         {id: 'HKD',label: '$ - HKD'},
 		{id: 'TWD',label: '$ - TWD'},
+		{id: 'SEK',label: 'kr - SEK'},
         {id: 'EUR',label: '&euro; - EUR'},
         {id: 'GBP',label: '&pound; - GBP'}
     ];

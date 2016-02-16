@@ -72,6 +72,7 @@ app.controller('CheckoutController', function ($scope, $site, $rootScope , $loca
             {id: 'AUD',label: '$'},
             {id: 'HKD',label: '$'},
             {id: 'TWD',label: '$'},
+            {id: 'SEK',label: 'kr'},
             {id: 'EUR',label: '&euro;'},
             {id: 'GBP',label: '&pound;'}
         ];
