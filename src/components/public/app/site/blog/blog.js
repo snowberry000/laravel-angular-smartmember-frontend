@@ -47,4 +47,33 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
 	} );
 
 	$scope.paginate();
+
+	$scope.accessLabel = function( access_level_type, access_level_id, post ) {
+		var access_level_id = post.access_level_id;
+		var access_level_type = post.access_level_type;
+		
+        switch( parseInt( access_level_type ) )
+        {
+            case 1:
+                return 'Public';
+                break;
+            case 2:
+                if( !access_level_id )
+                    return 'Members';
+
+                var access_level = _.findWhere( $scope.access_levels, {id: parseInt( access_level_id ) } ) || _.findWhere( $scope.access_levels, {id: access_level_id + '' } );
+
+                if( access_level )
+                    return access_level.name;
+                else
+                    return 'Members';
+                break;
+            case 3:
+                return 'Members';
+                break;
+            case 4:
+                return 'Draft (admin-only)';
+                break;
+        }
+    }
 } );
