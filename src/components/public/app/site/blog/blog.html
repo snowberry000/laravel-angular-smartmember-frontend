@@ -17,6 +17,11 @@
 					<img class="ui avatar image" src="{{post.users.profile_image}}" ng-if="post.users.profile_image.length > 0">
 					{{post.users.first_name}}
 				</div>
+				<span>
+					&nbsp;&nbsp;
+					<i class="fa fa-lock icon" style="display: none" sm-access="view_restricted_content" if-not="show" level="post.access_level_id" type="{{post.access_level_id}}"></i>
+					{{accessLabel(post.acccess_level_type, post.access_level_id, post)}}
+				</span>
 			</div>
 		</a>
 	</div>
