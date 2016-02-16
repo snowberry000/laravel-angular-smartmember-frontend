@@ -91,6 +91,14 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			template: 'login',
 			url: '/'
 		},
+        {
+            title: 'Support',
+            description: 'This is the support center where users can view your help articles.',
+            image: '',
+            icon: 'life ring',
+            template: 'support',
+            url: '/support'
+        },
 		{
 			title: 'Registration Form',
 			description: 'This is the form your members will use to join your site',

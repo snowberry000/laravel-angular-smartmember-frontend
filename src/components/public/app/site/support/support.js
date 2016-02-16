@@ -10,10 +10,19 @@ app.config(function($stateProvider){
 }); 
 
 app.controller('PublicSupportController', function ($scope,$site,$rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr ) {
-    // alert('called');
-    $rootScope.page_title = $rootScope.site.name+' - Support';
+
+    var support_title = 'Support';
+    if( $rootScope.site && $rootScope.site.meta_data ) {
+        angular.forEach( $rootScope.site.meta_data, function( value ) {
+            if( value.key == 'support_title' && value.value.trim() != '' )
+                support_title = value.value.trim();
+        } );
+    }
+
+    $rootScope.page_title = $rootScope.site.name + ' - ' + support_title;
+
     $scope.next_item = {
-        title: 'Support',
+        title: support_title,
         display: 'article-index'
     };
 
