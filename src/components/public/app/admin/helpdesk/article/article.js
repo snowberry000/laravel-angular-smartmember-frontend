@@ -63,6 +63,11 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
 
         Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $site.id ).customGET().then(function (response) {
             $scope.available_articles = response.items;
+
+            angular.forEach( $scope.available_articles, function( value, key ) {
+                if( $scope.isChild( $scope.article, value.id ) )
+                    delete $scope.available_articles[ key ];
+            } )
         });
 
         $scope.$watch('article', function (article, oldArticle) {
@@ -77,6 +82,23 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
                 timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
             }
         }, true);
+    }
+
+    $scope.isChild = function( article, id ) {
+        var child = false;
+
+        if( article.articles && article.articles.length > 0 ) {
+            angular.forEach( article.articles, function( value, key ) {
+                if( !child ) {
+                    if ( parseInt( value.id ) == parseInt( id ) )
+                        child = true;
+                    else
+                        child = $scope.isChild( value, id );
+                }
+            } )
+        }
+
+        return child;
     }
 
     $scope.save = function () {

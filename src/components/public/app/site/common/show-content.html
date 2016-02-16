@@ -63,7 +63,7 @@
 		</span>
 	</div>
 </div>
-<div class="ui attached clearing padded segment section_background_color text-left" ng-if="(next_item.showTranscript) || (next_item.content && (next_item.show_content_publicly || next_item.access)) || (next_item.description)">
+<div class="ui attached clearing padded segment section_background_color text-left" ng-if="(next_item.showTranscript) || (next_item.breadcrumb) || (next_item.content && (next_item.show_content_publicly || next_item.access)) || (next_item.description)">
 
 	<div class="ui basic segment center aligned p-none" ng-if="next_item.breadcrumb">
 		<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
@@ -80,7 +80,7 @@
 
 	<p ng-if="next_item.description">{{next_item.description}}</p>
 
-    <div ng-if="next_item.articles && next_item.articles.length > 0 && next_item.display != 'article-index'" class="ui basic segment p-none" ng-repeat="next_item2 in next_item.articles">
+    <div ng-if="next_item.articles && next_item.articles.length > 0" class="ui basic segment p-none" ng-repeat="next_item2 in next_item.articles">
         <h2 class="ui header">{{next_item2.title}}</h2>
 
         <div dynamic="next_item2.content"></div>
