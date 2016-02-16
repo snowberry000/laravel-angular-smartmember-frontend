@@ -229,10 +229,10 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
                 $rootScope.social_share.text = $rootScope.strip_tags( text );
 
             if( description )
-                $rootScope.social_share.text = $rootScope.strip_tags( description );
+                $rootScope.social_share.description = $rootScope.strip_tags( description );
 
             if( media )
-                $rootScope.social_share.text = media;
+                $rootScope.social_share.media = media;
         }
 
         $rootScope.setSocialShareForContent = function( next_item ) {
