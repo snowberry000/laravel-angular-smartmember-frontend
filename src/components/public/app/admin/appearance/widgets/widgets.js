@@ -46,9 +46,43 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
                     value.meta[ value2.key ] = value2.value;
                 });
 
+                value.location_options = {
+                    everywhere: true,
+                    posts: [],
+                    pages: [],
+                    articles: [],
+                    livecasts: [],
+                    categories: [],
+                    lessons: []
+                };
+
                 angular.forEach( value.locations, function(value2, key2 ) {
                     value.location_data.push( value2.type + ( value2.target ? '_' + value2.target : '' ) );
+
+                    switch( value2.type ) {
+                        case 'post':
+                            value.location_options.posts.push( value2.target );
+                            break;
+                        case 'page':
+                            value.location_options.pages.push( value2.target );
+                            break;
+                        case 'article':
+                            value.location_options.articles.push( value2.target );
+                            break;
+                        case 'livecast':
+                            value.location_options.livecasts.push( value2.target );
+                            break;
+                        case 'category':
+                            value.location_options.categories.push( value2.target );
+                            break;
+                        case 'lesson':
+                            value.location_options.lessons.push( value2.target );
+                            break;
+                    }
                 });
+
+                if( value.location_data.indexOf( 'everywhere' ) == -1 )
+                    value.location_options.everywhere = false;
             });
 
 			$scope.widgets = response;
