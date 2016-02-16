@@ -11,6 +11,9 @@ app.config(function($stateProvider){
 
 app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStorage, Restangular, notify )
 {
+    $rootScope.widget_target_type = 'page';
+    $rootScope.widget_target = 'blog';
+    console.log('we switched them to: ', $rootScope.widget_target_type, ' and ', $rootScope.widget_target );
 	$scope.pagination = {
 		current_page: 1,
 		per_page: 25,
@@ -26,6 +29,7 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
 		edit_route: 'public.app.admin.post',
 		api_object: 'post'
 	}
+
 	$scope.paginate = function()
 	{
 			$scope.loading = true;

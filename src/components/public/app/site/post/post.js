@@ -21,6 +21,8 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
         $scope.post = $post;
         $scope.next_item = $scope.post;
         $rootScope.setSocialShareForContent( $scope.next_item );
+        $rootScope.widget_target_type = 'post';
+        $rootScope.widget_target = $scope.next_item.id;
         $scope.next_item.content_type = 'post';
         $rootScope.page_title = $post.title || $rootScope.page_title;
         if( $scope.post.access_level_type == 4 )

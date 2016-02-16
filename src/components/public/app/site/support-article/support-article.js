@@ -41,6 +41,10 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
 		$scope.article = $article;
 		$scope.next_item = $scope.article;
         $rootScope.setSocialShareForContent( $scope.next_item );
+
+        $rootScope.widget_target_type = 'support-article';
+        $rootScope.widget_target = $scope.next_item.id;
+
 		$scope.next_item.content_type = 'helpdesk.article';
 		$scope.next_item.access = true;
 		$scope.next_item.breadcrumb = true;

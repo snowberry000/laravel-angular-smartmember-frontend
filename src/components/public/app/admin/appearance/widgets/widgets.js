@@ -32,11 +32,16 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
             $scope.loading = false;
             angular.forEach( response, function(value, key) {
                 value.meta = {};
+                value.location_data = [];
 
                 value.widget_info = _.findWhere( $scope.available_widgets, {type: value.type } );
 
                 angular.forEach( value.meta_data, function(value2, key2 ) {
                     value.meta[ value2.key ] = value2.value;
+                });
+
+                angular.forEach( value.locations, function(value2, key2 ) {
+                    value.location_data.push( value2.type + ( value2.target ? '_' + value2.target : '' ) );
                 });
             });
 
@@ -166,6 +171,20 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
         Restangular.all('widget').customPOST({order: new_order}, 'updateOrder').then(function(){
             console.log( 'new order saved');
         });
+    }
+
+    $scope.locationExists = function( widget, type, target ) {
+        switch( type ) {
+            case 'everywhere':
+                if( widget.location_data.everywhere )
+                    return true;
+                break;
+            default:
+                if( widget[ type + '_' + target ] )
+                    return true;
+        }
+
+        return false;
     }
 
 	$scope.dropCallback = function(widget, index){

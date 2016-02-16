@@ -58,6 +58,34 @@
 
 								<div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget"></div>
 
+                                <div class="ui segment">
+                                    <div class="ui form">
+                                        <div class="field">
+                                            <label>Widget Locations</label>
+                                            <pre>{{widget.location_data}}</pre>
+                                            <select multiple ng-model="widget.location_data">
+                                                <option value="everywhere" ng-selected="!widget.id || locationExists( widget, 'everywhere' )">Everywhere</option>
+                                                <optgroup label="Pages">
+                                                    <option value="page_all" ng-selected="locationExists( widget, 'page', 'all' )">All Pages</option>
+                                                    <option value="page_syllabus" ng-selected="locationExists( widget, 'page', 'syllabus' )">Syllabus</option>
+                                                    <option value="page_blog" ng-selected="locationExists( widget, 'page', 'blog' )">Blog</option>
+                                                </optgroup>
+                                                <optgroup label="Post Categories">
+                                                    <option value="category_all" ng-selected="locationExists( widget, 'category', 'all' )">All Post Categories</option>
+                                                </optgroup>
+                                                <optgroup label="Posts">
+                                                    <option value="post_all" ng-selected="locationExists( widget, 'post', 'all' )">All Posts</option>
+                                                </optgroup>
+                                                <optgroup label="Livecasts">
+                                                    <option value="livecast_all" ng-selected="locationExists( widget, 'livecast', 'all' )">All Livecasts</option>
+                                                </optgroup>
+                                                <optgroup label="Lessons">
+                                                    <option value="lesson_all" ng-selected="locationExists( widget, 'lesson', 'all' )">All Lessons</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
 								<button busy ng-click="save(widget)" class="ui green right labeled icon button" style="margin-top:1em;">
 									Save changes
