@@ -1,0 +1,9 @@
+<div ng-controller="WidgetDisplayBlogCategoriesController">
+    <div class="ui segment" style="margin-top: 10px;">
+        <ul>
+            <li ng-repeat="category in categories">
+                <a ui-sref="public.app.site.post-category({permalink: category.permalink})">{{category.title}}</a> <span ng-if="display_post_count == 1 || display_post_count == '1'">({{category.post_count}})</span>
+            </li>
+        </ul>
+    </div>
+</div>
