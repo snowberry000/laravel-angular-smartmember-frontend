@@ -27,14 +27,14 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
             $scope.searching = true;
             $scope.loading = true;
 
-            Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
+            Restangular.all('supportArticle?bypass_paging=true&status=published&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
                 $scope.search_results = response.items;
                 $scope.loading = false;
             });
         }
     }
 
-	Restangular.one( 'articleByPermalink', $stateParams.permalink ).get().then( function( response )
+	Restangular.one( 'articleByPermalink', $stateParams.permalink ).get({status: 'published'}).then( function( response )
 	{
 		$article = response;
 		$scope.loading = false;

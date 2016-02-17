@@ -42,7 +42,7 @@ app.controller('PublicSupportController', function ($scope,$site,$rootScope, $lo
             $scope.searching = true;
             $scope.loading = true;
 
-            Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
+            Restangular.all('supportArticle?bypass_paging=true&status=published&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
                 $scope.search_results = response.items;
                 $scope.loading = false;
             });
@@ -50,7 +50,7 @@ app.controller('PublicSupportController', function ($scope,$site,$rootScope, $lo
     }
 
     $scope.init = function(){
-        Restangular.all('supportArticle?bypass_paging=true&view=admin&parent_id=0&site_id=' + $site.id ).customGET().then(function (response) {
+        Restangular.all('supportArticle?bypass_paging=true&status=published&view=admin&parent_id=0&site_id=' + $site.id ).customGET().then(function (response) {
              $scope.next_item.articles = response.items;
             $scope.article = $scope.next_item;
             $scope.loading = false;

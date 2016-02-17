@@ -87,7 +87,6 @@
                                     <input type="hidden" name="featured_image" class="form-control input-lg" ng-model="article.featured_image">
 									<span class="help-block m-b-none">
 										This is the featured image for your article, it is used as the image when sharing on social sites such as Facebook.
-
 									</span>
                                 </div>
                             </div>
@@ -123,7 +122,11 @@
 		<a ui-sref="public.app.admin.helpdesk.articles" class="ui black button">
 			Cancel
 		</a>
-		<a ng-click="save()" class="ui right labeled green icon button">
+        <a ng-click="saveAsDraft()" ng-if="article.status != 'published'" class="ui right labeled gray icon button">
+            Save as Draft
+            <i class="save icon"></i>
+        </a>
+		<a ng-click="publish()" class="ui right labeled green icon button">
 			Publish
 			<i class="check icon"></i>
 		</a>
