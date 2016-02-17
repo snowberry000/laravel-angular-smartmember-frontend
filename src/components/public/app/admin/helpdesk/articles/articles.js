@@ -52,12 +52,58 @@ app.controller("ArticlesController", function ($scope,$rootScope, $localStorage,
                 $params.q = encodeURIComponent( $scope.query );
             }
 
-            Restangular.all('').customGET( $scope.template_data.api_object + '?view=admin&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' )).then(function (data) {
+            Restangular.all('').customGET( $scope.template_data.api_object + '?view=admin&parent_id=0&p=' + $params.p + '&site_id=' + $params.site_id + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' )).then(function (data) {
                 $scope.loading = false;
                 $scope.pagination.total_count = data.total_count;
                 $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
+
+                angular.forEach( $scope.data, function( value, key ) {
+                    $scope.addChildren( value, value );
+                } );
+
+                $scope.flattenArticlesCollection();
             });
         }
+    }
+
+    $scope.addChildren = function( main_article, article, tier ) {
+        if( !tier )
+            tier = 1;
+
+        if( !main_article.children )
+            main_article.children = [];
+
+        if( article.articles )
+        {
+            angular.forEach( article.articles, function( value, key ) {
+                value.tier = tier;
+
+                main_article.children.push( value );
+
+                $scope.addChildren( main_article, value, tier + 1 );
+            } );
+        }
+    }
+
+    $scope.flattenArticlesCollection = function() {
+        var new_array = [];
+
+        angular.forEach( $scope.data, function( value, key ) {
+            new_array.push( value );
+
+            if( value.children )
+            {
+                angular.forEach( value.children, function( value2, key2 ) {
+                    new_array.push( value2 );
+                } );
+            }
+        } );
+
+        $scope.data = Restangular.restangularizeCollection( null, new_array, $scope.template_data.api_object );;
+    }
+
+    $scope.getNumber = function(num) {
+        return new Array(num);
     }
 
     $scope.paginate();
