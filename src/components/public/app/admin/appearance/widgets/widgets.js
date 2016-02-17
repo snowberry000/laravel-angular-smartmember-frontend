@@ -216,12 +216,13 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
     $scope.locationExists = function( widget, type, target ) {
         switch( type ) {
             case 'everywhere':
-                if( widget.location_data.everywhere )
+                if( widget.location_options.everywhere )
                     return true;
                 break;
             default:
-                if( widget[ type + '_' + target ] )
+                if( widget.location_options[ type ].indexOf( target ) != -1 )
                     return true;
+                break;
         }
 
         return false;

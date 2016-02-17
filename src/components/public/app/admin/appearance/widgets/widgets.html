@@ -65,34 +65,16 @@
                                         </div>
                                         <div class="field">
                                             <label>Widget Locations</label>
-                                            <select multiple ng-model="widget.location_data">
-                                                <option value="everywhere" ng-selected="!widget.id || locationExists( widget, 'everywhere' )">Everywhere</option>
-                                                <optgroup label="Pages">
-                                                    <option value="page_all" ng-selected="locationExists( widget, 'page', 'all' )">All Pages</option>
-                                                    <option value="page_syllabus" ng-selected="locationExists( widget, 'page', 'syllabus' )">Syllabus</option>
-                                                    <option value="page_blog" ng-selected="locationExists( widget, 'page', 'blog' )">Blog</option>
-                                                    <option ng-repeat="item in available_locations.pages" value="page_{{item.id}}" ng-selected="locationExists( widget, 'page', item.id )">{{item.title}}</option>
-                                                </optgroup>
-                                                <optgroup label="Post Categories">
-                                                    <option value="category_all" ng-selected="locationExists( widget, 'category', 'all' )">All Post Categories</option>
-                                                    <option ng-repeat="item in available_locations.categories" value="category_{{item.id}}" ng-selected="locationExists( widget, 'category', item.id )">{{item.title}}</option>
-                                                </optgroup>
-                                                <optgroup label="Posts">
-                                                    <option value="post_all" ng-selected="locationExists( widget, 'post', 'all' )">All Posts</option>
-                                                    <option ng-repeat="item in available_locations.posts" value="post_{{item.id}}" ng-selected="locationExists( widget, 'post', item.id )">{{item.title}}</option>
-                                                </optgroup>
-                                                <optgroup label="Livecasts">
-                                                    <option value="livecast_all" ng-selected="locationExists( widget, 'livecast', 'all' )">All Livecasts</option>
-                                                    <option ng-repeat="item in available_locations.livecasts" value="livecast_{{item.id}}" ng-selected="locationExists( widget, 'livecast', item.id )">{{item.title}}</option>
-                                                </optgroup>
-                                                <optgroup label="Lessons">
-                                                    <option value="lesson_all" ng-selected="locationExists( widget, 'lesson', 'all' )">All Lessons</option>
-                                                    <option ng-repeat="item in available_locations.lessons" value="lesson_{{item.id}}" ng-selected="locationExists( widget, 'lesson', item.id )">{{item.title}}</option>
-                                                </optgroup>
-                                                <optgroup label="Support Articles">
-                                                    <option value="article_all" ng-selected="locationExists( widget, 'article', 'all' )">All Support Articles</option>
-                                                    <option ng-repeat="item in available_locations.articles" value="article_{{item.id}}" ng-selected="locationExists( widget, 'article', item.id )">{{item.title}}</option>
-                                                </optgroup>
+                                            <select multiple ng-model="widget.location_options.everywhere">
+                                                <option value="true" ng-selected="!widget.id || widget.location_options.everywhere">Everywhere</option>
+                                                <option value="false" ng-selected="!widget.location_options.everywhere">As Defined</option>
+                                            </select>
+                                        </div>
+                                        <div class="field" ng-if="!widget.location_options.everywhere">
+                                            <label>Pages</label>
+                                            <select multiple ng-model="widget.location_options.pages">
+                                                <option value="true" ng-selected="locationExists( widget, 'pages', 'all'">All Pages</option>
+                                                <option value="false" ng-selected="!widget.location_options.everywhere">As Defined</option>
                                             </select>
                                         </div>
                                     </div>
