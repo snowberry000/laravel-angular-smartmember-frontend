@@ -14,7 +14,7 @@
 			<div class="ui segment form">
 				<div class="field">
 					<label>Choose Stripe Account</label>
-					<select class="ui dropdown" ng-model="current_integration.connected_account_id" sui-dropdown>
+					<select class="ui dropdown" ng-model="current_integration.connected_account_id">
 						<option value="">Accounts</option>
 						<optgroup label="Accounts">
 							<option ng-repeat="account in account_choices" ng-selected="current_integration.connected_account_id == account.id" value="{{account.id}}">
