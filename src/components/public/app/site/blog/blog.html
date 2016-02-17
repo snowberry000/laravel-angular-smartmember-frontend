@@ -1,29 +1,74 @@
 <div class="twelve wide column" ng-class="{'loader':loading}">
 
-	<div class="ui two cards">
-		<a class="ui card" ng-href="/post/{{post.permalink}}" dir-paginate="post in data | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
-			<div class="image" ng-if="post.featured_image.length > 0">
-				<img src="{{post.featured_image}}">
+	<div class="ui attached segment">
+		<div class="ui fluid action input">
+			<input type="text" ng-model="query" placeholder="Search Blogs...">
+			<div class="ui icon buttons">
+				<button class="ui icon button" ng-class="{active: blog_format=='list'}" ng-click="showFormat('list')" >
+					<i class="list layout icon"></i>
+				</button>
+				<button class="ui icon button" ng-class="{active: blog_format=='thumbnail'}" ng-click="showFormat('thumbnail')" >
+					<i class="block layout icon"></i>
+				</button>
 			</div>
-			<div class="content">
-				<div class="header">{{post.title}}</div>
-			</div>
-			<div class="extra content">
-				<div class="left floated">
-					<i class="fa fa-clock-o"></i>
-					posted {{moment.utc(post.created_at).fromNow()}}
+		</div>
+	</div>
+
+	<div class="ui attached segment" ng-show="query">
+		<h3 class="ui header">Search results for "{{query}}"</h3>
+	</div>
+
+	<div class="ui attached segment">
+		<div class="ui very relaxed divided ordered list" ng-if="blog_format=='list'">
+			<div style="height: 1px;"></div>
+			<div class="item" dir-paginate="post in data | filter: query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page" style=" {{ $index==0 ? 'border: 0px' : ''}}">
+				
+				<div class="content">
+					<a class="header" ng-href="/post/{{post.permalink}}">{{post.title}}</a>
 				</div>
-				<div class="right floated author">
-					<img class="ui avatar image" src="{{post.users.profile_image}}" ng-if="post.users.profile_image.length > 0">
-					{{post.users.first_name}}
+				<div class="extra content">
+					<div class="left floated">
+						<i class="fa fa-clock-o"></i>
+						posted {{moment.utc(post.created_at).fromNow()}}
+					</div>
+					<div class="right floated author">
+						<img class="ui avatar image" src="{{post.users.profile_image}}" ng-if="post.users.profile_image.length > 0">
+						{{post.users.first_name}}
+					</div>
+					<span>
+						&nbsp;&nbsp;
+						<i class="fa fa-lock icon" style="display: none" sm-access="view_restricted_content" if-not="show" level="post.access_level_id" type="{{post.access_level_id}}"></i>
+						{{accessLabel(post.acccess_level_type, post.access_level_id, post)}}
+					</span>
 				</div>
-				<span>
-					&nbsp;&nbsp;
-					<i class="fa fa-lock icon" style="display: none" sm-access="view_restricted_content" if-not="show" level="post.access_level_id" type="{{post.access_level_id}}"></i>
-					{{accessLabel(post.acccess_level_type, post.access_level_id, post)}}
-				</span>
 			</div>
-		</a>
+		</div>
+
+		<div class="ui two cards" ng-if="blog_format=='thumbnail'">
+			<a class="ui card" ng-href="/post/{{post.permalink}}" dir-paginate="post in data | filter: query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+				<div class="image" ng-if="post.featured_image.length > 0">
+					<img src="{{post.featured_image}}">
+				</div>
+				<div class="content">
+					<div class="header">{{post.title}}</div>
+				</div>
+				<div class="extra content">
+					<div class="left floated">
+						<i class="fa fa-clock-o"></i>
+						posted {{moment.utc(post.created_at).fromNow()}}
+					</div>
+					<div class="right floated author">
+						<img class="ui avatar image" src="{{post.users.profile_image}}" ng-if="post.users.profile_image.length > 0">
+						{{post.users.first_name}}
+					</div>
+					<span>
+						&nbsp;&nbsp;
+						<i class="fa fa-lock icon" style="display: none" sm-access="view_restricted_content" if-not="show" level="post.access_level_id" type="{{post.access_level_id}}"></i>
+						{{accessLabel(post.acccess_level_type, post.access_level_id, post)}}
+					</span>
+				</div>
+			</a>
+		</div>
 	</div>
 
 	<div class="blog_pagination">

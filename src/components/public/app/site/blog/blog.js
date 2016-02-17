@@ -76,4 +76,8 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
                 break;
         }
     }
+    $scope.blog_format = 'list';
+    $scope.showFormat = function(format) {
+    	$scope.blog_format = format;
+    }
 } );
