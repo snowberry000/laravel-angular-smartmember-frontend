@@ -61,14 +61,59 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
 
         $scope.available_articles = [];
 
-        Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $site.id ).customGET().then(function (response) {
+        Restangular.all('supportArticle?bypass_paging=true&parent_id=0view=admin&site_id=' + $site.id ).customGET().then(function (response) {
             $scope.available_articles = response.items;
 
             angular.forEach( $scope.available_articles, function( value, key ) {
                 if( $scope.isChild( $scope.article, value.id ) )
                     delete $scope.available_articles[ key ];
-            } )
+                else
+                {
+                    $scope.addChildren( value, value );
+                }
+            } );
+
+            $scope.flattenArticlesCollection();
         });
+
+        $scope.addChildren = function( main_article, article, tier ) {
+            if( !tier )
+                tier = 1;
+
+            if( !main_article.children )
+                main_article.children = [];
+
+            if( article.articles )
+            {
+                angular.forEach( article.articles, function( value, key ) {
+                    value.tier = '';
+
+                    for( var i = 0; i < tier; i++ )
+                        value.tier += '-';
+
+                    main_article.children.push( value );
+
+                    $scope.addChildren( main_article, value, tier + 1 );
+                } );
+            }
+        }
+
+        $scope.flattenArticlesCollection = function() {
+            var new_array = [];
+
+            angular.forEach( $scope.available_articles, function( value, key ) {
+                new_array.push( value );
+
+                if( value.children )
+                {
+                    angular.forEach( value.children, function( value2, key2 ) {
+                        new_array.push( value2 );
+                    } );
+                }
+            } );
+
+            $scope.available_articles = new_array;
+        }
 
         $scope.$watch('article', function (article, oldArticle) {
             if (typeof changed == "undefined")

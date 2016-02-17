@@ -39,7 +39,7 @@
 									<div class="col-md-8">
 										<select style="margin-bottom:10px;" type="text" name="category" class="ui dropdown" ng-model="article.parent_id">
                                             <option value="0" ng-selected="!article.id || article.parent_id == 0 || article.parent_id == '0'">No parent</option>
-                                            <option ng-repeat="parent_article in available_articles | filter: article.id ? {id: '!' + article.id} : {}" value="{{parent_article.id}}" ng-selected="article.parent_id == parent_article.id">{{parent_article.title}}</option>
+                                            <option ng-repeat="parent_article in available_articles | filter: article.id ? {id: '!' + article.id} : {}" value="{{parent_article.id}}" ng-selected="article.parent_id == parent_article.id">{{parent_article.tier}}{{parent_article.title}}</option>
 										</select>
 									</div>
 								</div>

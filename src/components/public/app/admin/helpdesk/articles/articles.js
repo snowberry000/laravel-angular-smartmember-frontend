@@ -99,7 +99,7 @@ app.controller("ArticlesController", function ($scope,$rootScope, $localStorage,
             }
         } );
 
-        $scope.data = Restangular.restangularizeCollection( null, new_array, $scope.template_data.api_object );;
+        $scope.data = Restangular.restangularizeCollection( null, new_array, $scope.template_data.api_object );
     }
 
     $scope.getNumber = function(num) {
