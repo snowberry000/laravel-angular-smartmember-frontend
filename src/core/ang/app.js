@@ -339,7 +339,12 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 			type: 'socialshare',
 			display_name: 'Social Share',
 			description: 'Add social sharing buttons.'
-		}
+		},
+		{
+			type: 'blog_categories',
+			display_name: 'Blog Categories',
+			description: 'Add blog categories widget in the sidebar'
+		},
 	];
 } );
 
