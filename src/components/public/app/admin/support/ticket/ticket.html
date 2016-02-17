@@ -57,14 +57,6 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							Mark as
-							<select ng-init="ticket.status == 'open' ? change_ticket_status = 'pending' : change_ticket_status=ticket.status"
-									ng-model="change_ticket_status">
-								<option ng-selected="(ticket.status == 'open' && status.id == 'pending') || (ticket.status != 'open' && status.id==ticket.status)"
-										ng-repeat="status in statuses" value="{{status.id}}">
-									{{status.value}}
-								</option>
-							</select>
 							<label>
 								<input type="checkbox" ng-model="admin_mode"/>
 								Mark this reply as internal (comment)
@@ -210,7 +202,15 @@
 		<a ui-sref="public.app.admin.support.tickets" class="ui black button">
 			Back
 		</a>
-		<a sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment" class="ui right labeled icon button">
+		<a class="ui right labeled icon button" ng-click="changeStatus('closed')" ng-if="ticket.status != 'closed'">
+			Close
+			<i class="history icon"></i>
+		</a>
+        <a class="ui right labeled icon button" ng-click="changeStatus('open')" ng-if="ticket.status == 'closed'">
+            Open
+            <i class="folder open outline icon"></i>
+        </a>
+        <a sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment" class="ui right labeled icon button">
 			Add attachment
 			<i class="plus icon"></i>
 		</a>
@@ -446,22 +446,10 @@
 
 										<div class="row">
 											<div class="col-md-6">
-												Mark as
-												<select ng-model="change_ticket_status">
-													<option ng-selected="(ticket.status == 'open' && status.id == 'pending') || (ticket.status != 'open' && status.id==ticket.status)"
-															ng-repeat="status in statuses" value="{{status.id}}">
-														{{status.value}}
-													</option>
-												</select>
 												<label>
 													<input type="checkbox" ng-model="admin_mode"/>
 													Mark this reply as internal (comment)
 												</label>
-											</div>
-											<div class="col-md-6">
-												<button class="button btn-brand btn pull-right {{admin_mode ? 'blue':'yellow'}}" ng-click="sendReply()">
-													<span>Submit</span>
-												</button>
 											</div>
 										</div>
 
