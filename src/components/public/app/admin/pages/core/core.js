@@ -50,6 +50,14 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			url: '/checkout/{product id}'
 		},
 		{
+			title: 'Thank You Page',
+			description: 'This is your sites "Thank you" page, showing after your customers buy your products',
+			image: '',
+			icon: 'smile',
+			template: 'thankyou',
+			url: '/thank-you'
+		},
+		{
 			title: 'Download Center',
 			description: 'This page will show all available downloads to visitors and members to access.',
 			image: '',
