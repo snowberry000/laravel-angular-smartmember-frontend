@@ -65,15 +65,15 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
             $scope.available_articles = response.items;
 
             angular.forEach( $scope.available_articles, function( value, key ) {
-                if( $scope.isChild( $scope.article, value.id ) )
-                    delete $scope.available_articles[ key ];
-                else
-                {
-                    $scope.addChildren( value, value );
-                }
+                $scope.addChildren( value, value );
             } );
 
             $scope.flattenArticlesCollection();
+
+            angular.forEach( $scope.available_articles, function( value, key ) {
+                if( $scope.isChild( $scope.article, value.id ) )
+                    delete $scope.available_articles[ key ];
+            } )
         });
 
         $scope.addChildren = function( main_article, article, tier ) {
