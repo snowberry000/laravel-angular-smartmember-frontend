@@ -32,7 +32,7 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
             });
         }
         else {
-            $article = {company_id: 0, display: 'default'};
+            $article = {company_id: 0, display: 'default', status: 'draft'};
             $scope.init();
         }
     }
@@ -99,6 +99,18 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
         }
 
         return child;
+    }
+
+    $scope.saveAsDraft = function () {
+        $scope.article.status = 'draft';
+
+        $scope.save();
+    }
+
+    $scope.publish = function () {
+        $scope.article.status = 'published';
+
+        $scope.save();
     }
 
     $scope.save = function () {
