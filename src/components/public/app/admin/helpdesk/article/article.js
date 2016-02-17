@@ -32,7 +32,7 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
             });
         }
         else {
-            $article = {company_id: 0, display: 'default'};
+            $article = {company_id: 0, display: 'default', status: 'draft'};
             $scope.init();
         }
     }
@@ -61,9 +61,59 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
 
         $scope.available_articles = [];
 
-        Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $site.id ).customGET().then(function (response) {
+        Restangular.all('supportArticle?bypass_paging=true&parent_id=0view=admin&site_id=' + $site.id ).customGET().then(function (response) {
             $scope.available_articles = response.items;
+
+            angular.forEach( $scope.available_articles, function( value, key ) {
+                $scope.addChildren( value, value );
+            } );
+
+            $scope.flattenArticlesCollection();
+
+            angular.forEach( $scope.available_articles, function( value, key ) {
+                if( $scope.isChild( $scope.article, value.id ) )
+                    delete $scope.available_articles[ key ];
+            } )
         });
+
+        $scope.addChildren = function( main_article, article, tier ) {
+            if( !tier )
+                tier = 1;
+
+            if( !main_article.children )
+                main_article.children = [];
+
+            if( article.articles )
+            {
+                angular.forEach( article.articles, function( value, key ) {
+                    value.tier = '';
+
+                    for( var i = 0; i < tier; i++ )
+                        value.tier += '-';
+
+                    main_article.children.push( value );
+
+                    $scope.addChildren( main_article, value, tier + 1 );
+                } );
+            }
+        }
+
+        $scope.flattenArticlesCollection = function() {
+            var new_array = [];
+
+            angular.forEach( $scope.available_articles, function( value, key ) {
+                new_array.push( value );
+
+                if( value.children )
+                {
+                    angular.forEach( value.children, function( value2, key2 ) {
+                        new_array.push( value2 );
+                    } );
+                }
+            } );
+
+            $scope.available_articles = new_array;
+        }
 
         $scope.$watch('article', function (article, oldArticle) {
             if (typeof changed == "undefined")
@@ -77,6 +127,35 @@ app.controller("ArticleController", function ($scope, $rootScope, Upload, $locat
                 timeout = $timeout($scope.start, 3000);  // 1000 = 1 second
             }
         }, true);
+    }
+
+    $scope.isChild = function( article, id ) {
+        var child = false;
+
+        if( article.articles && article.articles.length > 0 ) {
+            angular.forEach( article.articles, function( value, key ) {
+                if( !child ) {
+                    if ( parseInt( value.id ) == parseInt( id ) )
+                        child = true;
+                    else
+                        child = $scope.isChild( value, id );
+                }
+            } )
+        }
+
+        return child;
+    }
+
+    $scope.saveAsDraft = function () {
+        $scope.article.status = 'draft';
+
+        $scope.save();
+    }
+
+    $scope.publish = function () {
+        $scope.article.status = 'published';
+
+        $scope.save();
     }
 
     $scope.save = function () {

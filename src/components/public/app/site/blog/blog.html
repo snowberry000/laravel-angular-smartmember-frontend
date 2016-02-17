@@ -19,7 +19,7 @@
 				</div>
 				<span>
 					&nbsp;&nbsp;
-					<i class="fa fa-lock icon" style="display: none" sm-access="view_restricted_content" if-not="show" level="post.access_level_id" type="{{post.access_level_id}}"></i>
+					<i class="fa fa-lock icon" style='display: none' sm-access="view_restricted_content" if-not="show" level="{{post.access_level_id}}" type="{{post.access_level_type}}"></i>
 					{{accessLabel(post.acccess_level_type, post.access_level_id, post)}}
 				</span>
 			</div>

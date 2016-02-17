@@ -37,6 +37,7 @@ app.controller( 'LessonsController', function( $scope, smModal, $rootScope, $loc
 	];
 
 	$scope.lesson_count = 0;
+	$scope.order_lesson_count = 0;
 	$rootScope.page_title = $rootScope.site.name + ' - Lessons';
 	$scope.loading = true;
 	$scope.syllabus = { edit_mode: $rootScope.edit_mode }
@@ -86,11 +87,11 @@ app.controller( 'LessonsController', function( $scope, smModal, $rootScope, $loc
 			{
 				data.hide_module = $default_syllabus_closed.value == '1' ? true : false;
 			}
-
+			$scope.lesson_count = parseInt($scope.site.total_lessons);
 			$.each( data.lessons, function( key, data )
 			{
-				$scope.lesson_count++;
-				data.showCounter = $scope.lesson_count;
+				$scope.order_lesson_count++;
+				data.showCounter = $scope.order_lesson_count;
 				switch( parseInt( data.access_level_type ) )
 				{
 					case 1:
