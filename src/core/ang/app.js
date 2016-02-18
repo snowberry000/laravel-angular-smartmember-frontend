@@ -136,7 +136,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	editableThemes[ 'default' ].submitTpl = '<button type="submit"><span class="fa fa-check"></span></button>';
 	editableThemes[ 'default' ].cancelTpl = '<button type="button" ng-click="$form.$cancel()"><span class="fa fa-times" ></span></button>';
 
-	var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
+	var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' || env == 'co' || env == 'net' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
 	//TODO: FIX THIS
 	//var rootDomain = 'smartmember.dev';

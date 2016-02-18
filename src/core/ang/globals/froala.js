@@ -49,7 +49,7 @@ app.value('froalaConfig', {
             var domain = domainParts.pop() + "." + env;
         }
 
-        var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
+        var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' || env == 'co' || env == 'net' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
         return apiURL + '/utility/upload';
     })(),
@@ -77,7 +77,7 @@ app.value('froalaConfig', {
             var domain = domainParts.pop() + "." + env;
         }
 
-        var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
+        var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' || env == 'co' || env == 'net' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
         return apiURL + '/utility/upload';
     })(),
