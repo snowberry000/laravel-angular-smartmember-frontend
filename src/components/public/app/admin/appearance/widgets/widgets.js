@@ -47,7 +47,7 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
                 });
 
                 value.location_options = {
-                    everywhere: true,
+                    everywhere: 1,
                     posts: [],
                     pages: [],
                     articles: [],
@@ -82,7 +82,7 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
                 });
 
                 if( value.location_data.indexOf( 'everywhere' ) == -1 )
-                    value.location_options.everywhere = false;
+                    value.location_options.everywhere = 0;
             });
 
 			$scope.widgets = response;
@@ -175,6 +175,48 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
     }
 
     $scope.save = function(widget){
+        widget.location_data = [];
+
+        if( widget.location_options.everywhere == 1 || widget.location_options.everywhere == '1' )
+            widget.location_data.push( 'everywhere' );
+        else
+        {
+            angular.forEach( widget.location_options, function( value, key ) {
+                switch( key ) {
+                    case 'posts':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'post_' + value2 )
+                        } );
+                        break;
+                    case 'pages':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'page_' + value2 )
+                        } );
+                        break;
+                    case 'articles':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'article_' + value2 )
+                        } );
+                        break;
+                    case 'livecasts':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'livecast_' + value2 )
+                        } );
+                        break;
+                    case 'categories':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'category_' + value2 )
+                        } );
+                        break;
+                    case 'lessons':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'lesson_' + value2 )
+                        } );
+                        break;
+                }
+            } );
+        }
+
         if( widget.id ) {
             widget.put().then(function(response){
                 toastr.success( "Widget saved!" );
@@ -220,7 +262,7 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
                     return true;
                 break;
             default:
-                if( widget.location_options[ type ].indexOf( target ) != -1 )
+                if( widget.location_options[ type ].indexOf( target == 'all' ? target : parseInt( target ) ) != -1 || widget.location_options[ type ].indexOf( target + '' ) != -1 )
                     return true;
                 break;
         }
