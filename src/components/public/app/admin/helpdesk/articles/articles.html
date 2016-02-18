@@ -35,7 +35,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
+					<tr ng-repeat="next_item in data | filter:$parent.query">
 						<td class="">
                             <span ng-if="next_item.tier" ng-repeat="i in getNumber( next_item.tier ) track by $index">-</span>
 							{{next_item.title}}
@@ -75,9 +75,8 @@
 					<tr>
 						<th colspan="4">
 							<div class="ui pointing label">
-								{{pagination.total_count}} items
+								{{data.length}} articles
 							</div>
-							<dir-pagination-controls max-size="5"></dir-pagination-controls>
 						</th>
 					</tr>
 				</tfoot>
