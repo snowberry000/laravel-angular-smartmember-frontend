@@ -54,8 +54,13 @@ app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$
 
     //console.log('our real groups: ', $scope.available_facebook_groups );
 
-    if( $scope.available_facebook_groups.length > 0 )
+    if( $scope.available_facebook_groups.length > 0 ) {
         $scope.selected_group = $scope.available_facebook_groups[0];
+        $rootScope.fb_groups_to_display = true;
+    } else {
+        if( !$scope.joined_facebook_groups )
+            $rootScope.fb_groups_to_display = false;
+    }
 
     $scope.group_id = {}
     $scope.group_id.selected = $scope.site.is_admin ? 0 : $scope.site.facebook_group_id
@@ -67,8 +72,14 @@ app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$
             });
         }
 
-        if ($scope.joined_facebook_groups.length == 0)
+        if ($scope.joined_facebook_groups.length == 0) {
             $scope.joined_facebook_groups = false;
+
+            if( $scope.available_facebook_groups.length == 0 )
+                $rootScope.fb_groups_to_display = false;
+        } else {
+            $rootScope.fb_groups_to_display = true;
+        }
 
         $scope.show_add_group = false;
     });
@@ -98,6 +109,8 @@ app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$
                         });
                         Restangular.all('user').customPOST({user_options: user_options, user_id: $localStorage.user.id}, "saveFacebookGroupOption").then(function(response){
                             $scope.joined_facebook_groups = response;
+                            if( $scope.joined_facebook_groups )
+                                $rootScope.fb_groups_to_display = true;
                         });
                     } else {
                         if (response.error_code == 4001){
@@ -110,6 +123,8 @@ app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$
                             Restangular.all('user').customPOST({user_options: user_options, user_id: $localStorage.user.id}, "saveFacebookGroupOption").then(function(response){
                                 swal("You are already a member of this group");
                                 $scope.joined_facebook_groups = response;
+                                if( $scope.joined_facebook_groups )
+                                    $rootScope.fb_groups_to_display = true;
                             });
                         }
                     }

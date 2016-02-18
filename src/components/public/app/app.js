@@ -294,6 +294,28 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
             $rootScope.setSocialShare( text, description, media );
         }
 
+        $rootScope.fb_groups_to_display = true;
+
+        $rootScope.displaySidebar = function() {
+            var isLoggedIn = $localStorage.user && $localStorage.user.access_token;
+
+            if( isLoggedIn && $rootScope.fb_groups_to_display )
+                return true;
+
+            var widgets_to_display = false;
+
+            angular.forEach( $scope.widgets, function( value, key ) {
+
+                if( !widgets_to_display )
+                {
+                    if( $rootScope.showWidget( value ) )
+                        widgets_to_display = true;
+                }
+            } );
+
+            return widgets_to_display;
+        }
+
 		$rootScope.site.configured_app = [];
 		angular.forEach( details.app_configuration, function( value, key )
 		{
