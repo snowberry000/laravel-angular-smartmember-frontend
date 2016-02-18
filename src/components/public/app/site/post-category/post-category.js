@@ -47,6 +47,9 @@ app.controller( 'PostCategoryController', function( $scope,$site, $rootScope, $l
             $scope.pagination.total_count = data.total_count;
             $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
             $scope.category = data.category;
+
+            $rootScope.widget_target_type = 'category';
+            $rootScope.widget_target = $scope.category.id;
         } );
 	}
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )

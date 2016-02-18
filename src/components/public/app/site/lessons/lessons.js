@@ -26,6 +26,8 @@ app.config( function( $stateProvider )
 
 app.controller( 'LessonsController', function( $scope, smModal, $rootScope, $localStorage, $state, $stateParams, $filter, Restangular, toastr, $location )
 {
+    $rootScope.widget_target_type = 'page';
+    $rootScope.widget_target = 'syllabus';
 
 	$scope.access_level_types = [
 		{ id: 4, name: 'Draft (admin-only)' },

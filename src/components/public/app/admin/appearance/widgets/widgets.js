@@ -27,17 +27,62 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
 
 	$scope.init = function()
 	{
+        $scope.loading_locations = true;
+        Restangular.all( 'widget/locationOptions' ).customGET().then( function ( response ) {
+            $scope.available_locations = response;
+            $scope.loading_locations = false;
+        } );
+
 		Restangular.all( 'widget' ).getList( { site_id: $site.id, sidebar_id: $scope.sidebar_id } ).then( function( response )
 		{
             $scope.loading = false;
             angular.forEach( response, function(value, key) {
                 value.meta = {};
+                value.location_data = [];
 
                 value.widget_info = _.findWhere( $scope.available_widgets, {type: value.type } );
 
                 angular.forEach( value.meta_data, function(value2, key2 ) {
                     value.meta[ value2.key ] = value2.value;
                 });
+
+                value.location_options = {
+                    everywhere: 1,
+                    posts: [],
+                    pages: [],
+                    articles: [],
+                    livecasts: [],
+                    categories: [],
+                    lessons: []
+                };
+
+                angular.forEach( value.locations, function(value2, key2 ) {
+                    value.location_data.push( value2.type + ( value2.target ? '_' + value2.target : '' ) );
+
+                    switch( value2.type ) {
+                        case 'post':
+                            value.location_options.posts.push( value2.target );
+                            break;
+                        case 'page':
+                            value.location_options.pages.push( value2.target );
+                            break;
+                        case 'article':
+                            value.location_options.articles.push( value2.target );
+                            break;
+                        case 'livecast':
+                            value.location_options.livecasts.push( value2.target );
+                            break;
+                        case 'category':
+                            value.location_options.categories.push( value2.target );
+                            break;
+                        case 'lesson':
+                            value.location_options.lessons.push( value2.target );
+                            break;
+                    }
+                });
+
+                if( value.location_data.indexOf( 'everywhere' ) == -1 )
+                    value.location_options.everywhere = 0;
             });
 
 			$scope.widgets = response;
@@ -130,6 +175,48 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
     }
 
     $scope.save = function(widget){
+        widget.location_data = [];
+
+        if( widget.location_options.everywhere == 1 || widget.location_options.everywhere == '1' )
+            widget.location_data.push( 'everywhere' );
+        else
+        {
+            angular.forEach( widget.location_options, function( value, key ) {
+                switch( key ) {
+                    case 'posts':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'post_' + value2 )
+                        } );
+                        break;
+                    case 'pages':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'page_' + value2 )
+                        } );
+                        break;
+                    case 'articles':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'article_' + value2 )
+                        } );
+                        break;
+                    case 'livecasts':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'livecast_' + value2 )
+                        } );
+                        break;
+                    case 'categories':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'category_' + value2 )
+                        } );
+                        break;
+                    case 'lessons':
+                        angular.forEach( value, function( value2, key2 ) {
+                            widget.location_data.push( 'lesson_' + value2 )
+                        } );
+                        break;
+                }
+            } );
+        }
+
         if( widget.id ) {
             widget.put().then(function(response){
                 toastr.success( "Widget saved!" );
@@ -166,6 +253,21 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
         Restangular.all('widget').customPOST({order: new_order}, 'updateOrder').then(function(){
             console.log( 'new order saved');
         });
+    }
+
+    $scope.locationExists = function( widget, type, target ) {
+        switch( type ) {
+            case 'everywhere':
+                if( widget.location_options.everywhere )
+                    return true;
+                break;
+            default:
+                if( widget.location_options[ type ].indexOf( target == 'all' ? target : parseInt( target ) ) != -1 || widget.location_options[ type ].indexOf( target + '' ) != -1 )
+                    return true;
+                break;
+        }
+
+        return false;
     }
 
 	$scope.dropCallback = function(widget, index){

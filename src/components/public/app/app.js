@@ -190,11 +190,16 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 		angular.forEach( $scope.widgets, function( value, key )
 		{
 			value.meta = {};
+			value.location_data = {};
 
 			angular.forEach( value.meta_data, function( value2, key2 )
 			{
 				value.meta[ value2.key ] = value2.value;
 			} );
+
+            angular.forEach( value.locations, function(value2, key2 ) {
+                value.location_data[ value2.type + ( value2.target ? '_' + value2.target : '' ) ] = true;
+            });
 
 			if( value.type == 'banner' )
 			{
@@ -204,6 +209,27 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 				}
 			}
 		} );
+
+        if( !$rootScope.widget_target_type )
+            $rootScope.widget_target_type = 'page';
+        if( !$rootScope.widget_target )
+            $rootScope.widget_target = 'syllabus';
+
+        $rootScope.showWidget = function( widget ) {
+            var location_type = $rootScope.widget_target_type;
+            var target = $rootScope.widget_target;
+
+            if( widget.location_data.everywhere )
+                return true;
+
+            if( widget.location_data[ location_type + '_all' ] )
+                return true;
+
+            if( widget.location_data[ location_type + '_' + target ] )
+                return true;
+
+            return false;
+        }
 
         $rootScope.social_share = {
             text: details.name,
@@ -266,6 +292,28 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
                 media = next_item.featured_image;
 
             $rootScope.setSocialShare( text, description, media );
+        }
+
+        $rootScope.fb_groups_to_display = true;
+
+        $rootScope.displaySidebar = function() {
+            var isLoggedIn = $localStorage.user && $localStorage.user.access_token;
+
+            if( isLoggedIn && $rootScope.fb_groups_to_display )
+                return true;
+
+            var widgets_to_display = false;
+
+            angular.forEach( $scope.widgets, function( value, key ) {
+
+                if( !widgets_to_display )
+                {
+                    if( $rootScope.showWidget( value ) )
+                        widgets_to_display = true;
+                }
+            } );
+
+            return widgets_to_display;
         }
 
 		$rootScope.site.configured_app = [];

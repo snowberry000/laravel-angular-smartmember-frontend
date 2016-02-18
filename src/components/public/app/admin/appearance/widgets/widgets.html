@@ -58,6 +58,64 @@
 
 								<div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/chosen.html'" ng-init="chosen_widget = widget"></div>
 
+                                <div class="ui segment">
+                                    <div class="ui form">
+                                        <div ng-if="loading_locations" class="ui active inverted dimmer">
+                                            <div class="ui text loader">Loading</div>
+                                        </div>
+                                        <div class="field">
+                                            <label>Widget Locations</label>
+                                            <select ng-model="widget.location_options.everywhere">
+                                                <option value="1" ng-selected="!widget.id || widget.location_options.everywhere == 1 || widget.location_options.everywhere == '1'">Everywhere</option>
+                                                <option value="0" ng-selected="!widget.location_options.everywhere">As Defined</option>
+                                            </select>
+                                        </div>
+                                        <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
+                                            <label>Pages</label>
+                                            <select multiple ng-model="widget.location_options.pages">
+                                                <option value="all" ng-selected="locationExists( widget, 'pages', 'all' )">All Pages</option>
+                                                <option value="syllabus" ng-selected="locationExists( widget, 'pages', 'syllabus' )">Syllabus</option>
+                                                <option value="blog" ng-selected="locationExists( widget, 'pages', 'blog' )">Blog</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'pages', location.id )">{{location.title}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
+                                            <label>Lessons</label>
+                                            <select multiple ng-model="widget.location_options.lessons">
+                                                <option value="all" ng-selected="locationExists( widget, 'lessons', 'all' )">All Lessons</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'lessons', location.id )">{{location.title}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
+                                            <label>Posts</label>
+                                            <select multiple ng-model="widget.location_options.posts">
+                                                <option value="all" ng-selected="locationExists( widget, 'posts', 'all' )">All Posts</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.posts" ng-selected="locationExists( widget, 'posts', location.id )">{{location.title}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
+                                            <label>Post Categories</label>
+                                            <select multiple ng-model="widget.location_options.categories">
+                                                <option value="all" ng-selected="locationExists( widget, 'categories', 'all' )">All Post Categories</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'categories', location.id )">{{location.title}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
+                                            <label>Livecasts</label>
+                                            <select multiple ng-model="widget.location_options.livecasts">
+                                                <option value="all" ng-selected="locationExists( widget, 'livecasts', 'all' )">All Livecasts</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'livecasts', location.id )">{{location.title}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
+                                            <label>Support Articles</label>
+                                            <select multiple ng-model="widget.location_options.articles">
+                                                <option value="all" ng-selected="locationExists( widget, 'articles', 'all' )">All Support Articles</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'articles', location.id )">{{location.title}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
 								<button busy ng-click="save(widget)" class="ui green right labeled icon button" style="margin-top:1em;">
 									Save changes

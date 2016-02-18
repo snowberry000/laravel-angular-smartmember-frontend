@@ -48,7 +48,7 @@
 
 
 </div>
-<div class="four wide column" ng-if='!page.hide_sidebars && ((site.facebook_group_id && access_levels) || widgets.length > 0)'>
+<div class="four wide column" ng-if='!page.hide_sidebars && displaySidebar()'>
 
 	<div ng-include="'templates/components/public/app/site/common/sidebar.html'"></div>
 
