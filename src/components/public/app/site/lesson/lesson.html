@@ -2,7 +2,7 @@
 <div class="four wide column p-none">
 	<div class="ui basic segment p-none m-t-xl">
 		<h3 class="ui center aligned icon header headline_text_color">
-			<i class="student {{options.cap_icon ? options.cap_icon : 'student'}} icon"></i>
+			<i class="fa {{meta_data.cap_icon ? meta_data.cap_icon : 'student'}} icon"></i>
 
 			<div class="content" ng-if="!loading">
 				{{lesson.module.id ? lesson.module.title : ( options.default_module_title || 'Default' )}}
