@@ -168,6 +168,7 @@ app.controller( "WidgetsController", function( $scope, $rootScope, $state, $http
             type: widget.type,
             widget_info: widget,
             meta: {},
+            location_options: {everywhere: 1},
             sort_order: $scope.widgets.length + 1
         };
 
