@@ -54,7 +54,7 @@
 									</td>
 									<td style="width: 230px;">
 										<small ng-show="next_item.sendgrid_account_check" >Please Click <a target="_self" ui-sref="public.app.admin.apps.integration.configure({'integration' : 'sendgrid'})" >Here</a> to Configure Sendgrid first</small>
-										<small ng-show="next_item.sendgrid_setting_check">Please click <a ui-sref="public.app.admin.email.settings">here</a> to set up your email settings first</small>
+										<small ng-show="next_item.sendgrid_setting_check">Please click <a ui-sref="public.app.admin.email.settings">here</a> to set your sending address.</small>
 										<span ng-show="!next_item.sendgrid_account_check && !next_item.sendgrid_setting_check">
 											{{next_item.status}}
 											<span ng-if="next_item.send_date_at">
