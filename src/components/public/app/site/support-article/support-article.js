@@ -34,6 +34,10 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
         }
     }
 
+    $rootScope.$watch( 'articles_query', function( newVal, oldVal ) {
+        $scope.search( newVal );
+    } );
+
 	Restangular.one( 'articleByPermalink', $stateParams.permalink ).get({status: 'published'}).then( function( response )
 	{
 		$article = response;

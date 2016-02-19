@@ -31,7 +31,7 @@
 					<h1 class="ui inverted header" ng-if="!$state.includes('public.app.site.support-article')" style="font-size: 3rem;">What do you need help with?</h1>
 
 					<div class="ui massive icon fluid input">
-						<input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+						<input type="text" placeholder="Search..." ng-model="$root.articles_query" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
 						<i class="search icon"></i>
 					</div>
 				</div>
