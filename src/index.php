@@ -18,7 +18,7 @@ $data = DetectAndPerformBridgePageThings();
 
 	<!-- <title>{{page_title ? page_title : 'Loading'}} </title> -->
 	<title ng-bind="page_title">Loading</title>
-	<meta name="description" content="">
+	<?php if( !empty( $data ) ) PrintUserTrackingScript( $data, 'fb_share_description' ); ?>
 
 	<!-- <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css"> -->
 	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
