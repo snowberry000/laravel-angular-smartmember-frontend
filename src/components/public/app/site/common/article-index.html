@@ -1,4 +1,8 @@
 
+<div class="ui basic segment center aligned p-none" ng-if="next_item.breadcrumb">
+	<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
+</div>
+
 <div class="ui basic segment">
 
 	<div class="ui active inverted dimmer" ng-if="loading">
@@ -10,12 +14,6 @@
 	<h1 class="ui center aligned header headline_text_color" ng-if="searching">
 		Search results for "{{query}}"
 	</h1>
-	<div class="ui form text-center">
-		<div class="ui large icon input">
-			<input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-			<i class="search icon"></i>
-		</div>
-	</div>
 </div>
 
 <div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="!searching && ( loading || next_item.featured_image || next_item.embed_content )">
@@ -46,9 +44,6 @@
 
 <div class="ui padded segment section_background_color support-articles" ng-if="!searching">
 
-	<div class="ui basic segment center aligned p-none" ng-if="next_item.breadcrumb">
-		<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
-	</div>
 
 	<div class="ui two column grid">
 		<div class="column" ng-repeat="article in next_item.articles">

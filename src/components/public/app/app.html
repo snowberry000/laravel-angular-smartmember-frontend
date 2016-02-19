@@ -3,7 +3,7 @@
 <wave-spinner ng-if="loading"></wave-spinner>
 <div ng-if="!$state.includes('public.app.admin.bridge-page') && !isSitelessPage()" class="ui basic segment site_top_background_color m-n {{isLoggedIn() ? 'logged_in' : ''}} {{meta_data.navigation_location == 'top fixed' ? 'more_margin' : ''}}" ng-init="init();initialize();showNotifications()">
 
-	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">		
+	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">
 
 		<div ng-if="(!isLoggedIn() || !is_member) && app.subdomain != 'sm'" class="row p-b-none member_sign_row">
 			<div class="column" style="text-align: right;">
@@ -24,7 +24,22 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div ng-if="app.subdomain == 'docs'" class="row">
+
+			<div class="ui very padded basic segment">
+				<div class="ui form text-center">
+					<h1 class="ui inverted header" style="font-size: 3rem;">What do you need help with?</h1>
+
+					<div class="ui large icon fluid input">
+						<input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+						<i class="search icon"></i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div ng-if="app.subdomain != 'docs'" class="row">
+
 			<div class="middle aligned column m-b-lg mobile hidden tablet hidden" ng-if="meta_data.logo_position == 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/site/common/top-nav.html'"></div>
 			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column'">
 
