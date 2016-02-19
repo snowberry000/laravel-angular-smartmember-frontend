@@ -41,26 +41,23 @@
 	<div dynamic="next_item.content" ng-if="next_item.content" class="fr-view"></div>
 </div>
 
-<div class="ui padded segment section_background_color" ng-if="!searching">
+<div class="ui two column relaxed celled grid section_background_color" ng-if="!searching">
+	<div class="column" ng-repeat="(key,article) in next_item.articles">
 
-	<div class="ui two column grid">
-		<div class="column" ng-repeat="article in next_item.articles">
+		<div class="ui fitted divider" ng-if="key > 1"></div>
 
-			<div class="ui relaxed items">
-				<a class="item" href="/{{article.permalink}}">
-					<div class="middle aligned content">
-						<div class="header">{{article.title}}</div>
-						<div class="description" ng-if="article.content">
-							{{article.content | cut:true:200:' ...'}}
-						</div>
-						<div class="description" ng-if="article.display == 'article-index' && article.articles">
-							{{article.articles.length}} articles
-						</div>
+		<div class="ui items">
+			<a class="item" href="/{{article.permalink}}">
+				<div class="middle aligned content">
+					<div class="header">{{article.title}}</div>
+					<div class="description" ng-if="article.content">
+						{{article.content | cut:true:200:' ...'}}
 					</div>
-				</a>
-			</div>
-
-			<div class="ui divider"></div>
+					<div class="description" ng-if="article.display == 'article-index' && article.articles">
+						{{article.articles.length}} articles
+					</div>
+				</div>
+			</a>
 		</div>
 	</div>
 </div>
