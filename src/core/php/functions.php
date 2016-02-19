@@ -214,6 +214,14 @@ function PrintUserTrackingScript( $data, $type = 'google_analytic_id' )
 				trackcmp.src = '//trackcmp.net/visit?actid=O<?php echo $code; ?>&e='+encodeURIComponent(trackcmp_email)+'&r='+encodeURIComponent(document.referrer)+'&u='+encodeURIComponent(window.location.href);
 			<?php endif;
 			break;
+		case 'fb_share_description':
+			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'fb_share_description' ) )
+				$code = $data->data->fb_share_description;
+			if( !empty( $code ) ) :
+				?>
+				<meta name="description" content="<?php echo $code; ?>">
+			<?php endif;
+			break;
 		default:
 			break;
 	}

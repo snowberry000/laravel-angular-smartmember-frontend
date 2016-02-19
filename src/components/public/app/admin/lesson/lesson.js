@@ -421,7 +421,7 @@ app.controller( "SyllabusLessonController", function( $scope, $q, $rootScope, sm
 		delete $scope.next_item.current_index;
 		delete $scope.next_item.module;
 		delete $scope.next_item.site;
-
+		delete $scope.next_item.checked;
 		// Merge Starting Date And Time - Create JS Date Object
 		var start_date = moment($scope.next_item.published_date).format('YYYY-MM-DD')+' '+moment($('#start_published_time').datetimepicker('getDate')).format('HH:mm');
 		// Merge Ending Date And Time - Create JS Date Object
