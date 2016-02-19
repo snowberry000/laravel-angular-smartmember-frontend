@@ -7,7 +7,7 @@
 	<div class="ui active inverted dimmer" ng-if="loading">
 		<div class="ui text loader">Loading</div>
 	</div>
-	<h1 class="ui center aligned header headline_text_color" ng-if="!searching" sui-popup data-stateAttributes='{"id":{{next_item.id}} }' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.helpdesk.article">
+	<h1 class="ui center aligned header headline_text_color" ng-if="!searching" sui-popup data-stateAttributes='{"id":{{next_item.id}} }' data-edit="{{site.is_admin && next_item.id ? true : false}}" data-state="public.app.admin.helpdesk.article">
 		{{next_item.title}}
 	</h1>
 	<h1 class="ui center aligned header headline_text_color" ng-if="searching">
