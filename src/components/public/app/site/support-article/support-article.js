@@ -68,4 +68,17 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
 
         return '<a class="section" href="/support">Support</a>' + final_link + ' <i class="right angle icon divider"></i> <div class="active section">' + next_item.title + "</div>";
     }
+
+    $scope.totalChildren = function( next_item ) {
+        count = 0;
+
+        angular.forEach( next_item.articles, function( value, key ) {
+            count++;
+
+            if( value.articles )
+                count = count + $scope.totalChildren( value );
+        } );
+
+        return count;
+    }
 } );

@@ -67,4 +67,17 @@ app.controller('PublicSupportController', function ($scope,$site,$rootScope, $lo
         $localStorage.helpdesk_format = format;
         $scope.site.helpdesk_format = format;
     }
+
+    $scope.totalChildren = function( next_item ) {
+        count = 0;
+
+        angular.forEach( next_item.articles, function( value, key ) {
+            count++;
+
+            if( value.articles )
+                count = count + $scope.totalChildren( value );
+        } );
+
+        return count;
+    }
 });

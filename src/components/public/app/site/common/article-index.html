@@ -7,7 +7,7 @@
 	<div class="ui active inverted dimmer" ng-if="loading">
 		<div class="ui text loader">Loading</div>
 	</div>
-	<h1 class="ui center aligned header headline_text_color" ng-if="!searching">
+	<h1 class="ui center aligned header headline_text_color" ng-if="!searching" sui-popup data-stateAttributes='{"id":{{next_item.id}} }' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.helpdesk.article">
 		{{next_item.title}}
 	</h1>
 	<h1 class="ui center aligned header headline_text_color" ng-if="searching">
@@ -53,14 +53,14 @@
 		<div class="ui fitted divider" ng-if="key > 1"></div>
 
 		<div class="ui items">
-			<a class="item" href="/{{article.permalink}}">
+			<a class="item" href="/{{article.permalink}}" sui-popup data-stateAttributes='{"id":{{article.id}} }' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.helpdesk.article">
 				<div class="middle aligned content">
 					<div class="header">{{article.title}}</div>
 					<div class="description" ng-if="article.content">
 						{{article.content | cut:true:200:' ...'}}
 					</div>
 					<div class="description" ng-if="article.display == 'article-index' && article.articles">
-						{{article.articles.length}} articles
+						{{totalChildren( article )}} articles
 					</div>
 				</div>
 			</a>
