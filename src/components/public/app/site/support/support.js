@@ -45,9 +45,13 @@ app.controller('PublicSupportController', function ($scope,$site,$rootScope, $lo
             Restangular.all('supportArticle?bypass_paging=true&status=published&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
                 $scope.search_results = response.items;
                 $scope.loading = false;
-            });
+            } );
         }
     }
+
+    $rootScope.$watch( 'articles_query', function( newVal, oldVal ) {
+        $scope.search( newVal );
+    } );
 
     $scope.init = function(){
         Restangular.all('supportArticle?bypass_paging=true&status=published&view=admin&parent_id=0&site_id=' + $site.id ).customGET().then(function (response) {
@@ -62,5 +66,18 @@ app.controller('PublicSupportController', function ($scope,$site,$rootScope, $lo
     $scope.showFormat = function(format){
         $localStorage.helpdesk_format = format;
         $scope.site.helpdesk_format = format;
+    }
+
+    $scope.totalChildren = function( next_item ) {
+        count = 0;
+
+        angular.forEach( next_item.articles, function( value, key ) {
+            count++;
+
+            if( value.articles )
+                count = count + $scope.totalChildren( value );
+        } );
+
+        return count;
     }
 });

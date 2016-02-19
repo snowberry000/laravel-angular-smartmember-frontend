@@ -1,21 +1,24 @@
+<div class="ui basic segment section_background_color center aligned p-none" ng-if="next_item.breadcrumb">
+	<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
+</div>
 
 <div class="ui basic segment">
 
 	<div class="ui active inverted dimmer" ng-if="loading">
 		<div class="ui text loader">Loading</div>
 	</div>
-	<h1 class="ui center aligned header headline_text_color" ng-if="!searching">
+	<h1 class="ui center aligned header headline_text_color" ng-if="!searching" sui-popup data-stateAttributes='{"id":{{next_item.id}} }' data-edit="{{site.is_admin && next_item.id ? true : false}}" data-state="public.app.admin.helpdesk.article">
 		{{next_item.title}}
 	</h1>
 	<h1 class="ui center aligned header headline_text_color" ng-if="searching">
 		Search results for "{{query}}"
 	</h1>
-	<div class="ui form text-center">
-		<div class="ui large icon input">
-			<input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
-			<i class="search icon"></i>
-		</div>
-	</div>
+    <div class="ui form text-center" ng-if="app.subdomain != 'docs'">
+        <div class="ui large icon input">
+            <input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+            <i class="search icon"></i>
+        </div>
+    </div>
 </div>
 
 <div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="!searching && ( loading || next_item.featured_image || next_item.embed_content )">
@@ -44,45 +47,23 @@
 	<div dynamic="next_item.content" ng-if="next_item.content" class="fr-view"></div>
 </div>
 
-<div class="ui padded segment section_background_color support-articles" ng-if="!searching">
+<div sm-class="'ui ' + (!searching ? 'two' : 'one') + ' column relaxed celled grid section_background_color'">
+	<div class="column" ng-repeat="(key,article) in ( !searching ? next_item.articles : search_results )">
 
-	<div class="ui basic segment center aligned p-none" ng-if="next_item.breadcrumb">
-		<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
-	</div>
+		<div class="ui fitted divider" ng-if="key > 1"></div>
 
-	<div class="ui two column grid">
-		<div class="column" ng-repeat="article in next_item.articles">
-			<a class="" href="/{{article.permalink}}">
-				<div class="content">
+		<div class="ui items">
+			<a class="item" href="/{{article.permalink}}" sui-popup data-stateAttributes='{"id":{{article.id}} }' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.helpdesk.article">
+				<div class="middle aligned content">
 					<div class="header">{{article.title}}</div>
-				</div>
-				<div class="description" style="">
-					{{article.content | cut:true:200:' ...'}}
+					<div class="description" ng-if="article.content">
+						{{article.content | cut:true:200:' ...'}}
+					</div>
+					<div class="description" ng-if="article.display == 'article-index' && article.articles">
+						{{totalChildren( article )}} articles
+					</div>
 				</div>
 			</a>
-
-			<div class="ui divider"></div>
-		</div>
-	</div>
-</div>
-
-<div class="ui padded segment section_background_color support-articles" ng-if="searching">
-	<div class="ui two column grid">
-
-		<div class="column" ng-repeat="article in search_results">
-			<a class="" href="/{{article.permalink}}">
-				<div class="content">
-					<div class="header">{{article.title}}</div>
-				</div>
-				<div class="description">
-					{{article.content | cut:true:200:' ...'}}
-				</div>
-			</a>
-
-			<div class="ui divider"></div>
-		</div>
-		<div class="ui info message twelve wide column no-results" ng-if="!search_results || search_results.length == 0">
-			No articles matched your query.
 		</div>
 	</div>
 </div>

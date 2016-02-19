@@ -335,6 +335,8 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 			$scope.fix_menu_style = '.' + $rootScope.options.original_theme + ' .navbar-nav.main-menu a {color: #fff !important;text-decoration: none;}';
 		}
 
+        $rootScope.articles_query = '';
+
 		if( false && $localStorage.theme )
 		{
 			$rootScope.options.theme = $localStorage.theme;
