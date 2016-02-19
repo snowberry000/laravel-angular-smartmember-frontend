@@ -46,7 +46,7 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			description: 'This is your sites "checkout" page, allowing your products to be purchased',
 			image: '',
 			icon: 'shop',
-			template: '',
+			template: 'checkout',
 			url: '/checkout/{product id}'
 		},
 		{
