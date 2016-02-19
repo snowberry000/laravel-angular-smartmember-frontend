@@ -1,0 +1,160 @@
+<div class="ui modal">
+    <i class="close icon"></i>
+
+    <div class="header">
+        <i class="shop icon"></i>
+        Edit Checkout page settings
+    </div>
+    <div class="content ui form">
+        <div class="card clearfix content_post"  style="margin:10px">
+            <h4 class="ui header">Header Content</h4>
+            <div class="field">
+                <div class="col-sm-8">
+                    <textarea froala ng-model="site_options.checkout_header_content"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="card clearfix content_post" style="margin:10px" >
+            <div class="field">
+                <label>Order Review text</label>
+                <input type="text" class="" ng-model="site_options.order_review_text">
+                <div class="ui compact info message">
+                    <p>Default: Order Review</p>
+                </div>
+            </div>
+        </div>
+        <div class="ui styled fluid accordion" sui-accordion>
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Customize Stripe payment method on checkout page
+            </div>
+            <div class="content" >
+                <div class="card clearfix content_post" style="margin:10px" >
+                    <h4 class="ui header">Stripe text</h4>
+                    <div class="field">
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control input-lg" ng-model="site_options.stripe_text">
+                            <div class="ui compact info message">
+                                <p>Default: Checkout with Stripe</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card clearfix content_post" style="margin:10px" >
+                    <h4 class="ui header">Stripe Icon</h4>
+                    <button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.stripe_image">
+                        <i class="upload icon"></i>
+                        Choose File
+                    </button>
+                    <button ng-if="site_options.stripe_image" class="ui left labeled icon button" ng-click="site_options.stripe_image = ''">
+                        Clear
+                        <i class="remove icon"></i>
+                    </button>
+                    <div ng-if="site_options.stripe_image" style="margin:10px">
+                        <img class="ui large image" ng-src="{{site_options.stripe_image}}" style="max-width:100%;">
+                    </div>
+                </div>
+                <div class="card clearfix content_post" style="margin:10px" >
+                    <h4 class="ui header">Stripe description</h4>
+                    <div class="field">
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control input-lg" ng-model="site_options.stripe_description_text">
+                            <div class="ui compact info message">
+                                <p>Default: Send money securely in a few clicks, with no need for bank
+                                    details. Stripe makes sending money quick and easy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card clearfix content_post" style="margin:10px" >
+                    <h4 class="ui header">Stripe Pay button image</h4>
+                    <button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.stripe_button_image">
+                        <i class="upload icon"></i>
+                        Choose File
+                    </button>
+                    <button ng-if="site_options.stripe_button_image" class="ui left labeled icon button" ng-click="site_options.stripe_button_image = ''">
+                        Clear
+                        <i class="remove icon"></i>
+                    </button>
+                    <div ng-if="site_options.stripe_button_image" style="margin:10px">
+                        <img class="ui large image" ng-src="{{site_options.stripe_button_image}}" style="max-width:100%;">
+                    </div>
+                </div>
+            </div>
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Customize Paypal payment method on checkout page
+            </div>
+            <div class="content" >
+                <div class="card clearfix content_post" style="margin:10px" >
+                    <h4 class="ui header">Paypal text</h4>
+                    <div class="field">
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control input-lg" ng-model="site_options.paypal_text">
+                            <div class="ui compact info message">
+                                <p>Default: Checkout with Paypal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card clearfix content_post" style="margin:10px" >
+                    <h4 class="ui header">Paypal Icon</h4>
+                    <button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.paypal_image">
+                        <i class="upload icon"></i>
+                        Choose File
+                    </button>
+                    <button ng-if="site_options.paypal_image" class="ui left labeled icon button" ng-click="site_options.paypal_image = ''">
+                        Clear
+                        <i class="remove icon"></i>
+                    </button>
+                    <div ng-if="site_options.paypal_image" style="margin:10px">
+                        <img class="ui large image" ng-src="{{site_options.paypal_image}}" style="max-width:100%;">
+                    </div>
+                </div>
+                <div class="card clearfix content_post" style="margin:10px" >
+                    <h4 class="ui header">Paypal description</h4>
+                    <div class="field">
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control input-lg" ng-model="site_options.paypal_description_text">
+                            <div class="ui compact info message">
+                                <p>Default: Send money securely in a few clicks, with no need for bank
+                                    details. PayPal makes sending money quick and easy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card clearfix content_post" style="margin:10px" >
+                    <h4 class="ui header">Paypal Purchase button image</h4>
+                    <button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.paypal_button_image">
+                        <i class="upload icon"></i>
+                        Choose File
+                    </button>
+                    <button ng-if="site_options.paypal_button_image" class="ui left labeled icon button" ng-click="site_options.paypal_button_image = ''">
+                        Clear
+                        <i class="remove icon"></i>
+                    </button>
+                    <div ng-if="site_options.paypal_button_image" style="margin:10px">
+                        <img class="ui large image" ng-src="{{site_options.paypal_button_image}}" style="max-width:100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card clearfix content_post"  style="margin:10px">
+            <h4 class="ui header">Footer Content</h4>
+            <div class="field">
+                <div class="col-sm-8">
+                    <textarea froala ng-model="site_options.checkout_footer_content"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div ng-click="saveSettings()" class="ui right labeled icon button">
+           Save changes
+            <i class="checkmark icon"></i>
+        </div>
+        <div ui-sref="public.app.admin.pages.core.list" class="ui black deny button close">
+            Close
+        </div>
+    </div>
+</div>
