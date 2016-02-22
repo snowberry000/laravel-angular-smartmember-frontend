@@ -22,10 +22,24 @@ app.value('froalaConfig', {
     toolbarButtons: [
                         'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|', 
                         'color', '|', 
-                        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote', 
+                        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote',
                         'paragraphFormat', 'align', 'formatOL', 'formatUL', 'insertHR','undo', 'redo', 'clearFormatting', 'selectAll', 'html',
 
                     ],
+    toolbarButtonsSM: [
+        'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|',
+        'color', '|',
+        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote',
+        'paragraphFormat', 'align', 'formatOL', 'formatUL', 'insertHR','undo', 'redo', 'clearFormatting', 'selectAll', 'html',
+
+    ],
+    toolbarButtonsXS: [
+        'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|',
+        'color', '|',
+        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote',
+        'paragraphFormat', 'align', 'formatOL', 'formatUL', 'insertHR','undo', 'redo', 'clearFormatting', 'selectAll', 'html',
+
+    ],
     imageUploadURL: (function(){
         var domainParts = location.host.split( '.' );
 
