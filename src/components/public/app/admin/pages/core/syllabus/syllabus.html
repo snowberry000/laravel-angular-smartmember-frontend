@@ -55,6 +55,50 @@
 
 				</div>
 			</div>
+
+            <h3 class="ui horizontal divider header">
+                <i class="setting icon"></i>
+                Localization
+            </h3>
+
+            <div class="ui form">
+                <div class="field">
+                    <label class="ui header">
+                        'Syllabus' Text
+                    </label>
+                    <input type="text" name="syllabus_text" class="form-control input-lg"
+                           ng-model="meta_data['syllabus_text']" placeholder="Syllabus">
+                </div>
+                <div class="field">
+                    <label class="ui header">
+                        'Search lessons...' text
+                    </label>
+                    <input type="text" name="syllabus_text" class="form-control input-lg"
+                           ng-model="meta_data['search_lesson_text']" placeholder="Search lessons...">
+                </div>
+
+                <div class="field">
+                    <label class="ui header">
+                        'Lessons' text
+                    </label>
+                    <input type="text" name="syllabus_text" class="form-control input-lg"
+                           ng-model="meta_data['lesson_text']" placeholder="Lessons">
+                </div>
+                <div class="field">
+                    <label class="ui header">
+                        'Begin/Continue this course' text
+                    </label>
+                    <input type="text" name="syllabus_text" class="form-control input-lg"
+                           ng-model="meta_data['begin_course_text']" placeholder="Begin/Continue this course">
+                </div>
+                <div class="field" ng-controller="capIconThemeController">
+                    <label class="ui header">
+                        Cap Icon cap {{vairableTemp}}
+                    </label>
+                    <sm-iconpicker style="cursor:pointer;" icon='{{meta_data["cap_icon"]}}'>
+                    </sm-iconpicker>
+                </div>
+            </div>
 		</div>
 	</div>
 

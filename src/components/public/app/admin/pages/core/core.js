@@ -113,15 +113,15 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			image: '',
 			icon: 'unlock alternate',
 			template: 'login',
-			url: '/'
+			url: '/sign/in/'
 		},
 		{
 			title: 'Registration Form',
 			description: 'This is the form your members will use to join your site',
 			image: '',
 			icon: 'add user',
-			template: '',
-			url: '/'
+			template: 'registration',
+			url: '/sign/up/'
 		}
 	];
 

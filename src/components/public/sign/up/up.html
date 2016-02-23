@@ -1,6 +1,6 @@
 <div class="ui short modal"><i class="close icon"></i>
 	<div class="header">
-		Sign up to {{site.name || 'Smart Member'}}
+        {{site_options.signup_for_site_text ? site_options.signup_for_site_text : 'Sign up for'}} {{site.name || 'Smart Member'}}
 	</div>
 
 	<div class="content">
@@ -20,14 +20,14 @@
 							</div>
 						</div>
 						<div class="field">
-							<label>Email</label>
+							<label>{{site_options.login_email_text ? site_options.login_email_text : 'Email'}}</label>
 							<div class="ui left icon input">
 								<input type="email" placeholder="Email" name="email" ng-model="user.email" ng-change="email_taken = false">
 								<i class="fa fa-at icon"></i>
 							</div>
 						</div>
 						<div class="field">
-							<label>Password</label>
+							<label>{{site_options.login_password_text ? site_options.login_password_text : 'Password'}}</label>
 							<div class="ui left icon input">
 								<input type="password" name="password" ng-model="user.password" pattern=".{6,}" required title="minimum 6 characters">
 								<i class="fa fa-lock icon"></i>
@@ -46,7 +46,7 @@
 							</p>
 						</div>
 						<button busy type="submit" class="ui blue submit button">
-							{{site_options.register_button_text ? site_options.register_button_text : 'Sign Up'}}
+                            {{site_options.signup_button_text ? site_options.signup_button_text : 'Sign Up'}}
 						</button>
 					</form>
 				</div>
@@ -56,7 +56,7 @@
 				<div class="center aligned column">
 					<a ui-sref="public.sign.in" class="ui big green labeled icon button">
 						<i class="user icon"></i>
-						Login
+                        {{site_options.login_button_text ? site_options.login_button_text : 'Login'}}
 					</a>
 				</div>
 			</div>
@@ -65,10 +65,10 @@
 	</div>
 	<div class="actions">
 		<div ng-click="CloseExtraState()" class="ui black button">
-			Close
+            {{site_options.login_close_button_text ? site_options.login_close_button_text : 'Close'}}
 		</div>
 		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button" ng-click="CloseModal();">
-			Need help?
+            {{site_options.need_help_text ? site_options.need_help_text : 'Need help?'}}
 			<i class="life ring icon"></i>
 		</a>
 	</div>
