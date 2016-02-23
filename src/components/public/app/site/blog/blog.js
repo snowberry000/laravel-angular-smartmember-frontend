@@ -29,7 +29,7 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
 		edit_route: 'public.app.admin.post',
 		api_object: 'post'
 	}
-
+	$scope.site = $rootScope.site;
 	$scope.paginate = function()
 	{
 			$scope.loading = true;
@@ -79,5 +79,15 @@ app.controller( 'BlogController', function( $scope,$site, $rootScope, $localStor
                 return 'Draft (admin-only)';
                 break;
         }
+    }
+	if ($scope.site.blog_format != undefined || $scope.site.blog_format != '')
+	{
+		$scope.blog_format = $scope.site.blog_format;
+	} else {
+		$scope.blog_format = 'thumbnail';
+	}
+
+    $scope.showFormat = function(format) {
+    	$scope.blog_format = format;
     }
 } );

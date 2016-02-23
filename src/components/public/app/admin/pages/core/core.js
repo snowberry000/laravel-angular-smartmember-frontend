@@ -92,6 +92,22 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			url: '/free-bonus'
 		},
 		{
+			title: 'Support',
+			description: 'This is the support center where users can view your help articles.',
+			image: '',
+			icon: 'life ring',
+			template: 'support',
+			url: '/support'
+		},
+		{
+			title: 'Blog Page',
+			description: 'This page lists your blog posts',
+			image: '',
+			icon: 'edit',
+			template: 'blog',
+			url: '/blog'
+		},
+		{
 			title: 'Login Form',
 			description: 'This is the form your members will use to log into your site',
 			image: '',
@@ -99,14 +115,6 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			template: 'login',
 			url: '/sign/in/'
 		},
-        {
-            title: 'Support',
-            description: 'This is the support center where users can view your help articles.',
-            image: '',
-            icon: 'life ring',
-            template: 'support',
-            url: '/support'
-        },
 		{
 			title: 'Registration Form',
 			description: 'This is the form your members will use to join your site',
