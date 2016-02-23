@@ -27,17 +27,25 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 	{
 		Restangular.one( 'site', 'details' ).get().then(function(response){
 			$rootScope.site=response;
+            if( $rootScope.site ) {
+                $site_options = $rootScope.site.meta_data;
+                $scope.site_options = {};
+                $.each($site_options, function (key, data) {
+                    $scope.site_options[data.key] = data.value;
+                });
+            }
 		});
 	}
-
-	$site = $rootScope.site;
-    if( $rootScope.site ) {
+    else if( $rootScope.site ) {
         $site_options = $rootScope.site.meta_data;
         $scope.site_options = {};
         $.each($site_options, function (key, data) {
             $scope.site_options[data.key] = data.value;
         });
     }
+
+	$site = $rootScope.site;
+
 	//$scope.site_logo = "http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/Smart-Member-Gray-Icon-Text-01.png";
 	$scope.action = 0;
 	$scope.login_type = "facebook";

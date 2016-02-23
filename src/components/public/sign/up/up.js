@@ -21,8 +21,23 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	{
 		Restangular.one( 'site', 'details' ).get().then(function(response){
 			$rootScope.site=response;
+
+            if( $rootScope.site ) {
+                $site_options = $rootScope.site.meta_data;
+                $scope.site_options = {};
+                $.each($site_options, function (key, data) {
+                    $scope.site_options[data.key] = data.value;
+                });
+            }
 		});
 	}
+    else if( $rootScope.site ) {
+        $site_options = $rootScope.site.meta_data;
+        $scope.site_options = {};
+        $.each($site_options, function (key, data) {
+            $scope.site_options[data.key] = data.value;
+        });
+    }
 
 	$scope.message = '';
 	$scope.site_logo = "http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/Smart-Member-Gray-Icon-Text-01.png";
