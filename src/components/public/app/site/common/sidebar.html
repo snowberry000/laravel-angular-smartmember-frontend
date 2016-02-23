@@ -17,6 +17,6 @@
         </span>
     </div>
 </span>
-<div class="ui centered ad m-b-md" ng-repeat="widget in widgets">
+<div class="ui centered ad m-b-md" ng-repeat="widget in widgets" ng-if="showWidget( widget )">
     <div ng-if="widget.type" ng-include="'/templates/components/widgets/' + widget.type + '/public.html'" ng-init="display_widget = widget"></div>
 </div>

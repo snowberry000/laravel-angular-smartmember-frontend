@@ -27,20 +27,28 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
             $scope.searching = true;
             $scope.loading = true;
 
-            Restangular.all('supportArticle?bypass_paging=true&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
+            Restangular.all('supportArticle?bypass_paging=true&status=published&view=admin&site_id=' + $rootScope.site.id + '&q=' + encodeURIComponent( query ) ).customGET().then(function (response) {
                 $scope.search_results = response.items;
                 $scope.loading = false;
             });
         }
     }
 
-	Restangular.one( 'articleByPermalink', $stateParams.permalink ).get().then( function( response )
+    $rootScope.$watch( 'articles_query', function( newVal, oldVal ) {
+        $scope.search( newVal );
+    } );
+
+	Restangular.one( 'articleByPermalink', $stateParams.permalink ).get({status: 'published'}).then( function( response )
 	{
 		$article = response;
 		$scope.loading = false;
 		$scope.article = $article;
 		$scope.next_item = $scope.article;
         $rootScope.setSocialShareForContent( $scope.next_item );
+
+        $rootScope.widget_target_type = 'article';
+        $rootScope.widget_target = $scope.next_item.id;
+
 		$scope.next_item.content_type = 'helpdesk.article';
 		$scope.next_item.access = true;
 		$scope.next_item.breadcrumb = true;
@@ -59,5 +67,18 @@ app.controller( 'PublicSupportArticleController', function( $scope, $rootScope, 
         }
 
         return '<a class="section" href="/support">Support</a>' + final_link + ' <i class="right angle icon divider"></i> <div class="active section">' + next_item.title + "</div>";
+    }
+
+    $scope.totalChildren = function( next_item ) {
+        count = 0;
+
+        angular.forEach( next_item.articles, function( value, key ) {
+            count++;
+
+            if( value.articles )
+                count = count + $scope.totalChildren( value );
+        } );
+
+        return count;
     }
 } );

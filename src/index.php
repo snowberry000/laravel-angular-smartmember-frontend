@@ -18,7 +18,7 @@ $data = DetectAndPerformBridgePageThings();
 
 	<!-- <title>{{page_title ? page_title : 'Loading'}} </title> -->
 	<title ng-bind="page_title">Loading</title>
-	<meta name="description" content="">
+	<?php if( !empty( $data ) ) PrintUserTrackingScript( $data, 'fb_share_description' ); ?>
 
 	<!-- <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css"> -->
 	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
@@ -83,7 +83,6 @@ $data = DetectAndPerformBridgePageThings();
 <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script> -->
 <!--<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js'></script>-->
 <script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>
-<script type="text/javascript" src="http://zor.livefyre.com/wjs/v3.0/javascripts/livefyre.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
 <script src="js/main.min.js"></script>
 </body>

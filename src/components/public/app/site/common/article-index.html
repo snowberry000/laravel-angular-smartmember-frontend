@@ -1,77 +1,69 @@
-<div class="ui top attached section_background_color" ng-if="next_item.breadcrumb" style="margin-bottom:0;">
-    <span dynamic="breadCrumbParent( next_item )"></span>
+<div class="ui basic segment section_background_color center aligned p-none" ng-if="next_item.breadcrumb">
+	<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
 </div>
-<div class="ui top attached section_background_color">
-    <div class="ui form">
-        <div class="form">
-            <input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }" class="support-article-search" />
+
+<div class="ui basic segment">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
+	<h1 class="ui center aligned header headline_text_color" ng-if="!searching" sui-popup data-stateAttributes='{"id":{{next_item.id}} }' data-edit="{{site.is_admin && next_item.id ? true : false}}" data-state="public.app.admin.helpdesk.article">
+		{{next_item.title}}
+	</h1>
+	<h1 class="ui center aligned header headline_text_color" ng-if="searching">
+		Search results for "{{query}}"
+	</h1>
+    <div class="ui form text-center" ng-if="app.subdomain != 'docs'">
+        <div class="ui large icon input">
+            <input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
+            <i class="search icon"></i>
         </div>
     </div>
 </div>
-<h2 class="ui top attached header section_background_color" style="{{next_item.breadcrumb ? 'margin-top: 5px;' : ''}}" ng-if="!searching">
-    {{next_item.title}}
-</h2>
-<h2 class="ui top attached header section_background_color" style="{{next_item.breadcrumb ? 'margin-top: 5px;' : ''}}" ng-if="searching">
-    Search results for "{{query}}"
-</h2>
+
 <div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="!searching && ( loading || next_item.featured_image || next_item.embed_content )">
 
-    <div class="ui active inverted dimmer" ng-if="loading">
-        <div class="ui text loader">Loading</div>
-    </div>
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image &&next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
 
-    <div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image &&next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !(next_item.featured_image &&next_item.always_show_featured_image)" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" sui-embed></div>
 
-    <div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !(next_item.featured_image &&next_item.always_show_featured_image)" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}"  sui-embed></div>
+	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content" class="fr-view">
 
-    <div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content" class="fr-view">
+	</div>
 
-    </div>
+	<img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && (!next_item.embed_content && next_item.always_show_featured_image == 1)">
 
-    <img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && (!next_item.embed_content && next_item.always_show_featured_image == 1)">
-
-    <div ng-if="!next_item.access && !loading">
-        <a class="ui fluid image" ng-if="next_item.access_level.information_url" ng-href="{{next_item.access_level.information_url}}">
-            <img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
-        </a>
-        <a href="#" class="ui fluid image" ng-click="showNoAccessLogin()" ng-if="!next_item.access_level.information_url">
-            <img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
-        </a>
-    </div>
+	<div ng-if="!next_item.access && !loading">
+		<a class="ui fluid image" ng-if="next_item.access_level.information_url" ng-href="{{next_item.access_level.information_url}}">
+			<img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+		</a>
+		<a href="#" class="ui fluid image" ng-click="showNoAccessLogin()" ng-if="!next_item.access_level.information_url">
+			<img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+		</a>
+	</div>
 </div>
 
 <div class="ui attached clearing padded segment section_background_color text-left" ng-if="next_item.content && !searching">
-    <div dynamic="next_item.content" ng-if="next_item.content" class="fr-view"></div>
+	<div dynamic="next_item.content" ng-if="next_item.content" class="fr-view"></div>
 </div>
 
-<div class="ui grid support-articles" ng-if="!searching">
-    <div class="eight wide column" ng-repeat="article in next_item.articles">
-        <a class="" href="/{{article.permalink}}">
-            <div class="content">
-                <div class="header">{{article.title}}</div>
-            </div>
-            <div class="description" style="">
-                {{article.content | cut:true:200:' ...'}}
-            </div>
-        </a>
-    </div>
-</div>
+<div sm-class="'ui ' + (!searching ? 'two' : 'one') + ' column relaxed celled grid section_background_color'">
+	<div class="column" ng-repeat="(key,article) in ( !searching ? next_item.articles : search_results )">
 
-<div class="ui grid support-articles" ng-if="searching">
-    <div class="ui active inverted dimmer" ng-if="loading">
-        <div class="ui text loader">Loading</div>
-    </div>
-    <div class="twelve wide column" ng-repeat="article in search_results">
-        <a class="" href="/{{article.permalink}}">
-            <div class="content">
-                <div class="header">{{article.title}}</div>
-            </div>
-            <div class="description">
-                {{article.content | cut:true:200:' ...'}}
-            </div>
-        </a>
-    </div>
-    <div class="ui info message twelve wide column no-results" ng-if="!search_results || search_results.length == 0">
-        No articles matched your query.
-    </div>
+		<div class="ui fitted divider" ng-if="key > 1"></div>
+
+		<div class="ui items">
+			<a class="item" href="/{{article.permalink}}" sui-popup data-stateAttributes='{"id":{{article.id}} }' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.helpdesk.article">
+				<div class="middle aligned content">
+					<div class="header">{{article.title}}</div>
+					<div class="description" ng-if="article.content">
+						{{article.content | cut:true:200:' ...'}}
+					</div>
+					<div class="description" ng-if="article.display == 'article-index' && article.articles">
+						{{totalChildren( article )}} articles
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
 </div>

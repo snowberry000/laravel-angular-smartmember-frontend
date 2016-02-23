@@ -1,0 +1,42 @@
+<div class="ui modal"><i class="close icon"></i>
+    <div class="header">
+        <i class="setting icon"></i>
+        Support
+    </div>
+    <div class="content">
+        <div class="description">
+
+			<div class="ui  message">
+				<p>This is the support center for your site where your help articles are displayed.</p>
+			</div>
+
+            <h3 class="ui horizontal divider header">
+                <i class="setting icon"></i>
+                Settings
+            </h3>
+
+            <div class="ui segment form">
+                <div class="field">
+                    <label>Title</label>
+
+					<input type="text" ng-model="site_options.support_title" />
+
+                </div>
+
+				<div class="ui compact info message">
+					<p>By default the title will be <strong>Support</strong></p>
+				</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <div ui-sref="public.app.admin.pages.core.list" class="ui black deny button close" ng-click="cancel()">
+            Back
+        </div>
+        <button ng-click="save()" class="ui right labeled icon green button">
+            Save changes
+            <i class="check icon"></i>
+        </button>
+    </div>
+</div>

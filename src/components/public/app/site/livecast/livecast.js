@@ -21,6 +21,8 @@ app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stat
         $scope.loading=false;
         $scope.next_item = $livecast;
         $rootScope.setSocialShareForContent( $scope.next_item );
+        $rootScope.widget_target_type = 'livecast';
+        $rootScope.widget_target = $scope.next_item.id;
         $rootScope.page_title = $livecast.title || $rootScope.page_title;
         Restangular.all('').customGET('comment?target_id='+$scope.next_item.id+'&type='+5).then(function(comments){
                $scope.next_item.comments = _.toArray(comments.comments)

@@ -1,129 +1,31 @@
 <div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="paragraph icon"></i>
+		{{ page_title | translate }}
+	</div>
 	<div class="content">
-		<div class="row">
-			<div class="col-md-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
-				<div class="hpanel">
-
-					<div class="panel-body">
-
-						<form method="get" class="ui form save_form">
-							<div class="field">
-							    <h3 class="col-sm-4 col-sm-offset-2 control-label">{{page_title}}</h3>
-							</div>
-							<div class="field">
-								<label class="col-sm-2 control-label">Article Title</label>
-
-								<div class="col-sm-10">
-									<input type="text" name="title" class="form-control input-lg" ng-model="article.title" ng-blur="onBlurTitle($event)">
-									<span class="help-block m-b-none">
-										This is the name for your article - it's what you and customers will see
-										to distinguish one article from another.
-									</span>
-								</div>
-							</div>
-							<div class="hr-line-dashed"></div>
-							<div class="field">
-								<label class="col-sm-2 control-label">Permalink</label>
-
-								<div class="col-sm-10">
-									<input type="text" name="permalink" class="form-control input-lg" ng-model="article.permalink" ng-blur="onBlurSlug($event)">
-									<span class="help-block m-b-none">
-										This is the unique Url for your article.
-									</span>
-								</div>
-							</div>
-							<div class="hr-line-dashed"></div>
-							<div class="field" ng-if="available_articles && available_articles.length != 0">
-								<label class="col-sm-2 control-label">Parent Article</label>
-								<div class="col-sm-10">
-									<div class="col-md-8">
-										<select style="margin-bottom:10px;" type="text" name="category" class="ui dropdown" ng-model="article.parent_id">
-                                            <option value="0">No parent</option>
-                                            <option ng-repeat="parent_article in available_articles | filter: article.id ? {id: '!' + article.id} : {}" value="{{parent_article.id}}" ng-selected="parseInt( article.parent_id ) == parseInt( parent_article.id )">{{parent_article.title}}</option>
-										</select>
-									</div>
-								</div>
-							</div>
-                            <div class="field">
-                                <label class="col-sm-2 control-label">Display Mode</label>
-                                <div class="col-sm-10">
-                                    <div class="col-md-8">
-                                        <select style="margin-bottom:10px;" type="text" name="category" class="ui dropdown" ng-model="article.display">
-                                            <option value="default">Individual Article</option>
-                                            <option value="article-index">Article Index</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="hr-line-dashed"></div>
-							<div class="field">
-								<label class="col-sm-2 control-label">Article Content</label>
-
-								<div class="col-sm-10">
-                                    <textarea froala ng-model="article.content"></textarea>
-									<span class="help-block m-b-none">
-									</span>
-								</div>
-							</div>
-							<div class="hr-line-dashed"></div>
-							<div class="field">
-								<label class="col-sm-2 control-label">Video / Embed Content</label>
-
-								<div class="col-sm-10">
-									<textarea name="embed_content" class="form-control input-lg" ng-model="article.embed_content"></textarea>
-									<span class="help-block m-b-none">
-									</span>
-								</div>
-							</div>
-							<div class="hr-line-dashed"></div>
-							<div class="field">
-                                <label class="col-sm-2 control-label">Featured Image</label>
-                                <div class="col-sm-10">
-                                    <button class="ui button" type="button"
-                                            sm-uploader="featured_image" ng-model="article.featured_image">Choose Featured Image</button>
-                                    <div class="width-100 set_featured_image">
-                                        <img class="featured_image_preview img-responsive img-thumbnail" ng-src="{{article.featured_image}}" ng-show="article.featured_image" style="width:auto;" />
-                                    </div>
-                                    <input type="hidden" name="featured_image" class="form-control input-lg" ng-model="article.featured_image">
-									<span class="help-block m-b-none">
-										This is the featured image for your article, it is used as the image when sharing on social sites such as Facebook.
-
-									</span>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="field">
-                                <label class="col-md-12">
-                                    <div class="col-md-1 col-md-offset-2">
-                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" name="show_comments"
-                                           ng-model="article.always_show_featured_image"
-                                           ng-checked="article.always_show_featured_image"/>
-                                    </div>
-                                    <div class="col-md-9">
-                                        Show featured image on individual article
-                                    </div>
-                                </label>
-                            </div>
-							<div class="hr-line-dashed"></div>
-							<div class="field">
-								<div class="col-sm-8 col-sm-offset-2">
-									
-								</div>
-							</div>
-						</form>
-
-					</div>
-
-				</div>
+		<div class="description">
+			<div class="ui top attached tabular menu" sui-tabs>
+				<a class="item active" data-tab="one">Main Content</a>
+				<a class="item" data-tab="two">Media</a>
 			</div>
-
+			<div class="ui bottom attached tab segment active" data-tab="one">
+				<div ng-include="'templates/components/public/app/admin/helpdesk/article/content.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="two">
+				<div ng-include="'templates/components/public/app/admin/helpdesk/article/media.html'"></div>
+			</div>
 		</div>
 	</div>
 	<div class="actions">
 		<a ui-sref="public.app.admin.helpdesk.articles" class="ui black button">
 			Cancel
 		</a>
-		<a ng-click="save()" class="ui right labeled green icon button">
+        <a ng-click="saveAsDraft()" ng-if="article.status != 'published'" class="ui right labeled gray icon button">
+            Save as Draft
+            <i class="save icon"></i>
+        </a>
+		<a ng-click="publish()" class="ui right labeled green icon button">
 			Publish
 			<i class="check icon"></i>
 		</a>

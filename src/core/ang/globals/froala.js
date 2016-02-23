@@ -22,10 +22,31 @@ app.value('froalaConfig', {
     toolbarButtons: [
                         'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|', 
                         'color', '|', 
-                        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote', 
+                        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote',
                         'paragraphFormat', 'align', 'formatOL', 'formatUL', 'insertHR','undo', 'redo', 'clearFormatting', 'selectAll', 'html',
 
                     ],
+    toolbarButtonsMD: [
+        'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|',
+        'color', '|',
+        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote',
+        'paragraphFormat', 'align', 'formatOL', 'formatUL', 'insertHR','undo', 'redo', 'clearFormatting', 'selectAll', 'html',
+
+    ],
+    toolbarButtonsSM: [
+        'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|',
+        'color', '|',
+        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote',
+        'paragraphFormat', 'align', 'formatOL', 'formatUL', 'insertHR','undo', 'redo', 'clearFormatting', 'selectAll', 'html',
+
+    ],
+    toolbarButtonsXS: [
+        'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'superscript', 'fontFamily', 'fontSize', '|',
+        'color', '|',
+        'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'quote',
+        'paragraphFormat', 'align', 'formatOL', 'formatUL', 'insertHR','undo', 'redo', 'clearFormatting', 'selectAll', 'html',
+
+    ],
     imageUploadURL: (function(){
         var domainParts = location.host.split( '.' );
 
@@ -49,7 +70,13 @@ app.value('froalaConfig', {
             var domain = domainParts.pop() + "." + env;
         }
 
-        var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
+        non_https_tld = [
+            'soy',
+            'dev',
+            'in',
+        ];
+
+        var apiURL = "http" + (non_https_tld.indexOf(env) == -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
         return apiURL + '/utility/upload';
     })(),
@@ -77,7 +104,13 @@ app.value('froalaConfig', {
             var domain = domainParts.pop() + "." + env;
         }
 
-        var apiURL = "http" + (env == 'site' || env == 'com' || env == 'org' || env == 'info' ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
+        non_https_tld = [
+            'soy',
+            'dev',
+            'in',
+        ];
+
+        var apiURL = "http" + (non_https_tld.indexOf(env) == -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
         return apiURL + '/utility/upload';
     })(),

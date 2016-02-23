@@ -47,6 +47,9 @@ app.controller( 'PostCategoryController', function( $scope,$site, $rootScope, $l
             $scope.pagination.total_count = data.total_count;
             $scope.data = Restangular.restangularizeCollection( null, data.items, $scope.template_data.api_object );
             $scope.category = data.category;
+
+            $rootScope.widget_target_type = 'category';
+            $rootScope.widget_target = $scope.category.id;
         } );
 	}
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
@@ -56,6 +59,15 @@ app.controller( 'PostCategoryController', function( $scope,$site, $rootScope, $l
 			$scope.paginate();
 		}
 	} );
+	if ($scope.site.blog_format != undefined || $scope.site.blog_format != '')
+	{
+		$scope.blog_format = $scope.site.blog_format;
+	} else {
+		$scope.blog_format = 'thumbnail';
+	}
 
+	$scope.showFormat = function(format) {
+		$scope.blog_format = format;
+	}
 	$scope.paginate();
 } );

@@ -1,0 +1,44 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="edit icon"></i>
+		Blog Settings
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui  message">
+				<p>This page lists your blog posts</p>
+			</div>
+
+			<h3 class="ui horizontal divider header">
+				<i class="setting icon"></i>
+				Settings
+			</h3>
+
+			<div class="ui segment form">
+
+				<div class="field">
+					<label>Default Blog View</label>
+
+					<div class="radio">
+						<label><input type="radio" ng-model='site.blog_format' value='list'>List View</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" ng-model='site.blog_format' value='thumbnail'>Thumbnail view</label>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="actions">
+		<div ui-sref="public.app.admin.pages.core.list" class="ui black deny button close" ng-click="cancel()">
+			Back
+		</div>
+		<button busy ng-click="save()" class="ui right labeled icon green button">
+			Save changes
+			<i class="check icon"></i>
+		</button>
+	</div>
+</div>

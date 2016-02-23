@@ -120,5 +120,7 @@ app.controller('unsubscribeController', function ($location, notify, $state, $sc
         });
     }
 
-
+    $scope.close = function(){
+        $rootScope.CloseExtraState();
+    }
 });

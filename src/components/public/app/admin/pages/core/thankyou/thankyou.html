@@ -1,0 +1,57 @@
+<div class="ui modal">
+    <i class="close icon"></i>
+
+    <div class="header">
+        <i class="paragraph icon"></i>
+        {{ template_data.title | translate }}
+    </div>
+    <div class="content">
+        <div class="card clearfix content_post" style="margin:10px">
+            <div class="ui checkbox" ng-model="site_options.thankyou_use_custom" truevalue="1" falsevalue="0" sui-checkbox>
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label> Use Customized settings on Thank you page!</label>
+            </div>
+        </div>
+        <span  style="margin-left:10px">Disable default thank you page to see custom settings!</span>
+        <div class="card clearfix content_post" style="margin:10px" >
+            <h4 class="ui header">Title</h4>
+            <div class="field">
+                <div class="col-sm-8">
+                    <input type="text" class="form-control input-lg" ng-model="site_options.thankyou_title">
+                </div>
+            </div>
+        </div>
+        <div class="card clearfix content_post"  style="margin:10px">
+            <h4 class="ui header">Content</h4>
+            <div class="field">
+                <div class="col-sm-8">
+                    <textarea froala ng-model="site_options.thankyou_content"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="card clearfix content_post"  style="margin:10px">
+            <h4>Upload Thank you image</h4>
+            <button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.thankyou_image">
+                <i class="upload icon"></i>
+                Choose File
+            </button>
+            <button ng-if="site_options.thankyou_image" class="ui left labeled icon button" ng-click="site_options.thankyou_image = ''">
+                Clear
+                <i class="remove icon"></i>
+            </button>
+            <div ng-if="site_options.thankyou_image" style="margin:10px">
+                <img class="ui large image" ng-src="{{site_options.thankyou_image}}" style="max-width:100%;">
+            </div>
+            <span  style="margin-left:10px">Site logo will be displayed by default if no image is uploaded</span>
+        </div>
+    </div>
+    <div class="actions">
+        <div ng-click="saveSettings()" class="ui right labeled icon button">
+           Save changes
+            <i class="checkmark icon"></i>
+        </div>
+        <div ui-sref="public.app.admin.pages.core.list" class="ui black deny button close">
+            Close
+        </div>
+    </div>
+</div>

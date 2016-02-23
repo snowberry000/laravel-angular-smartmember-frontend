@@ -38,20 +38,12 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 		$scope.recent_tickets = $ticket.recent_tickets;
 		$scope.statuses = [
 			{ value: "Open", id: "open" },
-			{ value: "Pending", id: "pending" },
-			{ value: "Solved", id: "solved" },
-			{ value: "Spam", id: "spam" },
+			{ value: "Closed", id: "closed" },
 		]
 
 
 		$scope.reply = { parent_id: $scope.ticket.id, company_id: $scope.ticket.company_id };
 		$scope.send_email = false;
-		if ($scope.ticket.status == 'open')
-		{
-			$scope.change_ticket_status = 'pending';
-		} else {
-			$scope.change_ticket_status = $scope.ticket.status;
-		}
 
 
 		Restangular.all( '' ).customGET( 'supportAgents', { site_id: $scope.ticket.site_id } ).then( function( data )
@@ -228,17 +220,14 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 		}
 	}
 
-	$scope.changeStatus = function()
+	$scope.changeStatus = function( status )
 	{
-		if( $scope.ticket.status == 'open' )
-		{
-			$scope.ticket.status = 'pending';
-		}
-		if( $scope.ticket.agent_id == 0 )
-		{
-			$scope.ticket.agent_id = $user.id;
-			$scope.ticket.agent = $user;
-		}
+		$scope.ticket.status = status;
+        Restangular.one( 'supportTicket', $scope.ticket.id ).put( {
+            'status': status
+        }).then(function(response){
+            toastr.success( "Ticket status changed to " + status );
+        });
 	}
 
 	$scope.formatDate = function( inputDate )
@@ -302,47 +291,8 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 					$scope.display_replies.push( response );
 					$scope.reply = { parent_id: $scope.ticket.id, company_id: $scope.ticket.company_id };
 					$scope.send_email = !$scope.send_email;
-					$scope.statusChange();
 				} );
 			}
-			else
-			{
-				$scope.statusChange();
-			}
-		}
-	}
-
-	$scope.statusChange = function()
-	{
-		if( $scope.change_ticket_status != $scope.ticket.status )
-		{
-			//$scope.send_email = $scope.change_ticket_status != $scope.ticket.status;
-			$scope.previous_ticket_status = $scope.ticket.status;
-			$scope.ticket.status = $scope.change_ticket_status;
-			Restangular.one( 'supportTicket', $scope.ticket.id ).put( {
-				'status': $scope.ticket.status,
-				'read': 1,
-				'send_email': $scope.send_email
-			} ).then( function( response )
-			{		
-				Restangular.all( '' ).customGET('ticketCount').then( function( data )
-				{
-					$rootScope.site.unread_support_ticket=data;
-				});
-
-				toastr.success( "Ticket status changed!" );
-
-				var action = {
-					modified_attribute: 'status',
-					user: $user,
-					new_value: $scope.ticket.status,
-					old_value: $scope.previous_ticket_status,
-					created_at: response.created_at
-				};
-
-				$scope.display_replies.push( action );
-			} )
-			$scope.send_email = false;
 		}
 	}
 
@@ -372,11 +322,15 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 	$scope.assignToSMTech = function()
 	{
 		Restangular.one( 'supportTicket', $scope.ticket.id ).put( {
-			'escalated_site_id': 2056
+			'escalated_site_id': 2056,
+            'agent_id': '0'
 		} ).then( function( response )
 		{
             $scope.ticket.escalated_site_id = 2056;
+            $scope.ticket.agent_id = 0;
+            $scope.ticket.agent = null;
 			$scope.ticket.sm_tech = true;
+            $scope.ticket.sm_marketing = false;
 			toastr.success( "Ticket assigned to SM Tech team" );
 		} )
 	}
@@ -384,11 +338,15 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
     $scope.assignToSMMarketing = function()
 	{
 		Restangular.one( 'supportTicket', $scope.ticket.id ).put( {
-			'escalated_site_id': 6325
+			'escalated_site_id': 6325,
+            'agent_id': '0'
 		} ).then( function( response )
 		{
             $scope.ticket.escalated_site_id = 6325;
+            $scope.ticket.agent_id = 0;
+            $scope.ticket.agent = null;
 			$scope.ticket.sm_marketing = true;
+            $scope.ticket.sm_tech = false;
 			toastr.success( "Ticket assigned to SM Marketing team" );
 		} )
 	}

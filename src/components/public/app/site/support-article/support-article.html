@@ -1,2 +1,5 @@
 <div ng-if="article.display != 'article-index'" class="twelve wide column" ng-include="'templates/components/public/app/site/common/show-content.html'"></div>
 <div ng-if="article.display == 'article-index'" class="twelve wide column" ng-include="'templates/components/public/app/site/common/article-index.html'"></div>
+<div class="four wide column" ng-if="displaySidebar()">
+    <div ng-include="'templates/components/public/app/site/common/sidebar.html'"></div>
+</div>

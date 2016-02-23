@@ -1,4 +1,7 @@
 
+<div class="ui basic segment section_background_color center aligned p-none" ng-if="next_item.breadcrumb">
+	<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
+</div>
 
 
 <div class="ui basic segment">
@@ -7,23 +10,20 @@
 		<div class="ui text loader">Loading</div>
 	</div>
 
-	<h1 class="ui center aligned header headline_text_color">
+	<h1 class="ui center aligned header headline_text_color" sui-popup data-stateAttributes='{"id":{{next_item.id}} }' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}">
 		{{next_item.title}}
 
-		<div class="ui fitted clearing hidden divider" ng-if="next_item.breadcrumb"></div>
-		<div class="ui breadcrumb" ng-if="next_item.breadcrumb" dynamic="breadCrumbParent( next_item )">
-		</div>
 	</h1>
 </div>
 <div class="ui attached clearing segment section_background_color" ng-if="next_item.categories && next_item.categories.length > 0">
     <label>Categories: </label>
     <a href="/{{category.permalink}}" ng-repeat="category in next_item.categories">{{category.title + ( $index < $parent.next_item.categories.length - 1 ? ', ' : '')}}</a>
 </div>
-<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="!loading && (next_item.featured_image || next_item.embed_content || !next_item.access)">
+<div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="!loading && ((next_item.featured_image && next_item.always_show_featured_image) || next_item.embed_content || !next_item.access)">
 
-	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image &&next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image && next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
 
-	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !(next_item.featured_image &&next_item.always_show_featured_image)" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}"  sui-embed></div>
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !(next_item.featured_image && next_item.always_show_featured_image)" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}"  sui-embed></div>
 
 	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content" class="fr-view">
 
@@ -68,6 +68,7 @@
 </div>
 <div class="ui attached clearing padded segment section_background_color text-left" ng-if="(next_item.showTranscript) || (next_item.content && (next_item.show_content_publicly || next_item.access)) || (next_item.description)">
 
+
 	<div ng-show="next_item.showTranscript" class="transcript_stuff" style="padding: 15px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px; border-radius: 4px; display: block;">
 		<h4 class="text-left">Transcript:</h4>
 		<p style="line-height: 24px;">
@@ -78,6 +79,12 @@
 	<div dynamic="next_item.content" ng-if="next_item.content && (next_item.show_content_publicly || next_item.access)" class="fr-view"></div>
 
 	<p ng-if="next_item.description">{{next_item.description}}</p>
+
+    <div ng-if="next_item.articles && next_item.articles.length > 0" class="ui basic segment p-none" ng-repeat="next_item2 in next_item.articles">
+        <h2 class="ui header">{{next_item2.title}}</h2>
+
+        <div dynamic="next_item2.content"></div>
+    </div>
 
 </div>
 <h3 class="ui attached header" ng-if="next_item.discussion_settings.show_comments">

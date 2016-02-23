@@ -46,8 +46,16 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			description: 'This is your sites "checkout" page, allowing your products to be purchased',
 			image: '',
 			icon: 'shop',
-			template: '',
+			template: 'checkout',
 			url: '/checkout/{product id}'
+		},
+		{
+			title: 'Thank You Page',
+			description: 'This is your sites "Thank you" page, showing after your customers buy your products',
+			image: '',
+			icon: 'smile',
+			template: 'thankyou',
+			url: '/thank-you'
 		},
 		{
 			title: 'Download Center',
@@ -82,6 +90,22 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			icon: 'gift',
 			template: 'freebie',
 			url: '/free-bonus'
+		},
+		{
+			title: 'Support',
+			description: 'This is the support center where users can view your help articles.',
+			image: '',
+			icon: 'life ring',
+			template: 'support',
+			url: '/support'
+		},
+		{
+			title: 'Blog Page',
+			description: 'This page lists your blog posts',
+			image: '',
+			icon: 'edit',
+			template: 'blog',
+			url: '/blog'
 		},
 		{
 			title: 'Login Form',

@@ -22,14 +22,20 @@
 		<div class="ui very relaxed divided ordered list" ng-if="blog_format=='list'">
 			<div style="height: 1px;"></div>
 			<div class="item" dir-paginate="post in data | filter: query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page" style=" {{ $index==0 ? 'border: 0px' : ''}}">
-				
+				<div class="left floated" ng-if="post.featured_image && post.featured_image != ''" style="background: url('{{post.featured_image}}') no-repeat scroll center center; background-size: cover; width: 150px; height: 150px;">
+
+				</div>
 				<div class="content">
 					<a class="header" ng-href="/post/{{post.permalink}}">{{post.title}}</a>
 				</div>
 				<div class="extra content">
 					<div class="left floated">
 						<i class="fa fa-clock-o"></i>
-						posted {{moment.utc(post.created_at).fromNow()}}
+						Posted {{moment.utc(post.created_at).fromNow()}}
+						<span ng-if="post.categories">
+						<i class="fa fa-folder"></i>
+						In <span ng-repeat="category in post.categories"><a href="/{{category.permalink}}">{{category.title}}</a>{{$last ? '' : ', '}}</span>
+						</span>
 					</div>
 					<div class="right floated author">
 						<img class="ui avatar image" src="{{post.users.profile_image}}" ng-if="post.users.profile_image.length > 0">
@@ -40,6 +46,9 @@
 						<i class="fa fa-lock icon" style="display: none" sm-access="view_restricted_content" if-not="show" level="post.access_level_id" type="{{post.access_level_id}}"></i>
 						{{accessLabel(post.acccess_level_type, post.access_level_id, post)}}
 					</span>
+				</div>
+				<div class="excerpt">
+					{{post.content | cut:true:200:' ...' }}
 				</div>
 			</div>
 		</div>
@@ -74,10 +83,7 @@
 	<div class="blog_pagination">
 		<dir-pagination-controls max-size="5"></dir-pagination-controls>
 	</div>
-
 </div>
-<div class="four wide column">
-
+<div class="four wide column" ng-if="displaySidebar()">
 	<div ng-include="'templates/components/public/app/site/common/sidebar.html'"></div>
-
 </div>
