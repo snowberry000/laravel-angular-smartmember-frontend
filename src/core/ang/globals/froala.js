@@ -70,21 +70,13 @@ app.value('froalaConfig', {
             var domain = domainParts.pop() + "." + env;
         }
 
-        allowed_tlds = [
-            'site',
-            'com',
-            'org',
-            'info',
-            'co',
-            'net',
-            'biz',
-            'us',
-            'club',
-            'uk',
-            'ca'
+        non_https_tld = [
+            'soy',
+            'dev',
+            'in',
         ];
 
-        var apiURL = "http" + (allowed_tlds.indexOf(env) != -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
+        var apiURL = "http" + (non_https_tld.indexOf(env) == -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
         return apiURL + '/utility/upload';
     })(),
@@ -112,21 +104,13 @@ app.value('froalaConfig', {
             var domain = domainParts.pop() + "." + env;
         }
 
-        allowed_tlds = [
-            'site',
-            'com',
-            'org',
-            'info',
-            'co',
-            'net',
-            'biz',
-            'us',
-            'club',
-            'uk',
-            'ca'
+        non_https_tld = [
+            'soy',
+            'dev',
+            'in',
         ];
 
-        var apiURL = "http" + (allowed_tlds.indexOf(env) != -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
+        var apiURL = "http" + (non_https_tld.indexOf(env) == -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
         return apiURL + '/utility/upload';
     })(),
