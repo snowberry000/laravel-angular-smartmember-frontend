@@ -1,7 +1,7 @@
 <div class="ui short modal">
 	<i class="close icon"></i>
 	<div class="header">
-		Login to {{site.name || 'Smart Member'}}
+		{{site_options.login_to_site_text ? site_options.login_to_site_text : 'Login to'}} {{site.name || 'Smart Member'}}
 	</div>
 	<div class="content">
 		<div class="description relative">
@@ -36,20 +36,20 @@
 
 					<form class="ui form" ng-submit="login()">
 						<div class="field">
-							<label>Email</label>
+							<label>{{site_options.login_email_text ? site_options.login_email_text : 'Email'}}</label>
 							<div class="ui left icon input">
 								<input type="email" placeholder="Email" ng-model="user.email">
 								<i class="fa fa-at icon"></i>
 							</div>
 						</div>
 						<div class="field">
-							<label>Password</label>
+                            <label>{{site_options.login_password_text ? site_options.login_password_text : 'Password'}}</label>
 							<div class="ui left icon input">
 								<input type="password" ng-model="user.password"  pattern=".{6,}" required title="minimum 6 characters are required">
 								<i class="fa fa-lock icon"></i>
 							</div>
 						</div>
-						<button busy type="submit" class="ui green submit button" ng-disabled="!user.email || !user.password">Login</button>
+						<button busy type="submit" class="ui green submit button" ng-disabled="!user.email || !user.password">{{site_options.login_button_text ? site_options.login_button_text : 'Login'}}</button>
 					</form>
 				</div>
 				<div class="ui vertical divider" ng-hide="site_options.hide_sign_up_button">
@@ -58,11 +58,11 @@
 				<div class="center aligned column">
 					<a ng-if="site_options.create_account_url" ng-href="{{site_options.create_account_url}}" class="close ui big blue labeled icon button">
 						<i class="edit icon"></i>
-						Sign Up
+						{{site_options.signup_button_text ? site_options.signup_button_text : 'Sign Up'}}
 					</a>
 					<a ng-hide="site_options.hide_sign_up_button" ng-if="!site_options.create_account_url" ui-sref="public.sign.up" class="ui big blue labeled icon button">
 						<i class="edit icon"></i>
-						Sign Up
+						{{site_options.signup_button_text ? site_options.signup_button_text : 'Sign Up'}}
 					</a>
 				</div>
 			</div>
@@ -71,14 +71,14 @@
 	</div>
 	<div class="actions">
 		<div ng-click="CloseExtraState()" class="ui black button">
-			Close
+            {{site_options.login_close_button_text ? site_options.login_close_button_text : 'Close'}}
 		</div>
 		<a ui-sref="public.sign.forgot" class="ui labeled icon button">
-			Forgot password?
+			{{site_options.forgot_password_text ? site_options.forgot_password_text : 'Forgot password?'}}
 			<i class="lock icon"></i>
 		</a>
 		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
-			Need help?
+			{{site_options.need_help_text ? site_options.need_help_text : 'Need help?'}}
 			<i class="life ring icon"></i>
 		</a>
 	</div>

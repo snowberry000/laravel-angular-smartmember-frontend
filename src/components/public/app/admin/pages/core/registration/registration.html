@@ -2,32 +2,13 @@
     <i class="close icon"></i>
 
     <div class="header">
-        <i class="paragraph icon"></i>
-        Login Page Settings
+        <i class="add user icon"></i>
+        Registration Page Settings
     </div>
     <div class="content">
         <div class="description">
             <div class="ui message">
                 <p>These settings are for your site's log in page.</p>
-            </div>
-
-            <h3 class="ui horizontal divider header">
-                <i class="setting icon"></i>
-                Settings
-            </h3>
-            <div class="ui segment form">
-                <div class="field">
-                    <label>Create Account URL</label>
-                    <a ng-model="site_options" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{ site_options.create_account_url || 'Select url' }}
-                    </a>
-                    <div class="ui info message">
-                        By default this will use the sales page for your site
-                    </div>
-                </div>
-                <div class="field">
-                    <label>Set text to display on login page</label>
-                    <textarea froala ng-model="site_options.login_page_text"></textarea>
-                </div>
             </div>
 
             <h3 class="ui horizontal divider header">
@@ -38,10 +19,17 @@
             <div class="ui form">
                 <div class="field">
                     <label class="ui header">
-                        'Login to' Text
+                        'Sign up for' Text
                     </label>
                     <input type="text"  class="form-control input-lg"
-                           ng-model="site_options.login_to_site_text" placeholder="Login to">
+                           ng-model="site_options.signup_for_site_text" placeholder="Login to">
+                </div>
+                <div class="field">
+                    <label class="ui header">
+                        'Name' Text
+                    </label>
+                    <input type="text"  class="form-control input-lg"
+                           ng-model="site_options.signup_name_text" placeholder="Name">
                 </div>
                 <div class="field">
                     <label class="ui header">
@@ -49,6 +37,7 @@
                     </label>
                     <input type="text"  class="form-control input-lg"
                            ng-model="site_options.login_email_text" placeholder="Email">
+                    <div class="ui info message">This setting is shared with the login page, both pages use the same setting.</div>
                 </div>
                 <div class="field">
                     <label class="ui header">
@@ -56,22 +45,15 @@
                     </label>
                     <input type="text"  class="form-control input-lg"
                            ng-model="site_options.login_password_text" placeholder="Password">
+                    <div class="ui info message">This setting is shared with the login page, both pages use the same setting.</div>
                 </div>
                 <div class="field">
                     <label class="ui header">
-                        'Login' Button Text
+                        'Sign up' Button Text
                     </label>
                     <input type="text"  class="form-control input-lg"
-                           ng-model="site_options.login_button_text" placeholder="Login">
-                    <div class="ui info message">This setting will be used for all log in buttons throughout your site.</div>
-                </div>
-                <div class="field">
-                    <label class="ui header">
-                        'Join' Button Text
-                    </label>
-                    <input type="text"  class="form-control input-lg"
-                           ng-model="site_options.join_button_text" placeholder="Join">
-                    <div class="ui info message">This setting will be used for all join buttons throughout your site.</div>
+                           ng-model="site_options.signup_button_text" placeholder="Sign Up">
+                    <div class="ui info message">This setting will be used for all sign up buttons throughout your site.</div>
                 </div>
                 <div class="field">
                     <label class="ui header">
@@ -80,14 +62,6 @@
                     <input type="text"  class="form-control input-lg"
                            ng-model="site_options.login_close_button_text" placeholder="Close">
                     <div class="ui info message">This setting will be used for the close button on all of the log in/sign up/reset/forgot password forms..</div>
-                </div>
-                <div class="field">
-                    <label class="ui header">
-                        'Forgot password?' Text
-                    </label>
-                    <input type="text"  class="form-control input-lg"
-                           ng-model="site_options.forgot_password_text" placeholder="Forgot password?">
-                    <div class="ui info message">This setting will be used for the 'Forgot password?' button on all of the log in/sign up/reset/forgot password forms..</div>
                 </div>
                 <div class="field">
                     <label class="ui header">

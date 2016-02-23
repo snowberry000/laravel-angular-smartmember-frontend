@@ -14,13 +14,13 @@
 					</a>
 				</div>
 				<div class="ui buttons {{meta_data.navigation_location == 'top fixed' && !isLoggedIn() ? 'more_margin_button1' : ''}}" ng-show="!isLoggedIn()">
-					<a class="ui button login_button" ui-sref="public.sign.in">Log-in</a>
+					<a class="ui button login_button" ui-sref="public.sign.in">{{meta_data.login_button_text ? meta_data.login_button_text : 'Log-in'}}</a>
 
 					<div class="or" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )"></div>
-					<a class="ui positive button register_button" ui-sref="public.sign.up" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )">Sign up</a>
+					<a class="ui positive button register_button" ui-sref="public.sign.up" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )">{{meta_data.signup_button_text ? meta_data.signup_button_text : 'Sign up'}}</a>
 				</div>
 				<div class="ui buttons {{meta_data.navigation_location == 'top fixed' && !isLoggedIn() ? 'more_margin_button2' : ''}}" ng-show="isLoggedIn() && ( !meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' ) )">
-					<button busy class="ui button join_button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">Join</button>
+					<button busy class="ui button join_button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">{{meta_data.login_button_text ? meta_data.join_button_text : 'Join'}}</button>
 				</div>
 			</div>
 		</div>

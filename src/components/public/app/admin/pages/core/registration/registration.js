@@ -2,10 +2,10 @@ var app = angular.module("app");
 
 app.config(function($stateProvider){
 	$stateProvider
-		.state("public.app.admin.pages.login",{
-			url: "/login",
-			templateUrl: "/templates/components/public/app/admin/pages/core/login/login.html",
-			controller: "LoginController",
+		.state("public.app.admin.pages.registration",{
+			url: "/registration",
+			templateUrl: "/templates/components/public/app/admin/pages/core/registration/registration.html",
+			controller: "AdminCorePageRegistrationController",
             resolve: {
                 $site_options: function( Restangular )
                 {
@@ -15,10 +15,10 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("LoginController", function ($scope, smModal, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr, $state) {
+app.controller("AdminCorePageRegistrationController", function ($scope, smModal, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr, $state) {
 	$site = $rootScope.site;
     $scope.site=$rootScope.site;
-    Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'create_account_url', 'login_page_text', 'login_to_site_text', 'login_email_text', 'login_password_text', 'login_button_text', 'login_close_button_text', 'forgot_password_text', 'need_help_text' ] ).then(function(response){
+    Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'signup_for_site_text', 'signup_name_text', 'login_email_text', 'login_password_text', 'signup_button_text', 'login_close_button_text', 'need_help_text' ] ).then(function(response){
         $scope.site_options = {};
         $.each(response, function (key, data) {
             $scope.site_options[data.key] = data.value;
