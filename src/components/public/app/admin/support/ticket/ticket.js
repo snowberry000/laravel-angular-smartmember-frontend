@@ -20,12 +20,12 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 		$ticket = Restangular.one( 'supportTicket', $stateParams.id ).get().then( function( response )
 		{
 			$scope.ticket = response.ticket;
-			$ticket = response.ticket;
+			$ticket = response;
 			$scope.init()
 		} );
 	}
 	else
-	{advanced_info
+	{
 		$scope.ticket = {};
 	}
 
@@ -33,7 +33,6 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 	$scope.agents = [];
 	$scope.init = function()
 	{
-
 		$scope.advanced_info = $ticket.advanced_info;
 		$scope.recent_tickets = $ticket.recent_tickets;
 		$scope.statuses = [

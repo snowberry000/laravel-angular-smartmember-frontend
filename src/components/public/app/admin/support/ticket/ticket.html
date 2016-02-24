@@ -134,6 +134,17 @@
 							<div class="header">Status</div>
 							<div class="ui red label">{{ticket.status}}</div>
 						</div>
+						<div class="item" ng-if="advanced_info.access_levels.length > 0">
+							<div class="header">User Access Level</div>
+							<span ng-repeat="access_level in advanced_info.access_levels">{{access_level.name}}</span>
+						</div>
+						<div class="item" ng-if="advanced_info.member.length > 0">
+							<div class="header">Member of</div>
+							<span ng-repeat="site_member in advanced_info.member">
+								<a href="http://{{site_member.domain && site_member.domain != '' ? site_member.domain : site_member.subdomain + '.smartmember.com'}}" target="_blank">{{site_member.name}}</a>
+								<br/>
+							</span>
+						</div>
 						<div class="item" ng-if="ticket.escalated_site_id != 2056 && ticket.escalated_site_id != '2056' && !ticket.sm_tech">
 							<div class="content">
 								<button class="ui button" ng-click="assignToSMTech()">Re-assign to SM Corporate Tech Team</button>
