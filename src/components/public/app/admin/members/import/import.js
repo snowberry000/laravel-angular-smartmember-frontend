@@ -13,6 +13,7 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 	$scope.page_title = "Import Members";
 	$scope.members = {};
 	$site = $rootScope.site;
+	$scope.members.email_welcome = $scope.members.email_ac = 1;
 	$scope.resolve = function(){
 		Restangular.all('accessLevel').getList({site_id : $site.id}).then(function(response){
 			$scope.access_levels = response;
