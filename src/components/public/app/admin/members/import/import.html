@@ -48,6 +48,18 @@
 						<p>Set an expiration date on these access passes (or leave empty for permanent)</p>
 					</div>
 				</div>
+
+				<div class="ui segment inline field">
+					<label>Email Options</label>
+					<div class="ui checkbox" ng-model="members.email_welcome" sui-checkbox truevalue="1" falsevalue="0">
+						<input type="checkbox" tabindex="0" class="hidden">
+						<label>Send Welcome Email</label>
+					</div>
+					<div class="ui checkbox" ng-model="members.email_ac" sui-checkbox truevalue="1" falsevalue="0">
+						<input type="checkbox" tabindex="0" class="hidden">
+						<label>Send "access granted" email</label>
+					</div>
+				</div>
 			</div>
 
 		</div>
