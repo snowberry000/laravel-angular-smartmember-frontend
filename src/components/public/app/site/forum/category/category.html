@@ -18,11 +18,11 @@
 	</div>
 
 	<div class="ui link items">
-		<a class="item" ui-sref="public.app.site.forum.topic({permalink: topic.permalink})" ng-repeat="topic in category.topics | orderBy:'-updated_at'">
-			<div class="ui tiny image">
+		<div class="item" ng-repeat="topic in category.topics | orderBy:'-updated_at'">
+			<div class="ui tiny image" ui-sref="public.app.site.forum.topic({permalink: topic.permalink})" style="cursor:pointer;">
 				<img src="{{topic.user.profile_image || '/images/image.png'}}">
 			</div>
-			<div class="middle aligned content">
+			<div class="middle aligned content" ui-sref="public.app.site.forum.topic({permalink: topic.permalink})" style="cursor:pointer;">
 				<div class="header">{{topic.title}}</div>
 				<div class="description">
 					<div class="ui small labels">
@@ -38,7 +38,12 @@
 					</div>
 				</div>
 			</div>
-		</a>
+            <div class="content text-right">
+                <div class="ui label" sm-access="manage_content" if-not="hide" sm-delete="{{topic.id}}">
+                    <i class="delete icon"></i> delete
+                </div>
+            </div>
+		</div>
 		<div class="item" ng-if="category.topics.length === 0">
 			<p>No topics yet!</p>
 		</div>
