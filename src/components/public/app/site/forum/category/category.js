@@ -27,5 +27,17 @@ app.controller( "Forum-categoryController", function( $scope, $rootScope, $state
 			$scope.loading = false;
 		} );
 
+    $scope.deleteResource = function( id )
+    {
 
+        var itemWithId = _.findWhere( $scope.category.topics, { id: parseInt( id ) } ) || _.findWhere( $scope.category.topics, { id: id + '' } );
+
+        if( itemWithId ) {
+            itemWithId = Restangular.restangularizeElement( null, itemWithId, 'forumTopic' );
+
+            itemWithId.remove().then(function () {
+                $scope.category.topics = _.without($scope.category.topics, itemWithId);
+            });
+        }
+    };
 } );
