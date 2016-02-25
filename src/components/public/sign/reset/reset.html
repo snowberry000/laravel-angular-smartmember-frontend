@@ -45,7 +45,7 @@
             Login
             <i class="user icon"></i>
         </a>
-        <a class="ui labeled icon button" ng-hide="site_options.hide_sign_up_button" ui-sref="public.sign.up">
+        <a class="ui labeled icon button" ng-hide="site_options.hide_sign_up_button && (site_options.hide_sign_up_button == 1 || site_options.hide_sign_up_button == '1')" ui-sref="public.sign.up">
             Sign Up
             <i class="edit icon"></i>
         </a>
