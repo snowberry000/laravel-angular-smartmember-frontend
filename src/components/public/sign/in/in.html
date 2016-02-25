@@ -60,7 +60,7 @@
 						<i class="edit icon"></i>
 						{{site_options.signup_button_text ? site_options.signup_button_text : 'Sign Up'}}
 					</a>
-					<a ng-hide="site_options.hide_sign_up_button" ng-if="!site_options.create_account_url" ui-sref="public.sign.up" class="ui big blue labeled icon button">
+					<a ng-hide="site_options.hide_sign_up_button && (site_options.hide_sign_up_button == 1 || site_options.hide_sign_up_button == '1')" ng-if="!site_options.create_account_url" ui-sref="public.sign.up" class="ui big blue labeled icon button">
 						<i class="edit icon"></i>
 						{{site_options.signup_button_text ? site_options.signup_button_text : 'Sign Up'}}
 					</a>
