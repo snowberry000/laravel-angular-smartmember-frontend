@@ -23,22 +23,20 @@
 
 						<div class="field">
 							<label>Sales Page Url</label>
-							<a ng-model="access_level" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{
+							<a ng-model="access_level" class="ui button" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{
 								access_level.information_url|| 'Select url' }}
 							</a>
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								This is the url to the sales page, or wherever you want users to go when they try to access something they don't have access too.
 								They will be told they don't have accessed and asked to click a link to this Url to get access.
-							</span>
+							</div>
 						</div>
 						<div class="field">
 							<label>Redirect Url</label>
-							<input type="text" name="redirect_url"
-								   class="form-control input-lg editable editable-click"
-								   ng-model="access_level.redirect_url"/>
-							<span class="help-block m-b-none">
-								This is the url users will be redirected to after they purchase the product and are granted the access they need for the product.
-							</span>
+							<input type="text" name="redirect_url" ng-model="access_level.redirect_url"/>
+							<div class="ui info message">
+								This URL is used to redirect customers after purchase through Paypal or Stripe.
+							</div>
 						</div>
 
 						<div class="field">
@@ -52,12 +50,12 @@
 									<option ng-selected="exists_share(al.access_level.id)" ng-repeat="al in shared_access_levels" value={{al.access_level.id}}>{{al.access_level.name}}</option>
 								</optgroup>
 							</select>
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								Select any other Access Levels you want owners of this Access Level to get access to.
 								<br>
 								aka. if this is your "Gold" level, select Bronze and Silver.
 								<strong>Hold down Ctrl key to select multiple access levels</strong>
-							</span>
+							</div>
 						</div>
                         <div class="field">
                             <div class="ui checkbox" ng-model="access_level.hide_unowned_content" sui-checkbox>
@@ -79,9 +77,9 @@
 							<select data-ng-options="group.remote_id as group.name for group in facebook_groups" class='form-control input-lg' ng-model="access_level.facebook_group_id" placeholder='Select Access Permission'>
 							</select>
 							<button ng-hide="!access_level.facebook_group_id || access_level.facebook_group_id == '' || access_level.facebook_group_id == '0'" type="button" class="btn" ng-click="access_level.facebook_group_id=''">Remove Group</button>
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								Select a facebook group that own and new members to this product level will automatically get invitation to join the group.
-							</span>
+							</div>
 						</div>
 
 					</div>
@@ -97,18 +95,18 @@
 							<label>Product ID</label>
 							<input type="text" name="jvzoo_product_id" class="form-control input-lg"
 								   ng-model="access_level.product_id">
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								This is the product ID in JVZoo. If you want this product level given to customers
 								who purchase a particular product through JVZoo, find it via your JVZoo dashboard
 								and set it here.
-							</span>
+							</div>
 						</div>
 						<div class="field">
 							<label>Buy Button</label>
 							<textarea name="jvzoo_button" ng-model="access_level.jvzoo_button"></textarea>
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								This is a buy button from JVZoo. You can have this show up on the checkout page.
-							</span>
+							</div>
 						</div>
 
 					</div>
@@ -123,9 +121,9 @@
 						<div class="field">
 							<label>GoToWebinar Webinar URL</label>
 							<input type="text" class="form-control input-lg" ng-model="access_level.webinar_url">
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								Optionally enter in the url of a Go To Webinar registration page. Anytime a member is granted this Access Level, they'll be signed up for your webinar! Make sure to setup your webinar to ONLY require first name, last name and email OR registration will fail.
-							</span>
+							</div>
 						</div>
 
 					</div>
@@ -141,11 +139,11 @@
 							<label>Product ID</label>
 							<input type="text" name="cb_product_id" class="form-control input-lg"
 								   ng-model="access_level.cb_product_id">
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								This is the product ID in ClickBank. If you want this product level given to customers
 								who purchase a particular product through ClickBank, find it via your ClickBank dashboard
 								and set it here.
-							</span>
+							</div>
 						</div>
 
 					</div>
@@ -161,11 +159,11 @@
 							<label>Product ID</label>
 							<input type="text" name="wso_product_id" class="form-control input-lg"
 								   ng-model="access_level.wso_product_id">
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								This is the product ID in WarriorPlus. If you want this product level given to customers
 								who purchase a particular product through WarriorPlus, find it via your WarriorPlus dashboard
 								and set it here.
-							</span>
+							</div>
 						</div>
 
 					</div>
@@ -182,11 +180,11 @@
 							<div class="col-sm-12">
 								<input type="text" name="zaxaa_product_id" class="form-control input-lg"
 									   ng-model="access_level.zaxaa_product_id">
-								<span class="help-block m-b-none">
+								<div class="ui info message">
 									This is the product ID in Zaxaa. If you want this product level given to customers
 									who purchase a particular product through Zaxaa, find it via your Zaxaa dashboard
 									and set it here.
-								</span>
+								</div>
 							</div>
 						</div>
 
@@ -219,9 +217,9 @@
 								<input type="number" min="0" name="redirect_url"
 									   class="form-control input-lg editable editable-click"
 									   ng-model="access_level.expiration_period"/>
-								<span class="help-block m-b-none">
+								<div class="ui info message">
 									This is the default expiration period (in months) for each access pass granted, leave blank or set to 0 to not have a default expiration period.
-								</span>
+								</div>
 							</div>
 						</div>
 						<h4 class="ui header">Price</h4>
@@ -286,9 +284,9 @@
 							<div class="col-sm-11">
 								<input type="text" name="stripe_plan_id" class="form-control input-lg"
 									   ng-model="access_level.stripe_plan_id">
-								<span class="help-block m-b-none">
+								<div class="ui info message">
 									If you provide a Stripe Plan ID, this purchase will be considered a recurring purchase.
-								</span>
+								</div>
 							</div>
 						</div>
 						<div class="hr-line-dashed"></div>
@@ -298,7 +296,7 @@
 								<select multiple ng-model="access_level.new_payment_methods" class="form-control used_payment_methods">
 									<option ng-selected="paymentMethodExists( p.id ) || !access_level.id" ng-repeat="p in payment_method_types | filter:validPaymentMethod" value={{p.id}}>{{p.name}}</option>
 								</select>
-								<span class="help-block m-b-none">
+								<div class="ui info message">
 									Select the payment methods you want users to be able to use on the checkout page.
 									<br>
 									Note that you can only select methods you have already set up, go to
@@ -306,7 +304,7 @@
 									to set up these methods.
 									<br>
 									The JVZoo checkout button will only show up if you have a JVZoo buy button set above.
-								</span>
+								</div>
 							</div>
 						</div>
 						<span ng-if="payment_app_configurations.stripe.length > 1">
@@ -361,9 +359,9 @@
 									Generate New Key
 								</div>
 							</div>
-							<span class="help-block m-b-none">
+							<div class="ui info message">
 								Press the button to create a new shared access level key
-							</span>
+							</div>
 						</div>
 
 						<h4>Generated Key</h4>
