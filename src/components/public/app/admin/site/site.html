@@ -83,17 +83,17 @@
 						</div>
 					</div>
 
-					<div class="field" ng-if="!site.id && clone_sites.length > 0" ng-hide="0">
+					<div class="field" ng-if="!site.id && ( clone_sites.length > 0 || clone_sites_dfy.length > 0 )">
 						<label class="col-sm-4 control-label">Clone an existing site
 							<small>(optional)</small>
 						</label>
 
 						<div class="col-sm-6">
 							<select class="form-control m-b" ng-model="site.clone_id" ng-change="changeSite(site.clone_id)">
-								<optgroup label="My sites">
+								<optgroup label="My sites" ng-if="clone_sites.length > 0">
 									<option ng-repeat="clone_site in clone_sites" value="{{clone_site.id}}">{{clone_site.name}}</option>
 								</optgroup>
-								<optgroup label="Done For You">
+								<optgroup label="Done For You" ng-if="clone_sites_dfy.length > 0">
 									<option ng-repeat="clone_site in clone_sites_dfy" value="{{clone_site.id}}">{{clone_site.name}}</option>
 								</optgroup>
 							</select>
