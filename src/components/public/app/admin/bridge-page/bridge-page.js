@@ -124,6 +124,8 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 				$scope.bridgepage.swapspot.optin_heading = 'Enter your best name & email';
 				$scope.bridgepage.swapspot.mark_name_visible = 'block';
 				$scope.bridgepage.swapspot.button = 'Sign Up';
+				$scope.bridgepage.swapspot.name_placeholder = 'Full Name...';
+				$scope.bridgepage.swapspot.email_placeholder = 'Email Address...'
 				$scope.bridgepage.swapspot.open_term_link_in_new_tab = '_blank';
 				$scope.bridgepage.swapspot.open_privacy_link_in_new_tab = '_blank';
 				$scope.bridgepage.swapspot.tagline_text_color = '#ffffff';

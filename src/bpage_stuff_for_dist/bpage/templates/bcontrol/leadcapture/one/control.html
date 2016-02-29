@@ -148,6 +148,16 @@
                    ng-model="bridgepage.swapspot.mark_name_visible" ng-true-value="'none'" ng-false-value="'block'">
         </div>
 
+        <div class="field">
+            <h4>Name field placeholder</h4>
+            <input type="text" ng-model="bridgepage.swapspot.name_placeholder">
+        </div>
+
+        <div class="field">
+            <h4>Email field placeholder</h4>
+            <input type="text" ng-model="bridgepage.swapspot.email_placeholder">
+        </div>
+
         <div class="field" ng-show="bridgepage.swapspot.optin_type == '3rdparty'">
             <h4 ng-show="bridgepage.swapspot.optin_type == '3rdparty'">Mark Name Field as Required</h4>
             <input type="checkbox" name="mark_name_required" class=""
