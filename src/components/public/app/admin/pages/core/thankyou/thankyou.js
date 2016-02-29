@@ -12,7 +12,7 @@ app.config(function($stateProvider){
 app.controller("ThankYouCorePageController", function ($scope, $rootScope, smModal , $localStorage, $location , $stateParams,  Restangular, toastr, $state) {
 	$scope.site_options = {};
 	$site = $rootScope.site;
-	Restangular.all( "siteMetaData" ).customGETLIST( "getOptions", [ 'thankyou_use_custom', 'thankyou_title', 'thankyou_content', 'thankyou_image'] ).then(function(response){
+	Restangular.all( "siteMetaData" ).customGETLIST( "getOptions", [ 'thankyou_use_custom', 'thankyou_title', 'thankyou_content', 'thankyou_image', 'thankyou_bottom_content'] ).then(function(response){
 		$.each(response , function (key, data) {
 				$scope.site_options[data.key] = data.value;
 		});
