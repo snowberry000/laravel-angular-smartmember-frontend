@@ -44,6 +44,15 @@
             </div>
             <span  style="margin-left:10px">Site logo will be displayed by default if no image is uploaded</span>
         </div>
+        <div class="card clearfix content_post"  style="margin:10px">
+            <h4 class="ui header">Thank you bottom content</h4>
+            <div class="field">
+                <textarea froala ng-model="site_options.thankyou_bottom_content"></textarea>
+                <div class="ui compact info message">
+                    Default: Need Support? Go to our support page here or file a ticket if you can't find what you need.
+                </div>
+            </div>
+        </div>
     </div>
     <div class="actions">
         <div ng-click="saveSettings()" class="ui right labeled icon button">
