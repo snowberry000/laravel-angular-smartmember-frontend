@@ -45,7 +45,7 @@ app.controller( "TicketController", function( $scope, $localStorage, $state, $ro
 		$scope.send_email = false;
 
 
-		Restangular.all( '' ).customGET( 'supportAgents', { site_id: $scope.ticket.site_id } ).then( function( data )
+		Restangular.all( '' ).customGET( 'supportAgents', { site_id: $scope.ticket.site_id + ( $scope.ticket.escalated_site_id && $scope.ticket.escalated_site_id != 0 && $scope.ticket.escalated_site_id != '0' ? ',' + $scope.ticket.escalated_site_id : '' ) } ).then( function( data )
 		{
 			data=data.items;
 			angular.forEach( data, function( value )
