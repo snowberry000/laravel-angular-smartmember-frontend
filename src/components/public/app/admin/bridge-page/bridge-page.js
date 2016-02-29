@@ -292,6 +292,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 		if( $scope.bridgepage.swapspot.day )
 		{
 			$scope.bridgepage.swapspot.timestamp = moment( $scope.bridgepage.swapspot.day ).format( 'x' );
+			$scope.bridgepage.swapspot.greentime = 0;
 		}
 	}
 
