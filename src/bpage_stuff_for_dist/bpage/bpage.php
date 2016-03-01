@@ -191,18 +191,19 @@ if( !$html )
 		ga('send', 'pageview');
 
         $.getJSON(tracking_code_url, function (data) {
-
-            (function (w, d, t, r, u) {
-                var f, n, i;
-                w[u] = w[u] || [], f = function () {
-                    var o = {ti: data.bing_id};
-                    o.q = w[u], w[u] = new UET(o), w[u].push("pageLoad")
-                }, n = d.createElement(t), n.src = r, n.async = 1, n.onload = n.onreadystatechange = function () {
-                    var s = this.readyState;
-                    s && s !== "loaded" && s !== "complete" || (f(), n.onload = n.onreadystatechange = null)
-                }, i = d.getElementsByTagName(t)[0], i.parentNode.insertBefore(n, i)
-            })(window, document, "script", "//bat.bing.com/bat.js", "uetq");
-
+            if (data.bing_id != undefined)
+            {
+                (function (w, d, t, r, u) {
+                    var f, n, i;
+                    w[u] = w[u] || [], f = function () {
+                        var o = {ti: data.bing_id};
+                        o.q = w[u], w[u] = new UET(o), w[u].push("pageLoad")
+                    }, n = d.createElement(t), n.src = r, n.async = 1, n.onload = n.onreadystatechange = function () {
+                        var s = this.readyState;
+                        s && s !== "loaded" && s !== "complete" || (f(), n.onload = n.onreadystatechange = null)
+                    }, i = d.getElementsByTagName(t)[0], i.parentNode.insertBefore(n, i)
+                })(window, document, "script", "//bat.bing.com/bat.js", "uetq");
+            }
             if (typeof data.google_analytics_id != 'undefined' && data.google_analytics_id != '') {
 				ga('create', data.google_analytics_id, current_domain, {'name': 'newTracker', 'cookieName': '_ga_user'});
 				ga('newTracker.send', 'pageview');
@@ -214,9 +215,11 @@ if( !$html )
                 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
                 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
                 document,'script','//connect.facebook.net/en_US/fbevents.js');
-
-            fbq('init', data.facebook_conversion_pixel);
-            fbq('track', "PageView");
+            if (data.facebook_conversion_pixel != undefined)
+            {
+                fbq('init', data.facebook_conversion_pixel);
+                fbq('track', "PageView");
+            }
         });
 
 		$('.videoWrapper').each(function(){
