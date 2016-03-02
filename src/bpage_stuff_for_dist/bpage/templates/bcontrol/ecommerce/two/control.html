@@ -28,7 +28,18 @@
         <spectrum-colorpicker options="{showInput: true, preferredFormat: 'hex'}"
                               ng-model="bridgepage.swapspot.border_color"></spectrum-colorpicker>
     </div>
-
+    <div class="hr-line-dashed"></div>
+    <div class="field">
+        <h4>Border Width</h4>
+        <input type="text" ng-model="bridgepage.swapspot.border_width" placeholder="10">
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="field">
+        <div class="ui checkbox" ng-model="bridgepage.swapspot.wider_template" sui-checkbox truevalue="1" falsevalue="0">
+            <input type="checkbox" tabindex="0" class="hidden">
+            <label>Enable wider template</label>
+        </div>
+    </div>
 </div>
 
 <h3 class="ui top attached header title">
