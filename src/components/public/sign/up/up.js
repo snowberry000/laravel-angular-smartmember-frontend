@@ -45,7 +45,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	$scope.login_type = "facebook";
 	$scope.user = {};
 	$scope.hash = '';
-	$scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.' + $rootScope.app.domain : $rootScope.app.domain;
+	$scope.current_url = $rootScope.appUrl.substring(7);
 
 	if( $stateParams.hash )
 	{

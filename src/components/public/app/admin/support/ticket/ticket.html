@@ -162,7 +162,7 @@
 
 								<ul>
 									<li ng-repeat="admin in advanced_info.admin">
-										<a target="_blank" ng-href="http://{{public.administrate.subdomain}}.{{app.domain}}">
+										<a target="_blank" ng-href="http://{{public.administrate.subdomain}}.{{app.rootDomain}}">
 											<i class="ts_icon ts_icon_calendar"></i>
 											{{public.administrate.name}}
 										</a>
@@ -179,7 +179,7 @@
 								<ul>
 									<li ng-repeat="access_level in advanced_info.access_levels">
 										<a class="cursor_pointer" target="_blank"
-										   ng-href="http://{{advanced_info.sites[$index].subdomain}}.{{app.domain}}">
+										   ng-href="http://{{advanced_info.sites[$index].subdomain}}.{{app.rootDomain}}">
 											{{access_level.name}} {{advanced_info.sites[$index].name}}
 										</a>
 									</li>
@@ -564,7 +564,7 @@
 						<h5 class="large_top_margin">Creator's Sites</h5>
 						<ul class="no_margin action_list" style="max-height:150px; overflow:auto;">
 							<li ng-repeat="admin in advanced_info.admin">
-								<a target="_blank" ng-href="http://{{public.administrate.subdomain}}.{{app.domain}}">
+								<a target="_blank" ng-href="http://{{public.administrate.subdomain}}.{{app.rootDomain}}">
 									<i class="ts_icon ts_icon_calendar"></i>
 									{{public.administrate.name}}
 								</a>
@@ -576,7 +576,7 @@
 						<ul class="no_margin action_list ">
 							<li ng-repeat="access_level in advanced_info.access_levels">
 								<a class="cursor_pointer" target="_blank"
-								   ng-href="http://{{advanced_info.sites[$index].subdomain}}.{{app.domain}}">
+								   ng-href="http://{{advanced_info.sites[$index].subdomain}}.{{app.rootDomain}}">
 									{{access_level.name}} {{advanced_info.sites[$index].name}}
 								</a>
 							</li>

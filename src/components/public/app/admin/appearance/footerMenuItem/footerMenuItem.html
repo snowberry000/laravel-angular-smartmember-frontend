@@ -4,7 +4,7 @@
         <i ng-if="editing_item.custom_icon && editing_item.custom_icon.indexOf('fa fa-') != -1" class="{{editing_item.custom_icon}} modal-icon"></i>
         <img class="img-thumbnail img-responsive" ng-if="editing_item.custom_icon && editing_item.custom_icon.indexOf('fa fa-') == -1" src="{{editing_item.custom_icon}}" />
         <h4 class="modal-title">{{editing_item.label}}</h4>
-        <small class="font-bold" ng-if="editing_item.url.indexOf('http://') == -1 && editing_item.url.indexOf('https://') == -1">http://{{(app.domain ? app.domain : app.subdomain + '.' + app.rootDomain) + '/' + editing_item.url}}</small>
+        <small class="font-bold" ng-if="editing_item.url.indexOf('http://') == -1 && editing_item.url.indexOf('https://') == -1">{{app.appUrl + '/' + editing_item.url}}</small>
         <small class="font-bold" ng-if="editing_item.url.indexOf('http://') != -1 || editing_item.url.indexOf('https://') != -1">{{editing_item.url}}</small>
     </div>
     <div class="content">

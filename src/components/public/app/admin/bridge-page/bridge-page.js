@@ -175,7 +175,7 @@ app.controller( "BridgePageController", function( $scope, $localStorage, smSideb
 		}
 		$scope.visible = false;
 
-		$scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.' + $rootScope.app.domain : $rootScope.app.domain;
+		$scope.current_url = $rootScope.app.appUrl;
 		if( $scope.bridgepage.id == undefined )
 		{
 			$scope.template = $scope.templates[ 1 ];

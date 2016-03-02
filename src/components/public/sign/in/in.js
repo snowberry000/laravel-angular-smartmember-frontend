@@ -51,7 +51,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 	$scope.login_type = "facebook";
 	$scope.user = {};
 	$scope.hash = '';
-	$scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.' + $rootScope.app.domain : $rootScope.app.domain;
+	$scope.current_url = $rootScope.app.appUrl;
 
 
 	if( $stateParams.hash )

@@ -53,13 +53,7 @@ app.controller( "WWWSiteController", function( $scope, Restangular, $stateParams
 	}
 
 	$scope.redirectToSite = function(site){
-		if( !site.domain && site.subdomain)
-		{
-			window.location.href = "http://" + site.subdomain + '.' + $rootScope.app.domain;
-		}
-		else if(site.domain){
-			window.location.href = site.domain;
-		}
+        window.location.href = $rootScope.app.appUrl;
 	}
 
 	$scope.addMember = function(site_id){
