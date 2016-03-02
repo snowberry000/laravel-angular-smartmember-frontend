@@ -1,4 +1,10 @@
 <?php
+
+function isCustomDomain( $domain )
+{
+	return !preg_match( '/^(?:http(?:s)?\:)?(?:\/\/)?(?:[a-z0-9\-]{1,63})?\.smartmember\.(?:com|in|dev|soy|pro|co)(?:\/(?:.*)?)?$/i', $domain );
+}
+
 function DetectAndPerformBridgePageThings()
 {
 	$domain = $_SERVER[ 'HTTP_HOST' ];
@@ -15,7 +21,7 @@ function DetectAndPerformBridgePageThings()
 		header( 'Location: http://my.bridgepages.'.$tld );
 	}
 
-	if( strpos( $domain, "smartmember" ) === false )
+	if( isCustomDomain( $_SERVER[ 'HTTP_HOST' ] ) )
 	{
 		$rootDomain = "smartmember.com";
 	}
@@ -29,7 +35,7 @@ function DetectAndPerformBridgePageThings()
 
 	$requestParts = explode( '/', $_SERVER[ 'REQUEST_URI' ] );
 
-	if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <= 3 )
+	if( ( isCustomDomain( $domain ) || $subdomain != 'my' ) && count( $requestParts ) > 1 && count( $requestParts ) <= 3 )
 	{
 		$permalink = $requestParts[ 1 ];
 		$pos = strpos( $permalink, '?' );
