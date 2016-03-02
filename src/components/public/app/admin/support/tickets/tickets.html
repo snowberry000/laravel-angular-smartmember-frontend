@@ -63,7 +63,7 @@
                             <div class="column field" ng-if="available_sites && available_sites.length > 1">
                                 <label>Site filter:</label>
                                 <select class="ui multiple search selection dropdown" dropdown ng-change="searchTickets()" ng-model="$parent.sites" multiple>
-                                    <option ng-repeat="site in available_sites" value="{{site.id}}" ng-selected="$parent.sites.indexOf( site.id ) != -1">{{site.domain ? site.domain : site.subdomain + '.smartmember.' + app.rootEnv}}</option>
+                                    <option ng-repeat="site in available_sites" value="{{site.id}}" ng-selected="$parent.sites.indexOf( site.id ) != -1">{{site.domain ? site.domain : site.subdomain + '.smartmember.' + app.env}}</option>
                                 </select>
 
                                 <div class="ui pointing label">Clear selection to show for all sites you have support access on</div>

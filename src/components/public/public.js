@@ -537,7 +537,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				}
 				else
 				{
-					location.href = 'http://my.smartmember.' + $rootScope.app.rootEnv;
+					location.href = 'http://my.smartmember.' + $rootScope.app.env;
 					smEvent.Log( 'landed-on-my-setup-site', {
 					    'request-url': location.href
 					} );

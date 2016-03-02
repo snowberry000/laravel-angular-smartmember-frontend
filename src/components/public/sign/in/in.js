@@ -160,7 +160,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 				}
                 else if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
                 {
-                    window.location.href = 'http://' + 'my.smartmember.' + $rootScope.app.rootEnv;
+                    window.location.href = 'http://' + 'my.smartmember.' + $rootScope.app.env;
                 }
 				else
 				{
