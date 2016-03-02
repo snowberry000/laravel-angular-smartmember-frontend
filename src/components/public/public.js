@@ -334,7 +334,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 		var domain = parts.shift();
 		var tld = parts.shift();
 
-		if( domain != 'smartmember' || tld == 'io' )
+		if( location.host.isCustomDomain() || domain != 'smartmember' || tld == 'io' )
 		{
 			return false;
 		}
