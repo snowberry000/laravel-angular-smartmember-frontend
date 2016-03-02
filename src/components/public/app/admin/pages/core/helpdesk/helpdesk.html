@@ -1,109 +1,88 @@
-<div class="ui modal"><i class="close icon"></i>
+<div class="ui modal">
     <i class="close icon"></i>
 
     <div class="header">
-        <i class="paragraph icon"></i>
-        {{ template_data.title | translate }}
+        <i class="fa fa-life-ring icon"></i>
+        Edit Support Contact Page
     </div>
     <div class="content">
-
-        <div class="row">
-            <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;">
-                <div class="hpanel">
-                    <div class="panel-body">
-                        <form method="get" class="ui form save_form">
-                            <div class="field">
-                                <label class="col-sm-2 control-label">Homepage URL</label>
-
-                                <div class="col-sm-10">
-                                    <a ng-model="site_options" url-popup position="top center" duration="10000" hide="10000" html="/templates/modals/popover.html">{{ site_options.homepage_url || 'Select url' }}
-                                    </a>
-
-                                    <!-- <a class="select_Homepage" popover-template="1" popover-is-open="site_options.isOpen"
-                                       popover-title="Enter item url" ng-click="site_options.isOpen=true"
-                                       data-html="true">{{ site_options.homepage_url || 'Select url' }}
-                                    </a> -->
-
-                                        <span class="help-block m-b-none">
-                                            By default the homepage will be the syllabus page
-                                        </span>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="accordion_section">
-                                <a class="accordion_trigger accordion_expand btn btn_outline" ng-click="localization=!localization">expand</a>
-                                <h4 class="ui header">Localization Settings</h4>
-
-                                <div ng-show="localization">
-                                    <div class="field">
-                                        <label class="col-sm-2 control-label">'Syllabus' text</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" name="syllabus_text" class="form-control input-lg"
-                                                   ng-model="site_options.syllabus_text" placeholder="Syllabus">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="col-sm-2 control-label">'Search lessons...' text</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" name="search_lesson_text" class="form-control input-lg"
-                                                   ng-model="site_options.search_lesson_text" placeholder="Search lessons...">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="col-sm-2 control-label">'Module' text</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" name="module_text" class="form-control input-lg"
-                                                   ng-model="site_options.module_text" placeholder="Module">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="col-sm-2 control-label">'Course Info' text</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" name="course_info_text" class="form-control input-lg"
-                                                   ng-model="site_options.course_info_text" placeholder="Course Info">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="col-sm-2 control-label">'Lessons' text</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" name="lesson_text" class="form-control input-lg"
-                                                   ng-model="site_options.lesson_text" placeholder="Lessons">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="col-sm-2 control-label">'Begin/Continue this course' text</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" name="begin_course_text" class="form-control input-lg"
-                                                   ng-model="site_options.begin_course_text" placeholder="Begin/Continue this course">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="col-sm-2 control-label">Cap Icon</label>
-
-                                        <div class="col-sm-10">
-                                            <button ng-iconpicker class="btn ipicker" id="cap_icon" ng-class="site_options.open ? 'currently_chosen':''"  ng-click="site_options.open=true" ng-model="site_options.cap_icon">
-                                                <i class='fa {{site_options.cap_icon ? site_options.cap_icon : "fa-graduation-cap" }}'></i>
-                                            </button>
-                                            <input type="hidden" name="icon" class="form-control input-lg menu-icon fa fa-home" ng-model="site_options.cap_icon">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+        <div class="ui form">
+            <div class="card clearfix content_post">
+                <h4>Custom header image</h4>
+                <button type="button" class="ui button" sm-uploader="site_logo" ng-model="site_options.create_ticket_image">
+                    <i class="upload icon"></i>
+                    Choose File
+                </button>
+                <button ng-if="site_options.create_ticket_image" class="ui left labeled icon button" ng-click="site_options.create_ticket_image = ''">
+                    Clear
+                    <i class="remove icon"></i>
+                </button>
+                <div ng-if="site_options.create_ticket_image" style="margin:10px">
+                    <img class="ui large image" ng-src="{{site_options.create_ticket_image}}" style="max-width:100%;">
+                </div>
+            </div>
+            <div class="card clearfix content_post"  style="margin:10px">
+                <h4 class="ui header">Header</h4>
+                <div class="field">
+                    <div class="col-sm-8">
+                        <input type="text" ng-model="site_options.create_ticket_header"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card clearfix content_post"  style="margin:10px">
+                <h4 class="ui header">Sub-header</h4>
+                <div class="field">
+                    <div class="col-sm-8">
+                        <input type="text" ng-model="site_options.create_ticket_sub_header"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card clearfix content_post"  style="margin:10px">
+                <h4 class="ui header">Subject label</h4>
+                <div class="field">
+                    <div class="col-sm-8">
+                        <input type="text" ng-model="site_options.create_ticket_subject_label"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card clearfix content_post"  style="margin:10px">
+                <h4 class="ui header">Subject field placeholder</h4>
+                <div class="field">
+                    <div class="col-sm-8">
+                        <input type="text" ng-model="site_options.create_ticket_subject_placeholder"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card clearfix content_post"  style="margin:10px">
+                <h4 class="ui header">Message label</h4>
+                <div class="field">
+                    <div class="col-sm-8">
+                        <input type="text" ng-model="site_options.create_ticket_message_label"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card clearfix content_post"  style="margin:10px">
+                <div class="field">
+                    <div class="col-sm-8">
+                        <div class="ui checkbox" ng-model="site_options.create_ticket_hide_attachment" sui-checkbox truevalue="1" falsevalue="0">
+                            <input type="checkbox" tabindex="0" class="hidden">
+                            <label>Turn off attachment feature</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card clearfix content_post"  style="margin:10px">
+                <h4 class="ui header">Attachment text</h4>
+                <div class="field">
+                    <div class="col-sm-8">
+                        <input type="text" ng-model="site_options.create_ticket_attachment_text"/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="actions">
-        <div ng-click="save()" class="ui right labeled icon button">
+        <div ng-click="saveSettings()" class="ui right labeled icon button">
            Save changes
             <i class="checkmark icon"></i>
         </div>

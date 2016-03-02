@@ -100,6 +100,14 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			url: '/support'
 		},
 		{
+			title: 'Contact Support Page',
+			description: 'This is the page where your users submit support ticket or other enquiries to you',
+			image: '',
+			icon: 'life ring',
+			template: 'helpdesk',
+			url: '/support-ticket'
+		},
+		{
 			title: 'Blog Page',
 			description: 'This page lists your blog posts',
 			image: '',
