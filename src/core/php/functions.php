@@ -35,7 +35,7 @@ function DetectAndPerformBridgePageThings()
 
 	$requestParts = explode( '/', $_SERVER[ 'REQUEST_URI' ] );
 
-	if( $subdomain != 'my' && count( $requestParts ) > 1 && count( $requestParts ) <= 3 )
+	if( ( isCustomDomain( $domain ) || $subdomain != 'my' ) && count( $requestParts ) > 1 && count( $requestParts ) <= 3 )
 	{
 		$permalink = $requestParts[ 1 ];
 		$pos = strpos( $permalink, '?' );
