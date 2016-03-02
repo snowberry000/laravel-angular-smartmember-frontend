@@ -6,7 +6,13 @@ $tld = array_pop($parts);
 $rootDomain = array_pop($parts) . "." . $tld;
 $subdomain = array_pop($parts);
 
-if (strpos($domain, "smartmember") === false){
+function isCustomDomain( $domain )
+{
+	return !preg_match( '/^(?:http(?:s)?\:)?(?:\/\/)?(?:[a-z0-9\-]{1,63})?\.smartmember\.(?:com|in|dev|soy|pro|co)(?:\/(?:.*)?)?$/i', $domain );
+}
+
+if( isCustomDomain( $domain ) )
+{
     $rootDomain = "smartmember.com";
 }
 
