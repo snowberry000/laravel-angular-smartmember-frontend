@@ -120,7 +120,7 @@
         border-color: {{bridgepage.swapspot.border_color}};
         outline: none;
         background-color: rgb(255, 255, 255);
-        border-width: 10px;
+        border-width: {{bridgepage.swapspot.border_width || '10'}}px;
         border-style: solid;
         border-bottom-right-radius: 5px;
         border-bottom-left-radius: 5px;
@@ -400,10 +400,24 @@
 
 
 </style>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var enable_wider_template = $('input[name=enable_wider_template]').val();
+        if (enable_wider_template == '1' || enable_wider_template == 1)
+        {
+            $('.box_wrapper').removeClass("col-md-8 col-md-offset-2").addClass('col-md-12');
+        } else if (enable_wider_template == '0' || enable_wider_template == 0) {
+            $('.box_wrapper').removeClass('col-md-12').addClass('col-md-8 col-md-offset-2');
+        }
+    })
+</script>
+<div ng-if="visible">
+<input name="enable_wider_template" value="{{bridgepage.swapspot.wider_template}}" type="hidden">
+</div>
 <div class="page_container">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="box_wrapper {{bridgepage.swapspot.wider_template && (bridgepage.swapspot.wider_template == 1 || bridgepage.swapspot.wider_template == '1') ? 'col-md-12' : 'col-md-8 col-md-offset-2'}}">
                 <div class="box">
                     <div class="middle_section container-fluid">
 
