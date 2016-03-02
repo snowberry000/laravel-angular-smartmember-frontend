@@ -45,7 +45,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	$scope.login_type = "facebook";
 	$scope.user = {};
 	$scope.hash = '';
-	$scope.current_url = $rootScope.appUrl.substring(7);
+	$scope.current_url = $rootScope.app.appUrl.substring(7);
 
 	if( $stateParams.hash )
 	{
