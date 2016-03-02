@@ -531,7 +531,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 			Restangular.all( '' ).customGET( 'user/transactionAccess/' + $rootScope.$_GET[ 'cbreceipt' ] ).then( function( response )
 			{
-				if( location.href.indexOf( 'sm.smartmember.' ) == -1 )
+				if( location.host.isCustomDomain() || location.href.indexOf( 'sm.smartmember.' ) == -1 )
 				{
 					location.href = location.href.substr( 0, location.href.indexOf( '?' ) );
 				}

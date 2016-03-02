@@ -6,7 +6,7 @@
 			<a class="item" sm-access="edit_theme_options" if-not="hide" ui-sref="public.app.admin.appearance.menus">Site nav menus</a>
 			<a class="item" sm-access="edit_theme_options" if-not="hide" ui-sref="public.app.admin.pages.core.list">Core pages</a>
 			<a class="item" sm-access="edit_site_options" if-not="hide" ui-sref="public.app.admin.appearance.directory">Directory Listing</a>
-			<a class="item" ng-if='app.subdomain == "sm"' sm-access='manage_roles' if-not='hide' ui-sref="public.administrate.listings">Manage Directory</a>
+			<a class="item" ng-if='!onCustomDomain() && app.subdomain == "sm"' sm-access='manage_roles' if-not='hide' ui-sref="public.administrate.listings">Manage Directory</a>
 		</div>
 	</div>
 	<div class="item" sm-access="manage_apps" if-not="hide">

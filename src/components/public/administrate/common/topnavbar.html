@@ -66,7 +66,7 @@
                     </li>
                 </ul>
             </li>
-            <li ng-if="app.subdomain != 'my'" class="bigger_icon_nav_container">
+            <li ng-if="onCustomDomain() || app.subdomain != 'my'" class="bigger_icon_nav_container">
                 <a ui-sref="public.app.site.home">
                     <span class="hide_for_mobile">{{site.name}}</span>
                     <i class="fa fa-globe m-l-sm"></i>

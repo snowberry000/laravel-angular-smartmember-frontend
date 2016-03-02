@@ -33,6 +33,9 @@ var app = angular.module( 'app', [
 	'ngUrlify'
 ] );
 
+String.prototype.isCustomDomain = function() {
+    return this.match(/^(?:[a-z0-9\-]{1,63})?\.smartmember\.(?:com|in|dev|soy|pro|co)$/i) ? false : true;
+}
 
 app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
@@ -46,31 +49,49 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	$rootScope.smModal = smModal;
 	$rootScope.smSidebar = smSidebar;
 
-	var domainParts = $location.host().split( '.' );
+    $rootScope.onCustomDomain = function() {
+        return location.host.isCustomDomain();
+    }
 
-	//this is here to account for country second level domains such as .co.uk, otherwise those would break
-	if( domainParts.length > 2 )
-	{
-		var env = domainParts.pop();
-		var domain = domainParts.pop();
+    $rootScope.nonProductionTLDs = ['dev','in','soy'];
 
-		if( env.length < 3 && domain.length <= 3 )
-		{
-			env = domain + "." + env;
-			domain = domainParts.pop();
-		}
+	var domainParts = $location.host().match(/^([a-z0-9\-]{1,63})?\.smartmember\.(com|in|dev|soy|pro|co)$/i);
+    var env = null;
+    var sub = null;
+    var rootDomain = null;
+    var domain = null;
+    var appUrl = $location.host();
 
-		domain = domain + "." + env;
-	}
-	else
-	{
-		var env = domainParts.pop();
-		var domain = domainParts.pop() + "." + env;
-	}
-	var sub = domainParts.pop();
+    if( domainParts ) {
+        env = domainParts[2];
+        sub = domainParts[1];
+
+        domain = 'smartmember.' + env;
+    } else {
+        domainParts = $location.host().split('.');
+        env = domainParts.pop();
+
+        if( env.length < 3 && domainParts.length > 1 && domainParts[ domainParts.length - 1].length < 4 ) {
+            var next_env = domainParts.pop();
+
+            env = next_env + '.' + env;
+        }
+
+        sub = domainParts[0];
+
+        domain = appUrl;
+    }
+
+    if( $rootScope.nonProductionTLDs.indexOf( env ) == -1 )
+        env = 'com';
+
+    rootDomain = 'smartmember.' + env;
+
+    var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf(env) == -1 ? 's' : '') + "://api." + rootDomain;
+
 	$arr = location.pathname.split( '/' );
 
-	if( sub == 'my' )
+	if( sub && sub == 'my' )
 	{
 		if( !$localStorage.user && $arr[ 1 ] != 'sign' )
 		{
@@ -120,7 +141,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 				$localStorage.redirect = toState.data.state;
 				console.log( "setting " + $localStorage.redirect );
 				event.preventDefault();
-				window.location.href = 'http://' + ( $rootScope.app.domain.indexOf( 'smartmember.' ) == -1 ? '' : $rootScope.subdomain + '.' ) + $rootScope.app.domain + "/sign/in/?message=a valid access token is required";
+				window.location.href = $rootScope.app.appUrl + "/sign/in/?message=a valid access token is required";
 			}
 			//-- refactoring required
 			if( fromState.name == "sign.in" && $localStorage.redirect )
@@ -135,16 +156,8 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 //
 	editableThemes[ 'default' ].submitTpl = '<button type="submit"><span class="fa fa-check"></span></button>';
 	editableThemes[ 'default' ].cancelTpl = '<button type="button" ng-click="$form.$cancel()"><span class="fa fa-times" ></span></button>';
-	non_https_tld = [
-		'soy',
-		'dev',
-		'in',
-	];
-	var apiURL = "http" + (non_https_tld.indexOf(env) == -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
 
-	//TODO: FIX THIS
-	//var rootDomain = 'smartmember.dev';
-	var rootDomain = domain;
+
 
 	$rootScope.apiURL = apiURL;
 	//Setup app configuration
@@ -152,7 +165,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 		"name": "Smartmember",
 		"apiUrl": apiURL,
 		"rootDomain": rootDomain,
-		"appUrl": sub ? "http://" + sub + "." + domain : "http://" + domain,
+		"appUrl": 'http://' + appUrl,
 		"env": env,
 		"rootEnv": apiURL.split('.').pop(),
 		"stripe_pk": 'pk_live_tdjHKO92mUyjNu9fWuMGNEQj',

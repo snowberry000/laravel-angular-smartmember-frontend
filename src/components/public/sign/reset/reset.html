@@ -49,7 +49,7 @@
             Sign Up
             <i class="edit icon"></i>
         </a>
-        <a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
+        <a ng-href="{{!onCustomDomain() && app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
             Need help?
             <i class="life ring icon"></i>
         </a>

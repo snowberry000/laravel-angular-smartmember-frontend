@@ -75,7 +75,7 @@
 						<div class="field">
 							<label>Default Link</label>
 							<input ng-if="site.domain" value="http://{{site.domain}}/?signup"/>
-							<input ng-if="!site.domain" value="http://{{site.subdomain}}.{{app.domain}}/?signup"/>
+							<input ng-if="!site.domain" value="http://{{site.subdomain}}.{{app.rootDomain}}/?signup"/>
 						</div>
 
 						<div class="ui ignored info message">

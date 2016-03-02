@@ -9,6 +9,6 @@
 
 <div class="content">
 	<div class="header">{{next_item.label}}</div>
-	<span class="font-bold" ng-if="next_item.url.indexOf('http://') == -1 && next_item.url.indexOf('https://') == -1">http://{{(app.domain ? app.domain : app.subdomain + '.' + app.rootDomain) + '/' + next_item.url}}</span>
+	<span class="font-bold" ng-if="next_item.url.indexOf('http://') == -1 && next_item.url.indexOf('https://') == -1">{{(app.appUrl + '/' + next_item.url}}</span>
 	<span class="font-bold" ng-if="next_item.url.indexOf('http://') != -1 || next_item.url.indexOf('https://') != -1">{{next_item.url}}</span>
 </div>

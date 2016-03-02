@@ -13,7 +13,7 @@
 	<h1 class="ui center aligned header headline_text_color" ng-if="searching">
 		Search results for "{{query}}"
 	</h1>
-    <div class="ui form text-center" ng-if="app.subdomain != 'docs'">
+    <div class="ui form text-center" ng-if="onCustomDomain() || app.subdomain != 'docs'">
         <div class="ui large icon input">
             <input type="text" placeholder="Search..." ng-model="query" ng-change="search( query )" ng-model-options="{debounce: { 'default': 1000, 'blur': 0 } }">
             <i class="search icon"></i>

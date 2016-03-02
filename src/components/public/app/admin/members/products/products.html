@@ -41,12 +41,11 @@
 									</td>
 									<td>
 										<div class="ui action input" ng-init="init()">
-											<input ng-if="site.domain" type="text" value="http://{{site.domain}}/access/{{next_item.hash}}">
-											<input ng-if="!site.domain" type="text" value="http://{{site.subdomain}}.{{app.domain}}/access/{{next_item.hash}}">
+											<input type="text" value="{{app.appUrl}}/access/{{next_item.hash}}">
 											<button class="ui icon button" ng-click="promptRefreshHash(next_item)" title="Refresh hash">
 												<i class="refresh icon"></i>
 											</button>
-	                                        <button class="ui green right icon button copy-button" data-clipboard-action="copy" title="Copy Url" data-text="http://{{site.subdomain}}.{{app.domain}}/access/{{next_item.hash}}" ng-click="copied()">
+	                                        <button class="ui green right icon button copy-button" data-clipboard-action="copy" title="Copy Url" data-text="{{app.appUrl}}/access/{{next_item.hash}}" ng-click="copied()">
 	                                            <i class="copy icon"></i>
 	                                        </button>
 										</div>
@@ -62,11 +61,11 @@
 	                                        </button>
 										</div>
 										<div class="ui action input" ng-if="!site.domain"  ng-init="init()">
-											<input type="text" value="http://{{site.subdomain}}.{{app.domain}}/checkout/{{next_item.id}}">
-											<a href="http://{{site.subdomain}}.{{app.domain}}/checkout/{{next_item.id}}" target="_blank" class="ui icon button">
+											<input type="text" value="{{app.appUrl}}/checkout/{{next_item.id}}">
+											<a href="{{app.appUrl}}/checkout/{{next_item.id}}" target="_blank" class="ui icon button">
 												<i class="external link icon"></i>
 											</a>
-	                                        <button class="ui green right icon button copy-button" data-clipboard-action="copy" title="Copy Url" data-text="http://{{site.subdomain}}.{{app.domain}}/checkout/{{next_item.id}}" ng-click="copied()">
+	                                        <button class="ui green right icon button copy-button" data-clipboard-action="copy" title="Copy Url" data-text={{app.appUrl}}/checkout/{{next_item.id}}" ng-click="copied()">
 	                                            <i class="copy icon"></i>
 	                                        </button>
 										</div>

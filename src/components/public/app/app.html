@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		</div>
-		<div ng-if="app.subdomain == 'docs'" class="row">
+		<div ng-if="!onCustomDomain() && app.subdomain == 'docs'" class="row">
 
 			<div class="ui very padded basic segment twelve wide column">
 				<div class="ui form text-center">
@@ -38,7 +38,7 @@
 			</div>
 
 		</div>
-		<div ng-if="app.subdomain != 'docs'" class="row">
+		<div ng-if="onCustomDomain() || app.subdomain != 'docs'" class="row">
 
 			<div class="middle aligned column m-b-lg mobile hidden tablet hidden" ng-if="meta_data.logo_position == 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/site/common/top-nav.html'"></div>
 			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column'">

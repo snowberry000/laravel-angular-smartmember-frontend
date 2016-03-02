@@ -21,10 +21,10 @@
 
 		<div class="menu">
 			<a class="item" ui-sref="public.app.admin.account.settings">Account settings</a>
-			<a class="item" ui-sref="public.www.home" ng-hide="app.subdomain != 'my' && meta_data.hide_sm_logo && meta_data.hide_sm_logo != '0'">Site Directory</a>
+			<a class="item" ui-sref="public.www.home" ng-hide="( onCustomDomain() || app.subdomain != 'my' ) && meta_data.hide_sm_logo && meta_data.hide_sm_logo != '0'">Site Directory</a>
 			<a class="item" style="display:none;">Report Bugs</a>
-			<a class="item" ng-if="app.subdomain != 'my'" ui-sref="public.app.site.support-tickets">Support Tickets</a>
-			<a class="item" ng-if="app.subdomain == 'my'"
+			<a class="item" ng-if="onCustomDomain() || app.subdomain != 'my'" ui-sref="public.app.site.support-tickets">Support Tickets</a>
+			<a class="item" ng-if="!onCustomDomain() && app.subdomain == 'my'"
 			   href="http://help.smartmember.{{app.env}}/support-ticket">Support Ticket</a>
 			<a class="item" ng-href="http://help.smartmember.com" ng-if="user.sm_access">SM Help Center</a>
 

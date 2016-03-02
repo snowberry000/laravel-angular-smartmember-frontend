@@ -77,7 +77,7 @@
 			{{site_options.forgot_password_text ? site_options.forgot_password_text : 'Forgot password?'}}
 			<i class="lock icon"></i>
 		</a>
-		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
+		<a ng-href="{{!onCustomDomain() && app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
 			{{site_options.need_help_text ? site_options.need_help_text : 'Need help?'}}
 			<i class="life ring icon"></i>
 		</a>
