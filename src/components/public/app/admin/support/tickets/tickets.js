@@ -17,8 +17,8 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 
     Restangular.all('user/sites').getList({capability: 'manage_support_tickets'}).then(function(response){
         response.sort(function(a,b){
-            var first_one = a.domain && a.domain != '' ? a.domain : a.subdomain + '.smartmember.' + $scope.app.env;
-            var second_one = b.domain && b.domain != '' ? b.domain : b.subdomain + '.smartmember.' + $scope.app.env;
+            var first_one = a.domain && a.domain != '' ? a.domain : a.subdomain + '.smartmember.' + $scope.app.rootEnv;
+            var second_one = b.domain && b.domain != '' ? b.domain : b.subdomain + '.smartmember.' + $scope.app.rootEnv;
 
             if( first_one > second_one )
                 return 1;
@@ -130,7 +130,7 @@ app.controller( "TicketsController", function( $scope, $location, $localStorage,
 	{
 		var site = _.findWhere($scope.available_sites, {id: parseInt( site_id )}) || _.findWhere($scope.available_sites, {id: site_id + ''});
         if( site )
-		    return site.domain ? site.domain : site.subdomain + '.smartmember.' + $rootScope.app.env
+		    return site.domain ? site.domain : site.subdomain + '.smartmember.' + $rootScope.app.rootEnv
 	}
 
     $scope.openTicket = function( $event, next_item ) {
