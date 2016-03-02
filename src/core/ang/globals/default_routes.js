@@ -16,7 +16,7 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 	{
 		var $state = $injector.get( '$state' );
 
-		if( possible_domain == 'smartmember' && parts.length === 0 && tld != 'io' )
+		if( !location.host.isCustomDomain() && possible_domain == 'smartmember' && parts.length === 0 && tld != 'io' )
 		{
 			if( subdomain == "my" )
 			{
