@@ -18,7 +18,7 @@
 
     <br /><br />
 
-    <a href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}"><small>Got questions, ask our support!</small></a>
+    <a href="{{!onCustomDomain() && app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}"><small>Got questions, ask our support!</small></a>
 
     <br /><br />
 

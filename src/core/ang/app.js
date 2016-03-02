@@ -49,6 +49,10 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	$rootScope.smModal = smModal;
 	$rootScope.smSidebar = smSidebar;
 
+    $rootScope.onCustomDomain = function() {
+        return location.host.isCustomDomain();
+    }
+
     $rootScope.nonProductionTLDs = ['dev','in','soy'];
 
 	var domainParts = $location.host().match(/^([a-z0-9\-]{1,63})?\.smartmember\.(com|in|dev|soy|pro|co)$/i);

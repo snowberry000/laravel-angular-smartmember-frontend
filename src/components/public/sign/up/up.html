@@ -67,7 +67,7 @@
 		<div ng-click="CloseExtraState()" class="ui black button">
             {{site_options.login_close_button_text ? site_options.login_close_button_text : 'Close'}}
 		</div>
-		<a ng-href="{{app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button" ng-click="CloseModal();">
+		<a ng-href="{{!onCustomDomain() && app.subdomain == 'my' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui close right labeled icon button" ng-click="CloseModal();">
             {{site_options.need_help_text ? site_options.need_help_text : 'Need help?'}}
 			<i class="life ring icon"></i>
 		</a>

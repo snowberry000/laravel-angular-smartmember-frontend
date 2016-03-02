@@ -39,9 +39,9 @@
 		<div class="panel-footer text-center">
 			<div class="input-group">
 				<span class="input-group-addon input-lg">JVZIPN URL: </span>
-				<input type="text" placeholder="" id="payment_gateway_jvzoo" class="form-control input-lg" style="background:#fff; cursor:auto;" value="{{app.apiUrl + '/transaction?type=jvzoo&subdomain=' + app.subdomain}}" disabled>
+				<input type="text" placeholder="" id="payment_gateway_jvzoo" class="form-control input-lg" style="background:#fff; cursor:auto;" value="{{app.apiUrl + '/transaction?type=jvzoo&subdomain=' + $root.site.subdomain}}" disabled>
 				<span class="input-group-btn">
-					<a class="btn" style="height:50px;" clip-copy="app.apiUrl + '/transaction?type=jvzoo&subdomain=' + app.subdomain" ng-click="copied()" >Copy</a>
+					<a class="btn" style="height:50px;" clip-copy="app.apiUrl + '/transaction?type=jvzoo&subdomain=' + $root.site.subdomain" ng-click="copied()" >Copy</a>
 				</span>
 			</div>
 		</div>
