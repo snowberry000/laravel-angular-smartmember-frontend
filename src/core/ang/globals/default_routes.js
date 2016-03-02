@@ -45,12 +45,12 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 		var $state = $injector.get( '$state' );
 		var Restangular = $injector.get( 'Restangular' );
 
-		if( subdomain == "my" && possible_domain == 'smartmember' && parts.length == 1 )
+		if( !location.host.isCustomDomain() && subdomain == "my" && possible_domain == 'smartmember' && parts.length == 1 )
 		{
 			console.log( "Going to 'public.my' state from non-/" );
 			$state.go( "public.my" );
 		}
-		else if( subdomain == "www" && possible_domain == 'smartmember' && parts.length == 1 )
+		else if( !location.host.isCustomDomain() && subdomain == "www" && possible_domain == 'smartmember' && parts.length == 1 )
 		{
 			console.log( "Going to 'public.www' state from non-/" );
 			$state.go( "public.www.home" );
