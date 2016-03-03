@@ -6,15 +6,15 @@
 	<div class="content">
 		<div class="description">
 			<p>Get a CSV of your subscribers for backups or importing into 3rd-party services.</p>
-			<div class="field m-t-sm">
+			<div class="ui form">
 				<label class="col-sm-2 control-label">Filters</label>
 
-				<div class="col-sm-10">
+				<div class="field">
 
-					<ul class="criteria-list col-md-12 m-t-xs" style="list-style-type:none" >
-						<li title="" original-title="" style="position: relative;margin:8px;">
-							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('email_list_selector')" ng-init="email_list_selector=false">
-								<div class="criteria-wrap"><span class="fieldLabel">Email Lists:</span> {{queueEmailData.emailLists.indexOf(true) != -1 ? 'Selected':'All'}}</div>
+					<div class="criteria-list col-md-12 m-t-xs ui grid" style="list-style-type:none" >
+						<div title="" original-title="" class="col four wide">
+							<button type="button" class="criteria-selector drop-arrow ui button" ng-click="toggleDropdown('email_list_selector')" ng-init="email_list_selector=false">
+								<div class="criteria-wrap"><span class="fieldLabel">Email Lists:</span> {{queueEmailData.emailLists.indexOf(true) != -1 ? 'Selected':'None'}}</div>
 							</button>
 							<a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
 								<span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
@@ -38,7 +38,7 @@
 																	</label>
 																</li>
 															</ul>
-															<h5 class="ui header">Email lists:</h5>
+															<h5 class="ui header" style="margin-top: 10px;">Email lists:</h5>
 															<ul class="aui-list-section"
 																aria-label="Standard Issue Types">
 																<li ng-repeat="list in emailLists | filter: search" class="check-list-item  imagebacked 10000" role="option">
@@ -55,10 +55,10 @@
 									</form>
 								</div>
 							</div>
-						</li>
-						<li title="" original-title="" style="margin:8px;">
-							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('site_members_selector')" ng-init="site_members_selector=false">
-								<div class="criteria-wrap"><span class="fieldLabel">Members:</span> {{queueEmailData.siteMembers.indexOf(true) != -1 ? 'Selected':'All'}}</div>
+						</div>
+						<div title="" original-title="" class="col four wide">
+							<button type="button" class="criteria-selector drop-arrow ui button" ng-click="toggleDropdown('site_members_selector')" ng-init="site_members_selector=false">
+								<div class="criteria-wrap"><span class="fieldLabel">Members:</span> {{queueEmailData.siteMembers.indexOf(true) != -1 ? 'Selected':'None'}}</div>
 							</button>
 							<a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
 								<span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
@@ -82,7 +82,7 @@
 																	</label>
 																</li>
 															</ul>
-															<h5 class="ui header">Members of:</h5>
+															<h5 class="ui header" style="margin-top: 10px;">Members of:</h5>
 															<ul  class="aui-list-section"
 																 aria-label="Standard Issue Types">
 																<li ng-repeat="site in sites | filter: site_search" class="check-list-item  imagebacked 10000" role="option">
@@ -97,10 +97,10 @@
 									</form>
 								</div>
 							</div>
-						</li>
-						<li title="" original-title="" style="margin:8px;">
-							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('access_levels_selector')" ng-init="access_levels_selector=false">
-								<div class="criteria-wrap"><span class="fieldLabel">Access Levels:</span> {{queueEmailData.accessLevels.indexOf(true) != -1 ? 'Selected':'All'}}</div>
+						</div>
+						<div title="" original-title=""  class="col four wide">
+							<button type="button" class="criteria-selector drop-arrow ui button" ng-click="toggleDropdown('access_levels_selector')" ng-init="access_levels_selector=false">
+								<div class="criteria-wrap"><span class="fieldLabel">Access Levels:</span> {{queueEmailData.accessLevels.indexOf(true) != -1 ? 'Selected':'None'}}</div>
 							</button>
 							<a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
 								<span class="aui-icon aui-icon-small aui-iconfont-remove"></span>
@@ -124,7 +124,7 @@
 																	</label>
 																</li>
 															</ul>
-															<h5 class="ui header"></h5>
+															<h5 class="ui header" style="margin-top: 10px;"></h5>
 															<ul  class="aui-list-section">
 																<li ng-repeat="accessLevel in accessLevels | filter: access_level_search" class="check-list-item  imagebacked 10000" role="option">
 																	<label class="item-label" title="{{_.findWhere(sites,{id: accessLevel.site_id}).name}}">
@@ -138,9 +138,9 @@
 									</form>
 								</div>
 							</div>
-						</li>
-						<li title="" original-title="" style="margin:8px;">
-							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('ownership_type_selector')" ng-init="ownership_type_selector=false">
+						</div>
+						<div title="" original-title=""  class="col four wide">
+							<button type="button" class="criteria-selector drop-arrow ui button" ng-click="toggleDropdown('ownership_type_selector')" ng-init="ownership_type_selector=false">
 								<div class="criteria-wrap"><span class="fieldLabel">Ownership Type:</span> {{queueEmailData.ownershipTypes.owned == true || queueEmailData.ownershipTypes.refunded == true ? 'Selected':'None'}}</div>
 							</button>
 							<a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
@@ -174,9 +174,9 @@
 									</form>
 								</div>
 							</div>
-						</li>
-						<li title="" original-title="" style="margin:8px;" ng-if="isSuperAdmin">
-							<button type="button" class="criteria-selector drop-arrow" ng-click="toggleDropdown('sm_user_selector')" ng-init="$parent.sm_user_selector=false">
+						</div>
+						<div title="" original-title="" ng-if="isSuperAdmin">
+							<button type="button" class="criteria-selector drop-arrow ui button" ng-click="toggleDropdown('sm_user_selector')" ng-init="$parent.sm_user_selector=false">
 								<div class="criteria-wrap"><span class="fieldLabel">SM Users:</span> {{queueEmailData.smUsers.primaryOwners == true || queueEmailData.smUsers.owners == true ? 'Selected':'None'}}</div>
 							</button>
 							<a href="#" class="remove-filter" title="Remove criterion" tabindex="-1" style="display: none;">
@@ -210,8 +210,8 @@
 									</form>
 								</div>
 							</div>
-						</li>
-					</ul>
+						</div>
+					</div>
 
 				</div>
 			</div>
