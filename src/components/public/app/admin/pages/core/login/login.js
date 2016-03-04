@@ -51,6 +51,17 @@ app.controller("LoginController", function ($scope, smModal, $rootScope, $localS
             $scope.show_next = show_next;
             $scope.close();
         }
+        else if(selected_url == 'post'){
+          Restangular.all(selected_url).customGET('',{site_id: $site.id,view: 'admin'}).then(function(response){
+              var posts = response.items;
+              response.items.forEach(function(entity){
+                  entity.url =  entity.permalink;
+              })
+              $scope.show_next = true;
+              $scope.loaded_items = {items : posts };
+                
+          })
+        }
         else if(selected_url == 'download'){
             console.log(item.site_id)
             Restangular.all('download').customGET('',{site_id: $site.id}).then(function(response){
@@ -65,18 +76,30 @@ app.controller("LoginController", function ($scope, smModal, $rootScope, $localS
         }
         else
         {
-            Restangular.all(selected_url).customGET('',{site_id: $site.id}).then(function(response){
-                if(response.route == 'customPage')
-                    response.route = 'page';
-                if(response.route == 'supportArticle')
-                    response.route = 'support-article';
-                response.items.forEach(function(entity){
-                    entity.url = entity.permalink;
-                })
-                $scope.show_next = true;
-                $scope.loaded_items = response;
 
-            })
+           $params = {site_id: $site.id, bypass_paging: true};
+                   if(selected_url == 'lesson')
+                   {
+                       $params.drafted = false;
+                   }
+
+                   Restangular.all(selected_url).customGET('',$params).then(function(response){
+                       if(response.route == 'customPage')
+                           response.route = 'page';
+                       if(response.route == 'supportArticle')
+                           response.route = 'support-article';
+                       if(response && response.items)
+                           $.each(response.items,function(key,value){
+                               value.url =  value.permalink;
+                           });
+                       else if(response)
+                           $.each(response,function(key,value){
+                              value.url =  value.permalinwk;
+                           });
+                       $scope.show_next = true;
+                       $scope.loaded_items = response;
+                         
+                   })
         }
     }
 });
