@@ -162,7 +162,9 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 			} );
 			if( details.menu_items )
 			{
-				$rootScope.options.menu_items = details.menu_items;
+				//alert('asd');
+				$rootScope.options.menu_items =  $filter('orderBy')(details.menu_items, 'sort_order');
+				console.log($rootScope.options.menu_items );
 			}
 			if( details.footer_menu_items )
 			{

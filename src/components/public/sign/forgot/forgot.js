@@ -22,9 +22,12 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
     if( $rootScope.site ) {
         $site_options = $rootScope.site.meta_data;
         $scope.site_options = {};
+        if($site_options)
+        {
         $.each($site_options, function (key, data) {
             $scope.site_options[data.key] = data.value;
         });
+    	}
     }
     
 	if ($location.search().error_message)
