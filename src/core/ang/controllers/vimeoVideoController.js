@@ -4,7 +4,7 @@ app.controller('VimeoVideoController',function($scope,$http,Restangular,toastr ,
         var featured_image = ($scope.next_item.pictures != undefined && $scope.next_item.pictures.sizes[3] != undefined) ? $scope.next_item.pictures.sizes[3].link : '';
         var lesson = {
             site_id: $scope.site.id,
-            title: $scope.next_item.name.replace(/[\/\\#,+()'":*?<>{}]/g,'-'),
+            title: $scope.next_item.name.replace(/[^\w\s]/gi, '_');
             content: $scope.next_item.description ? $scope.next_item.description : $scope.next_item.name,
             featured_image: featured_image,
             embed_content: typeof $scope.next_item.embed.html != 'undefined' && $scope.next_item.embed.html != '' && $scope.next_item.embed.html != null ? $scope.next_item.embed.html : '<iframe src="https://player.vimeo.com/video/' + $scope.next_item.uri.split('/').pop() + '?badge=0&autopause=0&player_id=0" width="1280" height="720" frameborder="0" title="Affiliate Marketing Blueprint" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>',
