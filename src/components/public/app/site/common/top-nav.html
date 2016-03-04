@@ -13,7 +13,7 @@
 
 	<div resize sm-class="(options.menu_items.length | numbertoword) + ( (meta_data.navigation_location != 'left fixed' && meta_data.navigation_location != 'right fixed') ? (IsMobile() ? ' ui buttons' : '') : '')" ng-if="options.menu_items">
 
-		<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items" ng-click="selectedElement($index)"
+		<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | limitTo:7" ng-click="selectedElement($index)"
 		   target="{{(menu_item.open_in_new_tab == 1 || menu_item.open_in_new_tab == '1') ? '_blank' : '_self'}}">
 
 			<i sm-class="'icon navigation_icon_color fa ' + ( menu_item.icon || 'fa-home' ) + ' ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'top' || meta_data.icon_position == 'left') && !menu_item.custom_icon &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
@@ -27,6 +27,27 @@
 
 		</a>
 	</div>
+
+
+ 	<div class="item thin ui item dropdown right labeled icon button" position="top center" sui-dropdown ng-if="options.menu_items.length > 7" style="margin-top:10px;">{{options.menu_items.length - 7}} <br>More
+ 		<div class="ui inverted basic " style="color:black !important ">
+ 		 <i class="dropdown icon "></i>
+ 		</div>
+      <div class="menu">
+          <a class="item" ng-repeat="menu_item in options.menu_items.slice(7,options.menu_items.length)" >
+          	<i sm-class="'icon navigation_icon_color fa ' + ( menu_item.icon || 'fa-home' ) + ' ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'top' || meta_data.icon_position == 'left') && !menu_item.custom_icon &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
+           	<i sm-class="'icon navigation_icon_color fa ' + menu_item.custom_icon + ' ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'top' || meta_data.icon_position == 'left') && menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') != -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
+         	<img style="width:auto;" sm-class="'icon navigation_icon_color ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'top' || meta_data.icon_position == 'left') && menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') == -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)" src="{{menu_item.custom_icon}} "/>
+		       	{{ menu_item.label }} 
+
+        	<i sm-class="'icon navigation_icon_color fa ' + ( menu_item.icon || 'fa-home' ) + ' ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'bottom' || meta_data.icon_position == 'right') && !menu_item.custom_icon &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
+           	<i sm-class="'icon navigation_icon_color fa ' + menu_item.custom_icon + ' ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'bottom' || meta_data.icon_position == 'right') && menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') != -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
+            	<img style="width:auto;" sm-class="'icon navigation_icon_color ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'bottom' || meta_data.icon_position == 'right') && menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') == -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)" src="{{menu_item.custom_icon}}"/>
+             </a>
+         </div>
+         
+     </div>
+ 
 
 </div>
 
