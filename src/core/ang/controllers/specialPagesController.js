@@ -64,18 +64,29 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
       }
       else
       {
-        Restangular.all(selected_url).customGET('',{site_id: $site.id,bypass_paging: true}).then(function(response){
-            if(response.route == 'customPage')
-                response.route = 'page';
-            if(response.route == 'supportArticle')
-                response.route = 'support-article';
-            response.items.forEach(function(entity){
-                entity.url =  entity.permalink;
-            })
-            $scope.show_next = true;
-            $scope.loaded_items = response;
-              
-        })
+        $params = {site_id: $site.id, bypass_paging: true};
+                if(selected_url == 'lesson')
+                {
+                    $params.drafted = false;
+                }
+
+                Restangular.all(selected_url).customGET('',$params).then(function(response){
+                    if(response.route == 'customPage')
+                        response.route = 'page';
+                    if(response.route == 'supportArticle')
+                        response.route = 'support-article';
+                    if(response && response.items)
+                        $.each(response.items,function(key,value){
+                            value.url =  value.permalink;
+                        });
+                    else if(response)
+                        $.each(response,function(key,value){
+                           value.url =  value.permalinwk;
+                        });
+                    $scope.show_next = true;
+                    $scope.loaded_items = response;
+                      
+                })
       }
     }
 
