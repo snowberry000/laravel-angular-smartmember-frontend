@@ -1223,10 +1223,15 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
             return next_item.id == id;
         } );
 
-        itemWithId.remove().then( function()
-        {
-            $scope.lessons = _.without( $scope.lessons, itemWithId );
-        } );
+        Restangular.all('lesson').customDELETE(itemWithId.id).then( function()
+		{
+			$scope.lessons = _.without( $scope.lessons , itemWithId);
+			$scope.pagination.total_count = $scope.pagination.total_count - 1;
+		} );
+  //       itemWithId.remove().then( function()
+  //       {
+  //           $scope.lessons = _.without( $scope.lessons, itemWithId );
+  //       } );
     };
 } );
 
@@ -1376,10 +1381,15 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
             return next_item.id == id;
         } );
 
-        itemWithId.remove().then( function()
-        {
-            $rootScope.modules = _.without( $rootScope.modules, itemWithId );
-        } );
+        Restangular.all('module').customDELETE(itemWithId.id).then( function()
+		{
+			$scope.modules = _.without( $scope.modules , itemWithId);
+			$scope.pagination.total_count = $scope.pagination.total_count -1;
+		} );
+        // itemWithId.remove().then( function()
+        // {
+        //     $rootScope.modules = _.without( $rootScope.modules, itemWithId );
+        // } );
     };
 
 	$scope.cancel = function()
