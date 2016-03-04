@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="next_item in modules | itemsPerPage: pagination:per_page"  total-items="pagination.total_count"  current-page="pagination.current_page">
+                    <tr dir-paginate="next_item in modules | itemsPerPage: pagination.per_page"  total-items="pagination.total_count"  current-page="pagination.current_page">
                         <td>
                             {{next_item.title}}
                         </td>
