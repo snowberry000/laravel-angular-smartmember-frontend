@@ -2,8 +2,8 @@
 	<div class="header no-border asd">
 		<div class="ui top attached tabular menu" sui-tabs>
 			<a class="item active" data-tab="upload">Upload</a>
-			<a class="item" ng-if="!hide_media" ng-click="mediaTab.status='true';" sm-access="manage_content" if-not="hide" data-tab="media_files">Media Files</a>
-			<a class="item" data-tab="youzign" ng-click="mediaTab.status='false';" sm-access="manage_content" if-not="hide" >Youzign Files</a>
+			<a class="item" ng-if="!hide_media && !hideMediaitems" ng-click="mediaTab.status='true';" sm-access="manage_content" if-not="hide" data-tab="media_files">Media Files</a>
+			<a class="item" ng-if="!hideMediaitems" data-tab="youzign" ng-click="mediaTab.status='false';" sm-access="manage_content" if-not="hide" >Youzign Files</a>
 		</div>
 	</div>
 	<div class='content'>
