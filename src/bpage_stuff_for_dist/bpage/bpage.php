@@ -178,6 +178,14 @@ if( !$html )
     </style>
 </head>
 <body class="live_bridge_page">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <script type="text/javascript">
     $(document).ready(function () {
         var tracking_code_url = "http<?php echo in_array($tld,array('dev','in')) ? '':'s';?>://api.<?php echo $rootDomain; ?>/siteMetaData/getTrackingCode?subdomain=<?php echo $subdomain; ?>&permalink=<?php echo ltrim($_SERVER['REQUEST_URI'], '/'); ?>&domain=<?php echo $domain; ?>";
