@@ -230,9 +230,11 @@ app.controller("ImportController", function ($scope, $rootScope, $http, Restangu
 
     $scope.addAll = function(){
         var videosToAdd = [];
+        
         for (var i = 0; i < $scope.videos.data.length; i++) {
 
             if(!$scope.videos.data[i].added && !$scope.videos.data[i].hide){
+                $scope.videos.data[i]['name']=$scope.videos.data[i]['name'].replace(/[^a-zA-Z0-9]/g,' ');
                 videosToAdd.push($scope.videos.data[i]);
                 $videosAdded.items.push({remote_id: $scope.videos.data[i].uri});
             }
