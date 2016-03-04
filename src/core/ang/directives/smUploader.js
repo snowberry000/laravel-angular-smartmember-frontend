@@ -100,6 +100,8 @@ app.controller( 'modalMediaController', function( $scope,toastr, $rootScope, $lo
 	
 	$scope.mediaTab={status:'true'};
 
+	$scope.hideMediaitems = $rootScope.site.capabilities.indexOf('manage_content') < 0 ? true : false;
+
 	console.log( $rootScope.subdomain == 'my');
 	$scope.hide_media = $stateParams.hide_media;
 	$scope.media_files = [];
