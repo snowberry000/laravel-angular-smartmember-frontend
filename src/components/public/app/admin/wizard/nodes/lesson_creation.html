@@ -21,7 +21,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="next_item in lessons">
+					<tr dir-paginate="next_item in lessons | itemsPerPage: pagination.per_page" total-items="pagination.total_count"  current-page="pagination.current_page">
 						<td>
 							{{next_item.title}}
 						</td>
@@ -33,9 +33,19 @@
 						</td>
 					</tr>
 				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="4">
+							<div class="ui pointing label">
+								{{pagination.total_count}} items
+							</div>
+							<dir-pagination-controls max-size="5"></dir-pagination-controls>
+						</th>
+					</tr>
+				</tfoot>
 			</table>
 
-			<div class="ui form">
+			<!-- <div class="ui form">
 
 				<div class="field">
 					<label>Lesson title</label>
@@ -54,6 +64,34 @@
 					<textarea froala ng-model="next_item.content"></textarea>
 				</div>
 
+			</div> -->
+			<div class="ui section divider"></div>
+			
+			<div class="ui top attached tabular menu" sui-tabs>
+				<a class="item active" data-tab="one">Main Content</a>
+				<a class="item" data-tab="extra">Lesson Fields</a>
+				<a class="item" data-tab="two">Media</a>
+				<a class="item" data-tab="three">Scheduling</a>
+				<a class="item" data-tab="four">Commenting</a>
+				<a class="item" data-tab="five">Social Sharing</a>
+			</div>
+			<div class="ui bottom attached tab segment active" data-tab="one">
+				<div ng-include="'templates/components/public/administrate/site/content/common/content-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="extra">
+				<div ng-include="'templates/components/public/app/admin/lesson/edit-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="two">
+				<div ng-include="'templates/components/public/administrate/site/content/common/media-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="three">
+				<div ng-include="'templates/components/public/administrate/site/content/common/scheduling-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="four">
+				<div ng-include="'templates/components/public/administrate/site/content/common/commenting-options.html'"></div>
+			</div>
+			<div class="ui bottom attached tab segment" data-tab="five">
+				<div ng-include="'templates/components/public/administrate/site/content/common/social-sharing-options.html'"></div>
 			</div>
 
 		</div>
