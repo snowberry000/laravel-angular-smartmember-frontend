@@ -31,6 +31,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 	$rootScope.user_loaded = false;
 	$rootScope.user = null;
 
+
 	$rootScope.sites_loading = false;
 	$rootScope.sites_loaded = false;
 	$rootScope.sites = {};
@@ -84,9 +85,10 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 	$rootScope.CloseAdminState = function()
 	{
-		var go_state = $rootScope.last_site_state.state || (!$scope.isSitelessPage() ? 'public.app.site.home' : '');
+		var go_state = $rootScope.last_site_state.state || (!$scope.isSitelessPage() ? 'public.app.site.home' : '') ;// || 
 		var params = $rootScope.last_site_state.params || null;
 		var options = $rootScope.last_site_state.state ? null : { reload: true };
+		 $rootScope.customSiteSet=true;
 
 		console.log( 'closing the admin state', go_state, params, options );
 		if(go_state)

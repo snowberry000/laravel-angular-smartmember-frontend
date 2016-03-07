@@ -910,8 +910,8 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 	$scope.next_item = {};
 
 	$scope.hide_cancel_button = true;
-	if( $scope.modules == undefined )
-	{
+	// if( $scope.modules == undefined )
+	// {
 		Restangular.all( 'module' ).customGET( '' ).then( function( response )
 		{
 			$scope.modules = response.items;
@@ -920,7 +920,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 				$scope.next_item.module_id = $scope.modules[ 0 ].id;
 			}
 		} );
-	}
+	// }
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
@@ -1173,6 +1173,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 			}
 			toastr.success( "Lesson has been saved" );
 			$scope.adding = false;
+			$scope.init($rootScope.site.id, $scope.current_node);
 			//$rootScope.parent_wizard.next($scope.current_node.id , $scope.current_node);
 		} )
 
@@ -1404,6 +1405,7 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 			$rootScope.modules.unshift( response );
 			$scope.adding = false;
 			$scope.module = { site_id: $rootScope.site.id }
+			$scope.init($scope.module.site_id, $scope.current_node);
 			//$rootScope.parent_wizard.next($scope.current_node.id , $scope.current_node);
 		} );
 	}
@@ -1424,6 +1426,7 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
         Restangular.all('module').customDELETE(itemWithId.id).then( function()
 		{
 			$scope.modules = _.without( $scope.modules , itemWithId);
+			$rootScope.modules = $scope.modules;
 			$scope.pagination.total_count = $scope.pagination.total_count -1;
 		} );
         // itemWithId.remove().then( function()
