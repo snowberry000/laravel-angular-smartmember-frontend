@@ -26,6 +26,12 @@
 				<div class="ui compact info message">
 					<p>By default the title will be <strong>Support</strong></p>
 				</div>
+                <div class="ui compact info message">
+                    <div class="ui checkbox">
+                        <input type="checkbox" ng-model="site_options.support_enable" ng-checked="site_options.support_enable == 'yes'" ng-true-value="'yes'" ng-false-value="'no'">
+                        <label>Enable Smart Member Help desk</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
