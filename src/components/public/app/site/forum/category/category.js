@@ -11,7 +11,7 @@ app.config( function( $stateProvider )
 } );
 
 
-app.controller( "Forum-categoryController", function( $scope, $rootScope, $stateParams, Restangular )
+app.controller( "Forum-categoryController", function( $scope, $rootScope, $state, $stateParams, Restangular , $localStorage )
 {
 	$scope.loading = true;
 
@@ -40,4 +40,11 @@ app.controller( "Forum-categoryController", function( $scope, $rootScope, $state
             });
         }
     };
+
+    $scope.showNoAccessLogin = function() {
+		if (!$localStorage.user || !$localStorage.user.access_token)
+		{
+			$state.go('public.sign.in');
+		}
+	}
 } );
