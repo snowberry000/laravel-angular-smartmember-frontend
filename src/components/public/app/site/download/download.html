@@ -86,6 +86,11 @@
 
 	</div>
 </div>
-<div class="four wide column">
+<div class="ui segment basic four wide column p-none" ng-show="loading" style="min-height:70px;">
+	<div class="ui active inverted dimmer">
+		<div class="ui text loader">Loading</div>
+	</div>
+</div>
+<div class="four wide column" ng-show="!loading">
 	<div class="ng-scope"  ng-include="'templates/components/public/app/site/common/sidebar.html'"></div>
 </div>
