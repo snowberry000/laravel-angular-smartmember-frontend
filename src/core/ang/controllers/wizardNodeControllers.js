@@ -910,8 +910,8 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 	$scope.next_item = {};
 
 	$scope.hide_cancel_button = true;
-	if( $scope.modules == undefined )
-	{
+	// if( $scope.modules == undefined )
+	// {
 		Restangular.all( 'module' ).customGET( '' ).then( function( response )
 		{
 			$scope.modules = response.items;
@@ -920,7 +920,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 				$scope.next_item.module_id = $scope.modules[ 0 ].id;
 			}
 		} );
-	}
+	// }
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
