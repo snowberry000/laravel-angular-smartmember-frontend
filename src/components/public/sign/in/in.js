@@ -30,6 +30,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
             if( $rootScope.site ) {
                 $site_options = $rootScope.site.meta_data;
                 $scope.site_options = {};
+                if($site_options)
                 $.each($site_options, function (key, data) {
                     $scope.site_options[data.key] = data.value;
                 });
@@ -39,6 +40,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
     else if( $rootScope.site ) {
         $site_options = $rootScope.site.meta_data;
         $scope.site_options = {};
+        if($site_options)
         $.each($site_options, function (key, data) {
             $scope.site_options[data.key] = data.value;
         });

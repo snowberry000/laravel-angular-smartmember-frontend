@@ -897,6 +897,13 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		use_cancel_method: true
 	}
 
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0
+	};
+
+
 	//var $modules;
 	$scope.modules = $rootScope.modules;
 	$scope.$rootScope = $rootScope;
@@ -914,6 +921,14 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 			}
 		} );
 	}
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			// $scope.paginate();
+			$scope.init($rootScope.site.id, $scope.current_node);
+		}
+	} );
 
 	$rootScope.$watch( 'modules', function()
 	{
@@ -945,17 +960,21 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 	$scope.init = function( id, node )
 	{
+		var $params = { p: $scope.pagination.current_page, site_id: $rootScope.site.id };
+
 		//if(!node.completed){
-		Restangular.all( "lesson" ).customGET( '', { site_id: $rootScope.site.id } ).then( function( response )
+		Restangular.all( "lesson" ).customGET( '', $params ).then( function( response )
 		{
 			if( response && response.items && response.items.length )
 			{
 				$scope.lessons = response.items;
+				$scope.pagination.total_count = response.total_count;
 				//$rootScope.parent_wizard.next(id , $scope.$parent);
 			}
 		} );
 		//}
 	}
+	$scope.init($rootScope.site.id, $scope.current_node);
 
 	$scope.func = function()
 	{
@@ -1204,10 +1223,15 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
             return next_item.id == id;
         } );
 
-        itemWithId.remove().then( function()
-        {
-            $scope.lessons = _.without( $scope.lessons, itemWithId );
-        } );
+        Restangular.all('lesson').customDELETE(itemWithId.id).then( function()
+		{
+			$scope.lessons = _.without( $scope.lessons , itemWithId);
+			$scope.pagination.total_count = $scope.pagination.total_count - 1;
+		} );
+  //       itemWithId.remove().then( function()
+  //       {
+  //           $scope.lessons = _.without( $scope.lessons, itemWithId );
+  //       } );
     };
 } );
 
@@ -1263,20 +1287,39 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 	$scope.current_node = $scope.$parent;
 	$scope.module = { site_id: $rootScope.site.id };
 	//$rootScope.modules = [];
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0
+	};
+
+	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
+	{
+		if( new_value != old_value )
+		{
+			// $scope.paginate();
+			$scope.init($rootScope.site.id, $scope.current_node);
+		}
+	} );
+
 	$scope.init = function( id, node )
 	{
+		var $params = { p: $scope.pagination.current_page, site_id: $rootScope.site.id };
+
 		//if(!node.completed){
-		Restangular.all( "module" ).customGET( '', { site_id: $rootScope.site.id } ).then( function( response )
+		Restangular.all( "module" ).customGET( '', $params).then( function( response )
 		{
 			if( response && response.items && response.items.length )
 			{
 				//$rootScope.parent_wizard.next(id , $scope.current_node);
 				$rootScope.modules = response.items;
 				$scope.modules = $rootScope.modules;
+				$scope.pagination.total_count = response.total_count;
 			}
 		} );
 		//}
 	}
+	$scope.init($scope.module.site_id, $scope.current_node);
 	$scope.save = function()
 	{
 		if( $scope.module.title && $scope.module.title.length > 0)
@@ -1338,10 +1381,15 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
             return next_item.id == id;
         } );
 
-        itemWithId.remove().then( function()
-        {
-            $rootScope.modules = _.without( $rootScope.modules, itemWithId );
-        } );
+        Restangular.all('module').customDELETE(itemWithId.id).then( function()
+		{
+			$scope.modules = _.without( $scope.modules , itemWithId);
+			$scope.pagination.total_count = $scope.pagination.total_count -1;
+		} );
+        // itemWithId.remove().then( function()
+        // {
+        //     $rootScope.modules = _.without( $rootScope.modules, itemWithId );
+        // } );
     };
 
 	$scope.cancel = function()
