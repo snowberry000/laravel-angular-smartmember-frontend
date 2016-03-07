@@ -915,10 +915,10 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		Restangular.all( 'module' ).customGET( '' ).then( function( response )
 		{
 			$scope.modules = response.items;
-			if( $scope.modules.length > 0 )
-			{
-				$scope.next_item.module_id = $scope.modules[ 0 ].id;
-			}
+			// if( $scope.modules.length > 0 )
+			// {
+			// 	$scope.next_item.module_id = $scope.modules[ 0 ].id;
+			// }
 		} );
 	// }
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
@@ -930,13 +930,13 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		}
 	} );
 
-	$rootScope.$watch( 'modules', function()
-	{
-		if( $rootScope.modules != undefined )
-		{
-			$scope.next_item.module_id = $rootScope.modules[ 0 ].id;
-		}
-	} )
+	// $rootScope.$watch( 'modules', function()
+	// {
+	// 	if( $rootScope.modules != undefined )
+	// 	{
+	// 		$scope.next_item.module_id = $rootScope.modules[ 0 ].id;
+	// 	}
+	// } )
 
 
 	$scope.newModule = {};
@@ -981,6 +981,15 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
     $scope.start_published_time = moment().format('hh:mm a');
     $scope.end_published_time = moment().format('hh:mm a');
 
+    if( $scope.next_item.end_published_date )
+	{
+		$scope.next_item.end_published_date = new Date( moment( $scope.next_item.end_published_date ).format( 'l' ) );
+	}
+	else
+	{
+		$scope.next_item.end_published_date = null;
+	}
+	
 	$scope.init = function( id, node )
 	{
 
@@ -1036,11 +1045,11 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 
 	$scope.changeModule = function( $mod )
 	{
-		for( var i = 0; i < $modules.items.length; i++ )
+		for( var i = 0; i < $scope.modules.length; i++ )
 		{
-			if( $modules.items[ i ].title == $mod )
+			if( $scope.modules[ i ].title == $mod )
 			{
-				$scope.next_item.module_id = $modules.items[ i ].id;
+				$scope.next_item.module_id = $scope.modules[ i ].id;
 				break;
 			}
 		}
