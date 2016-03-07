@@ -1173,6 +1173,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 			}
 			toastr.success( "Lesson has been saved" );
 			$scope.adding = false;
+			$scope.init($rootScope.site.id, $scope.current_node);
 			//$rootScope.parent_wizard.next($scope.current_node.id , $scope.current_node);
 		} )
 
