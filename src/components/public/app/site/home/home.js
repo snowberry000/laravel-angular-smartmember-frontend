@@ -13,17 +13,21 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
 {
 	var homepage_url = null;
 
-	angular.forEach( $site.meta_data, function( value, key )
-	{
+	
+
+    if( !homepage_url || homepage_url == 'home' || homepage_url == '/' )
+        homepage_url = 'lessons';
+
+    angular.forEach( $site.meta_data, function( value, key )
+    {
         if( value.key == 'homepage_url' )
         {
             // alert(value.value);
             homepage_url = value.value;
         }
-	} );
+    } );
 
-    if( !homepage_url || homepage_url == 'home' || homepage_url == '/' )
-        homepage_url = 'lessons';
+
 
 	$scope.cutString = function(s, n){
 		var cut= s.indexOf(' ', n);
@@ -37,9 +41,10 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
 
     console.log('home page');
     console.log(homepage_url);
-    if( (window.location.pathname == '/' || window.location.pathname.indexOf('/sign/')>=0)&& $rootScope.subdomain != "my" )
+    if( (window.location.pathname == '/' || window.location.pathname.indexOf('/sign/')>=0)&& $rootScope.subdomain != "my" || $rootScope.customSiteSet )
 	{
         // alert("came in");
+        $rootScope.customSiteSet=false;
 		$homeState = 'public.app.site.lessons';
 
 		if( homepage_url )
