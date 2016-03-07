@@ -1,5 +1,5 @@
 <div class="ui text stackable compact menu">
-	<a class="item footer_text_color" ng-repeat="footer_menu_item in options.footer_menu_items | orderBy:'sort_order'" ng-href="{{footer_menu_item.url | parseurl}}">
+	<a class="item footer_text_color" ng-repeat="footer_menu_item in options.footer_menu_items | orderBy:'sort_order'" ng-href="{{footer_menu_item.url | parseurl}}" ng-hide="(footer_menu_item.url == 'support' || footer_menu_item.url == '/support') && options['support_enable'] == 'no' ">
 		{{footer_menu_item.label}}
 	</a>
 	<a class="item footer_text_color" ng-href="http://www.smartmember.com" ng-show="false">

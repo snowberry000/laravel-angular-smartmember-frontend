@@ -26,7 +26,7 @@
 			<a class="item" ng-if="onCustomDomain() || app.subdomain != 'my'" ui-sref="public.app.site.support-tickets">Support Tickets</a>
 			<a class="item" ng-if="!onCustomDomain() && app.subdomain == 'my'"
 			   href="http://help.smartmember.{{app.env}}/support-ticket">Support Ticket</a>
-			<a class="item" ng-href="http://help.smartmember.com" ng-if="user.sm_access">SM Help Center</a>
+			<a class="item" ng-href="http://help.smartmember.com" ng-if="user.sm_access" ng-hide="options['support_enable'] == 'no'">SM Help Center</a>
 
 			<a class="item" ng-click="LogOut()">Log out</a>
 
