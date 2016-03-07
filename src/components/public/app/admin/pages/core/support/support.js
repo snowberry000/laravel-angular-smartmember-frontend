@@ -1,5 +1,4 @@
 var app = angular.module("app");
-
 app.config(function($stateProvider){
 	$stateProvider
 		.state("public.app.admin.pages.support",{
@@ -8,8 +7,8 @@ app.config(function($stateProvider){
 			controller: 'specialPagesController',
 			resolve: {
 				$site_options: function( Restangular )
-				{
-					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'support_title' ] );
+				{		
+					return Restangular.all( 'siteMetaData' ).customGETLIST( "getOptions", [ 'support_title',  'support_enable'] );
 				}
 			}
 		})

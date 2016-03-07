@@ -661,14 +661,11 @@ app.controller( 'app_configurationsController', function( $scope, $q, smModal, $
 		}
 		else
 		{
-			$state.go( "public.app.admin.apps.app_configurations.list" );
+			//$state.go( "public.app.admin.apps.app_configurations.list" );
+			$state.transitionTo("public.app.admin.apps.app_configurations.list" , $stateParams , {
+				reload : true , inherit : false , location : false
+			});
 		}
-
-        /*
-		$state.transitionTo($state.current , $stateParams , {
-			reload : true , inherit : false , location : false
-		});
-		*/
 	}
 
 	$scope.enableIntegration = function( integration_id )

@@ -910,8 +910,8 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 	$scope.next_item = {};
 
 	$scope.hide_cancel_button = true;
-	if( $scope.modules == undefined )
-	{
+	// if( $scope.modules == undefined )
+	// {
 		Restangular.all( 'module' ).customGET( '' ).then( function( response )
 		{
 			$scope.modules = response.items;
@@ -920,7 +920,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 				$scope.next_item.module_id = $scope.modules[ 0 ].id;
 			}
 		} );
-	}
+	// }
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{
 		if( new_value != old_value )
@@ -957,9 +957,33 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 	 });
 	 }
 	 });*/
+	if (!Modernizr.inputtypes.date) {
+        // no native support for <input type="date"> :(
+        // maybe build one yourself with Dojo or jQueryUI
+        setTimeout(function() {
+        	$('input[type="date"]').datepicker();
+        	$('input[type="date"]' ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+        	
+        },1000);
+        
+    }
+
+    setTimeout(function() {
+       	$('.scheduled_time').timepicker({
+			timeFormat: 'hh:mm tt'
+		});
+		$scope.next_item.published_date = new Date();
+		$scope.next_item.published_date.setSeconds( 0 );
+		$scope.next_item.published_date.setMilliseconds( 0 );
+
+    },1000);
+
+    $scope.start_published_time = moment().format('hh:mm a');
+    $scope.end_published_time = moment().format('hh:mm a');
 
 	$scope.init = function( id, node )
 	{
+
 		var $params = { p: $scope.pagination.current_page, site_id: $rootScope.site.id };
 
 		//if(!node.completed){
@@ -1041,7 +1065,8 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 	}
 
 	$scope.saveModule = function( $model )
-	{
+	{	
+
 		Restangular.all( 'module' ).post( $model ).then( function( module )
 		{
 			if( $rootScope.modules )
@@ -1094,6 +1119,13 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		delete $scope.next_item.module;
 		delete $scope.next_item.site;
 
+		// Merge Starting Date And Time - Create JS Date Object
+		var start_date = moment($scope.next_item.published_date).format('YYYY-MM-DD')+' '+moment($('#start_published_time').datetimepicker('getDate')).format('HH:mm');
+		// Merge Ending Date And Time - Create JS Date Object
+		var end_date = moment($scope.next_item.end_published_date).format('YYYY-MM-DD')+' '+moment($('#end_published_time').datetimepicker('getDate')).format('HH:mm');
+		// Update $scope.next_item.published_date and $scope.next_item.end_published_date
+		$scope.next_item.published_date = start_date;
+		$scope.next_item.end_published_date = end_date;
 
 		$scope.next_item.site_id = $rootScope.site.id;
 		if($scope.next_item.title)
@@ -1141,6 +1173,7 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 			}
 			toastr.success( "Lesson has been saved" );
 			$scope.adding = false;
+			$scope.init($rootScope.site.id, $scope.current_node);
 			//$rootScope.parent_wizard.next($scope.current_node.id , $scope.current_node);
 		} )
 
@@ -1157,6 +1190,14 @@ app.controller( 'lessonWizardController', function( $scope, $rootScope, $filter,
 		delete $scope.next_item.current_index;
 		delete $scope.next_item.module;
 		delete $scope.next_item.site;
+
+		// Merge Starting Date And Time - Create JS Date Object
+		var start_date = moment($scope.next_item.published_date).format('YYYY-MM-DD')+' '+moment($('#start_published_time').datetimepicker('getDate')).format('HH:mm');
+		// Merge Ending Date And Time - Create JS Date Object
+		var end_date = moment($scope.next_item.end_published_date).format('YYYY-MM-DD')+' '+moment($('#end_published_time').datetimepicker('getDate')).format('HH:mm');
+		// Update $scope.next_item.published_date and $scope.next_item.end_published_date
+		$scope.next_item.published_date = start_date;
+		$scope.next_item.end_published_date = end_date;
 
 		if( !$scope.next_item.permalink ){
 			toastr.warning('Title is required!');
@@ -1364,6 +1405,7 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 			$rootScope.modules.unshift( response );
 			$scope.adding = false;
 			$scope.module = { site_id: $rootScope.site.id }
+			$scope.init($scope.module.site_id, $scope.current_node);
 			//$rootScope.parent_wizard.next($scope.current_node.id , $scope.current_node);
 		} );
 	}
@@ -1384,6 +1426,7 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
         Restangular.all('module').customDELETE(itemWithId.id).then( function()
 		{
 			$scope.modules = _.without( $scope.modules , itemWithId);
+			$rootScope.modules = $scope.modules;
 			$scope.pagination.total_count = $scope.pagination.total_count -1;
 		} );
         // itemWithId.remove().then( function()
