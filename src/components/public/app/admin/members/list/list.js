@@ -15,6 +15,10 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 	$scope.site = $site = $rootScope.site;
 	$scope.user = $user = $rootScope.user;
 
+	$exportQuery = $scope.access_level_query ? '&access_level_id=' +  $scope.access_level_query : '' ;
+
+	$scope.exportLink = $rootScope.apiURL+"/siteRole/getCSV?access_token="+$scope.$storage.user.access_token;
+
 	$scope.template_data = {
 		title: 'MEMBERS',
 		description: 'Members are users who have registered on your site, purchased a product, or been imported.',
@@ -58,6 +62,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		else if($scope.query && $scope.query.length < 3 && $scope.query.length != 0){
 			$scope.query='';
 		}
+		$exportQuery = $scope.access_level_query ? '&access_level_id=' +  $scope.access_level_query : '' ;
+		if($scope.query)
+			$exportQuery += '&q=' +  $scope.query ;
+		$scope.exportLink = $rootScope.apiURL+"/siteRole/getCSV?access_token="+$scope.$storage.user.access_token+$exportQuery;
+
 		
 		if( search )
 		{
@@ -165,6 +174,13 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		var access_level_list = [];
 		if( typeof next_item.role != 'undefined' )
 		{
+			if($scope.access_level_query)
+			{
+				console.log('$scope.access_level_query');
+				console.log($scope.access_level_query);
+				$role =  _.find(next_item.role , function(r){ return r.access_level_id == $scope.access_level_query; });
+				return $role.access_level.name;
+			}
 			angular.forEach( next_item.role, function( value2, key2 )
 			{
 				if( value2.access_level && typeof value2.access_level.name != 'undefined' && value2.access_level.name != '' )
@@ -317,6 +333,12 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
     $scope.highestRole = function( member )
     {
+    	if($scope.access_level_query)
+    	{
+    		$role =  _.find(member.role , function(r){ return r.access_level_id == $scope.access_level_query; });
+    		return $role.type;
+    	}
+
         if( $scope.is_role( member, 'owner' ) )
             return 'owner';
         else if( $scope.is_role( member, 'admin' ) )
