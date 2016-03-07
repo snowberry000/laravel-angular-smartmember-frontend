@@ -1426,6 +1426,7 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
         Restangular.all('module').customDELETE(itemWithId.id).then( function()
 		{
 			$scope.modules = _.without( $scope.modules , itemWithId);
+			$rootScope.modules = $scope.modules;
 			$scope.pagination.total_count = $scope.pagination.total_count -1;
 		} );
         // itemWithId.remove().then( function()
