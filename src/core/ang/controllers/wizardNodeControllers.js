@@ -1404,6 +1404,7 @@ app.controller( 'modulesWizardController', function( $scope, $rootScope, $filter
 			$rootScope.modules.unshift( response );
 			$scope.adding = false;
 			$scope.module = { site_id: $rootScope.site.id }
+			$scope.init($scope.module.site_id, $scope.current_node);
 			//$rootScope.parent_wizard.next($scope.current_node.id , $scope.current_node);
 		} );
 	}
