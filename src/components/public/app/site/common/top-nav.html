@@ -13,7 +13,7 @@
 
 
 	<div resize sm-class="(options.menu_items.length | numbertoword) + ( (meta_data.navigation_location != 'left fixed' && meta_data.navigation_location != 'right fixed') ? (IsMobile() ? ' ui buttons' : '') : '')" ng-if="options.menu_items" >
-		<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | orderBy:'sort_order'" ng-click="selectedElement($index)"
+		<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | limitTo:7" ng-click="selectedElement($index)"
 		   target="{{(menu_item.open_in_new_tab == 1 || menu_item.open_in_new_tab == '1') ? '_blank' : '_self'}}" ng-hide="(menu_item.url == 'support' || menu_item.url == '/support') && options['support_enable'] == 'no' ">
 
 
