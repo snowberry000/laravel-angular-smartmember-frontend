@@ -17,7 +17,7 @@
 		<div class="ui loader"></div>
 	</div>
 
-	<div class="ui link items">
+	<div class="ui link items" ng-if="category.access">
 		<div class="item" ng-repeat="topic in category.topics | orderBy:'-updated_at'">
 			<div class="ui tiny image" ui-sref="public.app.site.forum.topic({permalink: topic.permalink})" style="cursor:pointer;">
 				<img src="{{topic.user.profile_image || '/images/image.png'}}">
@@ -47,5 +47,13 @@
 		<div class="item" ng-if="category.topics.length === 0">
 			<p>No topics yet!</p>
 		</div>
+	</div>
+	<div ng-if="!category.access && !loading">
+		<a class="ui fluid image" ng-if="category.access_level.information_url" ng-href="{{category.access_level.information_url}}">
+			<img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+		</a>
+		<a href="#" class="ui fluid image" ng-click="showNoAccessLogin()" ng-if="!category.access_level.information_url">
+			<img src="{{options.access_deny_image || 'https://imbmediab.s3.amazonaws.com/1/6cf8ce94fde69ffb61a79ad2447a6a75/unowned.jpg'}}">
+		</a>
 	</div>
 </div>

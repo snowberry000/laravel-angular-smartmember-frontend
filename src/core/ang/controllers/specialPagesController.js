@@ -1,5 +1,5 @@
 app.controller('specialPagesController', function ($scope, $rootScope, $localStorage, $location , $stateParams,  Restangular, toastr, $state, smModal) {
-    $site = $rootScope.site;
+    $site = $rootScope.site;     
     $site_options = Restangular.all( 'siteMetaData' ).getList().then(function(response){$scope.site_options = response ; $scope.initialize()});
     
     $scope.initialize = function(){
@@ -14,6 +14,13 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
             $scope.site_options[data.key] = data.value;
         });
         $scope.site_options.isOpen = false;
+        if($scope.site_options['support_enable'] == undefined){
+            $scope.site_options.support_enable = 'yes';
+        }else{
+            $scope.site_options.support_enable = $scope.site_options['support_enable'];
+        }
+
+        $rootScope.support_enable = $scope.site_options.support_enable;
         $rootScope.not_homepage_setting = false;
     }
     //this looks like it doesn't belong here, but it actually is needed to make the icon picker work
