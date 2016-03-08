@@ -66,7 +66,7 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
 
     $scope.selectUrl = function(item , selected_url , show_next){
 
-        var api_resources = ['module', 'lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage', 'category'];
+        var api_resources = ['module', 'lesson' , 'customPage' , 'post' , 'download' , 'livecast' , 'supportArticle' , 'bridgePage', 'category', 'forumCategory','forumTopic'];
         if(!selected_url)
             return;
         if(api_resources.indexOf(selected_url)<0)
@@ -110,6 +110,11 @@ app.controller('MenuItemModalInstanceCtrl', function ($scope,smModal,$stateParam
                     $scope.loaded_items = response.items;
                 } else {
                     response.forEach(function (entity) {
+                        if(selected_url=='forumCategory')
+                            entity.url = 'forum/' + entity.permalink;
+                        else if(selected_url=='forumTopic')
+                            entity.url = 'forum/topic/' + entity.permalink;
+                        else
                         entity.url = entity.permalink;
                     })
 
