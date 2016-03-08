@@ -4,15 +4,17 @@ app.controller('specialPagesController', function ($scope, $rootScope, $localSto
     
     $scope.initialize = function(){
         $homepage_url=_.find($scope.site.meta_data, function(temp){ return temp.key == 'homepage_url'; });
+        
         if($homepage_url)
             $scope.site_options = {homepage_url:$homepage_url.value};
         else
             $scope.site_options ={};
         
         $scope.site=$site;
-        $.each($site_options, function (key, data) {
+        $.each($scope.site.meta_data, function (key, data) {
             $scope.site_options[data.key] = data.value;
         });
+
         $scope.site_options.isOpen = false;
         if($scope.site_options['support_enable'] == undefined){
             $scope.site_options.support_enable = 'yes';
