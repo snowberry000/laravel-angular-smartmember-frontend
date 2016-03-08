@@ -68,10 +68,10 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 		$scope.exportLink = $rootScope.apiURL+"/siteRole/getCSV?access_token="+$scope.$storage.user.access_token+$exportQuery;
 
 		
-		if( search || $scope.access_level_query)
-		{
-			$scope.pagination.current_page = 1;
-		}
+		// if( search )
+		// {
+		// 	$scope.pagination.current_page = 1;
+		// }
 
         $scope.loading = true;
 
