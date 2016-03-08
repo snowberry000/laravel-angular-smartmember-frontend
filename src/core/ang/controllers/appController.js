@@ -267,6 +267,26 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 		fixMenuWidth();
 	}
 
+	$scope.updateMenuItems = function(menuItems)
+	{
+
+		var is_support_enable = 'yes';
+		$.each( $scope.site.meta_data, function( key, data )
+		{	// Check if support is enabled/disable
+			if(data.key == 'support_enable' && data.value == 'no'){
+				is_support_enable = 'no';
+			}
+		});
+
+		menuItems.forEach(function(result, index) {
+    	if(is_support_enable == 'no' && (result['url'] == 'support' || result['url'] == '/support')) {
+      		//Remove object if support is disabled and menuItem contains support url
+      		menuItems.splice(index, 1);
+    		}    
+  		});
+
+	}
+
 	/*
 	 This is depricated
 	 */
