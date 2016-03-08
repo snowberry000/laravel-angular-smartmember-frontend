@@ -34,7 +34,7 @@
 			<img style="width:auto;" sm-class="'icon navigation_icon_color ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'bottom' || meta_data.icon_position == 'right') && menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') == -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)" src="{{menu_item.custom_icon}}"/>
 		</a>
         <div class="item thin ui item dropdown text-center labeled icon button" position="top center" sui-dropdown ng-if="options.menu_items.length > 7 && options.nav_items_dropdown=='1'" style="padding-top:10px !important; text-align: center !important;padding-left: 0 !important;padding-right: 0 !important;">
-            {{options.menu_items.length - 7}} More {{options.nav_items_dropdown}}
+            {{options.menu_items.length - 7}} More
             <div class="ui inverted basic " style="color:black !important ">
                 <i class="dropdown icon "></i>
             </div>
