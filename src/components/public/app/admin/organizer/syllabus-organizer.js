@@ -42,6 +42,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
         access_level_id: 0
     }
 
+
     $scope.toggleModuleSelection = function( select ) {
         if( select )
             $scope.selectAllModules();
@@ -271,6 +272,21 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	{
 		//console.log("asdasd");
 		//console.log($rootScope.site);
+		setTimeout(function() {
+			$('.ui.accordion')
+			  .accordion()
+			;
+			$('.ui.accordion')
+			  .accordion({
+			    selector: {
+			      trigger: '.title .icon'
+			    }
+			  })
+			;
+		}, 900);
+
+		
+
 		var details = $rootScope.site;
 		//console.log("details: ");
 		//console.log(details);
