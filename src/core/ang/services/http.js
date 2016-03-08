@@ -35,7 +35,7 @@ app.factory( 'httpInterceptor', function( $q, $rootScope, $injector, $location, 
 			$rootScope.loaded = true;
 			if( rejection.status == 405 )
 			{
-				$rootScope.prevUrl=window.history.back();
+				//$rootScope.prevUrl=window.history.back();
 				//alert(prevUrl);
 				window.location.href = '/not-found';
 				return [];
