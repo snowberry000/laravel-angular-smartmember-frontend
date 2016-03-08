@@ -333,11 +333,11 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
     $scope.highestRole = function( member )
     {
-    	if($scope.access_level_query)
-    	{
-    		$role =  _.find(member.role , function(r){ return r.access_level_id == $scope.access_level_query; });
-    		return $role.type;
-    	}
+    	// if($scope.access_level_query)
+    	// {
+    	// 	$role =  _.find(member.role , function(r){ return r.access_level_id == $scope.access_level_query; });
+    	// 	return $role.type;
+    	// }
 
         if( $scope.is_role( member, 'owner' ) )
             return 'owner';
