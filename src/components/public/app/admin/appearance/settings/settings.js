@@ -31,6 +31,7 @@ app.controller( "SettingsController", function( $scope, smModal,$state, $rootSco
 			} );
 
 			$scope.site_options.default_syllabus_closed  == '1' ? $scope.site_options.default_syllabus_closed =true : $scope.site_options.default_syllabus_closed = false;
+			$scope.site_options.nav_items_dropdown  == '1' ? $scope.site_options.nav_items_dropdown =true : $scope.site_options.nav_items_dropdown = false;
 			$scope.site_options.thankyou_use_custom  == '1' ? $scope.site_options.thankyou_use_custom =true : $scope.site_options.thankyou_use_custom = false;
             if( !$scope.site_options.welcome_email_subject )
                 $scope.site_options.welcome_email_subject = 'Welcome to %site_name%';

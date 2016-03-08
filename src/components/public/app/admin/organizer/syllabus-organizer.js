@@ -283,7 +283,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 			    }
 			  })
 			;
-		}, 900);
+		}, 2000);
 
 		
 
