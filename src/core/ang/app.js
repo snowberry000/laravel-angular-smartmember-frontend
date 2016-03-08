@@ -37,6 +37,12 @@ String.prototype.isCustomDomain = function() {
     return this.match(/^(?:[a-z0-9\-]{1,63})?\.smartmember\.(?:com|in|dev|soy|pro|co)$/i) ? false : true;
 }
 
+app.config( function(FacebookProvider) {
+	FacebookProvider.init({
+		loadSDK: false
+	});
+});
+
 app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
