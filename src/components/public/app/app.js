@@ -32,6 +32,8 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 
     var intercom;
 
+
+
     if( location.href.indexOf( '://my.smartmember.') == -1 ) {
         intercom = _.findWhere($scope.site.app_configuration, {type: 'intercom'});
 
@@ -110,6 +112,7 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 		Restangular.all( 'accessLevel' ).getList( { site_id: $site.id } ).then( function( response )
 		{
 			$rootScope.access_levels = response;
+			
 		} )
 	}
 
@@ -153,6 +156,8 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 
 	$scope.init = function()
 	{
+
+
 		var details = $site;
 		if( details )
 		{
@@ -165,6 +170,7 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 				//alert('asd');
 				$rootScope.options.menu_items =  $filter('orderBy')(details.menu_items, 'sort_order');
 				console.log($rootScope.options.menu_items );
+				setTimeout(function() {$rootScope.limitElements = $rootScope.options.nav_items_dropdown == '1' ? parseInt($('div[ng-include*=top-nav]').width() / 96)-1 : $rootScope.options.menu_items.length}, 100);
 			}
 			if( details.footer_menu_items )
 			{
