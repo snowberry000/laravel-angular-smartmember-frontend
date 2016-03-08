@@ -19,8 +19,8 @@
 </div>
 <div sm-class="'ui labeled navigation_background_color ' + (meta_data.icon_position == 'top' || meta_data.icon_position == 'bottom' ? ' icon ' : '') + meta_data.navigation_style + ' ' + meta_data.navigation_location + ' pointing menu large stackable'" ng-init="updateMenuItems(options.menu_items)">
 
-	<div resize sm-class="(options.menu_items.length | numbertoword) + ( (meta_data.navigation_location != 'left fixed' && meta_data.navigation_location != 'right fixed') ? (IsMobile() ? ' ui buttons' : '') : '')" ng-if="options.menu_items" >
-		<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | limitTo:7" ng-click="selectedElement($index)"
+	<div resize sm-class="(options.menu_items.length | numbertoword) + ( (meta_data.navigation_location != 'left fixed' && meta_data.navigation_location != 'right fixed') ? (IsMobile() ? ' ui buttons' : '') : '')" ng-if="options.menu_items" ng-init="options.nav_items_dropdown == '1' ? limit=7 : limit = options.menu_items.length">
+		<a class="item button navigation_text_color" sui-popup data-stateAttributes='{"id":{{menu_item.id}}}' data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.appearance.menu" sm-active-class="menu_item.url" ng-href="{{menu_item.url | parseurl}}" ng-repeat="menu_item in options.menu_items | limitTo:limit" ng-click="selectedElement($index)"
 		   target="{{(menu_item.open_in_new_tab == 1 || menu_item.open_in_new_tab == '1') ? '_blank' : '_self'}}" ng-hide="(menu_item.url == 'support' || menu_item.url == '/support') && options['support_enable'] == 'no' ">
 
 
@@ -33,8 +33,7 @@
 			<i sm-class="'icon navigation_icon_color fa ' + menu_item.custom_icon + ' ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'bottom' || meta_data.icon_position == 'right') && menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') != -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)"></i>
 			<img style="width:auto;" sm-class="'icon navigation_icon_color ' + meta_data.icon_size" ng-if="(meta_data.icon_position == 'bottom' || meta_data.icon_position == 'right') && menu_item.custom_icon && menu_item.custom_icon.indexOf('fa ') == -1 &&  (meta_data.show_nav_icons == '1' || meta_data.show_nav_icons == 1)" src="{{menu_item.custom_icon}}"/>
 		</a>
-
-        <div class="item thin ui item dropdown text-center labeled icon button" position="top center" sui-dropdown ng-if="options.menu_items.length > 7" style="padding-top:10px !important; text-align: center !important;padding-left: 0 !important;padding-right: 0 !important;">
+        <div class="item thin ui item dropdown text-center labeled icon button" position="top center" sui-dropdown ng-if="options.menu_items.length > 7 && options.nav_items_dropdown=='1'" style="padding-top:10px !important; text-align: center !important;padding-left: 0 !important;padding-right: 0 !important;">
             {{options.menu_items.length - 7}} More
             <div class="ui inverted basic " style="color:black !important ">
                 <i class="dropdown icon "></i>
