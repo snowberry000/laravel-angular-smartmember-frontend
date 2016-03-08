@@ -171,7 +171,12 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 				$rootScope.options.menu_items =  $filter('orderBy')(details.menu_items, 'sort_order');
 				console.log($rootScope.options.menu_items );
 				setTimeout(function() {
-					$rootScope.limitElements = $rootScope.options.nav_items_dropdown == '1' ? parseInt($('div[ng-include*=top-nav]').width() / 96)-1 : $rootScope.options.menu_items.length}, 2000);
+					$rootScope.limitElements = $rootScope.options.nav_items_dropdown == '1' ? parseInt($('div[ng-include*=top-nav]').width() / 96)-1 : $rootScope.options.menu_items.length;
+					console.log('loaded' + $rootScope.limitElements);
+					$scope.$apply();
+					$rootScope.$apply();
+
+				}, 2000);
 			}
 			if( details.footer_menu_items )
 			{
