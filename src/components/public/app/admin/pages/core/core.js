@@ -129,7 +129,7 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			image: '',
 			icon: 'add user',
 			template: 'registration',
-			url: '/sign/up/'
+			url: '/sign/up/#preview'
 		}
 	];
 
