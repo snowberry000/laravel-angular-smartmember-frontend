@@ -97,15 +97,9 @@
             </div>
 
             <div ng-if="!loading" class="connectModulePanels"  ui-sortable="ModuleSortableOptions" ng-model="modules">
-                <div class="ui segments module_item accordion" data-id="{{module.id}}" data-ng-repeat="module in modules">
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        <a ng-if="module.id || module.new" href="#" editable-text="module.title" onaftersave="saveModuleTitle(module)">{{module.title || 'Empty'}}</a>
-                         <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle({title:options['default_module_title']})">{{options['default_module_title'] || 'Default'}}</a>
-
-                    </div>
-                    <div class="ui segments connectLessons content" ui-sortable="LessonSortableOptions" ng-model="module.lessons">
-                        <div class="ui segment"> 
+                <div class="ui segments module_item" data-id="{{module.id}}" data-ng-repeat="module in modules">
+                      
+                    <div class="ui segment"> 
                         <div class="tiny ui buttons" style="float:right;">
                             <button ng-if="!module.new" class="ui green button" ng-click="addLesson(module)">Add Lesson</button>
                             <button class="ui red button" ng-if="module.id" sm-delete="{{module.id}}" delete-function="deleteModule"><i class="align trash icon"></i></button>
@@ -114,15 +108,18 @@
                         <p>
                             <div ng-if="module.id || module.new" class="ui checkbox" ng-model="module.checked" sui-checkbox>
                                 <input type="checkbox" tabindex="0" class="hidden">
-                            </div>
-                            
-                            
+                            </div>                           
                         </p>
+                        <a ng-if="module.id || module.new" href="#" editable-text="module.title" onaftersave="saveModuleTitle(module)">{{module.title || 'Empty'}}</a>
+                         <a ng-if="!module.id && !module.new" href="#" editable-text="options['default_module_title']" onaftersave="saveModuleTitle({title:options['default_module_title']})">{{options['default_module_title'] || 'Default'}}</a>
                         <div class="ui checkbox" ng-model="lessons_selected" ng-click="toggleLessonsSelected( lessons_selected, module )" style="margin-bottom: -10px;margin-left:30px;" sui-checkbox>
                         <input type="checkbox" tabindex="0" class="hidden">
                         <label>Select All</label>
+                        </div>
                      </div>
-                     </div>
+              
+                    <div class="ui segments connectLessons" ui-sortable="LessonSortableOptions" ng-model="module.lessons">
+                        
                         <div class="ui segment lesson_item " data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}">  
                             <div class="ui stackable grid">
                                 <div class="four wide column">
