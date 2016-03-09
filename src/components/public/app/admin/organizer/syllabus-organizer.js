@@ -272,18 +272,6 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	{
 		//console.log("asdasd");
 		//console.log($rootScope.site);
-		setTimeout(function() {
-			$('.ui.accordion')
-			  .accordion()
-			;
-			$('.ui.accordion')
-			  .accordion({
-			    selector: {
-			      trigger: '.title .icon'
-			    }
-			  })
-			;
-		}, 2000);
 
 		
 
