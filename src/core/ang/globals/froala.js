@@ -9,7 +9,8 @@ $(function() {
         refreshAfterCallback: true,
         options: {
             'fb_page_plugin': 'Facebook Page Plugin',
-            'fb_comments': 'Facebook Comments Plugin'
+            'fb_comments': 'Facebook Comments Plugin',
+            'amazon_related_product_widget': 'Amazon Related Product Widget'
         },
         callback: function (cmd, val) {
             switch (val)
@@ -19,6 +20,9 @@ $(function() {
                     break;
                 case 'fb_comments':
                     this.html.insert('[fb_comments page-url="http://www.facebook.com/facebook" num-posts="5"]', true);
+                    break;
+                case 'amazon_related_product_widget':
+                    this.html.insert('[amazon_related_product_widget assoc-placement="adunit0" tracking-id="" link-id="" emphasize-categories="" default-category="" fallback-mode-value=""]');
                     break;
             }
         },
