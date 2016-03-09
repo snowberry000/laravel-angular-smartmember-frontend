@@ -16,12 +16,12 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	var auth = Restangular.all( 'auth' );
 	$rootScope.page_title = "Smartmember";
 	$rootScope.is_admin = true;
-
+	$scope.site_options = [];
+	$scope.signupPage=window.location.hash.substr(1);
 	if(!$rootScope.site)
 	{
 		Restangular.one( 'site', 'details' ).get().then(function(response){
 			$rootScope.site=response;
-
             if( $rootScope.site ) {
                 $site_options = $rootScope.site.meta_data;
                 $scope.site_options = {};
@@ -29,6 +29,9 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
                 $.each($site_options, function (key, data) {
                     $scope.site_options[data.key] = data.value;
                 });
+				console.log($scope.site_options);
+				if( $scope.isLoggedIn() && $rootScope.site.is_member && $scope.signupPage!='preview' )
+					$scope.determineHomeStateAndRedirect();
             }
 		});
 	}
@@ -40,6 +43,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
             $scope.site_options[data.key] = data.value;
         });
     }
+
 
 	$scope.message = '';
 	$scope.site_logo = "http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/Smart-Member-Gray-Icon-Text-01.png";
@@ -66,7 +70,6 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 			$scope.user.verification_code = '';
 		} );
 	}
-
 	$scope.register = function()
 	{
 		/*if($scope.user.password2!=$scope.user.password)
