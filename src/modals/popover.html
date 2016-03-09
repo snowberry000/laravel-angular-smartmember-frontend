@@ -4,6 +4,8 @@
         <select class="form-control" ng-model="selected_url" ng-change="selectUrl(model ,selected_url , false)">
             <option value="" selected ng-hide="selected_url &&  currentPageName=='home'">{{ currentPageName!='home' ? 'Enter a custom url' : 'Choose a url'}}</option>
             <option value="/" >Home</option>
+            <option value="sign/in/">Sign-in page</option>
+            <option value="sign/up/">Registration page</option>
             <option value="info">Sales Page</option>
             <option value="lessons">Syllabus</option>
             <option value="support">Support</option>
