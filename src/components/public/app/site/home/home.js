@@ -41,6 +41,7 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
 
     console.log('home page');
     console.log(homepage_url);
+    $localStorage.homepage_url = homepage_url;
     if( (window.location.pathname == '/' || window.location.pathname.indexOf('/sign/')>=0)&& $rootScope.subdomain != "my" || $rootScope.customSiteSet )
 	{
         // alert("came in");
@@ -102,58 +103,67 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
             }
             else
             {
-                Restangular.one( 'permalink', homepage_url ).get().then( function( response )
+                if (homepage_url == 'sign/in/')
                 {
-                    switch( response.type )
+                    $homeState = 'public.sign.in';
+                }
+                else if (homepage_url == 'sign/up/')
+                {
+                    $homeState = 'public.sign.up';
+                } else {
+                    Restangular.one( 'permalink', homepage_url ).get().then( function( response )
                     {
-                        case "lessons":
-                        //alert('else'+homepage_url);
-                            $timeout(function(){$state.go( 'public.app.site.lesson', { permalink: homepage_url }, { location: false } );},50);
-                            // $state.go( 'public.app.site.lesson', { permalink: homepage_url }, { location: false } );
-                            break;
-                        case "custom_pages":
-                            $timeout(function(){$state.go( 'public.app.site.page', { permalink: homepage_url }, { location: false } );},50);
-                            // $state.go( 'public.app.site.page', { permalink: homepage_url }, { location: false } );
-                            break;
-                        case "download_center":
-                            $timeout(function(){$state.go( 'public.app.site.download', { permalink: homepage_url }, { location: false } );},50);
-                            // $state.go( 'public.app.site.download', { permalink: homepage_url }, { location: false } );
-                            break;
-                        case "livecasts":
-                            $timeout(function(){$state.go( 'public.app.site.livecast', { permalink: homepage_url }, { location: false } );},50);
-                            // $state.go( 'public.app.site.livecast', { permalink: homepage_url }, { location: false } );
-                            break;
-                        case "posts":
-                            $timeout(function(){$state.go( 'public.app.site.post', { permalink: homepage_url }, { location: false } );},50);
-                            break;
-                        case "support_articles":
-                            $timeout(function(){$state.go( 'public.app.site.support-article', { permalink: homepage_url }, { location: false } );},50);
-                            break;
-                        case "bridge_bpages":
-                            $timeout(function(){$state.go( 'bridgepage', { permalink: homepage_url }, { location: false } );},50);
-                            break;
-                        case "forum_topics":
-                            $timeout(function(){$state.go("public.app.site.forum-topic",{permalink: homepage_url}, {location: false});},50);
-                            break;
-                        case "forum_categories":
-                             $timeout(function(){$state.go("public.app.site.forum-category",{permalink: homepage_url}, {location: false});},50);
-                            break;
-                        case 'affcontests':
-                            $timeout(function(){$state.go( 'public.app.site.affiliateContest', { permalink: homepage_url }, { location: false } );},50);
-                            break;
-                        case 'smart_links':
-                            location.href = response.redirect_url;
-                            break;
-                        case 'categories':
-                            $timeout(function(){$state.go( 'public.app.site.post-category', { permalink: homepage_url }, { location: false } );},50);
-                            break;
-                    }
-                    return;
-                },
-                function( response ) {
-                    $timeout(function(){$state.go( 'public.app.site.lessons', {}, { location: false } );},50);
-                } );
-            return;
+                        switch( response.type )
+                        {
+                            case "lessons":
+                                //alert('else'+homepage_url);
+                                $timeout(function(){$state.go( 'public.app.site.lesson', { permalink: homepage_url }, { location: false } );},50);
+                                // $state.go( 'public.app.site.lesson', { permalink: homepage_url }, { location: false } );
+                                break;
+                            case "custom_pages":
+                                $timeout(function(){$state.go( 'public.app.site.page', { permalink: homepage_url }, { location: false } );},50);
+                                // $state.go( 'public.app.site.page', { permalink: homepage_url }, { location: false } );
+                                break;
+                            case "download_center":
+                                $timeout(function(){$state.go( 'public.app.site.download', { permalink: homepage_url }, { location: false } );},50);
+                                // $state.go( 'public.app.site.download', { permalink: homepage_url }, { location: false } );
+                                break;
+                            case "livecasts":
+                                $timeout(function(){$state.go( 'public.app.site.livecast', { permalink: homepage_url }, { location: false } );},50);
+                                // $state.go( 'public.app.site.livecast', { permalink: homepage_url }, { location: false } );
+                                break;
+                            case "posts":
+                                $timeout(function(){$state.go( 'public.app.site.post', { permalink: homepage_url }, { location: false } );},50);
+                                break;
+                            case "support_articles":
+                                $timeout(function(){$state.go( 'public.app.site.support-article', { permalink: homepage_url }, { location: false } );},50);
+                                break;
+                            case "bridge_bpages":
+                                $timeout(function(){$state.go( 'bridgepage', { permalink: homepage_url }, { location: false } );},50);
+                                break;
+                            case "forum_topics":
+                                $timeout(function(){$state.go("public.app.site.forum-topic",{permalink: homepage_url}, {location: false});},50);
+                                break;
+                            case "forum_categories":
+                                $timeout(function(){$state.go("public.app.site.forum-category",{permalink: homepage_url}, {location: false});},50);
+                                break;
+                            case 'affcontests':
+                                $timeout(function(){$state.go( 'public.app.site.affiliateContest', { permalink: homepage_url }, { location: false } );},50);
+                                break;
+                            case 'smart_links':
+                                location.href = response.redirect_url;
+                                break;
+                            case 'categories':
+                                $timeout(function(){$state.go( 'public.app.site.post-category', { permalink: homepage_url }, { location: false } );},50);
+                                break;
+                        }
+                        return;
+                    },
+                    function( response ) {
+                        $timeout(function(){$state.go( 'public.app.site.lessons', {}, { location: false } );},50);
+                    } );
+                }
+
             }
 		}
 
@@ -163,8 +173,6 @@ app.controller( 'HomeController', function( $scope, $site,$state, $rootScope, $t
         if(  !$params )
         {
              $timeout(function(){$state.go( $homeState, {}, { location: false } );},50);
-
-            
         }
         else
         {

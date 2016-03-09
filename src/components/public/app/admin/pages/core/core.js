@@ -121,7 +121,7 @@ app.controller( "CoreController", function( $scope, $state,$rootScope )
 			image: '',
 			icon: 'unlock alternate',
 			template: 'login',
-			url: '/sign/in/'
+			url: '/sign/in/#preview'
 		},
 		{
 			title: 'Registration Form',
