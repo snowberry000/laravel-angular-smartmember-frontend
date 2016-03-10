@@ -19,7 +19,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 	$rootScope.page_title = "Smart member";
 	$rootScope.is_admin = true;
 	$scope.signinPage=window.location.hash.substr(1);
-	if( $scope.isLoggedIn() && $scope.signinPage!='preview' )
+	if( $scope.isLoggedIn() && $scope.signinPage!='preview' && !$rootScope.isSitelessPage('my') )
 		$scope.determineHomeStateAndRedirect();
 
 	if( $location.search().message )
