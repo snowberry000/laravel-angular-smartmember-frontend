@@ -83,7 +83,7 @@
                                             <label>Lessons</label>
                                             <select multiple ng-model="widget.location_options.lessons">
                                                 <option value="all" ng-selected="locationExists( widget, 'lessons', 'all' )">All Lessons</option>
-                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'lessons', location.id )">{{location.title}}</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.lessons" ng-selected="locationExists( widget, 'lessons', location.id )">{{location.title}}</option>
                                             </select>
                                         </div>
                                         <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
@@ -97,21 +97,21 @@
                                             <label>Post Categories</label>
                                             <select multiple ng-model="widget.location_options.categories">
                                                 <option value="all" ng-selected="locationExists( widget, 'categories', 'all' )">All Post Categories</option>
-                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'categories', location.id )">{{location.title}}</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.categories" ng-selected="locationExists( widget, 'categories', location.id )">{{location.title}}</option>
                                             </select>
                                         </div>
                                         <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
                                             <label>Livecasts</label>
                                             <select multiple ng-model="widget.location_options.livecasts">
                                                 <option value="all" ng-selected="locationExists( widget, 'livecasts', 'all' )">All Livecasts</option>
-                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'livecasts', location.id )">{{location.title}}</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.livecasts" ng-selected="locationExists( widget, 'livecasts', location.id )">{{location.title}}</option>
                                             </select>
                                         </div>
                                         <div class="field" ng-if="widget.location_options.everywhere != 1 && widget.location_options.everywhere != '1'">
                                             <label>Support Articles</label>
                                             <select multiple ng-model="widget.location_options.articles">
                                                 <option value="all" ng-selected="locationExists( widget, 'articles', 'all' )">All Support Articles</option>
-                                                <option value="{{location.id}}" ng-repeat="location in available_locations.pages" ng-selected="locationExists( widget, 'articles', location.id )">{{location.title}}</option>
+                                                <option value="{{location.id}}" ng-repeat="location in available_locations.articles" ng-selected="locationExists( widget, 'articles', location.id )">{{location.title}}</option>
                                             </select>
                                         </div>
                                     </div>
