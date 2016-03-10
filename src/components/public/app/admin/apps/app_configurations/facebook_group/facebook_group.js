@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$localStorage,  Restangular, $http, notify,Facebook, smEvent) {
+app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$localStorage,  Restangular, $http, notify,Facebook, smEvent,$window) {
     $scope.available_facebook_groups = [];
     $scope.facebook_groups = [];
     $scope.joined_facebook_groups = [];
@@ -21,6 +21,23 @@ app.controller("FacebookGroupController", function ($scope, $rootScope, toastr,$
         if( value.type == 'facebook_group')
             $scope.facebook_groups.push( value );
     });
+
+    var src           = '//connect.facebook.net/en_US/sdk.js',
+        script        = document.createElement('script');
+    script.id     = 'facebook-jssdk';
+    script.async  = false;
+
+    // Prefix protocol
+    if (['file', 'file:'].indexOf($window.location.protocol) !== -1) {
+        src = 'https:' + src;
+    }
+
+    script.src = src;
+    script.onload = function() {
+        //flags.sdk = true; // Set sdk global flag
+    };
+
+    document.getElementsByTagName('head')[0].appendChild(script);
 
     $scope.access_levels_checked = [];
 
