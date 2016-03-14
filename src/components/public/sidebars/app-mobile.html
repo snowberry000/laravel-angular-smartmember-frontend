@@ -1,6 +1,5 @@
 <div class="ui vertical fluid menu">
 	<a class="item" ui-sref="public.www.home">Home</a>
-	<a class="item" ng-href="https://chrisrecord.clickfunnels.com/smjv" target="_blank">JVs</a>
 	<div class="item" ng-if="!isLoggedIn()">
 		<a sm-class="'ui ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' button'" ui-sref="public.sign.in">Log in</a>
 		<a sm-class="'ui ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' button'" ui-sref="public.sign.up">Sign-up</a>
