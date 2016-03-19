@@ -1,0 +1,87 @@
+
+<div class="ui inverted vertical masthead center aligned segment">
+
+	<ng-include src="'templates/components/public/www/common/menu.html'"></ng-include>
+
+	<div class="ui text container">
+		<h1 class="ui inverted header">
+			Smart Member 2.0
+		</h1>
+
+		<a class="ui huge primary button" ng-href="{{isLoggedIn() ? 'http://my.smartmember.com' : 'http://sm.smartmember.com'}}">
+			Get Started <i class="right arrow icon"></i>
+		</a>
+	</div>
+
+</div>
+<div class="ui vertical stripe segment" style="padding: 2em 0px;">
+	<div class="ui text text-center container">
+
+		<h3 ng-if="false">
+			The best sites for
+			<div class="ui inline scrolling {{loading_categories ? 'loading' : ''}} dropdown" ng-model="current_category" sui-dropdown>
+				<div class="text" style="text-decoration: underline;">
+					{{current_category}}
+				</div>
+				<i class="dropdown icon"></i>
+
+				<div class="menu">
+					<div class="item" data-value="{{next_item}}" ng-repeat="next_item in directory_categories">
+						{{next_item}}
+					</div>
+				</div>
+			</div>
+		</h3>
+		<h3 ng-if="false">
+			Example Smart Member Sites
+		</h3>
+
+	</div>
+</div>
+
+<div class="ui vertical stripe segment" style="padding-top: 3em;">
+	<div class="ui middle aligned stackable grid container">
+		<div class="row">
+			<div class="sixteen wide column">
+
+				<div class="ui active inverted dimmer" ng-if="loading_sites">
+					<div class="ui text loader">Loading sites</div>
+				</div>
+
+				<div class="ui four doubling stackable link site cards">
+					<a site-card class="card" ng-repeat="next_item in site_listings" ui-sref="public.www.site({permalink: next_item.permalink || next_item.site_id})"></a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="false" class="ui inverted vertical footer segment">
+	<div class="ui container">
+		<div class="ui stackable inverted divided equal height stackable grid">
+			<div class="three wide column">
+				<h4 class="ui inverted header">About</h4>
+				<div class="ui inverted link list">
+					<a href="#" class="item">Sitemap</a>
+					<a href="#" class="item">Contact Us</a>
+					<a href="#" class="item">Religious Ceremonies</a>
+					<a href="#" class="item">Gazebo Plans</a>
+				</div>
+			</div>
+			<div class="three wide column">
+				<h4 class="ui inverted header">Services</h4>
+				<div class="ui inverted link list">
+					<a href="#" class="item">Banana Pre-Order</a>
+					<a href="#" class="item">DNA FAQ</a>
+					<a href="#" class="item">How To Access</a>
+					<a href="#" class="item">Favorite X-Men</a>
+				</div>
+			</div>
+			<div class="seven wide column">
+				<h4 class="ui inverted header">Footer Header</h4>
+				<p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+			</div>
+		</div>
+	</div>
+</div>

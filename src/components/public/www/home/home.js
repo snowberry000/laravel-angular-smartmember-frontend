@@ -4,13 +4,16 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.www.home", {
+			url: '/',
 			templateUrl: "/templates/components/public/www/home/home.html",
 			controller: "WwwHomeController"
 		} )
 } );
 
-app.controller( "WwwHomeController", function( $scope, Restangular )
+app.controller( "WwwHomeController", function( $scope, Restangular, $rootScope , $location )
 {
+	$scope.background_class = 'bg' + (Math.floor( (Math.random() * 14) + 1 ));
+
 	// $scope.loading_sites = false;
 	// $scope.loading_categories = true;
 	// $scope.current_category = '';
@@ -58,7 +61,7 @@ app.controller( "WwwHomeController", function( $scope, Restangular )
 
 					$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
 				});
-				
+
 				$scope.avg_rating /= $scope.site_reviews.length;
 
 				site.avg_rating = $scope.avg_rating;
@@ -66,7 +69,7 @@ app.controller( "WwwHomeController", function( $scope, Restangular )
 		});
 
 		// console.log($scope.sites);
-		
+
 	}
 
 	Restangular.all('directory').get('all').then(function(response){
@@ -75,10 +78,10 @@ app.controller( "WwwHomeController", function( $scope, Restangular )
 			$scope.stats = response.statistics;
 
 			if($scope.stats.members_count>500)
-			{	
-				
+			{
+
 				$scope.stats.members_count = ($scope.stats.members_count/1000).toFixed(1);
-		
+
 				var temp = $scope.stats.members_count - parseInt($scope.stats.members_count);
 				temp = temp.toFixed(1)*10;
 				if(temp>5) {
@@ -89,12 +92,12 @@ app.controller( "WwwHomeController", function( $scope, Restangular )
 				}
 			}
 			if($scope.stats.sites_count>100)
-			{	
+			{
 				$scope.stats.sites_count = parseInt($scope.stats.sites_count/100)*100;
 			}
 			$scope.stats.content_count = 20424;
 			if($scope.stats.content_count>100)
-			{	
+			{
 				$scope.stats.content_count = parseInt($scope.stats.content_count/100)*100;
 			}
 
@@ -102,6 +105,5 @@ app.controller( "WwwHomeController", function( $scope, Restangular )
 			$scope.calculateReviewStats();
 		}
 	});
-
 
 } );

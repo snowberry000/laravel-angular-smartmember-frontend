@@ -23,7 +23,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 
 
 	$scope.calculateReviewStats =function() {
-		
+
 		_.each($scope.sites, function(site){
 			$scope.site_reviews = site.reviews;
 			$scope.avg_rating = 0;
@@ -32,12 +32,12 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 
 				$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
 			});
-			
+
 			$scope.avg_rating /= $scope.site_reviews.length;
 
 			site.avg_rating = $scope.avg_rating;
 		});
-		
+
 	}
 
 	$scope.randomCategories = function(){
@@ -63,7 +63,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 				for (var i = $scope.categories.length - 1; i >= 0; i--) {
 					$scope.categories[i].sites = _.pluck(response[i] , 'site');
 				}
-				
+
 				$scope.sites = $scope.categories[0].sites.concat($scope.categories[1].sites.concat($scope.categories[2].sites));
 				var meta = _.pluck($scope.sites , 'meta_data');
 				for(var i=0 ; i< meta.length ; i++){

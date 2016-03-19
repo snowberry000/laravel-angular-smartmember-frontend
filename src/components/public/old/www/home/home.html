@@ -1,0 +1,148 @@
+
+<div class="ui inverted vertical masthead center aligned segment">
+
+	<ng-include src="'templates/components/public/www/common/menu.html'"></ng-include>
+
+	<div class="ui text container">
+		<h1 class="ui inverted header">
+			Smart Member 2.0
+		</h1>
+
+		<a class="ui huge primary button" ng-href="{{isLoggedIn() ? 'http://my.smartmember.com' : 'http://sm.smartmember.com'}}">
+			Get Started <i class="right arrow icon"></i>
+		</a>
+	</div>
+
+</div>
+<div class="ui vertical stripe segment" style="padding: 2em 0px;">
+	<div class="ui text text-center container">
+
+		<h3 ng-if="false">
+			The best sites for
+			<div class="ui inline scrolling {{loading_categories ? 'loading' : ''}} dropdown" ng-model="current_category" sui-dropdown>
+				<div class="text" style="text-decoration: underline;">
+					{{current_category}}
+				</div>
+				<i class="dropdown icon"></i>
+
+				<div class="menu">
+					<div class="item" data-value="{{next_item}}" ng-repeat="next_item in directory_categories">
+						{{next_item}}
+					</div>
+				</div>
+			</div>
+		</h3>
+		<h3 ng-if="false">
+			Example Smart Member Sites
+		</h3>
+
+	</div>
+</div>
+
+<div class="feature alternate ui stripe vertical segment text-center">
+
+	<div class="ui container">
+		<div class="ui four small statistics">
+			<div class="statistic">
+				<div class="value">
+					{{stats.members_count | number}} <span ng-if="stats.members_count>499">+</span>
+				</div>
+				<div class="label">
+					Members
+				</div>
+			</div>
+			<div class="statistic">
+				<div class="value">
+					{{stats.sites_count | number}} <span ng-if="stats.sites_count>99">+</span>
+				</div>
+				<div class="label">
+					Sites
+				</div>
+			</div>
+			<div class="statistic">
+				<div class="value">
+					{{stats.content_count | number}}  <span ng-if="stats.content_count>99">+</span>
+				</div>
+				<div class="label">
+					Pieces of content
+				</div>
+			</div>
+			<div class="statistic">
+				<div class="value">
+					${{stats.revenue_count | number}}
+				</div>
+				<div class="label">
+					Processed in sales
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="ui vertical promo stripe intro segment">
+	<div class="ui container">
+
+		<div class="ui four link cards">
+			<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in sites">
+				<div class="image">
+					<img src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
+				</div>
+				<div class="content">
+					<div class="header">{{next_item.title}}</div>
+					<div class="meta">
+						<span class="date">{{next_item.site.user.first_name+" "+next_item.site.user.last_name}}</span>
+					</div>
+				</div>
+				<div class="extra">
+					Rating:
+					<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+				</div>
+				<div class="extra content">
+					<span class="right floated">
+						<strong>${{next_item.total_revenue | number}}</strong>
+					</span>
+					<span>
+						<i class="users icon"></i>
+						{{next_item.total_members | number}}
+					</span>
+				</div>
+			</a>
+		</div>
+
+		<div class="ui hidden clearing section divider"></div>
+		<a ui-sref="public.www.memberships" class="fluid ui red massive button">Browse memberships</a>
+
+		<div class="ui hidden clearing section divider"></div>
+		<div class="ui hidden clearing section divider"></div>
+	</div>
+</div>
+
+<div ng-if="false" class="ui inverted vertical footer segment">
+	<div class="ui container">
+		<div class="ui stackable inverted divided equal height stackable grid">
+			<div class="three wide column">
+				<h4 class="ui inverted header">About</h4>
+				<div class="ui inverted link list">
+					<a href="#" class="item">Sitemap</a>
+					<a href="#" class="item">Contact Us</a>
+					<a href="#" class="item">Religious Ceremonies</a>
+					<a href="#" class="item">Gazebo Plans</a>
+				</div>
+			</div>
+			<div class="three wide column">
+				<h4 class="ui inverted header">Services</h4>
+				<div class="ui inverted link list">
+					<a href="#" class="item">Banana Pre-Order</a>
+					<a href="#" class="item">DNA FAQ</a>
+					<a href="#" class="item">How To Access</a>
+					<a href="#" class="item">Favorite X-Men</a>
+				</div>
+			</div>
+			<div class="seven wide column">
+				<h4 class="ui inverted header">Footer Header</h4>
+				<p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+			</div>
+		</div>
+	</div>
+</div>

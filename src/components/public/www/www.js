@@ -1,8 +1,9 @@
-var app = angular.module("app");
+var app = angular.module( "app" );
 
-app.config(function($stateProvider){
+app.config( function( $stateProvider )
+{
 	$stateProvider
-		.state("public.www",{
+		.state( "public.www", {
 			views: {
 				'base': {
 					templateUrl: "/templates/components/public/www/www.html",
@@ -12,12 +13,15 @@ app.config(function($stateProvider){
 					template: ""
 				}
 			}
-		})
-}); 
+		} )
+} );
 
-app.controller("WwwController", function ($scope,$location) {
+app.controller( "WwwController", function( $scope, $rootScope, $http, smSidebar )
+{
+
 	$scope.membership_sidebar = false;
 	$scope.active_category = false;
+	$scope.login_url = 'http://app.smartmember.' + $rootScope.app.env;
 
 	$scope.ToggleMembershipSidebar = function()
 	{
@@ -44,5 +48,9 @@ app.controller("WwwController", function ($scope,$location) {
 		return $scope.active_category;
 	}
 
-	
-});
+	$http.get( 'json/product_details.json' ).success( function( response )
+	{
+		console.log( response );
+		$rootScope.all_products = response.data;
+	} );
+} );

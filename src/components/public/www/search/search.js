@@ -1,13 +1,14 @@
-var app = angular.module("app");
+var app = angular.module( "app" );
 
-app.config(function($stateProvider){
+app.config( function( $stateProvider )
+{
 	$stateProvider
-		.state("public.www.search",{
-			url: "/search/:slug",
+		.state( "public.www.search", {
+			url: '/search/:slug',
 			templateUrl: "/templates/components/public/www/search/search.html",
 			controller: "WwwSearchController"
-		})
-}); 
+		} )
+} );
 
 app.controller( "WwwSearchController", function( $scope, $http , $stateParams , Restangular)
 {

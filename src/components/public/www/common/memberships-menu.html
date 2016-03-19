@@ -1,0 +1,45 @@
+<div class="ui {{static_menu ? '' : 'fixed'}} inverted menu">
+	<a ng-click="ToggleMembershipSidebar()" class="item">
+		<button class="ui labeled icon button">
+			<i class="sidebar icon"></i>
+			Browse
+		</button>
+	</a>
+	<div class="ui category search item" sui-search>
+		<div class="ui icon input">
+			<input class="prompt" type="text" placeholder="Search for memberships">
+			<i class="search icon"></i>
+		</div>
+		<div class="results"></div>
+	</div>
+	<a ui-sref="public.www.home" class="header item">
+		<img class="logo" src="/images/smart-member-logo.png">
+	</a>
+	<div class="right menu">
+		<a class="item" ng-href="{{login_url}}">
+			Log in
+		</a>
+		<div class="item">
+			<form action="" method="GET">
+				<div class="ui small action input">
+					<input type="text" placeholder="Enter your email">
+					<div class="ui red button">GET STARTED</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="ui visible left vertical sidebar menu directory_categories" ng-show="ShowMembershipSidebar()">
+	<a ui-sref="public.www.category({slug: next_item.slug})" class="item" ng-repeat="next_item in directory_categories" ng-mouseover="SetActiveCategory( next_item.slug )" ng-mouseleave="ResetActiveCategory()">
+		<i class="{{next_item.icon}} icon primary_icon"></i>
+		{{next_item.title}}
+		<i class="tiny disabled chevron right icon m-t-xxs"></i>
+	</a>
+</div>
+<div class="ui visible left vertical sidebar menu directory_categories second_level" ng-show="ShowMembershipSidebar() && GetActiveCategory() == next_item.slug" ng-repeat="next_item in directory_categories">
+	<a ui-sref="public.www.subcategory({category : next_item.slug , subcategory: next_item2.slug})" class="item" ng-repeat="next_item2 in next_item.sub_categories">
+		<i class="{{next_item2.icon}} icon primary_icon"></i>
+		{{next_item2.title}}
+	</a>
+</div>

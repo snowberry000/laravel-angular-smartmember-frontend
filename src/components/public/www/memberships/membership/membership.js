@@ -20,42 +20,42 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	$scope.user = $localStorage.user;
 	$scope.can_review = true;
 
-	
+
 
 	//Restangular.one( 'directoryByPermalink', $stateParams.permalink ).get().then( function( response )
 	//{
 	//	$scope.site_listing = response;
 
-		$scope.loading = false;
+	$scope.loading = false;
 	//} );
-	
+
 	$scope.detail_rating = [];
 	$scope.calculateReviewStats =function() {
 		$scope.avg_rating = 0;
 		$scope.star_rating = [0 , 0 , 0 , 0 , 0];
 
 		_.each($scope.site_reviews, function(review){
-			
+
 			$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
 			$scope.star_rating[review.rating-1] ++;
 		});
-		
+
 		$scope.avg_rating /= $scope.site_reviews.length;
-		
+
 		for(var i = 0; i < $scope.star_rating.length; i++) {
-			
+
 			$scope.star_rating[i]  = ($scope.star_rating[i]/$scope.site_reviews.length) * 100;
 			$scope.star_rating[i] = $scope.star_rating[i].toFixed(2);
 			var temp_review = _.findWhere($scope.detail_rating, {'rating': i+1});
 			if(temp_review)
-			{	
+			{
 				temp_review.count = $scope.star_rating[i];
 			}
 			else {
 				$scope.detail_rating.push({rating : i + 1 , count : $scope.star_rating[i]});
 			}
 		}
-		
+
 	}
 
 
@@ -86,9 +86,9 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 		});
 	}
 	$scope.init();
-	
 
-	
+
+
 
 	$http.get( 'json/directory_categories.json' ).success( function( response )
 	{
@@ -111,9 +111,9 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 		}
 		else if( $localStorage.user && !member)
 		{
-            $scope.addMember(site_id);
+			$scope.addMember(site_id);
 		}else if($localStorage.user && member){
-			$scope.redirectToSite(member);	
+			$scope.redirectToSite(member);
 		}
 		// if logged in and not a member, join the site
 		// if logged in and a member, go to the site
@@ -127,11 +127,11 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	}
 
 	$scope.redirectToSite = function(site){
-        window.location.href = $rootScope.app.appUrl;
+		window.location.href = $rootScope.app.appUrl;
 	}
 
 	$scope.addMember = function(site_id){
-        Restangular.all( 'site/addMember' ).customPOST({site_id : site_id},'').then( function(response)
+		Restangular.all( 'site/addMember' ).customPOST({site_id : site_id},'').then( function(response)
 		{
 			toastr.success( "You have become a member of this site" );
 			$scope.is_member = true;
@@ -140,15 +140,15 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	}
 
 	$scope.saveReview = function() {
-		
+
 		$scope.review.site_id = $scope.site_listing.id;
 		$scope.review.user_id = $localStorage.user.id;
-		
-		
+
+
 		if(!$scope.review.rating) {
 			toastr.error("Review not saved, your review is incomplete");
 		}
-		else 
+		else
 		{
 			Restangular.all('review').customPOST($scope.review).then(function(response){
 				if(response)

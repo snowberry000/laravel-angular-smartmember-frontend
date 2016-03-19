@@ -20,7 +20,7 @@ app.controller("SubcategoryController", function ($scope , $http , Restangular ,
 	};
 
 	$scope.calculateReviewStats =function() {
-	
+
 		_.each($scope.all_sites, function(site){
 			$scope.site_reviews = site.site.reviews;
 			$scope.avg_rating = 0;
@@ -29,12 +29,12 @@ app.controller("SubcategoryController", function ($scope , $http , Restangular ,
 
 				$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
 			});
-			
+
 			$scope.avg_rating /= $scope.site_reviews.length;
 
 			site.avg_rating = $scope.avg_rating;
 		});
-		
+
 	}
 
 	$scope.load = function(){
