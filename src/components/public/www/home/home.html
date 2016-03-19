@@ -39,21 +39,82 @@
 	</div>
 </div>
 
-<div class="ui vertical stripe segment" style="padding-top: 3em;">
-	<div class="ui middle aligned stackable grid container">
-		<div class="row">
-			<div class="sixteen wide column">
+<div class="feature alternate ui stripe vertical segment text-center">
 
-				<div class="ui active inverted dimmer" ng-if="loading_sites">
-					<div class="ui text loader">Loading sites</div>
+	<div class="ui container">
+		<div class="ui four small statistics">
+			<div class="statistic">
+				<div class="value">
+					{{stats.members_count | number}} <span ng-if="stats.members_count>499">+</span>
 				</div>
-
-				<div class="ui four doubling stackable link site cards">
-					<a site-card class="card" ng-repeat="next_item in site_listings" ui-sref="public.www.site({permalink: next_item.permalink || next_item.site_id})"></a>
+				<div class="label">
+					Members
 				</div>
-
+			</div>
+			<div class="statistic">
+				<div class="value">
+					{{stats.sites_count | number}} <span ng-if="stats.sites_count>99">+</span>
+				</div>
+				<div class="label">
+					Sites
+				</div>
+			</div>
+			<div class="statistic">
+				<div class="value">
+					{{stats.content_count | number}}  <span ng-if="stats.content_count>99">+</span>
+				</div>
+				<div class="label">
+					Pieces of content
+				</div>
+			</div>
+			<div class="statistic">
+				<div class="value">
+					${{stats.revenue_count | number}}
+				</div>
+				<div class="label">
+					Processed in sales
+				</div>
 			</div>
 		</div>
+	</div>
+
+</div>
+
+<div class="ui vertical promo stripe intro segment">
+	<div class="ui container">
+
+		<div class="ui four link cards">
+			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in sites">
+				<div class="image">
+					<img src="{{!next_item.logo ? '/images/image.png' : next_item.logo}}">
+				</div>
+				<div class="content">
+					<div class="header">{{next_item.name}}</div>
+					<div class="meta">
+						<span class="date">{{next_item.owner.first_name+" "+next_item.owner.last_name}}</span>
+					</div>
+				</div>
+				<div class="extra">
+					Rating:
+					<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+				</div>
+				<div class="extra content">
+					<span class="right floated">
+						<strong>${{next_item.total_revenue | number}}</strong>
+					</span>
+					<span>
+						<i class="users icon"></i>
+						{{next_item.total_members | number}}
+					</span>
+				</div>
+			</a>
+		</div>
+
+		<div class="ui hidden clearing section divider"></div>
+		<a ui-sref="public.www.memberships" class="fluid ui red massive button">Browse memberships</a>
+
+		<div class="ui hidden clearing section divider"></div>
+		<div class="ui hidden clearing section divider"></div>
 	</div>
 </div>
 

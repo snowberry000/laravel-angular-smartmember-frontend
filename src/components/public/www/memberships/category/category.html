@@ -1,0 +1,78 @@
+<div class="feature alternate ui stripe vertical red inverted segment category_heading_container p-b-none">
+
+	<div class="ui container">
+
+		<div class="ui breadcrumb">
+			<a ui-sref="public.www.memberships" class="section">
+				<i class="inverted fitted home icon"></i>
+			</a>
+			<div class="divider"> /</div>
+			<div class="active section">{{current_category.title}}</div>
+		</div>
+
+		<h1 class="ui inverted  header">{{current_category.title}}</h1>
+
+		<div class="ui inverted pointing menu">
+			<a class="item active">
+				Featured
+			</a>
+			<a class="item">
+				All Memberships
+			</a>
+		</div>
+	</div>
+
+</div>
+
+<div class="ui vertical promo stripe intro segment membership_container" ng-class="{pusher: ShowMembershipSidebar()}">
+	<div class="ui container">
+		<div class="ui grid">
+			<div class="four wide column">
+
+				<h5 class="ui header">More in {{current_category.title}}</h5>
+				<div class="ui list">
+					<a ui-sref="public.www.subcategory({category : current_category.slug , subcategory: sub_category.slug})" class="item" ng-repeat="sub_category in current_category.sub_categories ">
+						<i class="map marker icon"></i>
+						<div class="content">
+							<div class="header">{{sub_category.title}}</div>
+						</div>
+					</a>
+				</div>
+
+			</div>
+			<div class="twelve wide column" infinite-scroll='load()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
+				<div  ng-repeat="sub_category in current_category.sub_categories">
+				<h2 class="ui header">{{sub_category.title}}</h2>
+
+				<div class="ui three doubling link cards">
+					<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in filterSite(sub_category)">
+						<div class="image">
+							<img class="ui fluid image" src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+						</div>
+						<div class="content">
+							<div class="header">{{next_item.name}}</div>
+							<div class="meta">
+								<span class="date">By {{next_item.owner.first_name}} {{next_item.owner.last_name}}</span>
+							</div>
+						</div>
+						<div class="extra">
+							Rating:
+							<div class="ui star rating" data-rating="4" ng-model="rating" sui-rating></div>
+						</div>
+						<div class="extra content">
+							<span class="right floated">
+								<strong>{{next_item.total_revenue}}</strong>
+							</span>
+							<span>
+								<i class="users icon"></i>
+								{{next_item.total_members}}
+							</span>
+						</div>
+					</a>
+				</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
