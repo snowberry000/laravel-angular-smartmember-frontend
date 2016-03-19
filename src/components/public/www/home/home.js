@@ -67,7 +67,7 @@ app.controller( "WwwHomeController", function( $scope, Restangular )
 		
 	}
 
-	Restangular.all('sites').get('all').then(function(response){
+	Restangular.all('directory').get('all').then(function(response){
 		if(response) {
 			$scope.sites = response.sites;
 			$scope.stats = response.statistics;

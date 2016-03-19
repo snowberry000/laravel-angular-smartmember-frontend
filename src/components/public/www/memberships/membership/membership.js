@@ -73,7 +73,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 				})
 
 				if($scope.user) {
-					var review = _.findWhere($scope.site_reviews, {user_id: $scope.user._id});
+					var review = _.findWhere($scope.site_reviews, {user_id: $scope.user.id});
 					if(review ) {
 						$scope.can_review = false;
 					}
@@ -141,15 +141,16 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 
 	$scope.saveReview = function() {
 		
-		$scope.review.site_id = $scope.site_listing._id;
-		$scope.review.company_id = $scope.site_listing.company_id;
+		$scope.review.site_id = $scope.site_listing.id;
+		$scope.review.user_id = $localStorage.user.id;
+		
 		
 		if(!$scope.review.rating) {
 			toastr.error("Review not saved, your review is incomplete");
 		}
 		else 
 		{
-			RestangularV3.all('review').customPOST({review: $scope.review}).then(function(response){
+			Restangular.all('review').customPOST($scope.review).then(function(response){
 				if(response)
 				{
 					$scope.review = {};
