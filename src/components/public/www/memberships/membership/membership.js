@@ -68,8 +68,8 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 				$scope.site_listing = response;
 				$scope.site_reviews = response.reviews;
 
-				angular.forEach($scope.site_listing.meta , function(value , key){
-					$scope.site_listing.meta[value.key] = value.value;
+				angular.forEach($scope.site_listing.meta_data , function(value , key){
+					$scope.site_listing.meta_data[value.key] = value.value;
 				})
 
 				if($scope.user) {

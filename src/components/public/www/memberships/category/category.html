@@ -47,7 +47,7 @@
 				<div class="ui three doubling link cards">
 					<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in filterSite(sub_category)">
 						<div class="image">
-							<img class="ui fluid image" src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+							<img class="ui fluid image" src="{{!next_item.meta_data.site_logo ? '/images/image.png' : next_item.meta_data.site_logo}}">
 						</div>
 						<div class="content">
 							<div class="header">{{next_item.name}}</div>

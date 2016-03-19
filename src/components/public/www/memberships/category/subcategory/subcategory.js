@@ -32,7 +32,7 @@ app.controller("SubcategoryController", function ($scope , $http , Restangular ,
 			$scope.pagination.total_count = response.total_count;
 			$scope.dataFetch = response.items;
 
-			var meta = _.pluck($scope.dataFetch , 'meta');
+			var meta = _.pluck($scope.dataFetch , 'meta_data');
 			for(var i=0 ; i< meta.length ; i++){
 				angular.forEach(meta[i] , function(value , key){
 					meta[i][value.key] = value.value;
@@ -47,7 +47,7 @@ app.controller("SubcategoryController", function ($scope , $http , Restangular ,
 	}
 
 	$scope.filterSite = function(sub_category){
-		return _.filter($scope.all_sites , function(site){if(site)return site.sub_category == sub_category.title})
+		return _.filter($scope.all_sites , function(site){if(site && site.directory) return site.directory.sub_category == sub_category.title})
 	}
 
 	$http.get( 'json/directory_categories.json' ).success( function( response )
