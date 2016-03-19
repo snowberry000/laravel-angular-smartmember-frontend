@@ -17,4 +17,15 @@ app.config(function($stateProvider){
 
 app.controller("WwwController", function ($scope,$location) {
 
+	$scope.membership_sidebar = false;
+
+	$scope.ToggleMembershipSidebar = function()
+	{
+		$scope.membership_sidebar = !$scope.membership_sidebar;
+	};
+
+	$scope.ShowMembershipSidebar = function()
+	{
+		return $scope.membership_sidebar;
+	};
 });

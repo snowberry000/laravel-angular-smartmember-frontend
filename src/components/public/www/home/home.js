@@ -50,17 +50,19 @@ app.controller( "WwwHomeController", function( $scope, Restangular )
 
 	$scope.calculateReviewStats =function() {
 		_.each($scope.sites, function(site){
-			$scope.site_reviews = site.reviews;
-			$scope.avg_rating = 0;
+			if(site.site.reviews.length>0) {
+				$scope.site_reviews = site.site.reviews;
+				$scope.avg_rating = 0;
 
-			_.each($scope.site_reviews, function(review){
+				_.each($scope.site_reviews, function(review){
 
-				$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
-			});
-			
-			$scope.avg_rating /= $scope.site_reviews.length;
+					$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
+				});
+				
+				$scope.avg_rating /= $scope.site_reviews.length;
 
-			site.avg_rating = $scope.avg_rating;
+				site.avg_rating = $scope.avg_rating;
+			}
 		});
 
 		// console.log($scope.sites);
