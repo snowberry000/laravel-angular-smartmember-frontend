@@ -10,10 +10,14 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "DirectoryListingController", function( $scope,$rootScope, $state, $localStorage,  Restangular, toastr, $filter )
+app.controller( "DirectoryListingController", function( $scope,$rootScope,$http, $state, $localStorage,  Restangular, toastr, $filter )
 {
 	$site=$rootScope.site;
+	$scope.selected_category = {};
 
+	$scope.changeCategory = function(category){
+		$scope.selected_category = _.findWhere($scope.directory_categories , {title : category});
+	}
 	$scope.resolve=function(){
 		Restangular.one( 'directory', 'siteListing' ).get().then(function(response){
 			$listing=response;
@@ -26,6 +30,10 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope, $stat
 		        $listing = {};
 		    }
 		    $scope.listing = $listing;
+		    if($scope.listing.category){
+		    	$scope.selected_category = _.findWhere($scope.directory_categories , {title : $scope.listing.category});
+		    	console.log($scope.selected_category)
+		    }
 			$scope.hide_lessons = $listing.hide_lessons;
 			$scope.hide_downloads = $listing.hide_downloads;
 			$scope.hide_members = $listing.hide_members;
@@ -33,7 +41,11 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope, $stat
 		});
 	}
 	
-	
+	$http.get( 'json/directory_categories.json' ).success( function( response )
+	{
+		$scope.directory_categories = response.data;
+		console.log($scope.directory_categories);
+	} );
 
 
 	$scope.onBlurTitle = function( $event )

@@ -67,10 +67,21 @@
 								<div class="field">
 									<label class="col-sm-2 control-label">Category</label>
 									<div class="col-sm-10">
-										<select class='form-control' ng-model='listing.category'>
+										<select class='form-control' ng-change="changeCategory(listing.category)" ng-model='listing.category'>
 											<option value=''>Select Category</option>
-											<option value='Facebook Marketing'>Facebook Marketing</option>
-											<option value='Lead Generation'>Lead Generation</option>
+											<option value='{{category.title}}' ng-repeat="category in directory_categories">{{category.title}}</option>
+										</select>
+                                        <span class="help-block m-b-none">
+                                            This is the site category based on which your potential customers can find your easily.
+                                        </span>
+									</div>
+								</div>
+								<div class="field" ng-if="selected_category && listing.category">
+									<label class="col-sm-2 control-label">Sub Category</label>
+									<div class="col-sm-10">
+										<select class='form-control' ng-model='listing.subcategory'>
+											<option value=''>Select Subcategory</option>
+											<option value='{{subcategory.title}}' ng-repeat="subcategory in selected_category.sub_categories">{{subcategory.title}}</option>
 										</select>
                                         <span class="help-block m-b-none">
                                             This is the site category based on which your potential customers can find your easily.
