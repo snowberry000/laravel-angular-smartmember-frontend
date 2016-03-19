@@ -3,12 +3,6 @@
 		<a class="toc item" ng-click="smSidebar.Show('.left_sidebar_contents', 'www-mobile.html', {closable:true,dimPage:true});">
 			<i class="sidebar icon"></i>
 		</a>
-		<a ng-click="ToggleMembershipSidebar()" class="item">
-			<button class="ui labeled icon button">
-				<i class="sidebar icon"></i>
-				Browse Categories
-			</button>
-		</a>
 		<a class="active item" ui-sref="public.www.home">Home</a>
 		<div class="right menu" ng-if="!isLoggedIn()">
 			<div class="item">
@@ -16,6 +10,5 @@
 				<a sm-class="'ui ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' button'" ui-sref="public.sign.up">Sign-up</a>
 			</div>
 		</div>
-		<!-- <ng-include src="'templates/components/public/www/common/category-menu.html'"></ng-include> -->
 	</div>
 </div>

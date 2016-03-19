@@ -30,7 +30,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 
 	$scope.calculateReviewStats =function() {
 		_.each($scope.sites, function(site){
-			$scope.site_reviews = site.reviews;
+			$scope.site_reviews = site.site.reviews;
 			$scope.avg_rating = 0;
 
 			_.each($scope.site_reviews, function(review){
