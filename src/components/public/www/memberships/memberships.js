@@ -17,13 +17,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 		'thing3',
 		'thing4' ];
 
-	$scope.categories = [{name : 'Development' , sites : []} , {name : 'Business' , sites : []} , {name : 'Other' , sites : []}];
-
-	$http.get( 'json/directory_categories.json' ).success( function( response )
-	{
-		$scope.directory_categories = response.data;
-		console.log($scope.directory_categories);
-	} );
+	$scope.categories = [];
 
 	$scope.sites = null;
 
@@ -44,24 +38,47 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 		});
 		
 	}
-	var categories_name = _.pluck($scope.categories , 'name');
-	Restangular.all('site/bestSelling').customGET('' , {'categories[]' : categories_name}).then(function(response) {
-		if(response)
-		{
 
-			$scope.categories[0].sites  = response[0];
-			$scope.categories[1].sites  = response[1];
-			$scope.categories[2].sites = response[2];
-			
-			$scope.sites = $scope.categories[0].sites.concat($scope.categories[1].sites.concat($scope.categories[2].sites));
-			var meta = _.pluck($scope.sites , 'meta_data');
-			for(var i=0 ; i< meta.length ; i++){
-				angular.forEach(meta[i] , function(value , key){
-					meta[i][value.key] = value.value;
-				})
-			}
-
-			$scope.calculateReviewStats();
+	$scope.randomCategories = function(){
+		var categories_name = _.pluck($scope.directory_categories , 'title');
+		var length = $scope.directory_categories.length < 4 ? $scope.directory_categories.length : 4;
+		for(var i = 0; i < length ; i++){
+			var random_index = Math.floor(Math.random() * categories_name.length)
+			var rand = categories_name[random_index];
+			console.log(rand);
+			categories_name.splice(random_index , 1);
+			$scope.categories.push({name : rand , sites : []});
 		}
-	})
+
+		$scope.load();
+	}
+
+	$scope.load = function(){
+		var categories_name = _.pluck($scope.categories , 'name');
+		Restangular.all('site/bestSelling').customGET('' , {'categories[]' : categories_name}).then(function(response) {
+			if(response)
+			{
+
+				for (var i = $scope.categories.length - 1; i >= 0; i--) {
+					$scope.categories[i].sites = _.pluck(response[i] , 'site');
+				}
+				
+				$scope.sites = $scope.categories[0].sites.concat($scope.categories[1].sites.concat($scope.categories[2].sites));
+				var meta = _.pluck($scope.sites , 'meta_data');
+				for(var i=0 ; i< meta.length ; i++){
+					angular.forEach(meta[i] , function(value , key){
+						meta[i][value.key] = value.value;
+					})
+				}
+
+				$scope.calculateReviewStats();
+			}
+		})
+	}
+
+	$http.get( 'json/directory_categories.json' ).success( function( response )
+	{
+		$scope.directory_categories = response.data;
+		$scope.randomCategories();
+	} );
 } );
