@@ -32,7 +32,7 @@ app.controller("SubcategoryController", function ($scope , $http , Restangular ,
 			$scope.pagination.total_count = response.total_count;
 			$scope.dataFetch = response.items;
 
-			var meta = _.pluck($scope.dataFetch , 'meta');
+			var meta = _.pluck($scope.dataFetch , 'meta_data');
 			for(var i=0 ; i< meta.length ; i++){
 				angular.forEach(meta[i] , function(value , key){
 					meta[i][value.key] = value.value;
