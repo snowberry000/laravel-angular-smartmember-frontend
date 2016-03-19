@@ -31,23 +31,23 @@
 				<h2 class="ui header">{{sub_category.title}}</h2>
 
 				<div class="ui four doubling link cards" infinite-scroll='load()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
-					<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in all_sites">
+					<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in all_sites">
 						<div class="image">
-							<img class="ui fluid image" src="{{!next_item.meta_data.site_logo ? '/images/image.png' : next_item.meta_data.site_logo}}">
+							<img class="ui fluid image" src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
 						</div>
 						<div class="content">
-							<div class="header">{{next_item.name}}</div>
+							<div class="header">{{next_item.title}}</div>
 							<div class="meta">
-								<span class="date">By {{next_item.owner.first_name}} {{next_item.owner.last_name}}</span>
+								<span class="date">By {{next_item.site.owner.first_name}} {{next_item.site.owner.last_name}}</span>
 							</div>
 						</div>
 						<div class="extra">
 							Rating:
-							<div class="ui star rating" data-rating="4" sui-rating></div>
+							<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
 						</div>
 						<div class="extra content">
 							<span class="right floated">
-								<strong>{{next_item.total_revenue}}</strong>
+								<strong>${{next_item.total_revenue}}</strong>
 							</span>
 							<span>
 								<i class="users icon"></i>

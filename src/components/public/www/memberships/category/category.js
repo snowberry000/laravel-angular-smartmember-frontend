@@ -20,6 +20,25 @@ app.controller( "WwwMembershipsCategoryController", function( $scope, $http , $s
 		disable: false,
 		total_count: 0
 	};
+
+	$scope.calculateReviewStats =function() {
+	
+		_.each($scope.all_sites, function(site){
+			$scope.site_reviews = site.site.reviews;
+			$scope.avg_rating = 0;
+
+			_.each($scope.site_reviews, function(review){
+
+				$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
+			});
+			
+			$scope.avg_rating /= $scope.site_reviews.length;
+
+			site.avg_rating = $scope.avg_rating;
+		});
+		
+	}
+	
 	$scope.load = function(){
 		if(!$scope.all_sites || $scope.all_sites.length == 0)
 			$scope.loading = true;
