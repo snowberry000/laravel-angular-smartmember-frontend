@@ -14,6 +14,11 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope, $stat
 {
 	$site=$rootScope.site;
 
+	$scope.isFree = function(){
+		$scope.listing.pending_pricing = null;
+		$scope.listing.pricing = null;
+	}
+
 	$scope.resolve=function(){
 		Restangular.one( 'directory', 'siteListing' ).get().then(function(response){
 			$listing=response;
@@ -63,7 +68,6 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope, $stat
 		//$listing.hide_downloads = $scope.hide_downloads;
 		//$listing.hide_members = $scope.hide_members;
 		//$listing.hide_revenue = $scope.hide_revenue;
-
 		Restangular.service( "directory" ).post( $scope.listing ).then( function( response )
 		{
 			$scope.listing = response;
