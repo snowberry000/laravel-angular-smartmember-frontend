@@ -17,6 +17,8 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 		'thing3',
 		'thing4' ];
 
+	$scope.categories = [{name : 'Development' , sites : []} , {name : 'Business' , sites : []} , {name : 'Other' , sites : []}];
+
 	$http.get( 'json/directory_categories.json' ).success( function( response )
 	{
 		$scope.directory_categories = response.data;
@@ -42,15 +44,16 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 		});
 		
 	}
-
-	Restangular.all('sites/bestSelling').customGET('').then(function(response) {
+	var categories_name = _.pluck($scope.categories , 'name');
+	Restangular.all('site/bestSelling').customGET('' , {'categories[]' : categories_name}).then(function(response) {
 		if(response)
 		{
-			$scope.development = response.development;
-			$scope.mobile_apps = response.mobile_apps;
-			$scope.finance = response.finance;
-			$scope.entrepreneurship = response.entrepreneurship;
-			$scope.sites = $scope.development.concat($scope.mobile_apps.concat($scope.finance.concat($scope.entrepreneurship)));
+
+			$scope.categories[0].sites  = response[0];
+			$scope.categories[1].sites  = response[1];
+			$scope.categories[2].sites = response[2];
+			
+			$scope.sites = $scope.categories[0].sites.concat($scope.categories[1].sites.concat($scope.categories[2].sites));
 			var meta = _.pluck($scope.sites , 'meta');
 			for(var i=0 ; i< meta.length ; i++){
 				angular.forEach(meta[i] , function(value , key){
