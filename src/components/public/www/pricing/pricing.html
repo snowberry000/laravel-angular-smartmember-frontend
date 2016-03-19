@@ -1,0 +1,542 @@
+<div class="ui red inverted vertical masthead top_header center aligned segment">
+
+	<div class="ui text container" style="margin-top: 4em;">
+		<h1 class="ui inverted header">
+			Pricing
+		</h1>
+	</div>
+
+</div>
+
+<div class="ui vertical promo stripe intro segment pricing_options_nav p-none" ng-show="show_pricing_nav" data-type="fixed" sui-visibility>
+	<div class="ui center aligned grid m-n">
+		<div class="ui secondary pointing menu p-none">
+			<a class="{{active_pricing_option == 'option_a' ? 'active red' : ''}} item" ng-click="GoToOption( 'option_a' )">
+				<h4 class="ui {{active_pricing_option == 'option_a' ? 'red' : ''}} center aligned header">
+					<i class="setting icon"></i>
+					<div class="content">
+						Option A
+						<div class="">Start with one product</div>
+					</div>
+				</h4>
+			</a>
+			<a class="{{active_pricing_option == 'option_b' ? 'active red' : ''}} item" ng-click="GoToOption( 'option_b' )">
+				<h4 class="ui {{active_pricing_option == 'option_b' ? 'red' : ''}} center aligned header">
+					<i class="settings icon"></i>
+					<div class="content">
+						Option B
+						<div class="">Start with multiple products</div>
+					</div>
+				</h4>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="ui vertical promo stripe intro segment offwhite_bg" ng-model="pricing_nav_visibility_data" data-includeMargin="true" sui-visibility>
+	<div id="option_a" class="ui stackable very relaxed center aligned grid container">
+		<div class="row">
+			<div class="twelve wide column">
+				<h4 class="ui grey header">OPTION A</h4>
+				<h1 class="ui red header">
+					Start with one product
+				</h1>
+				<div class="ui header">
+					First product from <strong>$49</strong> per month,
+					<br>
+					add more from <strong>$4</strong> per month
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="ui hidden section divider"></div>
+
+	<div class="ui two column grid container">
+		<div class="column">
+			<a ui-sref="public.www.product({slug:'smart-sites'})" class="ui fluid link card product_card">
+				<div class="content">
+					<h2 class="ui center aligned icon {{all_products.smart_sites.color}} header">
+						<i class="circular cubes icon"></i>
+						{{all_products.smart_sites.name}}
+						<div class="ui sub center aligned header">
+							{{all_products.smart_sites.category}}
+						</div>
+					</h2>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="center aligned description">
+						<h3>{{all_products.smart_sites.description_short}}</h3>
+					</div>
+					<div class="ui center aligned grey pricing_text header">
+						<p>starts at
+							<span class="ui large {{all_products.smart_sites.color}} header">$49</span>
+							per month
+						</p>
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+				</div>
+				<div class="extra content center aligned">
+					<button class="ui {{all_products.smart_sites.color}} large button">SEE PRICING</button>
+				</div>
+			</a>
+		</div>
+		<div class="column">
+			<a ui-sref="public.www.product({slug:'smart-mail'})" class="ui fluid link card product_card">
+				<div class="content">
+					<h2 class="ui center aligned icon {{all_products.smart_mail.color}} header">
+						<i class="circular cubes icon"></i>
+						{{all_products.smart_mail.name}}
+						<div class="ui sub center aligned header">
+							{{all_products.smart_mail.category}}
+						</div>
+					</h2>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="center aligned description">
+						<h3>{{all_products.smart_mail.description_short}}</h3>
+					</div>
+					<div class="ui center aligned grey pricing_text header">
+						<p>starts at
+							<span class="ui large {{all_products.smart_mail.color}} header">$49</span>
+							per month
+						</p>
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+				</div>
+				<div class="extra content center aligned">
+					<button class="ui {{all_products.smart_mail.color}} large button">SEE PRICING</button>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="ui hidden section divider"></div>
+	<div class="ui hidden section divider"></div>
+
+	<div class="ui two column grid container">
+		<div class="column">
+			<a ui-sref="public.www.product({slug:'smart-jv'})" class="ui fluid link card product_card">
+				<div class="content">
+					<h2 class="ui center aligned icon {{all_products.smart_jv.color}} header">
+						<i class="circular cubes icon"></i>
+						{{all_products.smart_jv.name}}
+						<div class="ui sub center aligned header">
+							{{all_products.smart_jv.category}}
+						</div>
+					</h2>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="center aligned description">
+						<h3>{{all_products.smart_jv.description_short}}</h3>
+					</div>
+					<div class="ui center aligned grey pricing_text header">
+						<p>starts at
+							<span class="ui large {{all_products.smart_jv.color}} header">$49</span>
+							per month
+						</p>
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+				</div>
+				<div class="extra content center aligned">
+					<button class="ui {{all_products.smart_jv.color}} large button">SEE PRICING</button>
+				</div>
+			</a>
+		</div>
+		<div class="column">
+			<a ui-sref="public.www.product({slug:'smart-support'})" class="ui fluid link card product_card">
+				<div class="content">
+					<h2 class="ui center aligned icon {{all_products.smart_support.color}} header">
+						<i class="circular cubes icon"></i>
+						{{all_products.smart_support.name}}
+						<div class="ui sub center aligned header">
+							{{all_products.smart_support.category}}
+						</div>
+					</h2>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="center aligned description">
+						<h3>{{all_products.smart_support.description_short}}</h3>
+					</div>
+					<div class="ui center aligned grey pricing_text header">
+						<p>starts at
+							<span class="ui large {{all_products.smart_support.color}} header">$49</span>
+							per month
+						</p>
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+				</div>
+				<div class="extra content center aligned">
+					<button class="ui {{all_products.smart_support.color}} large button">SEE PRICING</button>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="ui hidden section divider"></div>
+	<div class="ui hidden section divider"></div>
+	<div class="ui hidden section divider"></div>
+
+	<div id="option_b" class="ui stackable very relaxed center aligned grid container" ng-model="pricing_options_visibility_data" sui-visibility>
+		<div class="row">
+			<div class="twelve wide column">
+				<h4 class="ui grey header">OPTION B</h4>
+				<h1 class="ui red header">
+					Start with multiple products
+				</h1>
+				<div class="ui header">
+					<strong>Smart Mail + JV + Support</strong> together
+					<br>
+					from
+					<span class="price_strike"><strong class="price_text">$147</strong></span>
+					<strong>$57</strong> per month
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="ui hidden section divider"></div>
+	<div class="ui hidden divider"></div>
+
+	<div class="ui container">
+		<div class="ui segments">
+			<div class="ui inverted blue text-center segment">
+				<h3>FOR YOUR WHOLE COMPANY</h3>
+			</div>
+			<div class="ui secondary segment">
+
+				<div class="ui hidden divider"></div>
+				<h3 class="ui header text-center m-n">All the products you need to manage your members.</h3>
+
+				<div class="ui hidden section divider"></div>
+				<div class="ui hidden section divider"></div>
+
+				<div class="ui three column grid container">
+					<div class="column">
+						<div class="ui fluid card product_card">
+							<div class="content">
+								<h2 class="ui center aligned icon {{all_products.smart_mail.color}} header">
+									<i class="circular {{all_products.smart_mail.icon}} icon"></i>
+									{{all_products.smart_mail.name}}
+									<div class="ui sub center aligned header">
+										{{all_products.smart_mail.category}}
+									</div>
+								</h2>
+
+								<div class="ui hidden divider"></div>
+
+								<div class="center aligned description">
+									<h4>{{all_products.smart_mail.description_short}}</h4>
+								</div>
+
+								<div class="ui center aligned grey pricing_text header">
+									<p>starts at
+										<span class="ui large {{all_products.smart_mail.color}} header">$49</span>
+										per month
+									</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="ui fluid card product_card">
+							<div class="content">
+								<h2 class="ui center aligned icon {{all_products.smart_jv.color}} header">
+									<i class="circular {{all_products.smart_jv.icon}} icon"></i>
+									{{all_products.smart_jv.name}}
+									<div class="ui sub center aligned header">
+										{{all_products.smart_jv.category}}
+									</div>
+								</h2>
+
+								<div class="ui hidden divider"></div>
+
+								<div class="center aligned description">
+									<h4>{{all_products.smart_jv.description_short}}</h4>
+								</div>
+								<div class="ui center aligned grey pricing_text header">
+									<p>starts at
+										<span class="ui large {{all_products.smart_jv.color}} header">$49</span>
+										per month
+									</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="ui fluid card product_card">
+							<div class="content">
+								<h2 class="ui center aligned icon {{all_products.smart_support.color}} header">
+									<i class="circular {{all_products.smart_support.icon}} icon"></i>
+									{{all_products.smart_support.name}}
+									<div class="ui sub center aligned header">
+										{{all_products.smart_support.category}}
+									</div>
+								</h2>
+
+								<div class="ui hidden divider"></div>
+
+								<div class="center aligned description">
+									<h4>{{all_products.smart_support.description_short}}</h4>
+								</div>
+
+								<div class="ui center aligned grey pricing_text header">
+									<p>starts at
+										<span class="ui large {{all_products.smart_support.color}} header">$49</span>
+										per month
+									</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui hidden divider"></div>
+
+				<div class="ui center aligned grey pricing_text header">
+					<p>starts at
+						<span class="price_strike" style="color: #000000;"><strong class="ui large grey header price_text">$147</strong></span>
+						<span class="ui large red header">$57</span>
+						per month
+					</p>
+				</div>
+				<div class="ui center aligned grey pricing_text header m-t-sm">
+					<p style="    font-weight: normal;">
+						To build memberships by creating sites, buy <strong>Smart Sites</strong> separately starting at <strong>$49</strong> per month.
+					</p>
+				</div>
+
+				<div class="ui center aligned basic segment">
+					<a ui-sref="public.www.soon" class="ui red massive button">SEE PRICING</a>
+				</div>
+
+				<div class="ui hidden divider"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="ui hidden section divider"></div>
+</div>
+
+<div class="ui hidden section divider"></div>
+
+<div class="ui email alternate stripe vertical segment">
+	<div class="ui center aligned grid container">
+		<div class="column">
+
+			<h1 class="ui red header">
+				Compare Products
+			</h1>
+			<div class="ui hidden section divider"></div>
+
+			<table class="ui center aligned very basic very padded fluid celled large table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>
+							<h2 class="ui red header">
+								Smart Sites
+								<div class="sub header">something</div>
+							</h2>
+						</th>
+						<th>
+							<h2 class="ui blue header">
+								Smart Mail
+								<div class="sub header">something</div>
+							</h2>
+						</th>
+						<th>
+							<h2 class="ui green header">
+								Smart JV
+								<div class="sub header">something</div>
+							</h2>
+						</th>
+						<th class="collapsing">
+							<h2 class="ui purple header">
+								Smart Support
+								<div class="sub header">something</div>
+							</h2>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<h4 class="ui header">
+								Who can you message
+							</h4>
+						</td>
+						<td>
+							Website visitors
+						</td>
+						<td colspan="3">
+							Users of your app (web or mobile)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="ui header">
+								Outbound messaging
+							</h4>
+						</td>
+						<td>
+							Website chat messages
+						</td>
+						<td>
+							<p>In-app announcements</p>
+							<p>Email</p>
+							<p>Mobile push notifications</p>
+							<p>Custom sender address</p>
+						</td>
+						<td>
+							<p>In-app chats</p>
+							<p>Email</p>
+							<p>Mobile push notifications</p>
+						</td>
+						<td>
+
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="ui header">
+								Inbound messaging
+							</h4>
+						</td>
+						<td>
+							Intercom Messenger
+						</td>
+						<td>
+
+						</td>
+						<td>
+
+						</td>
+						<td>
+							<p>Intercom Messenger</p>
+							<p>Email forwarding</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="ui header">
+								Conversation management
+							</h4>
+						</td>
+						<td>
+							Team Inbox
+						</td>
+						<td>
+
+						</td>
+						<td>
+							Team Inbox
+						</td>
+						<td>
+							Team Inbox
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="ui header">
+								Other key features
+							</h4>
+						</td>
+						<td>
+							<p>Visitor Auto Messages</p>
+							<p>Acquire Insights</p>
+						</td>
+						<td>
+							<p>Message Goals</p>
+							<p>Message A/B testing</p>
+							<p>Custom email templates</p>
+							<p>Message scheduling</p>
+						</td>
+						<td>
+							<p>Lightweight Replies</p>
+						</td>
+						<td>
+							<p>Assignment Rules</p>
+							<p>Support Insights</p>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th></th>
+						<th>
+							<a ui-sref="public.www.soon" class="ui red large button">SEE PRICING</a>
+						</th>
+						<th>
+							<a ui-sref="public.www.soon" class="ui blue large button">SEE PRICING</a>
+						</th>
+						<th>
+							<a ui-sref="public.www.soon" class="ui green large button">SEE PRICING</a>
+						</th>
+						<th>
+							<a ui-sref="public.www.soon" class="ui purple large button">SEE PRICING</a>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+
+		</div>
+	</div>
+
+	<div class="ui hidden section divider"></div>
+	<div class="ui hidden section divider"></div>
+
+	<div class="ui grid container" ng-include="'templates/components/public/www/common/faqs.html'"></div>
+
+	<div class="ui stackable very relaxed center aligned grid container">
+		<div class="row">
+			<div class="twelve wide column">
+				<div class="ui very padded basic segment">
+
+					<h2 class="ui huge red header">
+						Get started on the Smart Member platform for free
+					</h2>
+					<h4 class="ui header">
+						Sign up and see who your members are with member and company profiles.
+						Use live data and event tracking to see what they do in your product(s).
+					</h4>
+
+					<div class="ui hidden divider"></div>
+
+					<form class="ui form ng-pristine ng-valid" method="post" action="https://semantic-ui.clients.ubivox.com/handlers/post/">
+						<input type="hidden" name="action" value="subscribe">
+						<input type="hidden" name="lists" value="29450">
+						<div class="field">
+							<div class="ui huge action input">
+								<input type="text" name="email_address" data-validate="email" placeholder="Enter your email">
+								<button type="submit" value="Subscribe" class="ui red submit button">
+									GET STARTED
+								</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,163 @@
+<div class="feature alternate ui stripe vertical red inverted segment search_heading_container">
+
+	<div class="ui container">
+		<h1 class="ui inverted  header">{{pagination.total_count}} search results for "{{search_term}}"</h1>
+
+	</div>
+
+</div>
+
+<div class="search_content stripe" ng-class="{pusher: ShowMembershipSidebar()}">
+	<div class="ui container">
+		<div class="ui grid">
+			<div class="four wide column">
+
+				<div class="ui hidden divider"></div>
+
+				<div class="ui huge form">
+
+					<h5 class="ui header m-n">Price</h5>
+
+					<div class="grouped fields">
+						<div class="field">
+							<div class="ui checkbox" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>Paid (232)</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui checkbox" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>Free (522)</label>
+							</div>
+						</div>
+					</div>
+
+					<h5 class="ui header m-n">Rating</h5>
+
+					<div class="grouped fields">
+						<div class="field">
+							<div class="ui checkbox" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>5 Stars (43)</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui checkbox" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>4 Stars (9)</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui checkbox" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>3 Stars (8)</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui checkbox" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>2 Stars (2)</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui checkbox" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>1 Star (11)</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui checkbox" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>0 Stars (104)</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="twelve wide column">
+
+				<div class="ui attached padded segment">
+					<div class="ui form">
+						<div class="inline fields">
+							<div class="eight wide field">
+								<label>Sort by:</label>
+								<select sui-dropdown ng-change="loadMore(true)" ng-model="pagination.sort_by">
+									<option value="total_members">Popularity</option>
+									<option value="created_at">Newest</option>
+									<option>Reviews</option>
+									<option>Price: Low to High</option>
+									<option>Price: High to Low</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="ui divider"></div>
+
+					<div class="ui divided link items" infinite-scroll='loadMore()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
+						<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="item" ng-repeat="next_item in matched_sites">
+							<div class="image">
+								<img src="/images/image.png">
+							</div>
+							<div class="content">
+								<div class="header">{{next_item.name || next_item.subdomain}}</div>
+								<div class="meta">
+									<span class="cinema">By {{next_item.owner.first_name}} {{next_item.owner.last_name}}</span>
+								</div>
+								<div class="description">
+									<p></p>
+								</div>
+								<div class="extra">
+
+									<div class="ui horizontal bulleted list">
+										<div class="item">
+											<strong>$97+</strong>
+										</div>
+										<div class="item">
+											<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+											(42)
+										</div>
+										<div class="item">
+											{{next_item.total_members}} Members
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+				<div class="ui three doubling link cards" ng-show="0">
+					<a ui-sref="public.www.membership({permalink: 'help'})" class="card">
+						<div class="image">
+							<img src="/images/image.png">
+						</div>
+						<div class="content">
+							<div class="header">Dark Post Profits</div>
+							<div class="meta">
+								<span class="date">By Chris Record</span>
+							</div>
+						</div>
+						<div class="extra">
+							Rating:
+							<div class="ui star rating" data-rating="4" ng-model="rating" sui-rating></div>
+						</div>
+						<div class="extra content">
+							<span class="right floated">
+								<strong>$97+</strong>
+							</span>
+							<span>
+								<i class="users icon"></i>
+								1,000 Members
+							</span>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

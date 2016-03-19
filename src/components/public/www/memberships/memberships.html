@@ -1,0 +1,159 @@
+<div class="ui vertical promo stripe intro segment membership_container" ng-class="{pusher: ShowMembershipSidebar()}">
+	<div class="ui container">
+
+		<div class="ui horizontal divider">
+			Best Sellers in "Development"
+		</div>
+
+		<div class="ui four doubling link cards">
+			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in development">
+				<div class="image">
+					<img src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+				</div>
+				<div class="content">
+					<div class="header">{{next_item.name}}</div>
+					<div class="meta">
+						<span class="date">{{next_item.owner.first_name+" "+next_item.owner.last_name}}</span>
+					</div>
+				</div>
+				<div class="extra">
+					Rating:
+					<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+				</div>
+				<div class="extra content">
+					<span class="right floated">
+						<strong>${{next_item.total_revenue | number}}</strong>
+					</span>
+					<span>
+						<i class="users icon"></i>
+						{{next_item.total_members | number}}
+					</span>
+				</div>
+			</a>
+		</div>
+
+		<div class="ui horizontal divider">Best Sellers in "Mobile Apps"
+		</div>
+
+		<div class="ui four doubling link cards">
+			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in mobile_apps">
+				<div class="image">
+					<img src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+				</div>
+				<div class="content">
+					<div class="header">{{next_item.name}}</div>
+					<div class="meta">
+						<span class="date">{{next_item.owner.first_name+" "+next_item.owner.last_name}}</span>
+					</div>
+				</div>
+				<div class="extra">
+					Rating:
+					<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+				</div>
+				<div class="extra content">
+					<span class="right floated">
+						<strong>${{next_item.total_revenue | number}}</strong>
+					</span>
+					<span>
+						<i class="users icon"></i>
+						{{next_item.total_members | number}}
+					</span>
+				</div>
+			</a>
+		</div>
+
+		<div class="ui horizontal divider">
+			Best Sellers in "Finance"
+		</div>
+
+		<div class="ui four doubling link cards">
+			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in finance">
+				<div class="image">
+					<img src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+				</div>
+				<div class="content">
+					<div class="header">{{next_item.name}}</div>
+					<div class="meta">
+						<span class="date">{{next_item.owner.first_name+" "+next_item.owner.last_name}}</span>
+					</div>
+				</div>
+				<div class="extra">
+					Rating:
+					<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+				</div>
+				<div class="extra content">
+					<span class="right floated">
+						<strong>${{next_item.total_revenue | number}}</strong>
+					</span>
+					<span>
+						<i class="users icon"></i>
+						{{next_item.total_members | number}}
+					</span>
+				</div>
+			</a>
+		</div>
+
+		<div class="ui horizontal divider">
+			Best Sellers in "Entrepreneurship"
+		</div>
+
+		<div class="ui four doubling link cards">
+			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in entrepreneurship">
+				<div class="image">
+					<img src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+				</div>
+				<div class="content">
+					<div class="header">{{next_item.name}}</div>
+					<div class="meta">
+						<span class="date">{{next_item.owner.first_name+" "+next_item.owner.last_name}}</span>
+					</div>
+				</div>
+				<div class="extra">
+					Rating:
+					<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+				</div>
+				<div class="extra content">
+					<span class="right floated">
+						<strong>${{next_item.total_revenue | number}}</strong>
+					</span>
+					<span>
+						<i class="users icon"></i>
+						{{next_item.total_members | number}}
+					</span>
+				</div>
+			</a>
+		</div>
+
+		<div class="ui horizontal divider" ng-hide="true">
+			Members are now viewing
+		</div>
+
+		<div class="ui four doubling link cards" ng-hide="true">
+			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in sites">
+				<div class="image">
+					<img src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+				</div>
+				<div class="content">
+					<div class="header">{{next_item.name}}</div>
+					<div class="meta">
+						<span class="date">{{next_item.owner.first_name+" "+next_item.owner.last_name}}</span>
+					</div>
+				</div>
+				<div class="extra">
+					Rating:
+					<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+				</div>
+				<div class="extra content">
+					<span class="right floated">
+						<strong>${{next_item.total_revenue | number}}</strong>
+					</span>
+					<span>
+						<i class="users icon"></i>
+						{{next_item.total_members | number}}
+					</span>
+				</div>
+			</a>
+		</div>
+
+	</div>
+</div>
