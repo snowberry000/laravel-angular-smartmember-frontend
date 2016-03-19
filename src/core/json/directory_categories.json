@@ -1,0 +1,66 @@
+{
+  "data": [
+    {
+      "title": "Development",
+      "slug": "development",
+      "url": "whatever",
+      "color": "red",
+      "icon": "cubes",
+      "sub_categories": [
+        {
+          "title": "Web Development",
+          "slug": "development2",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        },
+        {
+          "title": "Mobile Apps",
+          "slug": "development3",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        }
+      ]
+    },
+    {
+      "title": "Business",
+      "slug": "business",
+      "url": "whatever",
+      "color": "red",
+      "icon": "cubes",
+      "sub_categories": [
+        {
+          "title": "Finance",
+          "slug": "finance",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        },
+        {
+          "title": "Entrepreneurship",
+          "slug": "entrepreneurship",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        }
+      ]
+    },
+     {
+      "title": "Other",
+      "slug": "other",
+      "url": "whatever",
+      "color": "red",
+      "icon": "cubes",
+      "sub_categories": [
+        {
+          "title": "Other",
+          "slug": "other",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        }
+      ]
+    }
+  ]
+}
