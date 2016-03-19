@@ -62,11 +62,16 @@ app.controller( "WwwMembershipsCategoryController", function( $scope, $http , $s
 				})
 			}
 			$scope.all_sites = $scope.all_sites.concat($scope.dataFetch);
+			$scope.calculateReviewStats();
 		})
 	}
 
 	$scope.filterSite = function(sub_category){
-		return _.filter($scope.all_sites , function(site){if(site && site.directory) return site.directory.sub_category == sub_category.title})
+		// return sub_category;
+		return _.filter($scope.all_sites , function(site){
+			if(site) 
+				return site.sub_category == sub_category.title
+		})
 	}
 
 	$http.get( 'json/directory_categories.json' ).success( function( response )
