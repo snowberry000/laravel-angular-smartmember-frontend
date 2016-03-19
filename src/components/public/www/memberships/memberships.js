@@ -59,9 +59,9 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 			if(response)
 			{
 
-				$scope.categories[0].sites  = response[0];
-				$scope.categories[1].sites  = response[1];
-				$scope.categories[2].sites = response[2];
+				for (var i = $scope.categories.length - 1; i >= 0; i--) {
+					$scope.categories[i].sites = _.pluck(response[i] , 'site');
+				}
 				
 				$scope.sites = $scope.categories[0].sites.concat($scope.categories[1].sites.concat($scope.categories[2].sites));
 				var meta = _.pluck($scope.sites , 'meta_data');
