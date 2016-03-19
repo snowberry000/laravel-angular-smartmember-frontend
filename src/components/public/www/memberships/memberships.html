@@ -8,7 +8,7 @@
 		<div class="ui four doubling link cards">
 			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in category.sites">
 				<div class="image">
-					<img src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+					<img src="{{!next_item.meta_data.site_logo ? '/images/image.png' : next_item.meta_data.site_logo}}">
 				</div>
 				<div class="content">
 					<div class="header">{{next_item.name}}</div>
