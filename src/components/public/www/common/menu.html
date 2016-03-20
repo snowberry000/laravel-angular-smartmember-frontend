@@ -51,17 +51,20 @@
 				</a>
 			</div>
 		</div>
-		<a ui-sref="public.www.blog" class="item">
-			Blog
-		</a>
-		<a class="item" ng-href="{{login_url}}">
-			Log in
-		</a>
-		<div class="item">
-			<div class="ui small action input">
-				<input type="email" ng-model="email" placeholder="Enter your email">
-				<div class="ui red button" ng-click="createUser(email)">GET STARTED</div>
+		<div class="right menu">
+			<a ui-sref="public.www.blog" class="item">
+				Blog
+			</a>
+			<a class="item" ng-href="{{login_url}}">
+				Log in
+			</a>
+			<div class="item">
+				<div class="ui small action input">
+					<input type="email" ng-model="email" placeholder="Enter your email">
+					<div class="ui red button" ng-click="createUser(email)">GET STARTED</div>
+				</div>
 			</div>
+
 		</div>
 	</div>
 </div>
