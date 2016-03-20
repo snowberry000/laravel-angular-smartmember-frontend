@@ -5,10 +5,10 @@ app.config(function($stateProvider){
 		.state("public.www.soon",{
 			url: "/soon",
 			templateUrl: "/templates/components/public/www/soon/soon.html",
-			controller: "SoonController"
+			controller: "PublicWWWSoonController"
 		})
 }); 
 
-app.controller("SoonController", function ($scope) {
+app.controller("PublicWWWSoonController", function ($scope) {
 
 });
