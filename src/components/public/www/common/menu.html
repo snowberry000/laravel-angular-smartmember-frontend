@@ -3,7 +3,7 @@
 		<a ui-sref="public.www.home" class="header item">
 			<img class="logo" src="/images/smart-member-logo.png">
 		</a>
-		<div class="ui simple dropdown item">
+		<div class="ui simple dropdown item" ng-if="0">
 			Products <i class="dropdown icon"></i>
 
 			<div class="menu">
@@ -26,10 +26,10 @@
 			</div>
 		</div>
 
-		<a ui-sref="public.www.pricing" class="item">
+		<a ui-sref="public.www.pricing" class="item" ng-if="0">
 			Pricing
 		</a>
-		<div class="ui simple dropdown item">
+		<div class="ui simple dropdown item" ng-if="0">
 			Resources
 			<i class="dropdown icon"></i>
 
@@ -51,7 +51,7 @@
 				</a>
 			</div>
 		</div>
-		<a ui-sref="public.www.soon" class="item">
+		<a ui-sref="public.www.blog" class="item">
 			Blog
 		</a>
 		<a class="item" ng-href="{{login_url}}">
