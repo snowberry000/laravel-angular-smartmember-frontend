@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "WwwHomeController", function( $scope, Restangular, $rootScope , $location )
+app.controller( "WwwHomeController", function( $scope, Restangular, $rootScope, $location )
 {
 	$scope.background_class = 'bg' + (Math.floor( (Math.random() * 14) + 1 ));
 
@@ -51,59 +51,67 @@ app.controller( "WwwHomeController", function( $scope, Restangular, $rootScope ,
 	$scope.sites = null;
 	$scope.stats = null;
 
-	$scope.calculateReviewStats =function() {
-		_.each($scope.sites, function(site){
-			if(site.site.reviews.length>0) {
+	$scope.calculateReviewStats = function()
+	{
+		_.each( $scope.sites, function( site )
+		{
+			if( site.site && site.site.reviews.length > 0 )
+			{
 				$scope.site_reviews = site.site.reviews;
 				$scope.avg_rating = 0;
 
-				_.each($scope.site_reviews, function(review){
-
-					$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
-				});
+				_.each( $scope.site_reviews, function( review )
+				{
+					$scope.avg_rating = parseInt( $scope.avg_rating ) + parseInt( review.rating );
+				} );
 
 				$scope.avg_rating /= $scope.site_reviews.length;
 
 				site.avg_rating = $scope.avg_rating;
 			}
-		});
+		} );
 
 		// console.log($scope.sites);
 
 	}
 
-	Restangular.all('directory').get('all').then(function(response){
-		if(response) {
+	Restangular.all( 'directory' ).get( 'all' ).then( function( response )
+	{
+		if( response )
+		{
 			$scope.sites = response.sites;
 			$scope.stats = response.statistics;
 
-			if($scope.stats.members_count>500)
+			if( $scope.stats.members_count > 500 )
 			{
 
-				$scope.stats.members_count = ($scope.stats.members_count/1000).toFixed(1);
+				$scope.stats.members_count = ($scope.stats.members_count / 1000).toFixed( 1 );
 
-				var temp = $scope.stats.members_count - parseInt($scope.stats.members_count);
-				temp = temp.toFixed(1)*10;
-				if(temp>5) {
-					$scope.stats.members_count = parseInt($scope.stats.members_count)+""+5;
-					$scope.stats.members_count = $scope.stats.members_count*100;
-				} else {
-					$scope.stats.members_count = parseInt($scope.stats.members_count)*1000;
+				var temp = $scope.stats.members_count - parseInt( $scope.stats.members_count );
+				temp = temp.toFixed( 1 ) * 10;
+				if( temp > 5 )
+				{
+					$scope.stats.members_count = parseInt( $scope.stats.members_count ) + "" + 5;
+					$scope.stats.members_count = $scope.stats.members_count * 100;
+				}
+				else
+				{
+					$scope.stats.members_count = parseInt( $scope.stats.members_count ) * 1000;
 				}
 			}
-			if($scope.stats.sites_count>100)
+			if( $scope.stats.sites_count > 100 )
 			{
-				$scope.stats.sites_count = parseInt($scope.stats.sites_count/100)*100;
+				$scope.stats.sites_count = parseInt( $scope.stats.sites_count / 100 ) * 100;
 			}
 			$scope.stats.content_count = 20424;
-			if($scope.stats.content_count>100)
+			if( $scope.stats.content_count > 100 )
 			{
-				$scope.stats.content_count = parseInt($scope.stats.content_count/100)*100;
+				$scope.stats.content_count = parseInt( $scope.stats.content_count / 100 ) * 100;
 			}
 
 
 			$scope.calculateReviewStats();
 		}
-	});
+	} );
 
 } );

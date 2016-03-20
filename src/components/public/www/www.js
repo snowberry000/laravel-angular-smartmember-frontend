@@ -21,7 +21,7 @@ app.controller( "WwwController", function( $scope, $rootScope, $http, smSidebar 
 
 	$scope.membership_sidebar = false;
 	$scope.active_category = false;
-	$scope.login_url = 'http://app.smartmember.' + $rootScope.app.env;
+	$scope.login_url = 'http://my.smartmember.' + $rootScope.app.env;
 
 	$scope.ToggleMembershipSidebar = function()
 	{
