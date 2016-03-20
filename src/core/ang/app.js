@@ -33,15 +33,17 @@ var app = angular.module( 'app', [
 	'ngUrlify'
 ] );
 
-String.prototype.isCustomDomain = function() {
-    return this.match(/^(?:[a-z0-9\-]{1,63})?\.smartmember\.(?:com|in|dev|soy|pro|co)$/i) ? false : true;
+String.prototype.isCustomDomain = function()
+{
+	return this.match( /^(?:[a-z0-9\-]{1,63})?\.smartmember\.(?:com|in|dev|soy|pro|co)$/i ) ? false : true;
 }
 
-app.config( function(FacebookProvider) {
-	FacebookProvider.init({
+app.config( function( FacebookProvider )
+{
+	FacebookProvider.init( {
 		loadSDK: false
-	});
-});
+	} );
+} );
 
 app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
 {
@@ -55,45 +57,52 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	$rootScope.smModal = smModal;
 	$rootScope.smSidebar = smSidebar;
 
-    $rootScope.onCustomDomain = function() {
-        return location.host.isCustomDomain();
-    }
+	$rootScope.onCustomDomain = function()
+	{
+		return location.host.isCustomDomain();
+	}
 
-    $rootScope.nonProductionTLDs = ['dev','in','soy'];
+	$rootScope.nonProductionTLDs = [ 'dev', 'in', 'soy' ];
 
-	var domainParts = $location.host().match(/^([a-z0-9\-]{1,63})?\.smartmember\.(com|in|dev|soy|pro|co)$/i);
-    var env = null;
-    var sub = null;
-    var rootDomain = null;
-    var domain = null;
-    var appUrl = $location.host();
+	var domainParts = $location.host().match( /^([a-z0-9\-]{1,63})?\.smartmember\.(com|in|dev|soy|pro|co)$/i );
+	var env = null;
+	var sub = null;
+	var rootDomain = null;
+	var domain = null;
+	var appUrl = $location.host();
 
-    if( domainParts ) {
-        env = domainParts[2];
-        sub = domainParts[1];
+	if( domainParts )
+	{
+		env = domainParts[ 2 ];
+		sub = domainParts[ 1 ];
 
-        domain = 'smartmember.' + env;
-    } else {
-        domainParts = $location.host().split('.');
-        env = domainParts.pop();
+		domain = 'smartmember.' + env;
+	}
+	else
+	{
+		domainParts = $location.host().split( '.' );
+		env = domainParts.pop();
 
-        if( env.length < 3 && domainParts.length > 1 && domainParts[ domainParts.length - 1].length < 4 ) {
-            var next_env = domainParts.pop();
+		if( env.length < 3 && domainParts.length > 1 && domainParts[ domainParts.length - 1 ].length < 4 )
+		{
+			var next_env = domainParts.pop();
 
-            env = next_env + '.' + env;
-        }
+			env = next_env + '.' + env;
+		}
 
-        sub = domainParts[0];
+		sub = domainParts[ 0 ];
 
-        domain = appUrl;
-    }
+		domain = appUrl;
+	}
 
-    if( $rootScope.nonProductionTLDs.indexOf( env ) == -1 )
-        env = 'com';
+	if( $rootScope.nonProductionTLDs.indexOf( env ) == -1 )
+	{
+		env = 'com';
+	}
 
-    rootDomain = 'smartmember.' + env;
+	rootDomain = 'smartmember.' + env;
 
-    var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf(env) == -1 ? 's' : '') + "://api." + rootDomain;
+	var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf( env ) == -1 ? 's' : '') + "://api." + rootDomain;
 
 	$arr = location.pathname.split( '/' );
 
@@ -164,7 +173,6 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	editableThemes[ 'default' ].cancelTpl = '<button type="button" ng-click="$form.$cancel()"><span class="fa fa-times" ></span></button>';
 
 
-
 	$rootScope.apiURL = apiURL;
 	//Setup app configuration
 	$rootScope.app = {
@@ -173,7 +181,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 		"rootDomain": rootDomain,
 		"appUrl": 'http://' + appUrl,
 		"env": env,
-		"rootEnv": apiURL.split('.').pop(),
+		"rootEnv": apiURL.split( '.' ).pop(),
 		"stripe_pk": 'pk_live_tdjHKO92mUyjNu9fWuMGNEQj',
 		"domain": domain,
 		"subdomain": sub
@@ -233,8 +241,8 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	}
 	else if( location.href.indexOf( '?speedblogging' ) != -1 )
 	{
-        $localStorage.open_speedblogging_modal = true;
-        $rootScope.$_GET = $location.search();
+		$localStorage.open_speedblogging_modal = true;
+		$rootScope.$_GET = $location.search();
 	}
 
 	Restangular.setBaseUrl( $rootScope.app.apiUrl );
