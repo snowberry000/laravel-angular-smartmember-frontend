@@ -143,7 +143,6 @@
 							{{next_item.comment}}
 						</div>
 					</div>
-
 				</div>
 				<div class="five wide column">
 					<div class="overlay">
@@ -172,6 +171,39 @@
 							   socialshare-url="http://{{site_listing.subdomain}}.smartmember.{{app.env}}">
 								<i class="google plus icon"></i>
 								Share
+							</a>
+						</div>
+					</div>
+
+				</div>
+				<div class="sixteen wide column" >
+					<div class="row" ng-if="site_listing.other_sites && site_listing.other_sites.length > 0">
+						<div class="ui hidden divider"></div>
+
+						<div class="ui header">
+							Other sites by this user
+						</div>
+						<div class="ui four doubling stackable link site cards">
+							<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in site_listing.other_sites">
+								<div class="image flex_center">
+									<img class="ui centered middle aligned image" src="{{next_item.image ? next_item.image : (next_item.logo ? next_item.logo : '/images/image.png')}}">
+								</div>
+								<div class="content">
+									<div>{{next_item.name}}</div>
+								</div>
+								<div class="extra">
+									Rating:
+									<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+								</div>
+								<div class="extra content">
+									<span class="right floated">
+										<strong>{{next_item.pricing}}</strong>
+									</span>
+									<span>
+										<i class="users icon"></i>
+										{{next_item.total_members | number}}
+									</span>
+								</div>
 							</a>
 						</div>
 					</div>

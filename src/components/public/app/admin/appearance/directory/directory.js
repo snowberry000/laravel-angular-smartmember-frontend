@@ -14,6 +14,9 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope,$http,
 {
 	$site=$rootScope.site;
 	$scope.selected_category = {};
+
+	$scope.price_interval = ["daily","weekly","monthly","annually"];
+
 	$scope.changeCategory = function(category){
 		$scope.selected_category = _.findWhere($scope.directory_categories , {title : category});
 	}
@@ -93,4 +96,13 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope,$http,
 		$scope.listing.pending_image = '';
 	}
 	$scope.resolve();
+
+	$scope.updatePricing = function() {
+		if($scope.listing.is_paid==0) {
+			$scope.listing.min_price = null;
+			$scope.listing.min_price_interval = null;
+			$scope.listing.max_price = null;
+			$scope.listing.max_price_interval = null;		
+		}
+	}
 } );

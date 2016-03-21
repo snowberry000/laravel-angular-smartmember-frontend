@@ -81,7 +81,7 @@
 									<div class="col-sm-10">
 										<select class='form-control' ng-model='listing.sub_category'>
 											<option value=''>Select Subcategory</option>
-											<option value='{{subcategory.title}}' ng-repeat="subcategory in selected_category.sub_categories">{{subcategory.title}}</option>
+											<option ng-selected="{{subcategory.title == listing.sub_category}}" value='{{subcategory.title}}' ng-repeat="subcategory in selected_category.sub_categories">{{subcategory.title}}</option>
 										</select>
                                         <span class="help-block m-b-none">
                                             This is the site category based on which your potential customers can find your easily.
@@ -91,16 +91,52 @@
 								<div class="hr-line-dashed"></div>
 								<div class="field">
 									<label class="col-sm-2 control-label">Pricing</label>
-									<div class="col-sm-10">
-                                        <input type="text" name="fb_share_description" class="form-control"
+									<div class="col-sm-10 ">
+                                        <!-- <input type="text" name="fb_share_description" class="form-control"
 												  ng-model="listing.pending_pricing" ng-disabled="listing.is_free"></input>
 										<label>
 											<input type="checkbox" ng-checked="listing.is_free" ng-model="listing.is_free" ng-true-value="1" ng-false-value="0" ng-click="isFree()">
 											Check this box if your site is free
-										</label>
-									<span class="help-block m-b-none">
-										This is the pricing description that will be used for your site in our public directory listing.
-									</span>
+										</label> -->
+										<select class='form-control' ng-model='listing.is_paid' ng-change="updatePricing()">
+											<option value='' selected="!listing.is_paid">Select Pricing</option>
+											<option value='0' selected="listing.is_paid==0">Free</option>
+											<option value='1' selected="listing.is_paid==1">Paid</option>
+										</select>
+										<br>
+										<div class="two fields" ng-if="listing.is_paid==1">
+											<div class="field">
+												<label>Minimum Price</label>
+												<div class="two fields">
+													<div class="field">
+														<input type="number" ng-model="listing.min_price" placeholder=" min price (USD)"></input>
+													</div>
+													<div class="field">
+														<select class="form-control" ng-model="listing.min_price_interval" placeholder="interval">
+															<option value=''>Select interval</option>
+															<option value="{{interval}}" ng-repeat="interval in price_interval" ng-selected="{{listing.min_price_interval==interval}}">{{interval}}</opion>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="field">
+												<label>Maximum Price</label>
+												<div class="two fields">
+													<div class="field">
+														<input type="number" ng-model="listing.max_price" placeholder="max price (USD)"></input>
+													</div>
+													<div class="field">
+														<select class="form-control" ng-model="listing.max_price_interval">
+															<option value=''>Select Interval</option>
+															<option value="{{interval}}" ng-repeat="interval in price_interval" ng-selected="{{listing.min_price_interval==interval}}">{{interval}}</opion>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+										<span class="help-block m-b-none">
+											This is the pricing description that will be used for your site in our public directory listing.
+										</span>
 									</div>
 								</div>
 								<div class="hr-line-dashed"></div>

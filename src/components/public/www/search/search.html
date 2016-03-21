@@ -22,13 +22,13 @@
 
 					<div class="grouped fields">
 						<div class="field">
-							<div class="ui checkbox" sui-checkbox>
+							<div class="ui checkbox" ng-model="is_paid" ng-click="paid(true)" sui-checkbox>
 								<input type="checkbox" tabindex="0" class="hidden">
 								<label>Paid (232)</label>
 							</div>
 						</div>
 						<div class="field">
-							<div class="ui checkbox" sui-checkbox>
+							<div class="ui checkbox" ng-model="is_free" ng-click="paid(false)" sui-checkbox>
 								<input type="checkbox" tabindex="0" class="hidden">
 								<label>Free (522)</label>
 							</div>
