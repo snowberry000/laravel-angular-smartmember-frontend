@@ -7,21 +7,22 @@
 			</div>
 
 			<div class="ui four doubling link cards">
-				<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in category.sites">
+				<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in category.sites">
 					<div class="image">
-						<img src="{{!next_item.meta_data.site_logo ? '/images/image.png' : next_item.meta_data.site_logo}}">
+						<img src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
 					</div>
 					<div class="content">
-						<div class="header">{{next_item.name}}</div>
+						<div class="header">{{next_item.site.name}}</div>
 						<div class="meta">
-							<span class="date">{{next_item.owner.first_name+" "+next_item.owner.last_name}}</span>
+							<span class="date">{{next_item.site.owner.first_name+" "+next_item.site.owner.last_name}}</span>
 						</div>
 					</div>
 					<div class="extra">
 						Rating:
-						<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+						<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.site.avg_rating | number:0}}" sui-rating></div>
 					</div>
 					<div class="extra content">
+
 						<span class="right floated" ng-if="next_item.is_paid==1">
 							<span class="right floated" ng-if="next_item.is_paid==1">
 								<strong ng-if="next_item.min_price!=next_item.max_price">{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
@@ -45,9 +46,9 @@
 		</div>
 
 		<div class="ui four doubling link cards" ng-hide="true">
-			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in sites">
+			<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in sites">
 				<div class="image">
-					<img src="{{!next_item.meta.site_logo ? '/images/image.png' : next_item.meta.site_logo}}">
+					<img src="{{!next_item.site.meta.site_logo ? '/images/image.png' : next_item.site.meta.site_logo}}">
 				</div>
 				<div class="content">
 					<div class="header">{{next_item.name}}</div>
