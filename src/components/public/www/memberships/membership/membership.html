@@ -36,7 +36,7 @@
 
 				<div class="ui row">
 					<a class="ui huge tag label">
-						{{!site_listing.directory.pricing ? '0' + '$'}}
+						{{!site_listing.directory.pricing ? '0' : site_listing.directory.pricing  + '$'}}
 					</a>
 				</div>
 				<div class="ui row m-t-sm">
