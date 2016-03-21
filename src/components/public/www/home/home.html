@@ -2,35 +2,26 @@
 
 <div class="masthead segment {{background_class}}" id="home_background_container">
 	<div class="ui container">
-		<div class="introduction">
+		<div class="ui very padded inverted segment">
 			<h1 class="ui inverted header">
 				<span class="library">
-					A fundamentally new way to
-					<br>
-					manage and grow your members
+					What matters most to you?
 				</span>
-
-				<div class="ui hidden divider"></div>
 
 				<span class="tagline">
-					Smart Member is one place for every internet entrepreneur to manage members,
-					easily, at scale - on your website, inside web and mobile apps, and by email.
+					Join like-minded people in communities across the globe.
 				</span>
 			</h1>
-			<div class="ui hidden section divider"></div>
+			<div class="ui hidden divider"></div>
 
-			<form class="ui form ng-pristine ng-valid" ng-submit="createUser(email)">
-				<div class="field">
-					<div class="ui huge action input">
-						<input type="email" name="email_address" ng-model="email" placeholder="Enter your email" required>
-						<button type="submit" busy value="Subscribe" class="ui red submit button">
-							GET STARTED
-						</button>
-					</div>
+			<div class="ui form">
+				<div class="ui fluid huge action input">
+					<input type="email" name="email_address" ng-model="email" placeholder="Find a membership on virtually anything" required>
+					<button class="ui huge red icon button">
+						<i class="search icon"></i>
+					</button>
 				</div>
-			</form>
-
-			<div class="ui hidden section divider"></div>
+			</div>
 
 		</div>
 	</div>
@@ -40,35 +31,47 @@
 	<div class="ui container">
 		<div class="ui four small statistics">
 			<div class="red statistic">
+				<div class="above label">
+					Over
+				</div>
 				<div class="value">
 					{{stats.members_count | number}}
 				</div>
 				<div class="label">
-					Members managed
+					Members
 				</div>
 			</div>
 			<div class="blue statistic">
+				<div class="above label">
+					More than
+				</div>
 				<div class="value">
 					{{stats.sites_count | number}}
 				</div>
 				<div class="label">
-					Sites created
+					Sites to join
 				</div>
 			</div>
 			<div class="purple statistic">
+				<div class="above label">
+					More than
+				</div>
 				<div class="value">
 					{{stats.content_count | number}}
 				</div>
 				<div class="label">
-					Pages crafted
+					Pages to experience
 				</div>
 			</div>
 			<div class="green statistic">
+				<div class="above label">
+					Over
+				</div>
 				<div class="value">
 					${{stats.revenue_count | number}}
 				</div>
 				<div class="label">
-					In processed sales
+					In memberships purchased
 				</div>
 			</div>
 		</div>
