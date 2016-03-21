@@ -42,15 +42,15 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 
 	$scope.randomCategories = function(){
 		var categories_name = _.pluck($scope.directory_categories , 'title');
-		var length = $scope.directory_categories.length < 4 ? $scope.directory_categories.length : 4;
+		var length = $scope.directory_categories.length < 4 ? $scope.directory_categories.length - 1 : 3;
 		for(var i = 0; i < length ; i++){
-			var random_index = Math.floor(Math.random() * categories_name.length)
+			var random_index = Math.floor(Math.random() * (categories_name.length - 1))
 			var rand = categories_name[random_index];
 			console.log(rand);
 			categories_name.splice(random_index , 1);
 			$scope.categories.push({name : rand , sites : []});
 		}
-
+		$scope.categories.push({name : "Other" , sites : []});
 		$scope.load();
 	}
 
