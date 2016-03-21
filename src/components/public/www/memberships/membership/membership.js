@@ -19,7 +19,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	$scope.review =  {};
 	$scope.user = $localStorage.user;
 	$scope.can_review = true;
-
+	$scope.is_logged_in = !$localStorage.user ? false : true;
 
 
 	//Restangular.one( 'directoryByPermalink', $stateParams.permalink ).get().then( function( response )
@@ -28,7 +28,6 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 
 	$scope.loading = false;
 	//} );
-
 	$scope.detail_rating = [];
 	$scope.calculateReviewStats =function() {
 		$scope.avg_rating = 0;
