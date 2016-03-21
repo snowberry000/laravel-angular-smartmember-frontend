@@ -24,6 +24,52 @@
       ]
     },
     {
+      "title": "IT & Software",
+      "slug": "it-and-software",
+      "url": "whatever",
+      "color": "red",
+      "icon": "cubes",
+      "sub_categories": [
+        {
+          "title": "Network & Security",
+          "slug": "network-and-security",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        },
+        {
+          "title": "Hardware",
+          "slug": "hardware",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        }
+      ]
+    },
+    {
+      "title": "Marketing",
+      "slug": "marketing",
+      "url": "whatever",
+      "color": "red",
+      "icon": "cubes",
+      "sub_categories": [
+        {
+          "title": "Digital Marketing",
+          "slug": "digital-marketing",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        },
+        {
+          "title": "SEO",
+          "slug": "seo",
+          "url": "/whatever",
+          "color": "red",
+          "icon": "cubes"
+        }
+      ]
+    },
+    {
       "title": "Business",
       "slug": "business",
       "url": "whatever",
