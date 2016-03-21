@@ -21,7 +21,6 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	$scope.can_review = true;
 	$scope.is_logged_in = !$localStorage.user ? false : true;
 
-
 	//Restangular.one( 'directoryByPermalink', $stateParams.permalink ).get().then( function( response )
 	//{
 	//	$scope.site_listing = response;
@@ -30,7 +29,6 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	//} );
 	$scope.updated = false;
 	$scope.detail_rating = [];
-
 
 	$scope.getMetaData = function($meta_data, $key){
 		$meta = _.findWhere($meta_data,{'key':$key});
@@ -132,7 +130,8 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	{
 		if(!$scope.is_logged_in){
 			// Redirection to sign up
-			 window.location = $location.protocol()+'://'+$scope.site_listing.subdomain+'.smartmember.com/sign/up/';
+			var subPart = $location.host().split(".");
+			 window.location = $location.protocol()+'://'+$scope.site_listing.subdomain+'.smartmember.'+subPart[subPart.length-1]+'/sign/up/';
 
 		}
 		else if( $scope.is_logged_in )
