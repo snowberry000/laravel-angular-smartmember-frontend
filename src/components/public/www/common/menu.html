@@ -58,10 +58,10 @@
 			<a class="item" ng-href="{{login_url}}">
 				Log in
 			</a>
-			<div class="item">
+			<div class="item"  ng-controller="getStartedController">
 				<div class="ui small action input">
-					<input type="email" ng-model="email" placeholder="Enter your email">
-					<div class="ui red button" ng-click="createUser(email)">GET STARTED</div>
+					<input type="email" ng-model="get_startedemail" placeholder="Enter your email">
+					<a class="ui red button" href="http://my.smartmember.{{app.env}}/sign/up/?get_startedemail={{get_startedemail}}" ng-disabled="!get_startedemail">GET STARTED</a>
 				</div>
 			</div>
 
