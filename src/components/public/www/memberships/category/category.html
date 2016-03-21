@@ -89,12 +89,9 @@
 	<div class="ui container">
 		<div class="ui grid">
 			<div class="sixteen wide column">
-				<div  ng-repeat="sub_category in current_category.sub_categories">
-					<h2 class="ui header">{{sub_category.title}}</h2>
-
 					<div class="ui four doubling link cards" infinite-scroll='load()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
 						<!-- {{filterSite(sub_category)|json}} -->
-						<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in filterSite(sub_category)">
+						<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in all_sites">
 
 							<div class="image">
 								<img class="ui fluid image" src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
@@ -124,7 +121,6 @@
 							</div>
 						</a>
 					</div>
-				</div>
 			</div>
 		</div>
 
