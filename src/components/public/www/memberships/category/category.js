@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "WwwMembershipsCategoryController", function( $scope, $http , $stateParams , Restangular)
+app.controller( "WwwMembershipsCategoryController", function( $scope, $http , $stateParams , Restangular , $location)
 {
 	$scope.all_sites = [];
 	$scope.all_the_things = ['thing'];
@@ -21,22 +21,34 @@ app.controller( "WwwMembershipsCategoryController", function( $scope, $http , $s
 		total_count: 0
 	};
 
-	$scope.calculateReviewStats =function() {
+	if($location.search().type == 'all-memberships'){
+		$scope.type = 'all-memberships';
+	}else{
+		$scope.type = 'featured';
+	}
 
-		_.each($scope.all_sites, function(site){
-			$scope.site_reviews = site.site.reviews;
-			$scope.avg_rating = 0;
+	// $scope.calculateReviewStats =function() {
 
-			_.each($scope.site_reviews, function(review){
+	// 	_.each($scope.all_sites, function(site){
+	// 		$scope.site_reviews = site.site.reviews;
+	// 		$scope.avg_rating = 0;
 
-				$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
-			});
+	// 		_.each($scope.site_reviews, function(review){
 
-			$scope.avg_rating /= $scope.site_reviews.length;
+	// 			$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
+	// 		});
 
-			site.avg_rating = $scope.avg_rating;
-		});
+	// 		$scope.avg_rating /= $scope.site_reviews.length;
 
+	// 		site.avg_rating = $scope.avg_rating;
+	// 	});
+
+	// }
+
+	$scope.loadFeatured = function(){
+		Restangular.all('site').customGET('directory' , {featured : true , 'sub_categories[]' : _.pluck($scope.current_category.sub_categories , 'title')}).then(function(response){
+			$scope.all_sites = response.plain();
+		})
 	}
 
 	$scope.load = function(){
@@ -62,7 +74,7 @@ app.controller( "WwwMembershipsCategoryController", function( $scope, $http , $s
 				})
 			}
 			$scope.all_sites = $scope.all_sites.concat($scope.dataFetch);
-			$scope.calculateReviewStats();
+			//$scope.calculateReviewStats();
 		})
 	}
 
@@ -74,12 +86,20 @@ app.controller( "WwwMembershipsCategoryController", function( $scope, $http , $s
 		})
 	}
 
+	$scope.reload = function(category , type){
+		window.location.href = '/memberships/'+category.slug+'?type='+type;
+	}
+
 	$http.get( 'json/directory_categories.json' ).success( function( response )
 	{
 		$scope.directory_categories = response.data;
 
 		$scope.current_category = _.findWhere($scope.directory_categories , {slug : $stateParams.slug})
 
-		$scope.load();
+		if($scope.type == 'all-memberships')
+			$scope.load();
+		if($scope.type == 'featured')
+			$scope.loadFeatured();
+		
 	} );
 } );
