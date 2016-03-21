@@ -64,12 +64,15 @@
 								<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
 							</div>
 							<div class="extra content">
-								<span class="right floated">
-									<strong>{{next_item.total_revenue}}</strong>
+								<span class="right floated" ng-if="next_item.is_paid==1">
+									<strong>{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
+								</span>
+								<span class="right floated" ng-if="next_item.is_paid==0 || !next_item.is_paid">
+									<strong>Free</strong>
 								</span>
 								<span>
 									<i class="users icon"></i>
-									{{next_item.total_members}}
+									{{next_item.total_members | number}}
 								</span>
 							</div>
 						</a>
