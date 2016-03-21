@@ -97,12 +97,16 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		{
 			user.cbreceipt = $localStorage.cbreceipt;
 		}
+
 		if ($scope.validate())
 		{
 			auth.customPOST( user, "register" ).then( function( response )
 				{
+					if($location.search().get_startedemail){
+						Restangular.all("emailSubscriber").customPOST({email : user.email} , 'directoryleads').then(function(response){
+						})
+					}
 					$scope.postAuth( response );
-
                     smEvent.Log( 'registered', {
                         'request-url': location.href,
                         'referring-url': document.referrer

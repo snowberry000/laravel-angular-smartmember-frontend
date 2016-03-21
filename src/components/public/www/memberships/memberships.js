@@ -65,7 +65,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 			{
 
 				for (var i = $scope.categories.length - 1; i >= 0; i--) {
-					$scope.categories[i].sites = _.pluck(response[i] , 'site');
+					$scope.categories[i].sites = response[i];
 				}
 
 				$scope.sites = $scope.categories[0].sites.concat($scope.categories[1].sites.concat($scope.categories[2].sites));
