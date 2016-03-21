@@ -32,10 +32,10 @@
 			<div class="sixteen wide column">
 				<h2 class="ui header">{{sub_category.title}}</h2>
 
-				<div class="ui four doubling link cards" infinite-scroll='load()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
+				<div class="ui four doubling stackable link site cards" infinite-scroll='load()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
 					<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in all_sites">
-						<div class="image">
-							<img class="ui fluid image" src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
+						<div class="image flex_center">
+							<img class="ui centered middle aligned image" src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
 						</div>
 						<div class="content">
 							<div class="header">{{next_item.title}}</div>
