@@ -56,11 +56,30 @@ app.controller( "WwwSearchController", function( $scope, $http , $stateParams , 
 		
 	}
 
-	$scope.loadMore = function(reload){
+	$scope.paid = function(){
+		console.log($scope.is_paid); 
+		console.log($scope.is_free);
+
+		$scope.send_paid_query = $scope.is_free^$scope.is_paid;
+		console.log($scope.send_paid_query);
+		var query = {};
+		if($scope.send_paid_query){
+			query.is_paid = $scope.is_paid ? true : false;
+		}
+
+		$scope.loadMore(true , query);
+	}
+
+	$scope.loadMore = function(reload , query){
 		if(!$scope.matched_sites || $scope.matched_sites.length==0)
 			$scope.loading = true;
 		$scope.pagination.disable=true;
-		var params = { p: $scope.pagination.current_page };
+
+		var params = {};
+		if(query){
+			params = query;
+		}
+		params.p = $scope.pagination.current_page;
 		if(reload){
 			params.p = 1;
 			$scope.matched_sites = [];
@@ -72,7 +91,7 @@ app.controller( "WwwSearchController", function( $scope, $http , $stateParams , 
 			$scope.pagination.current_page++;
 			$scope.loading = false;
 			$scope.pagination.total_count = response.total_count;
-			$scope.dataFetch = response.items;
+			$scope.dataFetch = _.pluck(response.items , 'site');
 			if($scope.dataFetch && $scope.dataFetch.length > 0)
 			{
 				$scope.pagination.disable = false;
