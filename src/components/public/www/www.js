@@ -54,3 +54,7 @@ app.controller( "WwwController", function( $scope, $rootScope, $http, smSidebar 
 		$rootScope.all_products = response.data;
 	} );
 } );
+
+app.controller('getStartedController' , function($scope){
+	$scope.get_startedemail = "";
+});

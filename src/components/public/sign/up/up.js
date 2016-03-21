@@ -49,7 +49,11 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	$scope.site_logo = "http://imbmediab.s3.amazonaws.com/wp-content/uploads/2015/06/Smart-Member-Gray-Icon-Text-01.png";
 	$scope.action = 0;
 	$scope.login_type = "facebook";
+
 	$scope.user = {};
+	if($location.search().get_startedemail){
+		$scope.user.email = $location.search().get_startedemail;
+	}
 	$scope.hash = '';
 	$scope.current_url = $rootScope.app.appUrl.substring(7);
 

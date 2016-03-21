@@ -46,7 +46,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 
 	$scope.randomCategories = function(){
 		var categories_name = _.pluck($scope.directory_categories , 'title');
-		var length = $scope.directory_categories.length < 4 ? $scope.directory_categories.length - 1 : 3;
+		var length = $scope.directory_categories.length < 5 ? $scope.directory_categories.length - 1 : 4;
 		for(var i = 0; i < length ; i++){
 			var random_index = Math.floor(Math.random() * (categories_name.length - 1))
 			var rand = categories_name[random_index];
