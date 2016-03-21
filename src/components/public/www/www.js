@@ -16,10 +16,10 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "WwwController", function( $scope, $rootScope, $http, smSidebar )
+app.controller( "WwwController", function( $scope, $rootScope, $http, smSidebar, $state )
 {
 
-	$scope.membership_sidebar = true;
+	$scope.membership_sidebar = false;
 	$scope.active_category = false;
 	$scope.login_url = 'http://my.smartmember.' + $rootScope.app.env;
 

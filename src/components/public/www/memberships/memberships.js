@@ -26,23 +26,23 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 	$scope.searchQuery = $stateParams.searchQuery;
 
 
-	$scope.calculateReviewStats =function() {
+	// $scope.calculateReviewStats =function() {
 
-		_.each($scope.sites, function(site){
-			$scope.site_reviews = site.reviews;
-			$scope.avg_rating = 0;
+	// 	_.each($scope.sites, function(site){
+	// 		$scope.site_reviews = site.reviews;
+	// 		$scope.avg_rating = 0;
 
-			_.each($scope.site_reviews, function(review){
+	// 		_.each($scope.site_reviews, function(review){
 
-				$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
-			});
+	// 			$scope.avg_rating = parseInt($scope.avg_rating) + parseInt(review.rating);
+	// 		});
 
-			$scope.avg_rating /= $scope.site_reviews.length;
+	// 		$scope.avg_rating /= $scope.site_reviews.length;
 
-			site.avg_rating = $scope.avg_rating;
-		});
+	// 		site.avg_rating = $scope.avg_rating;
+	// 	});
 
-	}
+	// }
 
 	$scope.randomCategories = function(){
 		var categories_name = _.pluck($scope.directory_categories , 'title');
@@ -76,7 +76,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 					})
 				}
 
-				$scope.calculateReviewStats();
+				// $scope.calculateReviewStats();
 			}
 		})
 	}
