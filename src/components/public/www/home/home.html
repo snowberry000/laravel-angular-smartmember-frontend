@@ -17,9 +17,9 @@
 			<div class="ui form">
 				<div class="ui fluid huge action input">
 					<input type="text" name="search" ng-model="searchQueryMembershipSites" placeholder="Find a membership on virtually anything" required>
-					<a class="ui huge red icon button" ui-sref="public.www.search({'slug':searchQueryMembershipSites})">
+					<button class="ui huge red icon button" ng-disabled="!searchQueryMembershipSites" ui-sref="public.www.search({'slug':searchQueryMembershipSites})">
 						<i class="search icon"></i>
-					</a>
+					</button>
 				</div>
 			</div>
 
@@ -99,9 +99,12 @@
 				</div>
 				<div class="extra content">
 					<span class="right floated" ng-if="next_item.is_paid==1">
-						<strong>{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
+						<span class="right floated" ng-if="next_item.is_paid==1">
+							<strong ng-if="next_item.min_price!=next_item.max_price">{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
+							<strong ng-if="next_item.min_price==next_item.max_price">{{next_item.min_price+ '$' || next_item.max_price + '$'}}</strong>
+						</span>
 					</span>
-					<span class="right floated" ng-if="next_item.is_paid==0">
+					<span class="right floated" ng-if="next_item.is_paid==0 || !next_item.is_paid">
 						<strong>Free</strong>
 					</span>
 					<span>

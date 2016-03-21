@@ -19,7 +19,7 @@ app.config( function( $stateProvider )
 app.controller( "WwwController", function( $scope, $rootScope, $http, smSidebar )
 {
 
-	$scope.membership_sidebar = false;
+	$scope.membership_sidebar = true;
 	$scope.active_category = false;
 	$scope.login_url = 'http://my.smartmember.' + $rootScope.app.env;
 

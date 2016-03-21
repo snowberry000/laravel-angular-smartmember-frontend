@@ -31,7 +31,7 @@ app.controller( "WwwSearchController", function( $scope, $http , $stateParams , 
 		per_page: 25,
 		disable: false,
 		total_count: 0,
-		sort_by : 'total_members'
+		sort_by : 'total_members,desc'
 	};
 	$scope.ratings = [];
 	$scope.search_term = $stateParams.slug;

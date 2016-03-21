@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "PublicWWWMembershipController", function( $scope, Restangular, $http, $stateParams , $localStorage , $rootScope , toastr , smModal)
+app.controller( "PublicWWWMembershipController", function( $scope, Restangular, $http, $stateParams , $localStorage , $rootScope , $location , toastr , smModal)
 {
 	$scope.loading = true;
 	$scope.static_menu = true;
@@ -27,6 +27,8 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	console.log($localStorage);
 
 
+
+
 	//Restangular.one( 'directoryByPermalink', $stateParams.permalink ).get().then( function( response )
 	//{
 	//	$scope.site_listing = response;
@@ -35,6 +37,17 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	//} );
 	$scope.updated = false;
 	$scope.detail_rating = [];
+
+
+	$scope.getMetaData = function($meta_data, $key){
+		$meta = _.findWhere($meta_data,{'key':$key});
+		if($meta)
+			return $meta.value;
+		else
+			return "";
+	}
+
+
 	$scope.calculateReviewStats =function() {
 		$scope.avg_rating = 0;
 		$scope.star_rating = [0 , 0 , 0 , 0 , 0];
@@ -67,6 +80,22 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 
 	}
 
+	$scope.calculateSitesAvgReview =function() {
+
+		_.each($scope.other_sites, function(site){
+			$scope.review = site.reviews;
+			$scope.avg = 0;
+
+			_.each($scope.review, function(review){
+
+				$scope.avg = parseInt($scope.avg) + parseInt(review.rating);
+			});
+
+			$scope.avg /= $scope.review.length;
+
+			site.avg_rating = $scope.avg;
+		});
+	}
 
 	$scope.site_listing = {};
 
@@ -75,6 +104,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 			if(response)
 			{
 				$scope.site_listing = response;
+				$scope.other_sites = response.other_sites;
 				$scope.site_reviews = response.reviews;
 
 				angular.forEach($scope.site_listing.meta_data , function(value , key){
@@ -91,6 +121,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 				}
 
 				$scope.calculateReviewStats();
+				$scope.calculateSitesAvgReview();
 			}
 		});
 	}
@@ -106,34 +137,20 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 
 	$scope.JoinSite = function( site_id )
 	{
-		// Logic:
-		// if not logged in, pop the Sign In modal then join the site without requiring another user action
-		var member = _.findWhere($rootScope.sites , {id : site_id});
-		console.log('Member is here...');
-		console.log(member);
-		//return;
-		if(!$localStorage.user){
-			$localStorage.add_user_to_site = site_id;
-			smModal.Show('public.sign.in' , {close : true} , null , function(response){
-				console.log(response);
-				$scope.addMember(site_id);
-			});
+		if(!$scope.is_logged_in){
+			// Redirection to sign up
+			 window.location = $location.protocol()+'://'+$scope.site_listing.subdomain+'.smartmember.com/sign/up/';
+
 		}
-		else if( $localStorage.user && !member)
+		else if( $scope.is_logged_in )
 		{
 			$scope.addMember(site_id);
-		}else if($localStorage.user && member){
-			$scope.redirectToSite(member);
-		}
-		// if logged in and not a member, join the site
-		// if logged in and a member, go to the site
 
-		// TODO: this needs to work by passing the site_id
-		//Restangular.all( 'site/addMember' ).customPOST().then( function()
-		//{
-		//toastr.success( "You have become a member of this site" );
-		//$scope.is_member = true;
-		//} );
+		}else{
+
+			toastr.success( "Oops! Something went wrong. Please try again." );
+		}
+		
 	}
 
 	$scope.redirectToSite = function(site){

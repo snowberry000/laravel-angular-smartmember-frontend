@@ -40,7 +40,7 @@
 					</a>
 				</div>
 				<div class="ui row m-t-sm">
-					<a class="ui labeled icon animated huge red button" target="_blank" tabindex="0" href="http://{{site_listing.subdomain}}.smartmember.{{app.env}}" ng-click="JoinSite(site_listing.id)">
+					<a class="ui labeled icon animated huge red button" target="_blank" tabindex="0" ng-click="JoinSite(site_listing.id)">
 						<div class="content equalize-padding">
 							<i class="add user icon"></i>
 							Join This Site
@@ -184,9 +184,9 @@
 							Other sites by this user
 						</div>
 						<div class="ui four doubling stackable link site cards">
-							<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in site_listing.other_sites">
+							<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in other_sites">
 								<div class="image flex_center">
-									<img class="ui centered middle aligned image" src="{{next_item.image ? next_item.image : (next_item.logo ? next_item.logo : '/images/image.png')}}">
+									<img class="ui centered middle aligned image" src="{{getMetaData(next_item.meta_data,'site_logo') ? getMetaData(next_item.meta_data,'site_logo') : '/images/image.png'}}">
 								</div>
 								<div class="content">
 									<div>{{next_item.name}}</div>
@@ -196,8 +196,14 @@
 									<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
 								</div>
 								<div class="extra content">
-									<span class="right floated">
-										<strong>{{next_item.pricing}}</strong>
+									<span class="right floated" ng-if="next_item.is_paid==1">
+										<span class="right floated" ng-if="next_item.is_paid==1">
+											<strong ng-if="next_item.min_price!=next_item.max_price">{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
+											<strong ng-if="next_item.min_price==next_item.max_price">{{next_item.min_price+ '$' || next_item.max_price + '$'}}</strong>
+										</span>
+									</span>
+									<span class="right floated" ng-if="next_item.is_paid==0 || !next_item.is_paid">
+										<strong>Free</strong>
 									</span>
 									<span>
 										<i class="users icon"></i>
