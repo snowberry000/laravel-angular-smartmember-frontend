@@ -52,29 +52,29 @@ app.controller( "WwwHomeController", function( $scope, Restangular, $rootScope, 
 	$scope.stats = null;
 	$scope.searchQueryMembershipSites = "";
 
-	$scope.calculateReviewStats = function()
-	{
-		_.each( $scope.sites, function( site )
-		{
-			if( site.site && site.site.reviews.length > 0 )
-			{
-				$scope.site_reviews = site.site.reviews;
-				$scope.avg_rating = 0;
+	// $scope.calculateReviewStats = function()
+	// {
+	// 	_.each( $scope.sites, function( site )
+	// 	{
+	// 		if( site.site && site.site.reviews.length > 0 )
+	// 		{
+	// 			$scope.site_reviews = site.site.reviews;
+	// 			$scope.avg_rating = 0;
 
-				_.each( $scope.site_reviews, function( review )
-				{
-					$scope.avg_rating = parseInt( $scope.avg_rating ) + parseInt( review.rating );
-				} );
+	// 			_.each( $scope.site_reviews, function( review )
+	// 			{
+	// 				$scope.avg_rating = parseInt( $scope.avg_rating ) + parseInt( review.rating );
+	// 			} );
 
-				$scope.avg_rating /= $scope.site_reviews.length;
+	// 			$scope.avg_rating /= $scope.site_reviews.length;
 
-				site.avg_rating = $scope.avg_rating;
-			}
-		} );
+	// 			site.avg_rating = $scope.avg_rating;
+	// 		}
+	// 	} );
 
-		// console.log($scope.sites);
+	// 	// console.log($scope.sites);
 
-	}
+	// }
 
 	Restangular.all( 'directory' ).get( 'all' ).then( function( response )
 	{
@@ -111,7 +111,7 @@ app.controller( "WwwHomeController", function( $scope, Restangular, $rootScope, 
 			}
 
 
-			$scope.calculateReviewStats();
+			// $scope.calculateReviewStats();
 		}
 	} );
 
