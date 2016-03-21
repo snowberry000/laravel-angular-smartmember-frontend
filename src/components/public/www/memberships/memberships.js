@@ -6,11 +6,14 @@ app.config( function( $stateProvider )
 		.state( "public.www.memberships", {
 			url: '/memberships',
 			templateUrl: "/templates/components/public/www/memberships/memberships.html",
-			controller: "WwwMembershipsController"
+			controller: "WwwMembershipsController",
+			params : {
+				searchQuery : null
+			}
 		} )
 } );
 
-app.controller( "WwwMembershipsController", function( $scope, $http, Restangular )
+app.controller( "WwwMembershipsController", function( $scope, $http, Restangular,$stateParams )
 {
 	$scope.all_the_things = [ 'thing',
 		'thing2',
@@ -20,6 +23,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 	$scope.categories = [];
 
 	$scope.sites = null;
+	$scope.searchQuery = $stateParams.searchQuery;
 
 
 	$scope.calculateReviewStats =function() {
@@ -42,7 +46,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 
 	$scope.randomCategories = function(){
 		var categories_name = _.pluck($scope.directory_categories , 'title');
-		var length = $scope.directory_categories.length < 4 ? $scope.directory_categories.length - 1 : 3;
+		var length = $scope.directory_categories.length < 5 ? $scope.directory_categories.length - 1 : 4;
 		for(var i = 0; i < length ; i++){
 			var random_index = Math.floor(Math.random() * (categories_name.length - 1))
 			var rand = categories_name[random_index];

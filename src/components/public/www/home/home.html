@@ -16,10 +16,10 @@
 
 			<div class="ui form">
 				<div class="ui fluid huge action input">
-					<input type="email" name="email_address" ng-model="email" placeholder="Find a membership on virtually anything" required>
-					<button class="ui huge red icon button">
+					<input type="text" name="search" ng-model="searchQueryMembershipSites" placeholder="Find a membership on virtually anything" required>
+					<a class="ui huge red icon button" ui-sref="public.www.search({'slug':searchQueryMembershipSites})">
 						<i class="search icon"></i>
-					</button>
+					</a>
 				</div>
 			</div>
 

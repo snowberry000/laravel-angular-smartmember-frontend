@@ -1,0 +1,16 @@
+<div class="ui icon input">
+	<input class="prompt" ng-model='query' ng-change='search()' ng-model-options='{debounce: 1000}' type="text" placeholder="Search..." ng-blur="hide($event)">
+	<i class="search icon"></i>
+</div>
+<div class="results set-margin" ng-show="result.length > 0 && query && !hideSearch" style="display: block; {{route=='ticket' ? 'margin-left:5px' : 'margin-left:-27px'}}" ng-mousedown="hide($event)" ng-mouseleave="hide($event)">
+	<div ng-repeat="next_item in result">
+		<div class="item search-filter"style="color:black">
+			<a  ng-if="route!='ticket' && route!='site/search'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item._id}}">{{next_item.name}}</a>
+			<a  ng-if="route=='ticket'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.id}}">{{next_item.subject}}</a>
+			<a  ng-if="route=='site/search'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.subdomain}}">{{next_item.name}}</a>
+		</div>
+	</div>
+</div>
+<div class="results set-margin" ng-show="result.length == 0 && query && !hideSearch"  style="display: block; {{route=='ticket' ? 'margin-left:5px' : 'margin-left:-27px'}}" ng-mousedown="hide($event)" ng-mouseleave="hide($event)">
+	<div class="item search-filter" style="color: black;">No results found</div>
+</div>

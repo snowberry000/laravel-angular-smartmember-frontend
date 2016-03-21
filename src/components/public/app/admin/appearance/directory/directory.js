@@ -14,6 +14,7 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope,$http,
 {
 	$site=$rootScope.site;
 	$scope.selected_category = {};
+
 	$scope.price_interval = ["daily","weekly","monthly","annually"];
 
 	$scope.changeCategory = function(category){
@@ -44,6 +45,8 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope,$http,
 			$scope.hide_downloads = $listing.hide_downloads;
 			$scope.hide_members = $listing.hide_members;
 			$scope.hide_revenue = $listing.hide_revenue;
+			$scope.listing.is_visible = $listing.is_visible || 'no';
+
 		});
 	}
 	
