@@ -18,7 +18,7 @@
 				<a class="ui red image label">
 					<img src="{{site_listing.site.user.profile_image}}" ng-if="site_listing.site.user.profile_image">
 					{{site_listing.owner.first_name}}
-					<div class="detail">Owner</div>
+					<div class="detail">Creator</div>
 				</a>
 				<a class="ui label m-l-lg" ng-if="site_listing.category">
 					<i class="tag icon"></i>
@@ -30,7 +30,6 @@
 		<div class="row m-b-md">
 			<div class="eleven wide column">
 				<img class="ui fluid image" src="{{!site_listing.meta_data.site_logo ? '/images/image.png' : site_listing.meta_data.site_logo}}">
-
 			</div>
 			<div class="five wide column">
 
@@ -40,10 +39,10 @@
 					</a>
 				</div>
 				<div class="ui row m-t-sm">
-					<a class="ui labeled icon animated huge red button" target="_blank" tabindex="0" ng-click="JoinSite(site_listing.id)">
-						<div class="content equalize-padding">
+					<a class="ui fluid icon huge red button" target="_blank" tabindex="0" ng-click="JoinSite(site_listing.id)">
+						<div class="content">
 							<i class="add user icon"></i>
-							Join This Site
+							Join This Membership
 						</div>
 					</a>
 				</div>
@@ -56,21 +55,21 @@
 	<div class="ui stackable internally celled grid">
 		<div class="ui  stackable grid container">
 			<div class="row">
-				<div class="eleven wide column" >
+				<div class="eleven wide column">
 
-					<h3 class="ui header">Site Description</h3>
+					<h3 class="ui header" ng-if="site_listing.welcome_content">Membership Description</h3>
 					<div ng-if="site_listing.welcome_content" dynamic="site_listing.welcome_content" class="fr-view"></div>
-					<div ng-if="!site_listing.welcome_content" class="fr-view">No description provided</div>
+
+
+					<div class="ui hidden divider" ng-if="site_listing.welcome_content"></div>
+
 					<h3 class="ui header" ng-if="site_listing.sites.length > 0">Other Sites</h3>
 
 					<div class="ui three doubling stackable link site cards" ng-if="site_listing.sites.length > 0">
 						<a site-card class="card" ng-repeat="next_item in site_listing.sites" ui-sref="public.www.site({permalink: next_item.permalink || next_item.site_id})"></a>
 					</div>
 
-
-
 					<div class="row" ng-if="can_review">
-						<div class="ui hidden divider"></div>
 
 						<div class="ui header">
 							Give Your Review
@@ -78,18 +77,18 @@
 						<form class="ui form" ng-submit="saveReview()">
 							<div class="field">
 								<label>Rate</label>
-								<div class="ui large star rating" interactive = "true" ng-model="review.rating" sui-rating></div>
+								<div class="ui large star rating" interactive="true" ng-model="review.rating" sui-rating></div>
 							</div>
 							<div class="field">
 								<textarea class="ui textarea" ng-model="review.comment" placeholder="Give your review..."></textarea>
 							</div>
-							<button type="submit" class="ui green button" >SUBMIT</button>
+							<button type="submit" class="ui green button">SUBMIT</button>
 						</form>
 					</div>
 
 					<div class="ui hidden divider"></div>
 
-					<div class="ui stackable grid" >
+					<div class="ui stackable grid">
 						<div class="ui header">
 							Reviews
 						</div>
@@ -104,7 +103,7 @@
 								<div class="ui green huge statistic">
 									<div class="value">{{avg_rating | number:1}}</div>
 									<div class="">
-										<div class="ui large star rating" ng-model="rating" initial-rating="{{avg_rating | number:0}}" interactive = "false" sui-rating></div>
+										<div class="ui large star rating" ng-model="rating" initial-rating="{{avg_rating | number:0}}" interactive="false" sui-rating></div>
 										{{site_reviews.length}} ratings
 									</div>
 								</div>
@@ -120,7 +119,7 @@
 											<div class="bar" style="width:{{next_item.count}}%"></div>
 										</div>
 									</div>
-									<div class="one wide column" style="padding: 5px;">{{next_item.count}}% </div>
+									<div class="one wide column" style="padding: 5px;">{{next_item.count}}%</div>
 								</div>
 							</div>
 						</div>
@@ -138,7 +137,7 @@
 							</div>
 						</div>
 						<div class="content">
-							<div class="ui large star rating" initial-rating="{{next_item.rating}}" interactive = "false" ng-model="next_item.rating" sui-rating></div>
+							<div class="ui large star rating" initial-rating="{{next_item.rating}}" interactive="false" ng-model="next_item.rating" sui-rating></div>
 							<br>
 							{{next_item.comment}}
 						</div>
@@ -176,12 +175,12 @@
 					</div>
 
 				</div>
-				<div class="sixteen wide column" >
+				<div class="sixteen wide column">
 					<div class="row" ng-if="site_listing.other_sites && site_listing.other_sites.length > 0">
 						<div class="ui hidden divider"></div>
 
 						<div class="ui header">
-							Other sites by this user
+							Other sites by {{site_listing.owner.first_name}}
 						</div>
 						<div class="ui four doubling stackable link site cards">
 							<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in other_sites">
