@@ -104,6 +104,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 		// Logic:
 		// if not logged in, pop the Sign In modal then join the site without requiring another user action
 		var member = _.findWhere($rootScope.sites , {id : site_id});
+		console.log('Member is here...');
 		console.log(member);
 		//return;
 		if(!$localStorage.user){
