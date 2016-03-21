@@ -7,7 +7,7 @@
 		<div class="item search-filter"style="color:black">
 			<a  ng-if="route!='ticket' && route!='site/search'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item._id}}">{{next_item.name}}</a>
 			<a  ng-if="route=='ticket'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.id}}">{{next_item.subject}}</a>
-			<a  ng-if="route=='site/search'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.subdomain}}">{{next_item.name}}</a>
+			<a  ng-if="route=='site/search'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.site.subdomain}}">{{next_item.title}}</a>
 		</div>
 	</div>
 </div>

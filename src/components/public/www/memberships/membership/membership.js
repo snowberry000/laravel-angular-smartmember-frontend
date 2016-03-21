@@ -19,7 +19,12 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	$scope.review =  {};
 	$scope.user = $localStorage.user;
 	$scope.can_review = true;
+	$scope.is_logged_in = !$localStorage.user ? false : true;
 
+	console.log("Scope is:");
+	console.log($scope);
+	console.log('Local Storage:');
+	console.log($localStorage);
 
 
 	//Restangular.one( 'directoryByPermalink', $stateParams.permalink ).get().then( function( response )
@@ -28,7 +33,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 
 	$scope.loading = false;
 	//} );
-
+	$scope.updated = false;
 	$scope.detail_rating = [];
 	$scope.calculateReviewStats =function() {
 		$scope.avg_rating = 0;
@@ -54,6 +59,10 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 			else {
 				$scope.detail_rating.push({rating : i + 1 , count : $scope.star_rating[i]});
 			}
+		}
+		if($scope.updated)
+		{
+			updateDirectoryRating();
 		}
 
 	}
@@ -100,6 +109,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 		// Logic:
 		// if not logged in, pop the Sign In modal then join the site without requiring another user action
 		var member = _.findWhere($rootScope.sites , {id : site_id});
+		console.log('Member is here...');
 		console.log(member);
 		//return;
 		if(!$localStorage.user){
@@ -150,6 +160,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 		}
 		else
 		{
+			$scope.updated = true;
 			Restangular.all('review').customPOST($scope.review).then(function(response){
 				if(response)
 				{
@@ -157,9 +168,17 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 					$scope.can_review = false;
 					toastr.success("Your review has been saved");
 					$scope.init();
+					
 				}
 			})
 		}
+	}
+
+	function updateDirectoryRating() {
+		Restangular.all('directory/updateRating').customPUT({id: $scope.site_listing.id, rating: $scope.avg_rating}).then(function(response){
+
+			$scope.updated = false;
+		});
 	}
 
 } );
