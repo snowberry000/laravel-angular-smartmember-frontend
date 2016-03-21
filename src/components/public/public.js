@@ -189,18 +189,21 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				$sites = [];
 				$sites_copy = _.groupBy( $sites_copy, function( item )
 				{
-					switch( item.role )
+					if( item )
 					{
-						case 'owner':
-							return 0;
-						case 'admin':
-							return 1;
-						case 'editor':
-							return 2;
-						case 'support':
-							return 3;
-						case 'member':
-							return 4;
+						switch( item.role )
+						{
+							case 'owner':
+								return 0;
+							case 'admin':
+								return 1;
+							case 'editor':
+								return 2;
+							case 'support':
+								return 3;
+							case 'member':
+								return 4;
+						}
 					}
 				} );
 
@@ -208,7 +211,7 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 				{
 					for( var i = 0; i < value.length; i++ )
 					{
-						if( !value[ i ].subdomain )
+						if( !value[ i ] || !value[ i ].subdomain )
 						{
 							continue;
 						}

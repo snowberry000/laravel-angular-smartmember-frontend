@@ -1,14 +1,70 @@
-<div class="ui container">
-	<div sm-class="'ui large secondary ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' pointing menu'">
-		<a class="toc item" ng-click="smSidebar.Show('.left_sidebar_contents', 'www-mobile.html', {closable:true,dimPage:true});">
-			<i class="sidebar icon"></i>
+<div class="ui {{static_menu ? '' : 'fixed'}} inverted menu">
+	<div class="ui container">
+		<a ui-sref="public.www.home" class="header item">
+			<img class="logo" src="/images/smart-member-logo.png">
 		</a>
-		<a class="active item" ui-sref="public.www.home">Home</a>
-		<div class="right menu" ng-if="!isLoggedIn()">
-			<div class="item">
-				<a sm-class="'ui ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' button'" ui-sref="public.sign.in">Log in</a>
-				<a sm-class="'ui ' + ($state.includes('public.www.home') ? 'inverted' : '') + ' button'" ui-sref="public.sign.up">Sign-up</a>
+		<div class="ui simple dropdown item" ng-if="0">
+			Products <i class="dropdown icon"></i>
+
+			<div class="menu">
+				<a ui-sref="public.www.soon" class="item">
+					Smart Sites
+				</a>
+				<a ui-sref="public.www.soon" class="item">
+					Smart Mail
+				</a>
+				<a ui-sref="public.www.soon" class="item">
+					Smart JV
+				</a>
+				<a ui-sref="public.www.soon" class="item">
+					Smart Links
+				</a>
+				<div class="divider"></div>
+				<a ui-sref="public.www.soon" class="item">
+					Smart Member
+				</a>
 			</div>
+		</div>
+
+		<a ui-sref="public.www.pricing" class="item" ng-if="0">
+			Pricing
+		</a>
+		<div class="ui simple dropdown item" ng-if="0">
+			Resources
+			<i class="dropdown icon"></i>
+
+			<div class="menu">
+				<a ui-sref="public.www.soon" class="item">
+					Customers
+				</a>
+				<a ui-sref="public.www.soon" class="item">
+					Docs
+				</a>
+				<a ui-sref="public.www.soon" class="item">
+					Get a Demo
+				</a>
+				<a ui-sref="public.www.soon" class="item">
+					Site Directory
+				</a>
+				<a ui-sref="public.www.soon" class="item">
+					Developers
+				</a>
+			</div>
+		</div>
+		<div class="right menu">
+			<a ui-sref="public.www.blog" class="item">
+				Blog
+			</a>
+			<a class="item" ng-href="{{login_url}}">
+				Log in
+			</a>
+			<div class="item"  ng-controller="getStartedController">
+				<div class="ui small action input">
+					<input type="email" ng-model="get_startedemail" placeholder="Enter your email">
+					<a class="ui red button" href="http://my.smartmember.{{app.env}}/sign/up/?get_startedemail={{get_startedemail}}" ng-disabled="!get_startedemail">GET STARTED</a>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>

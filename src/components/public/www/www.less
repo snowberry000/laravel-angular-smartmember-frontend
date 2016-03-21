@@ -1,15 +1,64 @@
-.www {
+.public.www {
+
+  .admin_bar {
+    display:none !important;
+  }
+  .offwhite_bg {
+    background-color:#fafbfc !important;
+  }
+
+  .disabled.items,
+  .disabled.items .ui.header,
+  .disabled.items .description{
+    color:rgba(118,118,118,0.64) !important;
+  }
+  .ui.header i.icons .icon:first-child {
+    margin-right:0px;
+  }
+  .clickable.column {
+    cursor:pointer;
+  }
+
+  .red.statistic>.label {
+    color: #db2828;
+  }
+  .blue.statistic>.label {
+    color: #2185d0;
+  }
+  .purple.statistic>.label {
+    color: #a333c8;
+  }
+  .green.statistic>.label {
+    color: #21ba45;
+  }
+
   .hidden.menu {
     display: none;
   }
 
+  .ui.pricing_text.header {
+    font-size: 1.1rem;
+  }
+  .ui.pricing_text {
+
+  }
+
+  .masthead.segment.pricing_header {
+    padding-bottom: 4em;
+    padding-top:7em;
+  }
+
+  .ui.vertical.stripe.product_details.segment {
+    padding:3em 0;
+  }
+
+  .masthead .ui.icon.header .icon {
+    font-size: 3rem;
+  }
+
   .masthead.segment {
-    min-height: 500px;
+    min-height: 310px;
     padding: 1em 0em;
-    background-color: #000000 !important;
-    background-image: url('https://s3.amazonaws.com/imbmediab/uploads/9c9ae9fd7b95c11a8d97e91ad96f903e/_minflat__dark_material_design_wallpaper__4k__by_dakoder-d8fjqzu.jpg') !important;
-    background-size: cover !important;
-    background-attachment: fixed !important;
   }
   .masthead .logo.item img {
     margin-right: 1em;
@@ -17,11 +66,10 @@
   .masthead .ui.menu .ui.button {
     margin-left: 0.5em;
   }
-  .masthead h1.ui.header {
-    margin-top: 1em;
+  .masthead.top_header h1.ui.header {
     margin-bottom: 0em;
-    font-size: 4em;
-    font-weight: normal;
+    font-size: 5em;
+    font-weight: bold;
   }
   .masthead h2 {
     font-size: 1.7em;
@@ -42,7 +90,7 @@
     clear: both;
   }
   .ui.vertical.stripe p {
-    font-size: 1.33em;
+
   }
   .ui.vertical.stripe .horizontal.divider {
     margin: 3em 0em;
@@ -57,7 +105,7 @@
   }
 
   .footer.segment {
-    padding: 5em 0em;
+    padding: 2em 0em;
   }
 
   .secondary.pointing.menu .toc.item {

@@ -1,0 +1,221 @@
+<ng-include src="'templates/components/public/www/common/memberships-menu.html'"></ng-include>
+
+<div class="ui active inverted dimmer" ng-if="loading">
+	<div class="ui text loader">Loading site</div>
+</div>
+
+<div class="ui vertical segment">
+	<div class="ui stackable grid container">
+		<div class="row">
+			<div class="sixteen wide column">
+
+				<pre></pre>
+				<h1 class="ui header">
+					{{site_listing.name}}
+					<div class="sub header">{{site_listing.subtitle}}</div>
+				</h1>
+
+				<a class="ui red image label">
+					<img src="{{site_listing.site.user.profile_image}}" ng-if="site_listing.site.user.profile_image">
+					{{site_listing.owner.first_name}}
+					<div class="detail">Owner</div>
+				</a>
+				<a class="ui label m-l-lg" ng-if="site_listing.category">
+					<i class="tag icon"></i>
+					{{site_listing.category}}
+				</a>
+
+			</div>
+		</div>
+		<div class="row m-b-md">
+			<div class="eleven wide column">
+				<img class="ui fluid image" src="{{!site_listing.meta_data.site_logo ? '/images/image.png' : site_listing.meta_data.site_logo}}">
+
+			</div>
+			<div class="five wide column">
+
+				<div class="ui row">
+					<a class="ui huge tag label">
+						{{site_listing.pricing}}
+					</a>
+				</div>
+				<div class="ui row m-t-sm">
+					<a class="ui labeled icon animated huge red button" target="_blank" tabindex="0" ng-click="JoinSite(site_listing.id)">
+						<div class="content equalize-padding">
+							<i class="add user icon"></i>
+							Join This Site
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="ui vertical segment">
+	<div class="ui stackable internally celled grid">
+		<div class="ui  stackable grid container">
+			<div class="row">
+				<div class="eleven wide column" >
+
+					<h3 class="ui header">Site Description</h3>
+					<div ng-if="site_listing.welcome_content" dynamic="site_listing.welcome_content" class="fr-view"></div>
+					<div ng-if="!site_listing.welcome_content" class="fr-view">No description provided</div>
+					<h3 class="ui header" ng-if="site_listing.sites.length > 0">Other Sites</h3>
+
+					<div class="ui three doubling stackable link site cards" ng-if="site_listing.sites.length > 0">
+						<a site-card class="card" ng-repeat="next_item in site_listing.sites" ui-sref="public.www.site({permalink: next_item.permalink || next_item.site_id})"></a>
+					</div>
+
+
+
+					<div class="row" ng-if="can_review">
+						<div class="ui hidden divider"></div>
+
+						<div class="ui header">
+							Give Your Review
+						</div>
+						<form class="ui form" ng-submit="saveReview()">
+							<div class="field">
+								<label>Rate</label>
+								<div class="ui large star rating" interactive = "true" ng-model="review.rating" sui-rating></div>
+							</div>
+							<div class="field">
+								<textarea class="ui textarea" ng-model="review.comment" placeholder="Give your review..."></textarea>
+							</div>
+							<button type="submit" class="ui green button" >SUBMIT</button>
+						</form>
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="ui stackable grid" >
+						<div class="ui header">
+							Reviews
+						</div>
+						<div class="row" ng-if="site_reviews.length == 0">
+							No reviews for this site.
+						</div>
+						<div class="row" ng-if="site_reviews.length > 0">
+							<div class="six wide column">
+								<div class="ui small header">
+									Average Rating
+								</div>
+								<div class="ui green huge statistic">
+									<div class="value">{{avg_rating | number:1}}</div>
+									<div class="">
+										<div class="ui large star rating" ng-model="rating" initial-rating="{{avg_rating | number:0}}" interactive = "false" sui-rating></div>
+										{{site_reviews.length}} ratings
+									</div>
+								</div>
+							</div>
+							<div class="six wide column">
+								<div class="ui small header">
+									Details
+								</div>
+								<div class="ui grid container" ng-repeat="next_item in detail_rating">
+									<div class="four wide column" style="padding: 5px;">{{next_item.rating}} star</div>
+									<div class="ten wide column" style="padding:5px">
+										<div class="ui green small progress" style="margin-bottom:14px;">
+											<div class="bar" style="width:{{next_item.count}}%"></div>
+										</div>
+									</div>
+									<div class="one wide column" style="padding: 5px;">{{next_item.count}}% </div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row" ng-repeat="next_item in site_reviews" ng-if="site_reviews.length >0">
+						<div class="ui divider"></div>
+						<div class="ui tiny header">
+							<img ng-src="{{next_item.user.profile_image || 'https://secure.gravatar.com/avatar/' + next_item.user.email_hash + '?d=mm&s=35'}}" class="ui avatar image">
+							<div class="content">
+								{{next_item.user.first_name + ' ' + next_item.user.last_name || 'Unknown'}}
+								<div class="sub header">
+									posted {{moment.utc(next_item.created_at).fromNow()}}
+								</div>
+							</div>
+						</div>
+						<div class="content">
+							<div class="ui large star rating" initial-rating="{{next_item.rating}}" interactive = "false" ng-model="next_item.rating" sui-rating></div>
+							<br>
+							{{next_item.comment}}
+						</div>
+					</div>
+				</div>
+				<div class="five wide column">
+					<div class="overlay">
+						<div class="ui labeled icon compact menu">
+							<a class="item"
+							   socialshare
+							   socialshare-provider="twitter"
+							   socialshare-text="{{site_listing.name}}"
+							   socialshare-hashtags="smartmember"
+							   socialshare-url="http://{{site_listing.subdomain}}.smartmember.{{app.env}}">
+								<i class="twitter icon"></i>
+								Tweet
+							</a>
+							<a class="item"
+							   socialshare
+							   socialshare-provider="facebook"
+							   socialshare-text="Hello"
+							   socialshare-description="{{site_listing.welcome_content}}"
+							   socialshare-url="http://{{site_listing.subdomain}}.smartmember.{{app.env}}">
+								<i class="facebook icon"></i>
+								Share
+							</a>
+							<a class="item"
+							   socialshare
+							   socialshare-provider="google+"
+							   socialshare-url="http://{{site_listing.subdomain}}.smartmember.{{app.env}}">
+								<i class="google plus icon"></i>
+								Share
+							</a>
+						</div>
+					</div>
+
+				</div>
+				<div class="sixteen wide column" >
+					<div class="row" ng-if="site_listing.other_sites && site_listing.other_sites.length > 0">
+						<div class="ui hidden divider"></div>
+
+						<div class="ui header">
+							Other sites by this user
+						</div>
+						<div class="ui four doubling stackable link site cards">
+							<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in other_sites">
+								<div class="image flex_center">
+									<img class="ui centered middle aligned image" src="{{getMetaData(next_item.meta_data,'site_logo') ? getMetaData(next_item.meta_data,'site_logo') : '/images/image.png'}}">
+								</div>
+								<div class="content">
+									<div>{{next_item.name}}</div>
+								</div>
+								<div class="extra">
+									Rating:
+									<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
+								</div>
+								<div class="extra content">
+									<span class="right floated" ng-if="next_item.is_paid==1">
+										<span class="right floated" ng-if="next_item.is_paid==1">
+											<strong ng-if="next_item.min_price!=next_item.max_price">{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
+											<strong ng-if="next_item.min_price==next_item.max_price">{{next_item.min_price+ '$' || next_item.max_price + '$'}}</strong>
+										</span>
+									</span>
+									<span class="right floated" ng-if="next_item.is_paid==0 || !next_item.is_paid">
+										<strong>Free</strong>
+									</span>
+									<span>
+										<i class="users icon"></i>
+										{{next_item.total_members | number}}
+									</span>
+								</div>
+							</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

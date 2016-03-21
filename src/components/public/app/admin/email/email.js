@@ -12,8 +12,10 @@ app.config( function( $stateProvider )
 
 app.controller( "EmailController", function( $scope, $rootScope, $localStorage, $state, Restangular, notify )
 {
-    if( !$rootScope.site || $rootScope.site.capabilities.indexOf( 'manage_email' ) == -1 )
-        $state.go('public.app.site.home');
+	if( $rootScope.site && $rootScope.site.capabilities.indexOf( 'manage_email' ) == -1 )
+	{
+		$state.go( 'public.app.site.home' );
+	}
 
 	if( $rootScope.is_not_allowed )
 	{

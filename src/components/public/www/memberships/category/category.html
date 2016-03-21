@@ -1,0 +1,128 @@
+<ng-include src="'templates/components/public/www/common/memberships-menu.html'"></ng-include>
+
+<div class="feature alternate ui stripe vertical red inverted segment category_heading_container p-b-none">
+
+	<div class="ui container">
+
+		<div class="ui breadcrumb">
+			<a ui-sref="public.www.memberships" class="section">
+				<i class="inverted fitted home icon"></i>
+			</a>
+			<div class="divider"> /</div>
+			<div class="active section">{{current_category.title}}</div>
+		</div>
+
+		<h1 class="ui inverted  header">{{current_category.title}}</h1>
+
+		<div class="ui inverted pointing menu">
+			<a class="item {{type == 'featured' ? 'active':''}}" ng-click="reload(current_category , 'featured')">
+				Featured
+			</a>
+			<a class="item {{type == 'all-memberships' ? 'active':''}}" ng-click="reload(current_category , 'all-memberships')">
+				All Memberships
+			</a>
+		</div>
+	</div>
+
+</div>
+
+<div class="ui vertical promo stripe intro segment membership_container" ng-class="{pusher: ShowMembershipSidebar()}" ng-if="type=='featured'">
+	<div class="ui container">
+		<div class="ui grid">
+			<div class="four wide column">
+
+				<h5 class="ui header">More in {{current_category.title}}</h5>
+				<div class="ui list">
+					<a ui-sref="public.www.subcategory({category : current_category.slug , subcategory: sub_category.slug})" class="item" ng-repeat="sub_category in current_category.sub_categories ">
+						<i class="map marker icon"></i>
+						<div class="content">
+							<div class="header">{{sub_category.title}}</div>
+						</div>
+					</a>
+				</div>
+
+			</div>
+			<div class="twelve wide column">
+				<div  ng-repeat="(key , items) in all_sites">
+					<h2 class="ui header">{{key}}</h2>
+
+					<div class="ui three doubling link cards">
+						<!-- {{filterSite(sub_category)|json}} -->
+						<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in items | limitTo : 4">
+
+							<div class="image">
+								<img class="ui fluid image" src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
+							</div>
+							<div class="content">
+								<div class="header">{{next_item.title}}</div>
+								<div class="meta">
+									<span class="date">By {{next_item.site.owner.first_name}} {{next_item.site.owner.last_name}}</span>
+								</div>
+							</div>
+							<div class="extra">
+								Rating:
+								<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.rating | number:0}}" sui-rating></div>
+							</div>
+							<div class="extra content">
+								<span class="right floated" ng-if="next_item.is_paid==1">
+									<strong ng-if="next_item.min_price!=next_item.max_price">{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
+									<strong ng-if="next_item.min_price==next_item.max_price">{{next_item.min_price + '$'|| next_item.max_price + '$'}}</strong>
+								</span>
+								<span class="right floated" ng-if="next_item.is_paid==0 || !next_item.is_paid">
+									<strong>Free</strong>
+								</span>
+								<span>
+									<i class="users icon"></i>
+									{{next_item.total_members | number}}
+								</span>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="ui vertical promo stripe intro segment membership_container" ng-class="{pusher: ShowMembershipSidebar()}" ng-if="type=='all-memberships'">
+	<div class="ui container">
+		<div class="ui grid">
+			<div class="sixteen wide column">
+					<div class="ui four doubling link cards" infinite-scroll='load()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
+						<!-- {{filterSite(sub_category)|json}} -->
+						<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in all_sites">
+
+							<div class="image">
+								<img class="ui fluid image" src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
+							</div>
+							<div class="content">
+								<div class="header">{{next_item.title}}</div>
+								<div class="meta">
+									<span class="date">By {{next_item.site.owner.first_name}} {{next_item.site.owner.last_name}}</span>
+								</div>
+							</div>
+							<div class="extra">
+								Rating:
+								<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.rating | number:0}}" sui-rating></div>
+							</div>
+							<div class="extra content">
+								<span class="right floated" ng-if="next_item.is_paid==1">
+									<strong ng-if="next_item.min_price!=next_item.max_price">{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
+									<strong ng-if="next_item.min_price==next_item.max_price">{{next_item.min_price + '$'|| next_item.max_price + '$'}}</strong>
+								</span>
+								<span class="right floated" ng-if="next_item.is_paid==0 || !next_item.is_paid">
+									<strong>Free</strong>
+								</span>
+								<span>
+									<i class="users icon"></i>
+									{{next_item.total_members | number}}
+								</span>
+							</div>
+						</a>
+					</div>
+			</div>
+		</div>
+
+	</div>
+</div>

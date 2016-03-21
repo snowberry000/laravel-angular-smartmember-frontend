@@ -10,9 +10,20 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "DirectoryListingController", function( $scope,$rootScope, $state, $localStorage,  Restangular, toastr, $filter )
+app.controller( "DirectoryListingController", function( $scope,$rootScope,$http, $state, $localStorage,  Restangular, toastr, $filter )
 {
 	$site=$rootScope.site;
+	$scope.selected_category = {};
+
+	$scope.price_interval = ["ONE_TIME","DAILY","WEEKLY","MONTHLY","ANNUALLY"];
+
+	$scope.changeCategory = function(category){
+		$scope.selected_category = _.findWhere($scope.directory_categories , {title : category});
+	}
+	$scope.isFree = function(){
+		$scope.listing.pending_pricing = null;
+		$scope.listing.pricing = null;
+	}
 
 	$scope.resolve=function(){
 		Restangular.one( 'directory', 'siteListing' ).get().then(function(response){
@@ -26,14 +37,24 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope, $stat
 		        $listing = {};
 		    }
 		    $scope.listing = $listing;
+		    if($scope.listing.category){
+		    	$scope.selected_category = _.findWhere($scope.directory_categories , {title : $scope.listing.category});
+		    	console.log($scope.selected_category)
+		    }
 			$scope.hide_lessons = $listing.hide_lessons;
 			$scope.hide_downloads = $listing.hide_downloads;
 			$scope.hide_members = $listing.hide_members;
 			$scope.hide_revenue = $listing.hide_revenue;
+			$scope.listing.is_visible = $listing.is_visible || false;
+
 		});
 	}
 	
-	
+	$http.get( 'json/directory_categories.json' ).success( function( response )
+	{
+		$scope.directory_categories = response.data;
+		console.log($scope.directory_categories);
+	} );
 
 
 	$scope.onBlurTitle = function( $event )
@@ -63,7 +84,6 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope, $stat
 		//$listing.hide_downloads = $scope.hide_downloads;
 		//$listing.hide_members = $scope.hide_members;
 		//$listing.hide_revenue = $scope.hide_revenue;
-
 		Restangular.service( "directory" ).post( $scope.listing ).then( function( response )
 		{
 			$scope.listing = response;
@@ -76,4 +96,13 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope, $stat
 		$scope.listing.pending_image = '';
 	}
 	$scope.resolve();
+
+	$scope.updatePricing = function() {
+		if($scope.listing.is_paid==0) {
+			$scope.listing.min_price = null;
+			$scope.listing.min_price_interval = null;
+			$scope.listing.max_price = null;
+			$scope.listing.max_price_interval = null;		
+		}
+	}
 } );
