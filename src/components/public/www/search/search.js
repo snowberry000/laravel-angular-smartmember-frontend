@@ -72,7 +72,7 @@ app.controller( "WwwSearchController", function( $scope, $http , $stateParams , 
 			$scope.pagination.current_page++;
 			$scope.loading = false;
 			$scope.pagination.total_count = response.total_count;
-			$scope.dataFetch = response.data;
+			$scope.dataFetch = response.items;
 			if($scope.dataFetch && $scope.dataFetch.length > 0)
 			{
 				$scope.pagination.disable = false;

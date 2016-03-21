@@ -3,7 +3,7 @@
 
 <div class="ui vertical promo stripe intro segment membership_container" ng-class="{pusher: ShowMembershipSidebar()}">
 	<div class="ui container">
-		<div ng-repeat="category in categories">
+		<div ng-repeat="category in categories" ng-if="category.sites && category.sites.length > 0">
 			<div class="ui horizontal divider">
 				Best Sellers in "{{category.name}}"
 			</div>
