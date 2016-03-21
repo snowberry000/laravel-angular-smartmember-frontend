@@ -5,12 +5,14 @@
 			Browse
 		</button>
 	</a>
-	<div class="ui category search item" sui-search>
+	<!-- <div class="ui category search item" sui-search>
 		<div class="ui icon input">
 			<input class="prompt" type="text" placeholder="Search for memberships">
 			<i class="search icon"></i>
 		</div>
 		<div class="results"></div>
+	</div>
+ -->	<div class="ui search item {{searchLoading? 'loading': ''}}" sui-search url="api.{{app.domain}}/site/search" name="membership" route="site/search" redirect="membership/" searchQuery="{{searchQuery}}">
 	</div>
 	<a ui-sref="public.www.home" class="header item">
 		<img class="logo" src="/images/smart-member-logo.png">

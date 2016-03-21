@@ -6,11 +6,14 @@ app.config( function( $stateProvider )
 		.state( "public.www.memberships", {
 			url: '/memberships',
 			templateUrl: "/templates/components/public/www/memberships/memberships.html",
-			controller: "WwwMembershipsController"
+			controller: "WwwMembershipsController",
+			params : {
+				searchQuery : null
+			}
 		} )
 } );
 
-app.controller( "WwwMembershipsController", function( $scope, $http, Restangular )
+app.controller( "WwwMembershipsController", function( $scope, $http, Restangular,$stateParams )
 {
 	$scope.all_the_things = [ 'thing',
 		'thing2',
@@ -20,6 +23,7 @@ app.controller( "WwwMembershipsController", function( $scope, $http, Restangular
 	$scope.categories = [];
 
 	$scope.sites = null;
+	$scope.searchQuery = $stateParams.searchQuery;
 
 
 	$scope.calculateReviewStats =function() {

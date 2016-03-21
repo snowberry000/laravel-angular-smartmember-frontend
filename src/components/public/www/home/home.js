@@ -50,6 +50,7 @@ app.controller( "WwwHomeController", function( $scope, Restangular, $rootScope, 
 
 	$scope.sites = null;
 	$scope.stats = null;
+	$scope.searchQueryMembershipSites = "";
 
 	$scope.calculateReviewStats = function()
 	{
