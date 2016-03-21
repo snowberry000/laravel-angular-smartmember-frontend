@@ -6,10 +6,10 @@
 				Best Sellers in "{{category.name}}"
 			</div>
 
-			<div class="ui four doubling link cards">
+			<div class="ui four doubling stackable link site cards">
 				<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in category.sites">
-					<div class="image">
-						<img src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
+					<div class="image flex_center">
+						<img class="ui centered middle aligned image" src="{{!next_item.image ? '/images/image.png' : next_item.image}}">
 					</div>
 					<div class="content">
 						<div class="header">{{next_item.site.name}}</div>
@@ -45,10 +45,10 @@
 			Members are now viewing
 		</div>
 
-		<div class="ui four doubling link cards" ng-hide="true">
+		<div class="ui four doubling stackable link site cards" ng-hide="true">
 			<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in sites">
-				<div class="image">
-					<img src="{{!next_item.site.meta.site_logo ? '/images/image.png' : next_item.site.meta.site_logo}}">
+				<div class="image flex_center">
+					<img class="ui centered middle aligned image" src="{{!next_item.site.meta.site_logo ? '/images/image.png' : next_item.site.meta.site_logo}}">
 				</div>
 				<div class="content">
 					<div class="header">{{next_item.name}}</div>
