@@ -101,7 +101,7 @@
 					<span class="right floated" ng-if="next_item.is_paid==1">
 						<strong>{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
 					</span>
-					<span class="right floated" ng-if="next_item.is_paid==0">
+					<span class="right floated" ng-if="next_item.is_paid==0 || !next_item.is_paid">
 						<strong>Free</strong>
 					</span>
 					<span>
