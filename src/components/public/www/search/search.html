@@ -39,37 +39,37 @@
 
 					<div class="grouped fields">
 						<div class="field">
-							<div class="ui checkbox" sui-checkbox>
+							<div class="ui checkbox" ng-model="rate_5" ng-click="addRating(5)" sui-checkbox>
 								<input type="checkbox" tabindex="0" class="hidden">
 								<label>5 Stars (43)</label>
 							</div>
 						</div>
 						<div class="field">
-							<div class="ui checkbox" sui-checkbox>
+							<div class="ui checkbox" ng-model="rate_4" ng-click="addRating(4)" sui-checkbox>
 								<input type="checkbox" tabindex="0" class="hidden">
 								<label>4 Stars (9)</label>
 							</div>
 						</div>
 						<div class="field">
-							<div class="ui checkbox" sui-checkbox>
+							<div class="ui checkbox" ng-model="rate_3" ng-click="addRating(3)" sui-checkbox>
 								<input type="checkbox" tabindex="0" class="hidden">
 								<label>3 Stars (8)</label>
 							</div>
 						</div>
 						<div class="field">
-							<div class="ui checkbox" sui-checkbox>
+							<div class="ui checkbox" ng-model="rate_2" ng-click="addRating(2)" sui-checkbox>
 								<input type="checkbox" tabindex="0" class="hidden">
 								<label>2 Stars (2)</label>
 							</div>
 						</div>
 						<div class="field">
-							<div class="ui checkbox" sui-checkbox>
+							<div class="ui checkbox" ng-model="rate_1" ng-click="addRating(1)"  sui-checkbox>
 								<input type="checkbox" tabindex="0" class="hidden">
 								<label>1 Star (11)</label>
 							</div>
 						</div>
 						<div class="field">
-							<div class="ui checkbox" sui-checkbox>
+							<div class="ui checkbox" ng-model="rate_0" ng-click="addRating(0)" sui-checkbox>
 								<input type="checkbox" tabindex="0" class="hidden">
 								<label>0 Stars (104)</label>
 							</div>
@@ -86,11 +86,11 @@
 							<div class="eight wide field">
 								<label>Sort by:</label>
 								<select sui-dropdown ng-change="loadMore(true)" ng-model="pagination.sort_by">
-									<option value="total_members">Popularity</option>
-									<option value="created_at">Newest</option>
-									<option>Reviews</option>
-									<option>Price: Low to High</option>
-									<option>Price: High to Low</option>
+									<option value="total_members,desc">Popularity</option>
+									<option value="created_at,desc">Newest</option>
+									<option value="rating,desc">Reviews</option>
+									<option value="max_price,asc">Price: Low to High</option>
+									<option value="max_price,desc">Price: High to Low</option>
 								</select>
 							</div>
 						</div>
