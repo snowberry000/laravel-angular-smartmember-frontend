@@ -139,7 +139,8 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	{
 		if(!$scope.is_logged_in){
 			// Redirection to sign up
-			 $location.path("/sign/up");
+			 window.location = $location.protocol()+'://'+$scope.site_listing.subdomain+'.smartmember.com/sign/up';
+
 		}
 		else if( $scope.is_logged_in )
 		{
