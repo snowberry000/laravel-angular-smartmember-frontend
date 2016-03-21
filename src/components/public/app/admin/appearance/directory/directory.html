@@ -91,16 +91,52 @@
 								<div class="hr-line-dashed"></div>
 								<div class="field">
 									<label class="col-sm-2 control-label">Pricing</label>
-									<div class="col-sm-10">
-                                        <input type="text" name="fb_share_description" class="form-control"
+									<div class="col-sm-10 ">
+                                        <!-- <input type="text" name="fb_share_description" class="form-control"
 												  ng-model="listing.pending_pricing" ng-disabled="listing.is_free"></input>
 										<label>
 											<input type="checkbox" ng-checked="listing.is_free" ng-model="listing.is_free" ng-true-value="1" ng-false-value="0" ng-click="isFree()">
 											Check this box if your site is free
-										</label>
-									<span class="help-block m-b-none">
-										This is the pricing description that will be used for your site in our public directory listing.
-									</span>
+										</label> -->
+										<select class='form-control' ng-model='listing.is_paid' ng-change="updatePricing()">
+											<option value='' selected="!listing.is_paid">Select Pricing</option>
+											<option value='0' selected="listing.is_paid==0">Free</option>
+											<option value='1' selected="listing.is_paid==1">Paid</option>
+										</select>
+										<br>
+										<div class="two fields" ng-if="listing.is_paid==1">
+											<div class="field">
+												<label>Minimum Price</label>
+												<div class="two fields">
+													<div class="field">
+														<input type="number" ng-model="listing.min_price" placeholder=" min price (USD)"></input>
+													</div>
+													<div class="field">
+														<select class="form-control" ng-model="listing.min_price_interval" placeholder="interval">
+															<option value=''>Select interval</option>
+															<option value="{{interval}}" ng-repeat="interval in price_interval" ng-selected="{{listing.min_price_interval==interval}}">{{interval}}</opion>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="field">
+												<label>Maximum Price</label>
+												<div class="two fields">
+													<div class="field">
+														<input type="number" ng-model="listing.max_price" placeholder="max price (USD)"></input>
+													</div>
+													<div class="field">
+														<select class="form-control" ng-model="listing.max_price_interval">
+															<option value=''>Select Interval</option>
+															<option value="{{interval}}" ng-repeat="interval in price_interval" ng-selected="{{listing.min_price_interval==interval}}">{{interval}}</opion>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+										<span class="help-block m-b-none">
+											This is the pricing description that will be used for your site in our public directory listing.
+										</span>
 									</div>
 								</div>
 								<div class="hr-line-dashed"></div>
@@ -111,14 +147,6 @@
                                     <span class="help-block m-b-none">
                                         Once approved you can view your listing at <br/> <u>http://www.smartmember.com/membership/{{listing.permalink}}</u>
                                     </span>
-									</div>
-								</div>
-								<div class="hr-line-dashed"></div>
-								<div class="field">
-									<label class="col-sm-2 control-label">Expire At</label>
-									<div class="col-sm-10">
-										<input type="date" class="form-control input-lg" ng-model="listing.expired_at" max-date="'2020-06-22'"/>
-										<span class="help-block m-b-none">Your directory listings will expire after the set time. Leave it blank you want it stay forever.</span>
 									</div>
 								</div>
 								<div class="hr-line-dashed"></div>
@@ -149,40 +177,12 @@
 								</div>
 								<div class="hr-line-dashed"></div>
 								<div class="field">
-									<label class="col-sm-2 control-label">
-										Stats you would like to show publicly
-									</label>
 									<div class="col-sm-10">
-
-										<div style="margin-bottom: 10px;" class="directory_stat_toggles">
-											<div class="accordion_section {{listing.hide_lessons == 1 ? '' : 'active'}}">
-												<a class="accordion_expand btn btn_outline" ng-click="listing.hide_lessons=!listing.hide_lessons">{{listing.hide_lessons ? 'Enable' : 'Disable'}}</a>
-												<h4 class="ui header">{{listing.total_lessons}} lessons
-													<small>total lessons count</small>
-												</h4>
-												<div class="clearfix"></div>
-											</div>
-											<div class="accordion_section {{listing.hide_downloads == 1 ? '' : 'active'}}">
-												<a class="accordion_expand btn btn_outline"  ng-click="listing.hide_downloads=!listing.hide_downloads">{{listing.hide_downloads ? 'Enable' : 'Disable'}}</a>
-												<h4 class="ui header">{{listing.total_downloads}} downloads
-													<small>total downloads count</small>
-												</h4>
-												<div class="clearfix"></div>
-											</div>
-											<div class="accordion_section {{listing.hide_members == 1 ? '' : 'active'}}">
-												<a class="accordion_expand btn btn_outline" ng-click="listing.hide_members=!listing.hide_members">{{listing.hide_members ? 'Enable' : 'Disable'}}</a>
-												<h4 class="ui header">{{listing.total_members}} members
-													<small>number of members</small>
-												</h4>
-												<div class="clearfix"></div>
-											</div>
-											<div class="accordion_section {{listing.hide_revenue == 1 ? '' : 'active'}}">
-												<a class="accordion_expand btn btn_outline" ng-click="listing.hide_revenue=!listing.hide_revenue">{{listing.hide_revenue ? 'Enable' : 'Disable'}}</a>
-												<h4 class="ui header">${{listing.total_revenue}}
-													<small>total revenue</small>
-												</h4>
-												<div class="clearfix"></div>
-											</div>
+										<div class="ui checkbox">
+  											<input type="checkbox" ng-model="listing.is_visible" ng-true-value="'yes'" ng-false-value="'no'" ng-checked="is_visible  == 'yes'">
+  											<label class="col-sm-2 control-label">
+												Hide this site from the directory
+											</label>
 										</div>
 									</div>
 								</div>
