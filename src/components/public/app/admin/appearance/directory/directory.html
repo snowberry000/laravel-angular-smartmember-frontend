@@ -81,7 +81,7 @@
 									<div class="col-sm-10">
 										<select class='form-control' ng-model='listing.sub_category'>
 											<option value=''>Select Subcategory</option>
-											<option value='{{subcategory.title}}' ng-repeat="subcategory in selected_category.sub_categories">{{subcategory.title}}</option>
+											<option ng-selected="{{subcategory.title == listing.sub_category}}" value='{{subcategory.title}}' ng-repeat="subcategory in selected_category.sub_categories">{{subcategory.title}}</option>
 										</select>
                                         <span class="help-block m-b-none">
                                             This is the site category based on which your potential customers can find your easily.
@@ -179,7 +179,7 @@
 								<div class="field">
 									<div class="col-sm-10">
 										<div class="ui checkbox">
-  											<input type="checkbox" ng-model="listing.is_visible" ng-true-value="'yes'" ng-false-value="'no'" ng-checked="is_visible  == 'yes'">
+  											<input type="checkbox" ng-model="listing.is_visible" ng-true-value="false" ng-false-value="true" ng-checked="is_visible  == false">
   											<label class="col-sm-2 control-label">
 												Hide this site from the directory
 											</label>

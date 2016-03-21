@@ -19,7 +19,12 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	$scope.review =  {};
 	$scope.user = $localStorage.user;
 	$scope.can_review = true;
+	$scope.is_logged_in = !$localStorage.user ? false : true;
 
+	console.log("Scope is:");
+	console.log($scope);
+	console.log('Local Storage:');
+	console.log($localStorage);
 
 
 	//Restangular.one( 'directoryByPermalink', $stateParams.permalink ).get().then( function( response )
@@ -104,6 +109,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 		// Logic:
 		// if not logged in, pop the Sign In modal then join the site without requiring another user action
 		var member = _.findWhere($rootScope.sites , {id : site_id});
+		console.log('Member is here...');
 		console.log(member);
 		//return;
 		if(!$localStorage.user){
