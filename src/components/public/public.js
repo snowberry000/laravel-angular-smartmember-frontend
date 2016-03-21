@@ -184,8 +184,8 @@ app.controller( 'PublicController', function( $scope, $q, $rootScope, smModal, U
 
 			Restangular.one( 'site/members' ).get().then( function( response )
 			{
-				$grouped_sites = response;
-				$sites_copy = response;
+				$grouped_sites = response.items;
+				$sites_copy = response.items;
 				$sites = [];
 				$sites_copy = _.groupBy( $sites_copy, function( item )
 				{
