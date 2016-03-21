@@ -21,6 +21,11 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	$scope.can_review = true;
 	$scope.is_logged_in = !$localStorage.user ? false : true;
 
+	console.log("Scope is:");
+	console.log($scope);
+	console.log('Local Storage:');
+	console.log($localStorage);
+
 
 	//Restangular.one( 'directoryByPermalink', $stateParams.permalink ).get().then( function( response )
 	//{
