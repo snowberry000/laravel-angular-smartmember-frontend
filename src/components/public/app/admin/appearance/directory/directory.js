@@ -14,7 +14,6 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope,$http,
 {
 	$site=$rootScope.site;
 	$scope.selected_category = {};
-
 	$scope.changeCategory = function(category){
 		$scope.selected_category = _.findWhere($scope.directory_categories , {title : category});
 	}
@@ -43,6 +42,8 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope,$http,
 			$scope.hide_downloads = $listing.hide_downloads;
 			$scope.hide_members = $listing.hide_members;
 			$scope.hide_revenue = $listing.hide_revenue;
+			$scope.listing.is_visible = $listing.is_visible || 'no';
+
 		});
 	}
 	
