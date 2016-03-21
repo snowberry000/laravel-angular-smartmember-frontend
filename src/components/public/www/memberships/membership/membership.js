@@ -67,6 +67,22 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 
 	}
 
+	$scope.calculateSitesAvgReview =function() {
+
+		_.each($scope.other_sites, function(site){
+			$scope.review = site.reviews;
+			$scope.avg = 0;
+
+			_.each($scope.review, function(review){
+
+				$scope.avg = parseInt($scope.avg) + parseInt(review.rating);
+			});
+
+			$scope.avg /= $scope.review.length;
+
+			site.avg_rating = $scope.avg;
+		});
+	}
 
 	$scope.site_listing = {};
 
@@ -75,6 +91,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 			if(response)
 			{
 				$scope.site_listing = response;
+				$scope.other_sites = response.other_sites;
 				$scope.site_reviews = response.reviews;
 
 				angular.forEach($scope.site_listing.meta_data , function(value , key){
@@ -91,6 +108,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 				}
 
 				$scope.calculateReviewStats();
+				$scope.calculateSitesAvgReview();
 			}
 		});
 	}
