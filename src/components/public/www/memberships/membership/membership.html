@@ -186,7 +186,7 @@
 						<div class="ui four doubling stackable link site cards">
 							<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in other_sites">
 								<div class="image flex_center">
-									<img class="ui centered middle aligned image" src="{{next_item.meta_data.site_logo ? next_item.meta_data.site_logo : '/images/image.png'}}">
+									<img class="ui centered middle aligned image" src="{{getMetaData(next_item.meta_data,'site_logo') ? getMetaData(next_item.meta_data,'site_logo') : '/images/image.png'}}">
 								</div>
 								<div class="content">
 									<div>{{next_item.name}}</div>
