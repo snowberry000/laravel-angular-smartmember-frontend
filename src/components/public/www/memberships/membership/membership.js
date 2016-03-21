@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "PublicWWWMembershipController", function( $scope, Restangular, $http, $stateParams , $localStorage , $rootScope , toastr , smModal)
+app.controller( "PublicWWWMembershipController", function( $scope, Restangular, $http, $stateParams , $localStorage , $rootScope , $location , toastr , smModal)
 {
 	$scope.loading = true;
 	$scope.static_menu = true;
@@ -106,34 +106,19 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 
 	$scope.JoinSite = function( site_id )
 	{
-		// Logic:
-		// if not logged in, pop the Sign In modal then join the site without requiring another user action
-		var member = _.findWhere($rootScope.sites , {id : site_id});
-		console.log('Member is here...');
-		console.log(member);
-		//return;
-		if(!$localStorage.user){
-			$localStorage.add_user_to_site = site_id;
-			smModal.Show('public.sign.in' , {close : true} , null , function(response){
-				console.log(response);
-				$scope.addMember(site_id);
-			});
+		if(!$scope.is_logged_in){
+			// Redirection to sign up
+			 $location.path("/sign/up");
 		}
-		else if( $localStorage.user && !member)
+		else if( $scope.is_logged_in )
 		{
 			$scope.addMember(site_id);
-		}else if($localStorage.user && member){
-			$scope.redirectToSite(member);
-		}
-		// if logged in and not a member, join the site
-		// if logged in and a member, go to the site
 
-		// TODO: this needs to work by passing the site_id
-		//Restangular.all( 'site/addMember' ).customPOST().then( function()
-		//{
-		//toastr.success( "You have become a member of this site" );
-		//$scope.is_member = true;
-		//} );
+		}else{
+
+			toastr.success( "Oops! Something went wrong. Please try again." );
+		}
+		
 	}
 
 	$scope.redirectToSite = function(site){
