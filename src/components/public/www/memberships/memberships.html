@@ -12,7 +12,7 @@
 						<img src="{{!next_item.meta_data.site_logo ? '/images/image.png' : next_item.meta_data.site_logo}}">
 					</div>
 					<div class="content">
-						<div class="header">{{next_item.name}}</div>
+						<div class="header">{{next_item.site.name}}</div>
 						<div class="meta">
 							<span class="date">{{next_item.owner.first_name+" "+next_item.owner.last_name}}</span>
 						</div>
@@ -22,6 +22,7 @@
 						<div class="ui star rating" ng-model="rating" initial-rating="{{next_item.avg_rating | number:0}}" sui-rating></div>
 					</div>
 					<div class="extra content">
+
 						<span class="right floated" ng-if="next_item.is_paid==1">
 							<span class="right floated" ng-if="next_item.is_paid==1">
 								<strong ng-if="next_item.min_price!=next_item.max_price">{{next_item.min_price ? '$'+next_item.min_price : 'Free'}} to {{next_item.max_price ? '$'+next_item.max_price : 'Free'}}</strong>
