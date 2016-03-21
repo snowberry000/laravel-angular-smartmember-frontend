@@ -83,7 +83,7 @@
 	<div class="ui container">
 
 		<div class="ui four doubling stackable link site cards">
-			<a ui-sref="public.www.membership({permalink: next_item.subdomain})" class="card" ng-repeat="next_item in sites">
+			<a ui-sref="public.www.membership({permalink: next_item.site.subdomain})" class="card" ng-repeat="next_item in sites">
 				<div class="image flex_center">
 					<img class="ui centered middle aligned image" src="{{next_item.image ? next_item.image : (next_item.logo ? next_item.logo : '/images/image.png')}}">
 				</div>
@@ -123,7 +123,7 @@
 				</div>
 			</h1>
 
-			<a ui-sref="public.www.soon" class="ui green massive button">Sign Up</a>
+			<a href="http://my.smartmember.com/sign/up/" class="ui green massive button">Sign Up</a>
 		</div>
 	</div>
 </div>
