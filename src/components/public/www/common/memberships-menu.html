@@ -19,11 +19,11 @@
 		<a class="item" ng-href="{{login_url}}">
 			Log in
 		</a>
-		<div class="item">
+		<div class="item"  ng-controller="getStartedController">
 			<form action="" method="GET">
 				<div class="ui small action input">
-					<input type="text" placeholder="Enter your email">
-					<div class="ui red button">GET STARTED</div>
+					<input type="email" ng-model="get_startedemail" placeholder="Enter your email">
+					<a class="ui red button" href="http://my.smartmember.{{app.env}}/sign/up/?get_startedemail={{get_startedemail}}" ng-disabled="!get_startedemail">GET STARTED</a>
 				</div>
 			</form>
 		</div>
