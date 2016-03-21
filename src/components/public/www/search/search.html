@@ -86,11 +86,11 @@
 							<div class="eight wide field">
 								<label>Sort by:</label>
 								<select sui-dropdown ng-change="loadMore(true)" ng-model="pagination.sort_by">
-									<option value="total_members">Popularity</option>
-									<option value="created_at">Newest</option>
-									<option>Reviews</option>
-									<option>Price: Low to High</option>
-									<option>Price: High to Low</option>
+									<option value="total_members,desc">Popularity</option>
+									<option value="created_at,desc">Newest</option>
+									<option value="rating,desc">Reviews</option>
+									<option value="max_price,asc">Price: Low to High</option>
+									<option value="max_price,desc">Price: High to Low</option>
 								</select>
 							</div>
 						</div>
