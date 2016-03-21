@@ -15,7 +15,7 @@ app.controller( "DirectoryListingController", function( $scope,$rootScope,$http,
 	$site=$rootScope.site;
 	$scope.selected_category = {};
 
-	$scope.price_interval = ["daily","weekly","monthly","annually"];
+	$scope.price_interval = ["one_time","daily","weekly","monthly","annually"];
 
 	$scope.changeCategory = function(category){
 		$scope.selected_category = _.findWhere($scope.directory_categories , {title : category});

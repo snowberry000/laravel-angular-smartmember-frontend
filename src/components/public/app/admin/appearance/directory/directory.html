@@ -109,7 +109,7 @@
 												<label>Minimum Price</label>
 												<div class="two fields">
 													<div class="field">
-														<input type="number" ng-model="listing.min_price" placeholder=" min price (USD)"></input>
+														<input type="number" min="0" ng-model="listing.min_price" placeholder=" min price (USD)"></input>
 													</div>
 													<div class="field">
 														<select class="form-control" ng-model="listing.min_price_interval" placeholder="interval">
@@ -123,7 +123,7 @@
 												<label>Maximum Price</label>
 												<div class="two fields">
 													<div class="field">
-														<input type="number" ng-model="listing.max_price" placeholder="max price (USD)"></input>
+														<input type="number" min="0" ng-model="listing.max_price" placeholder="max price (USD)"></input>
 													</div>
 													<div class="field">
 														<select class="form-control" ng-model="listing.max_price_interval">

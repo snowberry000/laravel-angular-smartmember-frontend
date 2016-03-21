@@ -28,7 +28,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 
 	$scope.loading = false;
 	//} );
-
+	$scope.updated = false;
 	$scope.detail_rating = [];
 	$scope.calculateReviewStats =function() {
 		$scope.avg_rating = 0;
@@ -54,6 +54,10 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 			else {
 				$scope.detail_rating.push({rating : i + 1 , count : $scope.star_rating[i]});
 			}
+		}
+		if($scope.updated)
+		{
+			updateDirectoryRating();
 		}
 
 	}
@@ -150,6 +154,7 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 		}
 		else
 		{
+			$scope.updated = true;
 			Restangular.all('review').customPOST($scope.review).then(function(response){
 				if(response)
 				{
@@ -157,9 +162,17 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 					$scope.can_review = false;
 					toastr.success("Your review has been saved");
 					$scope.init();
+					
 				}
 			})
 		}
+	}
+
+	function updateDirectoryRating() {
+		Restangular.all('directory/updateRating').customPUT({id: $scope.site_listing.id, rating: $scope.avg_rating}).then(function(response){
+
+			$scope.updated = false;
+		});
 	}
 
 } );
