@@ -25,7 +25,6 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 	//{
 	//	$scope.site_listing = response;
 
-	$scope.loading = false;
 	//} );
 	$scope.updated = false;
 	$scope.detail_rating = [];
@@ -114,6 +113,9 @@ app.controller( "PublicWWWMembershipController", function( $scope, Restangular, 
 				$scope.calculateReviewStats();
 				$scope.calculateSitesAvgReview();
 			}
+
+			$scope.loading = false;
+
 		});
 	}
 	$scope.init();
