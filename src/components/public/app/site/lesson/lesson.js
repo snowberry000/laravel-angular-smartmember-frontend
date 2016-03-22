@@ -104,7 +104,6 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		}
 	} );
 
-
 	$scope.assignCounter = function( $ctr )
 	{
 		$rootScope.showCounter = parseInt( $ctr );

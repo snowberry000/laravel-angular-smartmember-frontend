@@ -1,13 +1,21 @@
 .app.site {
   .ui.breadcrumb {
     .active.section {
-      color:#767676;
+      color: #767676;
     }
+  }
+  .lights_off .embed,
+  .lights_off .lights_controller {
+    z-index: 10000;
+  }
+
+  .lights_controller a {
+    cursor: pointer;
   }
 
   @media only screen and (max-width: 375px) {
     .mobile_site_menu_text {
-      display:none;
+      display: none;
     }
   }
 

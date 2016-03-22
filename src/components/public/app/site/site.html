@@ -1,1 +1,3 @@
-<ui-view class="row"></ui-view>
+<ui-view class="row t {{lights_off ? 'lights_off' : ''}}"></ui-view>
+
+<div class="ui active page dimmer" ng-if="lights_off"></div>
