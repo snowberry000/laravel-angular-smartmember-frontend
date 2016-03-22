@@ -9,7 +9,7 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("SubcategoryController", function ($scope , $http , Restangular , $stateParams) {
+app.controller("SubcategoryController", function ($scope , $http , Restangular , $location, $stateParams) {
 	$scope.all_sites = [];
 
 	$scope.pagination = {
@@ -18,6 +18,8 @@ app.controller("SubcategoryController", function ($scope , $http , Restangular ,
 		disable: false,
 		total_count: 0
 	};
+
+	$scope.type=$location.search().type;
 
 	$scope.calculateReviewStats =function() {
 
@@ -37,7 +39,16 @@ app.controller("SubcategoryController", function ($scope , $http , Restangular ,
 
 	}
 
+	$scope.reload = function(category , type){
+		window.location.href = $location.path()+'?type='+type;
+	}
+
 	$scope.load = function(){
+		if((!$location.search().type || $location.search().type == 'featured') &&  $scope.pagination.current_page == 2)
+		{
+			return;
+		}
+
 		if(!$scope.all_sites || $scope.all_sites.length == 0)
 			$scope.loading = true;
 		$scope.pagination.disable=true;

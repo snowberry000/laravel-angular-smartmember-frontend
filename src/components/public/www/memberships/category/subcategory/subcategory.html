@@ -15,10 +15,10 @@
 		<h1 class="ui inverted  header">{{sub_category.title}}</h1>
 
 		<div class="ui inverted pointing menu">
-			<a class="item active">
+			<a class="item {{type != 'all-memberships' ? 'active':''}}" ng-click="reload(current_category , 'featured')">
 				Featured
 			</a>
-			<a class="item">
+			<a  class="item {{type == 'all-memberships' ? 'active':''}}" ng-click="reload(current_category , 'all-memberships')">
 				All Memberships
 			</a>
 		</div>
