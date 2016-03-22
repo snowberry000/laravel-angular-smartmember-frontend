@@ -35,6 +35,12 @@ app.controller('smartMailCreateController', function ($scope,toastr, $q, $timeou
      
     }
 
+    if (!Modernizr.inputtypes.time) {
+      // no native support for <input type="time"> :(
+      // maybe build one yourself with Dojo or jQueryUI
+         $('input[type="time"]').timepicker();
+    }
+
     if ( $stateParams.id ) {
         $email = Restangular.one('email', $stateParams.id).get().then(function(response){$scope.email = response});
     }
