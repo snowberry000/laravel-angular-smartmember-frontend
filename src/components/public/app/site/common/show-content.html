@@ -1,4 +1,3 @@
-
 <div class="ui basic segment section_background_color center aligned p-none" ng-if="next_item.breadcrumb">
 	<div class="ui breadcrumb" dynamic="breadCrumbParent( next_item )"></div>
 </div>
@@ -16,17 +15,37 @@
 	</h1>
 </div>
 <div class="ui attached clearing segment section_background_color" ng-if="next_item.categories && next_item.categories.length > 0">
-    <label>Categories: </label>
-    <a href="/{{category.permalink}}" ng-repeat="category in next_item.categories">{{category.title + ( $index < $parent.next_item.categories.length - 1 ? ', ' : '')}}</a>
+	<label>Categories:</label>
+	<a href="/{{category.permalink}}" ng-repeat="category in next_item.categories">{{category.title + ( $index < $parent.next_item.categories.length - 1 ? ', ' : '')}}</a>
 </div>
 <div class="ui attached clearing segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.{{next_item.content_type}}" data-stateAttributes='{"id":{{next_item.id}}, "closeOnCancel":true}' sui-popup ng-if="!loading && ((next_item.featured_image && next_item.always_show_featured_image) || next_item.embed_content || !next_item.access)">
 
-	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image && next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed></div>
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image && next_item.always_show_featured_image" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" data-placeholder="{{next_item.featured_image}}" sui-embed>
+	</div>
 
-	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !(next_item.featured_image && next_item.always_show_featured_image)" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}"  sui-embed></div>
+	<div ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !(next_item.featured_image && next_item.always_show_featured_image)" class="ui embed" data-url="{{next_item.embed_content | extractsrc}}" data-original-embed="{{next_item.embed_content}}" sui-embed>
+	</div>
 
 	<div ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )" dynamic="next_item.embed_content" class="fr-view">
+	</div>
 
+	<div class="ui basic center aligned segment lights_controller p-none" ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && next_item.featured_image && next_item.always_show_featured_image">
+		<a ng-click="ToggleLights()">
+			<i class="yellow lightbulb icon"></i>
+			Turn {{lights_off ? 'on' : 'off'}} the lights
+		</a>
+	</div>
+	<div class="ui basic center aligned segment lights_controller p-none" ng-if="next_item.embed_content && ShouldSuiHandleEmbed( next_item.embed_content ) && !(next_item.featured_image && next_item.always_show_featured_image)">
+		<a ng-click="ToggleLights()">
+			<i class="yellow lightbulb icon"></i>
+			Turn {{lights_off ? 'on' : 'off'}} the lights
+		</a>
+	</div>
+	<div class="ui basic center aligned segment lights_controller p-none" ng-if="next_item.embed_content && !ShouldSuiHandleEmbed( next_item.embed_content )">
+		<a ng-click="ToggleLights()">
+			<i class="yellow lightbulb icon"></i>
+			Turn {{lights_off ? 'on' : 'off'}} the lights
+		</a>
 	</div>
 
 	<img class="ui fluid image" ng-src="{{next_item.featured_image}}" ng-if="next_item.featured_image && (!next_item.embed_content && next_item.always_show_featured_image == 1)">
@@ -80,11 +99,11 @@
 
 	<p ng-if="next_item.description">{{next_item.description}}</p>
 
-    <div ng-if="next_item.articles && next_item.articles.length > 0" class="ui basic segment p-none" ng-repeat="next_item2 in next_item.articles">
-        <h2 class="ui header">{{next_item2.title}}</h2>
+	<div ng-if="next_item.articles && next_item.articles.length > 0" class="ui basic segment p-none" ng-repeat="next_item2 in next_item.articles">
+		<h2 class="ui header">{{next_item2.title}}</h2>
 
-        <div dynamic="next_item2.content"></div>
-    </div>
+		<div dynamic="next_item2.content"></div>
+	</div>
 
 </div>
 <h3 class="ui attached header" ng-if="next_item.discussion_settings.show_comments">
@@ -113,7 +132,7 @@
 					{{comment.body}}
 				</div>
 				<div ng-if="comment.edit" class="text">
-					<p editable-text="comment.body" onaftersave="editComment(comment)" >{{comment.body}}</p>
+					<p editable-text="comment.body" onaftersave="editComment(comment)">{{comment.body}}</p>
 				</div>
 				<div class="actions">
 					<a class="reply" ng-show="next_item.discussion_settings.allow_replies && user.access_token" ng-init="show_reply_div = false" ng-click="show_reply_div = !show_reply_div">Reply</a>
@@ -135,7 +154,7 @@
 							{{reply.body}}
 						</div>
 						<div ng-if="reply.edit" class="text">
-							<p editable-text="reply.body" onaftersave="editReply(reply)" >{{reply.body}}</p>
+							<p editable-text="reply.body" onaftersave="editReply(reply)">{{reply.body}}</p>
 						</div>
 						<div class="actions">
 							<a class="reply" ng-if="site.is_admin || reply.user_id == user.id" ng-init="reply.edit = false" ng-click="reply.edit = !reply.edit">Edit</a>
