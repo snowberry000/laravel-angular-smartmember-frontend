@@ -52,7 +52,7 @@
 		</div>
 	</div>
 </div>
-<div class="ui basic segment site_middle_background_color main-content m-n {{isLoggedIn() && $state.includes('public.app.admin.bridge-page') ? 'logged_in' : ''}}">
+<div class="site_middle_background_color main-content m-n {{isLoggedIn() && $state.includes('public.app.admin.bridge-page') ? 'logged_in' : ''}}">
 	<div ui-view name="site" sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable site_ui_view'">
 	</div>
 </div>
