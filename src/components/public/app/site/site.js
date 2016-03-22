@@ -19,4 +19,11 @@ app.config(function($stateProvider){
 
 app.controller("AppSiteController", function ($scope) {
 
+	$scope.lights_off = false;
+
+	$scope.ToggleLights = function()
+	{
+		$scope.lights_off = !$scope.lights_off;
+	}
+
 });
