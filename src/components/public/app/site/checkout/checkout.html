@@ -1,46 +1,34 @@
-<style>
-	.main-site-navigation,
-	.normalheader {
-		display: none !important;
-	}
+<div class="twelve wide column" ng-init="init()">
 
-	.sidebar-shortcuts {
-		float: none !important;
-	}
+	<div class="ui segment section_background_color">
 
-	#sidebar {
-		margin-top: 0px;
-	}
-</style>
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui text loader">Loading</div>
+		</div>
+		<div ng-if="!loading">
 
-<div id="wrapper" ng-init="init()">
-	<div class='ui piled segment section_background_color'>
-		<div dynamic="options.checkout_header_content"></div>
-		<div class="row">
-			<div class="col-md-7 col-md-offset-1 animated-panel main_order_area" style="animation-delay: 0.9s; -webkit-animation-delay: 0.9s;">
-				<div class="hpanel hbgblue">
-					<div class="panel-body" style="min-height:105px;padding-top:10px;padding-bottom:0px;">
-						<div class="text-center"><h3 style="  font-size: 50px;">{{options.order_review_text && options.order_review_text != '' ? options.order_review_text : 'Order Review:'}}</h3>
-							<p class="text-big font-light check_email_area" style="  font-size: 32px;">{{access_level.name}}</p>
-							<small> </small>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 animated-panel price_area" style="animation-delay: 1s; -webkit-animation-delay: 1s;">
-				<div class="hpanel hbgyellow">
-					<div class="panel-body" style="min-height:125px">
-						<div class="text-center"><h3 class="ui header">Amount:</h3>
+			<div class="ui basic segment" dynamic="options.checkout_header_content" ng-if="options.checkout_header_content"></div>
+			<div class="ui basic segment">
+				<h2 class="ui dividing header">
+					{{options.order_review_text && options.order_review_text != '' ? options.order_review_text : 'Order Review'}}
+				</h2>
 
-							<p class="text-big font-light">
-								<span dynamic="_.findWhere( currencies, {id: access_level.currency} ).label" class="fr-view"></span>
+				<div class="ui center aligned grid">
+					<div class="ten wide column">
+						<div class="ui center aligned fluid segment p-xl m-t-sm">
+							<h1 class="ui center aligned header">
+								{{access_level.name}}
+							</h1>
+							<div class="ui large tag label">
+								<span dynamic="_.findWhere( currencies, {id: access_level.currency} ).label"></span>
 								{{access_level.price}} {{access_level.currency}}
-								<small style="" ng-if="access_level.payment_interval=='monthly'">/mo</small>
-								<small style="" ng-if="access_level.payment_interval=='weekly'">/wk</small>
-								<small style="" ng-if="access_level.payment_interval=='bi_weekly'">/bi-wk</small>
-								<small style="" ng-if="access_level.payment_interval=='annual'">/yr</small>
-							</p>
-							<small style="" ng-if="access_level.payment_interval=='monthly'">paid monthly</small>
+								<span style="" ng-if="access_level.payment_interval=='monthly'">/mo</span>
+								<span style="" ng-if="access_level.payment_interval=='weekly'">/wk</span>
+								<span style="" ng-if="access_level.payment_interval=='bi_weekly'">/bi-wk</span>
+								<span style="" ng-if="access_level.payment_interval=='annual'">/yr</span>
+
+							</div>
+							<small ng-if="access_level.payment_interval=='monthly'">paid monthly</small>
 							<small style="" ng-if="access_level.payment_interval=='weekly'">paid weekly</small>
 							<small style="" ng-if="access_level.payment_interval=='bi_weekly'">paid bi-weekly</small>
 							<small style="" ng-if="access_level.payment_interval=='quarterly'">paid quarterly</small>
@@ -50,75 +38,99 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="ui divider"></div>
+
+			<div class="ui basic segment">
+				<div class="ui centered link cards">
+					<div class="card" ng-click="openModal()" ng-if="stripe_checkout">
+						<div class="content">
+							<div class="center aligned header">
+								{{options.stripe_text != '' && options.stripe_text ? options.stripe_text : 'Checkout with Stripe'}}
+							</div>
+						</div>
+						<div class="center aligned image p-m">
+							<img src="{{options.stripe_image}}" ng-if="options.stripe_image != '' && options.stripe_image" alt="">
+							<i class="blue huge stripe icon" ng-if="options.stripe_image == '' || !options.stripe_image"></i>
+						</div>
+						<div class="content">
+
+							<p>{{options.stripe_description_text != '' && options.stripe_description_text ? options.stripe_description_text : 'Send money securely in a few clicks, with no need for bank
+								details. Stripe makes sending money quick and easy. '}}
+							</p>
+							<div ng-if="options.stripe_button_image != '' && options.stripe_button_image">
+								<img src="{{options.stripe_button_image}}" alt="">
+							</div>
+							<div id="customButton" class="ui green fluid large button" ng-if="options.stripe_button_image == '' || !options.stripe_button_image">
+								Purchase
+							</div>
+						</div>
+					</div>
+					<div class="card" ng-click="makePayment()" ng-if="paypal_checkout">
+						<div class="content">
+							<div class="center aligned header">
+								{{options.paypal_text != '' && options.paypal_text ? options.paypal_text : 'Checkout with PayPal'}}
+							</div>
+						</div>
+						<div class="center aligned image p-m">
+							<img src="{{options.paypal_image}}" ng-if="options.paypal_image != '' && options.paypal_image" alt="">
+							<i class="blue huge paypal icon" ng-if="options.paypal_image == '' || !options.paypal_image"></i>
+						</div>
+						<div class="content">
+
+							<p>{{options.paypal_description_text != '' && options.paypal_description_text ? options.paypal_description_text : 'Send money securely in a few clicks, with no need for bank
+								details. PayPal makes sending money quick and easy.'}}
+							</p>
+							<div ng-if="options.paypal_button_image != '' && options.paypal_button_image">
+								<img src="{{options.paypal_button_image}}" alt="">
+							</div>
+							<div class="ui green fluid large button" ng-if="options.paypal_button_image == '' || !options.paypal_button_image">
+								Purchase
+							</div>
+						</div>
+					</div>
+					<div class="card" ng-if="true || jvzoo_checkout">
+						<div class="content" dynamic="access_level.jvzoo_button">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row checkout_area">
+
+				<div class="col-md-8 col-md-offset-2 animated-panel" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;" ng-if="checkout_success">
+					<div class="hpanel">
+						<div class="panel-body">
+							<div class="text-center">
+								<h2 class="m-b-xs">Your payment has been processed, please check your e-mail inbox for instructions on how to access your product!</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-2 animated-panel" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;" ng-if="!paypal_checkout && !stripe_checkout && !checkout_success && !jvzoo_checkout">
+					<div class="hpanel">
+						<div class="panel-body">
+							<div class="text-center">
+								<h2 class="m-b-xs">Either no payment methods have been configured, or none have been selected for this product.</h2>
+
+								<p class="font-bold text-info"></p>
+
+								<p class="small">If you are the site administrator please go to your
+									<a href="/admin/app_configurations/all">site app_configurations</a>
+									and set up at least one method of payment, also go to
+									<a href="/admin/resource/accessLevel/{{access_level.id}}">your product configuration page</a>
+									and choose at least one payment method.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui basic segment" ng-if="options.checkout_footer_content" dynamic="options.checkout_footer_content"></div>
+
 		</div>
 
-		<div class="row checkout_area">
-			<div ng-class="paypal_checkout && jvzoo_checkout ? 'col-md-3 col-md-offset-1': ( paypal_checkout || jvzoo_checkout ? 'col-md-4 col-md-offset-2' : 'col-md-6 col-md-offset-3')" class="animated-panel" style="animation-delay: 0.1s; -webkit-animation-delay: 0.1s;" ng-if="stripe_checkout">
-				<div class="hpanel">
-					<div class="panel-body">
-						<div class="text-center"><h2 class="m-b-xs">{{options.stripe_text != '' && options.stripe_text ? options.stripe_text : 'Checkout with Stripe'}}</h2>
-
-							<div class="m" style="text-align: center;">
-								<img src="{{options.stripe_image}}" ng-if="options.stripe_image != '' && options.stripe_image" alt="">
-								<i class="fa fa-cc-stripe fa-5x" ng-if="options.stripe_image == '' || !options.stripe_image"></i>
-							</div>
-							<p class="small">{{options.stripe_description_text != '' && options.stripe_description_text ? options.stripe_description_text : 'Send money securely in a few clicks, with no need for bank
-								details. Stripe makes sending money quick and easy. '}}</p>
-							<a href="#" ng-click="openModal()" ng-if="options.stripe_button_image != '' && options.stripe_button_image"><img src="{{options.stripe_button_image}}" alt=""></a>
-							<button id="customButton" class="btn btn-success btn-lg" ng-click="openModal()" ng-if="options.stripe_button_image == '' || !options.stripe_button_image">Purchase</button>
-							<a id="customButton" class="btn btn-danger btn-lg" href="{{access_level.information_url}}">Cancel</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div ng-class="stripe_checkout && jvzoo_checkout ? 'col-md-3 col-md-offset-1': ( stripe_checkout || jvzoo_checkout ? 'col-md-4 col-md-offset-2' : 'col-md-6 col-md-offset-3')" class="animated-panel" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;" ng-if="paypal_checkout">
-				<div class="hpanel">
-					<div class="panel-body">
-						<div class="text-center"><h2 class="m-b-xs">{{options.paypal_text != '' && options.paypal_text ? options.paypal_text : 'Checkout with PayPal'}}</h2>
-							<p class="font-bold text-info"></p>
-							<div class="m">
-								<img src="{{options.paypal_image}}" ng-if="options.paypal_image != '' && options.paypal_image" alt="">
-								<i class="fa fa-paypal fa-5x" ng-if="options.paypal_image == '' || !options.paypal_image"></i>
-							</div>
-							<p class="small"> {{options.paypal_description_text != '' && options.paypal_description_text ? options.paypal_description_text : 'Send money securely in a few clicks, with no need for bank
-								details. PayPal makes sending money quick and easy.'}}</p>
-							<a href="#" ng-click="makePayment()" ng-if="options.paypal_button_image != '' && options.paypal_button_image"><img src="{{options.paypal_button_image}}"  alt=""></a>
-							<button ng-click="makePayment()" class="btn btn-success btn-lg btn-block" ng-if="options.paypal_button_image == '' || !options.paypal_button_image">Purchase</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div ng-class="stripe_checkout && paypal_checkout ? 'col-md-3 col-md-offset-1': ( stripe_checkout || paypal_checkout ? 'col-md-4 col-md-offset-2' : 'col-md-6 col-md-offset-3')" class="animated-panel" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;" ng-if="jvzoo_checkout">
-				<div class="hpanel">
-					<div class="panel-body">
-						<div class="text-center"><h2 class="m-b-xs">Checkout with JVzoo</h2>
-							<style>.jvzoo_button_area img { max-width:100% !important;}</style>
-							<div dynamic="access_level.jvzoo_button" class="jvzoo_button_area fr-view"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8 col-md-offset-2 animated-panel" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;" ng-if="checkout_success">
-				<div class="hpanel">
-					<div class="panel-body">
-						<div class="text-center"><h2 class="m-b-xs">Your payment has been processed, please check your e-mail inbox for instructions on how to access your product!</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8 col-md-offset-2 animated-panel" style="animation-delay: 0.2s; -webkit-animation-delay: 0.2s;" ng-if="!paypal_checkout && !stripe_checkout && !checkout_success && !jvzoo_checkout">
-				<div class="hpanel">
-					<div class="panel-body">
-						<div class="text-center"><h2 class="m-b-xs">Either no payment methods have been configured, or none have been selected for this product.</h2>
-
-							<p class="font-bold text-info"></p>
-
-							<p class="small">If you are the site administrator please go to your <a href="/admin/app_configurations/all">site app_configurations</a> and set up at least one method of payment, also go to <a href="/admin/resource/accessLevel/{{access_level.id}}">your product configuration page</a> and choose at least one payment method.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div dynamic="options.checkout_footer_content"></div>
 	</div>
+
 </div>
