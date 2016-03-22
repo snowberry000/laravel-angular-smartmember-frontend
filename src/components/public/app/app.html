@@ -35,7 +35,7 @@
 		<div ng-if="onCustomDomain() || app.subdomain != 'docs'" class="row">
 
 			<div class="middle aligned column m-b-lg mobile hidden tablet hidden" ng-if="meta_data.logo_position == 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/site/common/top-nav.html'"></div>
-			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column'">
+			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column logo_container'">
 
 				<a sm-class="'ui ' + meta_data.logo_size + (meta_data.logo_border == '1' ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="/{{options.logo_url}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''}}">
 					<h1 ng-hide="options.site_logo" class="headline_text_color">{{site.name}}</h1>
