@@ -80,7 +80,10 @@ app.controller( "WwwHomeController", function( $scope, Restangular, $rootScope, 
 	{
 		if( response )
 		{
-			$scope.sites = response.sites;
+			$scope.sites = _.filter(response.sites,function($resSite){
+				return $resSite.site && $resSite.image;
+			});
+			// $scope.sites = response.sites;
 			$scope.stats = response.statistics;
 
 			if( $scope.stats.members_count > 500 )
