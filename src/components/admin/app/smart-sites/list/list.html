@@ -44,6 +44,12 @@
 					<img class="ui centered middle aligned image" src="{{getMetaValue(next_item,'site_logo') || '/images/white-image.png'}}">
 					<div class="ui top right attached label">
 						{{next_item.role}}
+						<label ng-if ="next_item.role!='owner'" ng-click="promptRemoveMe($event,next_item)" title="Remove me from this site">
+							<i class="icon delete m-n"></i>
+						</label>
+						<label ng-if="next_item.role=='owner' && next_item.subdomain != app.subdomain" ng-click="deleteResource($event,next_item)" title="Delete this site">
+							<i class="icon trash m-n"></i>
+						</label>
 					</div>
 				</div>
 				<div class="content">
