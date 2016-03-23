@@ -3,7 +3,7 @@ app.directive( 'suiSearch', [ '$http', '$localStorage', function( $http, $localS
 	return {
 		templateUrl: '/templates/modals/search.html',
 		restrict: 'A',
-		controller: function($scope,Restangular,$rootScope, toastr){
+		controller: function($scope,Restangular,$rootScope, toastr , RestangularV3){
 			
 			// $scope.$watch('query',function(){
 			// 	$scope.search();
@@ -21,7 +21,23 @@ app.directive( 'suiSearch', [ '$http', '$localStorage', function( $http, $localS
 				if($scope.params){
 					route = $scope.route+'?q='+ encodeURIComponent($scope.query) + '&' + $scope.params;
 				}
-				if($scope.query.length > 0)
+
+				if($scope.api=="3")
+				{
+					if($scope.query.length > 0)
+					{
+						$rootScope.searchLoading = true;
+						RestangularV3.all('').customGET(route).then(function(response){
+							$scope.result = response;
+							if(response.items)
+							{
+								$scope.result = response.items;
+							}
+							$rootScope.searchLoading = false;
+						});
+					}
+				} 
+				else if($scope.query.length > 0)
 				{
 					$rootScope.searchLoading = true;
 					Restangular.all('').customGET($scope.route+'?q='+ encodeURIComponent($scope.query)).then(function(response){
