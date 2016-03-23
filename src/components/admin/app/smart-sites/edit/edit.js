@@ -63,11 +63,11 @@ app.controller( 'AdminSmartSiteEditController', function( $scope, toastr, $state
 		}
 	}
 
-	Restangular.all( '' ).customGET( 'site?cloneable=1' ).then( function( response )
-	{
-		$scope.clone_sites = response.sites;
-		$scope.clone_sites_dfy = response.dfy_sites;
-	} );
+	// Restangular.all( '' ).customGET( 'site?cloneable=1' ).then( function( response )
+	// {
+	// 	$scope.clone_sites = response.sites;
+	// 	$scope.clone_sites_dfy = response.dfy_sites;
+	// } );
 	//$scope.site = $rootScope.site;
 	$scope.site = {};
 	$scope.changeSite = function( id )
