@@ -30,14 +30,6 @@ app.controller( "SmartSitesListController", function( $scope, Restangular,Restan
 		total_count: 0
 	};
 
-	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
-	{
-		if( new_value != old_value )
-		{
-			$scope.paginate();
-		}
-	} );
-
 	$scope.getMetaValue = function($site,$key){
 		$meta = _.find($site.meta,function($meta_item){
 			return ($meta_item.key == $key);
@@ -50,8 +42,9 @@ app.controller( "SmartSitesListController", function( $scope, Restangular,Restan
 
 	$scope.paginate = function( search )
 	{
-		$scope.loading = true;
-
+		if(!$scope.data || $scope.data.length==0)
+			$scope.loading = true;
+		$scope.pagination.disable=true;
 		if( search )
 		{
 			$scope.pagination.current_page = 1;
@@ -69,10 +62,15 @@ app.controller( "SmartSitesListController", function( $scope, Restangular,Restan
 			RestangularV3.all( '' ).customGET( '/sites/getAll' + '?p=' + $params.p + ( $scope.query ? '&q=' + encodeURIComponent( $scope.query ) : '' ) ).then( function( data )
 			{
 				$scope.loading = false;
-
+				$scope.pagination.current_page++;
 				$scope.pagination.total_count = data.total_count;
 				$rootScope.all_smartSites_count= $scope.pagination.total_count;
-				$scope.data = data.items;
+
+				if(data && data.items && data.items.length > 0)
+				{
+					$scope.pagination.disable = false;
+				}
+				$scope.data =$scope.data.concat(data.items);
 			});
 		}
 		/*else

@@ -38,8 +38,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="ui five doubling stackable site cards" ng-if="data.length > 0 && !loading" ng-hide="show_tutorial">
-			<div class="card" dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
+		<div class="ui five doubling stackable site cards" ng-if="data.length > 0" ng-hide="show_tutorial" infinite-scroll='paginate()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
+			<div class="card" ng-repeat="next_item in data">
 				<div ui-sref="admin.app.smart-sites.edit({subdomain: next_item.subdomain})" class="image flex_center" style="background: {{(next_item.data.site_logo ? next_item.data.site_top_background_color : '#FFF') || ''}}">
 					<img class="ui centered middle aligned image" src="{{getMetaValue(next_item,'site_logo') || '/images/white-image.png'}}">
 					<div class="ui top right attached label">
@@ -68,9 +68,6 @@
 					</a>
 				</div>
 			</div>
-		</div>
-		<div class="text-right"  ng-if="pagination.total_count > 25">
-			<dir-pagination-controls max-size="5"></dir-pagination-controls>
 		</div>
 		<div ng-if="pagination.total_count == 0" class="ui ignored alert message">
 			<p>You are not a member of any site</p>
