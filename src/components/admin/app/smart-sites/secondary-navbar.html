@@ -6,15 +6,15 @@
 	<i class="globe icon"></i>
 	Overview
 </a>
-<a class="item">
+<a ng-if="0" class="item">
 	<i class="setting icon"></i>
 	Edit Design
 </a>
-<a class="item">
+<a ng-if="0" class="item">
 	<i class="linkify icon"></i>
 	Smart Links
 </a>
-<a class="item">
+<a ng-if="0" class="item">
 	<i class="browser icon"></i>
 	Bridge Pages
 </a>
@@ -22,11 +22,11 @@
 	<i class="checkered flag icon"></i>
 	Speed Blogging
 </a>
-<a class="{{$state.includes('admin.app.smart-sites.settings') ? 'active' : ''}} item" ui-sref="admin.app.smart-sites.settings({subdomain : current_editing_site})">
+<a ng-if="0" class="{{$state.includes('admin.app.smart-sites.settings') ? 'active' : ''}} item" ui-sref="admin.app.smart-sites.settings({subdomain : current_editing_site})">
 	<i class="setting icon"></i>
 	Settings
 </a>
-<div class="item">
+<div ng-if="0" class="item">
 	<div class="ui inverted form" ng-controller="AdminAppSmartSitePageCreationController">
 
 		<div class="field">
@@ -67,7 +67,7 @@
 		<button class="ui inverted button" type="submit" ng-click="add()">Submit</button>
 	</div>
 </div>
-<div class="item" fg-schema="myForm.schema">
+<div ng-if="0" class="item" fg-schema="myForm.schema">
     <div fg-form
          fg-edit-palette
          fg-no-render="true"></div>
