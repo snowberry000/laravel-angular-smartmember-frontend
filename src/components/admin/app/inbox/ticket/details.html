@@ -1,7 +1,7 @@
 
 <h1 class="ui image header">
 	<img src="{{ticket.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm'}}" class="ui tiny rounded image">
-	<div class="content">
+	<div>
 		{{ticket.user.first_name}} {{ticket.user.last_name}}
 		<div class="sub header">
 			{{ticket.user.email}}
@@ -10,7 +10,7 @@
 </h1>
 
 <div class="ui divider"></div>
-<div >
+<!-- <div >
 	<h4>Segments</h4>
 	<div ng-if="!user_segments || !user_segments.length">
 		no segments found!
@@ -21,9 +21,9 @@
 			{{segment.title}}
 		</button>
 	</div>
-</div>
+</div> -->
 
-<div style="margin-top: 20px;">
+<!-- <div style="margin-top: 20px;">
 	<h4>Tags</h4>
 	<div ng-repeat="tag in tags">
 		<button class="circular ui icon button basic"  style="text-transform: capitalize;padding-top: 10px;padding-bottom: 10px;">
@@ -36,8 +36,8 @@
 		 Add tag...
 	</button>
 </div>
-
-<div style="margin-top: 20px;">
+ -->
+<!-- <div style="margin-top: 20px;">
 	<h4>Details</h4>
 	<div class="ui grid two columns">
 		<div class="row">
@@ -107,7 +107,6 @@
 				<div style="text-transform: uppercase;display: inline-block;">browser</div>
 			</div>
 			<div style="margin-left: 20px;">
-				<!-- {{user.browser}} -->
 				<a href="/members/all-members?name=Browser&value={{ticket.user_browser_name ? ticket.user_browser_name : 'unknown'}}" data-content="{{ticket.user_browser_name ? ticket.user_browser_name : 'unknown'}}" data-variation="inverted">
 					{{ticket.user_browser_name ? ticket.user_browser_name : 'unknown'}}
 				</a>
@@ -121,7 +120,6 @@
 				<div style="text-transform: uppercase;display: inline-block;">browser language</div>
 			</div>
 			<div style="margin-left: 20px;">
-				<!-- {{user.browser_language}} -->
 				<a href="#" data-content="{{ticket.user_browser_language ? ticket.user_browser_language : 'unknown'}}" data-variation="inverted">
 					{{ticket.user_browser_language ? ticket.user_browser_language : 'unknown'}}
 				</a>
@@ -135,7 +133,6 @@
 				<div style="text-transform: uppercase;display: inline-block;">browser version</div>
 			</div>
 			<div style="margin-left: 20px;">
-				<!-- {{user.version}} -->
 				<a href="/members/all-members?name=Browser Version&value={{ticket.user_browser_version ? ticket.user_browser_version  : 'unknown'}}" data-content="{{ticket.user_browser_version ? ticket.user_browser_version  : 'unknown'}}" data-variation="inverted">
 					{{ticket.user_browser_version ? ticket.user_browser_version : 'unknown'}}
 				</a>
@@ -149,7 +146,6 @@
 				<div style="text-transform: uppercase;display: inline-block;">os</div>
 			</div>
 			<div style="margin-left: 20px;">
-				<!-- {{user.os}} -->
 				<a href="/members/all-members?name=OS&value={{ticket.user_os ? ticket.user_os : 'unknown'}}" data-content="{{ticket.user_os ? ticket.user_os : 'unknown'}}" data-variation="inverted">
 					{{ticket.user_os ? ticket.user_os : 'unknown'}}
 				</a>
@@ -207,7 +203,7 @@
 				</a>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 <!-- 	<div class="ui grid two columns">
 		<div class="row">
@@ -223,14 +219,14 @@
 		</div>
 	</div> -->
 
-</div>
+<!-- </div> -->
 
 <!-- 
 <h3 class="ui horizontal divider header">
 	Details
 </h3> -->
 
-<h5 ng-if="ticket.sm_tech && !ticket.agent" ng-hide="true" style="color:rgb(181, 82, 82);">*Submitted to SM Tech Team*</h5>
+<!-- <h5 ng-if="ticket.sm_tech && !ticket.agent" ng-hide="true" style="color:rgb(181, 82, 82);">*Submitted to SM Tech Team*</h5>
 
 <div class="ui very relaxed large divided list" ng-hide="true" >
 	<div class="item">
@@ -296,4 +292,4 @@
 
 		</div>
 	</div>
-</div>
+</div> -->
