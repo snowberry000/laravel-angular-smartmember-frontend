@@ -6,7 +6,7 @@ app.config( function( $stateProvider )
 		.state( "public.administrate", {
 			url: "/administrate",
 			templateUrl: "/templates/components/public/administrate/admin.html",
-			controller: "AdminController",
+			controller: "AdministrateController",
 			resolve: {
 				$site: function( Restangular )
 				{
@@ -41,7 +41,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'AdminController', function( $scope, Upload, $window, $sessionStorage, $localStorage, $rootScope, $state, $user, Restangular, notify, $site, $access_levels, $support_tickets, $companies, $location )
+app.controller( 'AdministrateController', function( $scope, Upload, $window, $sessionStorage, $localStorage, $rootScope, $state, $user, Restangular, notify, $site, $access_levels, $support_tickets, $companies, $location )
 {
 	var access = null;
 	var new_company = null;
