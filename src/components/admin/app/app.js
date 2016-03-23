@@ -15,18 +15,15 @@ app.config( function( $stateProvider )
 				}
 			},
 			resolve: {
-				$segments: function(RestangularV3){
-					return RestangularV3.all('segment').getList();
-				}
+
 			}
 		} )
 } );
 
-app.controller( "AppController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular, $segments, $localStorage, smModal )
+app.controller( "AppController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular,  $localStorage, smModal )
 {
 	$rootScope.show_tutorial = false;
 
-	$scope.segments = $segments;
 	// var a = new SM("1");
 	// a.login("/auth/companylogin","cashflowchampion@gmail.com" , "hello123" , function(data){
 	// 	alert(data);
