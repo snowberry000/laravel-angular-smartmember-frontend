@@ -1,0 +1,96 @@
+<h1 class="ui center aligned header m-t-n">Start on the Smart Member platform for free</h1>
+
+<div class="ui center aligned basic segment">
+	<div class="ui red large breadcrumb">
+		<a ui-sref="admin.start.account" class="section">All options</a>
+		<i class="right chevron icon divider"></i>
+		<div class="active section">Account info</div>
+	</div>
+</div>
+
+<h4 class="ui center aligned header">ACCOUNT INFORMATION</h4>
+
+<div class="ui center aligned grid">
+
+	<form ng-submit="register()" class="ten wide column">
+		<div class="ui form">
+			<div class="ui very padded segment">
+
+				<div class="two fields">
+				    <div class="field">
+				        <div class="ui huge input">
+				    		<input type="text" ng-model="new_user.first_name" placeholder="First Name" required>
+				    	</div>
+				    </div>
+				    <div class="field">
+				    	<div class="ui huge input">
+				    		<input type="text" ng-model="new_user.last_name" placeholder="Last Name" required>
+				    	</div>
+				    </div>
+			    </div>
+				<div class="field">
+					<div class="ui huge input">
+						<input type="text" ng-model="new_user_company.name" placeholder="Your app/company name" required>
+					</div>
+				</div>
+				<div class="field">
+					<div class="ui huge input">
+						<input type="email" ng-model="new_user.email" placeholder="Email" disabled>
+					</div>
+				</div>
+				<div class="field">
+					<div class="ui huge input">
+						<input type="password" ng-model="new_user.password" placeholder="Password (at least 6 characters)" pattern=".{6,}" title="Password should be minimum 6 characters" required>
+					</div>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<select class="ui fluid dropdown" ng-model="new_user_company.size" sui-dropdown>
+							<option value="">Your company size...</option>
+							<option value="1-5">1 - 5 employees</option>
+							<option value="6-20">6 - 20 employees</option>
+							<option value="21-50">21 - 50 employees</option>
+							<option value="51-150">51 - 150 employees</option>
+							<option value="151-300">151 - 300 employees</option>
+							<option value="301-1,000">301 - 1,000 employees</option>
+							<option value="1,001-5,000">1,001 - 5,000 employees</option>
+							<option value="5,001+">5,001+ employees</option>
+						</select>
+					</div>
+					<div class="field">
+						<select class="ui fluid dropdown" ng-model="new_user_company.department" sui-dropdown>
+							<option value="">Your department...</option>
+							<option value="Product management">Product management</option>
+							<option value="Engineering">Engineering</option>
+							<option value="Design">Design</option>
+							<option value="Sales">Sales</option>
+							<option value="Marketing">Marketing</option>
+							<option value="Customer support">Customer support</option>
+							<option value="Founder/CEO">Founder/CEO</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="field">
+				<div class="ui checkbox" sui-checkbox>
+					<input type="checkbox" tabindex="0" required class="hidden">
+					<label>I agree to be bound by Smart Member's
+						<a href="#">Terms of Service</a>
+						and
+						<a href="#">Privacy Policy</a>
+					</label>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="ui hidden divider"></div>
+
+		<p class="text-center">
+			<button type="submit" busy class="ui huge red button">Create my account</button>
+		</p>
+	</form>
+</div>

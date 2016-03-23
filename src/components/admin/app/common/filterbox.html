@@ -1,0 +1,231 @@
+<div class="ui clearing segment small form" ng-if="filter.show_filterbox">
+	<i class="close link icon pull-right" ng-click="Hide()"></i>
+	<!-- {{filter|json}} -->
+
+	<div class="grouped fields" ng-if="attribute_type == 'string'">
+		<div class="field" ng-click="toggle('is')" >
+			<div class="ui radio checkbox" ng-model="is_filter" sui-checkbox>
+				<input type="radio" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is</label>
+			</div>
+			<div class="ui small input m-t-xs" ng-if="filter.action == 'is'">
+				<input style="width:86%;" type="text" class="m-l-md" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('is_not')">
+			<div class="ui radio checkbox" ng-model="is_not_filter" sui-checkbox>
+				<input type="radio" name="{{attribute_name}}" ng-checked="filter.action == 'is_not'" tabindex="0" class="hidden">
+				<label>is not</label>
+			</div>
+			<div class="ui small input m-t-xs" ng-if="filter.action == 'is_not'">
+				<input style="width:86%;" type="text" class="m-l-md" ng-change='paginate()' ng-model="filter.value" ng-model-options='{ debounce: 500 }' ng-click="stop($event)">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('starts_with')">
+			<div class="ui radio checkbox" ng-model="starts_with_filter" sui-checkbox>
+				<input type="radio" name="{{attribute_name}}" ng-checked="filter.action == 'starts_with'" tabindex="0" class="hidden">
+				<label>starts with</label>
+			</div>
+			<div class="ui small input m-t-xs" ng-if="filter.action == 'starts_with'">
+				<input style="width:86%;" type="text" class="m-l-md" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('ends_with')">
+			<div class="ui radio checkbox" ng-model="ends_with_filter" sui-checkbox>
+				<input type="radio" name="{{attribute_name}}" ng-checked="filter.action == 'ends_with'" tabindex="0" class="hidden">
+				<label>ends with</label>
+			</div>
+			<div class="ui small input m-t-xs" ng-if="filter.action == 'ends_with'">
+				<input style="width:86%;" type="text" class="m-l-md" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('contains')">
+			<div class="ui radio checkbox" ng-model="contains_filter" sui-checkbox>
+				<input type="radio" name="{{attribute_name}}" ng-checked="filter.action == 'contains'" tabindex="0" class="hidden">
+				<label>contains</label>
+			</div>
+			<div class="ui small input m-t-xs" ng-if="filter.action == 'contains'">
+				<input style="width:86%;" type="text" class="m-l-md" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('does_not_contain')">
+			<div class="ui radio checkbox" ng-model="does_not_contain_filter" sui-checkbox>
+				<input type="radio" name="{{attribute_name}}" tabindex="0" ng-checked="filter.action == 'does_not_contain'" class="hidden">
+				<label>does not contain</label>
+			</div>
+			<div class="ui small input m-t-xs" ng-if="filter.action == 'does_not_contain'">
+				<input style="width:86%;" type="text" class="m-l-md" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('is_unknown')">
+			<div class="ui radio checkbox" ng-model="is_unknown_filter" sui-checkbox>
+				<input type="radio" name="{{attribute_name}}" ng-checked="filter.action == 'is_unknown'" tabindex="0" class="hidden">
+				<label>is unknown</label>
+			</div>
+			<!-- <div class="ui small input m-t-xs" ng-if="filter.action == 'is_unknown'">
+				<input type="text" class="m-l-md" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)">
+			</div> -->
+		</div>
+		<div class="field" ng-click="toggle('has_any_value')">
+			<div class="ui radio checkbox" ng-model="has_any_value_filter" sui-checkbox>
+				<input type="radio" name="{{attribute_name}}" ng-checked="filter.action == 'has_any_value'" tabindex="0" class="hidden">
+				<label>has any value</label>
+			</div>
+			<!-- <div class="ui small input m-t-xs" ng-if="filter.action == 'has_any_value'">
+				<input type="text" class="m-l-md" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)">
+			</div> -->
+		</div>
+	</div>
+	<div class="grouped fields" ng-if="attribute_type == 'number'" ng-init="registerNumberEvent()">
+		<div class="field" ng-click="toggle('greater_than')">
+			<div class="ui radio checkbox" ng-model="greater_than_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'greater_than'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>greater than</label>
+				<input type="number"  min="0"  ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)" ng-if="filter.action == 'greater_than'">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('less_than')">
+			<div class="ui radio checkbox" ng-model="less_than_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'less_than'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>less than</label>
+				<input type="number"  min="0"  ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)" ng-if="filter.action == 'less_than'">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('is')">
+			<div class="ui radio checkbox" ng-model="is_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'is'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is</label>
+				<input type="number" min="0"  ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)" ng-if="filter.action == 'is'">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('is_not')">
+			<div class="ui radio checkbox" ng-model="is_not_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'is_not'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is not</label>
+				<input type="number" min="0"  ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)" ng-if="filter.action == 'is_not'">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('is_unknown')">
+			<div class="ui radio checkbox" ng-model="is_unknown_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'is_unknown'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is unknown</label>
+				<!-- <input type="number"  ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)" ng-if="filter.action == 'is_unknown'"> -->
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('has_any_value')">
+			<div class="ui radio checkbox" ng-model="has_any_value_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'has_any_value'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>has any value</label>
+				<!-- <input type="number"  ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)" ng-if="filter.action == 'has_any_value'"> -->
+			</div>
+		</div>
+	</div>
+	<div class="grouped fields" ng-if="attribute_type == 'date'">
+		<label>RELATIVE</label>
+		<div class="field" ng-click="toggle('more_than')">
+			<div class="ui radio checkbox" ng-model="more_than_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'more_than'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>more than</label>
+				<input type="number" min="0"  ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-model="filter.value" ng-click="stop($event)" ng-if="filter.action == 'more_than'">
+				{{filter.action == 'more_than' ? 'day(s)' : ''}}
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('exactly')">
+			<div class="ui radio checkbox" ng-model="exactly_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'exactly'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>exactly</label>
+				<input type="number" min="0" ng-change='paginate()' ng-model-options='{ debounce: 500 }'  ng-model="filter.value" ng-click="stop($event)" ng-if="filter.action == 'exactly'">
+				{{filter.action == 'exactly' ? 'day(s)' : ''}}
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('less_than')"> 
+			<div class="ui radio checkbox" ng-model="less_than_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'less_than'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>less than</label>
+				<input type="number" min="0" ng-model="filter.value" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-click="stop($event)" ng-if="filter.action == 'less_than'">
+				{{filter.action == 'less_than' ? 'day(s)' : ''}}
+			</div>
+		</div>
+
+		<label class="m-t-sm">ABSOLUTE</label>
+		<div class="field" ng-click="toggle('after')">
+			<div class="ui radio checkbox" ng-model="after_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'after'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>after</label>
+				<input style="width:86%;"type="text" date-input datepicker ng-model="filter.value" ng-click="stop($event)" ng-change='paginateUsingDate()' ng-model-options='{ debounce: 500 }'  ng-if="filter.action == 'after'" value="{{filter.value}}">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('on')">
+			<div class="ui radio checkbox" ng-model="on_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'on'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>on</label>
+				<input style="width:86%;"type="text" date-input datepicker ng-model="filter.value"  ng-change='paginateUsingDate()' ng-model-options='{ debounce: 500 }' ng-click="stop($event)" ng-if="filter.action == 'on'" value="{{filter.value}}">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('before')">
+			<div class="ui radio checkbox" ng-model="before_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'before'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>before</label>
+				<input type="text"  date-input datepicker ng-model="filter.value" ng-change='paginateUsingDate()' ng-model-options='{ debounce: 500 }'  ng-click="stop($event)" ng-if="filter.action == 'before'" value="{{filter.value}}">
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('is_unknown')">
+			<div class="ui radio checkbox" ng-model="is_unknown_filter" sui-checkbox  ng-model-options='{ debounce: 500 }'>
+				<input style="width:86%;"type="radio" ng-checked="filter.action == 'is_unknown'" ng-checked="filter.action == 'is_unknown'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is unknown</label>
+				<!-- <input type="date" ng-model="filter.value" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-click="stop($event)" ng-if="filter.action == 'is_unknown'"> -->
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('has_any_value')" >
+			<div class="ui radio checkbox" ng-model="has_any_value_filter" sui-checkbox  ng-model-options='{ debounce: 500 }' >
+				<input type="radio" ng-checked="filter.action == 'has_any_value'" name="{{attribute_name}}" tabindex="0" class="hidden" >
+				<label>has any value</label>
+				<!-- <input type="date" ng-model="filter.value" ng-change='paginate()' ng-model-options='{ debounce: 500 }' ng-click="stop($event)" ng-if="filter.action == 'has_any_value'"> -->
+			</div>
+		</div>
+	</div>
+	<div class="grouped fields"  ng-if="attribute_type == 'bool'">
+		<div class="field" ng-click="toggle('is_true')">
+			<div class="ui radio checkbox" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'is_true'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is true</label>
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('is_false')">
+			<div class="ui radio checkbox" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'is_false'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is false</label>
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('is_unknown')">
+			<div class="ui radio checkbox" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'is_unknown'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is unknown</label>
+			</div>
+		</div>
+		<div class="field" ng-click="toggle('has_any_value')">
+			<div class="ui radio checkbox" sui-checkbox>
+				<input type="radio"  ng-checked="filter.action == 'has_any_value'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>has any value</label>
+			</div>
+		</div>
+	</div>
+	<div class="grouped fields"  ng-if="attribute_type == 'select'">
+		<div class="field" ng-click="toggleSelect('is')">
+			<div class="ui radio checkbox" ng-model="is_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'is'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is</label>
+				<select ng-model="filter.value" ng-options="option._id as option.name || option.title for option in filter.options"  ng-change='paginate()' ng-click="stop($event)" ng-if="filter.action == 'is'">
+				</select>
+			</div>
+		</div>
+		<div class="field" ng-click="toggleSelect('is_not')">
+			<div class="ui radio checkbox" ng-model="is_not_filter" sui-checkbox>
+				<input type="radio" ng-checked="filter.action == 'is_not'" name="{{attribute_name}}" tabindex="0" class="hidden">
+				<label>is not</label>
+				<select ng-model="filter.value" ng-options="option._id as option.name || option.title for option in filter.options"  ng-change='paginate()' ng-click="stop($event)" ng-if="filter.action == 'is_not'">
+				</select>
+			</div>
+		</div>
+	</div>
+</div>

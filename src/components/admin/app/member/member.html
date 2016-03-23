@@ -1,0 +1,214 @@
+
+<div class="sixteen wide column">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
+
+	<div class="ui grid">
+
+		<div class="sixteen wide column member_header_container">
+
+			
+			<div class="ui fluid container contained_fluid">
+
+				<div class="ui items">
+					<div class="item">
+						<div class="ui rounded small image">
+							<img src="{{next_item.profile_image||'http://www.gravatar.com/avatar/1dee45a5d86b3fff4a258ba4dbfb0d0d?s=300&d=mm&r=g'}}">
+						</div>
+						<div class="bottom aligned content">
+							<div class="description">
+								<div class="ui top right floated icon dropdown button pointing"  sui-dropdown>
+									<i class="dropdown icon"></i>
+									<div class="menu">
+										<div class="item" ng-click="deleteMember()">
+											Delete person
+										</div>
+										<!-- <div class="item">
+											Block person
+										</div> -->
+										<div class="item" ng-click="unsubMember()" ng-if="!next_item.unsubscribe">
+											Unsubscribe from email
+										</div>
+										<div class="item" ng-click="subMember()" ng-if="next_item.unsubscribe">
+											Subscribe
+										</div>
+									</div>
+								</div>
+								<div class="ui right floated button">
+									<i class="comment icon"></i>
+									
+									<a ng-href="/messages/edit/?member_id={{member_id}}" >Message  </a>
+									
+								</div>
+							</div>
+							<div class="ui large header">{{next_item.first_name+next_item.last_name? next_item.first_name+' '+next_item.last_name : next_item.email}}</div>
+							<!-- <div class="meta">
+								<span class="price">$1200</span>
+								<span class="stay">1 Month</span>
+							</div> -->
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<div class="sixteen wide column">
+
+			<div class="ui hidden divider"></div>
+
+			<div class="ui fluid container contained_fluid">
+				<div class="ui grid">
+					<div class="four wide column">
+
+						<h3 class="ui header">
+							About
+						</h3>
+
+						<div class="ui segment" style="max-height: 500px;overflow-y: auto;overflow-x: hidden;">
+							<h4 class="ui dividing header">
+								Notes (0)
+							</h4>
+
+							<h4 class="ui dividing header">
+								Segments
+							</h4>
+
+							
+
+							<h4 class="ui dividing header">
+								Details (Roles)
+							</h4>
+
+							<div>
+								<!-- <div class="item">
+									<div class="header">User Data</div>
+									<div class="menu list">
+
+										<div class="item">
+											<div class="ui checkbox" sui-checkbox>
+												<input type="checkbox">
+												<label>Name</label>
+											</div>
+										</div>
+										<div class="item">
+											<div class="ui checkbox" sui-checkbox>
+												<input type="checkbox">
+												<label>Email</label>
+											</div>
+										</div>
+									</div>
+								</div> -->
+								<div class="ui styled accordion" ng-init="selectedSite=0">
+									<div ng-repeat="site_role in site_roles" ng-click="$parent.selectedSite=site_role.site._id">
+									  <div class="title {{$parent.selectedSite==site_role.site._id ? 'active':''}}">
+									    <i class="dropdown icon"></i>
+									    {{site_role.site.name}}
+									  </div>
+									  <div class="content {{$parent.selectedSite==site_role.site._id ? 'active':''}}" style="padding-top: 0px;">
+									    <ul class="ui " style="margin: auto;">
+									    	<li class="row" ng-repeat="role in site_role.roles | unique:'role'">
+									    		{{role}}
+									    	</li>
+									  	</ul>
+									  </div>
+								    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="eight wide column">
+
+						<h3 class="ui header">
+							Messages & Conversations
+						</h3>
+
+						<div class="ui very padded segment" style="max-height: 500px;overflow-y: auto;overflow-x: hidden;">
+							<h2 class="ui center aligned icon header"  ng-if="tickets[ pagination.current_page ].length == 0">
+								<i class="comments outline icon"></i>
+
+								<div class="content">
+									No communication with this person
+									<div class="sub header">Click the message button to start a new conversation</div>
+								</div>
+							</h2>
+							<div class="content" ng-if="tickets[ pagination.current_page ].length > 0">
+								<div class="ui {{current_conversation == ticket_item.id ? 'active' : ''}} attached clearing segment conversation_container" ui-sref="admin.app.inbox.ticket({id: ticket_item.id})" dir-paginate="ticket_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page" >
+									<div class="pull-right meta" ng-show="ticket_item.last_replied_at==null">
+										{{moment.utc(ticket_item.created_at).fromNow(true)}}
+									</div>
+									<div class="pull-right meta" ng-hide="ticket_item.last_replied_at==null">
+										{{moment.utc(ticket_item.last_replied_at).fromNow(true)}}
+									</div>
+									<h4 class="ui header pull-left m-n">
+										<img class="ui rounded image" src="{{ticket_item.profile_image || 'http://www.gravatar.com/avatar/1dee45a5d86b3fff4a258ba4dbfb0d0d?s=300&d=mm&r=g'}}">
+										{{ticket_item.user_name || ticket_item.user_email}}
+									</h4>
+									<div class="ui clearing hidden divider"></div>
+									<p>{{ticket_item.subject}}</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="four wide column">
+
+						<h3 class="ui header">
+							Activity Emails
+						</h3>
+						<div ng-if="emailActivities.length==0" class="ui segment" style="max-height: 500px;overflow-y: auto;overflow-x: hidden;">
+							No messages found!
+						</div>
+						<div ng-if="emailActivities.length>0" class="ui segment" style="max-height: 500px;overflow-y: auto;overflow-x: hidden;">
+							<!-- <div ng-repeat="emailActivity in emailActivities" class="ui dividing header">
+								<h3>{{emailActivity.message.name}}</h3>
+								<h5 class="ui horizontal divider header ng-scope">
+									Details
+								</h5>
+
+							</div> -->
+							<div class="ui styled accordion" ng-init="selectedAccordian=0">
+								<div ng-repeat="emailActivity in emailActivities" ng-click="$parent.selectedAccordian=emailActivity._id" >
+								  <div class="title {{$parent.selectedAccordian==emailActivity._id ? 'active':''}}">
+								    <i class="dropdown icon"></i>
+								    {{emailActivity.message.name}}
+								  </div>
+								  <div  class="content {{$parent.selectedAccordian==emailActivity._id ? 'active':''}}">
+								    <div class="ui 2 column grid" style="margin-left: 5%">
+								    	<div class="two column row">
+								    		
+								    		<div class="column">Clicked</div>
+								    		<div class="column">
+								    			<i ng-if="emailActivity.click" class="checkmark icon"></i>
+								    			<i ng-if="!emailActivity.click" class="remove icon"></i>
+								    		</div>
+								    		<div class="column">Opened</div>
+								    		<div class="column">
+								    			<i ng-if="emailActivity.open" class="checkmark icon"></i>
+								    			<i ng-if="!emailActivity.open" class="remove icon"></i>
+								    		</div>
+								    		<div class="column">Spammed</div>
+								    		<div class="column">
+								    			<i ng-if="emailActivity.spamreport" class="checkmark icon"></i>
+								    			<i ng-if="!emailActivity.spamreport" class="remove icon"></i>
+								    		</div>
+								    		<div class="column">Unsubscribe</div>
+								    		<div class="column">
+								    			<i ng-if="emailActivity.unsubscribe" class="checkmark icon"></i>
+								    			<i ng-if="!emailActivity.unsubscribe" class="remove icon"></i>
+								    		</div>
+								    	</div>
+								  	</div>
+								  </div>
+							    </div>
+							</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

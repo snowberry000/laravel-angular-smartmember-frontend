@@ -1,0 +1,50 @@
+<div class="ui modal"><i class="close icon"></i>
+	<div class="header">
+		<i class="envelope icon"></i>
+		Send Message
+	</div>
+	<div class="content">
+		<div class="description">
+
+			<div class="ui active inverted dimmer" ng-if="loading">
+				<div class="ui loader"></div>
+			</div>
+			<div class="ui message error" ng-if="error">
+				<p>{{error}}</p>
+			</div>
+			<div class="ui secondary segment">
+				<div class="ui grid centered">
+					<div class="ui fluid dropdown ng-pristine ng-untouched ng-valid ng-isolate-scope selection multiple" tabindex="0">
+						<a ng-repeat="selected_email in email.recipients" class="ui label transition visible" data-value="{{selected_email}}" style="display: inline-block !important;">{{selected_email}}
+							<i class="delete icon" ng-click="remove(selected_email)"></i>
+						</a>
+						<div class="text"></div>
+						<div ng-repeat="selected_email in email.recipients" class="menu transition hidden" tabindex="-1">
+							<div class="item active filtered" data-value="{{selected_email}}">{{selected_email}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui form">
+				<div class="ui field">
+					<label>Subject</label>
+					<input class="ui textarea" ng-model="email.subject">
+				</div>
+				<div class="ui segment field">
+					<label>Message</label>
+					<textarea class="ui textarea" ng-model="email.message"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="actions">
+        <div class="ui deny button">
+            Back
+        </div>
+		<a busy ng-click="send()" class="ui right labeled icon green button">
+			Send
+			<i class="check icon"></i>
+		</a>
+	</div>
+</div>

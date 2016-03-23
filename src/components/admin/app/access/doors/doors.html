@@ -1,0 +1,153 @@
+
+<div class="three wide column the_left_sidebar">
+
+	<div class="header">
+		DOORS
+		<i class="help circle grey icon" title="Doors are what 'block' your members. Subscription levels, content access, memberships, etc. can restrict access to things and require Keys to open." sui-popup></i>
+	</div>
+	<div class="ui selection relaxed large list">
+		<a ui-sref="admin.app.access.doors({segment: 'all'})" class="link {{$stateParams.segment == 'all' ? 'active' : ''}} item">
+			<i class="protect icon"></i>
+			<div class="content">
+				<div class="header">
+					All 
+					<!-- ({{counts.open + counts.closed + counts.locked}}) -->
+				</div>
+			</div>
+		</a>
+		<a ui-sref="admin.app.access.doors({segment: 'open'})" class="link {{$stateParams.segment == 'open' ? 'active' : ''}} item">
+			<i class="protect icon"></i>
+			<div class="content">
+				<div class="header">
+					All open 
+					<!-- ({{counts.open}}) -->
+				</div>
+			</div>
+		</a>
+		<a ui-sref="admin.app.access.doors({segment: 'closed'})" class="link {{$stateParams.segment == 'closed' ? 'active' : ''}} item">
+			<i class="protect icon"></i>
+			<div class="content">
+				<div class="header">
+					All closed 
+					<!-- ({{counts.closed}}) -->
+				</div>
+			</div>
+		</a>
+		<a ui-sref="admin.app.access.doors({segment: 'locked'})" class="link {{$stateParams.segment == 'locked' ? 'active' : ''}} item">
+			<i class="protect icon"></i>
+			<div class="content">
+				<div class="header">
+					All locked 
+					<!-- ({{counts.locked}}) -->
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+<div class="thirteen wide column">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
+
+	<div class="ui basic segment">
+		<div class="ui equal width middle aligned grid">
+			<div class="column">
+				<h2 class="ui inline header">
+					<i class="protect icon"></i>
+					<div class="content">
+						{{page_title}}
+						<div class="sub header">({{pagination.total_count}})</div>
+					</div>
+				</h2>
+			</div>
+			<div class="right aligned column">
+				<button ng-click="CreateNewDoor()" class="ui red large right labeled icon button">
+					Add New Door
+					<i class="plus icon"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="ui basic segment">
+		<div class="ui fluid container">
+
+			<table class="ui celled padded large table">
+				<thead>
+					<tr>
+						<th>
+							Name
+						</th>
+						<th>
+							Type <i class="help circle grey icon" title="Doors can be 'open' (anybody can enter), 'closed' (members can enter), or 'locked' (keyholders can enter)." sui-popup></i>
+						</th>
+						<th>
+							Keys
+						</th>
+						<th>
+							Keyholders
+						</th>
+						<th >
+							Last Given
+						</th>
+						<th>
+							Created
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate="door in doors | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page" >
+						<td>
+							<h4 class="ui header single line">
+								<a ui-sref="admin.app.access.edit-door({id:door._id})">
+									{{door.name}}
+								</a>
+							</h4>
+						</td>
+						<td>
+							{{door.type}}
+						</td>
+						<td>
+							<a ng-repeat='key in door.key_details' ui-sref="admin.app.access.edit-key({id:key._id})">
+								{{key.name}},
+							</a>
+						</td>
+						<td class="single line">
+							<div class="ui large basic blue borderless label">
+								<i class="user icon m-r-xs"></i> 
+								<span ng-repeat='key in door.key_details'>
+									<span ng-if="key.total_keyholders">
+										{{key.total_keyholders}},
+									</span>
+									<span ng-if="!key.total_keyholders">
+										0,
+									</span>
+								</span>
+							</div>
+						</td>
+						
+						<td class="single line">
+							<div ng-if="door.last_given_at">
+								<i class="calendar icon"></i> {{moment.unix(door.last_given_at).fromNow()}}
+							</div>
+						</td>
+						<td class="single line">
+							<div ng-if="door.created_at">
+								<i class="calendar icon"></i> {{moment.utc(door.created_at).fromNow()}}
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<span ng-if="pagination.total_count > 0" class="ui pointing label">{{pagination.total_count}} doors found</span>
+			<span ng-if="pagination.total_count == 0">No doors found</span>
+			<div class="text-right"  ng-if="!loading && pagination.total_count > 0">
+				<dir-pagination-controls max-size="5"></dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+

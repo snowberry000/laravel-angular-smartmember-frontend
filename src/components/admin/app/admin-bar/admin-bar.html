@@ -1,0 +1,9 @@
+
+<div class="ui attached inverted pointing stackable small menu admin_bar sub_nav" ng-if="$state.includes('admin.app.members') || $state.includes('admin.app.member')" ng-include="'templates/components/admin/app/members/navbar.html'"></div>
+<div class="ui attached inverted pointing stackable small menu admin_bar sub_nav" ng-if="$state.includes('admin.app.inbox')" ng-include="'templates/components/admin/app/inbox/navbar.html'"></div>
+<div class="ui attached inverted pointing stackable small menu admin_bar sub_nav" ng-if="$state.includes('admin.app.smart-sites.list')" ng-include="'templates/components/admin/app/smart-sites/navbar.html'"></div>
+<div class="ui attached inverted pointing stackable small menu admin_bar sub_nav" ng-if="$state.includes('admin.app.smart-sites.edit') || $state.includes('admin.app.smart-sites.page')" ng-include="'templates/components/admin/app/smart-sites/edit/navbar.html'"></div>
+<div class="ui attached inverted pointing stackable small menu admin_bar sub_nav" ng-if="$state.includes('admin.app.messages.auto') || $state.includes('admin.app.messages.manual')" ng-include="'templates/components/admin/app/messages/navbar.html'"></div>
+<div class="ui attached inverted pointing stackable small menu admin_bar sub_nav" ng-if="$state.includes('admin.app.access')" ng-include="'templates/components/admin/app/access/navbar.html'"></div>
+<div class="ui attached inverted pointing stackable small menu admin_bar sub_nav" ng-if="$state.includes('admin.app.guide')" ng-include="'templates/components/admin/app/guide/navbar.html'"></div>
+

@@ -1,0 +1,235 @@
+<div class="three wide column the_left_sidebar p-none">
+	<div class="ui attached segment tight">
+		<div class="ui compact fluid secondary menu">
+			<div class="item ui basic dropdown button" sui-dropdown>
+				{{type == 'lead' ? 'Leads' : 'Members'}}
+				<i class="dropdown icon"></i>
+
+				<div class="menu">
+					<a ng-click="toggleMembers()" class="item {{type == 'member' ? 'active selected' : ''}}">Members</a>
+					<a ng-click="toggleLeads()" class="item {{type == 'lead' ? 'active selected' : ''}}">Leads</a>
+				</div>
+			</div>
+			<div class="right item ui basic dropdown button" sui-dropdown>
+				{{operation == '$or' ? 'Match any filter' : 'Match all filters'}}
+				<i class="dropdown icon"></i>
+
+				<div class="menu">
+					<div class="item {{operation == '$or' ? 'active selected' : ''}}" ng-click="operation = '$or';hasAnyFilter()? paginate(): '' ">Match any filters</div>
+					<div class="item {{operation == '$and' ? 'active selected' : ''}}" ng-click="operation = '$and';hasAnyFilter()? paginate(): ''">Match all filters</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ui attached segment tight b-n">
+		<div class="ui vertical sticky secondary menu">
+
+			<div class="item">
+				<div class="header">{{type == 'lead' ? 'Lead' : 'Member'}} Data</div>
+				<div class="menu list">
+					<div class="item filter_item" ng-repeat="next_item in attributes">
+						<div class="ui small toggle checkbox" ng-click="toggleFilter(next_item)" ng-model="filters[next_item.name].show_filterbox" sui-checkbox>
+							<input type="checkbox" tabindex="0" class="hidden">
+							<label class="">
+								<i class="user icon"></i>
+								{{next_item.name}}
+							</label>
+						</div>
+						<sm-filterbox class="filterbox" ng-model="filters[next_item.name]" data-name='{{next_item.name}}' data-type="{{next_item.type}}"></sm-filterbox>
+					</div>
+					<div class="item filter_item" ng-repeat="next_item in member_custom_attributes">
+						<div class="ui small toggle checkbox" ng-click="toggleFilter(next_item)" ng-model="filters[next_item.name].show_filterbox" sui-checkbox>
+							<input type="checkbox" tabindex="0" class="hidden">
+							<label class="uppercase">
+								<i class="user icon"></i> {{next_item.name}}
+							</label>
+						</div>
+						<sm-filterbox class="filterbox" ng-model="filters[next_item.name]" data-name='{{next_item.name}}' data-type="{{next_item.type}}"></sm-filterbox>
+					</div>
+				</div>
+			</div>
+			<div class="item" ng-if="events.length">
+				<div class="header">Events</div>
+				<div class="menu list">
+					<div class="item" ng-repeat="next_item in events">
+						<div class="ui checkbox" ng-click="toggleFilter(next_item)" ng-model="filters[next_item.name].show_filterbox">
+							<input type="checkbox" ng-model="filters[next_item.name].show_filterbox">
+							<label>{{next_item.name}}</label>
+						</div>
+						<sm-filterbox class="filterbox" ng-model="filters[next_item.name]" data-name='{{next_item.name}}' data-type="{{next_item.type}}"></sm-filterbox>
+					</div>
+				</div>
+			</div>
+			<button ng-if='show_segement_button && hasAnyFilter()' ng-click='createSegment()'>Create New Segment</button>
+			<button ng-if='show_update_button && checkFilter()' ng-click='updateSegment()'>Update Segment</button>
+
+		</div>
+	</div>
+</div>
+
+<div class="thirteen wide column p-none">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
+
+	<div class="ui attached segment">
+		<div class="ui compact fluid secondary menu">
+			<div class="item people_count_container">
+
+				<h3 class="ui header" ng-if="!checkSelection()">
+					{{pagination.total_count | number}} {{type == 'lead' ? 'lead' : 'member'}}{{pagination.total_count > 1 ? 's' : ''}}
+				</h3>
+				<h3 class="ui header" ng-if="checkSelection()">
+					{{countSelection()}} {{type == 'lead' ? 'lead' : 'member'}}{{countSelection() > 1 ? 's' : ''}} selected
+					<div class="sub header">of {{pagination.total_count | number}}</div>
+				</h3>
+
+			</div>
+			<div class="item">
+				<div class="ui basic dropdown left labeled icon button" sui-dropdown>
+					<i class="edit icon"></i>
+					Message
+					<div class="menu">
+						<a class="item" ng-click="createMessage(false)">Manual Message</a>
+						<a class="item" ng-click="createMessage(true)" ng-if="!checkSelection()">Auto Message</a>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="ui basic left labeled icon button" ng-click="addTag()">
+					<i class="tag icon"></i>
+					Tag
+				</div>
+			</div>
+			<div class="item">
+				<div class="ui basic dropdown right labeled icon button" sui-dropdown>
+					More
+					<i class="dropdown icon"></i>
+
+					<div class="menu">
+						<a class="item" ng-click="export()" target="_blank">Export</a>
+						<a class="item" ng-click="importDialog()">Import</a>
+						<a class="item" ng-click="bulkDelete()">Delete</a>
+					</div>
+				</div>
+			</div>
+			<div class="item" ng-if="checkSelection()">
+				<div class="ui basic button" ng-click="clearSelection()">
+					Clear selection
+				</div>
+			</div>
+			<div class="item" ng-if="$stateParams.segment != 'all-members' && $stateParams.segment != 'all-leads'">
+				<div class="ui basic left labeled icon button" ng-click="deleteSegment()">
+					<i class="trash icon"></i>
+					Remove Segment
+				</div>
+			</div>
+			<div class="right menu">
+
+				<div class="item p-none">
+					<div class="ui basic icon buttons">
+						<button class="ui active button">
+							<i class="list layout icon"></i>
+						</button>
+						<button class="ui button">
+							<i class="globe icon"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ui attached basic segment">
+		<div class="ui fluid container">
+			<table class="ui celled selectable compact table" ng-if="data.length > 0 && !loading">
+
+				<thead>
+					<tr>
+						<th colspan="2">
+							Name
+						</th>
+						<th>
+							Email
+						</th>
+						<th ng-hide="type == 'lead'">
+							Last seen
+						</th>
+						<th>
+							Type
+						</th>
+						<th>
+							First Seen
+						</th>
+						<th>
+							Signed up
+						</th>
+						<!-- <th>
+							Last contacted
+						</th> -->
+						<!-- <th>
+							Web sessions
+						</th>
+						<th>
+							City
+						</th>
+						<th>
+							Browser
+						</th> -->
+					</tr>
+				</thead>
+
+				<tbody infinite-scroll='loadMore()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
+					<!-- <tr dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page"> -->
+					<tr ng-repeat="next_item in data" class="{{next_item.is_checked ? 'selected warning' : ''}}">
+						<td>
+							<div class="ui checkbox select_checkbox" ng-model="next_item.is_checked" sui-checkbox>
+								<input type="checkbox" tabindex="0" class="hidden">
+							</div>
+							<a ui-sref="admin.app.member({id:next_item._id.$id})" class="ui tiny header">
+								<img ng-src="{{next_item.profile_image || 'https://secure.gravatar.com/avatar/' + next_item.user.email_hash + '?d=mm&s=35'}}" class="ui rounded tini image">
+								<div class="content">
+									{{next_item.first_name + ' ' + next_item.last_name || 'Unknown'}}
+								</div>
+							</a>
+						</td>
+						<td class="collapsing center-aligned">
+
+							<!--<i class="chat fitted icon"></i> -->
+							<a class="chat fitted icon" ng-href="/messages/edit/?member_id={{next_item._id.$id}}&type=member" ng-hide="type == 'lead'"><i class="chat fitted icon"></i></a>
+							<a class="chat fitted icon" ng-href="/messages/edit/?member_id={{next_item._id.$id}}&type=lead" ng-hide="type != 'lead'"><i class="chat fitted icon"></i></a>
+						</td>
+						<td>
+							{{next_item.email || 'Unknown'}}
+						</td>
+						<td ng-hide="type == 'lead'">
+							{{moment.unix(next_item.last_logged_in.sec).format('DD MMM YYYY')}}
+						</td>
+						<td>
+							{{type == 'lead' ? 'Lead' : 'User'}}
+						</td>
+						<td>
+							{{moment.unix(next_item.created_at.sec).format('DD MMM YYYY')}}
+						</td>
+						<td>
+							{{moment.unix(next_item.created_at.sec).format('DD MMM YYYY')}}
+						</td>
+						<!-- <td>
+							an hour ago
+						</td> -->
+						<!-- <td>
+							4
+						</td>
+						<td>
+							Round Rock
+						</td>
+						<td>
+							chrome
+						</td> -->
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+
+</div>

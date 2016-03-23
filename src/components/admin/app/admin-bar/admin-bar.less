@@ -1,0 +1,74 @@
+.admin {
+  .admin_bar.main_nav {
+    background-color: #b00000;
+  }
+  .admin_bar.sub_nav {
+    background-color: #610000;
+  }
+  .admin_bar.main_nav .menu,
+  .admin_bar.sub_nav .menu {
+    background: inherit;
+  }
+  .admin_bar {
+    z-index: 9700 !important;
+  }
+  .sidebar.top {
+    z-index: 9900 !important;
+  }
+  .left_sidebar_contents {
+    z-index: 9800 !important;
+    background: #ffffff;
+  }
+  .sidebar.left .fluid.accordion .ui.attached.segment {
+    border-right: none;
+    border-left: none;
+    width: 100%;
+  }
+  .sidebar.left .fluid.accordion .ui.attached.header {
+    border-right: none;
+    border-left: none;
+  }
+
+  .admin_bar,
+  .sidebar.top .ui.menu:first-child {
+    min-height: 62px !important;
+  }
+  .sidebar.left .ui.form:first-child {
+    margin-top: 72px !important;
+  }
+
+  .admin_bar .ui.labeled.icon.button {
+    padding-left: 2.77142857em !important;
+  }
+  .ui.menu .thin.item {
+    padding-left: 0.54285714em;
+    padding-right: 0.54285714em;
+  }
+  .ui.menu.admin_bar {
+    .build_menu {
+      top: 48px !important;
+    }
+    .build_menu_trigger_container .buttons {
+      margin: 0px auto !important;
+    }
+
+    .app_shortcuts_container .item {
+      width: auto !important;
+    }
+    .profile_image_container {
+      width: auto !important;
+    }
+    .item.wizard_container {
+      width: 150px !important;
+      margin: 0px auto !important;
+    }
+    .link.item {
+      font-weight: bold;
+    }
+    .link.item .sub_number{
+      color:#b6c5ce;
+      font-size:0.80rem;
+      margin-left:5px;
+    }
+  }
+}

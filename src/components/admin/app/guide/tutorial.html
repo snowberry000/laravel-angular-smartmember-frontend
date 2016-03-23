@@ -1,0 +1,32 @@
+<div class="the_message" style="top: {{active_tutorial_step_data.message_top_position}}px; left: {{active_tutorial_step_data.message_left_position}}px;">
+
+	<div class="ui fluid container">
+
+		<div class="ui padded segment">
+			<h2 class="ui dividing red header">
+				<div class="ui label pull-right m-t-sm">
+					{{current_tutorial_step + 1}} of {{tutorial_data.children.length}}
+				</div>
+				<i class="cubes icon"></i>
+				<div class="content">
+					{{tutorial_data.subtitle}}
+				</div>
+			</h2>
+
+			<h3 class="ui header">{{active_tutorial_step_data.title}}</h3>
+			<p>{{active_tutorial_step_data.subtitle}}</p>
+
+			<button class="ui red button" ng-click="smTutorial.Next()">
+				Continue
+			</button>
+		</div>
+	</div>
+
+	<a class="ui segment light_grey m-n exit" ng-click="smTutorial.End()">
+		<i class="close icon"></i>
+		Exit the tutorial
+	</a>
+
+</div>
+
+<div class="tutorial_shape" style="-webkit-transform: translateX({{active_tutorial_step_data.x}}px) translateY({{active_tutorial_step_data.y}}px) scale({{active_tutorial_step_data.scale}}); transform: translateX({{active_tutorial_step_data.x}}px) translateY({{active_tutorial_step_data.y}}px) scale({{active_tutorial_step_data.scale}}); box-shadow: inset 0 0 0 8px #cf0303, inset 0 0 40px rgba(0,0,0,0.4); border-radius:{{active_tutorial_step_data.radius ? active_tutorial_step_data.radius + 'px' : ''}}; height:{{active_tutorial_step_data.height ? active_tutorial_step_data.height + 'px' : ''}};"></div>

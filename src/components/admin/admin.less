@@ -1,0 +1,71 @@
+
+.admin body {
+  background-color: #f0f4f7;
+}
+
+.admin .white_background {
+  background-color: #ffffff;
+}
+
+.videoWrapper, .video_container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+
+.videoWrapper object,
+.videoWrapper embed,
+.videoWrapper iframe,
+.video_container object,
+.video_container embed,
+.video_container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ui.site.cards {
+  div.image {
+    height: 150px;
+  }
+  div.image img {
+    max-height: 100%;
+    width: auto !important;
+    max-width: 100%;
+  }
+}
+
+.fr-just {
+  display: block;
+}
+
+.extra_ui_view .ui.modal {
+  position: relative !important;
+  display: block;
+  margin-top: 7em;
+}
+
+.extra_ui_view .ui.modal > .close.icon {
+  display: none;
+}
+
+.extra_ui_view > .ui.dimmer {
+  background-color: rgba(0, 0, 0, .30);
+}
+
+.admin .cube.icon {
+  width: 1.18em;
+  height: 1em;
+  animation:disabled;
+  -webkit-animation: disabled;
+  background: none;
+}
+
+.admin {
+  .contained_fluid {
+    max-width: 1500px !important;
+  }
+}

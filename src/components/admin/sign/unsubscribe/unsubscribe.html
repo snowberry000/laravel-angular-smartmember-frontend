@@ -1,0 +1,69 @@
+<div class="ui modal unsubscribe" ng-init="PopModal('unsubscribe');">
+    <div class="header">
+        Unsubscribe
+    </div>
+    <div class="image content">
+        <div class="ui medium image">
+            <img ng-show="options.site_logo" ng-src="{{options.site_logo}}">
+        </div>
+        <div class="description">
+
+            <h2 class="ui header"> Unsubscribe</h2>
+
+            <div class="col span_4_of_6 float_none margin_auto large_bottom_margin">
+
+                <p ng-if="subscriber && subscriber.email && !edit_email">Unsubscribing {{email_address}} <a href="#" ng-click="$parent.edit_email=true">(change)</a></p>
+                <p ng-if="!subscriber || !subscriber.email || edit_email">Enter e-mail address to unsubscribe: <input ng-model="$parent.email_address" ng-change="hash=false" type="text" /> <a href="#" ng-click="$parent.edit_email=false">(save)</a></p>
+
+                <p ng-hide="emailLists.length == 0">Select the lists to unsubscribe</p>
+
+                <form class="save_form">
+                    <p class=" small_bottom_margin">
+                        <label ng-repeat="emailList in emailLists">
+                            <input type="checkbox" name="emailsList"
+                                   ng-model="emailList.checked">
+                            {{emailList.name}}
+                        </label>
+                    </p>
+
+                    <p class=" small_bottom_margin" style="padding-top:15px;">
+                        Reason (optional)
+                        <br/>
+            <textarea style="padding-top:10px;" ng-model="reason" cols="50" rows="5">
+
+            </textarea>
+                    </p>
+
+                    <p>
+
+                    </p>
+
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui positive right labeled icon button" ng-click="unsubscribe()">
+            Unsubscribe
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

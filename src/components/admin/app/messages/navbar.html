@@ -1,0 +1,29 @@
+<a ui-sref="admin.app.messages.auto" class="link {{$state.includes('admin.app.messages.auto') ? 'active' : ''}} item">
+	<i class="wizard icon"></i>
+	Auto messages
+</a>
+<a ui-sref="admin.app.messages.manual" class="link {{$state.includes('admin.app.messages.manual') ? 'active' : ''}} item">
+	<i class="send icon"></i>
+	Manual messages
+</a>
+
+<div class="right ui inverted app_shortcuts_container menu {{show_admin_mobile_top_nav || 'mobile hidden'}}">
+
+	<div class="ui search item {{searchLoading? 'loading': ''}}" sui-search url="http://api-3.{{app.domain}}/message" name="Message" route="message" redirect="messages/show/" api="3" params = "auto={{$state.includes('admin.app.messages.auto') ? 'true':'false'}}">
+		<!-- <div class="ui icon input">
+			<input class="prompt" ng-model='query' ng-change='search()' ng-model-options='{debounce: 500}' type="text" placeholder="Search name or subject ">
+			<i class="search icon"></i>
+		</div>
+		<div class="results set-margin" ng-show="result.length > 0 && query" style="display: block;">
+			<div ng-repeat="next_item in result">
+				<div class="item">
+					<a  class="content" style="color: black;" ng-href="{{redirect}}{{next_item._id}}">{{next_item.name}}</a>
+				</div>
+			</div>
+		</div>
+		<div class="results set-margin" ng-show="result.length == 0 && query" style="display: block;">
+			<div class="item" style="color: black;">No results found</div>
+		</div> -->
+	</div>
+
+</div>

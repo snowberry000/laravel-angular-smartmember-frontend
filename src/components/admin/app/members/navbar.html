@@ -1,0 +1,29 @@
+<a ui-sref="admin.app.members({segment: 'all-members'})" class="link {{$stateParams.segment == 'all-members' ? 'active' : ''}} item">
+	<i class="users icon"></i>
+	All Members {{ $stateParams.segment == 'all-members'  ? '(' + segment_member_count + ')' : ''}}
+</a>
+<a ui-sref="admin.app.members({segment: 'all-leads'})" class="link {{$stateParams.segment == 'all-leads' ? 'active' : ''}} item">
+	<i class="users icon"></i>
+	All Leads {{ $stateParams.segment == 'all-leads'  ? '(' + segment_member_count + ')' : ''}}
+</a>
+<a ui-sref="admin.app.members({segment: segment.permalink})" class="link item {{$stateParams.segment == segment.permalink ? 'active' : ''}}" ng-repeat="segment in segments | limitTo:3">
+	<i class="pie chart icon"></i>
+	{{segment.title}} {{'(' + segment.member_count + ')'}}
+</a>
+
+
+<div class="right ui inverted app_shortcuts_container menu {{show_admin_mobile_top_nav || 'mobile hidden'}}" >
+
+	<div class="item thin ui item dropdown right labeled icon button" title="{{segments.length - 3}} segments hidden" position="top center" sui-dropdown ng-if="segments.length > 3">
+		<button class="ui inverted basic red icon button">
+			{{segments.length - 3}} <i class="eye icon"></i>
+		</button>
+		<div class="menu">
+			<a class="item" ui-sref="admin.app.members({segment: segment.permalink})" ng-repeat="segment in segments.slice(3, segments.length)"><i class="pie chart icon"></i>{{segment.title}} {{'(' + segment.member_count + ')'}}</a>
+		</div>
+		
+	</div>
+
+	
+
+</div>

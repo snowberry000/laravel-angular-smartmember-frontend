@@ -1,0 +1,174 @@
+<div class="sixteen wide column">
+
+	<div class="ui fluid container contained_fluid">
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui text loader">Loading</div>
+		</div>
+		<div class='ui basic segment'>
+		</div>
+		<div class="ui basic segment">
+			<div class="ui equal width middle aligned grid">
+				<div class="column">
+					<h2 class="ui inline header">
+						<i class="protect icon"></i>
+						<div class="content">
+							{{page_title}} Door
+						</div>
+					</h2>
+				</div>
+				<div class="right aligned column">
+					<a ng-if="door._id" ng-href="/access/edit-door/?clone={{door._id}}" class="ui large right labeled icon button" busy>
+						Duplicate
+						<i class="copy icon"></i>
+					</a>
+					<button busy ng-if="door._id" ng-click="deleteDoor()" class="ui large right labeled icon button">
+						Delete
+						<i class="delete icon"></i>
+					</button>
+					<button busy class="ui large right labeled icon button" ng-click='save()'>
+						Save and Close
+						<i class="check icon"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="ui hidden divider"></div>
+
+			<div class="ui fluid container edit_container">
+
+				<div class="ui segments {{segments.active_segment == 'name' ? 'active' : ''}}">
+					<div class="ui heading_segment clearing {{segments.active_segment == 'name' ? 'red inverted' : 'disabled'}} segment" ng-click="segments.active_segment = 'name'">
+						<div class="ui inverted button right floated done_button" ng-click="progressBar('name',$event)">
+							Done
+						</div>
+						<h2 class="ui header m-n">
+							<i class="plug icon"></i>
+							<div class="content">
+								Name your door
+							</div>
+						</h2>
+					</div>
+					<div class="ui secondary segment">
+
+						<div class="ui transparent massive fluid input">
+							<input type="text" placeholder="Name your door" ng-model='door.name'>
+						</div>
+
+					</div>
+				</div>
+				<div class="ui segments {{segments.active_segment == 'channel' ? 'active' : ''}}">
+					<div class="ui heading_segment clearing {{segments.active_segment == 'channel' ? 'red inverted' : 'disabled'}} segment" ng-click="segments.active_segment = 'channel'">
+						<div class="ui inverted button right floated done_button" ng-click="progressBar('channel',$event)">
+							Done
+						</div>
+						<h2 class="ui header m-n">
+							<i class="check icon"></i>
+							<div class="content">
+								Open/Closed State
+							</div>
+						</h2>
+					</div>
+					<div class="ui secondary segment">
+
+						<div class="ui centered grid">
+							<div class="column">
+								<div class="ui fluid steps">
+									<div class="step {{door.type == 'open'?'active': ''}}" ng-click='door.type="open"'>
+										<i class="payment icon"></i>
+										<div class="content">
+											<div class="title">Open</div>
+											<div class="description">Anybody - including anonymous visitors - can open this door</div>
+										</div>
+									</div>
+									<div class="step {{door.type == 'closed'?'active': ''}}" ng-click='door.type="closed"'>
+										<i class="phone icon"></i>
+										<div class="content">
+											<div class="title">Closed</div>
+											<div class="description">Only members can open this door</div>
+										</div>
+									</div>
+									<div class="step {{door.type == 'locked'?'active': ''}}" ng-click='door.type="locked"'>
+										<i class="phone icon"></i>
+										<div class="content">
+											<div class="title">Locked</div>
+											<div class="description">Only members that hold the correct key(s) can open this door</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div ng-if='door.type == "locked"' class="ui segments {{segments.active_segment == 'audience' ? 'active' : ''}}">
+					<div class="ui heading_segment clearing {{segments.active_segment == 'audience' ? 'red inverted' : 'disabled'}} segment" ng-click="segments.active_segment = 'audience'">
+						<div class="ui inverted button right floated done_button" ng-click="progressBar('audience',$event)">
+							Done
+						</div>
+						<h2 class="ui header m-n">
+							<i class="plug icon"></i>
+							<div class="content">
+								Keys
+							</div>
+						</h2>
+					</div>
+					<div class="ui secondary segment">
+						<div class="ui grid centered">
+							<select ng-model='door.keys' multiple=""  class="ui fluid dropdown" sui-dropdown>
+								<option value="">Select Keys</option>
+								<option ng-repeat='key in keys' ng-selected="contains(door.keys,key._id)" value='{{key._id}}'>{{key.name}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="ui segments {{segments.active_segment == 'review' ? 'active' : ''}}">
+					<div class="ui heading_segment clearing {{segments.active_segment == 'review' ? 'red inverted' : 'disabled'}} segment" ng-click="segments.active_segment = 'review'">
+						<div class="ui inverted button right floated done_button" ng-click="progressBar('review',$event)">
+							Done
+						</div>
+						<h2 class="ui header m-n" >
+							<i class="plug icon"></i>
+							<div class="content" >
+								Review and set it live
+							</div>
+						</h2>
+					</div>
+					<div class="ui secondary segment">
+						<div class="ui centered grid">
+							<div class="row">
+								<div class="center aligned eight wide column">
+
+									<div class="ui large header">
+										Nice, you're almost done!
+										<div class="sub header">
+											Make sure to double check your message above
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="center aligned three wide column">
+								<h3 class="ui icon header">
+									<i class="red check icon"></i>
+									<div class="content">
+										It's good to go!
+									</div>
+								</h3>
+								<button busy class="ui fluid red large button" ng-click='save()'>Save</button>
+							</div>
+						</div>
+
+						<div class="ui hidden divider"></div>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+

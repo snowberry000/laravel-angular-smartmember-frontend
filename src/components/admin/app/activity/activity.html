@@ -1,0 +1,65 @@
+<div class="sixteen wide column">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui loader"></div>
+	</div>
+
+	<div class="ui hidden divider"></div>
+
+	<div class="ui fluid container contained_fluid" ng-if="!loading">
+		<div class="ui centered grid">
+			<div class="six wide column">
+
+				<h3 class="ui header">
+					Activity
+				</h3>
+				<h4 ng-if="pagination.total_count == 0">
+					No activity available!
+				</h4>
+
+				<div class="ui {{current_conversation == next_item.id ? 'active' : ''}} segments" dir-paginate="next_item in data | filter:$parent.query | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
+					<!-- {{next_item|json}} -->
+					<div class="ui clearing segment" >
+						<div class="pull-right meta">
+							{{moment.utc(next_item.updated_at).fromNow()}}
+						</div>
+						<h1 class="ui header pull-left m-n">
+							<img class="ui image" ui-sref="admin.app.member({id: (next_item.member_id)})" src="{{next_item.profile_image || 'http://www.gravatar.com/avatar/' + next_item.email_hash + '?d=mm'}}">
+
+							<div class="ui large breadcrumb m-l-sm">
+								<a class="section" ui-sref="admin.app.member({id: (next_item.member_id)})">
+									{{ next_item.first_name+next_item.last_name? next_item.first_name+" "+next_item.last_name : next_item.email || next_item.user_id}}
+								</a>
+								<i class="calendar icon divider"></i>
+								<div class="active section">
+									{{next_item.event}}
+								</div>
+							</div>
+						</h1>
+						<a class="ui bottom right attached label" ng-if="next_item.http_referer" ng-click="meta_show_storage[next_item._id] = !meta_show_storage[next_item._id]">
+							<i class="{{meta_show_storage[next_item._id] ? 'minus' : 'plus'}} icon m-n"></i>
+						</a>
+
+					</div>
+					<div class="ui clearing segment" ng-show="meta_show_storage[next_item._id]">
+
+						<div class="ui equal width grid">
+							<div class="column ellipsis">
+							<div class="ui small header">referring-url</div>
+							{{next_item.http_referer}}
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="ui pointing label">
+					{{pagination.total_count}} items
+				</div>
+				<dir-pagination-controls max-size="5"></dir-pagination-controls>
+
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,19 @@
+<div class="ui small modal top center"> <i class="close icon"></i>
+	<div class="header">
+		<i class="user icon"></i>
+		Select Company
+	</div>
+	<div class="content">
+		<div ng-repeat="company in user.companies | orderBy:'name'" class="ui selection list">
+			<div class="item">
+				<div class="right floated content" ng-if="user.company_id==company._id">
+					<div class="mini ui primary button" disabled="true">Selected</div>
+				</div>
+				<a class="header" ng-click="user.company_id==company._id ? '' : openSite(company._id)">{{company.name}}</a>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="actions">
+		<div class="ui black deny button close">Close</div>
+	</div> -->
+</div>

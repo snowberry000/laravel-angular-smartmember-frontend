@@ -1,0 +1,299 @@
+
+<h1 class="ui image header">
+	<img src="{{ticket.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm'}}" class="ui tiny rounded image">
+	<div class="content">
+		{{ticket.user.first_name}} {{ticket.user.last_name}}
+		<div class="sub header">
+			{{ticket.user.email}}
+		</div>
+	</div>
+</h1>
+
+<div class="ui divider"></div>
+<div >
+	<h4>Segments</h4>
+	<div ng-if="!user_segments || !user_segments.length">
+		no segments found!
+	</div>
+	<div ng-repeat="segment in user_segments">
+		<button class="circular ui icon button basic"  style="text-transform: capitalize;padding-top: 10px;padding-bottom: 10px;">
+			<i class="pie chart icon"></i>
+			{{segment.title}}
+		</button>
+	</div>
+</div>
+
+<div style="margin-top: 20px;">
+	<h4>Tags</h4>
+	<div ng-repeat="tag in tags">
+		<button class="circular ui icon button basic"  style="text-transform: capitalize;padding-top: 10px;padding-bottom: 10px;">
+			<i class="pie chart icon"></i>
+			{{tag.title}}
+		</button>
+	</div>
+	<button class="circular ui icon button basic"  style="text-transform: capitalize;padding-top: 10px;padding-bottom: 10px;" ng-click="addTag()">
+		<i class="plus icon"></i>
+		 Add tag...
+	</button>
+</div>
+
+<div style="margin-top: 20px;">
+	<h4>Details</h4>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="at icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">Email</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="/members/all-members?name=Email&value={{ticket.user.email ? ticket.user.email : 'unknown'}}" data-content="{{ticket.user.email ? ticket.user.email : 'unknown'}}" data-variation="inverted">
+					{{ticket.user.email ? ticket.user.email : 'unknown'}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div>
+				<i class="exchange icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">user id</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="#" data-content="{{ticket.user._id ? ticket.user._id : 'unknown'}}" data-variation="inverted" >{{ticket.user._id ? ticket.user._id : 'unknown'}}</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="calendar icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">first seen</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="/members/all-members?name=First Seen&value={{ticket.user.created_at ? moment.unix(ticket.user.created_at.sec).format('YYYY-MM-DD') : 'unknown'}}" data-content="{{ticket.user.created_at ? moment.unix(ticket.user.created_at.sec).format('ll') : 'unknown'}}" data-variation="inverted" >{{ticket.user.created_at ? moment.unix(ticket.user.created_at.sec).fromNow() : 'unknown'}}</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div>
+				<i class="calendar icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">signed up</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="/members/all-members?name=Signed Up&value={{ticket.user.created_at ? moment.unix(ticket.user.created_at.sec).format('YYYY-MM-DD') : 'unknown'}}" data-content="{{ticket.user.created_at ? moment.unix(ticket.user.created_at.sec).format('ll') : 'unknown'}}" data-variation="inverted">
+					{{ticket.user.created_at ? moment.unix(ticket.user.created_at.sec).fromNow() : 'unknown'}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div>
+				<i class="calendar icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">last seen</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="/members/all-members?name=Last Seen&value={{ticket.user.last_logged_in ? moment.unix(ticket.user.last_logged_in.sec).format('YYYY-MM-DD') : 'unknown'}}"  data-content="{{ticket.user.last_logged_in ?moment.unix(ticket.user.last_logged_in.sec).format('ll') : 'unknown'}}" data-variation="inverted">
+					{{ticket.user.last_logged_in ? moment.unix(ticket.user.last_logged_in.sec).fromNow() : 'unknown'}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div>
+				<i class="desktop icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">browser</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<!-- {{user.browser}} -->
+				<a href="/members/all-members?name=Browser&value={{ticket.user_browser_name ? ticket.user_browser_name : 'unknown'}}" data-content="{{ticket.user_browser_name ? ticket.user_browser_name : 'unknown'}}" data-variation="inverted">
+					{{ticket.user_browser_name ? ticket.user_browser_name : 'unknown'}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="fa fa-globe" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">browser language</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<!-- {{user.browser_language}} -->
+				<a href="#" data-content="{{ticket.user_browser_language ? ticket.user_browser_language : 'unknown'}}" data-variation="inverted">
+					{{ticket.user_browser_language ? ticket.user_browser_language : 'unknown'}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="desktop icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">browser version</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<!-- {{user.version}} -->
+				<a href="/members/all-members?name=Browser Version&value={{ticket.user_browser_version ? ticket.user_browser_version  : 'unknown'}}" data-content="{{ticket.user_browser_version ? ticket.user_browser_version  : 'unknown'}}" data-variation="inverted">
+					{{ticket.user_browser_version ? ticket.user_browser_version : 'unknown'}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="desktop icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">os</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<!-- {{user.os}} -->
+				<a href="/members/all-members?name=OS&value={{ticket.user_os ? ticket.user_os : 'unknown'}}" data-content="{{ticket.user_os ? ticket.user_os : 'unknown'}}" data-variation="inverted">
+					{{ticket.user_os ? ticket.user_os : 'unknown'}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="checkmark icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">verified</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="/members/all-members?name=verified&value={{getUserValue('verified')}}" data-content="{{getUserValue('verified')}}" data-variation="inverted">
+					{{getUserValue('verified')}}
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="checkmark icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">Web Sessions</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="/members/all-members?name=Web Sessions&value={{getTicketValue('user_web_sessions') ? getTicketValue('user_web_sessions') : 0}}" data-content="{{getTicketValue('user_web_sessions') ? getTicketValue('user_web_sessions') : 0}}" data-variation="inverted">
+					{{getTicketValue('user_web_sessions') ? getTicketValue('user_web_sessions') : 0}} 
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="checkmark icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">unsubscribe from email</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="#" data-content="{{getTicketValue('user_unsubscribe')}}" data-variation="inverted">
+					{{getTicketValue('user_unsubscribe')}} 
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="checkmark icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">setup wizard complete</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="/members/all-members?name=Setup Wizard Complete&value={{getTicketValue('user_setup_wizard_complete')}} " data-content="{{getTicketValue('user_setup_wizard_complete')}}" data-variation="inverted">
+					{{getTicketValue('user_setup_wizard_complete')}} 
+				</a>
+			</div>
+		</div>
+	</div>
+
+<!-- 	<div class="ui grid two columns">
+		<div class="row">
+			<div >
+				<i class="checkmark icon" style="display: inline-block;"></i>
+				<div style="text-transform: uppercase;display: inline-block;">setup wizard complete</div>
+			</div>
+			<div style="margin-left: 20px;">
+				<a href="/members/all-members?setup_wizard_complete={{(ticket.user_setup_wizard_complete) ? ticket.user_setup_wizard_complete  : 'unknown'}} " data-content="{{ticket.user_setup_wizard_complete ? ticket.user_setup_wizard_complete : 'unknown'}}" data-variation="inverted">
+					{{ticket.user_setup_wizard_complete ? ticket.user_setup_wizard_complete  : 'unknown'}} 
+				</a>
+			</div>
+		</div>
+	</div> -->
+
+</div>
+
+<!-- 
+<h3 class="ui horizontal divider header">
+	Details
+</h3> -->
+
+<h5 ng-if="ticket.sm_tech && !ticket.agent" ng-hide="true" style="color:rgb(181, 82, 82);">*Submitted to SM Tech Team*</h5>
+
+<div class="ui very relaxed large divided list" ng-hide="true" >
+	<div class="item">
+		<div class="header">Created</div>
+		{{moment.utc(ticket.created_at).format('ll')}}
+	</div>
+	<div class="item">
+		<div class="header">Last Message</div>
+		{{moment.utc(ticket.created_at).fromNow()}}
+	</div>
+	<div class="item">
+		<div class="header">Status</div>
+		<div class="ui red label">{{changedStatusDetails}}</div>
+	</div>
+	<div class="item" >
+		<div class="content">
+			<button class="ui button" ng-click="assignToSMTech()">Re-assign to SM Corporate Tech Team</button>
+		</div>
+	</div>
+
+	<div ng-if="false" class="item">
+		<div class="header">Creator's Sites</div>
+		<div class="content">
+
+			<ul>
+				<li ng-repeat="admin in advanced_info.admin">
+					<a target="_blank" ng-href="http://{{public.administrate.subdomain}}.{{app.domain}}">
+						<i class="ts_icon ts_icon_calendar"></i>
+						{{public.administrate.name}}
+					</a>
+					<small>(member)</small>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+	<div ng-if="false" class="item">
+		<div class="header">Access Levels</div>
+		<div class="content">
+
+			<ul>
+				<li ng-repeat="access_level in advanced_info.access_levels">
+					<a class="cursor_pointer" target="_blank"
+					   ng-href="http://{{advanced_info.sites[$index].subdomain}}.{{app.domain}}">
+						{{access_level.name}} {{advanced_info.sites[$index].name}}
+					</a>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+	<div ng-if="false" class="item">
+		<div class="header">Recent Tickets</div>
+		<div class="content">
+
+			<ul>
+				<li ng-repeat="recent_ticket in recent_tickets">
+					<a class="cursor_pointer" ng-href="/admin/team/helpdesk/ticket/{{recent_ticket.id}}">
+						[{{recent_ticket.status}}] {{recent_ticket.subject}}
+					</a>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>

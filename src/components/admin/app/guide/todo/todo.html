@@ -1,0 +1,70 @@
+<div class="ui stackable internally celled padded grid">
+	<div class="sixteen wide column">
+
+		<div class="ui active inverted dimmer" ng-if="loading">
+			<div class="ui loader"></div>
+		</div>
+
+		<div class="ui hidden divider"></div>
+
+		<div class="ui fluid container contained_fluid" ng-if="!loading">
+			<div class="ui centered grid">
+				<div class="seven wide column">
+
+					<div class="ui top attached padded segment">
+
+						<div class="ui right floated button dropdown" sui-dropdown>
+							<div class="text">Actions</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<div class="item">Skip this step</div>
+							</div>
+						</div>
+
+						<h2 class="ui header m-n">
+							<i class="{{is_completed ? 'green check' : todo_icon}} icon"></i>
+							<div class="content">
+								{{todo_title}}
+							</div>
+						</h2>
+
+					</div>
+					<div class="ui attached padded segment" ui-view>
+
+					</div>
+					<div class="ui bottom attached padded b-n green inverted clearing segment" ng-show="is_completed">
+
+						<a ui-sref="admin.app.guide.todos" class="ui basic inverted right floated button">Done</a>
+
+						<h3 class="ui inverted header todo_completed_container m-n m-t-xs">
+							<i class="green inverted check icon"></i>
+							<div class="content">
+								<strong>Completed</strong>: {{todo_completed_text}}
+							</div>
+						</h3>
+
+					</div>
+
+				</div>
+				<div class="four wide column">
+
+					<div class="ui large vertical fluid menu">
+
+						<div class="item">
+							{{todo_parent.title}}
+							<div class="menu">
+								<a ui-sref="{{next_item.slug ? 'admin.app.guide.todo.' + next_item.slug : ''}}" class="{{next_item.slug == url_segment ? 'active' : ''}} item" ng-repeat="next_item in todo_parent.children">
+									<i class="{{next_item.slug == url_segment ? 'circle' : 'radio'}} icon"></i>
+									{{next_item.title}}
+								</a>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

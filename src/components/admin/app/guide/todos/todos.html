@@ -1,0 +1,111 @@
+<div class="sixteen wide column">
+
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui loader"></div>
+	</div>
+
+	<div class="ui fluid container contained_fluid" ng-if="!loading">
+		<div class="ui centered grid">
+			<div class="one wide column">
+
+				<div class="ui vertical divider"></div>
+
+			</div>
+			<div class="seven wide column">
+
+				<div class="ui basic segment" ng-repeat="next_item in todos">
+					<h3 class="ui header">
+						{{next_item.title}}
+						<div class="sub header">
+							{{next_item.subtitle}}
+						</div>
+					</h3>
+
+					<a ui-sref="{{next_item2.slug ? 'admin.app.guide.todo.' + next_item2.slug : 'admin.app.guide.todos'}}" class="ui icon {{next_item2.is_complete ? 'positive' : ''}} message" ng-repeat="next_item2 in next_item.children">
+						<i class="{{next_item2.is_complete ? 'check' : next_item2.icon}} icon"></i>
+						<div class="content">
+							<div class="header">
+								{{next_item2.title}}
+							</div>
+							<p>{{next_item2.subtitle}}</p>
+						</div>
+					</a>
+				</div>
+
+				<div class="ui tall stacked segment">
+					<p>5 steps (3 completed)</p>
+				</div>
+
+				<div class="ui basic segment">
+					<h3 class="ui header">
+						Future steps
+						<div class="sub header">
+							New steps will appear here over time as you add products and integrations to your account.
+						</div>
+					</h3>
+				</div>
+
+				<div class="ui hidden section divider"></div>
+
+			</div>
+			<div class="four wide column">
+
+				<div class="ui hidden divider"></div>
+
+				<div class="ui padded segment">
+
+					<div class="ui equal width middle aligned grid">
+						<div class="column">
+							<h4 class="ui header">Progress:</h4>
+						</div>
+						<div class="right aligned column">
+							<div class="ui red mini statistic">
+								<div class="value text-right">
+									6
+								</div>
+								<div class="red label">
+									Steps left
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="ui red progress m-b-n" sui-progress>
+						<div class="bar">
+							<div class="progress"></div>
+						</div>
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+					<h4 class="ui header" ng-if="0">Your products:</h4>
+
+					<ul class="ui list" ng-if="0">
+						<li><strong>Smart Mail</strong> Standard</li>
+						<li><strong>Smart Doors</strong> Standard</li>
+						<li><strong>Smart Sites</strong> Standard</li>
+						<li><strong>Smart Support</strong> Standard</li>
+					</ul>
+
+					<div class="ui hidden divider" ng-if="0"></div>
+
+					<div class="ui form" ng-if="0">
+						<h4 class="ui header">Your Company ID:</h4>
+
+						<input type="text" disabled value="xyz">
+
+
+						<div class="ui hidden divider"></div>
+
+						<h4 class="ui header">Secret key:</h4>
+
+						<input type="text" disabled value="xyz">
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>

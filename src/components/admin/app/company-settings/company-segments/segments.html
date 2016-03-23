@@ -1,0 +1,39 @@
+<div class="ui header">
+	Company Segments
+</div>
+<div class="ui segment">
+	<div class="ui fluid container">
+		<table class="ui celled selectable table" ng-if="data.length > 0">
+			<thead>
+				<tr>
+					<th> SEGMENT NAME </th>
+					<th class="one wide" style="border-left:0"> </th>
+					<th>CREATED BY</th>
+					<th>CREATED</th>
+					<th> PEOPLE </th>
+					<th class="one wide" style="border-left:0"> </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="next_item in data" ng-mouseover="ishover=true" ng-mouseleave="ishover=false">
+					<td>
+						{{next_item.title}} <span div class="extra" ng-if="next_item.title=='New' || next_item.title=='Active'">(Predefined Segment)</span>
+					</td>
+					<td style="border-left:0">
+						<i ng-show="ishover" class="edit icon" style="float: right; margin-right: 10px; cursor:pointer;" ng-click="updateSegmentName(next_item._id)" ng-disabled="{{next_item.title=='New' || next_item.title=='Active' ? 'ishover=false': 'ishover'}} "></i>
+					</td>
+					<td>{{next_item.user.first_name+" "+next_item.user.last_name}}</td>
+					<td>
+						{{moment.utc(next_item.created_at).format('DD MMM YYYY')}}
+					</td>
+					<td>
+						<a ui-sref="admin.app.members({segment: next_item.permalink})">See {{next_item.member_count}} members</a>
+					</td>
+					<td>
+						<i ng-show ="ishover" class="close icon" style="float: right; margin-right: 10px; cursor:pointer;" ng-click="deleteSegment(next_item._id)" ></i>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

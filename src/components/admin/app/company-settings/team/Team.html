@@ -1,0 +1,66 @@
+<div class="ui header">
+	Teammates
+</div>
+
+<div class="ui segment">
+	<div class="ui fluid container">
+		<table class="ui celled table" ng-if="data.length > 0">
+			<thead>
+				<tr>
+					<th>
+						Name
+					</th>
+					<th>
+						Email
+					</th>
+					<th >
+						Roles
+					</th>
+					<th>
+						Last Seen
+					</th>
+					<th>
+						First Seen
+					</th>
+					<th>
+						Signed up
+					</th>
+					<th class="one wide" style="border-left:0"> </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="next_item in data">
+					<td>
+						<a ui-sref="admin.app.member({id:next_item._id})" class="ui tiny header">
+							<img ng-src="{{next_item.profile_image || 'https://secure.gravatar.com/avatar/' + next_item.user.email_hash + '?d=mm&s=35'}}" class="ui rounded mini image">
+							<div class="content">
+								{{next_item.first_name + ' ' + next_item.last_name || 'Unknown'}}
+							</div>
+						</a>
+					</td>
+					<td>
+						{{next_item.email || 'Unknown'}}
+					</td>
+					<td>
+						{{next_item.roles}}
+					</td>
+					<td >
+						<!-- {{moment.unix(next_item.last_logged_in.sec).format('DD MMM YYYY')}} -->
+						{{!next_item.last_logged_in ? 'unknown' :moment.utc(next_item.last_logged_in).format('DD MMM YYYY')}}
+					</td>
+					<td>
+						<!-- {{moment.unix(next_item.created_at.sec).format('DD MMM YYYY')}} -->
+						{{moment.utc(next_item.created_at).format('DD MMM YYYY')}}
+					</td>
+					<td>
+						<!-- {{moment.unix(next_item.created_at.sec).format('DD MMM YYYY')}} -->
+						{{moment.utc(next_item.created_at).format('DD MMM YYYY')}}
+					</td>
+					<td>
+						<i class="close icon" style="float: right; margin-right: 10px; cursor:pointer;" ng-click="deleteSegment(next_item.user_id)" ></i>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

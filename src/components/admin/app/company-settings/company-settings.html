@@ -1,0 +1,19 @@
+<!-- <div class="ui stackable internally celled padded grid main-content" ui-view> -->
+	<div class="three wide column the_left_sidebar" style="box-sizing: content-box;">
+		<div class="ui header">
+			<i class="fa fa-briefcase icon"></i>
+			<div class="content">Company Settings</div>
+		</div>
+		<div class="ui segment">
+			<div class="ui vertical secondary fluid menu">
+				<a ui-sref="admin.app.company-settings.team" class="item {{$state.includes('admin.app.company-settings.team') ? 'active': ''}}">Teammates</a>
+				<a ui-sref="admin.app.company-settings.company-segments" class="item {{$state.includes('admin.app.company-settings.company-segments') ? 'active': ''}}">Company Segments</a>
+				<a ui-sref="admin.app.company-settings.invite" class="item {{$state.includes('admin.app.company-settings.invite') ? 'active': ''}}">Team Invites</a>
+				<a ui-sref="admin.app.company-settings.tags" class="item {{$state.includes('admin.app.company-settings.tags') ? 'active': ''}}" class="item">Tags</a>
+			</div>
+		</div>
+	</div>
+	<div class="twelve wide column" style="box-shadow: 0 0 0 0;" ui-view>
+		
+	</div>
+<!-- </div> -->

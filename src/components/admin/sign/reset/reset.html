@@ -1,0 +1,67 @@
+<div class="ui short modal"><i class="close icon"></i>
+    <div class="header">
+        Reset your Password for {{site.name}}
+    </div>
+    <div class="content">
+        <div class="description">
+
+            <div class="ui two column middle aligned very relaxed stackable centered grid container">
+                <div class="column">
+
+                    <form class="ui form" ng-submit="reset(data.new_password)" ng-if="hash">
+
+                        <input type="hidden" name="password_reset_hash">
+
+                        <p>Enter a <strong>new password</strong> below</p>
+
+                        <div class="field">
+                            <label>New Password</label>
+                            <div class="ui left icon input">
+                                <input type="password" placeholder="New Password" ng-model="data.new_password">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <div class="ui left icon input">
+                                <input type="password" placeholder="Confirm Password">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                        </div>
+                        <button busy type="submit" class="ui blue submit button">
+                            Save Password
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="actions">
+        <div ng-click="CloseExtraState()" class="ui black button">
+            Close
+        </div>
+        <a class="ui labeled icon button" ui-sref="admin.sign.in">
+            Login
+            <i class="user icon"></i>
+        </a>
+        <a class="ui labeled icon button" ui-sref="admin.sign.up">
+            Sign Up
+            <i class="edit icon"></i>
+        </a>
+        <a ng-href="{{app.subdomain == 'app' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
+            Need help?
+            <i class="life ring icon"></i>
+        </a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
