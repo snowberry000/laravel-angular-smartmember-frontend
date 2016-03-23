@@ -45,7 +45,7 @@ app.config( function( FacebookProvider )
 	} );
 } );
 
-app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, cfpLoadingBar, editableOptions )
+app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, RestangularV3, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
 	$calledurl = window.location.host;
