@@ -1,8 +1,33 @@
 .app.site {
 
   body {
-    min-width:0px;
+    min-width: 0px;
   }
+
+  @media only screen and (max-width: 450px) {
+    .ui.comments {
+
+      .comment .avatar {
+        float: left;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+      .comment>.avatar~.content {
+        margin-left: 0px;
+        margin-top: 5px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+      .comment .comments {
+        box-shadow: none;
+        margin: 0px;
+        padding: 0px;
+      }
+
+    }
+  }
+
   .ui.breadcrumb {
     .active.section {
       color: #767676;
@@ -11,7 +36,7 @@
   .lights_off .embed,
   .lights_off .lights_controller {
     z-index: 10000;
-    background:none;
+    background: none;
   }
 
   .lights_controller a {
