@@ -202,7 +202,7 @@ gulp.task( 'replace_vendor', function()
 } );
 
 gulp.task( "upload", function()
-{
+{ 
 	return gulp.src( [ "dist/js/vendor.min.js", "dist/css/vendor.min.css", "dist/js/main.min.js" ] )
 		.pipe( s3( {
 			Bucket: '/smpub/cdn', //  Required
