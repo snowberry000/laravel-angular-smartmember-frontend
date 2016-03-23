@@ -191,9 +191,9 @@ gulp.task('crawler', function() {
 gulp.task( 'replace_vendor', function()
 {
 	return gulp.src( paths.dist + '/index.php' )
-		.pipe( replace( '<script src="js/vendor.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/vendor.min.js"></script>' ) )
-		.pipe( replace( '<script src="js/main.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/main.min.js"></script>' ) )
-		.pipe( replace( '<link rel="stylesheet" href="css/vendor.min.css">', '<link rel="stylesheet" href="https://smpub.s3.amazonaws.com/cdn/vendor.min.css">' ) )
+		//.pipe( replace( '<script src="js/vendor.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/vendor.min.js"></script>' ) )
+		//.pipe( replace( '<script src="js/main.min.js"></script>', '<script src="https://smpub.s3.amazonaws.com/cdn/main.min.js"></script>' ) )
+		//.pipe( replace( '<link rel="stylesheet" href="css/vendor.min.css">', '<link rel="stylesheet" href="https://smpub.s3.amazonaws.com/cdn/vendor.min.css">' ) )
 		.pipe( replace( '<script src="bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>', '<script src="//my.smartmember.com/bower/ui-iconpicker/dist/scripts/ui-iconpicker.min.js"></script>' ) )
 		.pipe( replace( '<script src="bower/slimScroll/jquery.slimscroll.min.js"></script>', '<script src="//my.smartmember.com/bower/slimScroll/jquery.slimscroll.min.js"></script>' ) )
 		.pipe( replace( '<link rel="stylesheet" href="bower/footable/css/footable.core.css">', '<link rel="stylesheet" href="//my.smartmember.com/bower/footable/css/footable.core.css">' ) )
@@ -243,14 +243,12 @@ gulp.task( 'test', [ 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
 {
-	return;
-	
 	runSequence( 'replace_vendor', function()
 	{
-		exec('gulp upload', function (err, stdout, stderr) {
-		    console.log(stdout);
-		    console.log(stderr);
-		});
+		//exec('gulp upload', function (err, stdout, stderr) {
+		 //   console.log(stdout);
+		  //  console.log(stderr);
+		//});
 	} );
 } );
 
