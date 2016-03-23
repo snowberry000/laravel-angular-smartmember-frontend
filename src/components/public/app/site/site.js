@@ -3,8 +3,6 @@ var app = angular.module("app");
 app.config(function($stateProvider){
 	$stateProvider
 		.state("public.app.site",{
-			sticky: true,
-			abstract: true,
 			views: {
 				'site': {
 					templateUrl: "/templates/components/public/app/site/site.html",
@@ -17,10 +15,9 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AppSiteController", function ($scope) {
-
+app.controller("AppSiteController", function ($scope , $site , $rootScope) {
 	$scope.lights_off = false;
-
+	$rootScope.site = $site;
 	$scope.ToggleLights = function()
 	{
 		$scope.lights_off = !$scope.lights_off;
