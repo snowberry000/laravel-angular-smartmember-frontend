@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "SmartSitesListController", function( $scope, Restangular,RestangularV3, $stateParams, $state ,$rootScope)
+app.controller( "SmartSitesListController", function( $scope, toastr , Restangular,RestangularV3, $stateParams, $state ,$rootScope)
 {
 	if( !$stateParams.segment )
 	{
@@ -135,9 +135,9 @@ app.controller( "SmartSitesListController", function( $scope, Restangular,Restan
 	};
 
 	$scope.revoke = function ($argSite) {
-    	RestangularV3.all('site/removeUserFromSite').customPOST({'site_id': $argSite.id ,'user_id' : $scope.user.id }).then(function(response){
-            $scope.sites_to_show = _.filter($scope.sites_to_show, function($tempSite){ return $tempSite.id!=$argSite.id; });
-            toastr.success(response.length+' roles of you are removed from '+$argSite.name);
+    	RestangularV3.all('site/removeUserFromSite').customPOST({'site_id': $argSite._id ,'user_id' : $scope.user._id }).then(function(response){
+            $scope.data = _.filter($scope.data, function($tempSite){ return $tempSite._id != $argSite._id; });
+            toastr.success('All roles of you are removed from ' + $argSite.name);
         });
     }
 
