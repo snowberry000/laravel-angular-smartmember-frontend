@@ -44,7 +44,7 @@
 						<div class="metadata">
 							<span class="date">{{moment.utc( reply.created_at ).fromNow()}}</span>
 						</div>
-						<div ng-if="!reply.edit && user.id" class="text">
+						<div ng-if="!reply.edit && reply.user.id" class="text">
 							{{reply.body}}
 						</div>
 						<div ng-if="reply.edit" class="text">
