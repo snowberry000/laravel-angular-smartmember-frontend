@@ -1,0 +1,78 @@
+.public.app.admin.organizer {
+
+  .lessons_hidden .hide_when_lessons_hidden {
+    display: none;
+  }
+
+  .item-wrapper a {
+    /* make the link always show up */
+    display: inline !important;
+  }
+
+  .item-wrapper {
+    /* make absolutely positioned children constrained to this box*/
+    position: relative;
+  }
+
+  .item-wrapper form {
+    background: #ffffff;
+    border: 1px solid #aaaaaa;
+    border-radius: 5px;
+    display: inline-block;
+    left: 50%;
+
+    /* half the width */
+    margin-left: -110px;
+    padding: 7px;
+    position: absolute;
+    top: -55px;
+    z-index: 101;
+  }
+
+  .item-wrapper form:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #aaaaaa;
+    position: absolute;
+    bottom: -10px;
+    left: 100px;
+  }
+
+  .item-wrapper form:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 9px solid #ffffff;
+    position: absolute;
+    bottom: -9px;
+    left: 101px;
+  }
+
+  .select_checkbox {
+    visibility: hidden;
+    padding-top: 5px;
+  }
+  tr:hover .select_checkbox,
+  tr.selected .select_checkbox {
+    visibility: visible;
+  }
+
+  .ui.tini.image {
+    width: 24px;
+    height: 24px;
+  }
+  .filter_item {
+
+  }
+  .filter_item .filterbox {
+    .ui.radio.checkbox .box,
+    .ui.radio.checkbox label {
+      padding-left: 1.4em;
+    }
+  }
+}
