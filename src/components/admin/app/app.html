@@ -1,28 +1,31 @@
 <div class="ui vertical inverted labeled icon menu primary_vertical_menu">
-	<a ui-sref="admin.app.activity" class="link {{$state.includes('admin.app.activity') ? 'active' : ''}} icon item">
+	<a ng-if="0" ui-sref="admin.app.activity" class="link {{$state.includes('admin.app.activity') ? 'active' : ''}} icon item">
+		<img class="ui rounded mini centered image" src="/images/sm-64.png">
+	</a>
+	<a ng-href="http://www.smartmember.com" target="_blank" class="link icon item">
 		<img class="ui rounded mini centered image" src="/images/sm-64.png">
 	</a>
 	<a ui-sref="admin.app.smart-sites.list({segment : 'all'})" class="link {{$state.includes('admin.app.smart-sites') ? 'active' : ''}} item" title="Smart Sites" sui-popup>
 		<i class="cubes icon"></i>
 	</a>
-	<a ui-sref="admin.app.members" class="link {{$state.includes('admin.app.members') ? 'active' : ''}} item" title="People" sui-popup>
+	<a ng-if="0" ui-sref="admin.app.members" class="link {{$state.includes('admin.app.members') ? 'active' : ''}} item" title="People" sui-popup>
 		<i class="user icon"></i>
 	</a>
 	<a ui-sref="admin.app.inbox" class="link {{$state.includes('admin.app.inbox') ? 'active' : ''}} item tutorial_1_target_1" title="Conversations" sui-popup>
 		<i class="chat icon"></i>
 	</a>
-	<a ui-sref="admin.app.messages" class="link {{$state.includes('admin.app.messages') ? 'active' : ''}} item" title="Messages" sui-popup>
+	<a ng-if="0" ui-sref="admin.app.messages" class="link {{$state.includes('admin.app.messages') ? 'active' : ''}} item" title="Messages" sui-popup>
 		<i class="mail icon"></i>
 	</a>
-	<a ui-sref="admin.app.access" class="link {{$state.includes('admin.app.access') ? 'active' : ''}} item" title="Doors & Keys" sui-popup>
+	<a ng-if="0" ui-sref="admin.app.access" class="link {{$state.includes('admin.app.access') ? 'active' : ''}} item" title="Doors & Keys" sui-popup>
 		<i class="lock icon"></i>
 	</a>
 
-	<a ui-sref="admin.app.guide.todos" class="link {{$state.includes('admin.app.guide') ? 'active' : ''}} item tutorial_1_target_2" title="Setup guide" sui-popup>
+	<a ng-if="0" ui-sref="admin.app.guide.todos" class="link {{$state.includes('admin.app.guide') ? 'active' : ''}} item tutorial_1_target_2" title="Setup guide" sui-popup>
 		<i class="book icon"></i>
 		<div class="floating ui red mini label guide_todo_label">6</div>
 	</a>
-	<div class="ui dropdown item {{show_admin_mobile_top_nav || 'mobile hidden'}}" sui-dropdown>
+	<div ng-if="0" class="ui dropdown item {{show_admin_mobile_top_nav || 'mobile hidden'}}" sui-dropdown>
 		<i class="setting icon"></i>
 		<div class="menu">
 			<a class="item">
