@@ -243,6 +243,8 @@ gulp.task( 'test', [ 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
 {
+	return;
+	
 	runSequence( 'replace_vendor', function()
 	{
 		exec('gulp upload', function (err, stdout, stderr) {
