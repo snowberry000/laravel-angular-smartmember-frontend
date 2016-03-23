@@ -1,6 +1,5 @@
-
-<div class="{{$state.includes('public.app.admin.sites') && !$state.includes('admin.app.smart-sites.page') ? 'active' : ''}} item build_menu_trigger_container">
-		<a class="ui inverted basic red button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
+<div ng-if="0" class="{{$state.includes('public.app.admin.sites') && !$state.includes('admin.app.smart-sites.page') ? 'active' : ''}} item build_menu_trigger_container">
+	<a class="ui inverted basic red button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
 		Design
 	</a>
 	<div class="ui inverted basic red button mobile hidden" data-move-popup="false" data-popup=".build_menu" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
@@ -29,16 +28,16 @@
 <div class="right menu">
 	<div class="item">
 
-		<div class="ui dropdown" sui-dropdown>
+		<div ng-if="0" class="ui dropdown" sui-dropdown>
 			<div class="text">Viewing as Me</div>
-	<!-- 		<i class="dropdown icon"></i>
+			<!-- 		<i class="dropdown icon"></i>
 
-			<div class="inverted menu">
-				<div class="item">Placeholder</div>
-				<div class="item">Placeholder</div>
-				<div class="item">Placeholder</div>
-				<div class="item">Placeholder</div>
-			</div> -->
+					<div class="inverted menu">
+						<div class="item">Placeholder</div>
+						<div class="item">Placeholder</div>
+						<div class="item">Placeholder</div>
+						<div class="item">Placeholder</div>
+					</div> -->
 		</div>
 
 	</div>
@@ -58,8 +57,7 @@
 </div>
 
 
-
-<div class="ui inverted flowing pointing popup build_menu">
+<div ng-if="0" class="ui inverted flowing pointing popup build_menu">
 	<div class="ui equal width padded grid">
 		<div class="column p-none" ng-include="'templates/components/public/admin-bar/build-menu/content.html'">
 
