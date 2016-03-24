@@ -341,15 +341,15 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 		{
 			e.preventDefault();
 //            $location.path('/sign/in/').search({message: 'a valid access token is required'});
-			window.location.href = 'http://' + location.hostname + "?signin";
-			//$state.go('sign.in',{message: 'a valid access token is required'});
+			//window.location.href = 'http://' + location.hostname + "?signin";
+			$state.go('public.sign.in',{message: 'a valid access token is required'});
 		}
 
 		if( isHome )
 		{
 			e.preventDefault();
-			window.location.href = 'http://' + location.hostname + "?signin";
-			//$state.go('sign.in');
+			//window.location.href = 'http://' + location.hostname + "?signin";
+			$state.go('public.sign.in',{message: 'a valid access token is required'});
 		}
 
 	} );
