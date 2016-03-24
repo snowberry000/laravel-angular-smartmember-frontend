@@ -102,7 +102,8 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 
 	rootDomain = 'smartmember.' + env;
 
-	var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf( env ) == -1 ? 's' : '') + "://api." + rootDomain;
+	//var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf( env ) == -1 ? 's' : '') + "://api." + rootDomain;
+	var apiURL = 'http://52.34.88.16';
 
 	console.log('->>>>>>>>>> TDLS <<<<<<<<<-');
 	console.log($rootScope.nonProductionTLDs);
