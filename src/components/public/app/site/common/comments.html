@@ -1,8 +1,9 @@
-<h3 class="ui attached header" ng-if="next_item.discussion_settings.show_comments">
-	Comments
-</h3>
-<div class="ui attached clearing padded segment section_background_color" ng-if="next_item.discussion_settings.show_comments" ng-init="loadComments()">
 
+<div class="ui basic clearing padded segment section_background_color" ng-if="next_item.discussion_settings.show_comments" ng-init="loadComments()">
+
+	<h3 class="ui header" ng-if="next_item.discussion_settings.show_comments">
+		Comments
+	</h3>
 
 	<div ng-if="next_item.comments.length == 0">
 		<div class="ui message">
@@ -44,7 +45,7 @@
 						<div class="metadata">
 							<span class="date">{{moment.utc( reply.created_at ).fromNow()}}</span>
 						</div>
-						<div ng-if="!reply.edit && user.id" class="text">
+						<div ng-if="!reply.edit && reply.user.id" class="text">
 							{{reply.body}}
 						</div>
 						<div ng-if="reply.edit" class="text">
