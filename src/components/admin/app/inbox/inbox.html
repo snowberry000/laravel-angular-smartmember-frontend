@@ -1,4 +1,4 @@
-<div class="four wide column the_left_sidebar white_background p-none">
+<div class="four wide column the_left_sidebar white_background p-none autoflow">
 
 
 	<div ng-if="requesting_data" class="ui active inverted dimmer">
@@ -67,12 +67,12 @@
 
 </div>
 
-<div class="eight wide column p-none">
+<div class="eight wide column p-none autoflow">
 
 	<ui-view name="ticket_body"></ui-view>
 
 </div>
-<div class="four wide column white_background" ng-if="current_conversation">
+<div class="four wide column white_background autoflow" ng-if="current_conversation">
 
 	<div class="ui fluid container">
 		<div class="ui basic segment">
