@@ -1,45 +1,6 @@
+<div class="four wide column the_left_sidebar white_background p-none">
 
-<div class="four wide column the_left_sidebar white_background p-none" style="height:100%;">
-	<div class="ui sticky secondary menu" style="width:100%">
-		<div>
-			<div class="ui dropdown item pointing" sui-dropdown>
-				<div class="text" ng-if="type_to_fetch == 'open'">Open ({{pagination.total_count || 0}})</div>
-				<div class="menu">
-					<div class="item" ng-click="FetchByType('open')">Open</div>
-					<div class="item" ng-click="FetchByType('closed')">Close</div>
-				</div>
-				<div class="text" ng-if="type_to_fetch == 'closed'">Close ({{pagination.total_count || 0}})</div>
-				<div class="menu">
-					<div class="item" ng-click="FetchByType('open')">Open</div>
-					<div class="item" ng-click="FetchByType('closed')">Close</div>
-				</div>
-				<i class="dropdown icon"></i>
 
-			</div>
-		</div>
-		<div>
-			<div class="ui dropdown item pointing" sui-dropdown>
-				<div class="text">Assigned to</div>
-				<i class="dropdown icon"></i>
-				<div class="menu set-z-index agents_dropdown">
-					<div class="item" ng-click="agent_to_fetch='all';FetchTickets()">All</div>
-					<div class="item" ng-repeat="agent in company_agents | orderBy:'first_name'" ng-click="$parent.agent_to_fetch=agent._id;FetchTickets()" >{{agent.first_name}} {{agent.last_name}}</div>
-					<div class="item" ng-click="agent_to_fetch=0;FetchTickets()">Unassigned</div>
-				</div>
-			</div>
-		</div>
-
-		<div>
-			<div class="ui dropdown top  item right pointing" sui-dropdown>
-				<div class="text">Date</div>
-				<i class="dropdown icon"></i>
-				<div class="menu set-z-index agents_dropdown">
-					<div class="item" ng-click="ticketsOrder('asc')">Asc</div>
-					<div class="item" ng-click="ticketsOrder('desc')">Desc</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div ng-if="requesting_data" class="ui active inverted dimmer">
 		<div class="ui text loader">Loading</div>
 	</div>
@@ -49,6 +10,40 @@
 	</div>
 
 	<div class="ui segments">
+
+		<div class="ui segment tight">
+			<div class="ui compact fluid secondary three item menu">
+				<div class="item ui basic dropdown button" sui-dropdown>
+
+					{{type_to_fetch == 'open' ? 'Open' : 'Closed'}} ({{pagination.total_count || 0}})
+					<i class="dropdown icon"></i>
+
+					<div class="menu">
+						<div class="item" ng-click="FetchByType('open')">Open</div>
+						<div class="item" ng-click="FetchByType('closed')">Close</div>
+					</div>
+				</div>
+				<div class="item ui basic dropdown button" sui-dropdown>
+					Assigned to
+					<i class="dropdown icon"></i>
+					<div class="menu set-z-index agents_dropdown">
+						<div class="item" ng-click="agent_to_fetch='all';FetchTickets()">All</div>
+						<div class="item" ng-repeat="agent in company_agents | orderBy:'first_name'" ng-click="$parent.agent_to_fetch=agent._id;FetchTickets()">{{agent.first_name}} {{agent.last_name}}</div>
+						<div class="item" ng-click="agent_to_fetch=0;FetchTickets()">Unassigned</div>
+					</div>
+				</div>
+				<div class="item ui basic dropdown button" sui-dropdown>
+					Date
+					<i class="dropdown icon"></i>
+
+					<div class="menu set-z-index agents_dropdown">
+						<div class="item" ng-click="ticketsOrder('asc')">Asc</div>
+						<div class="item" ng-click="ticketsOrder('desc')">Desc</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="ui {{current_conversation == next_item.id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item.id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
 
 			<div class="pull-right meta">
