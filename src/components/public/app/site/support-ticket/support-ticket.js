@@ -18,7 +18,7 @@ app.controller('PublicSupportTicketController', function ($scope,$site,Upload,$r
     $rootScope.is_member = $rootScope.site.is_member;
     $scope.init = function(){
         $scope.ticket.type = $stateParams.type || 'normal';
-        $scope.ticket.company_id = $site.company_id;
+        $scope.ticket.company_id = $site.user_id;
     }
     // $scope.imageUpload = function(files){
 
