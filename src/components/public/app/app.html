@@ -5,6 +5,7 @@
 
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">
 
+
 		<div ng-if="(!isLoggedIn() || !is_member) && app.subdomain != 'sm'" class="row p-b-none member_sign_row">
 			<div class="column" style="text-align: right;">
 				<div class="pull-left small monitor hidden large monitor hidden">
@@ -19,7 +20,6 @@
 					<div class="or" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )"></div>
 					<a class="ui positive button register_button" ui-sref="public.sign.up" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )">{{meta_data.signup_button_text ? meta_data.signup_button_text : 'Sign up'}}</a>
 				</div>
-				asdasdasd {{isLoggedIn()}} sd {{is_member}}
 				<div class="ui buttons {{meta_data.navigation_location == 'top fixed' && !isLoggedIn() ? 'more_margin_button2' : ''}}" ng-show="isLoggedIn() && ( !meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' ) )">
 
 					<button busy class="ui button join_button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">{{meta_data.login_button_text ? meta_data.join_button_text : 'Join'}}</button>
