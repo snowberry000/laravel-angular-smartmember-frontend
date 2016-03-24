@@ -57,13 +57,16 @@
 			<p>{{next_item.subject}}</p>
 
 		</div>
+
+		<div class="ui segment tight">
+			<span ng-if="pagination.total_count > 0">{{pagination.total_count}} tickets found</span>
+			<span ng-if="pagination.total_count == 0">No tickets found</span>
+			<div class="text-right" ng-if="!loading && pagination.total_count > 0">
+				<dir-pagination-controls max-size="3"></dir-pagination-controls>
+			</div>
+		</div>
 	</div>
 
-	<span ng-if="pagination.total_count > 0">{{pagination.total_count}} tickets found</span>
-	<span ng-if="pagination.total_count == 0">No tickets found</span>
-	<div class="text-right" ng-if="!loading && pagination.total_count > 0">
-		<dir-pagination-controls max-size="3"></dir-pagination-controls>
-	</div>
 
 </div>
 
