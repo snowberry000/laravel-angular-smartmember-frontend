@@ -31,7 +31,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		$scope.lesson = $lesson;
 		$scope.next_item = $scope.lesson;
 
-        $rootScope.setSocialShareForContent( $scope.next_item );
+        // $rootScope.setSocialShareForContent( $scope.next_item );
         $rootScope.widget_target_type = 'lesson';
         $rootScope.widget_target = $scope.next_item.id;
 
