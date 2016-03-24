@@ -46,10 +46,16 @@
         <div class="ui popup right center anchored pull-left">
             <div class="content">
                 <h5 class="ui dividing header">
-                    Ticket #{{ticket.id}}: {{ticket.subject}}
+                    Ticket #{{ticket._id}}: {{ticket.subject}}
                 </h5>
                 <div class="fr-view" dynamic="ticket.message">
                 </div>
+            </div>
+            <div ng-if="ticket.attachment">
+                <span class="ui horizontal divider" style="font-weight: 100;font-size: smaller;">
+                    Attachment
+                </span>
+                <img src="{{ticket.attachment}}"/>
             </div>
             <p class="text-left">
                 Sent {{moment.utc(ticket.created_at).fromNow()}}

@@ -128,7 +128,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 		]
 
 
-		$scope.reply = { parent_id: $scope.ticket.id, company_id: $scope.ticket.company_id };
+		$scope.reply = { parent_id: $scope.ticket._id, company_id: $scope.ticket.company_id };
 		$scope.send_email = false;
 		// if ($scope.ticket.status == 'open')
 		// {
@@ -295,7 +295,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 	$scope.changeStatus = function( status )
 	{
 		$scope.ticket.status = status;
-        RestangularV3.one( 'ticket', $scope.ticket.id ).put( {
+        RestangularV3.one( 'ticket', $scope.ticket._id ).put( {
             'status': status
         }).then(function(response){
             toastr.success( "Ticket status changed to " + status );
@@ -344,7 +344,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 		if( $scope.admin_mode )
 		{
 			RestangularV3.all( 'ticket/adminNote' ).post( {
-				ticket_id: $scope.ticket.id,
+				ticket_id: $scope.ticket._id,
 				note: $scope.reply.message
 			} ).then( function( response )
 			{
@@ -352,7 +352,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 				toastr.success( "Your note has been saved" );
 				response.user = $user;
 				if($scope.ticket.admin_notes)
-					$scope.ticket.admin_notes.push( { ticket_id: $scope.ticket.id, note: $scope.reply.message} );
+					$scope.ticket.admin_notes.push( { ticket_id: $scope.ticket._id, note: $scope.reply.message} );
 				else
 				{
 					$scope.ticket.admin_notes= [];
@@ -360,7 +360,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 				}
 
 				$scope.display_replies.push( response )
-				$scope.reply = { parent_id: $scope.ticket.id, company_id: $scope.ticket.company_id };
+				$scope.reply = { parent_id: $scope.ticket._id, company_id: $scope.ticket.company_id };
 				$state.reload();
 			} );
 		}
@@ -386,7 +386,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 					$scope.reply.message = '';
 					$scope.ticket.reply.push( response );
 					$scope.display_replies.push( response );
-					$scope.reply = { parent_id: $scope.ticket.id, company_id: $scope.ticket.company_id };
+					$scope.reply = { parent_id: $scope.ticket._id, company_id: $scope.ticket.company_id };
 					$scope.send_email = !$scope.send_email;
 					$state.reload();
 
@@ -397,7 +397,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 
 	$scope.agentChange = function()
 	{
-		RestangularV3.one( 'ticket', $scope.ticket.id ).put( { 'agent_id': $scope.ticket.agent_id } ).then( function( response )
+		RestangularV3.one( 'ticket', $scope.ticket._id ).put( { 'agent_id': $scope.ticket.agent_id } ).then( function( response )
 		{
 			toastr.success( "Agent updated" );
 			$scope.ticket.agent = _.findWhere($scope.agents,{id:response.agent_id});
@@ -421,7 +421,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 
 	$scope.assignToSMTech = function()
 	{
-		RestangularV3.one( 'ticket', $scope.ticket.id ).put( {
+		RestangularV3.one( 'ticket', $scope.ticket._id ).put( {
 			'escalated_site_id': 2056,
             'agent_id': '0'
 		} ).then( function( response )
@@ -437,7 +437,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 
     $scope.assignToSMMarketing = function()
 	{
-		RestangularV3.one( 'ticket', $scope.ticket.id ).put( {
+		RestangularV3.one( 'ticket', $scope.ticket._id ).put( {
 			'escalated_site_id': 6325,
             'agent_id': '0'
 		} ).then( function( response )
