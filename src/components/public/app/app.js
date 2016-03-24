@@ -4,17 +4,17 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app", {
-	
 			views: {
 				'base': {
-					templateUrl: '/templates/components/public/app/app.html'
+					templateUrl: '/templates/components/public/app/app.html',
+					controller: "publicAppController"
 					
 				},
 				'extra': {
 					template: ""
 				}
 			},
-			controller: "AppController",
+			
 			resolve: {
 				$site: function( Restangular )
 				{
@@ -24,11 +24,9 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AppController", function( $scope, $state, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
+app.controller( "publicAppController", function( $scope, $state, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
 	$rootScope.site = $site;
-
-	console.log($site);
 
     var intercom;
 
