@@ -1,7 +1,7 @@
 <div ng-if="!$state.includes('public.app.admin.bridge-page')" ng-include="'templates/components/public/app/site/common/dynamic-css.html'"></div>
 
 <wave-spinner ng-if="loading"></wave-spinner>
-<div ng-if="!$state.includes('public.app.admin.bridge-page') && !isSitelessPage()" class="ui basic segment site_top_background_color m-n {{isLoggedIn() ? 'logged_in' : ''}} {{meta_data.navigation_location == 'top fixed' ? 'more_margin' : ''}}" ng-init="init();initialize();showNotifications()">
+<div ng-if="!$state.includes('public.app.admin.bridge-page') && !isSitelessPage()" class="ui basic segment site_top_background_color m-n {{isLoggedIn() ? 'logged_in' : ''}} {{meta_data.navigation_location == 'top fixed' ? 'more_margin' : ''}}" ng-init="init();initialize();showNotifications();" >
 
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">
 
