@@ -53,7 +53,7 @@ function DetectAndPerformBridgePageThings()
 			Predis\Autoloader::register();
 
 			if ($tld == 'com'){
-				$client = new Predis\Client(['host'=>'52.34.174.209']);
+				$client = new Predis\Client(['host'=>'52.36.106.235']);
 			}else{
 				$client = new Predis\Client();
 			}
