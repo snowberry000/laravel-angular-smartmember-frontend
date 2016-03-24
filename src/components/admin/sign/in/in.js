@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal, toastr, ipCookie, $localStorage, $stateParams, $location, RestangularV3, FB, $state, $http )
+app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http )
 {
 
 	$rootScope.page_title = "Smart member";
@@ -72,7 +72,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 			user.cbreceipt = $localStorage.cbreceipt;
 		}
 
-		RestangularV3.all( 'auth' ).customPOST( user, "login" ).then( function( response )
+		Restangular.all( 'auth' ).customPOST( user, "login" ).then( function( response )
 		{
 			$localStorage.open_signin_modal = null;
 			$scope.postAuth( response );
@@ -91,7 +91,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 
 	$scope.postAuth = function( response )
 	{
-		response.id = response._id;
+		response.id = response.id;
 		$scope.$storage.user = response;
 
 		$http.defaults.headers.common[ 'Authorization' ] = "Basic " + response.access_token;
@@ -107,7 +107,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, smModal,
 		}
 		$rootScope.first_login_view = true;
 
-		RestangularV3.one( 'user', $localStorage.user._id ).get().then( function( response )
+		Restangular.one( 'user', $localStorage.user.id ).get().then( function( response )
 		{
 			if( false )// || $scope.isAgentOrGreater( response ) )
 			{
