@@ -3,7 +3,7 @@ header( 'Access-Control-Allow-Origin: *' );
 
 include_once( 'php/functions.php' );
 
-$data = DetectAndPerformBridgePageThings();
+//$data = DetectAndPerformBridgePageThings();
 ?>
 <!DOCTYPE html>
 
