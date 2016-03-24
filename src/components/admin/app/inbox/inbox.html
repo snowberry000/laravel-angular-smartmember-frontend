@@ -10,9 +10,9 @@
 	</div>
 
 	<div class="ui segments">
-		<div class="ui {{current_conversation == next_item._id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
+		<!-- <div class="ui {{current_conversation == next_item._id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page"> -->
 
-<!-- 		<div class="ui segment tight">
+		<div class="ui segment tight">
 			<div class="ui compact fluid secondary three item menu">
 				<div class="item ui basic dropdown button" sui-dropdown>
 
@@ -45,7 +45,7 @@
 			</div>
 		</div>
 
-		<div class="ui {{current_conversation == next_item.id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item.id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page"> -->
+		<div class="ui {{current_conversation == next_item.id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item.id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
 
 
 			<div class="pull-right meta">

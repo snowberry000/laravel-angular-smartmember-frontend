@@ -158,7 +158,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		{
 			$localStorage.cbreceipt = false;
 		}
-		if( $rootScope.app.subdomain == 'sm' )
+		if( $rootScope.app.subdomain == 'sm' ||  $rootScope.app.subdomain=='my')
 		{
 			window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
 		}
