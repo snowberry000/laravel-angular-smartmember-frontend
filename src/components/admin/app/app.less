@@ -1,0 +1,406 @@
+html.admin.app,
+html.admin.app body {
+  font-size: 14px;
+}
+
+.admin.app {
+
+  #tutorial, .composer-inbox {
+    height: 100%;
+    overflow: auto
+  }
+
+  #tutorial {
+    z-index: 2147483000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    pointer-events: none;
+    box-sizing: content-box;
+    padding: 0px;
+  }
+
+  #tutorial .btn {
+    outline: 0;
+    margin-top: 20px;
+    text-shadow: none
+  }
+
+  #tutorial .the_message {
+    color: #333333;
+    width: 40%;
+    min-height: 100px;
+    opacity: 1;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    margin: auto;
+    z-index: 1;
+    pointer-events: all;
+    text-align: left;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    z-index: 1000000;
+    text-align: left;
+    position: absolute;
+    opacity: 1;
+    padding: 0px 15px;
+  }
+
+  #tutorial .exit {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+    cursor: pointer;
+  }
+
+  #tutorial .exit i {
+    height: auto;
+  }
+
+  .tutorial_screen {
+    position: fixed;
+    background: 0 0;
+    pointer-events: all
+  }
+
+  .tutorial_shape {
+    position: absolute;
+    border: 10000px solid rgba(255, 255, 255, .8);
+    margin-left: -10000px;
+    margin-top: -10000px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    transition: all .6s ease .3s, border-radius .3s ease
+  }
+
+  .animate_quickly .tutorial_shape {
+    transition: all .3s ease .15s, border-radius .15s ease
+  }
+
+  #tutorial .the_message {
+    transition: opacity .5s ease
+  }
+
+  #tutorial.animate_quickly .the_message {
+    transition: opacity .25s ease
+  }
+
+  #tutorial.animate_quickly .message .text {
+    transition: all .15s ease
+  }
+
+  .tutorial_screen_cover {
+    background: rgba(255, 255, 255, .8)
+  }
+
+  .avatar, .avatar__media, .btn.o__no-border, .unread__small {
+    background-clip: padding-box
+  }
+
+  .tutorial_loading_or_error_text {
+    text-align: center;
+    font-weight: 700;
+    padding: 15px 0;
+    color: #999999
+  }
+
+  #tutorial.tutorial-complete .message-container {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center
+  }
+
+  #tutorial.tutorial-complete .message-container .message {
+    position: static;
+    width: auto
+  }
+
+  #tutorial.tutorial-complete .message_inner {
+    width: 300px
+  }
+
+  #tutorial.tutorial-complete .message_complete_image {
+    margin: 10px auto;
+    height: 110px;
+    width: 110px
+  }
+
+  #tutorial.tutorial-complete .message_complete_image.message_complete_image_acquire {
+    background-image: url(https://static.intercomassets.com/ember/assets/images/tutorials/acquire-complete-1x-e260e413b5e2393c3169789ebd98a1d7.png);
+    background-size: 110px 110px;
+    background-repeat: no-repeat
+  }
+
+  @media (min-device-pixel-ratio: 1.3),(-webkit-min-device-pixel-ratio: 1.3),(min-resolution: 1.3dppx) {
+    #tutorial.tutorial-complete .message_complete_image.message_complete_image_acquire {
+      background-image: url(https://static.intercomassets.com/ember/assets/images/tutorials/acquire-complete-2x-90c371d540ac7060e36082f6023cce86.png)
+    }
+  }
+
+  #tutorial.tutorial-complete .message_complete_image.message_complete_image_engage {
+    background-image: url(https://static.intercomassets.com/ember/assets/images/tutorials/engage-complete-1x-eaf885e75d6366acc9e549a4c92a7108.png);
+    background-size: 110px 110px;
+    background-repeat: no-repeat
+  }
+
+  @media (min-device-pixel-ratio: 1.3),(-webkit-min-device-pixel-ratio: 1.3),(min-resolution: 1.3dppx) {
+    #tutorial.tutorial-complete .message_complete_image.message_complete_image_engage {
+      background-image: url(https://static.intercomassets.com/ember/assets/images/tutorials/engage-complete-2x-02f4c64fa49b5789a6a07d3060673867.png)
+    }
+  }
+
+  #tutorial.tutorial-complete .message_complete_image.message_complete_image_learn {
+    background-image: url(https://static.intercomassets.com/ember/assets/images/tutorials/learn-complete-1x-f1f71b2230cc2985239aea39e9d421c2.png);
+    background-size: 110px 110px;
+    background-repeat: no-repeat
+  }
+
+  @media (min-device-pixel-ratio: 1.3),(-webkit-min-device-pixel-ratio: 1.3),(min-resolution: 1.3dppx) {
+    #tutorial.tutorial-complete .message_complete_image.message_complete_image_learn {
+      background-image: url(https://static.intercomassets.com/ember/assets/images/tutorials/learn-complete-2x-dd2671bd7d65f453d09ceb48d9200a6d.png)
+    }
+  }
+
+  #tutorial.tutorial-complete .message_complete_image.message_complete_image_support {
+    background-image: url(https://static.intercomassets.com/ember/assets/images/tutorials/support-complete-1x-4da755f42fdd98e304b75419eaf37e71.png);
+    background-size: 110px 110px;
+    background-repeat: no-repeat
+  }
+
+  @media (min-device-pixel-ratio: 1.3),(-webkit-min-device-pixel-ratio: 1.3),(min-resolution: 1.3dppx) {
+    #tutorial.tutorial-complete .message_complete_image.message_complete_image_support {
+      background-image: url(https://static.intercomassets.com/ember/assets/images/tutorials/support-complete-2x-ee6152dff27a6177728b89d1985cdb5c.png)
+    }
+  }
+
+  #tutorial.tutorial-complete h3 {
+    text-align: center;
+    font-size: 18px;
+    line-height: 27px
+  }
+
+  @-webkit-keyframes pulse {
+    0%, 100% {
+      -webkit-transform: scale(1, 1);
+      transform: scale(1, 1)
+    }
+    50% {
+      -webkit-transform: scale(1.3, 1.3);
+      transform: scale(1.3, 1.3)
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      -webkit-transform: scale(1, 1);
+      transform: scale(1, 1)
+    }
+    50% {
+      -webkit-transform: scale(1.3, 1.3);
+      transform: scale(1.3, 1.3)
+    }
+  }
+
+  .tutorial_scale {
+    -webkit-animation: pulse .5s ease-in-out;
+    animation: pulse .5s ease-in-out;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-transform-origin: left center;
+    transform-origin: left center
+  }
+
+  .cursor_example_container {
+    pointer-events: none;
+    position: fixed;
+    z-index: 2147483647;
+    top: 0;
+    left: 0;
+    transition: opacity .3s ease-in-out
+  }
+
+  .cursor_example {
+    opacity: 1;
+    -webkit-transform-origin: top left;
+    transform-origin: top left
+  }
+
+  .cursor_example img {
+    width: 16px;
+    height: 23px;
+    margin-top: -1px;
+    margin-left: -1px
+  }
+
+  .cursor_example_animated {
+    -webkit-animation-name: point;
+    animation-name: point;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out
+  }
+
+  .cursor_example_container_moving {
+    transition: all 1s ease-in-out, opacity .3s ease-in-out
+  }
+
+  .guide_todo_label {
+    top: 0.5em;
+    left: 70%;
+  }
+  .secondary_nav_menu {
+    margin: 0px;
+  }
+  .primary_vertical_menu {
+    margin: 0px;
+  }
+  .ui.secondary.inverted.menu.secondary_vertical_menu {
+    margin: 0px;
+    background: #3d3e3f;
+  }
+  .main-content {
+    margin: 0px;
+    flex-direction: column;
+    display: flex;
+    flex: 1;
+  }
+
+  .flexit {
+    flex: 1;
+  }
+  .autoflow {
+    overflow: auto;
+  }
+  .ui.fluid.container.the_main_container.pusher {
+    flex-direction: row;
+  }
+  .ui.visible.left.sidebar ~ .pusher.content_pusher {
+
+  }
+
+  .the_main_area {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-width: 0px;
+  }
+
+  .ui.small.toggle.checkbox .box:before,
+  .ui.small.toggle.checkbox label:before {
+    width: 2.5rem;
+    height: 1rem;
+  }
+  .ui.small.toggle.checkbox .box:after,
+  .ui.small.toggle.checkbox label:after {
+    width: 1.0rem;
+    height: 1.0rem;
+  }
+  .ui.small.toggle.checkbox .box,
+  .ui.small.toggle.checkbox label {
+    min-height: 1.0rem;
+    padding-left: 3rem;
+  }
+  .ui.small.toggle.checkbox input:checked ~ .box:after,
+  .ui.small.toggle.checkbox input:checked ~ label:after {
+    left: 1.55rem;
+  }
+  .ui.small.toggle.checkbox label {
+    padding-top: 0em;
+  }
+
+  .ui.steps.pure_icons .step:before {
+    margin: 0px;
+  }
+  .the_left_sidebar .ui.vertical.menu {
+    width: auto;
+  }
+  .pusher > .full.height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+  .full.height > .toc {
+    position: relative;
+    z-index: 1;
+    background-color: #1b1c1d;
+    width: 250px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+  }
+  .full.height > .toc .ui.menu {
+    border-radius: 0;
+    border-width: 0 1px 0 0;
+    box-shadow: none;
+    margin: 0;
+    width: inherit;
+    overflow: hidden;
+    will-change: transform;
+  }
+  .article {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-width: 0px;
+  }
+  .admin_bar {
+    z-index: 9999 !important;
+  }
+  .modals.dimmer .ui.scrolling.modal {
+    margin-top: 6em !important;
+  }
+  .ui.inline.header .content .sub.header {
+    display: inline-block;
+  }
+  .ui.basic.borderless.label {
+    border: none;
+  }
+  .light_grey {
+    color: #78909c;
+  }
+}
+
+.admin.app:not(.site) > .pusher > .full.height {
+  background-color: #ffffff;
+}

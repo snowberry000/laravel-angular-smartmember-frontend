@@ -1,0 +1,68 @@
+<style>
+
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: 200px;
+    text-align: center;
+    padding: 25px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.dragover {
+    border: 5px dashed blue;
+}
+</style>
+<div class="ui hidden section divider"></div>
+
+<h1 class="ui center aligned header">Import CSV</h1>
+
+<h3 class="ui center aligned header normal_weight">
+	Import your members or leads from a CSV (comma-separated values) file.
+</h3>
+
+<div class="ui very padded segment">
+
+	<div class="ui equal width grid">
+		<div class="column">
+			<h4 class="ui red header">Import members</h4>
+			<p>
+				People who are already your members or have existing user accounts.
+			</p>
+		</div>
+		<div class="column">
+			<h4 class="ui red header">Import leads</h4>
+			<p>
+				People who may become your members or create accounts later.
+			</p>
+		</div>
+	</div>
+</div>
+<div class="ui center aligned very padded segment">
+
+	<i class="fitted huge grey upload icon"></i>
+
+	<h4 class="ui red header">Drag and drop your CSV file here</h4>
+	<!-- {{import.csv}} -->
+	<div ng-hide="loading || import.csv" ngf-drop ngf-select ng-model="csvfile" class="drop-box" 
+	        ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true">Drag and drop your CSV file here</div>
+	<h4 ng-if="loading">Uploading . . .</h4>
+	<div ng-if="import.csv">
+		<a href="#" >
+			{{getNameOfcsv()}}
+		</a>
+		<a href="#" style="color: red; font-weight: bold; font-size: medium; font-family: sans-serif; " ng-click="import.csv = '' ">×</a>
+	</div>
+	<!-- <p sm-uploader="csv" ng-model="import.csv">Or select a file from your computer...</p> -->
+
+	<p>Your CSV file should at least contain each person's email address.
+	</p>
+</div>
+
+<div class="ui hidden divider"></div>
+
+<p class="text-center">
+	<a class="ui huge red button" busy ng-show="import.csv" ng-click="next()">Next</a>
+	<a class="ui huge red button" ng-click="skip()">Skip</a>
+</p>

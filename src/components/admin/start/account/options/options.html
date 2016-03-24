@@ -1,0 +1,29 @@
+<h1 class="ui center aligned header m-t-n">Create your account</h1>
+
+<div class="ui center aligned grid">
+
+	<div class="ten wide column">
+		<h3 class="ui center aligned header normal_weight">
+			To start better growing & managing your members, start a free 14-day trial of a
+			paid product on the Smart Member platform. A credit card will be required to
+			verify your account and will not be charged until your 14-day trial is over.
+		</h3>
+
+		<div class="ui center aligned basic segment">
+
+			<i class="huge {{next_item2.color}} circular {{next_item2.icon}} icon" ng-repeat="next_item2 in all_products" ng-if="next_item2.name != next_item.name"></i>
+
+		</div>
+
+		<div class="ui hidden divider"></div>
+
+		<p class="text-center">
+			<a ui-sref="admin.start.account.pick" class="ui huge red button">Next: Choose your product</a>
+		</p>
+
+		<p class="text-center">
+			<a ui-sref="admin.start.account.register" class="light_grey" style="text-decoration:underline;">I'll start a trial later</a>
+		</p>
+
+	</div>
+</div>

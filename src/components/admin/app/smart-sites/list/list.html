@@ -1,0 +1,88 @@
+
+<div class="sixteen wide column">
+
+	<div class="ui active inverted dimmer" ng-if="loading && !show_tutorial">
+		<div class="ui text loader">Loading</div>
+	</div>
+
+	<div class="ui fluid container">
+
+		<div class="ui five doubling stackable site cards" ng-if="show_tutorial">
+			<div class="card">
+				<div class="image flex_center" style="background: #FFF;">
+					<img class="ui centered middle aligned image" src="/images/white-image.png">
+					<div class="ui top right attached label">
+						owner
+					</div>
+				</div>
+				<div class="content">
+					<a class="header">
+						Your Site
+					</a>
+					<a class="meta ellipsis">
+						example.smartmember.com
+					</a>
+				</div>
+				<div class="extra content">
+					<i class="users grey icon"></i> 1740 Members
+				</div>
+				<div class="ui extra bottom attached buttons">
+					<a class="ui basic button">
+						<i class="database icon"></i>
+						Admin
+					</a>
+					<a class="ui basic button" target="_blank">
+						<i class="external link icon"></i>
+						Visit
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="ui five doubling stackable site cards" ng-if="data.length > 0" ng-hide="show_tutorial" infinite-scroll='paginate()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
+			<div class="card" ng-repeat="next_item in data">
+				<div ui-sref="admin.app.smart-sites.edit({subdomain: next_item.subdomain})" class="image flex_center" style="background: {{(next_item.data.site_logo ? next_item.data.site_top_background_color : '#FFF') || ''}}">
+					<img class="ui centered middle aligned image" src="{{getMetaValue(next_item,'site_logo') || '/images/white-image.png'}}">
+					<div class="ui top right attached label">
+						{{next_item.role}}
+						<label ng-if ="next_item.role!='owner'" ng-click="promptRemoveMe($event,next_item)" title="Remove me from this site">
+							<i class="icon delete m-n"></i>
+						</label>
+						<label ng-if="next_item.role=='owner' && next_item.subdomain != app.subdomain" ng-click="deleteResource($event,next_item)" title="Delete this site">
+							<i class="icon trash m-n"></i>
+						</label>
+					</div>
+				</div>
+				<div class="content">
+					<a ui-sref="admin.app.smart-sites.edit({subdomain: next_item.subdomain})" class="header">
+						{{next_item.name}}
+					</a>
+					<a ui-sref="admin.app.smart-sites.edit({subdomain: next_item.subdomain})" class="meta ellipsis">
+						{{next_item.domain ? next_item.domain : next_item.subdomain + '.' + 'smartmember.com' }}
+					</a>
+				</div>
+				<div class="extra content">
+					<i class="users grey icon"></i> {{next_item.total_members}} Members
+				</div>
+				<div class="ui extra bottom attached buttons">
+					<a ui-sref="admin.app.smart-sites.edit({subdomain: next_item.subdomain})" class="ui basic button">
+						<i class="database icon"></i>
+						Admin
+					</a>
+					<a ng-href="//{{next_item.domain ? next_item.domain :  next_item.subdomain + '.smartmember.' + app.env }}" class="ui basic button" target="_blank">
+						<i class="external link icon"></i>
+						Visit
+					</a>
+				</div>
+			</div>
+		</div>
+		<div ng-if="pagination.total_count == 0" class="ui ignored alert message">
+			<p>You are not a member of any site</p>
+		</div>
+		<!-- <div class="text-right" ng-if='!loading'>
+			<pagination total-items="adminPagination.total_count" max-size="5" items-per-page="25" ng-model="adminPagination.current_page" class="pagination-sm" boundary-links="true" ng-change="loadMore()" previous-text="&lt;" next-text="&gt;" first-text="&laquo;" last-text="&raquo;"></pagination>
+		</div> -->
+
+
+	</div>
+
+</div>

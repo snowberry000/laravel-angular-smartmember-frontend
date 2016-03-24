@@ -153,6 +153,7 @@ app.controller( 'IndexAppController', function( $scope,toastr, $state, $rootScop
 	}
 	$scope.showNotifications = function()
 	{
+		var site_options = {};
 		if ($rootScope.site)
 		{
 			$site_options = $rootScope.site.meta_data;

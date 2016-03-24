@@ -23,9 +23,9 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 				$state.go('public.my');
 				/*window.location.href = 'http://www.' + possible_domain + '.' + parts.join('.');*/
 			}
-			else if( subdomain == "www" )
+			else if( subdomain == "app" )
 			{
-				$state.go( "public.www.home" );
+				$state.go('admin.app');
 			}
 			else
 			{
@@ -50,10 +50,10 @@ app.config( function( $httpProvider, $urlRouterProvider, $locationProvider )
 			console.log( "Going to 'public.my' state from non-/" );
 			$state.go( "public.my" );
 		}
-		else if( !location.host.isCustomDomain() && subdomain == "www" && possible_domain == 'smartmember' && parts.length == 1 )
+		else if( !location.host.isCustomDomain() && subdomain == "app" && possible_domain == 'smartmember' )
 		{
-			console.log( "Going to 'public.www' state from non-/" );
-			$state.go( "public.www.home" );
+			console.log( "Going to 'admin.app' state from non-/" );
+			$state.go( "admin.app" );
 		}
 		else
 		{

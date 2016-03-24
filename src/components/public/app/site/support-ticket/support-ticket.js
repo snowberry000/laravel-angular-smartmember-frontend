@@ -9,11 +9,13 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller('PublicSupportTicketController', function ($scope,$site,Upload,$rootScope, $localStorage, $state, $stateParams,$filter, Restangular, toastr ) {
+app.controller('PublicSupportTicketController', function ($scope,$site,Upload,$rootScope, $localStorage, $state,RestangularV3, $stateParams,$filter, Restangular, toastr ) {
     $scope.ticket = {};
     $rootScope.page_title = $rootScope.site.name+' - Leave a Support Ticket';
     if(!$rootScope.site.name)
         $rootScope.page_title = 'Leave a Support Ticket'
+
+    $rootScope.is_member = $rootScope.site.is_member;
     $scope.init = function(){
         $scope.ticket.type = $stateParams.type || 'normal';
         $scope.ticket.company_id = $site.company_id;
@@ -65,7 +67,13 @@ app.controller('PublicSupportTicketController', function ($scope,$site,Upload,$r
         }
 
         if( message_verified == true ) {
-            Restangular.all('supportTicket').post($scope.ticket).then(function (response) {
+            console.log($scope.ticket);
+            $scope.ticket.parent_id="0";
+            $scope.ticket.agent_id="0";
+            $scope.ticket.status="open";
+            $scope.ticket.site_id = $rootScope.site.id ? $rootScope.site.id : null;
+            $scope.ticket.send_email=true;
+            RestangularV3.all('ticket').post($scope.ticket).then(function (response) {
                 toastr.success("Your ticket has been created.");
                 Restangular.all( '' ).customGET('ticketCount').then( function( data )
                 {

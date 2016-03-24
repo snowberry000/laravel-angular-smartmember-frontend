@@ -1,0 +1,83 @@
+<div class="ui short modal">
+	<i class="close icon"></i>
+	<div class="header">
+		Login to {{site.name || 'Smart Member'}}
+	</div>
+	<div class="content">
+		<div class="description relative">
+
+			<div class="ui active inverted dimmer" ng-if="user_loading">
+				<div class="ui loader"></div>
+			</div>
+
+			<div class="ui two column middle aligned very relaxed stackable grid container relative_container" style="position: relative;">
+				<div class="column">
+
+					<p ng-if="site_options.login_page_text" dynamic="site_options.login_page_text" class="fr-view"></p>
+
+					<div class="ui message" ng-if="account_exist">
+						<div class="header">
+							Account Exists
+						</div>
+						<p>An account with that email already exists. If it's your email, login below or click "Forgot password?" to recover it.</p>
+					</div>
+					<div class="ui message" ng-if="register_exist">
+						<div class="header">
+							Email Already Taken
+						</div>
+						<p>That email is already associated with an account! If it's yours, login below.</p>
+					</div>
+					<div class="ui message" ng-if="reset_sent">
+						<div class="header">
+							Email Sent
+						</div>
+						<p>Please check your inbox for a link to click to reset your password.</p>
+					</div>
+
+					<form class="ui form" ng-submit="login()">
+						<div class="field">
+							<label>Email</label>
+							<div class="ui left icon input">
+								<input type="text" placeholder="Email" ng-model="user.email">
+								<i class="fa fa-at icon"></i>
+							</div>
+						</div>
+						<div class="field">
+							<label>Password</label>
+							<div class="ui left icon input">
+								<input type="password" ng-model="user.password">
+								<i class="fa fa-lock icon"></i>
+							</div>
+						</div>
+						<button busy type="submit" class="ui green submit button" ng-disabled="!user.email || !user.password">Login</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="actions">
+		<div ng-click="CloseExtraState()" ng-if="BaseStateExists()" class="ui black button">
+			Close
+		</div>
+		<a ui-sref="admin.sign.forgot" class="ui labeled icon button">
+			Forgot password?
+			<i class="lock icon"></i>
+		</a>
+		<a ng-href="{{app.subdomain == 'app' ? 'http://help.smartmember.com':'/support-ticket'}}" class="ui right labeled icon button">
+			Need help?
+			<i class="life ring icon"></i>
+		</a>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

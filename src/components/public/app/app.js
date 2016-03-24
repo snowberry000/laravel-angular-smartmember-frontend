@@ -4,17 +4,17 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app", {
-			sticky: true,
-			abstract: true,
+	
 			views: {
 				'base': {
-					templateUrl: '/templates/components/public/app/app.html',
-					controller: "AppController"
+					templateUrl: '/templates/components/public/app/app.html'
+					
 				},
 				'extra': {
 					template: ""
 				}
 			},
+			controller: "AppController",
 			resolve: {
 				$site: function( Restangular )
 				{
@@ -159,6 +159,7 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 
 
 		var details = $site;
+		$scope.is_member = $site.is_member;
 		if( details )
 		{
 			$.each( details.meta_data, function( key, data )

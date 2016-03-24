@@ -1,0 +1,178 @@
+<div class="ui modal transaction-account-setup" ng-controller="transactionAccountSetupController" ng-init="PopStaticModal('transaction-account-setup');init()">
+    <div class="header">
+        Set up your account
+    </div>
+    <div class="content" ng-if="!account.last_logged_in">
+        <div class="description">
+
+            <div class="ui column middle aligned very relaxed stackable grid container">
+                <div class="column">
+
+                    <p ng-if="site_options.login_page_text" dynamic="site_options.login_page_text" class="fr-view"></p>
+
+                    <div class="ui message" ng-if="email_taken && !verification_sent && !verification_failed">
+                        <div class="header">
+                            Email Already Taken
+                        </div>
+                        That e-mail is already taken.  If this e-mail belongs to you, please <a href="#" class="alert-link" ng-click="sendVerificationCode()">click here to be sent a verification code</a>.
+                    </div>
+                    <div class="ui message" ng-if="email_taken && !verification_sent && verification_failed">
+                        <div class="header">
+                            Verification Code Invalid
+                        </div>
+                        Verification code was invalid, <a href="#" class="alert-link" ng-click="sendVerificationCode()">click here to be sent a new verification code</a>.
+                    </div>
+
+                    <form class="ui form" ng-submit="saveAccount()">
+                        <h3>Please set the username and password for your account</h3>
+                        <div class="field">
+                            <label>Email</label>
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Email" ng-model="account.email">
+                                <i class="fa fa-at icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <div class="ui left icon input">
+                                <input type="password" ng-model="account.password">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                        </div>
+                        <div class="field" ng-if="email_taken && verification_sent">
+                            <label>Verification Code</label>
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Verification code" ng-model="account.verification_code">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                            <span class="help-block m-b-none">
+                                Please check your e-mail for the verification code and paste in here.
+                                Code is only valid for fifteen minutes. <a href="#" ng-click="sendVerificationCode()">Click here</a> to be sent a new code.
+                            </span>
+                        </div>
+                        <button type="submit" class="ui green submit button" ng-disabled="!account.email || !account.password">Save</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="content" ng-if="account.last_logged_in && !account.create_new_account">
+        <div class="description">
+
+            <div class="ui two column middle aligned very relaxed stackable grid">
+                <div class="column">
+
+                    <form class="ui form" ng-submit="associateAccount()">
+                        <h3>You probably already have an active account at one of the many Smartmember sites. Please Login or click  Forgot Password to retrieve your password</h3>
+                        <div class="field">
+                            <label>Email</label>
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Email" ng-model="account.email">
+                                <i class="fa fa-at icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <div class="ui left icon input">
+                                <input type="password" ng-model="account.password">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                        </div>
+                        <div class="field" ng-if="email_taken && verification_sent">
+                            <label>Verification Code</label>
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Verification code" ng-model="account.verification_code">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                            <span class="help-block m-b-none">
+                                Please check your e-mail for the verification code and paste in here.
+                                Code is only valid for fifteen minutes. <a href="#" ng-click="sendVerificationCode()">Click here</a> to be sent a new code.
+                            </span>
+                        </div>
+                        <button type="submit" class="ui green submit button" ng-disabled="!account.email || !account.password">Log in</button>
+                    </form>
+                </div>
+                <div class="ui vertical divider">
+                    Or
+                </div>
+                <div class="center aligned column">
+                    <a href="#" ng-click="account.create_new_account = true" class="close ui big blue labeled icon button">
+                        <i class="fa fa-edit icon"></i>
+                        Sign Up
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content" ng-if="account.last_logged_in && account.create_new_account">
+        <div class="description">
+
+            <div class="ui two column middle aligned very relaxed stackable grid">
+                <div class="center aligned column">
+                    <a href="#" ng-click="account.create_new_account = false" class="close ui big green labeled icon button">
+                        <i class="fa fa-user icon"></i>
+                        Log In
+                    </a>
+                </div>
+                <div class="ui vertical divider">
+                    Or
+                </div>
+                <div class="column">
+                    <div class="ui message" ng-if="email_taken && !verification_sent && verification_failed">
+                        <div class="header">
+                            Verification Code Invalid
+                        </div>
+                        Verification code was invalid, <a href="#" class="alert-link" ng-click="sendVerificationCode()">click here to be sent a new verification code</a>.
+                    </div>
+                    <form class="ui form" ng-submit="associateNewAccount()">
+                        <h3>Please register</h3>
+                        <div class="field">
+                            <label>Name</label>
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Email" ng-model="account.first_name">
+                                <i class="fa fa-at icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Email</label>
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Email" ng-model="account.email">
+                                <i class="fa fa-at icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <div class="ui left icon input">
+                                <input type="password" ng-model="account.password">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                        </div>
+                        <div class="field" ng-if="email_taken && verification_sent">
+                            <label>Verification Code</label>
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Verification code" ng-model="account.verification_code">
+                                <i class="fa fa-lock icon"></i>
+                            </div>
+                            <span class="help-block m-b-none">
+                                Please check your e-mail for the verification code and paste in here.
+                                Code is only valid for fifteen minutes. <a href="#" ng-click="sendVerificationCode()">Click here</a> to be sent a new code.
+                            </span>
+                        </div>
+                        <button type="submit" class="ui blue submit button" ng-disabled="!account.email || !account.password">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <a class="ui labeled icon button" ui-sref="admin.sign.forgot" ng-if="account.last_logged_in">
+            Forgot password?
+            <i class="lock icon"></i>
+        </a>
+        <a href="http://help.smartmember.com" class="ui close right labeled icon button">
+            Need help?
+            <i class="fa fa-life-ring icon"></i>
+        </a>
+    </div>
+</div>

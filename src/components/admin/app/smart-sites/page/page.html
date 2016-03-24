@@ -1,0 +1,18 @@
+<div class="sixteen wide column public">
+    <button ng-click="refreshPreview()">Test Refresh Function</button>
+    <div class="ui top attached tabular menu" sui-tabs>
+        <a class="item active" data-tab="normal">Normal View</a>
+        <a class="item" data-tab="blocked">Blocked View</a>
+        <a class="item" data-tab="preview">Site Preview</a>
+    </div>
+    <div class="ui bottom attached tab segment active" data-tab="normal">
+        <div fg-edit fg-schema="myForm.schema" ng-if="!loading" fg-layout="next_item.layout"></div>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="blocked">
+        <div fg-edit fg-schema="myForm.schema" ng-if="!loading" fg-layout="next_item.layout"></div>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="preview">
+        <site-preview ng-if="!loading" src="full_url" />
+    </div>
+
+</div>
