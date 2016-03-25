@@ -119,6 +119,7 @@ app.controller( 'PublicPageController', function( $scope, $localStorage, $rootSc
 			comment.reply.push( reply );
 			toastr.success( "Your reply is added!" );
 
+			$scope.SetCommentReplyBoxVisibility( false );
 		} )
 	}
 
