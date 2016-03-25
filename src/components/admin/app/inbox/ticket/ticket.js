@@ -18,7 +18,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "TicketController", function( $scope, $localStorage,RestangularV3, $state, $rootScope, $stateParams, $filter, $timeout, Restangular, toastr )
+app.controller( "TicketController", function( $scope, $localStorage, RestangularV3, $state, $rootScope, $stateParams, $filter, $timeout, Restangular, toastr )
 {
 	$scope.display_replies = [];
 	$scope.change_ticket_status = '';
@@ -32,7 +32,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 		$ticket = RestangularV3.one( 'ticket', $stateParams.id ).get().then( function( response )
 		{
 			$scope.ticket = response.ticket;
-			$rootScope.changedStatusDetails=response.ticket.status;
+			$rootScope.changedStatusDetails = response.ticket.status;
 			$scope.change_ticket_status = response.ticket.status;
 			$ticket = response.ticket;
 			$scope.getSegments();
@@ -49,74 +49,91 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 	$scope.current_user_id = $user.id;
 	$scope.agents = [];
 
-	$scope.getSegments =function(){
+	$scope.getSegments = function()
+	{
 
 		return;
 
-		$email = $scope.ticket.user_email ?$scope.ticket.user_email: $scope.ticket.user.email;
-		RestangularV3.all('').customGET('member/getSegments?email='+$email).then(function(response){
+		$email = $scope.ticket.user_email ? $scope.ticket.user_email : $scope.ticket.user.email;
+		RestangularV3.all( '' ).customGET( 'member/getSegments?email=' + $email ).then( function( response )
+		{
 			$scope.user_segments = response.segments_list;
 			$rootScope.ticket_member_id = response._id;
-			$scope.ticket.user_web_sessions = response.web_sessions ;
-			$scope.ticket.user_browser_name = response.browser_name ;
-			$scope.ticket.user_browser_version = response.browser_version ;
-			$scope.ticket.user_browser_language = (response.browser_language && response.browser_language.length > 0 ) ? response.browser_language[0] : null;
-			$scope.ticket.user_os = response.os ;
+			$scope.ticket.user_web_sessions = response.web_sessions;
+			$scope.ticket.user_browser_name = response.browser_name;
+			$scope.ticket.user_browser_version = response.browser_version;
+			$scope.ticket.user_browser_language = (response.browser_language && response.browser_language.length > 0 ) ? response.browser_language[ 0 ] : null;
+			$scope.ticket.user_os = response.os;
 			$scope.ticket.user_unsubscribe = response.unsubscribe ? true : false;
 			$scope.ticket.user_setup_wizard_complete = response.setup_wizard_complete;
-			if($scope.ticket.user_setup_wizard_complete || $scope.ticket.user_setup_wizard_complete==0)
+			if( $scope.ticket.user_setup_wizard_complete || $scope.ticket.user_setup_wizard_complete == 0 )
+			{
 				$scope.ticket.user_setup_wizard_complete = $scope.ticket.user_setup_wizard_complete ? true : false;
-			setTimeout(function() {
-				$('a').popup();
-				$('.tabular.menu .item').tab();
-			}, 1000);
-			
-		});
+			}
+			setTimeout( function()
+			{
+				$( 'a' ).popup();
+				$( '.tabular.menu .item' ).tab();
+			}, 1000 );
+
+		} );
 	}
-	
-	$scope.getUserValue = function ($attr){
-		if(!$scope.ticket || !$scope.ticket.user)
+
+	$scope.getUserValue = function( $attr )
+	{
+		if( !$scope.ticket || !$scope.ticket.user )
+		{
 			return;
-		if(!_.has($scope.ticket.user,$attr))
+		}
+		if( !_.has( $scope.ticket.user, $attr ) )
 		{
 			return 'unknown';
 		}
 		else
 		{
-			if($scope.ticket.user[$attr])
+			if( $scope.ticket.user[ $attr ] )
 			{
 				return true;
 			}
 			else
+			{
 				return false;
+			}
 		}
 	}
 
-	$scope.getTicketValue = function ($attr){
-		if(!$scope.ticket)
+	$scope.getTicketValue = function( $attr )
+	{
+		if( !$scope.ticket )
+		{
 			return;
+		}
 
-		if(!_.has($scope.ticket,$attr))
+		if( !_.has( $scope.ticket, $attr ) )
 		{
 			return 'unknown';
 		}
 		else
 		{
-			if($scope.ticket[$attr])
+			if( $scope.ticket[ $attr ] )
 			{
-				return $scope.ticket[$attr];
+				return $scope.ticket[ $attr ];
 			}
 			else
+			{
 				return false;
+			}
 		}
 	}
 
 
-	$scope.getUser = function() {
-		$email = $scope.ticket.user_email ?$scope.ticket.user_email: $scope.ticket.user.email;
-		RestangularV3.all('').customGET('user/getUserByEmail?email='+$email).then(function(response){
-			$scope.ticket.user=response;
-		});
+	$scope.getUser = function()
+	{
+		$email = $scope.ticket.user_email ? $scope.ticket.user_email : $scope.ticket.user.email;
+		RestangularV3.all( '' ).customGET( 'user/getUserByEmail?email=' + $email ).then( function( response )
+		{
+			$scope.ticket.user = response;
+		} );
 	}
 
 
@@ -140,11 +157,11 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 		// }
 
 
-		RestangularV3.all( '' ).customGET( 'company/members').then( function( data )
+		RestangularV3.all( '' ).customGET( 'company/members' ).then( function( data )
 		{
 			angular.forEach( data, function( value )
 			{
-				if( typeof value != 'undefined' && value)
+				if( typeof value != 'undefined' && value )
 				{
 					var user_name = value.first_name + ' ' + value.last_name;
 					var name_bits = user_name.split( ' ' );
@@ -169,18 +186,23 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 				}
 			} );
 
-			$scope.ticket.agent = _.findWhere($scope.agents,{id:$scope.ticket.agent_id});
+			$scope.ticket.agent = _.findWhere( $scope.agents, { id: $scope.ticket.agent_id } );
 		} );
 	}
 
-	$scope.getFileName =function($url) {
- 		$url = decodeURI($url);
- 		$str = $url.split('/');
- 		if($str.length >=1)
- 			return $str[$str.length-1];
- 		else
- 			return " ";
- 	}
+	$scope.getFileName = function( $url )
+	{
+		$url = decodeURI( $url );
+		$str = $url.split( '/' );
+		if( $str.length >= 1 )
+		{
+			return $str[ $str.length - 1 ];
+		}
+		else
+		{
+			return " ";
+		}
+	}
 
 
 	$scope.isImage = function( file )
@@ -295,11 +317,12 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 	$scope.changeStatus = function( status )
 	{
 		$scope.ticket.status = status;
-        RestangularV3.one( 'ticket', $scope.ticket._id ).put( {
-            'status': status
-        }).then(function(response){
-            toastr.success( "Ticket status changed to " + status );
-        });
+		RestangularV3.one( 'ticket', $scope.ticket._id ).put( {
+			'status': status
+		} ).then( function( response )
+		{
+			toastr.success( "Ticket status changed to " + status );
+		} );
 	}
 
 	$scope.formatDate = function( inputDate )
@@ -321,24 +344,44 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 		{
 			return moment( inputDate ).format( 'MMMM Do' );
 		}
-	}
-	$scope.updateStatus= function(statusVal){
-		console.log(statusVal);
-		$rootScope.changedStatusDetails= statusVal;
-		RestangularV3.one( 'ticket', $scope.ticket._id ).put( { 'status': statusVal} ).then( function( response )
+	};
+
+	$scope.ToggleStatus = function()
+	{
+		if( $scope.ticket.status == 'closed' )
+		{
+			$scope.updateStatus( 'open' );
+		}
+		else
+		{
+			$scope.updateStatus( 'closed' );
+		}
+	};
+
+	$scope.updateStatus = function( statusVal )
+	{
+		console.log( statusVal );
+		$rootScope.changedStatusDetails = statusVal;
+		RestangularV3.one( 'ticket', $scope.ticket._id ).put( { 'status': statusVal } ).then( function( response )
 		{
 			toastr.success( "Ticket status updated" );
-		} )
-		if($scope.change_ticket_status == 'closed')
-			$scope.$parent.FetchByType('closed');
-		else 
-			$scope.$parent.FetchByType('open');
+			$scope.ticket.status = statusVal;
+		} );
+
+		if( $scope.change_ticket_status == 'closed' )
+		{
+			//$scope.$parent.FetchByType( 'closed' );
+		}
+		else
+		{
+			//$scope.$parent.FetchByType( 'open' );
+		}
 	}
 
 
 	$scope.sendReply = function()
 	{
-		
+
 		$scope.call_in_progress = true;
 
 		if( $scope.admin_mode )
@@ -351,11 +394,13 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 				$scope.call_in_progress = false;
 				toastr.success( "Your note has been saved" );
 				response.user = $user;
-				if($scope.ticket.admin_notes)
-					$scope.ticket.admin_notes.push( { ticket_id: $scope.ticket._id, note: $scope.reply.message} );
+				if( $scope.ticket.admin_notes )
+				{
+					$scope.ticket.admin_notes.push( { ticket_id: $scope.ticket._id, note: $scope.reply.message } );
+				}
 				else
 				{
-					$scope.ticket.admin_notes= [];
+					$scope.ticket.admin_notes = [];
 					$scope.ticket.admin_notes.push( response );
 				}
 
@@ -371,17 +416,17 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 			{
 				$scope.ticket.agent_id = $scope.current_user_id;
 				$scope.agentChange();
-				$scope.call_in_progress=false;
+				$scope.call_in_progress = false;
 			}
 
-			if( (typeof $scope.reply.message != 'undefined' && $scope.reply.message != '') || ($scope.reply.attachment != '' && typeof $scope.reply.attachment != 'undefined')  )
+			if( (typeof $scope.reply.message != 'undefined' && $scope.reply.message != '') || ($scope.reply.attachment != '' && typeof $scope.reply.attachment != 'undefined') )
 			{
 				$scope.send_email = $scope.change_ticket_status == $scope.ticket.status;
 				$scope.reply.send_email = $scope.send_email;
-				console.log($scope.reply);
+				console.log( $scope.reply );
 				RestangularV3.all( 'ticket' ).post( $scope.reply ).then( function( response )
 				{
-					$scope.call_in_progress=false;
+					$scope.call_in_progress = false;
 					toastr.success( "A reply has been created." );
 					$scope.reply.message = '';
 					$scope.ticket.reply.push( response );
@@ -400,7 +445,7 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 		RestangularV3.one( 'ticket', $scope.ticket._id ).put( { 'agent_id': $scope.ticket.agent_id } ).then( function( response )
 		{
 			toastr.success( "Agent updated" );
-			$scope.ticket.agent = _.findWhere($scope.agents,{id:response.agent_id});
+			$scope.ticket.agent = _.findWhere( $scope.agents, { id: response.agent_id } );
 			$scope.change_agent = false;
 			var action = {
 				modified_attribute: 'agent_id',
@@ -423,30 +468,30 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 	{
 		RestangularV3.one( 'ticket', $scope.ticket._id ).put( {
 			'escalated_site_id': 2056,
-            'agent_id': '0'
+			'agent_id': '0'
 		} ).then( function( response )
 		{
-            $scope.ticket.escalated_site_id = 2056;
-            $scope.ticket.agent_id = 0;
-            $scope.ticket.agent = null;
+			$scope.ticket.escalated_site_id = 2056;
+			$scope.ticket.agent_id = 0;
+			$scope.ticket.agent = null;
 			$scope.ticket.sm_tech = true;
-            $scope.ticket.sm_marketing = false;
+			$scope.ticket.sm_marketing = false;
 			toastr.success( "Ticket assigned to SM Tech team" );
 		} )
 	}
 
-    $scope.assignToSMMarketing = function()
+	$scope.assignToSMMarketing = function()
 	{
 		RestangularV3.one( 'ticket', $scope.ticket._id ).put( {
 			'escalated_site_id': 6325,
-            'agent_id': '0'
+			'agent_id': '0'
 		} ).then( function( response )
 		{
-            $scope.ticket.escalated_site_id = 6325;
-            $scope.ticket.agent_id = 0;
-            $scope.ticket.agent = null;
+			$scope.ticket.escalated_site_id = 6325;
+			$scope.ticket.agent_id = 0;
+			$scope.ticket.agent = null;
 			$scope.ticket.sm_marketing = true;
-            $scope.ticket.sm_tech = false;
+			$scope.ticket.sm_tech = false;
 			toastr.success( "Ticket assigned to SM Marketing team" );
 		} )
 	}
