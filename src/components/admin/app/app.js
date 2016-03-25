@@ -4,7 +4,7 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "admin.app", {
-			redirectTo: 'admin.start',
+			redirectTo: 'admin.app.smart-sites.list',
 			views: {
 				'base': {
 					templateUrl: "/templates/components/admin/app/app.html",
@@ -14,13 +14,11 @@ app.config( function( $stateProvider )
 					template: ""
 				}
 			},
-			resolve: {
-
-			}
+			resolve: {}
 		} )
 } );
 
-app.controller( "AppController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular,  $localStorage, smModal )
+app.controller( "AppController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular, $localStorage, smModal )
 {
 	$rootScope.show_tutorial = false;
 
@@ -52,15 +50,15 @@ app.controller( "AppController", function( $scope, toastr, $window, $rootScope, 
 		return;
 	};
 
-    $scope.ChangePreviewViewport = function( desired_size )
-    {
-        $scope.preview_viewport_size = desired_size;
-    };
+	$scope.ChangePreviewViewport = function( desired_size )
+	{
+		$scope.preview_viewport_size = desired_size;
+	};
 
-    $scope.GetPreviewViewport = function()
-    {
-        return $scope.preview_viewport_size || 'desktop';
-    }
+	$scope.GetPreviewViewport = function()
+	{
+		return $scope.preview_viewport_size || 'desktop';
+	}
 
 	$rootScope.$watch( 'user_loaded', function( new_value, old_value )
 	{
@@ -68,7 +66,7 @@ app.controller( "AppController", function( $scope, toastr, $window, $rootScope, 
 
 		if( new_value && new_value != old_value )
 		{
-			if( $rootScope.user && ($rootScope.user.id || $rootScope.user._id)) 
+			if( $rootScope.user && ($rootScope.user.id || $rootScope.user._id) )
 			{
 				// user has loaded, so lets show a modal even if it's not ready yet and will be redirected away, just so
 				// it feels better.
@@ -121,8 +119,9 @@ app.controller( "AppController", function( $scope, toastr, $window, $rootScope, 
 
 	}
 
-	$scope.switchCompany = function() {
-		smModal.Show("admin.app.select-site");
+	$scope.switchCompany = function()
+	{
+		smModal.Show( "admin.app.select-site" );
 	}
 
 } );
