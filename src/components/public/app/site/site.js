@@ -16,12 +16,17 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AppSiteController", function( $scope, $site, $rootScope )
+app.controller( "AppSiteController", function( $scope, $site, $rootScope, smScroll )
 {
 	$scope.lights_off = false;
 	$rootScope.site = $site;
 	$scope.show_comment_reply_box = false;
-	
+
+	$scope.ScrollToComments = function()
+	{
+		smScroll.scrollTo( 'add_comment', -100 );
+	};
+
 	$scope.ToggleLights = function()
 	{
 		$scope.lights_off = !$scope.lights_off;

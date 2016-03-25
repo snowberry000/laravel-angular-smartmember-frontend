@@ -3,6 +3,7 @@
 
 	<h3 class="ui header" ng-if="next_item.discussion_settings.show_comments">
 		{{next_item.comments_count}} Comments
+		<a class="sub header leave_a_comment" ng-click="ScrollToComments()">leave a comment</a>
 	</h3>
 
 	<div ng-if="next_item.comments.length == 0">
@@ -66,18 +67,20 @@
 				</div>
 			</div>
 		</div>
-		<div ng-if="user.id">
-			<h4 class="ui horizontal divider header" ng-if="(!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
-				<i class="plus icon"></i>
-				Add Comment
-			</h4>
+		<div id="add_comment">
+			<div ng-if="user.id">
+				<h4 class="ui horizontal divider header" ng-if="(!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
+					<i class="plus icon"></i>
+					Add Comment
+				</h4>
 
-			<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
-				<div class="field">
-					<textarea froala ng-model="new_comment"></textarea>
-				</div>
-				<div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment);new_comment=''">
-					<i class="check icon"></i> Submit
+				<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
+					<div class="field">
+						<textarea froala ng-model="new_comment"></textarea>
+					</div>
+					<div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment);new_comment=''">
+						<i class="check icon"></i> Submit
+					</div>
 				</div>
 			</div>
 		</div>
