@@ -1,4 +1,4 @@
-<div class="four wide column the_left_sidebar white_background p-none autoflow">
+<div class="four wide column the_left_sidebar white_background p-none stretchit">
 
 
 	<div ng-if="requesting_data" class="ui active inverted dimmer">
@@ -9,12 +9,10 @@
 		<p class="alert alert-info">No tickets found</p>
 	</div>
 
-	<div class="ui segments">
-		<!-- <div class="ui {{current_conversation == next_item._id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page"> -->
-
-		<div class="ui segment tight">
-			<div class="ui compact fluid secondary three item menu">
-				<div class="item ui basic dropdown button" sui-dropdown>
+	<div class="m-b-sm m-t-sm">
+		<div class="ui compact fluid secondary three item menu">
+			<div class="item">
+				<div class="ui basic dropdown button" sui-dropdown>
 
 					{{type_to_fetch == 'open' ? 'Open' : 'Closed'}} ({{pagination.total_count || 0}})
 					<i class="dropdown icon"></i>
@@ -24,7 +22,9 @@
 						<div class="item" ng-click="FetchByType('closed')">Close</div>
 					</div>
 				</div>
-				<div class="item ui basic dropdown button" sui-dropdown>
+			</div>
+			<div class="item">
+				<div class="ui basic dropdown button" sui-dropdown>
 					Assigned to
 					<i class="dropdown icon"></i>
 					<div class="menu set-z-index agents_dropdown">
@@ -33,7 +33,9 @@
 						<div class="item" ng-click="agent_to_fetch=0;FetchTickets()">Unassigned</div>
 					</div>
 				</div>
-				<div class="item ui basic dropdown button" sui-dropdown>
+			</div>
+			<div class="item">
+				<div class="ui basic dropdown button" sui-dropdown>
 					Date
 					<i class="dropdown icon"></i>
 
@@ -44,11 +46,15 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="ui segments autoflow m-n">
+		<!-- <div class="ui {{current_conversation == next_item._id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page"> -->
+
 
 		<div class="ui {{current_conversation == next_item.id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item.id || next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
 
 
-			<div class="pull-right meta">
+			<div class="pull-right meta light_grey">
 				{{moment.utc(next_item.created_at).fromNow(true)}}
 			</div>
 			<h4 class="ui header pull-left m-n">

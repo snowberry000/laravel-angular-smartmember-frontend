@@ -300,11 +300,22 @@ html.admin.app body {
   }
 
   .flexit {
-    flex: 1;
+    flex: 1 !important;
   }
   .autoflow {
-    overflow: auto;
+    overflow: auto !important;
   }
+
+  .stretchit {
+    flex-direction: column !important;
+    display: flex !important;
+  }
+
+  .content_box {
+    box-sizing: content-box !important;
+  }
+
+
   .ui.fluid.container.the_main_container.pusher {
     flex-direction: row;
   }
