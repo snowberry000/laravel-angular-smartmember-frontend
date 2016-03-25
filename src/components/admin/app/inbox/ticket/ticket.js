@@ -23,12 +23,11 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 	$scope.display_replies = [];
 	$scope.change_ticket_status = '';
 
-
 	$user = $rootScope.user;
 
 	if( $stateParams.id )
 	{
-		$rootScope.current_conversation = $stateParams.id;
+		$scope.SetCurrentConversation( $stateParams.id );
 
 		$ticket = RestangularV3.one( 'ticket', $stateParams.id ).get().then( function( response )
 		{
@@ -142,7 +141,6 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 		{
 			angular.forEach( data, function( value )
 			{
-				console.log(value);
 				if( typeof value != 'undefined' && value)
 				{
 					var user_name = value.first_name + ' ' + value.last_name;
@@ -169,7 +167,6 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 			} );
 
 			$scope.ticket.agent = _.findWhere($scope.agents,{id:$scope.ticket.agent_id});
-			console.log($scope.ticket.agent);
 		} );
 	}
 

@@ -21,6 +21,7 @@ app.config( function( $stateProvider )
 app.controller( "AppController", function( $scope, toastr, $window, $rootScope, $state, $location, Restangular, $localStorage, smModal )
 {
 	$rootScope.show_tutorial = false;
+	$scope.grid_classes = '';
 
 	// var a = new SM("1");
 	// a.login("/auth/companylogin","cashflowchampion@gmail.com" , "hello123" , function(data){
@@ -29,6 +30,12 @@ app.controller( "AppController", function( $scope, toastr, $window, $rootScope, 
 	// 	alert("error");
 	// 	alert(data);
 	// });
+	
+	$scope.SetGridClasses = function( next_value )
+	{
+		$scope.grid_classes = next_value;
+	};
+	
 	$scope.GetAdminBarInclude = function()
 	{
 		var state = $state.current.name.split( '.' );

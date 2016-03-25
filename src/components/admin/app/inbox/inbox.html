@@ -1,15 +1,6 @@
-<div class="four wide column the_left_sidebar white_background p-none stretchit">
-
-	<div ng-if="requesting_data" class="ui active inverted dimmer">
-		<div class="ui text loader">Loading</div>
-	</div>
-
-	<div ng-if="!requesting_data && tickets.length==0">
-		<p class="alert alert-info">No tickets found</p>
-	</div>
-
-	<div class="ui attached segment">
-		<div class="ui compact fluid secondary three item menu">
+<div class="row">
+	<div class="four wide column white_background autoflow p-none">
+		<div class="ui secondary three item menu m-t-sm">
 			<div class="item ui basic dropdown button" sui-dropdown>
 
 				{{type_to_fetch == 'open' ? 'Open' : 'Closed'}} ({{pagination.total_count || 0}})
@@ -39,46 +30,53 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="ui fluid container autoflow">
-		<div class="ui segments">
-			<!-- <div class="ui {{current_conversation == next_item._id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page"> -->
+		<div ng-if="requesting_data" class="ui active inverted dimmer">
+			<div class="ui text loader">Loading</div>
+		</div>
 
-			<div class="ui {{current_conversation == next_item.id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item.id || next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
+		<div ng-if="!requesting_data && tickets.length==0">
+			<p class="alert alert-info">No tickets found</p>
+		</div>
+
+		<div class="ui fluid container autoflow">
+			<div class="ui segments">
+				<!-- <div class="ui {{current_conversation == next_item._id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page"> -->
+
+				<div class="ui {{current_conversation == next_item.id ? 'active' : ''}} segment conversation_container" ui-sref="admin.app.inbox.ticket({id: next_item.id || next_item._id})" dir-paginate="next_item in tickets[ pagination.current_page ] | itemsPerPage: pagination.per_page" total-items="pagination.total_count" current-page="pagination.current_page">
 
 
-				<div class="pull-right meta light_grey">
-					{{moment.utc(next_item.created_at).fromNow(true)}}
+					<div class="pull-right meta light_grey">
+						{{moment.utc(next_item.created_at).fromNow(true)}}
+					</div>
+					<h4 class="ui header pull-left m-n">
+						<img class="ui rounded image" src="{{next_item.user.profile_image || '/images/image.png'}}">
+						{{next_item.user_name || next_item.user_email}}
+					</h4>
+					<div class="ui clearing hidden divider"></div>
+					<p>{{next_item.subject}}</p>
+
 				</div>
-				<h4 class="ui header pull-left m-n">
-					<img class="ui rounded image" src="{{next_item.user.profile_image || '/images/image.png'}}">
-					{{next_item.user_name || next_item.user_email}}
-				</h4>
-				<div class="ui clearing hidden divider"></div>
-				<p>{{next_item.subject}}</p>
 
-			</div>
-
-			<div class="ui segment tight">
-				<span ng-if="pagination.total_count > 0">{{pagination.total_count}} tickets found</span>
-				<span ng-if="pagination.total_count == 0">No tickets found</span>
-				<div class="text-right" ng-if="!loading && pagination.total_count > 0">
-					<dir-pagination-controls max-size="3"></dir-pagination-controls>
+				<div class="ui segment tight">
+					<span ng-if="pagination.total_count > 0">{{pagination.total_count}} tickets found</span>
+					<span ng-if="pagination.total_count == 0">No tickets found</span>
+					<div class="text-right" ng-if="!loading && pagination.total_count > 0">
+						<dir-pagination-controls max-size="3"></dir-pagination-controls>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-<div class="eight wide column p-none stretchit" ui-view="ticket_body">
-
-</div>
-<div class="four wide column white_background autoflow" ng-if="current_conversation">
-
-	<div class="ui fluid container">
-		<div class="ui basic segment">
-			<ui-view name="ticket_details"></ui-view>
-		</div>
+	<div class="eight wide column {{current_conversation ? 'white_background' : ''}} stretchit autoflow p-none" ng-show="current_conversation">
+		<div class="ui fluid container flexit stretchit " ui-view="ticket_body"></div>
 	</div>
+	<div class="four wide column white_background autoflow p-none" ng-show="current_conversation">
 
+		<div class="ui fluid container">
+			<div class="ui basic segment">
+				<ui-view name="ticket_details"></ui-view>
+			</div>
+		</div>
+
+	</div>
 </div>
