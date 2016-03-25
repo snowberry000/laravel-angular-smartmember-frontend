@@ -299,7 +299,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	{
 		return $scope.lessons_hidden;
 	}
-	
+
 	$scope.ToggleLessonVisibility = function()
 	{
 		$scope.lessons_hidden = !$scope.lessons_hidden;
@@ -367,6 +367,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 
 	$scope.LessonSortableOptions = {
 		connectWith: ".connectLessons",
+		'ui-floating': true,
 		stop: function( e, ui )
 		{
 			$scope.saveSyllabus();
@@ -410,7 +411,8 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 						lesson.isDripFeed = false;
 						lesson.dripfeed_settings = lesson.dripfeed;
 					} )
-				} )
+				} );
+				
 				$scope.loading = false;
 				$scope.modules = response.modules;
 				$scope.unassigned_lessons = response.unassigned_lessons;
