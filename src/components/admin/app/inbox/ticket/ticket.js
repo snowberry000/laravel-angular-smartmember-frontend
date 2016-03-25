@@ -50,6 +50,9 @@ app.controller( "TicketController", function( $scope, $localStorage,RestangularV
 	$scope.agents = [];
 
 	$scope.getSegments =function(){
+
+		return;
+
 		$email = $scope.ticket.user_email ?$scope.ticket.user_email: $scope.ticket.user.email;
 		RestangularV3.all('').customGET('member/getSegments?email='+$email).then(function(response){
 			$scope.user_segments = response.segments_list;
