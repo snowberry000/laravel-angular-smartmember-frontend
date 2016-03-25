@@ -2,7 +2,7 @@
 <div class="ui basic clearing padded segment section_background_color" ng-if="next_item.discussion_settings.show_comments" ng-init="loadComments()">
 
 	<h3 class="ui header" ng-if="next_item.discussion_settings.show_comments">
-		Comments
+		{{next_item.comments_count}} Comments
 	</h3>
 
 	<div ng-if="next_item.comments.length == 0">
