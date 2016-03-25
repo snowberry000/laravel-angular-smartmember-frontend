@@ -53,8 +53,6 @@ app.controller( 'PublicPageController', function( $scope, $localStorage, $rootSc
 
 		Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.page.id + '&type=' + 1 ).then( function( comments )
 		{
-
-			console.log( 'comments: ', comments );
 			$scope.page.comments = _.toArray( comments.comments );
 			$scope.page.comments_count = $scope.page.comments.length;
 
@@ -62,8 +60,6 @@ app.controller( 'PublicPageController', function( $scope, $localStorage, $rootSc
 			{
 				$scope.page.comments_count += item.reply.length;
 			});
-
-			console.log( 'comments_count: ', $scope.page.comments_count );
 		} );
 	} );
 

@@ -21,8 +21,7 @@
 				<div class="metadata">
 					<span class="date">{{moment.utc( comment.created_at ).fromNow()}}</span>
 				</div>
-				<div ng-if="!comment.edit" class="text">
-					{{comment.body}}
+				<div ng-if="!comment.edit" class="text" dynamic="comment.body">
 				</div>
 				<div ng-if="comment.edit" class="text">
 					<p editable-text="comment.body" onaftersave="editComment(comment)" >{{comment.body}}</p>
@@ -45,8 +44,7 @@
 						<div class="metadata">
 							<span class="date">{{moment.utc( reply.created_at ).fromNow()}}</span>
 						</div>
-						<div ng-if="!reply.edit && reply.user.id" class="text">
-							{{reply.body}}
+						<div ng-if="!reply.edit && reply.user.id" class="text" dynamic="reply.body">
 						</div>
 						<div ng-if="reply.edit" class="text">
 							<p editable-text="reply.body" onaftersave="editReply(reply)" >{{reply.body}}</p>
@@ -61,7 +59,7 @@
 			<div class="reply_comment_area" ng-if="show_reply_div && user.id">
 				<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
 					<div class="field">
-						<textarea ng-model="new_reply"></textarea>
+						<textarea froala ng-model="new_reply"></textarea>
 					</div>
 					<div class="ui blue labeled submit icon button" ng-click="saveReply(comment , new_reply)">
 						<i class="check icon"></i> Add Reply
@@ -77,7 +75,7 @@
 
 			<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
 				<div class="field">
-					<textarea ng-model="new_comment"></textarea>
+					<textarea froala ng-model="new_comment"></textarea>
 				</div>
 				<div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment);new_comment=''">
 					<i class="check icon"></i> Submit
