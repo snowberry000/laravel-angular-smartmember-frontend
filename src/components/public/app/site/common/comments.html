@@ -11,7 +11,6 @@
 			<p>No comments yet</p>
 		</div>
 	</div>
-	<pre>{{pagination}}</pre>
 	<div class="ui threaded comments"  infinite-scroll='paginate()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
 		<div class="comment comment_parent" ng-repeat="comment in next_item.comments | orderBy:'created_at':next_item.discussion_settings.newest_comments_first">
 			<a class="avatar">
