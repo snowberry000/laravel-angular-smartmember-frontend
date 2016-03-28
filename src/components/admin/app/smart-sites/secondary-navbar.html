@@ -1,0 +1,74 @@
+<a class="item" ui-sref="admin.app.smart-sites.list({segment : 'all'})">
+	<i class="chevron left icon"></i>
+	Back to All Sites
+</a>
+<a class="{{$state.includes('admin.app.smart-sites.edit') ? 'active' : ''}} item" ui-sref="admin.app.smart-sites.edit({subdomain : current_editing_site})">
+	<i class="globe icon"></i>
+	Overview
+</a>
+<a ng-if="0" class="item">
+	<i class="setting icon"></i>
+	Edit Design
+</a>
+<a ng-if="0" class="item">
+	<i class="linkify icon"></i>
+	Smart Links
+</a>
+<a ng-if="0" class="item">
+	<i class="browser icon"></i>
+	Bridge Pages
+</a>
+<a class="item" href='https://chrome.google.com/webstore/detail/ngjjhojkdcaodebnplalpchjjgaecbpc?utm_source=chrome-app-launcher-info-dialog' target='_blank'>
+	<i class="checkered flag icon"></i>
+	Speed Blogging
+</a>
+<a ng-if="0" class="{{$state.includes('admin.app.smart-sites.settings') ? 'active' : ''}} item" ui-sref="admin.app.smart-sites.settings({subdomain : current_editing_site})">
+	<i class="setting icon"></i>
+	Settings
+</a>
+<div ng-if="0" class="item">
+	<div class="ui inverted form" ng-controller="AdminAppSmartSitePageCreationController">
+
+		<div class="field">
+			<label>Title</label>
+			<input type="text" placeholder="Page title" ng-model="new_content.title" ng-blur="setPermalink( $event )" />
+		</div>
+		<div class="ui inverted accordion field" sui-accordion>
+			<div class="title">
+				<i class="icon dropdown"></i>
+				Optional Details
+			</div>
+			<div class="content">
+				<div class="field">
+					<label class=" ">URL</label>
+					<input type="text" class=" " placeholder="/about-us" ng-model="new_content.permalink" ng-blur="onBlurSlug( $event )" />
+				</div>
+
+                <div class="field">
+                    <label>Parent</label>
+                    <select ng-model="new_content.parent_id">
+                        <option value="0" ng-selected="true">None</option>
+                        <option ng-repeat="page in pages" value="{{page._id}}">{{page.title}}</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Type (optional)</label>
+                    <select ng-model="new_content.type" ng-if="types && types.length > 0">
+                        <option value="none" ng-selected="true">None</option>
+                        <option ng-repeat="type in types" value="{{type}}">{{type}}</option>
+                    </select>
+                    <label ng-if="(!new_content.type || new_content.type == 'none') && (types && types.length > 0)">Create New Type </label>
+                    <input type="text" ng-model="new_content.new_type" ng-if="!new_content.type || new_content.type == 'none'" />
+                </div>
+			</div>
+		</div>
+
+		<button class="ui inverted button" type="submit" ng-click="add()">Submit</button>
+	</div>
+</div>
+<div ng-if="0" class="item" fg-schema="myForm.schema">
+    <div fg-form
+         fg-edit-palette
+         fg-no-render="true"></div>
+</div>

@@ -1,0 +1,86 @@
+<div class="ui hidden section divider"></div>
+
+<h1 class="ui center aligned header">Install with JavaScript</h1>
+
+<h3 class="ui center aligned header normal_weight">
+	Start by adding one or both of the JavaScript snippets below to your website. Copy and paste the code
+	snippet before the <strong><code>&lt;/body&gt;</code></strong> tag on every page where you want Smart Member
+	to track member activity.
+</h3>
+
+<div class="ui very padded segment">
+
+	<div class="ui equal width grid">
+		<div class="column">
+			<h4 class="ui red header">Install for users on logged-in pages</h4>
+			<p>
+				Needed on pages where you want to track data and
+				have in-app conversations with logged-in users of your site.
+			</p>
+		</div>
+		<div class="column">
+			<h4 class="ui red header">Install for leads visiting logged-out pages</h4>
+			<p>
+				Use on pages where you want to have conversations with logged-out visitors to your site.
+			</p>
+		</div>
+	</div>
+</div>
+<div class="ui very padded segment">
+
+	<div class="ui form text-right">
+		<div class="inline field">
+			<label>Show example code for</label>
+			<select class="ui dropdown" sui-dropdown>
+				<option value="">Select a web framework...</option>
+				<option value="1">Rails (Ruby)</option>
+				<option value="2">Django (Python)</option>
+				<option value="3">PHP</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="ui secondary segment">
+		<code>&lt;script&gt;
+            <br>
+            /* Replace 'COMPANY_ID' with your company ID */
+            <br>
+            window.smSettings = {
+            <br>
+                company: 'COMPANY_ID',
+            <br>
+                email: 'john.doe@example.com', // Replace with email of current user
+            <br>
+                name: 'John Doe', // Optional: Replace with real name if available
+            <br>
+            };
+            <br><br>
+            !function(){function t(){var t=n.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://smpub.s3.amazonaws.com/cdn/smart-member.js";var e=n.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}var e=window,a=e.SmartMember;if("function"==typeof a)a("update");else{var n=document,r=function(){r.c(arguments)};r.q=[],r.c=function(t){r.q.push(t)},e.SmartMember=r,e.attachEvent?e.attachEvent("onload",t):e.addEventListener("load",t,!1)}}();
+            <br>
+            &lt;/script&gt;
+            <br><br>
+            /* This needs moved to the docs */
+            /* This is a track event example */
+            <br>
+            SmartMember('trackEvent', 'purchased-product');
+            <br><br>
+            /* This is a track event example with optional metadata */
+            <br>
+            var metadata = {
+            <br>
+            product_name: "Coolest product ever",
+            <br>
+            price: "$44.99"
+            <br>
+            };
+            <br>
+            SmartMember('trackEvent', 'purchased-product', metadata);
+        </code>
+	</div>
+</div>
+
+<div class="ui hidden divider"></div>
+
+<p class="text-center">
+	<a ui-sref="admin.start.verify" class="ui huge red button">I have installed the code</a>
+</p>

@@ -20,7 +20,12 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 	$lesson = {};
 	$scope.user = $localStorage.user;
 	$index = 0;
-
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0,
+		disable : true
+	};
 	// console.log("permalink: " + $stateParams.permalink );
 
 	Restangular.one( 'lessonByPermalink', $stateParams.permalink ).get().then( function( response )
@@ -31,7 +36,7 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		$scope.lesson = $lesson;
 		$scope.next_item = $scope.lesson;
 
-        $rootScope.setSocialShareForContent( $scope.next_item );
+        // $rootScope.setSocialShareForContent( $scope.next_item );
         $rootScope.widget_target_type = 'lesson';
         $rootScope.widget_target = $scope.next_item.id;
 
@@ -39,7 +44,8 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 		$scope.userNote = { lesson_id: $lesson.id, site_id: $lesson.site_id };
 		$scope.lesson.new_reply = '';
 		$scope.lesson.new_comment = '';
-
+		$scope.pagination.disable = false;
+		$scope.paginate();
 		if( $scope.$storage.user )
 		{
 			Restangular.one( 'userNote' ).customGET( 'single/' + $lesson.id ).then( function( note )
@@ -50,10 +56,6 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 				}
 			} );
 		}
-		Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.lesson.id + '&type=' + 2 ).then( function( comments )
-		{
-			$scope.lesson.comments = _.toArray( comments.comments )
-		} );
 
 		if( $lesson != undefined && $lesson.id != undefined && $lesson.permalink != undefined && $stateParams.permalink == $lesson.id )
 		{
@@ -103,6 +105,33 @@ app.controller( 'PublicLessonController', function( $scope, $rootScope, $localSt
 			} );
 		}
 	} );
+
+	$scope.paginate = function( search )
+	{
+		if(!$scope.lesson.comments || $scope.lesson.comments.length==0){
+			$scope.lesson.comments = [];
+			$scope.loading = true;
+		}
+		$scope.pagination.disable=true;
+		if( search )
+		{
+			$scope.pagination.current_page = 1;
+		}
+
+		var $params = { p: $scope.pagination.current_page };
+
+		Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.lesson.id + '&type=' + 2 + '&p=' + $params.p).then( function( data )
+		{
+			$scope.loading = false;
+			$scope.pagination.current_page++;
+			$scope.pagination.total_count = data.total_count;
+			if(data && data.items && data.items.length > 0)
+			{
+				$scope.pagination.disable = false;
+			}
+			$scope.lesson.comments = $scope.lesson.comments.concat( data.items )
+		} );
+	}
 
 	$scope.assignCounter = function( $ctr )
 	{

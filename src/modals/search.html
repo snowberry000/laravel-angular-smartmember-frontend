@@ -5,8 +5,10 @@
 <div class="results set-margin" ng-show="result.length > 0 && query && !hideSearch" style="display: block; {{route=='ticket' ? 'margin-left:5px' : 'margin-left:-27px'}}" ng-mousedown="hide($event)" ng-mouseleave="hide($event)">
 	<div ng-repeat="next_item in result">
 		<div class="item search-filter"style="color:black">
-			<a  ng-if="route!='ticket' && route!='site/search'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item._id}}">{{next_item.name}}</a>
-			<a  ng-if="route=='ticket'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.id}}">{{next_item.subject}}</a>
+			<a  ng-if="route!='ticket' && route!='site/search' && route != '/sites/getAll' && route != '/lesson'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item._id}}">{{next_item.name}}</a>
+			<a  ng-if="route == '/sites/getAll'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.subdomain}}">{{next_item.name}}</a>
+			<a  ng-if="route=='ticket'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item._id}}">{{next_item.subject}}</a>
+			<a  ng-if="route=='/lesson'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.permalink}}">{{next_item.title}}</a>
 			<a  ng-if="route=='site/search'" class="content" style="color: black;" ng-href="{{redirect}}{{next_item.site.subdomain}}">{{next_item.title}}</a>
 		</div>
 	</div>

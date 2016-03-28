@@ -1,9 +1,10 @@
 <div ng-if="!$state.includes('public.app.admin.bridge-page')" ng-include="'templates/components/public/app/site/common/dynamic-css.html'"></div>
 
 <wave-spinner ng-if="loading"></wave-spinner>
-<div ng-if="!$state.includes('public.app.admin.bridge-page') && !isSitelessPage()" class="ui basic segment site_top_background_color m-n {{isLoggedIn() ? 'logged_in' : ''}} {{meta_data.navigation_location == 'top fixed' ? 'more_margin' : ''}}" ng-init="init();initialize();showNotifications()">
+<div ng-if="!$state.includes('public.app.admin.bridge-page') && !isSitelessPage()" class="ui basic segment site_top_background_color m-n {{isLoggedIn() ? 'logged_in' : ''}} {{meta_data.navigation_location == 'top fixed' ? 'more_margin' : ''}}" ng-init="init();initialize();showNotifications();" >
 
 	<div sm-class="'ui equal width ' + (meta_data.logo_position == 'right' || meta_data.logo_position == 'below' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' grid centered container stackable'">
+
 
 		<div ng-if="(!isLoggedIn() || !is_member) && app.subdomain != 'sm'" class="row p-b-none member_sign_row">
 			<div class="column" style="text-align: right;">
@@ -20,6 +21,7 @@
 					<a class="ui positive button register_button" ui-sref="public.sign.up" ng-if="!meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' )">{{meta_data.signup_button_text ? meta_data.signup_button_text : 'Sign up'}}</a>
 				</div>
 				<div class="ui buttons {{meta_data.navigation_location == 'top fixed' && !isLoggedIn() ? 'more_margin_button2' : ''}}" ng-show="isLoggedIn() && ( !meta_data.hide_sign_up_button || ( meta_data.hide_sign_up_button != 1 && meta_data.hide_sign_up_button != '1' ) )">
+
 					<button busy class="ui button join_button" ng-click="addMember()" ng-show="isLoggedIn() && !is_member">{{meta_data.login_button_text ? meta_data.join_button_text : 'Join'}}</button>
 				</div>
 			</div>
@@ -41,7 +43,7 @@
 		<div ng-if="onCustomDomain() || app.subdomain != 'docs'" class="row">
 
 			<div class="middle aligned column m-b-lg mobile hidden tablet hidden" ng-if="meta_data.logo_position == 'below' && options.menu_items.length > 0" ng-include="'templates/components/public/app/site/common/top-nav.html'"></div>
-			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column'">
+			<div sm-class="(meta_data.logo_position == 'left' || meta_data.logo_position == 'right' || !meta_data.logo_position) ? 'middle aligned ' + (meta_data.logo_size | sizetonumberword) + ' wide column' : 'middle aligned sixteen wide column logo_container'">
 
 				<a sm-class="'ui ' + meta_data.logo_size + (meta_data.logo_border == '1' ? ' bordered' : '' ) +  ' ' + meta_data.logo_style + ' fluid centered image'" ng-href="/{{options.logo_url}}" target="{{options.logo_url && startsWithExternalUrl(options.logo_url) ? '_blank' : ''}}">
 					<h1 ng-hide="options.site_logo" class="headline_text_color">{{site.name}}</h1>
@@ -52,7 +54,7 @@
 		</div>
 	</div>
 </div>
-<div class="ui basic segment site_middle_background_color main-content m-n {{isLoggedIn() && $state.includes('public.app.admin.bridge-page') ? 'logged_in' : ''}}">
+<div class="site_middle_background_color main-content m-n {{isLoggedIn() && $state.includes('public.app.admin.bridge-page') ? 'logged_in' : ''}}">
 	<div ui-view name="site" sm-class="'ui ' + (meta_data.sidebar_position == 'left' ? ' computer reversed tablet reversed mobile reversed' : '' ) + ' centered grid container stackable site_ui_view'">
 	</div>
 </div>
@@ -83,7 +85,7 @@
 	</div>
 </div>
 
-<div class="ui wide sidebar vertical menu left left_app_sidebar_contents  navigation_background_color labeled icon menu">
+<div class="ui left vertical sidebar menu left_app_sidebar_contents">
 	<a class="ui icon button item navigation_text_color" ng-click="smSidebar.Close();">
 		close
 		<i class="sidebar icon"></i>

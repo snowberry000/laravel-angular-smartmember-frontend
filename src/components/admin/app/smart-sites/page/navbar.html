@@ -1,0 +1,91 @@
+
+<div class="item">
+	<a ui-sref="public.app.admin.page.add" class="ui inverted basic red labeled icon button">
+		<i class="plus icon"></i>
+		Create New Page
+	</a>
+</div>
+
+
+
+
+
+
+
+
+<div class="{{$state.includes('public.app.admin.sites') ? 'active' : ''}} item build_menu_trigger_container">
+		<a class="ui inverted basic red button" ng-click="smSidebar.Show('.left_sidebar_contents', 'theme-editor.html');smSidebar.Show('.top_sidebar_contents', 'theme-editor-controls.html')">
+		Design
+	</a>
+	<div class="ui inverted basic red button mobile hidden" data-move-popup="false" data-popup=".build_menu" data-on="click" data-duration="350" data-position="bottom center" sui-popup>
+		Build
+	</div>
+	<div class="m-l-sm m-r-sm">
+		Content
+	</div>
+	<div class="ui buttons">
+		<a ui-sref="public.app.admin.page.list" class="ui inverted basic red labeled icon button">
+			<i class="search icon"></i>
+			Find
+		</a>
+	</div>
+	<div class="m-l-sm m-r-sm">
+		Page
+	</div>
+	<div class="ui buttons">
+		<div class="ui {{edit_mode ? 'active' : ''}} inverted basic red labeled icon button" ng-click="ToggleEditMode()">
+			<i class="edit icon"></i>
+			Edit
+		</div>
+	</div>
+</div>
+
+<div class="right menu">
+	<div class="item">
+
+		<div class="ui dropdown" sui-dropdown>
+			<div class="text">Viewing as Me</div>
+			<!-- <i class="dropdown icon"></i>
+
+			<div class="inverted menu">
+				<div class="item">Placeholder</div>
+				<div class="item">Placeholder</div>
+				<div class="item">Placeholder</div>
+				<div class="item">Placeholder</div>
+			</div> -->
+		</div>
+
+	</div>
+	<div class="item">
+		<div class="ui inverted basic icon buttons">
+			<button class="ui {{preview_viewport_size == 'desktop' ? 'active' : ''}} button" ng-click="ChangePreviewViewport('desktop')" title="View as desktop" data-position="top center" sui-popup>
+				<i class="desktop icon"></i>
+			</button>
+			<button class="ui {{preview_viewport_size == 'tablet' ? 'active' : ''}} button" ng-click="ChangePreviewViewport('tablet')" title="View as tablet" data-position="top center" sui-popup>
+				<i class="tablet icon"></i>
+			</button>
+			<button class="ui {{preview_viewport_size == 'mobile' ? 'active' : ''}} button" ng-click="ChangePreviewViewport('mobile')" title="View as mobile" data-position="top center" sui-popup>
+				<i class="mobile icon"></i>
+			</button>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="ui inverted flowing pointing popup build_menu">
+	<div class="ui equal width padded grid">
+		<div class="column p-none" ng-include="'templates/components/public/admin-bar/build-menu/content.html'">
+
+		</div>
+		<div class="column p-none" ng-include="'templates/components/public/admin-bar/build-menu/members.html'">
+
+		</div>
+		<div class="column p-none" ng-include="'templates/components/public/admin-bar/build-menu/sidebars.html'">
+
+		</div>
+		<div class="column p-none" ng-include="'templates/components/public/admin-bar/build-menu/settings.html'">
+
+		</div>
+	</div>
+</div>

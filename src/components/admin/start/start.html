@@ -1,0 +1,11 @@
+<div class="sixteen wide column p-none">
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
+
+	<div class="ui segment" ng-include="'templates/components/admin/start/menu.html'"></div>
+
+	<div class="ui container" ui-view>
+
+	</div>
+</div>

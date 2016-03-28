@@ -1,10 +1,9 @@
-var app = angular.module("app");
+var app = angular.module( "app" );
 
-app.config(function($stateProvider){
+app.config( function( $stateProvider )
+{
 	$stateProvider
-		.state("public.app.site",{
-			sticky: true,
-			abstract: true,
+		.state( "public.app.site", {
 			views: {
 				'site': {
 					templateUrl: "/templates/components/public/app/site/site.html",
@@ -14,16 +13,41 @@ app.config(function($stateProvider){
 					template: ""
 				}
 			}
-		})
-}); 
+		} )
+} );
 
-app.controller("AppSiteController", function ($scope) {
-
+app.controller( "AppSiteController", function( $scope, $site, $rootScope, smScroll )
+{
 	$scope.lights_off = false;
+	$rootScope.site = $site;
+	$scope.show_comment_reply_box = false;
+
+	$scope.ScrollToComments = function()
+	{
+		smScroll.scrollTo( 'add_comment', -100 );
+	};
 
 	$scope.ToggleLights = function()
 	{
 		$scope.lights_off = !$scope.lights_off;
+	};
+
+	$scope.SetCommentReplyBoxVisibility = function( next_value )
+	{
+		$scope.show_comment_reply_box = next_value;
+	};
+
+	$scope.ShowCommentReplyBox = function( next_value )
+	{
+		$scope.SetCommentReplyBoxVisibility( next_value );
 	}
 
-});
+	$scope.ToggleCommentReplyBox = function( next_value )
+	{
+		if( $scope.show_comment_reply_box )
+			$scope.show_comment_reply_box = false;
+		else
+			$scope.show_comment_reply_box = next_value;
+	}
+
+} );

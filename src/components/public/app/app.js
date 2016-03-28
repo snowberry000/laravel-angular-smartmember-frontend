@@ -4,17 +4,17 @@ app.config( function( $stateProvider )
 {
 	$stateProvider
 		.state( "public.app", {
-			sticky: true,
-			abstract: true,
 			views: {
 				'base': {
 					templateUrl: '/templates/components/public/app/app.html',
-					controller: "AppController"
+					controller: "publicAppController"
+					
 				},
 				'extra': {
 					template: ""
 				}
 			},
+			
 			resolve: {
 				$site: function( Restangular )
 				{
@@ -24,11 +24,9 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "AppController", function( $scope, $state, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
+app.controller( "publicAppController", function( $scope, $state, $site, $rootScope, $filter, $localStorage, $location, Restangular, toastr, $window, $timeout )
 {
 	$rootScope.site = $site;
-
-	console.log($site);
 
     var intercom;
 
@@ -159,6 +157,7 @@ app.controller( "AppController", function( $scope, $state, $site, $rootScope, $f
 
 
 		var details = $site;
+		$scope.is_member = $site.is_member;
 		if( details )
 		{
 			$.each( details.meta_data, function( key, data )

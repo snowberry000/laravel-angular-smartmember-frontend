@@ -1,0 +1,41 @@
+<div class="ui hidden section divider"></div>
+
+<h1 class="ui center aligned header">Ask a colleague for help</h1>
+
+<h3 class="ui center aligned header normal_weight">
+	Ask a colleague for help getting your Smart Member account setup. We'll
+	notify you by email when they are done. In the meantime you can check out the app
+	and invite others to your account.
+</h3>
+
+<div class="ui very padded segment">
+
+	<div class="ui form">
+
+		<div class="two fields">
+			<div class="field">
+				<label>FROM</label>
+				<input type="text" ng-model="email" placeholder="you@example.com">
+			</div>
+			<div class="field">
+				<label>TO</label>
+				<input type="text" ng-model="receiver" placeholder="colleague@example.com">
+			</div>
+		</div>
+		<div class="field">
+			<label>MESSAGE</label>
+			<textarea rows="10">{{message_text}}</textarea>
+		</div>
+	</div>
+
+</div>
+
+<div class="ui hidden divider"></div>
+
+<p class="text-center">
+	<a ng-click="sendEmail()" busy class="ui huge red button">Send email and continue</a>
+</p>
+
+<p class="text-center">
+	<a href="#">Privacy Policy</a>
+</p>
