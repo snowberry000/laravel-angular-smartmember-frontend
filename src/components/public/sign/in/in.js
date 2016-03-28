@@ -105,6 +105,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 
 	$scope.login = function()
 	{
+		// $location.host();
 		var user = $scope.user;
 		if( $localStorage.hash )
 		{
@@ -129,6 +130,9 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 				$scope.$storage.user = response;
 				//close( response );
 			}
+			$host = $location.host();
+			if($host.split('.')[0] == 'app')
+				window.location.href ='http://'+$host+'/smart-sites/list/all';
 		} );
 	};
 
@@ -163,6 +167,8 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 			}
 			else
 			{
+
+
 				if( $rootScope.isSitelessPage('my') )
 				{
 					$state.go( 'public.my', null, {reload:true});
