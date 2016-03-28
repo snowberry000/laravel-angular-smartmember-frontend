@@ -24,7 +24,30 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	$scope.user = {};
 	$scope.hash = '';
 	$scope.current_url = $rootScope.app.domain.indexOf( 'smartmember' ) != -1 ? $rootScope.app.subdomain + '.' + $rootScope.app.domain : $rootScope.app.domain;
-
+	$scope.site_options = [];
+	if(!$rootScope.site)
+	{
+		Restangular.one( 'site', 'details' ).get().then(function(response){
+			$rootScope.site=response;
+            if( $rootScope.site ) {
+                $site_options = $rootScope.site.meta_data;
+                $scope.site_options = {};
+                if($site_options)
+                $.each($site_options, function (key, data) {
+                    $scope.site_options[data.key] = data.value;
+                });
+				
+            }
+		});
+	}
+    else if( $rootScope.site ) {
+        $site_options = $rootScope.site.meta_data;
+        $scope.site_options = {};
+        if($site_options)
+        $.each($site_options, function (key, data) {
+            $scope.site_options[data.key] = data.value;
+        });
+    }
 	if( $stateParams.hash )
 	{
 		$localStorage.hash = $stateParams.hash;
