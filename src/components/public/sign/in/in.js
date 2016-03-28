@@ -15,7 +15,9 @@ app.config( function( $stateProvider )
 
 app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http, smEvent)
 {
-
+	if($localStorage.user)
+		window.location.assign('http://'+$location.host());
+	
 	$rootScope.page_title = "Smart member";
 	$rootScope.is_admin = true;
 	$scope.signinPage=window.location.hash.substr(1);
