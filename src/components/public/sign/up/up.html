@@ -7,7 +7,9 @@
 		<div class="description">
 
 			<div class="ui two column middle aligned very relaxed stackable grid container relative_container" style="position: relative;">
-
+				<div class="ui active inverted dimmer" ng-if="loading">
+					<div class="ui text loader">Loading</div>
+				</div>
 				<div class="column">
 
 					<form sm-form="register()" class="ui form">
