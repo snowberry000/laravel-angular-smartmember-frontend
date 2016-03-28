@@ -9,10 +9,14 @@ app.config(function($stateProvider){
 		})
 }); 
 
-app.controller("AddTopicController", function ($scope,$rootScope, Restangular, $filter) {
+app.controller("AddTopicController", function ($scope,$rootScope, Restangular, $filter , toastr) {
 
 	$scope.save = function()
 	{
+		if(!$scope.topic || !$scope.topic.title){
+			toastr.error("Title is required")
+			return;
+		}
 		console.log($rootScope.category);
 
 		$scope.topic.category_id = $rootScope.category.id;

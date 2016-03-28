@@ -1,5 +1,8 @@
 <div class="ui short modal">
 	<i class="close icon"></i>
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
 	<div class="header">
 		{{site_options.login_to_site_text ? site_options.login_to_site_text : 'Login to'}} {{site.name || 'Smart Member'}}
 	</div>
