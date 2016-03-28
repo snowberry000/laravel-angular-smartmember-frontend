@@ -1,4 +1,7 @@
 <div class="ui short modal"><i class="close icon"></i>
+	<div class="ui active inverted dimmer" ng-if="loading">
+		<div class="ui text loader">Loading</div>
+	</div>
 	<div class="header">
         {{site_options.signup_for_site_text ? site_options.signup_for_site_text : 'Sign up for'}} {{site.name || 'Smart Member'}}
 	</div>
@@ -7,9 +10,6 @@
 		<div class="description">
 
 			<div class="ui two column middle aligned very relaxed stackable grid container relative_container" style="position: relative;">
-				<div class="ui active inverted dimmer" ng-if="loading">
-					<div class="ui text loader">Loading</div>
-				</div>
 				<div class="column">
 
 					<form sm-form="register()" class="ui form">
