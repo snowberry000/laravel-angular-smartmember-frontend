@@ -18,7 +18,12 @@ app.controller( 'PublicPageController', function( $scope, $localStorage, $rootSc
 	$scope.user = $localStorage.user;
 	$scope.loading = true;
 
-
+	$scope.pagination = {
+		current_page: 1,
+		per_page: 25,
+		total_count: 0,
+		disable : true
+	};
 	Restangular.one( 'pageByPermalink', $stateParams.permalink ).get().then( function( response )
 	{
 		$scope.loading = false;
@@ -50,18 +55,48 @@ app.controller( 'PublicPageController', function( $scope, $localStorage, $rootSc
 				} );
 			}());
 		}
+		$scope.pagination.disable = false;
+		$scope.paginate();
+		// Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.page.id + '&type=' + 1 ).then( function( comments )
+		// {
+		// 	$scope.page.comments = _.toArray( comments.comments );
+		// 	$scope.page.comments_count = $scope.page.comments.length;
 
-		Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.page.id + '&type=' + 1 ).then( function( comments )
-		{
-			$scope.page.comments = _.toArray( comments.comments );
-			$scope.page.comments_count = $scope.page.comments.length;
-
-			_.map( $scope.page.comments, function( item )
-			{
-				$scope.page.comments_count += item.reply.length;
-			});
-		} );
+		// 	_.map( $scope.page.comments, function( item )
+		// 	{
+		// 		$scope.page.comments_count += item.reply.length;
+		// 	});
+		// } );
 	} );
+
+	$scope.paginate = function( search )
+	{
+		if(!$scope.page.comments || $scope.page.comments.length==0){
+			$scope.page.comments = [];
+			$scope.loading = true;
+		}
+		$scope.pagination.disable=true;
+		if( search )
+		{
+			$scope.pagination.current_page = 1;
+		}
+
+		var $params = { p: $scope.pagination.current_page };
+
+		Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.page.id + '&type=' + 1 + '&p=' + $params.p).then( function( data )
+		{
+			$scope.loading = false;
+			$scope.pagination.current_page++;
+			$scope.pagination.total_count = data.total_count;
+			$scope.page.comments_count = data.total_count;
+
+			if(data && data.items && data.items.length > 0)
+			{
+				$scope.pagination.disable = false;
+			}
+			$scope.page.comments = $scope.page.comments.concat( data.items )
+		} );
+	}
 
 
 	$scope.saveComment = function( body )
