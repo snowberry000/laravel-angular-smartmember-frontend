@@ -491,7 +491,7 @@ app.controller( 'AdminController', function( $scope, $q, $rootScope, smModal, Us
 	}
 	else if( $localStorage.open_signin_modal )
 	{
-		$state.go( 'admin.sign.in' );
+		$state.go( 'public.sign.in' );
 		// $timeout(function(){
 		// 	smModal.Show('public.sign.in' , { modal_options : {duration : 0 }});
 		// } , 50)
