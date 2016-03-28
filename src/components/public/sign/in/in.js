@@ -20,6 +20,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 	
 	$rootScope.page_title = "Smart member";
 	$rootScope.is_admin = true;
+	$scope.loading = true;
 	$scope.signinPage=window.location.hash.substr(1);
 	if( $scope.isLoggedIn() && $scope.signinPage!='preview' && !$rootScope.isSitelessPage('my') )
 		$scope.determineHomeStateAndRedirect();
@@ -32,6 +33,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 	if(!$rootScope.site)
 	{
 		Restangular.one( 'site', 'details' ).get().then(function(response){
+			$scope.loading = false;
 			$rootScope.site=response;
             if( $rootScope.site ) {
                 $site_options = $rootScope.site.meta_data;
@@ -44,6 +46,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 		});
 	}
     else if( $rootScope.site ) {
+    	$scope.loading = false;
         $site_options = $rootScope.site.meta_data;
         $scope.site_options = {};
         if($site_options)
