@@ -32,6 +32,7 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 	$scope.sales_option = {};
 	$site = $rootScope.site;
 	$menus = null;
+	$scope.loading = true;
 
 	if($stateParams.reloadHome)
 	{
@@ -44,6 +45,7 @@ app.controller( "MenusController", function( $rootScope, $scope, $filter, smModa
 		{
 			$menus = response;
 			$scope.init();
+			$scope.loading = false;
 		} );
 	}
 
