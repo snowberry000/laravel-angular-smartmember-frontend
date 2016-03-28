@@ -171,12 +171,13 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 
 				if( $rootScope.isSitelessPage('my') )
 				{
-					$state.go( 'public.my', null, {reload:true});
+					// $state.go( 'public.my', null, {reload:true});
+					window.location.href = 'http://'+$location.host();
 				}
 				else if( $rootScope.isSitelessPage('www') )
 				{
-					//$state.go( 'public.www.home', null, {reload:true});
-					window.location.href = 'http://'+$location.host();
+					$state.go( 'public.www.home', null, {reload:true});
+					// window.location.href = 'http://'+$location.host();
 				}
                 else if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
                 {
