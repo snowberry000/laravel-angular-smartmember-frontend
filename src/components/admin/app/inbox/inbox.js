@@ -39,10 +39,12 @@ app.controller( "InboxController", function( $scope, $location, smModal, $timeou
 	$scope.sortTicket = {};
 	$scope.ticket_query = '';
 
-	$rootScope.$watch( 'current_conversation', function( new_value, old_value )
+	//$scope.SetGridClasses( 'autoflow' );
+	
+	$scope.SetCurrentConversation = function( next_value )
 	{
-		$scope.current_conversation = new_value;
-	} );
+		$scope.current_conversation = next_value;
+	};
 
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
 	{

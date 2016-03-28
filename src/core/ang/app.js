@@ -45,7 +45,7 @@ app.config( function( FacebookProvider )
 	} );
 } );
 
-app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal, smSidebar, $http, $state, $stateParams, $location, Restangular, RestangularV3, cfpLoadingBar, editableOptions )
+app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal, smScroll, smSidebar, $http, $state, $stateParams, $location, Restangular, RestangularV3, cfpLoadingBar, editableOptions )
 {
 	$rootScope._ = _;
 	$calledurl = window.location.host;
@@ -104,10 +104,10 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 
 	var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf( env ) == -1 ? 's' : '') + "://api." + rootDomain;
 
-	console.log('->>>>>>>>>> TDLS <<<<<<<<<-');
-	console.log($rootScope.nonProductionTLDs);
-	console.log('----------> Test ENV <----------');
-	console.log(env);
+	console.log( '->>>>>>>>>> TDLS <<<<<<<<<-' );
+	console.log( $rootScope.nonProductionTLDs );
+	console.log( '----------> Test ENV <----------' );
+	console.log( env );
 
 	$arr = location.pathname.split( '/' );
 
@@ -143,37 +143,42 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 		console.log( "Error:   " + message( to, toP, from, fromP ), err );
 	} );
 
-	$rootScope.$on( '$stateChangeStart'
-		, function( event, toState, toParams, fromState, fromParams )
+	$rootScope.$on( '$stateChangeStart', function( event, toState, toParams, fromState, fromParams )
+	{
+		if( toState.redirectTo )
 		{
-			console.log( fromState.name );
+			event.preventDefault();
+			$state.go( toState.redirectTo, toParams )
+		}
+
+		console.log( fromState.name );
 
 
-			window.Intercom( 'update' );
+		window.Intercom( 'update' );
 
-			var isAuthenticationRequired = toState.data
-					&& toState.data.requiresLogin
-					&& !($localStorage.user && $localStorage.user.id)
-				;
+		var isAuthenticationRequired = toState.data
+				&& toState.data.requiresLogin
+				&& !($localStorage.user && $localStorage.user.id)
+			;
 
-			if( isAuthenticationRequired )
-			{
-				$localStorage.redirect = toState.data.state;
-				console.log( "setting " + $localStorage.redirect );
-				event.preventDefault();
-				window.location.href = $rootScope.app.appUrl + "/sign/in/?message=a valid access token is required";
-			}
-			//-- refactoring required
-			if( fromState.name == "sign.in" && $localStorage.redirect )
-			{
-				$link = $localStorage.redirect;
-				$localStorage.redirect = null;
-				event.preventDefault();
-				$state.go( $link );
+		if( isAuthenticationRequired )
+		{
+			$localStorage.redirect = toState.data.state;
+			console.log( "setting " + $localStorage.redirect );
+			event.preventDefault();
+			window.location.href = $rootScope.app.appUrl + "/sign/in/?message=a valid access token is required";
+		}
+		//-- refactoring required
+		if( fromState.name == "sign.in" && $localStorage.redirect )
+		{
+			$link = $localStorage.redirect;
+			$localStorage.redirect = null;
+			event.preventDefault();
+			$state.go( $link );
 
-			}
-		} );
-//
+		}
+	} );
+
 	editableThemes[ 'default' ].submitTpl = '<button type="submit"><span class="fa fa-check"></span></button>';
 	editableThemes[ 'default' ].cancelTpl = '<button type="button" ng-click="$form.$cancel()"><span class="fa fa-times" ></span></button>';
 
@@ -311,6 +316,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 		cfpLoadingBar.start();
 		$rootScope.not_homepage_setting = true;
 
+
 		var isLoggedIn = $localStorage.user && $localStorage.user.access_token;
 
 		if( isLoggedIn )
@@ -342,14 +348,14 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 			e.preventDefault();
 //            $location.path('/sign/in/').search({message: 'a valid access token is required'});
 			//window.location.href = 'http://' + location.hostname + "?signin";
-			$state.go('public.sign.in',{message: 'a valid access token is required'});
+			$state.go( 'public.sign.in', { message: 'a valid access token is required' } );
 		}
 
 		if( isHome )
 		{
 			e.preventDefault();
 			//window.location.href = 'http://' + location.hostname + "?signin";
-			$state.go('public.sign.in',{message: 'a valid access token is required'});
+			$state.go( 'public.sign.in', { message: 'a valid access token is required' } );
 		}
 
 	} );

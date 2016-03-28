@@ -117,8 +117,7 @@
 			<p>No comments yet</p>
 		</div>
 	</div>
-
-	<div class="ui threaded comments">
+	<div class="ui threaded comments" infinite-scroll='paginate()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
 		<div class="comment comment_parent" ng-repeat="comment in next_item.comments | orderBy:'created_at':next_item.discussion_settings.newest_comments_first">
 			<a class="avatar">
 				<img title="{{comment.user.first_name}} {{comment.user.last_name}}" src="{{comment.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm&s=48'}}">

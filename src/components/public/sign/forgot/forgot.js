@@ -13,46 +13,50 @@ app.config( function( $stateProvider )
 app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, $stateParams, $location, Restangular, $state, $http, toastr, smEvent )
 {
 	var auth = Restangular.all( 'auth' );
+
 	$rootScope.is_admin = true;
 	$rootScope.page_title = "Smartmember - Password Reset";
 	$scope.data = {};
 
 	$site = $rootScope.site;
 
-    if( $rootScope.site ) {
-        $site_options = $rootScope.site.meta_data;
-        $scope.site_options = {};
-        if($site_options)
-        {
-        $.each($site_options, function (key, data) {
-            $scope.site_options[data.key] = data.value;
-        });
-    	}
-    }
-    
-	if ($location.search().error_message)
+	if( $rootScope.site )
+	{
+		$site_options = $rootScope.site.meta_data;
+		$scope.site_options = {};
+		if( $site_options )
+		{
+			$.each( $site_options, function( key, data )
+			{
+				$scope.site_options[ data.key ] = data.value;
+			} );
+		}
+	}
+
+	if( $location.search().error_message )
 	{
 		if( $location.search().error_message == "inprocess registration" )
 		{
 			$scope.inprocess_register = true;
 		}
 	}
-    if( $stateParams.hash )
-    {
-        $scope.hash = $stateParams.hash;
-    }
-    else if( !$scope.hash && $rootScope.$_GET[ 'reset_hash' ] )
+	if( $stateParams.hash )
+	{
+		$scope.hash = $stateParams.hash;
+	}
+	else if( !$scope.hash && $rootScope.$_GET[ 'reset_hash' ] )
 	{
 		$scope.hash = $rootScope.$_GET[ 'reset_hash' ];
 	}
 
-	$scope.reset = function( password , confirm_password)
+	$scope.reset = function( password, confirm_password )
 	{
-		if(password != confirm_password){
-			toastr.error('Passwords do not match');
+		if( password != confirm_password )
+		{
+			toastr.error( 'Passwords do not match' );
 			return;
 		}
-		
+
 		auth.customPOST( { reset_token: $scope.hash, password: password }, 'reset' ).then( function( data )
 		{
 			if( data.message && data.message == "no such email found" )
@@ -71,8 +75,9 @@ app.controller( 'ResetController', function( $rootScope, $scope, $localStorage, 
 	$scope.forgot = function( reset_email )
 	{
 		smEvent.Log( 'requested-password-reset', {
-		    'request-url': location.href
+			'request-url': location.href
 		} );
+
 		auth.customPOST( { email: $scope.data.reset_email }, 'forgot' ).then( function( data )
 		{
 			if( data.message && data.message == "no such email found" )
