@@ -15,7 +15,7 @@
 					<form sm-form="register()" class="ui form">
 
 						<div class="field">
-							<label>Name</label>
+							<label>{{site_options.signup_name_text ? site_options.signup_name_text : 'Name'}}</label>
 							<div class="ui left icon input">
 								<input type="text" placeholder="Name" name="name" ng-model="user.first_name">
 								<i class="fa fa-tag icon"></i>
