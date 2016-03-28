@@ -14,7 +14,12 @@
 					Edit your site's menu / navigation buttons. {{menuType}}
 				</p>
 			</div>
-			<div class="ui styled fluid accordion" sui-accordion>
+			<div class="ui segment basic" ng-show="loading" style="min-height:70px;">
+   				<div class="ui active inverted dimmer">
+   					<div class="ui text loader">Loading</div>
+   				</div>
+  			</div>
+			<div class="ui styled fluid accordion" ng-show="!loading" sui-accordion>
 				<div class="{{menuType == 'footer' ? '' : 'active' }} title">
 					<i class="dropdown icon"></i>
 					Header Navigation Menu

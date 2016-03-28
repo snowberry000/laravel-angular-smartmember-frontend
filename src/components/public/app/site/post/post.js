@@ -15,6 +15,12 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
     $scope.user = $localStorage.user;
     $scope.loading=true;
     $site = $rootScope.site;
+    $scope.pagination = {
+        current_page: 1,
+        per_page: 25,
+        total_count: 0,
+        disable : true
+    };
     Restangular.one('postByPermalink', $stateParams.permalink).get().then(function(response){
         $post=response;
         $scope.loading=false;
@@ -38,11 +44,40 @@ app.controller('PublicPostController', function ($scope,$rootScope, $localStorag
             if( !view_content )
             	$state.go('public.app.site.blog');
         }
-
-        Restangular.all('').customGET('comment?target_id='+$scope.post.id+'&type='+4).then(function(comments){
-           $scope.post.comments = _.toArray(comments.comments)
-        });
+        $scope.pagination.disable = false;
+        $scope.paginate();
+        // Restangular.all('').customGET('comment?target_id='+$scope.post.id+'&type='+4).then(function(comments){
+        //    $scope.post.comments = _.toArray(comments.comments)
+        // });
     })
+
+    $scope.paginate = function( search )
+    {
+        if(!$scope.post.comments || $scope.post.comments.length==0){
+            $scope.post.comments = [];
+            $scope.loading = true;
+        }
+        $scope.pagination.disable=true;
+        if( search )
+        {
+            $scope.pagination.current_page = 1;
+        }
+
+        var $params = { p: $scope.pagination.current_page };
+
+        Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.post.id + '&type=' + 4 + '&p=' + $params.p).then( function( data )
+        {
+            $scope.loading = false;
+            $scope.pagination.current_page++;
+            $scope.pagination.total_count = data.total_count;
+
+            if(data && data.items && data.items.length > 0)
+            {
+                $scope.pagination.disable = false;
+            }
+            $scope.post.comments = $scope.post.comments.concat( data.items )
+        } );
+    }
 
     $scope.saveComment = function(body){
 

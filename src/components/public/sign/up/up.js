@@ -16,6 +16,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	var auth = Restangular.all( 'auth' );
 	$rootScope.page_title = "Smartmember";
 	$rootScope.is_admin = true;
+	$scope.loading = true;
 	$scope.site_options = [];
 	$scope.signupPage = window.location.hash.substr( 1 );
 	if( !$rootScope.site )
@@ -23,8 +24,10 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		Restangular.one( 'site', 'details' ).get().then( function( response )
 		{
 			$rootScope.site = response;
+			$scope.loading = false;
 			if( $rootScope.site )
 			{
+
 				$site_options = $rootScope.site.meta_data;
 				$scope.site_options = {};
 				if( $site_options )
@@ -44,6 +47,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	}
 	else if( $rootScope.site )
 	{
+		$scope.loading = false;
 		$site_options = $rootScope.site.meta_data;
 		$scope.site_options = {};
 		if( $site_options )
