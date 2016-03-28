@@ -1,152 +1,28 @@
-<div class="ui segment tight">
-	<div class="ui compact fluid secondary menu">
-		<div class="item ui basic dropdown button" ng-if="!requesting_data" sui-dropdown>
+<div class="ui secondary three item menu m-t-sm">
+	<div class="item ui basic dropdown button" ng-if="!requesting_data" sui-dropdown>
 
-			<img ng-if="ticket.agent" class="ui right spaced mini image" src="{{ticket.agent.profile_image ? ticket.agent.profile_image : 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm'}}"/>
-			{{ticket.agent ? ticket.agent.name : 'Unassigned'}}
-			<i class="dropdown icon"></i>
+		<img ng-if="ticket.agent" class="ui right spaced mini image" src="{{ticket.agent.profile_image ? ticket.agent.profile_image : 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm'}}"/>
+		{{ticket.agent ? ticket.agent.name : 'Unassigned'}}
+		<i class="dropdown icon"></i>
 
-			<div class="menu">
-				<div class="item" ng-repeat="agent in agents"
-					 ng-class="( ticket.agent_id != 0 && agent.id == ticket.agent_id ) ? 'active' : ''" ng-hide="agent.name == undefined || agent.name.length == 1 || agent.name.length == 0" ng-click="$parent.ticket.agent_id = agent.id; agentChange()">
-					{{agent.name}}
-				</div>
-			</div>
-		</div>
-		<div class="right item">
-			<div class="ui button" ng-click="statusChange()">
-				<i class="download icon"></i>
-				{{change_ticket_status}}
+		<div class="menu">
+			<div class="item" ng-repeat="agent in agents"
+				 ng-class="( ticket.agent_id != 0 && agent.id == ticket.agent_id ) ? 'active' : ''" ng-hide="agent.name == undefined || agent.name.length == 1 || agent.name.length == 0" ng-click="$parent.ticket.agent_id = agent.id; agentChange()">
+				{{agent.name}}
 			</div>
 		</div>
 	</div>
+	<div class="right item">
+		<div class="ui button" busy ng-click="ToggleStatus()">
+			<i class="{{ticket.status == 'closed' ? 'upload' : 'download'}} icon"></i>
+			{{ticket.status == 'closed' ? 'Re-open' : 'Close'}}
+		</div>
+	</div>
 </div>
+<div class="ui divider m-n"></div>
 
-<div class="ui fluid container">
-    <div ng-if="requesting_data" class="ui active inverted dimmer">
-        <div class="ui text loader">
-            Loading
-        </div>
-    </div>
-    <div ng-if="!requesting_data && tickets.length==0">
-        <p class="alert alert-info">
-            No tickets found
-        </p>
-    </div>
-    <div class="ui basic clearing segment">
-        <h4 class="ui header pull-left m-n">
-            <img class="ui rounded image" src="{{ticket.user.profile_image || '/images/image.png'}}"/>
-        </h4>
-        <div class="ui popup right center anchored pull-left">
-            <div class="content">
-                <h5 class="ui dividing header">
-                    Ticket #{{ticket._id}}: {{ticket.subject}}
-                </h5>
-                <div class="fr-view" dynamic="ticket.message">
-                </div>
-            </div>
-            <div ng-if="ticket.attachment">
-                <span class="ui horizontal divider" style="font-weight: 100;font-size: smaller;">
-                    Attachment
-                </span>
-                <img src="{{ticket.attachment}}"/>
-            </div>
-            <p class="text-left">
-                Sent {{moment.utc(ticket.created_at).fromNow()}}
-            </p>
-        </div>
-    </div>
-    <div class="ui basic clearing segment" ng-if="ticket.reply" ng-repeat="next_item in ticket.reply">
-        <h4 class="ui header pull-{{next_item.user.email == ticket.user.email ? 'left' : 'right'}} m-n">
-            <img class="ui rounded image" src="{{next_item.user.profile_image || '/images/image.png'}}"/>
-        </h4>
-        <div class="ui popup {{next_item.user.email == ticket.user.email ? 'right' : 'left'}} center anchored pull-{{next_item.user.email == ticket.user.email ? 'left' : 'right'}}">
-            <div class="content fr-view" dynamic="next_item.message">
-                {{next_item.user.first_name}} {{next_item.user.last_name}} replies from {{moment.utc(next_item.created_at).fromNow()}}:
-            </div>
-            <div ng-if="next_item.attachment">
-                <span class="ui horizontal divider" style="font-weight: 100;font-size: smaller;">
-                    Attachment
-                </span>
-                <img ng-src="{{next_item.attachment}}"/>
-            </div>
-            <p class="text-{{next_item.user.email == ticket.user.email ? 'left' : 'right'}}">
-                Sent {{moment.utc(next_item.created_at).fromNow()}}
-            </p>
-        </div>
-    </div>
-    <div ng-if="ticket.admin_notes" class="ui attached segment" style="background: url('https://cdn.livechatinc.com/app/production/img/tickets/comment-bg.png') no-repeat scroll top right #dcf4fc;" ng-repeat="next_item in ticket.admin_notes">
-        <div dynamic="next_item.note" class="fr-view">
-        </div>
-    </div>
-    <div class="ui basic clearing segment">
-        <h3 class="ui divider section">
-        </h3>
-        
-        <div class="row">
-            <div class="col-md-4">
-<!--                 <a sm-uploader="reply" ng-hide="reply.attachment" ng-model="reply.attachment" class="attachment_container float_left">
-                    <i class="fa fa-paperclip">
-                    </i>
-                    Add attachment
-                </a> -->
-                <a ng-show="reply.attachment" href="{{reply.attachment}}" target="_blank" style="cursor:pointer;" class="attachment_container float_left">
-                    <i class="fa fa-paperclip">
-                    </i>
-                    {{reply.attachment.split('/').pop()}}
-                </a>
-                <a ng-show="reply.attachment" ng-click="reply.attachment=''" class="attachment_container float_left" style="cursor:pointer;color:#ff0000;font-size:18px;font-weight:bold; margin-left: 5px;">
-                    &times;
-                </a>
-                <div class="clearfix">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="ui top attached tabular menu">
-              <div class="item active" ng-click="admin_mode=false;" data-tab="reply">Reply</div>
-              <div class="item" ng-click="admin_mode=true;" data-tab="note">Note</div>
-            </div>
-            <div class="ui bottom attached tab segment active" data-tab="reply">
-              <textarea froala ng-model="reply.message" placeholder="Type a message...">
-                      </textarea>
-            </div>
-            <div class="ui bottom attached tab segment" data-tab="note">
-              <textarea froala ng-model="reply.message" placeholder="'Type an internal comment...">
-              </textarea>
-            </div>
-        </div>
-        <div class="row" style="margin-top: 15px;margin-bottom: 15px;">
-            <div class="col-md-6">
-                Mark as
-                <select ng-init="ticket.status == 'open' ? change_ticket_status = 'pending' : change_ticket_status=ticket.status"
-                    ng-model="change_ticket_status" ng-change="updateStatus(change_ticket_status)">
-                    <option ng-selected="(ticket.status == 'open' && status.id == 'pending') || (ticket.status != 'open' && status.id==ticket.status)"
-                        ng-repeat="status in statuses" value="{{status.id}}" >
-                        {{status.value}}
-                    </option>
-                </select>
-                <!-- <label>
-                    <input type="checkbox" ng-model="admin_mode"/>
-                    Mark this reply as internal (comment)
-                </label> -->
-            </div>
-        </div>
-        <div class="actions">
-            <a sm-uploader="reply" image-only="true"  ng-hide="reply.attachment" ng-model="reply.attachment" class="ui right labeled icon button">
-                Add attachment
-                <i class="plus icon">
-                </i>
-            </a>
-            <button ng-click="sendReply()" ng-disabled="call_in_progress" class="ui right labeled icon button">
-                Submit reply
-                <i class="plus icon">
-                </i>
-            </button>
-        </div>
-    </div>
-
-<!-- 	<div ng-if="requesting_data" class="ui active inverted dimmer">
+<div class="ui fluid container flexit ticket_body">
+	<div ng-if="requesting_data" class="ui active inverted dimmer">
 		<div class="ui text loader">
 			Loading
 		</div>
@@ -163,10 +39,16 @@
 		<div class="ui popup right center anchored pull-left">
 			<div class="content">
 				<h5 class="ui dividing header">
-					Ticket #{{ticket.id}}: {{ticket.subject}}
+					Ticket #{{ticket._id}}: {{ticket.subject}}
 				</h5>
 				<div class="fr-view" dynamic="ticket.message">
 				</div>
+			</div>
+			<div ng-if="ticket.attachment">
+				<span class="ui horizontal divider" style="font-weight: 100;font-size: smaller;">
+					Attachment
+				</span>
+				<img src="{{ticket.attachment}}"/>
 			</div>
 			<p class="text-left">
 				Sent {{moment.utc(ticket.created_at).fromNow()}}
@@ -197,63 +79,45 @@
 		</div>
 	</div>
 	<div class="ui basic clearing segment">
-		<h3 class="ui divider section">
-		</h3>
+		<div class="ui section divider"></div>
 
-		<div class="row">
-			<div class="col-md-4">
-				<a ng-show="reply.attachment" href="{{reply.attachment}}" target="_blank" style="cursor:pointer;" class="attachment_container float_left">
-					<i class="fa fa-paperclip">
-					</i>
-					{{reply.attachment.split('/').pop()}}
-				</a>
-				<a ng-show="reply.attachment" ng-click="reply.attachment=''" class="attachment_container float_left" style="cursor:pointer;color:#ff0000;font-size:18px;font-weight:bold; margin-left: 5px;">
-					&times;
-				</a>
-				<div class="clearfix">
-				</div>
-			</div>
-		</div>
-		<div class="row">
+		<a ng-show="reply.attachment" href="{{reply.attachment}}" target="_blank" style="cursor:pointer;" class="attachment_container float_left">
+			<i class="fa fa-paperclip">
+			</i>
+			{{reply.attachment.split('/').pop()}}
+		</a>
+		<a ng-show="reply.attachment" ng-click="reply.attachment=''" class="attachment_container float_left" style="cursor:pointer;color:#ff0000;font-size:18px;font-weight:bold; margin-left: 5px;">
+			&times;
+		</a>
+
+		<div class="ui segment">
 			<div class="ui top attached tabular menu">
-				<div class="item active" ng-click="admin_mode=false;" data-tab="reply">Reply</div>
-				<div class="item" ng-click="admin_mode=true;" data-tab="note">Note</div>
+				<div class="item {{!admin_mode ? 'active' : ''}}" ng-click="admin_mode=false;">Reply</div>
+				<div class="item {{admin_mode ? 'active' : ''}}" ng-click="admin_mode=true;">Note</div>
 			</div>
-			<div class="ui bottom attached tab segment active" data-tab="reply">
+			<div class="ui bottom attached tab segment {{!admin_mode ? 'active' : ''}}">
 				<textarea froala ng-model="reply.message" placeholder="Type a message...">
 				</textarea>
 			</div>
-			<div class="ui bottom attached tab segment" data-tab="note">
+			<div class="ui bottom attached tab segment {{admin_mode ? 'active' : ''}}">
 				<textarea froala ng-model="reply.message" placeholder="'Type an internal comment...">
 				</textarea>
 			</div>
-		</div>
-		<div class="row" style="margin-top: 15px;margin-bottom: 15px;">
-			<div class="col-md-6">
-				Mark as
-				<select ng-init="ticket.status == 'open' ? change_ticket_status = 'pending' : change_ticket_status=ticket.status"
-						ng-model="change_ticket_status" ng-change="updateStatus(change_ticket_status)">
-					<option ng-selected="(ticket.status == 'open' && status.id == 'pending') || (ticket.status != 'open' && status.id==ticket.status)"
-							ng-repeat="status in statuses" value="{{status.id}}">
-						{{status.value}}
-					</option>
-				</select><label>
-					<input type="checkbox" ng-model="admin_mode"/>
-					Mark this reply as internal (comment)
-				</label>
+
+			<div class="ui hidden divider"></div>
+
+			<div class="actions">
+				<a sm-uploader="reply" image-only="true" ng-hide="reply.attachment" ng-model="reply.attachment" class="ui right labeled icon button">
+					Add attachment
+					<i class="plus icon">
+					</i>
+				</a>
+				<button ng-click="sendReply()" ng-disabled="call_in_progress" class="ui right labeled icon button">
+					Submit reply
+					<i class="plus icon">
+					</i>
+				</button>
 			</div>
 		</div>
-		<div class="actions">
-			<a sm-uploader="reply" image-only="true" ng-hide="reply.attachment" ng-model="reply.attachment" class="ui right labeled icon button">
-				Add attachment
-				<i class="plus icon">
-				</i>
-			</a>
-			<button ng-click="sendReply()" ng-disabled="call_in_progress" class="ui right labeled icon button">
-				Submit reply
-				<i class="plus icon">
-				</i>
-			</button>
-		</div>
-	</div> -->
+	</div>
 </div>

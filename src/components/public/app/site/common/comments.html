@@ -2,7 +2,8 @@
 <div class="ui basic clearing padded segment section_background_color" ng-if="next_item.discussion_settings.show_comments" ng-init="loadComments()">
 
 	<h3 class="ui header" ng-if="next_item.discussion_settings.show_comments">
-		Comments
+		{{next_item.comments_count}} Comments
+		<a class="sub header leave_a_comment" ng-click="ScrollToComments()">leave a comment</a>
 	</h3>
 
 	<div ng-if="next_item.comments.length == 0">
@@ -10,8 +11,8 @@
 			<p>No comments yet</p>
 		</div>
 	</div>
-
-	<div class="ui threaded comments">
+	<pre>{{pagination}}</pre>
+	<div class="ui threaded comments"  infinite-scroll='paginate()' infinite-scroll-distance='2' infinite-scroll-disabled="pagination.disable">
 		<div class="comment comment_parent" ng-repeat="comment in next_item.comments | orderBy:'created_at':next_item.discussion_settings.newest_comments_first">
 			<a class="avatar">
 				<img title="{{comment.user.first_name}} {{comment.user.last_name}}" src="{{comment.user.profile_image || 'http://www.gravatar.com/avatar/90b9efad502faa07e2f045c8ce1919eb?d=mm&s=48'}}">
@@ -21,15 +22,13 @@
 				<div class="metadata">
 					<span class="date">{{moment.utc( comment.created_at ).fromNow()}}</span>
 				</div>
-				<div ng-if="!comment.edit" class="text">
-					{{comment.body}}
+				<div ng-if="!comment.edit" class="text" dynamic="comment.body">
 				</div>
 				<div ng-if="comment.edit" class="text">
 					<p editable-text="comment.body" onaftersave="editComment(comment)" >{{comment.body}}</p>
 				</div>
 				<div class="actions">
-
-					<a class="reply" ng-show="next_item.discussion_settings.allow_replies && user.access_token" ng-init="show_reply_div = false" ng-click="show_reply_div = !show_reply_div">Reply</a>
+					<a class="reply" ng-show="next_item.discussion_settings.allow_replies && user.access_token" ng-click="ShowCommentReplyBox( comment.id )">Reply</a>
 					<a class="reply" ng-if="site.is_admin|| comment.user_id == user.id" ng-init="comment.edit = false" ng-click="comment.edit = !comment.edit">Edit</a>
 
 					<a class="reply" ng-if="site.is_admin || comment.user_id == user.id" ng-click="deleteComment(comment)">Delete</a>
@@ -45,8 +44,7 @@
 						<div class="metadata">
 							<span class="date">{{moment.utc( reply.created_at ).fromNow()}}</span>
 						</div>
-						<div ng-if="!reply.edit && reply.user.id" class="text">
-							{{reply.body}}
+						<div ng-if="!reply.edit && reply.user.id" class="text" dynamic="reply.body">
 						</div>
 						<div ng-if="reply.edit" class="text">
 							<p editable-text="reply.body" onaftersave="editReply(reply)" >{{reply.body}}</p>
@@ -58,10 +56,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="reply_comment_area" ng-if="show_reply_div && user.id">
+			<div class="reply_comment_area" ng-if="show_comment_reply_box == comment.id && user.id">
 				<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
 					<div class="field">
-						<textarea ng-model="new_reply"></textarea>
+						<textarea froala ng-model="new_reply"></textarea>
 					</div>
 					<div class="ui blue labeled submit icon button" ng-click="saveReply(comment , new_reply)">
 						<i class="check icon"></i> Add Reply
@@ -69,18 +67,20 @@
 				</div>
 			</div>
 		</div>
-		<div ng-if="user.id">
-			<h4 class="ui horizontal divider header" ng-if="(!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
-				<i class="plus icon"></i>
-				Add Comment
-			</h4>
+		<div id="add_comment">
+			<div ng-if="user.id">
+				<h4 class="ui horizontal divider header" ng-if="(!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0')">
+					<i class="plus icon"></i>
+					Add Comment
+				</h4>
 
-			<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
-				<div class="field">
-					<textarea ng-model="new_comment"></textarea>
-				</div>
-				<div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment);new_comment=''">
-					<i class="check icon"></i> Submit
+				<div class="ui reply form" ng-if="!next_item.discussion_settings.close_to_new_comments || next_item.discussion_settings.close_to_new_comments == '0'">
+					<div class="field">
+						<textarea froala ng-model="new_comment"></textarea>
+					</div>
+					<div class="ui blue labeled submit icon button" ng-click="saveComment(new_comment);new_comment=''">
+						<i class="check icon"></i> Submit
+					</div>
 				</div>
 			</div>
 		</div>

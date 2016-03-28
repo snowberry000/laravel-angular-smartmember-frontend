@@ -15,7 +15,12 @@ app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stat
     $scope.child_comment = '';
     $scope.user = $localStorage.user;
     $scope.loading=true;
-
+    $scope.pagination = {
+        current_page: 1,
+        per_page: 25,
+        total_count: 0,
+        disable : true
+    };
     Restangular.one('livecastByPermalink' , $stateParams.permalink).get().then(function(response){
         $livecast=response;
         $scope.loading=false;
@@ -24,10 +29,40 @@ app.controller('PublicLivecastController',function($scope,$rootScope,$http,$stat
         $rootScope.widget_target_type = 'livecast';
         $rootScope.widget_target = $scope.next_item.id;
         $rootScope.page_title = $livecast.title || $rootScope.page_title;
-        Restangular.all('').customGET('comment?target_id='+$scope.next_item.id+'&type='+5).then(function(comments){
-               $scope.next_item.comments = _.toArray(comments.comments)
-            });
+        $scope.pagination.disable = false;
+        $scope.paginate();
+        // Restangular.all('').customGET('comment?target_id='+$scope.next_item.id+'&type='+5).then(function(comments){
+        //        $scope.next_item.comments = _.toArray(comments.comments)
+        //     });
     })
+
+    $scope.paginate = function( search )
+    {
+        if(!$scope.next_item.comments || $scope.next_item.comments.length==0){
+            $scope.next_item.comments = [];
+            $scope.loading = true;
+        }
+        $scope.pagination.disable=true;
+        if( search )
+        {
+            $scope.pagination.current_page = 1;
+        }
+
+        var $params = { p: $scope.pagination.current_page };
+
+        Restangular.all( '' ).customGET( 'comment?target_id=' + $scope.next_item.id + '&type=' + 5 + '&p=' + $params.p).then( function( data )
+        {
+            $scope.loading = false;
+            $scope.pagination.current_page++;
+            $scope.pagination.total_count = data.total_count;
+
+            if(data && data.items && data.items.length > 0)
+            {
+                $scope.pagination.disable = false;
+            }
+            $scope.next_item.comments = $scope.next_item.comments.concat( data.items )
+        } );
+    }
 
     
     

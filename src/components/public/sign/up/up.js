@@ -10,39 +10,50 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http , smEvent)
+app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http, smEvent )
 {
 
 	var auth = Restangular.all( 'auth' );
 	$rootScope.page_title = "Smartmember";
 	$rootScope.is_admin = true;
 	$scope.site_options = [];
-	$scope.signupPage=window.location.hash.substr(1);
-	if(!$rootScope.site)
+	$scope.signupPage = window.location.hash.substr( 1 );
+	if( !$rootScope.site )
 	{
-		Restangular.one( 'site', 'details' ).get().then(function(response){
-			$rootScope.site=response;
-            if( $rootScope.site ) {
-                $site_options = $rootScope.site.meta_data;
-                $scope.site_options = {};
-                if($site_options)
-                $.each($site_options, function (key, data) {
-                    $scope.site_options[data.key] = data.value;
-                });
-				console.log($scope.site_options);
-				if( $scope.isLoggedIn() && $rootScope.site.is_member && $scope.signupPage!='preview' )
+		Restangular.one( 'site', 'details' ).get().then( function( response )
+		{
+			$rootScope.site = response;
+			if( $rootScope.site )
+			{
+				$site_options = $rootScope.site.meta_data;
+				$scope.site_options = {};
+				if( $site_options )
+				{
+					$.each( $site_options, function( key, data )
+					{
+						$scope.site_options[ data.key ] = data.value;
+					} );
+				}
+
+				if( $scope.isLoggedIn() && $rootScope.site.is_member && $scope.signupPage != 'preview' )
+				{
 					$scope.determineHomeStateAndRedirect();
-            }
-		});
+				}
+			}
+		} );
 	}
-    else if( $rootScope.site ) {
-        $site_options = $rootScope.site.meta_data;
-        $scope.site_options = {};
-        if($site_options)
-        $.each($site_options, function (key, data) {
-            $scope.site_options[data.key] = data.value;
-        });
-    }
+	else if( $rootScope.site )
+	{
+		$site_options = $rootScope.site.meta_data;
+		$scope.site_options = {};
+		if( $site_options )
+		{
+			$.each( $site_options, function( key, data )
+			{
+				$scope.site_options[ data.key ] = data.value;
+			} );
+		}
+	}
 
 
 	$scope.message = '';
@@ -51,11 +62,12 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 	$scope.login_type = "facebook";
 
 	$scope.user = {};
-	if($location.search().get_startedemail){
+	if( $location.search().get_startedemail )
+	{
 		$scope.user.email = $location.search().get_startedemail;
 	}
 	$scope.hash = '';
-	$scope.current_url = $rootScope.app.appUrl.substring(7);
+	$scope.current_url = $rootScope.app.appUrl.substring( 7 );
 
 	if( $stateParams.hash )
 	{
@@ -98,19 +110,21 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 			user.cbreceipt = $localStorage.cbreceipt;
 		}
 
-		if ($scope.validate())
+		if( $scope.validate() )
 		{
 			auth.customPOST( user, "register" ).then( function( response )
 				{
-					if($location.search().get_startedemail){
-						Restangular.all("emailSubscriber").customPOST({email : user.email} , 'directoryleads').then(function(response){
-						})
+					if( $location.search().get_startedemail )
+					{
+						Restangular.all( "emailSubscriber" ).customPOST( { email: user.email }, 'directoryleads' ).then( function( response )
+						{
+						} )
 					}
 					$scope.postAuth( response );
-                    smEvent.Log( 'registered', {
-                        'request-url': location.href,
-                        'referring-url': document.referrer
-                    } );
+					smEvent.Log( 'registered', {
+						'request-url': location.href,
+						'referring-url': document.referrer
+					} );
 
 					if( $rootScope.redirectedFromLoginMessage )
 					{
@@ -118,21 +132,22 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 						window.location.href = $localStorage.accessed_url;
 					}
 
-					if($localStorage.access_pass_redirect){
-						$localStorage.access_pass_redirect = null;	
+					if( $localStorage.access_pass_redirect )
+					{
+						$localStorage.access_pass_redirect = null;
 						window.location.href = '/'
 					}
 
 					toastr.success( "Registered!" );
 
-                    if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
-                    {
-                        window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
-                    }
-                    else
-                    {
-                        $state.transitionTo('public.app.site.home', {}, {reload: true, inherit: true, notify: true});
-                    }
+					if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
+					{
+						window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
+					}
+					else
+					{
+						$state.transitionTo( 'public.app.site.home', {}, { reload: true, inherit: true, notify: true } );
+					}
 
 				},
 				function( response )
@@ -154,15 +169,15 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 
 	$scope.validate = function()
 	{
-		if (!$scope.user.first_name || $scope.user.first_name.length === 0)
+		if( !$scope.user.first_name || $scope.user.first_name.length === 0 )
 		{
 			return false;
 		}
-		if (!$scope.user.email || $scope.user.email.length === 0)
+		if( !$scope.user.email || $scope.user.email.length === 0 )
 		{
 			return false;
 		}
-		if (!$scope.user.password || $scope.user.password.length === 0)
+		if( !$scope.user.password || $scope.user.password.length === 0 )
 		{
 			return false;
 		}
@@ -206,7 +221,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		{
 			$localStorage.cbreceipt = false;
 		}
-        if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
+		if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
 		{
 			window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
 		}
@@ -214,7 +229,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 		{
 			if( $rootScope.isSitelessPage() )
 			{
-				$state.go('public.app.admin.wizard.list', {id: 'account_wizard'});
+				$state.go( 'public.app.admin.wizard.list', { id: 'account_wizard' } );
 			}
 			else
 			{
