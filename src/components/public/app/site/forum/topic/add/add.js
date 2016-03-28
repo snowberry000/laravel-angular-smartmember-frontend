@@ -14,7 +14,7 @@ app.controller("AddTopicController", function ($scope,$rootScope, Restangular, $
 	$scope.save = function()
 	{
 		if(!$scope.topic || !$scope.topic.title){
-			toastr.error("Empty title name not allowed")
+			toastr.error("Title is required")
 			return;
 		}
 		console.log($rootScope.category);
