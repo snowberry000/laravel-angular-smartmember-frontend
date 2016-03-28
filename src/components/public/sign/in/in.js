@@ -15,8 +15,11 @@ app.config( function( $stateProvider )
 
 app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http, smEvent)
 {
-	if($localStorage.user)
-		$state.go( 'public.app.site.home' );
+	var token = $location.url().split('/');
+	if($localStorage.user){
+		if(token[token.length - 1] != '#preview')
+			$state.go( 'public.app.site.home' );
+	}
 	
 	$rootScope.page_title = "Smart member";
 	$rootScope.is_admin = true;
