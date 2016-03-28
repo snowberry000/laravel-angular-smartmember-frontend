@@ -176,8 +176,8 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 				}
 				else if( $rootScope.isSitelessPage('www') )
 				{
-					//$state.go( 'public.www.home', null, {reload:true});
-					window.location.href = 'http://'+$location.host();
+					$state.go( 'public.www.home', null, {reload:true});
+					// window.location.href = 'http://'+$location.host();
 				}
                 else if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
                 {
