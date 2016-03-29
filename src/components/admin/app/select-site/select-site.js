@@ -27,7 +27,7 @@ app.controller("SelectSiteController", function($scope, RestangularV3, $rootScop
 			smModal.Close('admin.app.select-site');
 			$localStorage.user.company_id = site_id;
 			// $state.go( 'admin.app', {}, {reload:true});
-			$state.transitionTo($state.current, {}, { reload: true, inherit: true, notify: true });
+			$state.transitionTo('admin.app.inbox', {}, { reload: true, inherit: true, notify: true });
 		});
 	}
 });
