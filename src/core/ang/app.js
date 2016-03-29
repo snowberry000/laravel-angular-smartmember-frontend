@@ -104,8 +104,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	$rootScope.env = env;
 
 
-	//var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf( env ) == -1 ? 's' : '') + "://api." + rootDomain;
-	var apiURL = "http://api." + rootDomain;
+	var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf( env ) == -1 ? 's' : '') + "://api." + rootDomain;
 
 	$arr = location.pathname.split( '/' );
 
