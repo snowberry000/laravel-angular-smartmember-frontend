@@ -101,13 +101,10 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 	}
 
 	rootDomain = 'smartmember.' + env;
+	$rootScope.env = env;
+
 
 	var apiURL = "http" + ( $rootScope.nonProductionTLDs.indexOf( env ) == -1 ? 's' : '') + "://api." + rootDomain;
-
-	console.log( '->>>>>>>>>> TDLS <<<<<<<<<-' );
-	console.log( $rootScope.nonProductionTLDs );
-	console.log( '----------> Test ENV <----------' );
-	console.log( env );
 
 	$arr = location.pathname.split( '/' );
 
