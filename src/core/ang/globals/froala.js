@@ -108,8 +108,7 @@ app.value('froalaConfig', {
 
         non_https_tld = [
             'soy',
-            'dev',
-            'in',
+            'dev'
         ];
 
         var apiURL = "http" + (non_https_tld.indexOf(env) == -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
@@ -142,8 +141,7 @@ app.value('froalaConfig', {
 
         non_https_tld = [
             'soy',
-            'dev',
-            'in',
+            'dev'
         ];
 
         var apiURL = "http" + (non_https_tld.indexOf(env) == -1 ? 's' : '') + "://api." + (domain.indexOf( 'smartmember' ) < 0 ? 'smartmember.com' : domain);
