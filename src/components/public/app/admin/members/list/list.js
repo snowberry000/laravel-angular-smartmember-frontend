@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'MembersController', function( $scope, $localStorage, $rootScope, $location, $stateParams, Restangular, toastr, $state )
+app.controller( 'MembersController', function( $scope, RestangularV3,$localStorage, $rootScope, $location, $stateParams, Restangular, toastr, $state )
 {
 	$scope.site = $site = $rootScope.site;
 	$scope.user = $user = $rootScope.user;
@@ -231,7 +231,9 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
         }
 
 		Restangular.all('siteRole').customPUT( {type : new_role} , role.id).then(function(response){
+            $scope.roleUpdateInMongo(response,role.type,null);
             role.type = response.type;
+            
 		})
 	}
 
@@ -258,10 +260,32 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
             new_role = 'support';
         }
 
+        
+
         Restangular.all('siteRole').customPUT( {type : new_role} , role.id).then(function(response){
+            $scope.roleUpdateInMongo(response,role.type,null);
             role.type = response.type;
         })
 
+        
+
+	}
+
+
+	$scope.roleUpdateInMongo =function($role,$oldRole,$user_id){
+		if(!$user_id)
+		{
+			RestangularV3.all('').customPUT( 'company/updateRoles?newRole='+$role.type+'&user_id='+$role.user_id+'&prevRole='+$oldRole+'&site_id='+$rootScope.site.id).then(function(response){
+	            toastr.success('transferred to mongo!');
+	        })
+		}
+		else
+		{
+			RestangularV3.all('').customPUT( 'company/updateRoles?user_id='+$user_id+'&site_id='+$rootScope.site.id).then(function(response){
+	            toastr.success('transferred to mongo!');
+	        })
+		}
+		
 	}
 
 	$scope.stopPropagation = function( $event )
@@ -369,6 +393,7 @@ app.controller( 'MembersController', function( $scope, $localStorage, $rootScope
 
 		Restangular.all('siteRole/removeUserFromCurrentSite').post({user_id: itemWithId.id}).then( function()
 		{
+			$scope.roleUpdateInMongo(null,null,itemWithId.id);
 			$scope.data = _.without( $scope.data, itemWithId );
 			var this_site = _.findWhere($rootScope.sites , {id : itemWithId.site_id});
 
