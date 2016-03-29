@@ -10,7 +10,7 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootScope, $state,$localStorage, $location, Restangular, $filter , smMembers)
+app.controller( 'SiteController', function( $scope, toastr, $stateParams, RestangularV3, $rootScope, $state,$localStorage, $location, Restangular, $filter , smMembers)
 {
 	if( $stateParams.id )
 	{
@@ -90,6 +90,10 @@ app.controller( 'SiteController', function( $scope, toastr, $stateParams, $rootS
 		{
 			$scope.saving = false;
 		} );
+
+		RestangularV3.all('auth').customPOST({site : $scope.site , user : $localStorage.user} , 'replicateuser').then(function(response){
+			console.log(response);
+		})
 	}
 } );
 
