@@ -62,7 +62,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 		return location.host.isCustomDomain();
 	}
 
-	$rootScope.nonProductionTLDs = [ 'dev', 'in', 'soy', 'co' ];
+	$rootScope.nonProductionTLDs = [ 'dev', 'soy', 'co' ];
 
 	var domainParts = $location.host().match( /^([a-z0-9\-]{1,63})?\.smartmember\.(com|in|dev|soy|pro|co)$/i );
 	var env = null;

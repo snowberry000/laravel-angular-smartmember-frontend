@@ -26,7 +26,7 @@ function DetectAndPerformBridgePageThings()
 		$rootDomain = "smartmember.com";
 	}
 
-	if( !in_array( $tld, [ 'com', 'dev', 'in', 'soy' ] ) )
+	if( !in_array( $tld, [ 'com', 'dev', 'soy' ] ) )
 	{
 		$tld = 'com';
 	}
