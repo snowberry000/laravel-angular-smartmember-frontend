@@ -21,7 +21,7 @@
 
 		<div class="menu">
 			<a class="item" ui-sref="public.app.admin.account.settings">Account settings</a>
-			<a class="item" ui-sref="public.www.home" ng-hide="( onCustomDomain() || app.subdomain != 'my' ) && meta_data.hide_sm_logo && meta_data.hide_sm_logo != '0'">Site Directory</a>
+			<a class="item" href="http://www.smartmember.{{env}}" ng-hide="( onCustomDomain() || app.subdomain != 'my' ) && meta_data.hide_sm_logo && meta_data.hide_sm_logo != '0'">Site Directory</a>
 			<a class="item" style="display:none;">Report Bugs</a>
 			<a class="item" ng-if="onCustomDomain() || app.subdomain != 'my'" ui-sref="public.app.site.support-tickets">Support Tickets</a>
 			<a class="item" ng-if="!onCustomDomain() && app.subdomain == 'my'"
@@ -123,7 +123,7 @@
 		<div class="results"></div>
 	</div>
 
-	<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" ui-sref-opts="{reload:true}" ui-sref="public.www.home" title="Smart Member Directory" ng-hide="meta_data.hide_sm_logo && meta_data.hide_sm_logo != '0'">
+	<a class="ui item {{$state.includes('public.www') ? 'active' : ''}}" href="http://www.smartmember.{{env}}" title="Smart Member Directory" ng-hide="meta_data.hide_sm_logo && meta_data.hide_sm_logo != '0'">
 		<img class="ui rounded mini image" src="/images/sm-64.png">
 	</a>
 
