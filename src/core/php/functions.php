@@ -10,7 +10,7 @@ function DetectAndPerformBridgePageThings()
 	$domain = $_SERVER[ 'HTTP_HOST' ];
 	$parts = explode( ".", $domain );
 	$tld = array_pop( $parts );
-	$rootDomain = array_pop( $parts ) . "." . $tld;
+	$rootDomain = array_pop( $parts ).".".$tld;
 	$subdomain = array_pop( $parts );
 	if( $subdomain == 'bridgepages' )
 	{
@@ -35,7 +35,7 @@ function DetectAndPerformBridgePageThings()
 
 	$requestParts = explode( '/', $_SERVER[ 'REQUEST_URI' ] );
 
-	if( ( isCustomDomain( $domain ) || $subdomain != 'my' ) && count( $requestParts ) > 1 && count( $requestParts ) <= 3 )
+	if( (isCustomDomain( $domain ) || $subdomain != 'my') && count( $requestParts ) > 1 && count( $requestParts ) <= 3 )
 	{
 		$permalink = $requestParts[ 1 ];
 		$pos = strpos( $permalink, '?' );
@@ -45,16 +45,19 @@ function DetectAndPerformBridgePageThings()
 		}
 
 		//we know these are reserved routes, so no need to check if they are bridge pages
-		$reserved_permalinks = array( 'lessons', 'info', 'home', 'thank-you', 'thankyou', 'wallboard', 'sign', 'download-center', 'admin', 'domain-not-found', 'blog', 'jvpage', 'refund-page', 'support-ticket', 'support', 'support-tickets','forum-category','forum-topic' );
+		$reserved_permalinks = array( 'lessons', 'info', 'home', 'thank-you', 'thankyou', 'wallboard', 'sign', 'download-center', 'admin', 'domain-not-found', 'blog', 'jvpage', 'refund-page', 'support-ticket', 'support', 'support-tickets', 'forum-category', 'forum-topic' );
 
 		if( !in_array( $permalink, $reserved_permalinks ) )
 		{
 			require_once 'bpage/php/redis/Autoloader.php';
 			Predis\Autoloader::register();
 
-			if ($tld == 'com'){
-				$client = new Predis\Client(['host'=>'52.36.106.235']);
-			}else{
+			if( $tld == 'com' )
+			{
+				$client = new Predis\Client( [ 'host' => CACHE1_HOST, 'port' => CACHE1_PORT ] );
+			}
+			else
+			{
 				$client = new Predis\Client();
 			}
 
@@ -108,17 +111,19 @@ function DetectAndPerformBridgePageThings()
 
 							if( property_exists( $data, 'type' ) && $data->type == 'smart_link' )
 							{
-								header( 'Location: ' . $data->redirect_url );
+								header( 'Location: '.$data->redirect_url );
 								exit;
 							}
 						}
 
-						if( !empty( $data ) && property_exists( $data, 'type' ) && $data->type == 'sm_data' )
+						if( !empty($data) && property_exists( $data, 'type' ) && $data->type == 'sm_data' )
 						{
 							$bpage_data = '';
 						}
 						else
+						{
 							$client->set( $redisKeys[ 'data' ], $bpage_data );
+						}
 					}
 				}
 
@@ -126,19 +131,17 @@ function DetectAndPerformBridgePageThings()
 				{
 					$bpage_data = '';
 				}
-				elseif( !empty( $bpage_data ) )
+				elseif( !empty($bpage_data) )
 				{
 					$data = json_decode( $bpage_data );
-					if( !empty( $data ) && is_object( $data ) && property_exists( $data,  'type' ) && $data->type == 'sm_data' )
+					if( !empty($data) && is_object( $data ) && property_exists( $data, 'type' ) && $data->type == 'sm_data' )
 					{
 						$bpage_data = '';
 					}
 				}
 
-				if( !empty($html) || ( !empty($bpage_data) 
-					&& $bpage_data != '{"message":"Route not found, please try again.","code":404}' 
-					&& $bpage_data != '{"type":"sm_data","data":[]}{"message":"Oops, something went wrong! Please try again soon","code":500}') 
-				){
+				if( !empty($html) || (!empty($bpage_data) && $bpage_data != '{"message":"Route not found, please try again.","code":404}' && $bpage_data != '{"type":"sm_data","data":[]}{"message":"Oops, something went wrong! Please try again soon","code":500}') )
+				{
 					include 'bpage/bpage.php';
 
 					exit;
@@ -157,23 +160,27 @@ function DetectAndPerformBridgePageThings()
 			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'origin:http://'.$domain, 'referer:http://'.$domain.$_SERVER[ 'REQUEST_URI' ], 'content-type:application/json' ) );
 			$remote_data = curl_exec( $curl );
 			curl_close( $curl );
-			if( !empty( $remote_data ) && $remote_data != 'notbp' )
+			if( !empty($remote_data) && $remote_data != 'notbp' )
+			{
 				$data = json_decode( $remote_data );
+			}
 
 		}
 	}
 
-	return !empty( $data ) ? $data : [];
+	return !empty($data) ? $data : [ ];
 }
 
 function PrintUserTrackingScript( $data, $type = 'google_analytic_id' )
 {
-	switch ($type)
+	switch( $type )
 	{
 		case 'google_analytic_id':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'google_analytics_id' ) )
+			{
 				$user_ga_code = $data->data->google_analytics_id;
-			if( !empty( $user_ga_code ) ) :
+			}
+			if( !empty($user_ga_code) ) :
 				?>
 				ga('create', '<?php echo $user_ga_code; ?>', 'auto', {'name': 'newTracker', 'cookieName': '_ga_user'});
 				ga('newTracker.send', 'pageview');
@@ -181,8 +188,10 @@ function PrintUserTrackingScript( $data, $type = 'google_analytic_id' )
 			break;
 		case 'fb_pixel':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'facebook_conversion_pixel' ) )
+			{
 				$fb_code = $data->data->facebook_conversion_pixel;
-			if( !empty( $fb_code ) ) :
+			}
+			if( !empty($fb_code) ) :
 				?>
 				fbq('init', '<?php echo $fb_code; ?>');
 				fbq('track', "PageView");
@@ -190,40 +199,53 @@ function PrintUserTrackingScript( $data, $type = 'google_analytic_id' )
 			break;
 		case 'bing_webmaster_tag':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'bing_webmaster_tag' ) )
+			{
 				$code = $data->data->bing_webmaster_tag;
-			if( !empty( $code ) ) :
+			}
+			if( !empty($code) ) :
 				?>
-				<meta name="msvalidate.01" content="<?php echo $code; ?>" />
+				<meta name="msvalidate.01" content="<?php echo $code; ?>"/>
 			<?php endif;
 			break;
 		case 'bing_tracking':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'bing_id' ) )
+			{
 				$code = $data->data->bing_id;
-			else $code = '';
-				?>
-				var o={ti:"<?php echo $code; ?>"};
+			}
+			else
+			{
+				$code = '';
+			}
+			?>
+			var o={ti:"<?php echo $code; ?>"};
 			<?php
 			break;
 		case 'google_webmaster_tag':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'google_webmaster_tag' ) )
+			{
 				$code = $data->data->google_webmaster_tag;
-			if( !empty( $code ) ) :
+			}
+			if( !empty($code) ) :
 				?>
 				<meta name="google-site-verification" content="<?php echo $code; ?>">
 			<?php endif;
 			break;
 		case 'active_campaign_id':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'active_campaign_id' ) )
+			{
 				$code = $data->data->active_campaign_id;
-			if( !empty( $code ) ) :
+			}
+			if( !empty($code) ) :
 				?>
 				trackcmp.src = '//trackcmp.net/visit?actid=O<?php echo $code; ?>&e='+encodeURIComponent(trackcmp_email)+'&r='+encodeURIComponent(document.referrer)+'&u='+encodeURIComponent(window.location.href);
 			<?php endif;
 			break;
 		case 'fb_share_description':
 			if( is_object( $data ) && property_exists( $data, 'data' ) && is_object( $data->data ) && property_exists( $data->data, 'fb_share_description' ) )
+			{
 				$code = $data->data->fb_share_description;
-			if( !empty( $code ) ) :
+			}
+			if( !empty($code) ) :
 				?>
 				<meta name="description" content="<?php echo $code; ?>">
 			<?php endif;
