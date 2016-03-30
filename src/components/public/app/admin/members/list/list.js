@@ -276,13 +276,13 @@ app.controller( 'MembersController', function( $scope, RestangularV3,$localStora
 		if(!$user_id)
 		{
 			RestangularV3.all('').customPUT( 'company/updateRoles?newRole='+$role.type+'&user_id='+$role.user_id+'&prevRole='+$oldRole+'&site_id='+$rootScope.site.id).then(function(response){
-	            toastr.success('transferred to mongo!');
+	            console.log('transferred to mongo!');
 	        })
 		}
 		else
 		{
 			RestangularV3.all('').customPUT( 'company/updateRoles?user_id='+$user_id+'&site_id='+$rootScope.site.id).then(function(response){
-	            toastr.success('transferred to mongo!');
+	            console.log('transferred to mongo!');
 	        })
 		}
 		
