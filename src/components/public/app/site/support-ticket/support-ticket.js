@@ -82,6 +82,7 @@ app.controller( 'PublicSupportTicketController', function( $scope, $site, Upload
 			$scope.ticket.agent_id = "0";
 			$scope.ticket.status = "open";
 			$scope.ticket.site_id = $rootScope.site.id ? $rootScope.site.id : null;
+			$scope.ticket.company_id = $rootScope.site.company_id ? $rootScope.site.company_id : null;
 			$scope.ticket.send_email = true;
 			RestangularV3.all( 'ticket' ).post( $scope.ticket ).then( function( response )
 			{

@@ -15,8 +15,11 @@ app.config( function( $stateProvider )
 
 app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, ipCookie, $localStorage, $stateParams, $location, Restangular, FB, $state, $http, smEvent)
 {
-	if($localStorage.user)
-		$state.go( 'public.app.site.home' );
+	var token = $location.url().split('/');
+	if($localStorage.user){
+		if(token[token.length - 1] != '#preview')
+			$state.go( 'public.app.site.home' );
+	}
 	
 	$rootScope.page_title = "Smart member";
 	$rootScope.is_admin = true;
@@ -102,6 +105,7 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 
 	$scope.login = function()
 	{
+		// $location.host();
 		var user = $scope.user;
 		if( $localStorage.hash )
 		{
@@ -126,6 +130,9 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 				$scope.$storage.user = response;
 				//close( response );
 			}
+			$host = $location.host();
+			if($host.split('.')[0] == 'app')
+				window.location.href ='http://'+$host+'/smart-sites/list/all';
 		} );
 	};
 
@@ -160,14 +167,17 @@ app.controller( 'InController', function( $rootScope, $scope, $timeout, toastr, 
 			}
 			else
 			{
+
+
 				if( $rootScope.isSitelessPage('my') )
 				{
-					$state.go( 'public.my', null, {reload:true});
+					// $state.go( 'public.my', null, {reload:true});
+					window.location.href = 'http://'+$location.host();
 				}
 				else if( $rootScope.isSitelessPage('www') )
 				{
-					//$state.go( 'public.www.home', null, {reload:true});
-					window.location.href = 'http://'+$location.host();
+					$state.go( 'public.www.home', null, {reload:true});
+					// window.location.href = 'http://'+$location.host();
 				}
                 else if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
                 {

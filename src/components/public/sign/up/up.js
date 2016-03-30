@@ -144,7 +144,7 @@ app.controller( 'UpController', function( $rootScope, $scope, toastr, ipCookie, 
 
 					toastr.success( "Registered!" );
 
-					if( location.href.indexOf( 'sm.smartmember.' ) != -1 )
+					if( location.href.indexOf( 'sm.smartmember.' ) != -1 || location.href.indexOf( 'my.smartmember.' ) != -1 )
 					{
 						window.location.href = 'http://my.smartmember.' + $rootScope.app.env;
 					}

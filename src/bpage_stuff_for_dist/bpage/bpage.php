@@ -188,7 +188,7 @@ if( !$html )
     }(document, 'script', 'facebook-jssdk'));</script>
 <script type="text/javascript">
     $(document).ready(function () {
-        var tracking_code_url = "http<?php echo in_array($tld,array('dev','in')) ? '':'s';?>://api.<?php echo $rootDomain; ?>/siteMetaData/getTrackingCode?subdomain=<?php echo $subdomain; ?>&permalink=<?php echo ltrim($_SERVER['REQUEST_URI'], '/'); ?>&domain=<?php echo $domain; ?>";
+        var tracking_code_url = "http<?php echo in_array($tld,array('dev')) ? '':'s';?>://api.<?php echo $rootDomain; ?>/siteMetaData/getTrackingCode?subdomain=<?php echo $subdomain; ?>&permalink=<?php echo ltrim($_SERVER['REQUEST_URI'], '/'); ?>&domain=<?php echo $domain; ?>";
         var current_domain = '<?php echo $domain; ?>';
 
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
