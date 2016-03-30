@@ -50,7 +50,7 @@ app.controller( 'PostCategoryController', function( $scope,$site, $rootScope, $l
 
             $rootScope.widget_target_type = 'category';
             $rootScope.widget_target = $scope.category.id;
-            rootScope.page_title = $scope.category.title;
+            $rootScope.page_title = $scope.category.title;
         } );
 	}
 	$scope.$watch( 'pagination.current_page', function( new_value, old_value )
