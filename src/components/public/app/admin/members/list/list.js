@@ -231,7 +231,7 @@ app.controller( 'MembersController', function( $scope, RestangularV3,$localStora
         }
 
 		Restangular.all('siteRole').customPUT( {type : new_role} , role.id).then(function(response){
-            $scope.roleUpdateInMongo(response,role.type,null);
+            //$scope.roleUpdateInMongo(response,role.type,null);
             role.type = response.type;
             
 		})
@@ -263,7 +263,7 @@ app.controller( 'MembersController', function( $scope, RestangularV3,$localStora
         
 
         Restangular.all('siteRole').customPUT( {type : new_role} , role.id).then(function(response){
-            $scope.roleUpdateInMongo(response,role.type,null);
+           // $scope.roleUpdateInMongo(response,role.type,null);
             role.type = response.type;
         })
 
@@ -393,7 +393,7 @@ app.controller( 'MembersController', function( $scope, RestangularV3,$localStora
 
 		Restangular.all('siteRole/removeUserFromCurrentSite').post({user_id: itemWithId.id}).then( function()
 		{
-			$scope.roleUpdateInMongo(null,null,itemWithId.id);
+			// $scope.roleUpdateInMongo(null,null,itemWithId.id);
 			$scope.data = _.without( $scope.data, itemWithId );
 			var this_site = _.findWhere($rootScope.sites , {id : itemWithId.site_id});
 
