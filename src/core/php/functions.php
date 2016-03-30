@@ -1,4 +1,6 @@
 <?php
+define('CACHE_HOST', $_SERVER['CACHE1_HOST']);
+define('CACHE_PORT', $_SERVER['CACHE1_PORT']);
 
 function isCustomDomain( $domain )
 {
@@ -54,7 +56,7 @@ function DetectAndPerformBridgePageThings()
 
 			if( $tld == 'com' )
 			{
-				$client = new Predis\Client( [ 'host' => CACHE1_HOST, 'port' => CACHE1_PORT ] );
+				$client = new Predis\Client( [ 'host' => CACHE_HOST, 'port' => CACHE_PORT ] );
 			}
 			else
 			{
