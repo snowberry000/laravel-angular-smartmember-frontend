@@ -40,7 +40,7 @@ app.controller("MembersImportController", function ($scope ,$rootScope, Restangu
 		for(var i=0; i<emails.length; i++)
 		{	
 			emails[i] = emails[i].trim();
-			if(_.where(filteredEmails, emails[i]).length==0)
+			if(filteredEmails.indexOf(emails[i]) == -1)
 			{
 				filteredEmails.push(emails[i]);
 			}
