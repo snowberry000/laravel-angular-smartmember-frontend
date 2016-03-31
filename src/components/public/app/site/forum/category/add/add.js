@@ -21,6 +21,10 @@ app.controller( "AddController", function( $scope, Restangular, $stateParams,$ro
 			$rootScope.page_title = $scope.category ? $scope.category.title : 'Add Forum Category';
 		} )
 	}
+	else
+	{
+		$scope.category={};
+	}
 
 	$scope.updateIcon = function( $icon )
 	{

@@ -423,6 +423,7 @@ app.controller( "TicketController", function( $scope, $localStorage, Restangular
 			{
 				$scope.send_email = $scope.change_ticket_status == $scope.ticket.status;
 				$scope.reply.send_email = $scope.send_email;
+				$scope.reply.site_id = $rootScope.site.id;
 				console.log( $scope.reply );
 				RestangularV3.all( 'ticket' ).post( $scope.reply ).then( function( response )
 				{
