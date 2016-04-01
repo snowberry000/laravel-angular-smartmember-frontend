@@ -1,6 +1,6 @@
 <?php
-define( 'CACHE_HOST', $_SERVER[ 'CACHE1_HOST' ] ? $_SERVER[ 'CACHE1_HOST' ] : '127.0.0.1' );
-define( 'CACHE_PORT', $_SERVER[ 'CACHE1_PORT' ] ? $_SERVER[ 'CACHE1_PORT' ] : '6380' );
+define( 'CACHE_HOST', isset($_SERVER[ 'CACHE1_HOST' ]) ? $_SERVER[ 'CACHE1_HOST' ] : '127.0.0.1' );
+define( 'CACHE_PORT', isset($_SERVER[ 'CACHE1_PORT' ]) ? $_SERVER[ 'CACHE1_PORT' ] : '6380' );
 
 function isCustomDomain( $domain )
 {
