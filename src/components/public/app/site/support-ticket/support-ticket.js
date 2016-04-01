@@ -84,8 +84,10 @@ app.controller( 'PublicSupportTicketController', function( $scope, $site, Upload
 			$scope.ticket.site_id = $rootScope.site.id ? $rootScope.site.id : null;
 			$scope.ticket.company_id = $rootScope.site.company_id ? $rootScope.site.company_id : null;
 			$scope.ticket.send_email = true;
+			$scope.loading = true;
 			RestangularV3.all( 'ticket' ).post( $scope.ticket ).then( function( response )
 			{
+				$scope.loading = false;
 				toastr.success( "Your ticket has been created." );
 				/*Restangular.all( '' ).customGET( 'ticketCount' ).then( function( data )
 				{

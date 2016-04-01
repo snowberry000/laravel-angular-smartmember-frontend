@@ -23,7 +23,6 @@
 			</div>
 		</div>
 	</h2>
-
 </div>
 <div class="twelve wide column">
 
@@ -72,8 +71,7 @@
 											{{options.create_ticket_attachment_text && options.create_ticket_attachment_text != '' ? options.create_ticket_attachment_text : 'Attach a screenshot or any other file that will help us to help you.'}}
 										</span>
 				</div>
-
-				<button class="ui button" ng-click="(ticket.user_email!=null||isLoggedIn())? save(): ticket.user_email=ticket.user_email">Submit</button>
+				<button class="ui button" ng-click="(ticket.user_email!=null||isLoggedIn())? save(): ticket.user_email=ticket.user_email" ng-disabled="loading">Submit</button>
 				<a ui-sref="public.app.site.support" class="ui button">Cancel</a>
 			</form>
 
