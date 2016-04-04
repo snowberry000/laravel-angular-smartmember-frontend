@@ -24,7 +24,6 @@ var app = angular.module( 'app', [
 	'angularModalService',
 	'ngDragDrop',
 	'angular-flot',
-	'chart.js',
 	'infinite-scroll',
 	'ui.sortable',
 	'angularUtils.directives.dirPagination',
