@@ -16,6 +16,39 @@ app.config( function( $stateProvider, paginationTemplateProvider )
 						{
 							files: [ 'bower/semantic/dist/components/transition.min.css' ]
 						}
+						/*
+						 // ocLazyLoad
+						 'pascalprecht.translate',       // Idle timer
+						 'ngSanitize',                    // ngSanitize
+						 'cfp.loadingBar',
+						 'restangular',
+						 'ipCookie',
+						 'ngStorage',
+						 'facebook',
+						 'cgNotify',
+						 'ngFileUpload',
+						 'angular-spinkit',
+						 'angularSpectrumColorpicker',
+						 'oitozero.ngSweetAlert',
+						 'froala',
+						 'as.sortable',
+						 'xeditable',
+						 'ui.footable',
+						 'ngAnimate',
+						 'toastr',
+						 'timer',
+						 'ngBusy',
+						 'angularModalService',
+						 'ngDragDrop',
+						 'angular-flot',
+						 'infinite-scroll',
+						 'ui.sortable',
+						 'angularUtils.directives.dirPagination',
+						 'ct.ui.router.extras',
+						 '720kb.socialshare',
+						 'ngUrlify'
+						 
+						 */
 					] );
 				}
 			}

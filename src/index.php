@@ -72,7 +72,94 @@ $data = DetectAndPerformBridgePageThings();
 <div class="ui sidebar left left_sidebar_contents" ><ng-include src="left_sidebar_contents"></ng-include></div>
 <div id="wrapper" class="pusher {{$state.includes('public.app.admin.bridge-page') ? 'extend_scroll' : ''}}" ui-view></div>
 
-<script src="js/vendor.min.js"></script>
+<!--<script src="js/vendor.min.js"></script>-->
+
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery-ui.js"></script>
+
+<script src="/js/angular.js"></script>
+
+<script src="/js/froala_editor.min.js"></script>
+
+<script src="/js/SweetAlert.js"></script>
+<script src="/js/align.min.js"></script>
+<script src="/js/angular-animate.js"></script>
+<script src="/js/angular-busy.js"></script>
+<script src="/js/angular-cookie.js"></script>
+<script src="/js/angular-cookies.js"></script>
+<script src="/js/angular-dragdrop.js"></script>
+<script src="/js/angular-facebook.js"></script>
+<script src="/js/angular-flot.js"></script>
+<script src="/js/angular-footable.js"></script>
+<script src="/js/angular-froala.js"></script>
+<script src="/js/angular-modal-service.js"></script>
+<script src="/js/angular-notify.js"></script>
+<script src="/js/angular-resource.js"></script>
+<script src="/js/angular-sanitize.js"></script>
+<script src="/js/angular-socialshare.min.js"></script>
+<script src="/js/angular-spectrum-colorpicker.min.js"></script>
+<script src="/js/angular-spinkit.js"></script>
+<script src="/js/angular-timer.js"></script>
+<script src="/js/angular-toastr.tpls.js"></script>
+<script src="/js/angular-touch.js"></script>
+<script src="/js/angular-translate.js"></script>
+<script src="/js/angular-ui-router.js"></script>
+<script src="/js/angular-ui-tree.js"></script>
+<script src="/js/char_counter.min.js"></script>
+<script src="/js/clipboard.js"></script>
+<script src="/js/code_beautifier.min.js"></script>
+<script src="/js/code_view.min.js"></script>
+<script src="/js/codemirror.js"></script>
+<script src="/js/colors.min.js"></script>
+<script src="/js/ct-ui-router-extras.js"></script>
+<script src="/js/detect-zoom.js"></script>
+<script src="/js/dirPagination.js"></script>
+<script src="/js/emoticons.min.js"></script>
+<script src="/js/entities.min.js"></script>
+<script src="/js/file.min.js"></script>
+<script src="/js/font_family.min.js"></script>
+<script src="/js/font_size.min.js"></script>
+<script src="/js/footable.js"></script>
+<script src="/js/fullscreen.min.js"></script>
+<script src="/js/humanize-duration.js"></script>
+<script src="/js/icheck.min.js"></script>
+<script src="/js/image.min.js"></script>
+<script src="/js/image_manager.min.js"></script>
+<script src="/js/inline_style.min.js"></script>
+<script src="/js/jquery.flot.js"></script>
+<script src="/js/line_breaker.min.js"></script>
+<script src="/js/link.min.js"></script>
+<script src="/js/lists.min.js"></script>
+<script src="/js/loading-bar.js"></script>
+<script src="/js/lodash.js"></script>
+<script src="/js/main.min.js"></script>
+<script src="/js/moment.js"></script>
+<script src="/js/ng-file-upload.js"></script>
+<script src="/js/ng-infinite-scroll.js"></script>
+<script src="/js/ng-sortable.js"></script>
+<script src="/js/ngStorage.js"></script>
+<script src="/js/ocLazyLoad.js"></script>
+<script src="/js/pace.js"></script>
+<script src="/js/paragraph_format.min.js"></script>
+<script src="/js/paragraph_style.min.js"></script>
+<script src="/js/popover-toggle.js"></script>
+<script src="/js/quote.min.js"></script>
+<script src="/js/restangular.js"></script>
+<script src="/js/save.min.js"></script>
+<script src="/js/select.js"></script>
+<script src="/js/select2.js"></script>
+<script src="/js/select3.js"></script>
+<script src="/js/semantic.js"></script>
+<script src="/js/sortable.js"></script>
+<script src="/js/spectrum.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+<script src="/js/table.min.js"></script>
+<script src="/js/ui-bootstrap-tpls.js"></script>
+<script src="/js/ui-codemirror.js"></script>
+<script src="/js/url.min.js"></script>
+<script src="/js/v-accordion.js"></script>
+<script src="/js/video.min.js"></script>
+<script src="/js/xeditable.js"></script>
 
 
 <!-- <script src="bower/slimScroll/jquery.slimscroll.min.js"></script> -->
