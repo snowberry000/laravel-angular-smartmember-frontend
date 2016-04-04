@@ -29,26 +29,6 @@ app.controller("BannerController", function ($scope, $rootScope, $state, $http,$
 		
 	}
 
-	$scope.imageUpload = function(files , type){
-
-	      for (var i = 0; i < files.length; i++) {
-	        var file = files[i];
-	        Upload.upload({
-	            url: $scope.app.apiUrl + '/utility/upload',
-	            file: file
-	        })
-
-	        .success(function (data, status, headers, config) {
-	            var editor = $.summernote.eventHandler.getModule();
-	            file_location = '/uploads/'+data.file_name;
-	            if(type=='transcript')
-	                editor.insertImage($scope.editable2, data.file_name);
-	            else
-	                $scope.ad.custom_ad = $scope.ad.custom_ad + '<img src=\''+data.file_name+'\'>';//editor.insertImage($scope.editable, data.file_name);//had to revert to this method because the other one wasn't working
-	      }).error(function (data, status, headers, config) {
-	      });
-	    }
-	}
 	$scope.toggleNewTab = function(){
 		$scope.ad.open_in_new_tab = !$scope.ad.open_in_new_tab;
 	}

@@ -253,14 +253,6 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 				{
 					return $scope.modules;
 				},
-				loadPlugin: function( $ocLazyLoad )
-				{
-					return $ocLazyLoad.load( [
-						{
-							name: 'summernote'
-						}
-					] );
-				},
 				$site: function()
 				{
 					return $site;

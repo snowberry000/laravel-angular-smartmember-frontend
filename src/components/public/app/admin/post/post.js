@@ -325,28 +325,6 @@ app.controller( "PostController", function( $scope, $localStorage, $stateParams,
 		}
 	}
 
-	$scope.imageUpload = function( files )
-	{
-
-		for( var i = 0; i < files.length; i++ )
-		{
-			var file = files[ i ];
-			Upload.upload( {
-					url: $scope.app.apiUrl + '/utility/upload',
-					file: file
-				} )
-				.success( function( data, status, headers, config )
-				{
-					console.log( data.file_name );
-					var editor = $.summernote.eventHandler.getModule();
-					file_location = '/uploads/' + data.file_name;
-					editor.insertImage( $scope.editable, data.file_name );
-				} ).error( function( data, status, headers, config )
-			{
-				console.log( 'error status: ' + status );
-			} );
-		}
-	}
 	//disabling for now because this isn't the draft feature we wanted
 	// if(false && !$stateParams.id && !$location.search().clone)
 	// Restangular.all('draft').customGET('', {site_id : $site.id , user_id : $user.id , key : 'posts.content'}).then(function(response){

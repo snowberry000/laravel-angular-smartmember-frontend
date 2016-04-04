@@ -29,28 +29,6 @@ app.controller("TeamProfileController", function ($scope, $localStorage,$state, 
         if ($scope.company.permalink)
             $scope.company.permalink = $filter('urlify')($scope.company.permalink);
     }
-
-  
-
-  // $scope.imageUpload = function(files , type){
-  //   for (var i = 0; i < files.length; i++) {
-  //       var file = files[i];
-  //       Upload.upload({
-  //           url: $scope.app.apiUrl + '/utility/upload',
-  //           file: file
-  //       })
-  //       .success(function (data, status, headers, config) {
-  //           var editor = $.summernote.eventHandler.getModule();
-  //           file_location = '/uploads/'+data.file_name;
-  //           if(type=='transcript')
-  //               editor.insertImage($scope.editable2, data.file_name);
-  //           else
-  //               editor.insertImage($scope.editable, data.file_name);
-  //           //$scope.lesson.content = $scope.lesson.content + '<img src=\''+data.file_name+'\'>'
-  //       }).error(function (data, status, headers, config) {
-  //     });
-  //   }
-  // }
     
    $scope.save = function(){
      if(!$scope.company)

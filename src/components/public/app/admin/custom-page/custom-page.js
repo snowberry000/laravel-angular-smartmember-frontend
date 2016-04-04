@@ -13,13 +13,6 @@ app.config(function($stateProvider){
                 $next_item: function( Restangular, $site, $stateParams, $location )
 				{
 					
-                },
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            name: 'summernote'
-                        }
-                    ]);
                 }
             }
 		})
@@ -115,29 +108,6 @@ app.controller("CustomPageController", function ($scope, $rootScope, smModal , $
     var draft;
     var changed;
 
-    $scope.imageUpload = function(files , type){
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            Upload.upload({
-                url: $scope.app.apiUrl + '/utility/upload',
-                file: file
-            })
-                .success(function (data, status, headers, config) {
-                    var editor = $.summernote.eventHandler.getModule();
-
-                    $scope.next_item[ type ] += '<img src=\''+data.file_name+'\'>';
-                    console.log('do we gots editable now? ', $scope.editable );
-                    //$scope.editable seems to be undefined, not sure why
-                    /*
-                     if(type=='transcript')
-                     editor.insertImage( $scope.editable2, data.file_name);
-                     else
-                     editor.insertImage( $scope.editable, data.file_name);
-                     */
-                }).error(function (data, status, headers, config) {
-                });
-        }
-    }
 
     $scope.setPermalink = function ($event) {
         if (!$scope.next_item.permalink)
