@@ -1,5 +1,6 @@
 var app = angular.module('app');
-$(function() {
+/*HIDDEN*/
+/*$(function() {
     $.FroalaEditor.DefineIcon('shortcode', {NAME: 'cog'});
     $.FroalaEditor.RegisterCommand('shortcode', {
         title: 'Short Codes',
@@ -35,7 +36,7 @@ $(function() {
             //console.log ('do refresh when show');
         }
     });
-});
+});*/
 app.value('froalaConfig', {
     heightMin: 400,
 	key: 'sCHCPa1XQVZFSHSa1C==',

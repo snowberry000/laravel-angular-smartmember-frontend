@@ -42,13 +42,13 @@ var paths = {
 gulp.task( 'bower', function()
 {
 	gulp.src( bowerFiles( '**/*.js' ) )
-		.pipe( concat( 'vendor.min.js' ) )
+		//.pipe( concat( 'vendor.min.js' ) )
 		.pipe( ngAnnotate() )
 		.pipe( minifyjs( { mangle: false, output: { ascii_only: true } } ) )
 		.pipe( gulp.dest( 'dist/js/' ) );
 
 	gulp.src( bowerFiles( '**/*.css' ) )
-		.pipe( concat( 'vendor.min.css' ) )
+		//.pipe( concat( 'vendor.min.css' ) )
 		.pipe( minifycss({processImport: false}) )
 		.pipe( gulp.dest( 'dist/css/' ) );
 
@@ -116,11 +116,6 @@ gulp.task( 'templates', function()
 		.pipe( gulp.dest( 'dist/templates' ) );
 } );
 
-gulp.task( 'test-e2e', shell.task([
-	'protractor src/tests/e2e.conf.js'
-]));
-
-
 gulp.task( 'watch', function()
 {
 	gulp.watch( paths.js, [ 'js' ] );
@@ -150,7 +145,7 @@ gulp.task( 'component', function()
 	var url = name.split( "." ).pop();
 	var controllerName = url.charAt( 0 ).toUpperCase() + url.slice( 1 )
 
-	fs.mkdirSync( dir );
+	//fs.mkdirSync( dir );
 	fs.writeFileSync( dir + "/" + url + ".js", 'var app = angular.module("app");\n\napp.config(function($stateProvider){\n\t$stateProvider\n\t\t.state("' + name + '",{\n\t\t\turl: "/' + url + '",\n\t\t\ttemplateUrl: "/templates/components/' + abs_path + '/' + url + '.html",\n\t\t\tcontroller: "' + controllerName + 'Controller"\n\t\t})\n}); \n\napp.controller("' + controllerName + 'Controller", function ($scope) {\n\n});' );
 	fs.writeFileSync( dir + "/" + url + ".html", '' );
 	fs.writeFileSync( dir + "/" + url + ".less", '' );
@@ -239,7 +234,6 @@ gulp.task( 'php', function()
 
 gulp.task( 'compile', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage', 'crawler' ,'json'] );
 gulp.task( 'default', [ 'inject', 'bower', 'js', 'templates', 'less', 'images', 'php', 'fonts', 'bpage','crawler' ,'json', 'watch'] );
-gulp.task( 'test', [ 'test-e2e'] );
 
 gulp.task( 'production', [ 'compile'], function()
 {
