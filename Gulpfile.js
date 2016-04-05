@@ -48,7 +48,7 @@ gulp.task( 'bower', function()
 		.pipe( gulp.dest( 'dist/js/' ) );
 
 	gulp.src( bowerFiles( '**/*.css' ) )
-		//.pipe( concat( 'vendor.min.css' ) )
+		.pipe( concat( 'vendor.min.css' ) )
 		.pipe( minifycss({processImport: false}) )
 		.pipe( gulp.dest( 'dist/css/' ) );
 

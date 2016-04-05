@@ -160,7 +160,10 @@ if( !$html )
     $html = fetchBpageHTML($data, $paramSwaps);
     //remove dynamic video
     $html = preg_replace('/\<div class\=\"videoWrapper\" dynamic=\"(.*)<\/div>/i', "", $html);
-    $title = $data->title;
+
+	if( isset($data->title) )
+        $title = $data->title;
+
     $client->set($redisKeys['html'], $html);
 }
 ?>
