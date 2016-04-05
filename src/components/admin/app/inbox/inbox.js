@@ -10,19 +10,12 @@ app.config( function( $stateProvider )
 		} )
 } );
 
-app.controller( "InboxController", function( $scope, $location, smModal, $timeout, $rootScope, $localStorage, $stateParams, $state, $filter, Restangular, RestangularV3 , notify)
+app.controller( "InboxController", function( $scope, $location, smModal, $timeout, $rootScope, $localStorage, $stateParams, $state, $filter, Restangular, RestangularV3, notify )
 {
 	$user = $rootScope.user;
 	$rootScope.page_title = "Conversations";
 	$scope.date_order = 'desc';
 
-	$scope.getAgents = function (){
-		RestangularV3.all( '' ).customGET('ticket/getAgentId').then( function( data )
-		{
-			$scope.company_agents = data;
-		} );
-	}
-	
 	$scope.tickets = [];
 	$scope.type_to_fetch = 'open';
 	$scope.agent_to_fetch = 'all';
@@ -40,6 +33,16 @@ app.controller( "InboxController", function( $scope, $location, smModal, $timeou
 	$scope.ticket_query = '';
 
 	//$scope.SetGridClasses( 'autoflow' );
+
+
+
+	$scope.getAgents = function()
+	{
+		RestangularV3.all( '' ).customGET( 'ticket/getAgentId' ).then( function( data )
+		{
+			$scope.company_agents = data;
+		} );
+	}
 	
 	$scope.SetCurrentConversation = function( next_value )
 	{
@@ -71,23 +74,29 @@ app.controller( "InboxController", function( $scope, $location, smModal, $timeou
 	}
 
 
-
-	$scope.ticketsOrder = function(orderby)
+	$scope.ticketsOrder = function( orderby )
 	{
-		if(orderby == 'asc'){
+		if( orderby == 'asc' )
+		{
 			$scope.date_order = 'asc';
 			$scope.FetchTickets();
-		}else{
+		}
+		else
+		{
 			$scope.date_order = 'desc';
 			$scope.FetchTickets();
 		}
 	}
 
-	$scope.FetchByType = function(type){
+	$scope.FetchByType = function( type )
+	{
 
-		if(type == 'open' || type == 'closed'){
+		if( type == 'open' || type == 'closed' )
+		{
 			$scope.type_to_fetch = type;
-		}else{
+		}
+		else
+		{
 			$scope.type_to_fetch = 'open';
 		}
 		$scope.FetchTickets();
@@ -105,24 +114,23 @@ app.controller( "InboxController", function( $scope, $location, smModal, $timeou
 			// sortBy: $scope.sortTicket.type,
 		}
 
-		if($scope.agent_to_fetch != 'all')
+		if( $scope.agent_to_fetch != 'all' )
 		{
 			search_parameters.agent_id = $scope.agent_to_fetch;
 		}
-		if($scope.date_order)
+		if( $scope.date_order )
 		{
 			search_parameters.orderBy = $scope.date_order;
 			search_parameters.orderByColumn = 'created_at';
 		}
 
-		
 
 		if( $scope.sites && $scope.sites.length > 0 )
 		{
 			search_parameters.sites = $scope.sites.join( ',' );
 		}
 
-		RestangularV3.all( 'ticket' ).customGET('',search_parameters ).then( function( response )
+		RestangularV3.all( 'ticket' ).customGET( '', search_parameters ).then( function( response )
 		{
 			$scope.tickets[ $scope.pagination.current_page ] = response.items;
 			$scope.pagination.total_count = response.total_count;
@@ -155,9 +163,16 @@ app.controller( "InboxController", function( $scope, $location, smModal, $timeou
 		return site.domain ? site.domain : site.subdomain + '.smartmember.' + $rootScope.app.env
 	}
 
-	$scope.addTag = function(){
-		var filteredData = _.filter($scope.data, function(temp){ return temp.is_checked });
-		smModal.Show(null , {} , {templateUrl : 'templates/modals/tag.html' , controller : 'tagController'} , null , {data : filteredData , filters : $scope.filters});
+	$scope.addTag = function()
+	{
+		var filteredData = _.filter( $scope.data, function( temp )
+		{
+			return temp.is_checked
+		} );
+		smModal.Show( null, {}, {
+			templateUrl: 'templates/modals/tag.html',
+			controller: 'tagController'
+		}, null, { data: filteredData, filters: $scope.filters } );
 
 	}
 
