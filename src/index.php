@@ -78,6 +78,7 @@ $data = DetectAndPerformBridgePageThings();
 <script src="/js/jquery-ui.js"></script>
 
 <script src="/js/angular.js"></script>
+<script src="/js/lodash.js"></script>
 
 <script src="/js/froala_editor.min.js"></script>
 
@@ -131,7 +132,6 @@ $data = DetectAndPerformBridgePageThings();
 <script src="/js/link.min.js"></script>
 <script src="/js/lists.min.js"></script>
 <script src="/js/loading-bar.js"></script>
-<script src="/js/lodash.js"></script>
 <script src="/js/main.min.js"></script>
 <script src="/js/moment.js"></script>
 <script src="/js/ng-file-upload.js"></script>
