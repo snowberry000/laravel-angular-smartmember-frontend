@@ -1,0 +1,20 @@
+<div class="item" ng-if="0">
+	<a class="ui inverted basic labeled icon button">
+		<i class="plus icon"></i>
+		Create New Site
+	</a>
+</div>
+<!-- <div class="right ui inverted menu">
+	<div class="ui search item {{searchLoading? 'loading': ''}}" sui-search>
+		<div class="ui icon input">
+			<input class="prompt" type="text" placeholder="Search">
+			<i class="search icon"></i>
+		</div>
+		<div class="results"></div>
+	</div>
+</div>
+ -->
+<div class="right ui inverted menu">
+	<div class="ui search item {{searchLoading? 'loading': ''}}" sui-search url="http://api-3.{{app.domain}}/sites/getAll" name="search" route="/sites/getAll" redirect="smart-sites/edit/" api="3" >
+	</div>
+</div>
