@@ -80,7 +80,7 @@
 							</th>
 						</tr>
 					</thead>
-					<tbody class="hide_when_lessons_hidden connectLessons" ui-sortable="LessonSortableOptions" ng-model="module.lessons">
+					<tbody class="hide_when_lessons_hidden connectLessons {{module.lessons.length > 0 ? '' : 'is_empty'}}" ui-sortable="LessonSortableOptions" ng-model="module.lessons">
 						<tr data-ng-repeat="next_item in module.lessons" data-id="{{next_item.id}}" class="{{next_item.checked ? 'selected warning' : ''}}">
 							<td>
 								<div class="ui checkbox select_checkbox" ng-model="next_item.checked" sui-checkbox>

@@ -360,6 +360,7 @@ app.controller( "SyllabusOrganizerController", function( $scope, $rootScope, $lo
 	$scope.LessonSortableOptions = {
 		connectWith: ".connectLessons",
 		'ui-floating': true,
+		placeholder: "sortable-placeholder",
 		stop: function( e, ui )
 		{
 			$scope.saveSyllabus();
