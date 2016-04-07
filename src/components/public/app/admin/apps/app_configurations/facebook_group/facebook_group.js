@@ -61,9 +61,12 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 
 		if( access_level )
 		{
+			console.log('checking FB groups 2 for ', access_level );
+
             if( access_level.facebook_group_id && $scope.available_facebook_groups.indexOf( access_level.facebook_group_id ) == -1 )
             {
                 $scope.available_facebook_groups.push( access_level.facebook_group_id );
+	            console.log('found!' );
             }
 
             if( access_level.grants && access_level.grants.length > 0 )
@@ -107,6 +110,8 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 			{
                 if( $scope.access_levels_checked.indexOf( value.access_level_id ) == -1 )
                 {
+
+	                console.log('checking FB groups for ', value.access_level_id );
                     $scope.addFBGroup( value.access_level_id );
                 }
             }
