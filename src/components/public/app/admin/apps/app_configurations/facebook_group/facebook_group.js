@@ -109,7 +109,7 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 		{
 			if( new_value && new_value.id )
 			{
-				console.log('looping the roles', $scope.user.role );
+				console.log('looping the roles', new_value );
 				angular.forEach( $scope.user.role, function( value )
 				{
 					if( value.access_level_id && value.access_level_id != 0 && value.access_level_id != "" )
