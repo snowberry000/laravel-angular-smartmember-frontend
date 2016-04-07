@@ -141,10 +141,11 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 		}
 
 		$scope.show_add_group = false;
+
+		console.log('our real groups: ', $scope.available_facebook_groups );
+		console.log('our joined groups: ', $scope.joined_facebook_groups );
 	} );
 
-    console.log('our real groups: ', $scope.available_facebook_groups );
-	console.log('our joined groups: ', $scope.joined_facebook_groups );
 
 
 
