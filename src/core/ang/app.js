@@ -188,7 +188,7 @@ app.run( function( $rootScope, $localStorage, editableThemes, ipCookie, smModal,
 		"appUrl": 'http://' + appUrl,
 		"env": env,
 		"rootEnv": apiURL.split( '.' ).pop(),
-		"stripe_pk": 'pk_live_tdjHKO92mUyjNu9fWuMGNEQj',
+		"stripe_pk": 'pk_live_RjDF4sVgBfZLnMETCYpOfwM8',
 		"domain": domain,
 		"subdomain": sub
 	};
