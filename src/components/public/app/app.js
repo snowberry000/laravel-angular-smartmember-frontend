@@ -312,8 +312,8 @@ app.controller( "publicAppController", function( $scope, $state, $site, $rootSco
         $rootScope.displaySidebar = function() {
             var isLoggedIn = $localStorage.user && $localStorage.user.access_token;
 
-	        console.log( 'sidebar debug: $localStorage.user', $localStorage.user );
-	        console.log( 'sidebar debug: $rootScope.fb_groups_to_display', $rootScope.fb_groups_to_display );
+	        //console.log( 'sidebar debug: $localStorage.user', $localStorage.user );
+	        //console.log( 'sidebar debug: $rootScope.fb_groups_to_display', $rootScope.fb_groups_to_display );
 
             if( isLoggedIn && $rootScope.fb_groups_to_display )
                 return true;
