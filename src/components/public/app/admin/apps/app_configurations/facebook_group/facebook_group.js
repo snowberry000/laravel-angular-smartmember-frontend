@@ -102,6 +102,7 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
         }
     }
 
+	console.log('$rootScope.access_levels', $rootScope.access_levels );
 	if( $rootScope.access_levels )
 	{
 		$rootScope.$watch( 'user', function( new_value, old_value )
