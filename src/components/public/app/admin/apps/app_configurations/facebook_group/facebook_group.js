@@ -93,35 +93,7 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
             }
 
 
-			Restangular.one( 'facebook' ).customGET( 'groups-joined', { user_id: $localStorage.user.id } ).then( function( response )
-			{
 
-				if( response.length > 0 )
-				{
-					angular.forEach( response, function( value, key )
-					{
-						$scope.joined_facebook_groups.push( value );
-					} );
-				}
-
-				if( $scope.joined_facebook_groups.length == 0 )
-				{
-					$scope.joined_facebook_groups = false;
-
-					if( $scope.available_facebook_groups.length == 0 )
-					{
-						$rootScope.fb_groups_to_display = false;
-						console.log( "Setting fb_groups_to_display false 2" );
-					}
-				}
-				else
-				{
-					$rootScope.fb_groups_to_display = true;
-					console.log( "Setting fb_groups_to_display true 2" );
-				}
-
-				$scope.show_add_group = false;
-			} );
 
 
         }
@@ -141,7 +113,38 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
         } );
     }
 
-    //console.log('our real groups: ', $scope.available_facebook_groups );
+	Restangular.one( 'facebook' ).customGET( 'groups-joined', { user_id: $localStorage.user.id } ).then( function( response )
+	{
+
+		if( response.length > 0 )
+		{
+			angular.forEach( response, function( value, key )
+			{
+				$scope.joined_facebook_groups.push( value );
+			} );
+		}
+
+		if( $scope.joined_facebook_groups.length == 0 )
+		{
+			$scope.joined_facebook_groups = false;
+
+			if( $scope.available_facebook_groups.length == 0 )
+			{
+				$rootScope.fb_groups_to_display = false;
+				console.log( "Setting fb_groups_to_display false 2" );
+			}
+		}
+		else
+		{
+			$rootScope.fb_groups_to_display = true;
+			console.log( "Setting fb_groups_to_display true 2" );
+		}
+
+		$scope.show_add_group = false;
+	} );
+
+    console.log('our real groups: ', $scope.available_facebook_groups );
+	console.log('our joined groups: ', $scope.joined_facebook_groups );
 
 
 
