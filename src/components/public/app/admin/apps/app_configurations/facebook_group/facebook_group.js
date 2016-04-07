@@ -102,22 +102,29 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
         }
     }
 
-    if( $scope.user && $scope.user.role && $rootScope.access_levels )
+	if( $rootScope.access_levels )
 	{
-		console.log('looping the roles', $scope.user.role );
-		angular.forEach( $scope.user.role, function( value )
+		$rootScope.$watch( 'user', function( new_value, old_value )
 		{
-			if( value.access_level_id && value.access_level_id != 0 && value.access_level_id != "" )
+			if( new_value && new_value.id )
 			{
-                if( $scope.access_levels_checked.indexOf( value.access_level_id ) == -1 )
-                {
+				console.log('looping the roles', $scope.user.role );
+				angular.forEach( $scope.user.role, function( value )
+				{
+					if( value.access_level_id && value.access_level_id != 0 && value.access_level_id != "" )
+					{
+						if( $scope.access_levels_checked.indexOf( value.access_level_id ) == -1 )
+						{
 
-	                console.log('checking FB groups for ', value.access_level_id );
-                    $scope.addFBGroup( value.access_level_id );
-                }
-            }
-        } );
-    }
+							console.log('checking FB groups for ', value.access_level_id );
+							$scope.addFBGroup( value.access_level_id );
+						}
+					}
+				} );
+			}
+
+		}, true );
+	}
 
 	Restangular.one( 'facebook' ).customGET( 'groups-joined', { user_id: $localStorage.user.id } ).then( function( response )
 	{
