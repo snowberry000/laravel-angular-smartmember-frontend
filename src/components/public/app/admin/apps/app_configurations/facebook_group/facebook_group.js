@@ -61,8 +61,6 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 
 		if( access_level )
 		{
-			console.log('checking FB groups 2 for ', access_level );
-
             if( access_level.facebook_group_id && $scope.available_facebook_groups.indexOf( access_level.facebook_group_id ) == -1 )
             {
                 $scope.available_facebook_groups.push( access_level.facebook_group_id );
@@ -84,40 +82,30 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 			{
 				$scope.selected_group = $scope.available_facebook_groups[ 0 ];
 				$rootScope.fb_groups_to_display = true;
-				console.log( "Setting fb_groups_to_display true 1" );
 			}
 			else
 			{
                 if( !$scope.joined_facebook_groups )
                 {
                     $rootScope.fb_groups_to_display = false;
-	                console.log( "Setting fb_groups_to_display false 1" );
                 }
             }
-
-
-
-
 
         }
     }
 
-	console.log('$rootScope.access_levels', $rootScope.access_levels );
 	if( $rootScope.access_levels )
 	{
 		$rootScope.$watch( 'user', function( new_value, old_value )
 		{
 			if( new_value && new_value.id )
 			{
-				console.log('looping the roles', new_value );
 				angular.forEach( new_value.role, function( value )
 				{
 					if( value.access_level_id && value.access_level_id != 0 && value.access_level_id != "" )
 					{
 						if( $scope.access_levels_checked.indexOf( value.access_level_id ) == -1 )
 						{
-
-							console.log('checking FB groups for ', value.access_level_id );
 							$scope.addFBGroup( value.access_level_id );
 						}
 					}
@@ -145,19 +133,14 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 			if( $scope.available_facebook_groups.length == 0 )
 			{
 				$rootScope.fb_groups_to_display = false;
-				console.log( "Setting fb_groups_to_display false 2" );
 			}
 		}
 		else
 		{
 			$rootScope.fb_groups_to_display = true;
-			console.log( "Setting fb_groups_to_display true 2" );
 		}
 
 		$scope.show_add_group = false;
-
-		console.log('our real groups: ', $scope.available_facebook_groups );
-		console.log('our joined groups: ', $scope.joined_facebook_groups );
 	} );
 
 
