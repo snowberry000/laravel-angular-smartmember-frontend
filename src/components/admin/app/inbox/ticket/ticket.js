@@ -411,7 +411,6 @@ app.controller( "TicketController", function( $scope, $localStorage, Restangular
 		}
 		else
 		{
-
 			if( $scope.ticket.agent_id == 0 )
 			{
 				$scope.ticket.agent_id = $scope.current_user_id;
@@ -419,11 +418,15 @@ app.controller( "TicketController", function( $scope, $localStorage, Restangular
 				$scope.call_in_progress = false;
 			}
 
+			console.log( "REPLY DATA: ", $scope.reply );
+			console.log( "ticket DATA: ", $scope.ticket );
 			if( (typeof $scope.reply.message != 'undefined' && $scope.reply.message != '') || ($scope.reply.attachment != '' && typeof $scope.reply.attachment != 'undefined') )
 			{
 				$scope.send_email = $scope.change_ticket_status == $scope.ticket.status;
 				$scope.reply.send_email = $scope.send_email;
-				$scope.reply.site_id = $rootScope.site.id;
+
+				$scope.reply.site_id = $scope.ticket.site_id;
+
 				console.log( $scope.reply );
 				RestangularV3.all( 'ticket' ).post( $scope.reply ).then( function( response )
 				{

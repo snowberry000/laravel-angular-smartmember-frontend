@@ -102,7 +102,7 @@
 		<button class="ui inverted basic red icon button">
 			<i class="life ring icon"></i>
 
-			<div ng-if="site.unread_support_ticket>0" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
+			<div ng-if="false && site.unread_support_ticket>0" class="mini floating ui red label">{{site.unread_support_ticket}}</div>
 		</button>
 	</a>
 	<a class="item thin" ui-sref="public.app.admin.bridge-pages" sm-access="manage_content" if-not="hide" ng-if="!isSitelessPage() && $state.includes('public.app')" title="Bridge Pages" position="bottom center" sui-popup>
