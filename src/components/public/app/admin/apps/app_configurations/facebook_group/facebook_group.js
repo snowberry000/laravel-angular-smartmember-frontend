@@ -104,6 +104,7 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 
     if( $scope.user && $scope.user.role && $rootScope.access_levels )
 	{
+		console.log('looping the roles', $scope.user.role );
 		angular.forEach( $scope.user.role, function( value )
 		{
 			if( value.access_level_id && value.access_level_id != 0 && value.access_level_id != "" )
