@@ -10,7 +10,7 @@
 		</div>
 	</div>
 </div>
-<div sm-class="(!page.hide_sidebars && ((site.facebook_group_id && access_levels) || widgets.length > 0) ? 'twelve' : 'sixteen') + ' wide column'">
+<div title="{{page.hide_sidebars}}" alt="{{displaySidebar()}}" sm-class="(!page.hide_sidebars && ((site.facebook_group_id && access_levels) || widgets.length > 0) ? 'twelve' : 'sixteen') + ' wide column'">
 
 	<div class="ui segment section_background_color" data-position="top left" data-edit="{{site.is_admin ? true : false}}" data-state="public.app.admin.custom-page" data-stateAttributes='{"id":{{page.id}}, "closeOnCancel":true}' sui-popup>
 
@@ -49,7 +49,7 @@
 		<div class="ui text loader">Loading</div>
 	</div>
 </div>
-<div class="four wide column" title="{{page.hide_sidebars}}" alt="{{displaySidebar()}}" ng-if='!page.hide_sidebars && displaySidebar()' ng-show="!loading">
+<div class="four wide column" ng-if='!page.hide_sidebars && displaySidebar()' ng-show="!loading">
 
 	<div ng-include="'templates/components/public/app/site/common/sidebar.html'"></div>
 
