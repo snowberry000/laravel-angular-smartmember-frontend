@@ -78,12 +78,14 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 			{
 				$scope.selected_group = $scope.available_facebook_groups[ 0 ];
 				$rootScope.fb_groups_to_display = true;
+				console.log( "Setting fb_groups_to_display true 1" );
 			}
 			else
 			{
                 if( !$scope.joined_facebook_groups )
                 {
                     $rootScope.fb_groups_to_display = false;
+	                console.log( "Setting fb_groups_to_display false 1" );
                 }
             }
         }
@@ -126,11 +128,13 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
             if( $scope.available_facebook_groups.length == 0 )
             {
                 $rootScope.fb_groups_to_display = false;
+	            console.log( "Setting fb_groups_to_display false 2" );
             }
         }
         else
         {
             $rootScope.fb_groups_to_display = true;
+	        console.log( "Setting fb_groups_to_display true 2" );
 		}
 
 		$scope.show_add_group = false;
@@ -176,6 +180,7 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
                             if( $scope.joined_facebook_groups )
                             {
                                 $rootScope.fb_groups_to_display = true;
+	                            console.log( "Setting fb_groups_to_display true 3" );
                             }
                         } );
                     }
@@ -198,6 +203,7 @@ app.controller( "FacebookGroupController", function( $scope, $rootScope, toastr,
 								$scope.joined_facebook_groups = response;
 								if( $scope.joined_facebook_groups )
 									$rootScope.fb_groups_to_display = true;
+								console.log( "Setting fb_groups_to_display true 4" );
 							} );
 						}
 					}
